@@ -1,4 +1,5 @@
-﻿using MagicStorage;
+﻿using androLib;
+using MagicStorage;
 using MagicStorage.Components;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,14 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Tiles;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.ModIntegration
 {
-    [ExtendsFromMod(MagicStorageIntegration.magicStorageName)]
+    [ExtendsFromMod(AndroMod.magicStorageName)]
     public class WEEnvironmentModule : EnvironmentModule
     {
-        public override string Name => "Enchanting Table Essence";
-		public override IEnumerable<Item> GetAdditionalItems(EnvironmentSandbox sandbox) {
-            WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-            return wePlayer.enchantingTableEssence.Concat(wePlayer.enchantmentStorageItems).Concat(wePlayer.oreBagItems);
-        }
+        public override string Name => "Weapon Enchantments Storage";
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information) {
             int highestTableTierUsed = Main.LocalPlayer.GetWEPlayer().highestTableTierUsed;
 

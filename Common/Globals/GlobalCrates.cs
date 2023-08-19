@@ -48,7 +48,7 @@ namespace WeaponEnchantments.Common.Globals
 
             if (LogMethods.debugging && item.ModItem != null) {
                 string crateName = item.ModItem.Name;
-                crateName.Log();
+                crateName.Log_WE();
             }
 
             #endregion

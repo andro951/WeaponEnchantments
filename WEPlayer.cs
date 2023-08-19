@@ -35,11 +35,12 @@ using androLib.Common.Globals;
 using androLib.UI;
 using androLib;
 using WeaponEnchantments.Items.Enchantments;
+using VacuumOreBag;
+using VacuumOreBag.Items;
 
 namespace WeaponEnchantments
 {
-	public class WEPlayer : ModPlayer, ISortedEnchantmentEffects, ISortedOnHitEffects
-    {
+	public class WEPlayer : ModPlayer, ISortedEnchantmentEffects, ISortedOnHitEffects {
 		#region fields/properties
 
 		public static bool WorldOldItemsReplaced = false;
@@ -78,6 +79,7 @@ namespace WeaponEnchantments
         public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
 		public bool openStorageWhenOpeningTable = false;
         public SortedSet<string> allOfferedItems = new();
+        public bool transferedToAndroLib = false;
         public Item[] oreBagItems;//OreBag-Delete
         public int oreBagUILeft;//OreBag-Delete
 		public int oreBagUITop;//OreBag-Delete
@@ -140,6 +142,7 @@ namespace WeaponEnchantments
 		#endregion
 
 		#region IL
+
         public static void HookProcessHitAgainstNPC(ILContext il) {
 			//Make vanilla crit roll 0
 			var c = new ILCursor(il);
@@ -287,7 +290,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/OnEnterWorld({Player.S()})").Log();
+            if (LogMethods.debugging) ($"\\/OnEnterWorld({Player.S()})").Log_WE();
 
 			#endregion
 
@@ -306,12 +309,26 @@ namespace WeaponEnchantments
 
 			UpdateEnchantmentEffects();
 
-			StorageManager.CanVacuumItemHandler.Add(EnchantmentStorage.CanVauumItem);
-            StoragePlayer.LocalStoragePlayer.TryReturnItemToPlayer.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
+			if (!transferedToAndroLib) {
+				for (int i = 0; i < oreBagItems.Length; i++) {
+					ref Item item = ref oreBagItems[i];
+					if (item.NullOrAir())
+						continue;
 
-			#region Debug
+					StorageManager.TryReturnItemToPlayer(ref item, Player, true);
+				}
 
-			if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log();
+				if (VacuumOreBag.VacuumOreBag.androLibEnabled) {
+					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetUIPosition", OreBag.OreBagStorageID, oreBagUILeft, oreBagUITop);
+					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetShouldVacuum", OreBag.OreBagStorageID, vacuumItemsIntoOreBag);
+				}
+
+				transferedToAndroLib = true;
+			}
+
+            #region Debug
+
+            if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log_WE();
 
             #endregion
         }
@@ -342,10 +359,12 @@ namespace WeaponEnchantments
 			if (allOfferedItems.Count > 0)
 				tag["allOfferedItems"] = allOfferedItems.ToList();
 
-            tag["oreBagItems"] = oreBagItems;//OreBag-Delete
-			tag["oreBagUILeft"] = oreBagUILeft;//OreBag-Delete
-			tag["oreBagUITop"] = oreBagUITop;//OreBag-Delete
-			tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;//OreBag-Delete
+            tag["transferedToAndroLib"] = transferedToAndroLib;
+   //         tag["oreBagItems"] = oreBagItems;//OreBag-Delete
+			//tag["oreBagUILeft"] = oreBagUILeft;//OreBag-Delete
+			//tag["oreBagUITop"] = oreBagUITop;//OreBag-Delete
+			//tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;//OreBag-Delete
+
 			tag["enchantmentLoadouts"] = enchantmentLoadouts.Select(p => p.Value).ToList();
             tag["loadoutKeys"] = enchantmentLoadouts.Select(p => p.Key).ToList();
 			tag["EnchantmentLoadoutUILeft"] = EnchantmentLoadoutUILeft;
@@ -354,7 +373,7 @@ namespace WeaponEnchantments
             tag["autoTrashOfferedItems"] = autoTrashOfferedItems;
 		}
 		public override void LoadData(TagCompound tag) {
-            enchantingTableItem = tag.Get<Item>("enchantingTableItem0") ?? new();
+			enchantingTableItem = tag.Get<Item>("enchantingTableItem0") ?? new();
 
 			for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
                 enchantingTableEssence[i] = tag.Get<Item>($"enchantingTableEssenceItem{i}") ?? new();
@@ -393,18 +412,22 @@ namespace WeaponEnchantments
 
 			trashEnchantmentsFullNames = new(tag.Get<List<string>>("trashEnchantmentsFullNames"));
 			openStorageWhenOpeningTable = tag.Get<bool>("openStorageWhenOpeningTable");
-			allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));//OreBag-Delete
-			if (!tag.TryGet("oreBagItems", out oreBagItems))//OreBag-Delete
-				oreBagItems = Enumerable.Repeat(new Item(), OreBagSize).ToArray();//OreBag-Delete
+			allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));
 
-			if (oreBagItems.Length < OreBagSize)//OreBag-Delete
-				oreBagItems = oreBagItems.Concat(Enumerable.Repeat(new Item(), OreBagSize - oreBagItems.Length)).ToArray();//OreBag-Delete
+            transferedToAndroLib = tag.Get<bool>("transferedToAndroLib");
+			//transferedToAndroLib = false;//TODO: DELETE ME!!!  For testing only
+			if (!transferedToAndroLib) {
+				tag.TryGet("oreBagItems", out oreBagItems);
+				oreBagUILeft = tag.Get<int>("oreBagUILeft");
+				oreBagUITop = tag.Get<int>("oreBagUITop");
+				MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, 80, 675);
+				if (tag.TryGet("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
+					vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;
 
-			oreBagUILeft = tag.Get<int>("oreBagUILeft");//OreBag-Delete
-			oreBagUITop = tag.Get<int>("oreBagUITop");//OreBag-Delete
-			MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, OreBagUI.OreBagUIDefaultLeft, OreBagUI.OreBagUIDefaultTop);//OreBag-Delete
-			if (tag.TryGet("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))//OreBag-Delete
-				vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;//OreBag-Delete
+				//oreBagUILeft = 80;//TODO: DELETE ME!!!  For testing only
+				//oreBagUITop = 675;//TODO: DELETE ME!!!  For testing only
+				//vacuumItemsIntoOreBag = false;//TODO: DELETE ME!!!  For testing only
+			}
 
 			if (!tag.TryGet("enchantmentLoadouts", out List<List<Item[]>> justLoadouts)) {
 				enchantmentLoadouts = new();
@@ -413,7 +436,7 @@ namespace WeaponEnchantments
                 List<string> loadoutKeys = tag.Get<List<string>>("loadoutKeys") ?? new();
                 if (loadoutKeys.Count < justLoadouts.Count) {
                     for (int i = loadoutKeys.Count; i < justLoadouts.Count; i++) {
-                        loadoutKeys.Add($"{EnchantmentStorageTextID.Loadout.ToString().Lang(L_ID1.EnchantmentStorageText)} {i + 1}");
+                        loadoutKeys.Add($"{EnchantmentStorageTextID.Loadout.ToString().Lang_WE(L_ID1.EnchantmentStorageText)} {i + 1}");
                     }
                 }
 
@@ -703,15 +726,13 @@ namespace WeaponEnchantments
 		}
 		public bool TryReturnEnchantmentToPlayer(int enchantmentIndex, EnchantmentsArray enchantmentsArray, bool allowQuickSpawn = false) {
 			Item item = enchantmentsArray[enchantmentIndex];
-            bool result = TryReturnItemToPlayer(ref item, allowQuickSpawn);
+            bool result = StorageManager.TryReturnItemToPlayer(ref item, Player, allowQuickSpawn);
 			enchantmentsArray[enchantmentIndex] = item;
 			return result;
 		}
-        public bool TryReturnItemToPlayer(ref Item item, bool allowQuickSpawn = false) =>
-			Player.GetStoragePlayer().TryReturnItemToPlayer.Invoke(ref item, Player, allowQuickSpawn);
-        public bool TryGiveNewItemToPlayer(int itemType) {
+        public void GiveNewItemToPlayer(int itemType) {
             Item item = new Item(itemType);
-			return TryReturnItemToPlayer(ref item, true);
+			StorageManager.TryReturnItemToPlayer(ref item, Player, true);
 		}
 		public bool CanSwapArmor(Item newItem, Item currentItem) {
             if (newItem.NullOrAir())
@@ -781,11 +802,13 @@ namespace WeaponEnchantments
                 }
             }
 
-            if (Player.HasItem(ModContent.ItemType<OreBag>())) {
-                for (int i = 0; i < oreBagItems.Length; i++) {
-                    ref Item item = ref oreBagItems[i];
-                    if (!item.NullOrAir() && item.stack > 0)
-                        items.Add(item);
+            foreach (Storage storage in StorageManager.BagUIs.Select(b => b.Storage)) {
+                if (storage.HasRequiredItemToUseStorage(Main.LocalPlayer)) {
+                    for (int i = 0; i < storage.Items.Length; i++) {
+						ref Item item = ref storage.Items[i];
+						if (!item.NullOrAir() && item.stack > 0)
+							items.Add(item);
+					}
                 }
             }
 
@@ -835,7 +858,7 @@ namespace WeaponEnchantments
             //Called from WEMod detours
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log_WE();
 
             #endregion
 
@@ -859,7 +882,7 @@ namespace WeaponEnchantments
             #region Debug
 
             debugBeforeReturn:
-            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log_WE();
 
             #endregion
         }
@@ -974,7 +997,7 @@ namespace WeaponEnchantments
 
 			//Used to help identify the ModNPC name of modded bosses for setting up mod boss bag support.
 			if (GlobalBossBags.printNPCNameOnHitForBossBagSupport)
-                $"NPC hit by item: {item.Name}, target.Name: {target.ModFullName()}, target.ModNPC?.Name: {target.ModNPC?.Name}, target.boss: {target.boss}, target.netID: {target.netID}".LogSimple();
+                $"NPC hit by item: {item.Name}, target.Name: {target.ModFullName()}, target.ModNPC?.Name: {target.ModNPC?.Name}, target.boss: {target.boss}, target.netID: {target.netID}".LogSimple_WE();
 
             int damageReduction = target.defense / 2;
             if (damageReduction < 0)
@@ -1020,7 +1043,7 @@ namespace WeaponEnchantments
                     target.HandleOnHitNPCBuffs(amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
 				}
                 else {
-                    $"NetDebuffs called from server.".Log();
+                    $"NetDebuffs called from server.".Log_WE();
                 }
             }
 
@@ -1080,7 +1103,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log_WE();
 
             #endregion
 
@@ -1165,7 +1188,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}) total: {total}").Log();
+            if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}) total: {total}").Log_WE();
 
             #endregion
 
@@ -1228,7 +1251,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ActivateGodSlayer").Log();
+            if (LogMethods.debugging) ($"\\/ActivateGodSlayer").Log_WE();
 
             #endregion
 
@@ -1254,12 +1277,12 @@ namespace WeaponEnchantments
                 Net<INetMethods>.Proxy.NetStrikeNPC(target, godSlayerDamageInt, crit);
             }
             else {
-                $"ActivateGodSlayer called from server.".Log();
+                $"ActivateGodSlayer called from server.".Log_WE();
             }
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ActivateGodSlayer").Log();
+            if (LogMethods.debugging) ($"/\\ActivateGodSlayer").Log_WE();
 
             #endregion
 
@@ -1667,7 +1690,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
+            if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log_WE();
 
             #endregion
 
@@ -1688,7 +1711,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
+            if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log_WE();
 
             #endregion
         }
@@ -1850,11 +1873,11 @@ namespace WeaponEnchantments
                     if (rand <= questFishChance) {
                         itemDrop = attempt.questFish;
                         npcSpawn = NPCID.NegativeIDCount;
-						if (LogMethods.debugging) $"success, questFishChance: {questFishChance}, rand: {rand}".Log();
+						if (LogMethods.debugging) $"success, questFishChance: {questFishChance}, rand: {rand}".Log_WE();
                         return;
                     }
 					else {
-						if (LogMethods.debugging) $"failed, questFishChance: {questFishChance}, rand: {rand}".Log();
+						if (LogMethods.debugging) $"failed, questFishChance: {questFishChance}, rand: {rand}".Log_WE();
                     }
                 }
 			}

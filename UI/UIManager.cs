@@ -26,6 +26,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Content.NPCs;
 using static System.Net.Mime.MediaTypeNames;
 using androLib;
+using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.UI
 {
@@ -64,13 +65,23 @@ namespace WeaponEnchantments.UI
 			MasterUIManager.ShouldPreventRecipeScrolling.Add(() => MasterUIManager.HoveringMyUIType(WE_UI_ID.EnchantmentStorage_UITypeID));
 			MasterUIManager.ShouldPreventRecipeScrolling.Add(() => MasterUIManager.HoveringMyUIType(WE_UI_ID.EnchantmentLoadout_UITypeID) && EnchantmentLoadoutUI.useingScrollBar);
 
-			//Ore Bag
-			WE_UI_ID.OreBag_UITypeID = MasterUIManager.RegisterUI_ID();//OreBag-Delete
-			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.displayOreBagUI);//OreBag-Delete
-			MasterUIManager.ShouldPreventTrashingItem.Add(() => OreBagUI.CanBeStored(Main.HoverItem));//OreBag-Delete
-			MasterUIManager.DrawAllInterfaces += OreBagUI.PostDrawInterface;//OreBag-Delete
-			MasterUIManager.ShouldPreventRecipeScrolling.Add(() => MasterUIManager.HoveringMyUIType(WE_UI_ID.OreBag_UITypeID));//OreBag-Delete
-			StorageManager.AllowedToStoreInStorage.Add(OreBagUI.CanBeStored);//OreBag-Delete
+			StorageManager.CanVacuumItemHandler.Add(EnchantmentStorage.CanVacuumItem);
+
+			//StorageManager.TryReturnItemToPlayerHandler.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
+
+			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
+
+			StorageManager.CloseAllStorageUIEvent += () => {
+				if (WEPlayer.LocalWEPlayer.usingEnchantingTable)
+					EnchantingTableUI.CloseEnchantingTableUI(true);
+			};
+			StorageManager.CloseAllStorageUIEvent += () => {
+				if (WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI)
+					EnchantmentLoadoutUI.Close(true);
+			};
+
+			StorageManager.MagicStorageItemsHandler.Add(() => WEPlayer.LocalWEPlayer.enchantmentStorageItems);
+			StorageManager.MagicStorageItemsHandler.Add(() => WEPlayer.LocalWEPlayer.enchantingTableEssence);
 		}
 		public static void OnUpdateUIAlpha() {
 			UIAlpha = ConfigValues.UIAlpha;

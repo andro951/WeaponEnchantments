@@ -72,7 +72,7 @@ namespace WeaponEnchantments.Effects {
                     name = langName;
                 }
 				else {
-                    if (name.Lang(out string result, L_ID1.Tooltip, L_ID2.VanillaBuffs))
+                    if (name.Lang_WE(out string result, L_ID1.Tooltip, L_ID2.VanillaBuffs))
                         name = result;
 				}
             }

@@ -21,7 +21,9 @@ using System.Reflection;
 using System.Diagnostics;
 using WeaponEnchantments.Common.Configs;
 using System.Collections;
+using androLib.Items;
 using androLib.Common.Utility;
+using VacuumOreBag.Items;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
@@ -141,7 +143,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				File.WriteAllText($"{wikiPath}\\Change Sumary.txt", changesSumary);
 			}
             else {
-				wiki.Log();
+				wiki.Log_WE();
 			}
         }
         private static void AddMainPage(List<WebPage> webPages) {
@@ -808,7 +810,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     float baseChance = GlobalCrates.GetCrateEnchantmentDropChance(crate.Key);
                     if (crateDrops.ContainsKey(type)) {
                         if (crateDrops[type].ContainsKey((CrateID)crate.Key)) {
-                            $"New: item: {sampleItem.S()}, CrateID: {(CrateID)crate.Key}, chance: {baseChance * data.Weight / total}.  Old chance: {crateDrops[type][(CrateID)crate.Key]}".LogSimple();
+                            $"New: item: {sampleItem.S()}, CrateID: {(CrateID)crate.Key}, chance: {baseChance * data.Weight / total}.  Old chance: {crateDrops[type][(CrateID)crate.Key]}".LogSimple_WE();
                             continue;
                             /*
 [23:42:04.661] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: New: item: Attack Speed Enchantment Basic, CrateID: Iron, chance: 0.008305647.  Old chance: 0.008305647
@@ -846,7 +848,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                         if (itemType >= min && itemType <= max) {
                             if (enemyDrops.ContainsKey(itemType)) {
                                 if (enemyDrops[itemType].ContainsKey(npcNetID)) {
-                                    $"itemType: {new Item(itemType).S()}, npcType{ContentSamples.NpcsByNetId[npcNetID]}".LogSimple();
+                                    $"itemType: {new Item(itemType).S()}, npcType{ContentSamples.NpcsByNetId[npcNetID]}".LogSimple_WE();
                                 }
                                 else {
                                     enemyDrops[itemType].Add(npcNetID, dropRate);
@@ -999,7 +1001,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             int itemType = GetItemTypeFromTileType(tileNum);
             if (itemType <= 0) {
-                $"Failed to find an item for tileNum: {tileNum}".Log();
+                $"Failed to find an item for tileNum: {tileNum}".Log_WE();
                 return "NoTileRequired.png";
             }
 

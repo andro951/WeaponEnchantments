@@ -135,7 +135,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class RogueClassSwapEnchantment : ClassSwapEnchantment
 	{
 		protected override DamageClass MyDamageClass => CalamityValues.rogue ?? DamageClass.Throwing;
-		public override string CustomTooltip => CalamityIntegration.CALAMITY_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => CalamityIntegration.CALAMITY_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override string Designer => "Vyklade";
 	}
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
@@ -158,7 +158,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			Effects.Add(new KiDamage());
 		}
 		protected override DamageClass MyDamageClass => DBZMODPORTIntegration.Enabled ? DamageClass.Generic : DamageClass.Magic;
-		public override string CustomTooltip => DBZMODPORTIntegration.DBT_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => DBZMODPORTIntegration.DBT_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		protected override DamageClassID DamageClassNameOveride => DamageClassID.Ki;
 		public override string Designer => "Vyklade";
 	}
@@ -177,7 +177,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class BardClassSwapEnchantment : ClassSwapEnchantment
 	{
 		protected override DamageClass MyDamageClass => ThoriumValues.bard ?? DamageClass.Melee;
-		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 	}
 	public class BardClassSwapEnchantmentBasic : BardClassSwapEnchantment
 	{
@@ -194,7 +194,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class HealerClassSwapEnchantment : ClassSwapEnchantment
 	{
 		protected override DamageClass MyDamageClass => ThoriumValues.healerRadiation ?? DamageClass.Ranged;
-		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 	}
 	public class HealerClassSwapEnchantmentBasic : HealerClassSwapEnchantment
 	{

@@ -74,10 +74,10 @@ namespace WeaponEnchantments.Effects {
             get {
                 if (displayName == null) {
                     if (DisplayNameArgs == null) {
-                        displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName);
+                        displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName);
                     }
 					else {
-                        displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName, DisplayNameArgs);
+                        displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName, DisplayNameArgs);
                     }
 				}
 

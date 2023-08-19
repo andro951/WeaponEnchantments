@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Items;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments {
     public abstract class DamageReductionEnchantment : Enchantment {

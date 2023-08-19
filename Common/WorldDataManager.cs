@@ -43,7 +43,7 @@ namespace WeaponEnchantments.Common
 				}
 				else {
 					if (!andAtEnd && i == end - 1) {
-						list += $" {EnchantmentGeneralTooltipsID.And.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ";
+						list += $" {EnchantmentGeneralTooltipsID.And.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ";
 					}
 					else {
 						list += ", ";
@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Common
 				list += $"{GetOreName(ores[i])}";
 
 				if (andAtEnd && i == end - 1)
-					list += $" {EnchantmentGeneralTooltipsID.And.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ";
+					list += $" {EnchantmentGeneralTooltipsID.And.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ";
 			}
 
 			return list;
@@ -119,7 +119,7 @@ namespace WeaponEnchantments.Common
 					return "";
 			}
 
-			return name.Lang(L_ID1.Ores);
+			return name.Lang_WE(L_ID1.Ores);
 		}
 
 		public override void OnWorldLoad() { 

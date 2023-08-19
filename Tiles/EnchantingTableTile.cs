@@ -153,8 +153,8 @@ namespace WeaponEnchantments.Tiles
 				EnchantingTableUI.CloseEnchantingTableUI();
 			}
 			else {
-				if (MagicStorageIntegration.MagicStorageIsOpen())
-					MagicStorageIntegration.TryClosingMagicStorage();
+				if (androLib.ModIntegration.MagicStorageIntegration.MagicStorageIsOpen())
+					androLib.ModIntegration.MagicStorageIntegration.TryClosingMagicStorage();
 
 				wePlayer.enchantingTableLocation = new(x, y);
 				wePlayer.enchantingTableTier = tier;

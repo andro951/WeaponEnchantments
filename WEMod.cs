@@ -25,19 +25,17 @@ using WeaponEnchantments.ModIntegration;
 using MonoMod.RuntimeDetour;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using Microsoft.Xna.Framework;
 using Terraria.GameInput;
 using Microsoft.Xna.Framework.Input;
 using androLib.UI;
-
+using androLib;
 
 namespace WeaponEnchantments
 {
 	public class WEMod : Mod {
-		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
-		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
+		public static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
+		public static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool calamityEnabled = false;
-		public static bool magicStorageEnabled = false;
 		public static bool playerSwapperModEnabled = false;
 		public static bool dbtEnabled = false;
 		public static bool thoriumEnabled = false;
@@ -178,12 +176,21 @@ namespace WeaponEnchantments
 
 			orig(self, thePlayer, itemType);
 		}
-		private void OnChestUI_LootAll(On_ChestUI.orig_LootAll orig) {
+		private void OnChestUI_LootAll(On_ChestUI.orig_LootAll orig) {//TODO: check this still works with enchantments/essence/ores
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			int chest = wePlayer.Player.chest;
 			if (chest != -1) {
 				Item[] chestItmes = wePlayer.Player.GetChestItems();
 				bool synchChest = chest > -1 && Main.netMode == NetmodeID.MultiplayerClient;
+				for (int i = 0; i < chestItmes.Length; i++) {
+					ref Item item = ref chestItmes[i];
+					if (StorageManager.TryVacuumItem(ref item, Main.LocalPlayer)) {
+						if (synchChest)
+							NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
+					}
+				}
+
+				/*
 				if (wePlayer.vacuumItemsIntoEnchantmentStorage) {
 					for (int i = 0; i < chestItmes.Length; i++) {
 						ref Item item = ref chestItmes[i];
@@ -198,12 +205,13 @@ namespace WeaponEnchantments
 				if (wePlayer.vacuumItemsIntoOreBag) {
 					for (int i = 0; i < chestItmes.Length; i++) {
 						ref Item item = ref chestItmes[i];
-						if (OreBagUI.TryVacuumItem(wePlayer.Player, ref item)) {
+						if (OreBagUI.TryVacuumItem(ref item, wePlayer.Player)) {
 							if (synchChest)
 								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
 						}
 					}
 				}
+				*/
 			}
 
 			orig();

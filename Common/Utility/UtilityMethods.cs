@@ -17,6 +17,7 @@ using Terraria.Localization;
 using WeaponEnchantments.Tiles;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using androLib.Common.Utility;
+using androLib;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -222,7 +223,7 @@ namespace WeaponEnchantments.Common.Utility
 		}
 		public static string GetEffectTooltip(this EnchantmentEffect enchantmentEffect, IEnumerable<object> args, string key = null) {
 			string fullKey = key != null ? $"{enchantmentEffect.TooltipName}.{key}" : enchantmentEffect.TooltipName;
-			if (fullKey.Lang(out string result, L_ID1.Tooltip, L_ID2.EnchantmentEffects, args))
+			if (fullKey.Lang_WE(out string result, L_ID1.Tooltip, L_ID2.EnchantmentEffects, args))
 				return result;
 
 			return "";
@@ -231,35 +232,7 @@ namespace WeaponEnchantments.Common.Utility
 		#endregion
 
 		#region General
-        /*
-		public static Item CSI(this int type) => ContentSamples.ItemsByType[type];
-		public static NPC CSNPC(this int netID) => ContentSamples.NpcsByNetId[netID];
-		public static void ReplaceItemWithCoins(ref Item item, int coins) {
-            int coinType = ItemID.PlatinumCoin;
-            int coinValue = 1000000;
-            while (coins > 0) {
-                int numCoinsToSpawn = coins / coinValue;
-                if (numCoinsToSpawn > 0) {
-                    item = new Item(coinType, numCoinsToSpawn + 1);
-                    return;
-                }
 
-                coins %= coinValue;
-                coinType--;
-                coinValue /= 100;
-            }
-        }
-        public static void SpawnCoins(this Player player, int coinValue) {
-            int valuePerCoin = 1000000;
-            for (int i = 3; i >= 0; i--) {
-                int coins = coinValue / valuePerCoin;
-                coinValue %= valuePerCoin;
-                valuePerCoin /= 100;
-                if (coins > 0)
-                    player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.CopperCoin + i, coins);
-            }
-        }
-        */
         public static void CheckConvertExcessExperience(this Item item, Item consumedItem) {
             if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && consumedItem.TryGetEnchantedItemSearchAll(out EnchantedItem cGlobal)) {
                 long xp = (long)enchantedItem.Experience + (long)cGlobal.Experience;
@@ -268,7 +241,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
                 else {
                     enchantedItem.Experience = int.MaxValue;
-                    if (WEMod.magicStorageEnabled) $"CheckConvertExcessExperience. item: {item.S()}, consumedItem: {consumedItem.S()}".Log();
+                    if (AndroMod.magicStorageEnabled) $"CheckConvertExcessExperience. item: {item.S()}, consumedItem: {consumedItem.S()}".Log_WE();
                     EnchantingTableUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true, item);
                 }
             }
@@ -276,80 +249,9 @@ namespace WeaponEnchantments.Common.Utility
 				if (consumedItem.NullOrAir())
 					return;
 
-				$"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT(ChatMessagesIDs.FailedCheckConvertExcessExperience);
+				$"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);
             }
         }
-        /*
-        /// <summary>
-		/// Randomly selects an item from the list if the chance is higher than the randomly generated float.<br/>
-        /// <c>This can be done with var rand = new WeightedRandom<Item>(Main.rand)<br/>
-        /// rand.Add(item, chance)<br/>
-        /// rand.Add(new Item(), chanceN) //chance to get nothing<br/>
-        /// Item chosen = rand.Get()<br/></c>
-		/// </summary>
-		/// <param name="options">Posible items to be selected.</param>
-		/// <param name="chance">Chance to select an item from the list.</param>
-		/// <returns>Item selected or null if chance was less than the generated float.</returns>
-		public static T GetOneFromList<T>(this List<T> options, float chance = 1f) where T : new() {
-            if (options.Count == 0)
-                return new T();
-
-            if (chance <= 0f)
-                return new T();
-
-            if (chance > 1f)
-                chance = 1f;
-
-            //Example: items contains 4 items and chance = 0.4f (40%)
-            float randFloat = Main.rand.NextFloat();//Example randFloat = 0.24f
-            if (randFloat < chance) {
-                float count = options.Count;// = 4f
-                float chancePerItem = chance / count;// chancePerItem = 0.4f / 4f = 0.1f.  (10% chance each item)  
-                int chosenItemNum = (int)(randFloat / chancePerItem);// chosenItemNum = (int)(0.24f / 0.1f) = (int)(2.4f) = 2.
-
-                return options[chosenItemNum];// items[2] being the 3rd item in the list.
-            }
-
-            //If the chance is less than the generated float, return new.
-            return new T();
-        }
-        public static T GetOneFromWeightedList<T>(this List<(float, T)> options, float chance) where T : new() {
-            if (options.Count == 0)
-                return new T();
-
-            if (chance <= 0f)
-                return new T();
-
-            if (chance > 1f)
-                chance = 1f;
-
-            float randFloat = Main.rand.NextFloat();
-            if (randFloat <= chance) {
-                float total = 0f;
-                foreach ((float, T) pair in options) {
-                    total += pair.Item1;
-                }
-
-                total *= randFloat / chance;
-
-                foreach ((float, T) pair in options) {
-                    total -= pair.Item1;
-                    if (total <= 0f)
-                        return pair.Item2;
-                }
-            }
-
-            return new T();
-        }
-        public static T GetOneFromWeightedList<T>(this SortedList<int, T> options, float chance) where T : new() {
-            List<(float, T)> newList = new List<(float, T)>();
-            foreach (KeyValuePair<int, T> pair in options) {
-                newList.Add(((float)pair.Key, pair.Value));
-            }
-
-            return newList.GetOneFromWeightedList(chance);
-        }
-        */
         public static int GetOneFromWeightedList(this IEnumerable<WeightedPair> options, float chance) {
             if (options.Count() == 0)
                 return 0;
@@ -406,22 +308,9 @@ namespace WeaponEnchantments.Common.Utility
 
             return 0;
         }
-        /*
-        public static float Percent(this float value) => value * 100f;
-        public static string PercentString(this float value) => $"{(value * 100).S()}%";
-        public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
-        public static bool Lang(this string s, out string result, string m) {
-            string key = $"Mods.WeaponEnchantments.{m}.{s}";
-            result = Language.GetTextValue(key);
-
-            if (result == key) {
-                return false;
-            }
-
-            return true;
-        }
-        public static string Lang(this string s, L_ID1 id = L_ID1.Tooltip) => s.Lang(out string result, id) ? result : "";
-        public static bool Lang(this string s, out string result, L_ID1 id = L_ID1.Tooltip) {
+        
+        public static string Lang_WE(this string s, L_ID1 id = L_ID1.Tooltip) => s.Lang_WE(out string result, id) ? result : "";
+        public static bool Lang_WE(this string s, out string result, L_ID1 id = L_ID1.Tooltip) {
             string key = $"Mods.WeaponEnchantments.{id}.{s}";
             result = Language.GetTextValue(key);
 
@@ -431,8 +320,8 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string Lang(this string s, L_ID1 id, string m) => s.Lang(out string result, id, m) ? result : "";
-        public static bool Lang(this string s, out string result, L_ID1 id, string m) {
+        public static string Lang_WE(this string s, L_ID1 id, string m) => s.Lang_WE(out string result, id, m) ? result : "";
+        public static bool Lang_WE(this string s, out string result, L_ID1 id, string m) {
             string key = $"Mods.WeaponEnchantments.{id}.{m}.{s}";
             result = Language.GetTextValue(key);
 
@@ -442,8 +331,8 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string Lang(this string s, L_ID1 id, L_ID2 id2) => s.Lang(out string result, id, id2) ? result : "";
-        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2) {
+        public static string Lang_WE(this string s, L_ID1 id, L_ID2 id2) => s.Lang_WE(out string result, id, id2) ? result : "";
+        public static bool Lang_WE(this string s, out string result, L_ID1 id, L_ID2 id2) {
             string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
             result = Language.GetTextValue(key);
 
@@ -453,8 +342,8 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string Lang(this string s, L_ID1 id, L_ID2 id2, string m) => s.Lang(out string result, id, id2, m) ? result : "";
-        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, string m) {
+        public static string Lang_WE(this string s, L_ID1 id, L_ID2 id2, string m) => s.Lang_WE(out string result, id, id2, m) ? result : "";
+        public static bool Lang_WE(this string s, out string result, L_ID1 id, L_ID2 id2, string m) {
             string key = $"Mods.WeaponEnchantments.{id}.{id2}.{m}.{s}";
             result = Language.GetTextValue(key);
 
@@ -464,7 +353,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string Lang(this int i, L_ID_V id) {
+        public static string Lang_WE(this int i, L_ID_V id) {
             switch (id) {
                 case L_ID_V.Item:
                     return Terraria.Lang.GetItemNameValue(i);
@@ -479,8 +368,8 @@ namespace WeaponEnchantments.Common.Utility
             return null;
         }
 
-        public static string Lang(this string s, string m, IEnumerable<string> args) => s.Lang(out string result, m, args) ? result : "";
-        public static bool Lang(this string s, out string result, string m, IEnumerable<string> args) {
+        public static string Lang_WE(this string s, string m, IEnumerable<string> args) => s.Lang_WE(out string result, m, args) ? result : "";
+        public static bool Lang_WE(this string s, out string result, string m, IEnumerable<string> args) {
             string key = $"Mods.WeaponEnchantments.{m}.{s}";
             result = Language.GetTextValue(key, args);
 
@@ -490,8 +379,8 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string Lang(this string s, L_ID1 id, L_ID2 id2, IEnumerable<object> args) => s.Lang(out string result, id, id2, args) ? result : "";
-        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<object> args) {
+        public static string Lang_WE(this string s, L_ID1 id, L_ID2 id2, IEnumerable<object> args) => s.Lang_WE(out string result, id, id2, args) ? result : "";
+        public static bool Lang_WE(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<object> args) {
             string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
             result = args != null ? Language.GetTextValue(key, args.ToArray()) : Language.GetTextValue(key);
 
@@ -501,8 +390,8 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string Lang(this string s, L_ID1 id, IEnumerable<object> args) => s.Lang(out string result, id, args) ? result : "";
-        public static bool Lang(this string s, out string result, L_ID1 id, IEnumerable<object> args) {
+        public static string Lang_WE(this string s, L_ID1 id, IEnumerable<object> args) => s.Lang_WE(out string result, id, args) ? result : "";
+        public static bool Lang_WE(this string s, out string result, L_ID1 id, IEnumerable<object> args) {
             string key = $"Mods.WeaponEnchantments.{id}.{s}";
             result = args != null ? Language.GetTextValue(key, args.ToArray()) : Language.GetTextValue(key);
 
@@ -512,10 +401,6 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string GetTextValue(this string key, IEnumerable<object> args) {
-            return Language.GetTextValue(key, args);
-        }
-        */
 
         #region AddOrCombine
 

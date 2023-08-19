@@ -267,11 +267,11 @@ namespace WeaponEnchantments.Common.Globals
             if (perLevelBonus > 0f) {
                 if (WEMod.serverConfig.DamagePerLevelInstead) {
 					tooltip = perLevelBonus > 0f ?
-				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.DamageAfterDefenses}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.DamageAfterDefenses}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
 				}
                 else {
 					tooltip = perLevelBonus > 0f ?
-				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.CriticalStrikeChance}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.CriticalStrikeChance}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
 				}
             }
 

@@ -20,6 +20,8 @@ using WeaponEnchantments.UI;
 using static Terraria.Localization.GameCulture;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using static androLib.Localization.AndroLocalizationData;
+using androLib.Localization;
 
 namespace WeaponEnchantments.Localization
 {
@@ -34,30 +36,6 @@ namespace WeaponEnchantments.Localization
 			}
 		}
 		private static SortedDictionary<string, SData> all;
-
-		static CultureName CultureName = CultureName.Unknown;
-
-		public static bool ContainsTextVAlue(string s, CultureName cultureName) {
-			if (cultureName != CultureName)
-				LanguageManager.Instance.SetLanguage((int)cultureName);
-
-
-			bool returnValue = s == Language.GetTextValue(s);
-			LanguageManager.Instance.SetLanguage((int)CultureName.English);
-			return returnValue;
-		}
-
-		public static Dictionary<CultureName, string> LocalizationComments = new() {
-			{ CultureName.German, "Contributors: @Shiro ᵘʷᵘ#6942, @Fischstäbchen#2603  (All others Google Translated.  Needs review)" },
-			{ CultureName.English, "" },
-			{ CultureName.Spanish , "Contributors: @DaviReM#8740, @JoeDolca, @Haturok#8191, @Kokopai#2506  (All others Google Translated.  Needs review)" },
-			{ CultureName.French , "Contributors: @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)" },
-			{ CultureName.Italian , "Contributors: @Tefra_K" },
-			{ CultureName.Polish , "(Google Translated.  No contributions yet)" },
-			{ CultureName.Portuguese , "Contributors: @Ninguém#8017, @pedro_123444#8294" },
-			{ CultureName.Russian , "Contributed by @4sent4" },
-			{ CultureName.Chinese , "1090549930 Kiritan - Github, @2578359679#1491, @An unilolusiality, and @huamx1#1050" }
-		};
 
 		private static SortedDictionary<string, SData> allData;
 		public static SortedDictionary<string, SData> AllData {
@@ -577,9 +555,9 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayToolLevelUpMessages).AddSpaces() },
 								{ L_ID3.Tooltip.ToString(), "Only displays tool level up messages when using the enchanting table if this option is off." }
 							}) },
-							{ nameof(ClientConfig.UITransparency), new(dict: new() {
-								{ L_ID3.Label.ToString(), nameof(ClientConfig.UITransparency).AddSpaces() }
-							}) },
+							//{ nameof(ClientConfig.UITransparency), new(dict: new() {
+							//	{ L_ID3.Label.ToString(), nameof(ClientConfig.UITransparency).AddSpaces() }
+							//}) },
 							{ nameof(ClientConfig.DisableAllErrorMessagesInChat), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable All Error Messages In Chat" },
 								{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to \n" +
@@ -598,10 +576,10 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Label.ToString(), "Log a List of Enchantment Drop sources" },
 								{ L_ID3.Tooltip.ToString(), "The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
 							}) },
-							{ nameof(ClientConfig.PrintLocalizationLists), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Log all translation lists" },
-								{ L_ID3.Tooltip.ToString(), "The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
-							}) },
+							//{ nameof(ClientConfig.PrintLocalizationLists), new(dict: new() {
+							//	{ L_ID3.Label.ToString(), "Log all translation lists" },
+							//	{ L_ID3.Tooltip.ToString(), "The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
+							//}) },
 							{ nameof(ClientConfig.PrintWeaponInfusionPowers), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Log all weapon infusion powers" },
 								{ L_ID3.Tooltip.ToString(), "The info is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
@@ -1037,17 +1015,6 @@ namespace WeaponEnchantments.Localization
 				}
 			},
 		};
-	}
-	public class SData
-	{
-		public List<string> Values;
-		public SortedDictionary<string, string> Dict;
-		public SortedDictionary<string, SData> Children;
-		public SData(List<string> values = null, SortedDictionary<string, string> dict = null, SortedDictionary<string, SData> children = null) {
-			Values = values;
-			Dict = dict;
-			Children = children;
-		}
 	}
 
 	public static class LocalizationDataStaticMethods

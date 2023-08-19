@@ -25,6 +25,7 @@ using System.Reflection;
 using WeaponEnchantments.Items.Enchantments.Utility;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib.Items;
 
 namespace WeaponEnchantments.Content.NPCs
 {
@@ -276,7 +277,7 @@ namespace WeaponEnchantments.Content.NPCs
 				int type = list.GetOneFromList();
 				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
 				if (shopItems.ContainsKey(type)) {
-					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
+					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT_WE(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
 					i--;
 					list.Remove(type);
 					continue;
@@ -336,22 +337,22 @@ namespace WeaponEnchantments.Content.NPCs
 			AddBiomeDialogues(chat, L_ID2.Witch);
 
 			if (Main.bloodMoon)
-				chat.Add($"{DialogueID.BloodMoon}".Lang(L_ID1.Dialogue, L_ID2.Witch), 4);
+				chat.Add($"{DialogueID.BloodMoon}".Lang_WE(L_ID1.Dialogue, L_ID2.Witch), 4);
 
 			if (Terraria.GameContent.Events.BirthdayParty.ManualParty || Terraria.GameContent.Events.BirthdayParty.GenuineParty)
-				chat.Add($"{DialogueID.BirthdayParty}".Lang(L_ID1.Dialogue, L_ID2.Witch), 10);
+				chat.Add($"{DialogueID.BirthdayParty}".Lang_WE(L_ID1.Dialogue, L_ID2.Witch), 10);
 
 			if (Main.IsItStorming)
-				chat.Add($"{DialogueID.Storm}".Lang(L_ID1.Dialogue, L_ID2.Witch), 4);
+				chat.Add($"{DialogueID.Storm}".Lang_WE(L_ID1.Dialogue, L_ID2.Witch), 4);
 
 			if (!NPC.downedQueenBee)
-				chat.Add($"{DialogueID.QueenBee}".Lang(L_ID1.Dialogue, L_ID2.Witch));
+				chat.Add($"{DialogueID.QueenBee}".Lang_WE(L_ID1.Dialogue, L_ID2.Witch));
 
 			return chat;
 		}
 		public void AddStandardDialogue(WeightedRandom<string> chat, L_ID2 npcID) {
 			for (int i = 0;; i++) {
-				if (!$"{DialogueID.StandardDialogue}{i}".Lang(out string result, L_ID1.Dialogue, npcID))
+				if (!$"{DialogueID.StandardDialogue}{i}".Lang_WE(out string result, L_ID1.Dialogue, npcID))
 					break;
 
 				chat.Add(result);
@@ -364,7 +365,7 @@ namespace WeaponEnchantments.Content.NPCs
 					string otherNPCString = ((TownNPCTypeID)i).ToString();
 					string otherNPCName = Main.npc[npcWhoAmI].GivenName;
 					string[] args = { otherNPCName };
-					if (otherNPCString.Lang(out string c, L_ID1.Dialogue, npcID, args))
+					if (otherNPCString.Lang_WE(out string c, L_ID1.Dialogue, npcID, args))
 						chat.Add(c, 0.5);
 				}
 			}
@@ -374,11 +375,11 @@ namespace WeaponEnchantments.Content.NPCs
 			foreach(BiomeID biomeName in Enum.GetValues(typeof(BiomeID))) {
 				bool zone = (bool)typeof(Player).GetProperty($"Zone{biomeName}").GetValue(player);
 				if (zone) {
-					if (biomeName.ToString().Lang(out string c, L_ID1.Dialogue, npcID)) {
+					if (biomeName.ToString().Lang_WE(out string c, L_ID1.Dialogue, npcID)) {
 						chat.Add(c);
 					}
 					else if (shareCorrupted) {
-						if (biomeName == BiomeID.Corrupt && BiomeID.Crimson.ToString().Lang(out c, L_ID1.Dialogue, npcID) || biomeName == BiomeID.Crimson && BiomeID.Corrupt.ToString().Lang(out c, L_ID1.Dialogue, npcID))
+						if (biomeName == BiomeID.Corrupt && BiomeID.Crimson.ToString().Lang_WE(out c, L_ID1.Dialogue, npcID) || biomeName == BiomeID.Crimson && BiomeID.Corrupt.ToString().Lang_WE(out c, L_ID1.Dialogue, npcID))
 							chat.Add(c);
 					}
 				}
@@ -406,26 +407,6 @@ namespace WeaponEnchantments.Content.NPCs
 			}
 
 			return npcs;
-		}
-		public static float GetSellPriceModifier(SellCondition c) {
-			switch(c) {
-				case <= SellCondition.Always:
-					return 1f;
-				case SellCondition.AnyTime:
-					return 2f;
-				case < SellCondition.HardMode:
-					return 5f + (float)c;
-				case <= SellCondition.PostPlantera:
-					return 20f + 10f * (c - SellCondition.HardMode);
-				case <= SellCondition.PostCultist:
-					return 100f + 50f * (c - SellCondition.PostGolem);
-				case <= SellCondition.PostVortexTower:
-					return 500f;
-				case <= SellCondition.PostMoonLord:
-					return 1000f;
-				default:
-					return 1f;
-			}
 		}
 	}
 

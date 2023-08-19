@@ -3,6 +3,8 @@ using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using androLib.Items;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments
 {

@@ -284,39 +284,6 @@ namespace WeaponEnchantments.Common.Utility
         SolarDash,
         CrystalNinjaDash = 5
     }
-    public enum SellCondition
-	{
-		IgnoreCondition,
-        Never,
-        Always,
-        AnyTime,
-        AnyTimeRare,
-        PostKingSlime,
-        PostEyeOfCthulhu,
-        PostEaterOfWorldsOrBrainOfCthulhu,
-        PostSkeletron,
-        PostQueenBee,
-        PostDeerclops,
-        PostGoblinInvasion,
-        Luck,
-        HardMode,
-        PostQueenSlime,
-        PostPirateInvasion,
-        PostTwins,
-        PostDestroyer,
-        PostSkeletronPrime,
-        PostPlantera,
-        PostGolem,
-        PostMartianInvasion,
-        PostDukeFishron,
-        PostEmpressOfLight,
-        PostCultist,
-        PostSolarTower,
-        PostNebulaTower,
-        PostStardustTower,
-        PostVortexTower,
-        PostMoonLord,
-	}
     public static class SellConditionMethods
 	{
         public static bool CanSell(this SellCondition condition) {
@@ -498,14 +465,13 @@ namespace WeaponEnchantments.Common.Utility
 		Loadouts,
 		ToggleAutoTrashOfferedItems
 	}
-	public enum EnchantmentStorageTextID
-	{
-		LootAll,
-		DepositAll,
-		QuickStack,
-		Sort,
-		ToggleVacuum,
-		ToggleMarkTrash,
+	public enum EnchantmentStorageTextID {
+		//LootAll,
+		//DepositAll,
+		//QuickStack,
+		//Sort,
+		//ToggleVacuum,
+		ToggleMarkTrash = 5,
 		UncraftAllTrash,
 		RevertAllToBasic,
 		ManageTrash,
@@ -513,7 +479,7 @@ namespace WeaponEnchantments.Common.Utility
 		QuickCraft,
 		//Do not place anything besides buttons before this
 		EnchantmentStorage,
-		Search,
+		//Search,
 		OreBag,
 		EnchantmentLoadouts,
 		All,
@@ -590,26 +556,6 @@ namespace WeaponEnchantments.Common.Utility
         HardModeBosses,
 		PostPlanteraBosses
 	}
-    public enum WikiTypeID
-	{
-        CraftingMaterial,
-        Containments,
-		CursedEssence,
-        EnchantingTables,
-        Enchantments,
-        EnchantmentEssence,
-        Furniture,
-        CraftingStation,
-        Storage,
-        Armor,
-        Set,
-        Weapon,
-        Tool,
-        Mechanism,
-        LightSource,
-        PowerBooster,
-		NPC
-	}
 	public enum InvasionID
 	{
 		Goblin_Army,
@@ -617,98 +563,6 @@ namespace WeaponEnchantments.Common.Utility
 		Martian_Madness
 	}
 
-	public static class WikiExtensionMethods
-	{
-        public static string GetLinkText(this WikiTypeID id, out bool external) {
-            external = true;
-			switch (id) {
-                case WikiTypeID.CraftingMaterial:
-                    return "https://terraria.fandom.com/wiki/Category:Crafting_material_items";
-                case WikiTypeID.Furniture:
-                    return "https://terraria.fandom.com/wiki/Furniture";
-                case WikiTypeID.CraftingStation:
-                    return "https://terraria.fandom.com/wiki/Crafting_stations";
-                case WikiTypeID.Storage:
-                    return "https://terraria.fandom.com/wiki/Storage_items";
-                case WikiTypeID.Armor:
-                    return "https://terraria.fandom.com/wiki/Armor";
-                case WikiTypeID.Set:
-                    return "https://terraria.fandom.com/wiki/Armor";
-                case WikiTypeID.Weapon:
-                    return "https://terraria.fandom.com/wiki/Weapons";
-                case WikiTypeID.Tool:
-                    return "https://terraria.fandom.com/wiki/Tools";
-                case WikiTypeID.Mechanism:
-                    return "https://terraria.fandom.com/wiki/Mechanisms";
-                case WikiTypeID.LightSource:
-                    return "https://terraria.fandom.com/wiki/Light_sources";
-				case WikiTypeID.NPC:
-					return "https://terraria.fandom.com/wiki/NPCs";
-                default:
-                    external = false;
-                    return id.ToString().AddSpaces();
-			}
-		}
-		public static string GetPNGLink(this IShoppingBiome shoppingBiome) {
-			switch (shoppingBiome.NameKey) {
-				case "Jungle":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Bestiary_The_Jungle.png";
-				case "Hallow":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Bestiary_The_Hallow.png";
-				case "Dungeon":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Bestiary_The_Dungeon.png";
-				case "Corruption":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ab/Bestiary_The_Corruption.png";
-				case "Crimson":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/63/Bestiary_The_Crimson.png";
-				case "Glowing Mushroom":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/66/Bestiary_Surface_Mushroom.png";
-				case "Snow":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fa/Bestiary_Snow.png";
-				case "Ocean":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/aa/Bestiary_Ocean.png";
-				case "Desert":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Bestiary_Desert.png";
-				case "Underground":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/79/Bestiary_Underground.png";
-				case "Cavern":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/52/Bestiary_Caverns.png";
-				case "The Underworld":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Bestiary_The_Underworld.png";
-				case "Forest":
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/4/42/Bestiary_Surface.png";
-				default:
-					return $"{shoppingBiome.NameKey} Not Found";
-			}
-		}
-		public static string GetLinkText(this IShoppingBiome shoppingBiome) {
-			return $"https://terraria.fandom.com/wiki/{shoppingBiome.NameKey}";
-		}
-		public static string ToLanguageName(this CultureName id) {
-			switch (id) {
-				case CultureName.English:
-					return "en-US";
-				case CultureName.French:
-					return "fr-FR";
-				case CultureName.German:
-					return "de-DE";
-				case CultureName.Italian:
-					return "it-IT";
-				case CultureName.Spanish:
-					return "es-ES";
-				case CultureName.Russian:
-					return "ru-RU";
-				case CultureName.Chinese:
-					return "zh-Hans";
-				case CultureName.Portuguese:
-					return "pt-BR";
-				case CultureName.Polish:
-					return "pl-PL";
-				default:
-					return "CultureNameNotFound";
-			}
-		}
-	}
     public enum FloatID
 	{
         none,
@@ -2219,13 +2073,13 @@ namespace WeaponEnchantments.Common.Utility
 		public static string ToGameModeIDName(this short id) {
 			switch (id) {
 				case GameModeID.Normal:
-					return "Normal".Lang(L_ID1.Config);
+					return "Normal".Lang_WE(L_ID1.Config);
 				case GameModeID.Expert:
-					return "Expert".Lang(L_ID1.Config);
+					return "Expert".Lang_WE(L_ID1.Config);
 				case GameModeID.Master:
-					return "Master".Lang(L_ID1.Config);
+					return "Master".Lang_WE(L_ID1.Config);
 				case GameModeID.Creative:
-					return "Journey".Lang(L_ID1.Config);
+					return "Journey".Lang_WE(L_ID1.Config);
 				default:
 					return "";
 			}

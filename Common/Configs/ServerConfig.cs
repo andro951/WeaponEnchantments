@@ -415,7 +415,7 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(false)]
 		public bool AlwaysDisplayToolLevelUpMessages;
 
-		[Label("$Mods.WeaponEnchantments.Config.UITransparency.Label")]
+		[Label("$Mods.androLib.Config.UITransparency.Label")]
 		[DefaultValue(100)]
 		[Range(0, (int)byte.MaxValue)]
 		public int UITransparency;
@@ -464,7 +464,7 @@ namespace WeaponEnchantments.Common.Configs
 		private bool _onlyShowErrorMessagesInChatOnce;
 
 		//Logging Information
-		[Header("$Mods.WeaponEnchantments.Config.LoggingInformation")]
+		[Header("$Mods.androLib.Config.LoggingInformation")]
 		[Label("$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip")]
 		[DefaultValue(false)]
@@ -477,8 +477,8 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public bool PrintEnchantmentDrops;
 
-		[Label("$Mods.WeaponEnchantments.Config.PrintLocalizationLists.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.PrintLocalizationLists.Tooltip")]
+		[Label("$Mods.androLib.Config.PrintLocalizationLists.Label")]
+		[Tooltip("$Mods.androLib.Config.PrintLocalizationLists.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool PrintLocalizationLists;
@@ -516,7 +516,7 @@ namespace WeaponEnchantments.Common.Configs
 		public int Strength;
 
 		public override string ToString() {
-			return $"{"Enchantment".Lang(L_ID1.Config)}: {(itemDefinition != null && itemDefinition.Type != 0 ? $"{itemDefinition.Name}: {Strength / 10}%" : "NoneSelected".Lang(L_ID1.Config))}";
+			return $"{"Enchantment".Lang_WE(L_ID1.Config)}: {(itemDefinition != null && itemDefinition.Type != 0 ? $"{itemDefinition.Name}: {Strength / 10}%" : "NoneSelected".Lang_WE(L_ID1.Config))}";
 		}
 
 		public override bool Equals(object obj) {
@@ -582,8 +582,8 @@ namespace WeaponEnchantments.Common.Configs
 		}
 		public override string ToString() {
 			return $"{GameModeID.ToGameModeIDName()}" +
-				$", {"ArmorDRValues".Lang(L_ID1.Config, new object[] { (ArmorDamageReductionPerLevel / 100000f).S(5), (ArmorDamageReductionPerLevel / 2500f).S(5) })}" +
-				$", {"AccessoryDRValues".Lang(L_ID1.Config, new object[] { (AccessoryDamageReductionPerLevel / 100000f).S(5), (AccessoryDamageReductionPerLevel / 2500f).S(5) })}";
+				$", {"ArmorDRValues".Lang_WE(L_ID1.Config, new object[] { (ArmorDamageReductionPerLevel / 100000f).S(5), (ArmorDamageReductionPerLevel / 2500f).S(5) })}" +
+				$", {"AccessoryDRValues".Lang_WE(L_ID1.Config, new object[] { (AccessoryDamageReductionPerLevel / 100000f).S(5), (AccessoryDamageReductionPerLevel / 2500f).S(5) })}";
 		}
 	}
 	public class PresetData

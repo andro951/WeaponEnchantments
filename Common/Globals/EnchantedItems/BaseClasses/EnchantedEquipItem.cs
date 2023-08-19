@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			float damageReduction = GetPerLevelDamageReduction();
 			string tooltip = damageReduction > 0f ? 
-				$"+{damageReduction.PercentString()} {$"{EnchantmentStat.DamageReduction}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+				$"+{damageReduction.PercentString()} {$"{EnchantmentStat.DamageReduction}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
 
 			return tooltip;
 		}

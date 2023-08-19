@@ -27,6 +27,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text.RegularExpressions;
 using System.Reflection.Emit;
 using androLib.Common.Utility;
+using androLib.Localization;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -59,15 +60,6 @@ namespace WeaponEnchantments.Common.Utility
             { "Zorutan", "https://twitter.com/ZorutanMesuta" }
 		};
 
-        public struct Contributors
-        {
-            public Contributors(string artist, string designer) {
-                Artist = artist;
-                Designer = designer;
-            }
-            public string Artist;
-            public string Designer;
-        }
         public static SortedDictionary<string, Contributors> contributorsData = new SortedDictionary<string, Contributors>();
         public static List<string> namesAddedToContributorDictionary = new List<string>();
         public static List<string> enchantmentsLocalization = new List<string>();
@@ -171,7 +163,7 @@ namespace WeaponEnchantments.Common.Utility
 
                 if (newNumPad8 && !numPad8) {
                     string msg = "\n" + DummyNPC.allTotalItemDamages.Select(pair => $"{pair.Key}, {pair.Value.ToString("F5")}").JoinList("\n");
-                    msg.LogSimple();
+                    msg.LogSimple_WE();
 				}
 
 				numPad0 = newNumPad0;
@@ -376,13 +368,13 @@ namespace WeaponEnchantments.Common.Utility
 			}
 			private void PrintStart() {
 				if (printLocalization) {
-					string label = $"\n\n{cultureName}\n#{LocalizationData.LocalizationComments[cultureName]}";
+					string label = $"\n\n{cultureName}\n#{AndroLocalizationData.LocalizationComments[cultureName]}";
 					localization += label;
 				}
 
 				if (printLocalizationKeysAndValues) {
 					localizationValuesCharacterCount = 0;
-					string keyLabel = $"#{LocalizationData.LocalizationComments[cultureName]}";
+					string keyLabel = $"#{AndroLocalizationData.LocalizationComments[cultureName]}";
 					localizationKeys += keyLabel;
 
 					string valueLabel = "";
@@ -518,18 +510,18 @@ namespace WeaponEnchantments.Common.Utility
 
 				tabs = 0;
 				if (printLocalization) {
-					localization.LogSimple();
+					localization.LogSimple_WE();
 					localization = "";
 				}
 
 				if (printLocalizationKeysAndValues) {
 					string cultureName = ((CultureName)culture).ToLanguageName();
 					localizationKeys = localizationKeys.ReplaceLineEndings();
-					string keyFilePath = @$"C:\Users\Isaac\Desktop\TerrariaDev\Localization Merger\Keys\{cultureName}.txt";
+					string keyFilePath = @$"C:\Users\Isaac\Desktop\TerrariaDev\Localization Merger\WeaponEnchantments\Keys\{cultureName}.txt";
 					File.WriteAllText(keyFilePath, localizationKeys);
 					localizationKeys = "";
 
-					string valueFilePath = @$"C:\Users\Isaac\Desktop\TerrariaDev\Localization Merger\In\{cultureName}.txt";
+					string valueFilePath = @$"C:\Users\Isaac\Desktop\TerrariaDev\Localization Merger\WeaponEnchantments\In\{cultureName}.txt";
 					File.WriteAllText(valueFilePath, localizationValues);
 					localizationValues = "";
 				}
@@ -670,7 +662,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
 			}
 
-            tooltipList.Log();
+            tooltipList.Log_WE();
         }
         private static void PrintContributorsList() {
             if (!printListOfContributors)
@@ -705,7 +697,7 @@ namespace WeaponEnchantments.Common.Utility
                     artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveFirstFolder('/', false)}.png)\n";
                 }
             }
-            artistsMessage.Log();
+            artistsMessage.Log_WE();
 
             namesAddedToContributorDictionary.Clear();
             contributorsData.Clear();
@@ -724,7 +716,7 @@ namespace WeaponEnchantments.Common.Utility
             text += "\tdefault:\n" +
 				"\t\treturn \"\";\n" +
 				"}\n";
-            text.LogSimple();
+            text.LogSimple_WE();
 		}
     }
 }

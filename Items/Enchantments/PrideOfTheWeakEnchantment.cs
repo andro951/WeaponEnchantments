@@ -4,6 +4,8 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Items;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments
 {

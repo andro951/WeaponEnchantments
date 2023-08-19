@@ -26,8 +26,8 @@ namespace WeaponEnchantments.Effects
 		}
 
 		public override IEnumerable<object> DisplayNameArgs => new string[] { TooltipValue };
-		public override string TooltipValue => $"{damageClassName} {"Damage".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}";
-		private string damageClassName => (DamageClassNameOveride != DamageClassID.Default ? DamageClassNameOveride.ToString() : Enchantment.GetDamageClassName(Enchantment.GetDamageClass(NewDamageClass.Type))).Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+		public override string TooltipValue => $"{damageClassName} {"Damage".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName)}";
+		private string damageClassName => (DamageClassNameOveride != DamageClassID.Default ? DamageClassNameOveride.ToString() : Enchantment.GetDamageClassName(Enchantment.GetDamageClass(NewDamageClass.Type))).Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 		public override IEnumerable<object> TooltipArgs => null;
 
 		public virtual DamageClass NewDamageClass { get; }

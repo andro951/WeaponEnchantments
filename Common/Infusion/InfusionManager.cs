@@ -95,7 +95,7 @@ namespace WeaponEnchantments.Common
 					msg += $"\n{i}, {averageValues[i]}, {minValues[i]}, {maxValues[i]}";
 				}
 
-				msg.Log();
+				msg.Log_WE();
 			}
 		}
         private struct ItemDetails {
@@ -149,7 +149,7 @@ namespace WeaponEnchantments.Common
 									int currentInfusionPower = currentItem.GetWeaponInfusionPower();
 									($"infusionPowers[{infusionPower}] already contains key({clone.Name}).\n" +
                                         $"Current = {GetDataString(currentInfusionPower, currentItem.Name, currentItemDetails)}\n" +
-                                        $"New = {GetDataString(infusionPower, clone.Name, itemDetails)}").LogSimple();
+                                        $"New = {GetDataString(infusionPower, clone.Name, itemDetails)}").LogSimple_WE();
                                 }
                                 else {
 									infusionPowers[infusionPower].Add(clone.Name, itemDetails);
@@ -170,7 +170,7 @@ namespace WeaponEnchantments.Common
                     }
                 }
                     //Print list of items
-                    msg.Log();
+                    msg.Log_WE();
             }
             
             return itemsDict;
@@ -370,7 +370,7 @@ namespace WeaponEnchantments.Common
             }
 
             if(!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-                $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT(ChatMessagesIDs.FailedInfuseItem);
+                $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT_WE(ChatMessagesIDs.FailedInfuseItem);
                 return false;
 			}
             

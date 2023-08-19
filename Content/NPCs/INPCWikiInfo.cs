@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.Personalities;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Content.NPCs
 {

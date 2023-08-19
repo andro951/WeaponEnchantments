@@ -53,7 +53,7 @@ namespace WeaponEnchantments.ModIntegration
 					foreach (var bossInfo in bossInfos.Where(boss => boss.Value.isBoss || boss.Value.isMiniboss)) {
 						List<int> npcIDs = bossInfo.Value.npcIDs;
 						if (npcIDs.Count < 1) {
-							$"Skipping bossInfo, npcIDs.Count < 1: {bossInfo.Key}, {bossInfo.Value.internalName}, {bossInfo.Value.progression}".LogSimple();
+							$"Skipping bossInfo, npcIDs.Count < 1: {bossInfo.Key}, {bossInfo.Value.internalName}, {bossInfo.Value.progression}".LogSimple_WE();
 							continue;
 						}
 
@@ -62,7 +62,7 @@ namespace WeaponEnchantments.ModIntegration
 						if (!added) {
 							string currentKey = BossInfoNetIDKeys[netID];
 							BossChecklistBossInfo currentInfo = bossInfos[currentKey];
-							$"bossInfo netID already exists new: {bossInfo.Key}, {bossInfo.Value.internalName}, {bossInfo.Value.progression}\ncurrent: {currentKey}, {currentInfo.internalName}, {currentInfo.progression}".LogSimple();
+							$"bossInfo netID already exists new: {bossInfo.Key}, {bossInfo.Value.internalName}, {bossInfo.Value.progression}\ncurrent: {currentKey}, {currentInfo.internalName}, {currentInfo.progression}".LogSimple_WE();
 						}
 					}
 

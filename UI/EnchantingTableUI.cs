@@ -126,7 +126,7 @@ namespace WeaponEnchantments.UI
 
 			if (wePlayer.displayEnchantmentLoadoutUI) {
 				//Loadouts Button Data 1/2
-				string loadouts2 = TableTextID.Loadouts.ToString().Lang(L_ID1.TableText);
+				string loadouts2 = TableTextID.Loadouts.ToString().Lang_WE(L_ID1.TableText);
 				TextData loadoutsTextData2 = new(loadouts2);
 
 				//Loadouts Button Data 2/2
@@ -170,7 +170,7 @@ namespace WeaponEnchantments.UI
 
 			//Item Label Data 1/2
 			int itemLabelTop = wePlayer.enchantingTableUITop + Spacing;
-			string itemLabel = TableTextID.Item.ToString().Lang(L_ID1.TableText);
+			string itemLabel = TableTextID.Item.ToString().Lang_WE(L_ID1.TableText);
 			TextData itemLabelTextData = new(itemLabel);
 			int largestWidthCenteredOnEnchantingItemSlotCenterX = itemLabelTextData.Width;
 
@@ -183,14 +183,14 @@ namespace WeaponEnchantments.UI
 
 			//Loot All Data 1/2
 			int lootAllTop = enchantingItemSlotTop + MasterUIManager.ItemSlotSize + Spacing + ButtonBorderY;
-			string lootAll = TableTextID.LootAll.ToString().Lang(L_ID1.TableText);
+			string lootAll = TableTextID.LootAll.ToString().Lang_WE(L_ID1.TableText);
 			TextData lootAllTextData = new(lootAll);
 			if (lootAllTextData.Width > largestWidthCenteredOnEnchantingItemSlotCenterX)
 				largestWidthCenteredOnEnchantingItemSlotCenterX = lootAllTextData.Width;
 
 			//Offer Button Data 1/2
 			int offerButtonTop = lootAllTop + lootAllTextData.Height + Spacing + ButtonBorderY * 2;
-			string offerButton = TableTextID.Offer.ToString().Lang(L_ID1.TableText);
+			string offerButton = TableTextID.Offer.ToString().Lang_WE(L_ID1.TableText);
 			TextData offerButtonTextData = new(offerButton);
 			if (offerButtonTextData.Width > largestWidthCenteredOnEnchantingItemSlotCenterX)
 				largestWidthCenteredOnEnchantingItemSlotCenterX = offerButtonTextData.Width;
@@ -221,11 +221,11 @@ namespace WeaponEnchantments.UI
 			int panelMiddleLeft = leftPanelButtonsRightEdge + Spacing;
 
 			//Enchantments Label Data 1/2
-			string enchantmentsLabel = TableTextID.Enchantments.ToString().Lang(L_ID1.TableText);
+			string enchantmentsLabel = TableTextID.Enchantments.ToString().Lang_WE(L_ID1.TableText);
 			TextData enchantmentsLabelTextData = new(enchantmentsLabel);
 
 			//XP button Data 1/2
-			string xp = TableTextID.xp.ToString().Lang(L_ID1.TableText);
+			string xp = TableTextID.xp.ToString().Lang_WE(L_ID1.TableText);
 			TextData xpTextData = new(xp);//, 0.75f);
 			int enchantmentSlotsCount = MaxEnchantmentSlots - 1;
 			int diff = (xpTextData.Width + ButtonBorderX * 2) - MasterUIManager.ItemSlotSize;
@@ -255,7 +255,7 @@ namespace WeaponEnchantments.UI
 			int essenecSlotsTop = enchantingItemSlotTop + MasterUIManager.ItemSlotSize + Spacing;
 
 			//Utility Label Data 1/2
-			string utilityLabel = EnchantmentGeneralTooltipsID.Utility.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips);
+			string utilityLabel = EnchantmentGeneralTooltipsID.Utility.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips);
 			TextData utilityLabelTextData = new(utilityLabel);
 
 			//Utility Data
@@ -274,13 +274,13 @@ namespace WeaponEnchantments.UI
 
 			//Storage Button Data 1/2
 			int storageButtonTop = itemLabelTop + 4;
-			string storage = TableTextID.Storage.ToString().Lang(L_ID1.TableText);
+			string storage = TableTextID.Storage.ToString().Lang_WE(L_ID1.TableText);
 			TextData storageTextData = new(storage);
 			int largestWidthOfRightSideButtons = storageTextData.Width;
 
 			//Syphon Button Data 1/2
 			int syphonTop = storageButtonTop + storageTextData.Height + Spacing + ButtonBorderY * 2;
-			string syphon = TableTextID.Syphon.ToString().Lang(L_ID1.TableText);
+			string syphon = TableTextID.Syphon.ToString().Lang_WE(L_ID1.TableText);
 			TextData syphonTextData = new(syphon);
 			if (syphonTextData.Width > largestWidthOfRightSideButtons)
 				largestWidthOfRightSideButtons = syphonTextData.Width;
@@ -290,14 +290,14 @@ namespace WeaponEnchantments.UI
 			string infusion;
 			if (!wePlayer.infusionConsumeItem.IsAir) {
 				if (wePlayer.enchantingTableItem.IsAir) {
-					infusion = TableTextID.Cancel.ToString().Lang(L_ID1.TableText);
+					infusion = TableTextID.Cancel.ToString().Lang_WE(L_ID1.TableText);
 				}
 				else {
-					infusion = TableTextID.Finalize.ToString().Lang(L_ID1.TableText);
+					infusion = TableTextID.Finalize.ToString().Lang_WE(L_ID1.TableText);
 				}
 			}
 			else {
-				infusion = TableTextID.Infusion.ToString().Lang(L_ID1.TableText);
+				infusion = TableTextID.Infusion.ToString().Lang_WE(L_ID1.TableText);
 			}
 
 			TextData infusionTextData = new(infusion);
@@ -305,7 +305,7 @@ namespace WeaponEnchantments.UI
 				largestWidthOfRightSideButtons = infusionTextData.Width;
 
 			//Level Up Button Data 1/2
-			string levelUp = TableTextID.LevelUp.ToString().Lang(L_ID1.TableText);
+			string levelUp = TableTextID.LevelUp.ToString().Lang_WE(L_ID1.TableText);
 			TextData levelUpTextData = new(levelUp);
 			if (levelUpTextData.Width > largestWidthOfRightSideButtons)
 				largestWidthOfRightSideButtons = levelUpTextData.Width;
@@ -329,7 +329,7 @@ namespace WeaponEnchantments.UI
 
 			//Loadouts Button Data 1/2
 			int loadoutsTop = storageButtonTop;
-			string loadouts = TableTextID.Loadouts.ToString().Lang(L_ID1.TableText);
+			string loadouts = TableTextID.Loadouts.ToString().Lang_WE(L_ID1.TableText);
 			TextData loadoutsTextData = new(loadouts);
 			int largestWidthOfRightSideButtonsCol2 = loadoutsTextData.Width;
 
@@ -452,11 +452,11 @@ namespace WeaponEnchantments.UI
 
 			if (DisplayOfferUI) {
 				//Yes Data 1/2
-				string yes = TableTextID.Yes.ToString().Lang(L_ID1.TableText);
+				string yes = TableTextID.Yes.ToString().Lang_WE(L_ID1.TableText);
 				TextData yesTextData = new(yes);
 
 				//No Data 1/2
-				string no = TableTextID.No.ToString().Lang(L_ID1.TableText);
+				string no = TableTextID.No.ToString().Lang_WE(L_ID1.TableText);
 				TextData noTextData = new(no);
 
 				//Yes Data 2/2
@@ -471,7 +471,7 @@ namespace WeaponEnchantments.UI
 				UITextData offerWarningData = new(WE_UI_ID.None, leftPanelButtonsRightEdge + Spacing, itemLabelTop + Spacing, offerWarningTextData, mouseColor);
 
 				//Auto Trash Offered Data
-				string autoTrashOffered = TableTextID.ToggleAutoTrashOfferedItems.ToString().Lang(L_ID1.TableText);
+				string autoTrashOffered = TableTextID.ToggleAutoTrashOfferedItems.ToString().Lang_WE(L_ID1.TableText);
 				TextData autoTrashOfferedTextData = new(autoTrashOffered);
 				Color autoTrashOfferedColor = wePlayer.autoTrashOfferedItems ? EnchantmentStorage.VacuumPurple : mouseColor;
 				UIButtonData autoTrashOfferedData = new(GetUI_ID(WE_UI_ID.ToggleAutoTrashOfferedItems), offerWarningData.TopLeft.X, offerWarningData.BottomRight.Y + Spacing, autoTrashOfferedTextData, autoTrashOfferedColor, ButtonBorderX, ButtonBorderY, RedButtonColor, RedHoverColor);
@@ -601,7 +601,7 @@ namespace WeaponEnchantments.UI
 					}
 
 					if (display && DisplayDescriptionBlock)
-						SetDescriptionBlock(TableTextID.weapon0.ToString().Lang(L_ID1.TableText));
+						SetDescriptionBlock(TableTextID.weapon0.ToString().Lang_WE(L_ID1.TableText));
 
 					if (normalClickInteractions)
 						enchantingItemSlotData.ClickInteractions(ref wePlayer.enchantingTableItem);
@@ -691,7 +691,7 @@ namespace WeaponEnchantments.UI
 						}
 
 						if (display && DisplayDescriptionBlock)
-							SetDescriptionBlock(TableTextID.essence0.ToString().Lang(L_ID1.TableText, new object[] { EnchantmentEssence.IDs[i].CSI().Name }));
+							SetDescriptionBlock(TableTextID.essence0.ToString().Lang_WE(L_ID1.TableText, new object[] { EnchantmentEssence.IDs[i].CSI().Name }));
 
 						if (normalClickInteractions)
 							essenceSlot.ClickInteractions(ref item);
@@ -1031,7 +1031,7 @@ namespace WeaponEnchantments.UI
 		private static void SetDescriptionBlock(string firstLine, string lastLine = null) {
 			List<string> lines = new() { firstLine };
 			for (int j = 1; j <= 3; j++) {
-				lines.Add($"general{j}".Lang(L_ID1.TableText));
+				lines.Add($"general{j}".Lang_WE(L_ID1.TableText));
 			}
 
 			if (lastLine != null)
@@ -1119,10 +1119,10 @@ namespace WeaponEnchantments.UI
 
 			if (display && DisplayDescriptionBlock) {
 				if (isUtilitySlot) {
-					SetDescriptionBlock(TableTextID.utility0.ToString().Lang(L_ID1.TableText));
+					SetDescriptionBlock(TableTextID.utility0.ToString().Lang_WE(L_ID1.TableText));
 				}
 				else {
-					SetDescriptionBlock(TableTextID.enchantment0.ToString().Lang(L_ID1.TableText), TableTextID.enchantment4.ToString().Lang(L_ID1.TableText, new object[] { EnchantingTableItem.IDs[slotNum].CSI().Name }));
+					SetDescriptionBlock(TableTextID.enchantment0.ToString().Lang_WE(L_ID1.TableText), TableTextID.enchantment4.ToString().Lang_WE(L_ID1.TableText, new object[] { EnchantingTableItem.IDs[slotNum].CSI().Name }));
 				}
 			}
 
@@ -1306,7 +1306,7 @@ namespace WeaponEnchantments.UI
 					return;
 
 				if (wePlayer.infusionConsumeItem == null) {
-					$"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
+					$"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 				}
 
 				if (wePlayer.infusionConsumeItem.IsAir) {
@@ -1362,7 +1362,7 @@ namespace WeaponEnchantments.UI
 						wePlayer.infusionConsumeItem = new();
 					}
 					else {
-						$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
+						$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 					}
 				}
 			}
@@ -1372,7 +1372,7 @@ namespace WeaponEnchantments.UI
 				wePlayer.infusionConsumeItem = new();
 			}
 			else if (!tableItem.IsAir) {
-				$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
+				$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 			}
 		}
 		private static void LevelUp() {
@@ -1465,19 +1465,19 @@ namespace WeaponEnchantments.UI
 				string oreAndEssencePercent;
 				if (percentEss == 1f) {
 					//oreAndEssencePercent = $"In exchange for essence?";
-					oreAndEssencePercent = TableTextID.ExchangeEssence.ToString().Lang(L_ID1.TableText);
+					oreAndEssencePercent = TableTextID.ExchangeEssence.ToString().Lang_WE(L_ID1.TableText);
 				}
 				else if (percentEss == 0f) {
 					//oreAndEssencePercent = $"In exchange for ores?";
-					oreAndEssencePercent = TableTextID.ExchangeOres.ToString().Lang(L_ID1.TableText);
+					oreAndEssencePercent = TableTextID.ExchangeOres.ToString().Lang_WE(L_ID1.TableText);
 				}
 				else {
 					//oreAndEssencePercent = $"In exchange for ores({(1f - percentEss).PercentString()}) and essence({percentEss.PercentString()})?";
-					oreAndEssencePercent = TableTextID.ExchangeEssenceAndOres.ToString().Lang(L_ID1.TableText, new object[] { (1f - percentEss).PercentString(), percentEss.PercentString() });
+					oreAndEssencePercent = TableTextID.ExchangeEssenceAndOres.ToString().Lang_WE(L_ID1.TableText, new object[] { (1f - percentEss).PercentString(), percentEss.PercentString() });
 				}
 
 				object[] args = new object[] { enchantedItem.level.ToString(), wePlayer.enchantingTableItem.Name, oreAndEssencePercent, percentEss < 1f ? $"{oreString}\n" : "" };
-				warning = TableTextID.AreYouSure.ToString().Lang(L_ID1.TableText, args);
+				warning = TableTextID.AreYouSure.ToString().Lang_WE(L_ID1.TableText, args);
 			}
 
 			return warning;
@@ -1599,12 +1599,12 @@ namespace WeaponEnchantments.UI
 
 			//Power Booster
 			if (enchantedItem.PowerBoosterInstalled)
-				WEPlayer.LocalWEPlayer.TryGiveNewItemToPlayer(ModContent.ItemType<PowerBooster>());
+				StorageManager.GiveNewItemToPlayer(ModContent.ItemType<PowerBooster>(), Main.LocalPlayer);
 				//Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
 
 			//Ultra Power Booster
 			if (enchantedItem.UltraPowerBoosterInstalled)
-				WEPlayer.LocalWEPlayer.TryGiveNewItemToPlayer(ModContent.ItemType<UltraPowerBooster>());
+				StorageManager.GiveNewItemToPlayer(ModContent.ItemType<UltraPowerBooster>(), Main.LocalPlayer);
 				//Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
 
 			int xp = enchantedItem.Experience;
@@ -1614,7 +1614,7 @@ namespace WeaponEnchantments.UI
 
 			if (enchantedItem.infusedItemName != "") {
 				if (InfusionManager.TryFindItem(enchantedItem.infusedItemName, out Item foundItem)) {
-					WEPlayer.LocalWEPlayer.TryReturnItemToPlayer(ref foundItem, true);
+					StorageManager.TryReturnItemToPlayer(ref foundItem, Main.LocalPlayer, true);
 				}
 				else {
 					Main.LocalPlayer.SpawnCoins(enchantedItem.InfusionValueAdded / 5);
@@ -1631,7 +1631,7 @@ namespace WeaponEnchantments.UI
 				return -1;
 
 
-			if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
+			if (AndroMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log_WE();
 
 			float value = item.value;
 

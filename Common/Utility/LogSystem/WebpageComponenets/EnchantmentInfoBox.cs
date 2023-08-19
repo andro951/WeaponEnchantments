@@ -68,7 +68,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 				foreach(EnchantmentEffect effect in enchantments[i].Effects) {
 					string name = effect.DisplayName;
 					if (effectsDict.Keys.Contains(name)) {
-						$"{name} already exists in the effectsDict.".LogSimple();
+						$"{name} already exists in the effectsDict.".LogSimple_WE();
 					}
 					else {
 						effectsDict.Add(name, effect);

@@ -7,6 +7,8 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using androLib.Items;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {

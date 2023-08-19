@@ -55,7 +55,7 @@ namespace WeaponEnchantments.Common
 					if (!WEGlobalNPC.AllItemDropsFromNpcs.TryGetValue(bagType, out List<(int, float)> npcs)) {
 						if (bagType > ItemID.Count) {
 							Item item = bagType.CSI();
-							$"Unable to determine the npc that drops this boss bag: {item.Name}, {item.ModFullName()}.".LogNT(ChatMessagesIDs.BossBagDropsFailToFind);
+							$"Unable to determine the npc that drops this boss bag: {item.Name}, {item.ModFullName()}.".LogNT_WE(ChatMessagesIDs.BossBagDropsFailToFind);
 						}
 					}
 					else if (npcs.Count > 0) {

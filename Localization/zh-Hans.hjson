@@ -220,7 +220,7 @@ Mods: {
 			}
 
 			DisableArmorInfusion: {
-				Label: Disable Armor Infusion
+				Label: 禁用护甲注入
 				Tooltip: 这将阻止你注能盔甲物品，并将忽略注入的套装武器。
 			}
 
@@ -459,15 +459,6 @@ Mods: {
 					'''
 			}
 
-			PrintLocalizationLists: {
-				Label: 记录所有翻译列表
-				Tooltip:
-					'''
-					当您进入一个世界时，这些列表会打印到client.log中。
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
 			PrintWeaponInfusionPowers: {
 				Label: 记录所有武器注能
 				Tooltip:
@@ -549,8 +540,6 @@ Mods: {
 					'''
 			}
 
-			UITransparency.Label: UI Transparency
-
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: 使用备用的附魔纹理
 				Tooltip: 默认纹理的颜色对色盲友好。备用纹理有微小的差异，但被投票保留。
@@ -584,32 +573,26 @@ Mods: {
 		}
 
 		EnchantmentStorageText: {
-			Add: Add
-			All: All
-			DepositAll: Deposit All
-			EnchantmentLoadouts: Enchantment Loadouts
-			EnchantmentStorage: Enchantment Storage
-			HeldItem: Held Item
-			Loadout: Loadout
-			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
-			LootAll: Loot All
-			ManageOfferedItems: Manage Offered Items
-			ManageTrash: Manage Trash
-			NoAccessories: You must be wearing at least one accessory to swap enchantment loadouts.
-			NoArmor: You must be wearing a helmet, chest or legs to swap enchantment loadouts.
-			NoHeldItem: You must be holding an enchantable item to swap enchantment loadouts.
-			NoItems: You must be holding an enchantable item or wearing a piece of armor or an accessory to swap enchantment loadouts.
-			NotEnoughEnchantments: You are missing enchantments for this loadout.  {0}
-			NotHighEnoughLevel: Your {0} is not high enough level to apply the enchantments from this loadout.
-			OreBag: Ore Bag
-			QuickCraft: Quick Craft
-			QuickStack: Quick Stack
-			RevertAllToBasic: Revert All To Basic
-			Search: Search
-			Sort: Sort
-			ToggleMarkTrash: Toggle Mark Trash
-			ToggleVacuum: Toggle Vacuum
-			UncraftAllTrash: Uncraft All Trash
+			Add: 添加
+			All: 全部
+			EnchantmentLoadouts: 附魔负载
+			EnchantmentStorage: 附魔储存
+			HeldItem: 持有物品
+			Loadout: 装载
+			LoadoutSizeChanged: 检测到的附件插槽数量比以前少。 多余槽位中的结界已被退回。
+			ManageOfferedItems: 管理提供的项目
+			ManageTrash: 管理垃圾
+			NoAccessories: 您必须至少佩戴一件配饰才能交换附魔装备。
+			NoArmor: 您必须佩戴头盔、胸部或腿部才能交换附魔负载。
+			NoHeldItem: 您必须持有附魔物品才能交换附魔负载。
+			NoItems: 您必须持有附魔物品或穿着一件盔甲或配件才能交换附魔负载。
+			NotEnoughEnchantments: “您缺少此加载的附魔。{0}”
+			NotHighEnoughLevel: “您的 {0} 等级不够高，无法应用此加载中的附魔。”
+			OreBag: 矿石袋
+			QuickCraft: 快速工艺
+			RevertAllToBasic: 全部恢复为基本
+			ToggleMarkTrash: 切换标记垃圾箱
+			UncraftAllTrash: 解构所有垃圾
 		}
 
 		Items: {
@@ -856,11 +839,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic.DisplayName: 魔法类型伤害转换附魔史诗
 			MagicClassSwapEnchantmentLegendary.DisplayName: 魔法类型伤害转换附魔传奇
 			MagicClassSwapEnchantmentRare.DisplayName: 魔法类型伤害转换附魔稀有
-			MagneticEnchantmentBasic.DisplayName: Magnetic Enchantment Basic
-			MagneticEnchantmentCommon.DisplayName: Magnetic Enchantment Common
-			MagneticEnchantmentEpic.DisplayName: Magnetic Enchantment Epic
-			MagneticEnchantmentLegendary.DisplayName: Magnetic Enchantment Legendary
-			MagneticEnchantmentRare.DisplayName: Magnetic Enchantment Rare
+			MagneticEnchantmentBasic.DisplayName: 磁力附魔基础
+			MagneticEnchantmentCommon.DisplayName: 磁力附魔 普通
+			MagneticEnchantmentEpic.DisplayName: 史诗磁力结界
+			MagneticEnchantmentLegendary.DisplayName: 传奇磁力结界
+			MagneticEnchantmentRare.DisplayName: 磁力附魔 稀有
 			MaxMinionsEnchantmentBasic.DisplayName: 最大仆从附魔基元
 			MaxMinionsEnchantmentCommon.DisplayName: 最大仆从附魔普通
 			MaxMinionsEnchantmentEpic.DisplayName: 最大仆从附魔史诗
@@ -919,12 +902,12 @@ Mods: {
 			OnFireEnchantmentRare.DisplayName: 火焰附加附魔稀有
 
 			OreBag: {
-				DisplayName: Ore Bag
+				DisplayName: 矿石袋
 				Tooltip:
 					'''
-					Automatically stores ores, bars, gems, and glass.
-					When in your inventory, the contents of the bag are available for crafting.
-					Right click to open the bag.
+					自动储存矿石、锭、宝石和玻璃。
+					当你在库存中时，包里的东西可以用来制作。
+					右键点击打开袋子。
 					'''
 			}
 
@@ -938,16 +921,16 @@ Mods: {
 			PennyPinchingEnchantmentEpic.DisplayName: 锱铢必较附魔史诗
 			PennyPinchingEnchantmentLegendary.DisplayName: 锱铢必较附魔传奇
 			PennyPinchingEnchantmentRare.DisplayName: 锱铢必较附魔稀有
-			PercentArmorPenetrationEnchantmentBasic.DisplayName: Percent Armor Penetration Enchantment Basic
-			PercentArmorPenetrationEnchantmentCommon.DisplayName: Percent Armor Penetration Enchantment Common
-			PercentArmorPenetrationEnchantmentEpic.DisplayName: Percent Armor Penetration Enchantment Epic
-			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Percent Armor Penetration Enchantment Legendary
-			PercentArmorPenetrationEnchantmentRare.DisplayName: Percent Armor Penetration Enchantment Rare
-			PoisonEnchantmentBasic.DisplayName: Poison Enchantment Basic
-			PoisonEnchantmentCommon.DisplayName: Poison Enchantment Common
-			PoisonEnchantmentEpic.DisplayName: Poison Enchantment Epic
-			PoisonEnchantmentLegendary.DisplayName: Poison Enchantment Legendary
-			PoisonEnchantmentRare.DisplayName: Poison Enchantment Rare
+			PercentArmorPenetrationEnchantmentBasic.DisplayName: 护甲穿透百分比附魔基础
+			PercentArmorPenetrationEnchantmentCommon.DisplayName: 护甲穿透百分比附魔普通
+			PercentArmorPenetrationEnchantmentEpic.DisplayName: 护甲穿透百分比附魔史诗
+			PercentArmorPenetrationEnchantmentLegendary.DisplayName: 百分比护甲穿透附魔传奇
+			PercentArmorPenetrationEnchantmentRare.DisplayName: 护甲穿透百分比附魔稀有
+			PoisonEnchantmentBasic.DisplayName: 毒附魔基础
+			PoisonEnchantmentCommon.DisplayName: 毒附魔普通
+			PoisonEnchantmentEpic.DisplayName: 史诗剧毒结界
+			PoisonEnchantmentLegendary.DisplayName: 传奇毒附魔
+			PoisonEnchantmentRare.DisplayName: 毒附魔 稀有
 
 			PowerBooster: {
 				DisplayName: 能量强化器
@@ -984,11 +967,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic.DisplayName: 盗贼类型伤害转换附魔史诗
 			RogueClassSwapEnchantmentLegendary.DisplayName: 盗贼类型伤害转换附魔传奇
 			RogueClassSwapEnchantmentRare.DisplayName: 盗贼类型伤害转换附魔稀有
-			ShadowflameEnchantmentBasic.DisplayName: Shadowflame Enchantment Basic
-			ShadowflameEnchantmentCommon.DisplayName: Shadowflame Enchantment Common
-			ShadowflameEnchantmentEpic.DisplayName: Shadowflame Enchantment Epic
-			ShadowflameEnchantmentLegendary.DisplayName: Shadowflame Enchantment Legendary
-			ShadowflameEnchantmentRare.DisplayName: Shadowflame Enchantment Rare
+			ShadowflameEnchantmentBasic.DisplayName: 暗影烈焰附魔基础
+			ShadowflameEnchantmentCommon.DisplayName: 暗影烈焰附魔 普通
+			ShadowflameEnchantmentEpic.DisplayName: 史诗暗影烈焰结界
+			ShadowflameEnchantmentLegendary.DisplayName: 暗影烈焰附魔传奇
+			ShadowflameEnchantmentRare.DisplayName: 暗影烈焰结界 Rare
 			ShineEnchantmentBasic.DisplayName: 闪耀魔法基础
 			ShineEnchantmentCommon.DisplayName: 闪耀附魔常见
 			ShineEnchantmentEpic.DisplayName: 闪耀魔法史诗
@@ -1031,11 +1014,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic.DisplayName: 投掷类交换附魔史诗
 			ThrowingClassSwapEnchantmentLegendary.DisplayName: 投掷类交换结界传奇
 			ThrowingClassSwapEnchantmentRare.DisplayName: Throwing Class Swap Enchantment 稀有
-			TimeEnchantmentBasic.DisplayName: Time Enchantment Basic
-			TimeEnchantmentCommon.DisplayName: Time Enchantment Common
-			TimeEnchantmentEpic.DisplayName: Time Enchantment Epic
-			TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary
-			TimeEnchantmentRare.DisplayName: Time Enchantment Rare
+			TimeEnchantmentBasic.DisplayName: 时间结界基础
+			TimeEnchantmentCommon.DisplayName: 时间结界普通
+			TimeEnchantmentEpic.DisplayName: 时间结界史诗
+			TimeEnchantmentLegendary.DisplayName: 时间结界传奇
+			TimeEnchantmentRare.DisplayName: 时间结界 稀有
 
 			UltimateEnchantingTable: {
 				DisplayName: 终极附魔台
@@ -1149,13 +1132,13 @@ Mods: {
 			Infusion: 武器融合
 			Item: 物品
 			LevelUp: 提升等级
-			Loadouts: Loadouts
+			Loadouts: 装载
 			LootAll: 一键收取
 			No: 否
 			Offer: 熔炼回收
-			Storage: Storage
+			Storage: 贮存
 			Syphon: 吸取经验
-			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
+			ToggleAutoTrashOfferedItems: 切换自动回收站提供的项目
 			utility0: 只有效用附魔可以放到这里。
 			weapon0: 在此处放置武器、盔甲或饰品。
 			xp: 给
@@ -1223,9 +1206,9 @@ Mods: {
 				DamageReduction: 伤害减免
 				DangerSense: 危险感
 				Daybreak: 破晓
-				DayEventUpdateRate: Day Event Update Rate
-				DayTileUpdateRate: Day Tile Update Rate
-				DayTimeRate: Day Time Rate
+				DayEventUpdateRate: 日间活动更新率
+				DayTileUpdateRate: 日图块更新率
+				DayTimeRate: 日间费率
 				Defense: 防御
 				EnemyMaxSpawns: 敌人生成上限
 				EnemySpawnRate: 敌人生成率
@@ -1255,13 +1238,13 @@ Mods: {
 				LifeSteal: 生命窃取
 				Luck: 运气
 				MagicClassSwap: 魔法类型伤害转换
-				Magnetic: Magnetic
+				Magnetic: 磁的
 				ManaUsage1: 减少魔力消耗
 				ManaUsage2: 增加魔力消耗
 				MaxFallSpeed: 最大降速
 				MaxKi: Ki上限
 				MaxLife: 生命上限
-				MaxLifeSteal: Max Life Steal
+				MaxLifeSteal: 最大生命窃取
 				MaxMinions: 仆从上限
 				MaxMP: 魔力上限
 				MeleeClassSwap: 近战类型伤害转换
@@ -1274,9 +1257,9 @@ Mods: {
 				MovementSpeed: 移动速度
 				MPBonusRegen: 魔力再生
 				Multishot: 多发
-				NightEventUpdateRate: Night Event Update Rate
-				NightTileUpdateRate: Night Tile Update Rate
-				NightTimeRate: Night Time Rate
+				NightEventUpdateRate: 夜间活动更新率
+				NightTileUpdateRate: 夜间图块更新率
+				NightTimeRate: 夜间价格
 				NpcContactAngler: 钓鱼者
 				NPCHitCooldown: 命中冷却
 				ObsidianSkin: 黑曜石皮肤
@@ -1285,23 +1268,23 @@ Mods: {
 				OnHitSpawnProjectile: 命中时生成弹幕
 				Peace: 和平
 				PennyPinching: 锱铢必较
-				PercentArmorPenetration: Percent Armor Penetration
-				PickupRange: Pickup Range
-				Poison: Poison
+				PercentArmorPenetration: 装甲穿透百分比
+				PickupRange: 拾取范围
+				Poison: 毒
 				PrideOfTheWeak: 弱者的意志
 				ProjectileVelocity: 子弹速度
 				QuestFishChance: 任务鱼几率
 				RangedClassSwap: 远程类型伤害转换
 				ReducedManaUsage: 减少魔力消耗
 				RogueClassSwap: 盗贼类型伤害转换
-				Shadowflame: Shadowflame
+				Shadowflame: 暗影烈焰
 				Shine: 闪耀
 				Size: 大小
 				SolarDash: 太阳能短跑
 				Sonar: 声纳
 				Spelunker: 探险者
 				ThrowingClassSwap: 投掷类交换
-				Time: Time
+				Time: 时间
 				VanillaDash1: 忍者袜短跑
 				VanillaDash2: 克苏鲁之眼盾冲刺
 				VanillaDash3: 太阳能短跑
@@ -1319,7 +1302,7 @@ Mods: {
 				CalamityMod: （灾厄模组附魔）
 				DBZMODPORT: (龙珠模组附魔)
 				ThoriumMod: （Throium Mod 附魔）
-				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
+				Time: 时间效果随机化，有 6 个选项：白天/夜间时间速率、图块更新速率、事件更新速率
 				WorldAblaze:
 					'''
 					（天照减益和以下关于它的注释仅适用于附魔第4阶。）
@@ -1333,7 +1316,7 @@ Mods: {
 			EnchantmentEffects: {
 				AmmoCost: “{0}（钓鱼时也可以节省诱饵）”
 				AttackSpeed: “{0}（如果仆从发射弹幕，则会影响他们的射速。还会影响鱼上钩的速度。）”
-				AutoReuse: Auto Reuse
+				AutoReuse: 自动重用
 				BonusCoins:
 					'''
 					{0}（击中敌人会增加掉落的钱币数量
@@ -1350,19 +1333,19 @@ Mods: {
 					OnTickPlayerBuff: “{0}（每 {3} 个有 {1}% 的几率获得 {2} 增益）”
 				}
 
-				CatastrophicRelease: Catastrophic Release
-				Channel: Channel
-				CrateChance: Crate Chance
-				CriticalStrikeChance: Critical Strike Chance
-				CriticalStrikeDamage: Critical Strike Damage
-				DamageAfterDefenses: Damage After Defenses
-				DamageClassSwap: Damage Class Swap
-				DamageReduction: Damage Reduction
-				DayEventUpdateRate: Day Event Update Rate
-				DayTileUpdateRate: Day Tile Update Rate
-				DayTimeRate: Day Time Rate
-				Defense: Defense
-				EnemyMaxSpawns: Enemy Max Spawns
+				CatastrophicRelease: 灾难性释放
+				Channel: 渠道
+				CrateChance: 箱子机会
+				CriticalStrikeChance: 暴击率
+				CriticalStrikeDamage: 暴击伤害
+				DamageAfterDefenses: 防御后伤害
+				DamageClassSwap: 伤害等级交换
+				DamageReduction: 减少伤害
+				DayEventUpdateRate: 日间活动更新率
+				DayTileUpdateRate: 日图块更新率
+				DayTimeRate: 日间费率
+				Defense: 防御
+				EnemyMaxSpawns: 敌人最大生成量
 				EnemySpawnRate:
 					'''
 					{0}
@@ -1372,41 +1355,41 @@ Mods: {
 					（生成的敌人将免疫熔岩/陷阱）
 					'''
 				FishingEnemySpawnChance: “{0}（白天减少 5 倍。受 Chum Caster 影响。还可以生成猪龙鲨公爵。）”
-				FishingPower: Fishing Power
-				FlatMPRegen: Flat MP Regen
+				FishingPower: 渔力
+				FlatMPRegen: 固定 MP 恢复
 				GodSlayer:
 					'''
 					{0}
 					（基于敌人最大生命值的额外伤害）
 					（额外伤害不受生命窃取影响）
 					'''
-				InfinitePenetration: Infinite Penetration
+				InfinitePenetration: 无限穿透
 				ItemCooldown: “（物品冷却时间等于 {0} 使用速度）”
-				JumpSpeed: Jump Speed
-				KiDamage: Ki Damage
-				KiRegen: Ki Regen
+				JumpSpeed: 跳跃速度
+				KiDamage: 气伤害
+				KiRegen: 基雷根
 				LavaFishing: “{0}（允许在熔岩中钓鱼并有机会提高在熔岩中的捕获率。可与其他增益叠加。）”
-				LifeRegeneration: Life Regeneration
+				LifeRegeneration: 生命再生
 				LifeSteal: “{0}（保留余数以防止对于低伤害武器总是因为精度原因变为 0）”
-				Luck: Luck
-				ManaUsage: Mana Usage
-				MaxFallSpeed: Max Fall Speed
-				MaxKi: Max Ki
-				MaxLife: Max Life
-				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
-				MaxMinions: Max Minions
-				MaxMP: Max MP
-				MiningSpeed: Mining Speed
+				Luck: 运气
+				ManaUsage: 法力使用
+				MaxFallSpeed: 最大下降速度
+				MaxKi: 马克斯·基
+				MaxLife: 最大寿命
+				MaxLifeSteal: “{0}（可使用的原版吸血池的百分比。）”
+				MaxMinions: 最大小兵
+				MaxMP: 最大MP
+				MiningSpeed: 挖矿速度
 				MinionAttackTarget: 被击中的敌人成为仆从的攻击目标。效果和鞭子一样。
-				MovementAcceleration: Movement Acceleration
-				MovementSlowdown: Movement Slowdown
-				MovementSpeed: Movement Speed
-				MPBonusRegen: MP Bonus Regen
+				MovementAcceleration: 运动加速度
+				MovementSlowdown: 移动速度减慢
+				MovementSpeed: 移动速度
+				MPBonusRegen: MP 奖励回复
 				Multishot: “{0}（产生额外弹幕的机会。适用于每个弹幕。）”
-				NightEventUpdateRate: Night Event Update Rate
-				NightTileUpdateRate: Night Tile Update Rate
-				NightTimeRate: Night Time Rate
-				NPCHitCooldown: NPC Hit Cooldown
+				NightEventUpdateRate: 夜间活动更新率
+				NightTileUpdateRate: 夜间图块更新率
+				NightTimeRate: 夜间价格
+				NPCHitCooldown: NPC 命中冷却时间
 				OneForAll:
 					'''
 					{0}
@@ -1414,16 +1397,16 @@ Mods: {
 					（仅在子弹的第一次命中时有效。）
 					'''
 				OnHitSpawnProjectile: “击中敌人时产生弹幕：{0}”
-				PercentArmorPenetration: Percent Armor Penetration
-				PickupRange: Pickup Range
+				PercentArmorPenetration: 装甲穿透百分比
+				PickupRange: 拾取范围
 				PrideOfTheWeak: "{0} 增加弱武器造成的伤害。（当前灌注能量为0时 100%起效 ，灌注能量越高效果越低，超过500 时不再起效。)"
-				ProjectileVelocity: Projectile Velocity
+				ProjectileVelocity: 弹丸速度
 				QuestFishChance: “{0}（捕获的任务鱼将自动上交并开始新的任务，绕过每天 1 条的限制。）”
-				Size: Size
-				VanillaDash: Vanilla Dash
-				WhipRange: Whip Range
-				WingTime: Wing Time
-				YoyoStringLength: Yoyo String Length
+				Size: 尺寸
+				VanillaDash: 香草冲刺
+				WhipRange: 鞭范围
+				WingTime: 翼时
+				YoyoStringLength: 悠悠球弦长
 
 				BoolEffect: {
 					Enabled: “{0}：启用”
@@ -1481,460 +1464,459 @@ Mods: {
 			}
 		}
 
-		Configs: {
-			ServerConfig: {
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
-
-				DisableResearch: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-				}
-
-				DCUStart: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
-				}
-
-				MinionLifeStealMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Label}"
-				}
-
-				DisableArmorInfusion: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableArmorInfusion.Tooltip}"
-					// Label: Disable Armor Infusion
-				}
-
-				InfusionDamageMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Label}"
-				}
-
-				MultiplicativeCriticalHits: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Label}"
-				}
-
-				AllowCriticalChancePast100: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Label}"
-				}
-
-				ArmorDamageReductions: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductions.Label}"
-				}
-
-				CalculateDamageReductionBeforeDefense: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label}"
-				}
-
-				DamageReductionPerLevelDisabled: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label}"
-				}
-
-				DamagePerLevelInstead: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Label}"
-				}
-
-				CritPerLevelDisabled: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Label}"
-				}
-
-				DisableMinionCrits: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label}"
-				}
-
-				ReduceOfferEfficiencyByBaseInfusionPower: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Label}"
-				}
-
-				ReduceOfferEfficiencyByTableTier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label}"
-				}
-
-				PercentOfferEssence: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label}"
-				}
-
-				EnchantmentSlotsOnTools: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Label}"
-				}
-
-				EnchantmentSlotsOnFishingPoles: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Label}"
-				}
-
-				EnchantmentSlotsOnAccessories: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Label}"
-				}
-
-				EnchantmentSlotsOnArmor: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Label}"
-				}
-
-				EnchantmentSlotsOnWeapons: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Label}"
-				}
-
-				AllowHighTierOres: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Label}"
-				}
-
-				PreventPowerBoosterFromPreHardMode: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Label}"
-				}
-
-				CrateDropChance: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Label}"
-				}
-
-				ChestSpawnChance: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Label}"
-				}
-
-				EnchantmentDropChance: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Label}"
-				}
-
-				BossEnchantmentDropChance: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Label}"
-				}
-
-				EssenceGrabRange: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Label}"
-				}
-
-				GatheringExperienceMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Label}"
-				}
-
-				ExperienceMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Label}"
-				}
-
-				BossExperienceMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Label}"
-				}
-
-				EssenceMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Label}"
-				}
-
-				BossEssenceMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Label}"
-				}
-
-				RemoveEnchantmentRestrictions: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Label}"
-				}
-
-				ConfigCapacityCostMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Label}"
-				}
-
-				ReduceRecipesToMinimum: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Label}"
-				}
-
-				AmaterasuSelfGrowthPerTick: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Label}"
-				}
-
-				BuffDuration: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BuffDuration.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.BuffDuration.Label}"
-				}
-
-				AutoReuseDisabledOnMagicMissile: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label}"
-				}
-
-				AttackSpeedEnchantmentAutoReuseSetpoint: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Label}"
-				}
-
-				AffectOnVanillaLifeStealLimmit: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Label}"
-				}
-
-				AlwaysOverrideDamageType: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Label}"
-				}
-
-				individualStrengths: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengths.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengths.Label}"
-				}
-
-				individualStrengthsEnabled: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label}"
-				}
-
-				presetData: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.presetData.Label}"
-				}
-
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-			}
-
-			ArmorDamageReduction: {
-				AccessoryDamageReductionPerLevel: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Label}"
-				}
-
-				ArmorDamageReductionPerLevel: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Label}"
-				}
-
-				// Tooltip: ""
-			}
-
-			Pair: {
-				Strength: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Strength.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.Strength.Label}"
-				}
-
-				itemDefinition: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.itemDefinition.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.itemDefinition.Label}"
-				}
-
-				// Tooltip: ""
-			}
-
-			PresetData: {
-				LegendaryEnchantmentStrengthMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label}"
-				}
-
-				EpicEnchantmentStrengthMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label}"
-				}
-
-				RareEnchantmentStrengthMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label}"
-				}
-
-				CommonEnchantmentStrengthMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label}"
-				}
-
-				BasicEnchantmentStrengthMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label}"
-				}
-
-				GlobalEnchantmentStrengthMultiplier: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label}"
-				}
-
-				Preset: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Preset.Tooltip}"
-					// Label: Preset
-				}
-
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label}"
-				}
-
-				// Tooltip: ""
-			}
-
-			ClientConfig: {
-				OnlyShowErrorMessagesInChatOnce: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Label}"
-				}
-
-				DisableAllErrorMessagesInChat: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label}"
-				}
-
-				LogDummyDPS: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Label}"
-				}
-
-				EnableSwappingWeapons: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Label}"
-				}
-
-				PrintWeaponInfusionPowers: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label}"
-				}
-
-				PrintLocalizationLists: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintLocalizationLists.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintLocalizationLists.Label}"
-				}
-
-				PrintEnchantmentDrops: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Label}"
-				}
-
-				PrintEnchantmentTooltips: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label}"
-				}
-
-				UITransparency: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.UITransparency.Label}"
-				}
-
-				AlwaysDisplayToolLevelUpMessages: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label}"
-				}
-
-				AlwaysDisplayAccessoryLevelUpMessages: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label}"
-				}
-
-				AlwaysDisplayArmorLevelUpMessages: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label}"
-				}
-
-				AlwaysDisplayWeaponLevelUpMessages: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label}"
-				}
-
-				DisplayApproximateWeaponDamageTooltip: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Label}"
-				}
-
-				UsePointsAsTooltip: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Label}"
-				}
-
-				AllowInfusingToLowerPower: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Label}"
-				}
-
-				AllowCraftingIntoLowerTier: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label}"
-				}
-
-				AlwaysDisplayInfusionPower: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Label}"
-				}
-
-				AllowShiftClickMoveFavoritedItems: {
-					// Tooltip: ""
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowShiftClickMoveFavoritedItems.Label}"
-				}
-
-				OfferAll: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OfferAll.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.OfferAll.Label}"
-				}
-
-				teleportEssence: {
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.teleportEssence.Tooltip}"
-					// Label: "{$Mods.WeaponEnchantments.Config.teleportEssence.Label}"
-				}
-
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ClientConfig.Label}"
-			}
+		Tiles: {
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 
 		NPCs: {
 			Witch: {
-				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
-					// LikeNPC_Princess: I like {NPCName}.
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-				}
-
 				// DisplayName: Witch
-				// Census.SpawnCondition: Have an enchantment in your inventory or on your equipment.
+
+				TownNPCMood: {
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
+				}
 			}
 		}
 
-		Tiles: {
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+		Configs: {
+			ClientConfig: {
+				// DisplayName: "{$Mods.WeaponEnchantments.Config.ClientConfig.Label}"
+
+				teleportEssence: {
+					// Label: "{$Mods.WeaponEnchantments.Config.teleportEssence.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.teleportEssence.Tooltip}"
+				}
+
+				OfferAll: {
+					// Label: "{$Mods.WeaponEnchantments.Config.OfferAll.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.OfferAll.Tooltip}"
+				}
+
+				AllowShiftClickMoveFavoritedItems: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowShiftClickMoveFavoritedItems.Label}"
+					// Tooltip: ""
+				}
+
+				AlwaysDisplayInfusionPower: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip}"
+				}
+
+				AllowCraftingIntoLowerTier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label}"
+					// Tooltip: ""
+				}
+
+				AllowInfusingToLowerPower: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Tooltip}"
+				}
+
+				UsePointsAsTooltip: {
+					// Label: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Tooltip}"
+				}
+
+				UseAlternateEnchantmentEssenceTextures: {
+					// Label: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
+				}
+
+				DisplayApproximateWeaponDamageTooltip: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				}
+
+				AlwaysDisplayWeaponLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip}"
+				}
+
+				AlwaysDisplayArmorLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip}"
+				}
+
+				AlwaysDisplayAccessoryLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip}"
+				}
+
+				AlwaysDisplayToolLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip}"
+				}
+
+				UITransparency: {
+					// Label: "{$Mods.androLib.Config.UITransparency.Label}"
+					// Tooltip: ""
+				}
+
+				PrintEnchantmentTooltips: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip}"
+				}
+
+				PrintEnchantmentDrops: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Tooltip}"
+				}
+
+				PrintLocalizationLists: {
+					// Label: "{$Mods.androLib.Config.PrintLocalizationLists.Label}"
+					// Tooltip: "{$Mods.androLib.Config.PrintLocalizationLists.Tooltip}"
+				}
+
+				PrintWeaponInfusionPowers: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip}"
+				}
+
+				EnableSwappingWeapons: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Tooltip}"
+				}
+
+				LogDummyDPS: {
+					// Label: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Tooltip}"
+				}
+
+				DisableAllErrorMessagesInChat: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Tooltip}"
+				}
+
+				OnlyShowErrorMessagesInChatOnce: {
+					// Label: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Tooltip}"
+				}
+			}
+
+			ServerConfig: {
+				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
+
+				presetData: {
+					// Label: "{$Mods.WeaponEnchantments.Config.presetData.Label}"
+					// Tooltip: ""
+				}
+
+				individualStrengthsEnabled: {
+					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Tooltip}"
+				}
+
+				individualStrengths: {
+					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengths.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengths.Tooltip}"
+				}
+
+				AlwaysOverrideDamageType: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Tooltip}"
+				}
+
+				AffectOnVanillaLifeStealLimmit: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Tooltip}"
+				}
+
+				AttackSpeedEnchantmentAutoReuseSetpoint: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Tooltip}"
+				}
+
+				AutoReuseDisabledOnMagicMissile: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip}"
+				}
+
+				BuffDuration: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BuffDuration.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BuffDuration.Tooltip}"
+				}
+
+				AmaterasuSelfGrowthPerTick: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Tooltip}"
+				}
+
+				ReduceRecipesToMinimum: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Tooltip}"
+				}
+
+				ConfigCapacityCostMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Tooltip}"
+				}
+
+				RemoveEnchantmentRestrictions: {
+					// Label: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Tooltip}"
+				}
+
+				BossEssenceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Tooltip}"
+				}
+
+				EssenceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Tooltip}"
+				}
+
+				BossExperienceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Tooltip}"
+				}
+
+				ExperienceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Tooltip}"
+				}
+
+				GatheringExperienceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Tooltip}"
+				}
+
+				EssenceGrabRange: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Tooltip}"
+				}
+
+				BossEnchantmentDropChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Tooltip}"
+				}
+
+				EnchantmentDropChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Tooltip}"
+				}
+
+				ChestSpawnChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Tooltip}"
+				}
+
+				CrateDropChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip}"
+				}
+
+				PreventPowerBoosterFromPreHardMode: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Tooltip}"
+				}
+
+				AllowHighTierOres: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Tooltip}"
+				}
+
+				EnchantmentSlotsOnWeapons: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Tooltip}"
+				}
+
+				EnchantmentSlotsOnArmor: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Tooltip}"
+				}
+
+				EnchantmentSlotsOnAccessories: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Tooltip}"
+				}
+
+				EnchantmentSlotsOnFishingPoles: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Tooltip}"
+				}
+
+				EnchantmentSlotsOnTools: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Tooltip}"
+				}
+
+				PercentOfferEssence: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label}"
+					// Tooltip: ""
+				}
+
+				ReduceOfferEfficiencyByTableTier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip}"
+				}
+
+				ReduceOfferEfficiencyByBaseInfusionPower: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Tooltip}"
+				}
+
+				DisableMinionCrits: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip}"
+				}
+
+				CritPerLevelDisabled: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Tooltip}"
+				}
+
+				DamagePerLevelInstead: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Tooltip}"
+				}
+
+				DamageReductionPerLevelDisabled: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip}"
+				}
+
+				CalculateDamageReductionBeforeDefense: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Tooltip}"
+				}
+
+				ArmorDamageReductions: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductions.Label}"
+					// Tooltip: ""
+				}
+
+				AllowCriticalChancePast100: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Tooltip}"
+				}
+
+				MultiplicativeCriticalHits: {
+					// Label: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Tooltip}"
+				}
+
+				InfusionDamageMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Tooltip}"
+				}
+
+				DisableArmorInfusion: {
+					// Label: Disable Armor Infusion
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableArmorInfusion.Tooltip}"
+				}
+
+				MinionLifeStealMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Tooltip}"
+				}
+
+				DCUStart: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
+				}
+
+				DisableResearch: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
+					// Tooltip: ""
+				}
+
+				PrintWikiInfo: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
+				}
+			}
+
+			PresetData: {
+				// Tooltip: ""
+
+				AutomaticallyMatchPreseTtoWorldDifficulty: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label}"
+					// Tooltip: ""
+				}
+
+				Preset: {
+					// Label: Preset
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.Preset.Tooltip}"
+				}
+
+				GlobalEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				BasicEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				CommonEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				RareEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				EpicEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				LegendaryEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip}"
+				}
+			}
+
+			Pair: {
+				// Tooltip: ""
+
+				itemDefinition: {
+					// Label: "{$Mods.WeaponEnchantments.Config.itemDefinition.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.itemDefinition.Tooltip}"
+				}
+
+				Strength: {
+					// Label: "{$Mods.WeaponEnchantments.Config.Strength.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.Strength.Tooltip}"
+				}
+			}
+
+			ArmorDamageReduction: {
+				// Tooltip: ""
+
+				ArmorDamageReductionPerLevel: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Tooltip}"
+				}
+
+				AccessoryDamageReductionPerLevel: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Tooltip}"
+				}
+			}
 		}
 	}
 }

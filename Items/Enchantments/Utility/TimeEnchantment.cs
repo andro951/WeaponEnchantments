@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class TimeEnchantment : Enchantment, IRerollableEnchantment
 	{
-		public override string CustomTooltip => EnchantmentTypeName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
 		public override void GetMyStats() {

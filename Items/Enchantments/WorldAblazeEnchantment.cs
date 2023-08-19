@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class WorldAblazeEnchantment : Enchantment
 	{
-		public override string CustomTooltip => EnchantmentTypeName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
 		public override void GetMyStats() {

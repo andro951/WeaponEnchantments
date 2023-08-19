@@ -19,6 +19,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items.Enchantments.Utility;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib.Items;
 
 namespace WeaponEnchantments.Items
 {
@@ -634,7 +635,7 @@ namespace WeaponEnchantments.Items
 
 			return s;
 		}
-		protected string GetLocalizationTypeName(string s = null, IEnumerable<object> args = null) => (s ?? EnchantmentTypeName).Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName, args);
+		protected string GetLocalizationTypeName(string s = null, IEnumerable<object> args = null) => (s ?? EnchantmentTypeName).Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName, args);
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			var tooltipTuples = GenerateFullTooltip();
 			foreach (var tooltipTuple in tooltipTuples) {
@@ -699,7 +700,7 @@ namespace WeaponEnchantments.Items
 
 			return fullTooltip;
 		}
-		private static string GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID id, object arg = null) => id.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { arg });
+		private static string GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID id, object arg = null) => id.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { arg });
 		public IEnumerable<Tuple<string, Color>> GetAllowedListTooltips() {
 			string tooltip = "";
 			int count = AllowedList.Count;
@@ -723,7 +724,7 @@ namespace WeaponEnchantments.Items
 						tooltip += ", ";
 					}
 
-					tooltip += $"{key.ToString().Lang(L_ID1.Tooltip, L_ID2.ItemType)}: {AllowedList[key].Percent()}%";
+					tooltip += $"{key.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType)}: {AllowedList[key].Percent()}%";
 
 					i++;
 					if (i == count) {
@@ -767,25 +768,25 @@ namespace WeaponEnchantments.Items
 			int damageType = GetDamageClass(type);
 
 			if (damageType <= (int)DamageClassID.Default)
-				return DamageClassID.Generic.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+				return DamageClassID.Generic.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 
 			switch (damageType) {
 				case (int)DamageClassID.MagicSummonHybrid:
-					return DamageClassID.Summon.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+					return DamageClassID.Summon.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 				case (int)DamageClassID.MeleeNoSpeed:
-					return DamageClassID.Melee.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+					return DamageClassID.Melee.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 			}
 
 			if (damageType <= (int)DamageClassID.Throwing)
-				return ((DamageClassID)damageType).ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+				return ((DamageClassID)damageType).ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 
 			if (WEMod.calamityEnabled) {
 				int rogue = ModIntegration.CalamityValues.rogue.Type;
 				if (damageType == rogue)
-					return DamageClassID.Rogue.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+					return DamageClassID.Rogue.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 			}
 
-			return DamageClassID.Generic.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+			return DamageClassID.Generic.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 		}
 		private uint GetBuffDuration() {
 			return defaultBuffDuration * ((uint)EnchantmentTier + 1);

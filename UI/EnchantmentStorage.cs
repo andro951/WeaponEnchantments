@@ -31,6 +31,8 @@ using Humanizer;
 using WeaponEnchantments.Common.Utility.LogSystem;
 using androLib.Common.Utility;
 using androLib.UI;
+using androLib.Common.Globals;
+using androLib;
 
 namespace WeaponEnchantments.UI
 {
@@ -57,8 +59,8 @@ namespace WeaponEnchantments.UI
 		public static int EnchantmentStorageUIDefaultLeft => 600;
 		public static int EnchantmentStorageUIDefaultTop => 5;
 		public static Color PanelColor => new Color(26, 2, 56, UIManager.UIAlpha);
-		public static Color SelectedTextGray => new(100, 100, 100);
-		public static Color VacuumPurple => new(162, 22, 255);
+		public static Color SelectedTextGray => BagUI.SelectedTextGray;
+		public static Color VacuumPurple => BagUI.VacuumPurple;
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		public const float buttonScaleMinimum = 0.75f;
@@ -156,7 +158,7 @@ namespace WeaponEnchantments.UI
 				//Name Data
 				int nameLeft = itemSlotsLeft;//itemSlotsLeft + (itemSlotsWidth - nameWidth) / 2;
 				int nameTop = wePlayer.enchantmentStorageUITop + PanelBorder;
-				string name = EnchantmentStorageTextID.EnchantmentStorage.ToString().Lang(L_ID1.EnchantmentStorageText);
+				string name = EnchantmentStorageTextID.EnchantmentStorage.ToString().Lang_WE(L_ID1.EnchantmentStorageText);
 				UITextData nameData = new(WE_UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
 
 				//Panel Data 1/2
@@ -180,7 +182,7 @@ namespace WeaponEnchantments.UI
 				UITextData[] textButtons = new UITextData[EnchantmentStorageButtonID.Count];
 				int longestButtonNameWidth = 0;
 				for (int buttonIndex = 0; buttonIndex < EnchantmentStorageButtonID.Count; buttonIndex++) {
-					string text = ((EnchantmentStorageTextID)buttonIndex).ToString().Lang(L_ID1.EnchantmentStorageText);
+					string text = buttonIndex >= (int)StorageTextID.ButtonCount ? ((EnchantmentStorageTextID)buttonIndex).ToString().Lang_WE(L_ID1.EnchantmentStorageText) : ((StorageTextID)buttonIndex).ToString().Lang(AndroMod.ModName, L_ID1.StorageText);
 					float scale = ButtonScale[buttonIndex];
 					Color color;
 					if (buttonIndex == EnchantmentStorageButtonID.ToggleVacuum && wePlayer.vacuumItemsIntoEnchantmentStorage) {
@@ -335,7 +337,7 @@ namespace WeaponEnchantments.UI
 									if (MasterUIManager.LeftMouseClicked) {
 										item.favorited = !item.favorited;
 										SoundEngine.PlaySound(SoundID.MenuTick);
-										if (item.TryGetGlobalItem(out VacuumToStorageItems vacummItem2))
+										if (item.TryGetGlobalItem(out VacuumToStorageItem vacummItem2))
 											vacummItem2.favorited = item.favorited;
 									}
 								}
@@ -404,7 +406,7 @@ namespace WeaponEnchantments.UI
 									slotData.ClickInteractions(ref item);
 							}
 
-							if (!item.IsAir && !item.favorited && item.TryGetGlobalItem(out VacuumToStorageItems vacummItem) && vacummItem.favorited)
+							if (!item.IsAir && !item.favorited && item.TryGetGlobalItem(out VacuumToStorageItem vacummItem) && vacummItem.favorited)
 								item.favorited = true;
 
 							if (isTrash && !item.favorited) {
@@ -612,16 +614,20 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static bool CanVauumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && RoomInStorage(item);
+		public static bool CanVacuumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && (RoomInStorage(item) || CanBeTrashed(item));
+		public static bool CanBeTrashed(Item item) => WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(item.type.GetItemIDOrName());
 		public static bool TryVacuumItem(ref Item item, Player player) {
-			if (CanVauumItem(item, player))
+			if (CanVacuumItem(item, player))
 				return DepositAll(ref item);
 
 			return false;
 		}
 		public static bool DepositAll(ref Item item) => DepositAll(new Item[] { item });
 		public static bool DepositAll(Item[] inv) {
+			UncraftTrash(inv);
+
 			bool transferedAnyItem = QuickStack(inv, false);
+
 			int storageIndex = 0;
 			for (int i = 0; i < inv.Length; i++) {
 				ref Item item = ref inv[i];
@@ -632,6 +638,7 @@ namespace WeaponEnchantments.UI
 
 					if (storageIndex < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length) {
 						WEPlayer.LocalWEPlayer.enchantmentStorageItems[storageIndex] = item.Clone();
+
 						item.TurnToAir();
 						transferedAnyItem = true;
 					}

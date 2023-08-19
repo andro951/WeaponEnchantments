@@ -5,8 +5,7 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Common.Utility
 {
-    public static class ChatMessagesIDs
-    {
+    public static class ChatMessagesIDs {
         public const int AlwaysShowInfusionError = -6;
         public const int AlwaysShowItemInfusionPowersNotSetup = -5;
         public const int AlwaysShowDuplicateItemInWitchsShop = -4;
@@ -30,13 +29,12 @@ namespace WeaponEnchantments.Common.Utility
         public const int OreInfusionPowerNotSetup = 14;
         public const int NPCSpawnSourceNotSetup = 15;
     }
-    public static class LogMethods
-    {
+    public static class LogMethods {
         public readonly static bool debugging = false;
         public readonly static bool debuggingOnTick = false;
         private static int charNum = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
-        public static string reportMessage = "\nPlease report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time.";
+        public static string reportMessage = "\nPlease report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.";
         public static HashSet<int> LoggedChatMessagesIDs = new HashSet<int>();
 
         /// <summary>
@@ -47,7 +45,7 @@ namespace WeaponEnchantments.Common.Utility
         /// </summary>
         /// <param name="s">Message that will be printed </param>
         /// <param name="messageID"></param>
-        public static void LogNT(this string s, int messageID) {
+        public static void LogNT_WE(this string s, int messageID) {
             s += $" Main.GameUpdateCount: {Main.GameUpdateCount}" + reportMessage;
 
             if (Main.netMode < NetmodeID.Server) {
@@ -68,7 +66,7 @@ namespace WeaponEnchantments.Common.Utility
                     Main.NewText(s);
             }
 
-            s.Log();
+            s.Log_WE();
         }
 
         /// <summary>
@@ -78,13 +76,13 @@ namespace WeaponEnchantments.Common.Utility
         /// This will add a "|" to Log messages made within the method to help visually follow the exicution in the .log file.
         /// </summary>
         /// <param name="s">Message that will be printed</param>
-        public static void Log(this string s) {
+        public static void Log_WE(this string s) {
             s.UpdateCharNum();
             ModContent.GetInstance<WEMod>().Logger.Info(s.AddCharToFront());
             s.UpdateCharNum(true);
         }
 
-        public static void LogSimple(this string s) {
+        public static void LogSimple_WE(this string s) {
             ModContent.GetInstance<WEMod>().Logger.Info(s);
         }
 
@@ -96,7 +94,7 @@ namespace WeaponEnchantments.Common.Utility
         /// This will add a "|" to Log messages made within the method to help visually follow the exicution in the .log file.
         /// </summary>
         /// <param name="s">Message that will be printed</param>
-        public static void LogT(this string s) {
+        public static void LogT_WE(this string s) {
             //Try to remove any messages that were called 60 ticks or more before now.
             foreach (string key in logsT.Keys) {
                 if (logsT[key] + 60 <= Main.GameUpdateCount)
@@ -104,7 +102,7 @@ namespace WeaponEnchantments.Common.Utility
             }
 
             if (!logsT.ContainsKey(s)) {
-                s.Log();
+                s.Log_WE();
                 logsT.Add(s, Main.GameUpdateCount);
             }
         }
@@ -118,9 +116,4 @@ namespace WeaponEnchantments.Common.Utility
         }
         private static string AddCharToFront(this string s, char c = '|') => new string(c, charNum) + s;
     }
-
-    public class LogMessager
-	{
-        public static int id;
-	}
 }

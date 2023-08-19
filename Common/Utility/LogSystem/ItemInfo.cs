@@ -15,15 +15,16 @@ using Terraria.GameContent.UI;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
+using androLib.Items;
 using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
     public class ItemInfo {
-        public WEModItem WEModItem { private set; get; }
+        public AndroModItem androModItem { private set; get; }
         public Item Item { private set; get; }
-        public ItemInfo(WEModItem weModItem) {
-            WEModItem = weModItem;
+        public ItemInfo(AndroModItem weModItem) {
+            androModItem = weModItem;
             Item = new(weModItem.Type);
         }
         public ItemInfo(Item item) {
@@ -65,7 +66,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             //Buy
             if (buy && TryGetShopPrice())
-                info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}{(WEModItem is ISoldByWitch soldByWitch ? $" ({soldByWitch.SellCondition.ToString().AddSpaces()})" : "")}" });
+                info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}{(androModItem is ISoldByWitch soldByWitch ? $" ({soldByWitch.SellCondition.ToString().AddSpaces()})" : "")}" });
 
             //Sell
             if (sell)
@@ -77,11 +78,11 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: FloatID.right, collapsible: true);
         }
-        public string Name => WEModItem.Name.AddSpaces();
+        public string Name => androModItem.Name.AddSpaces();
         public string Image => $"{Item.ToItemPNG(displayName: false)}";
         public void GetArtists(out string artistString, out string artModifiedBy) {
-            artistString = WEModItem.Artist;
-            artModifiedBy = WEModItem.ArtModifiedBy;
+            artistString = androModItem.Artist;
+            artModifiedBy = androModItem.ArtModifiedBy;
             if (artistString == "andro951")
                 artistString = null;
 
@@ -103,7 +104,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public string GetItemTypes() {
             string typeText = "";
             bool first = true;
-            foreach (WikiTypeID id in WEModItem.WikiItemTypes) {
+            foreach (WikiTypeID id in androModItem.WikiItemTypes) {
                 if (first) {
                     first = false;
                 }
@@ -117,7 +118,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             return typeText;
         }
-        public string Tooltip => GetTooltip(WEModItem);
+        public string Tooltip => GetTooltip(androModItem);
         public string Rarity {
             get {
                 string rareString = GetRarity(out Color color);
@@ -173,7 +174,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     int minDropped = enemyDrops[type][npcNetID].stackMin;
                     int maxDropped = enemyDrops[type][npcNetID].stackMax;
                     float chance = enemyDrops[type][npcNetID].dropRate;
-                    bool configDrop = WEModItem.ConfigOnlyDrop && WEGlobalNPC.PreHardModeBossTypes.Contains(npcNetID);
+                    bool configDrop = androModItem is WEModItem weModItem && weModItem.ConfigOnlyDrop && WEGlobalNPC.PreHardModeBossTypes.Contains(npcNetID);
                     string chanceString = $"{(configDrop ? "(" : "")}{chance.PercentString()}{(configDrop ? ")<br/>if config enabled" : "")}";
                     List<string> dropInfo = new() { $"{npcNetID.ToNpcPNG(link: true)}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chanceString };//Make vanilla link option to vanilla wiki
                     allDropInfo.Add(dropInfo);
@@ -271,7 +272,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         }
         public void AddInfo(WebPage webpage) {
             //webpage.AddParagraph($"Tooltip:<br/>{Tooltip}");
-            if (TryGetShopPrice() && WEModItem is ISoldByWitch soldByWitch) {
+            if (TryGetShopPrice() && androModItem is ISoldByWitch soldByWitch) {
                 webpage.NewLine();
                 string sellPriceString = ShopPrice.GetCoinsPNG();
                 //string sellText = $"Can appear in the Witch's shop for {sellPriceString}. ({soldByWitch.SellCondition.ToString().AddSpaces()})";
@@ -283,7 +284,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             if (ShopPrice != 0)
                 return true;
 
-            if (WEModItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
+            if (androModItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
                 ShopPrice = (int)((float)Item.value * soldByWitch.SellPriceModifier);
                 return true;
             }
@@ -321,7 +322,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 recipesAdded = true;
 
             if (!recipesAdded)
-                $"No recipe found for {Item.S()}".Log();
+                $"No recipe found for {Item.S()}".Log_WE();
 
             if (myRecipes.Count == 1)
                 myRecipes = new();

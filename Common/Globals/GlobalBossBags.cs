@@ -93,7 +93,7 @@ namespace WeaponEnchantments.Common.Globals
                         case ItemID.CultistBossBag:
                             break;
                         default:
-							$"Boss bag not in AllItemDropsFromNpcs: {bossBagType.CSI().S()}".LogSimple();
+							$"Boss bag not in AllItemDropsFromNpcs: {bossBagType.CSI().S()}".LogSimple_WE();
 							break;
                     }
                     
@@ -109,7 +109,7 @@ namespace WeaponEnchantments.Common.Globals
 				}
             }
 
-            if (Debugger.IsAttached) bossBagNPCs.Select(p => $"{p.Key.GetNPCIDOrName()} : {p.Value.GetItemIDOrName()}").S("bossBagNPCs").LogSimple();
+            if (Debugger.IsAttached) bossBagNPCs.Select(p => $"{p.Key.GetNPCIDOrName()} : {p.Value.GetItemIDOrName()}").S("bossBagNPCs").LogSimple_WE();
         }
 	}
 }

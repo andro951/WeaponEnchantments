@@ -4,6 +4,8 @@ using WeaponEnchantments.Effects;
 using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using System.Collections.Generic;
+using androLib.Items;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments
 {

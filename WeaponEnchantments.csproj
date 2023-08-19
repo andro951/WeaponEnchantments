@@ -31,11 +31,17 @@
 	  <Reference Include="androLib">
 		  <HintPath>..\androLib\bin\Debug\net6.0\androLib.dll</HintPath>
 	  </Reference>
+	  <Reference Include="VacuumOreBag">
+		  <HintPath>..\VacuumOreBag\bin\Debug\net6.0\VacuumOreBag.dll</HintPath>
+	  </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\CustomBoolEffects\" />
     <Folder Include="ModLib\KokoLib\KokoLibSourceFiles\Emitters\" />
 	<Folder Include="NPCs\" />
     <Folder Include="UI\InfoDisplays\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\androLib\androLib.csproj" />
   </ItemGroup>
 </Project>

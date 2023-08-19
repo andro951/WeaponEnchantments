@@ -35,6 +35,7 @@ namespace WeaponEnchantments
 {
 	using androLib.Common.Globals;
 	using androLib.UI;
+	using VacuumOreBag.Items;
 
 	public class WEModSystem : ModSystem {
         public static bool FavoriteKeyDown => Main.keyState.IsKeyDown(Main.FavoriteKey);
@@ -332,10 +333,10 @@ namespace WeaponEnchantments
             }
         }
         public override void AddRecipeGroups() {
-            RecipeGroup group = new RecipeGroup(() => "Any Common Gem", OreBagUI.CommonGems.ToArray());
+            RecipeGroup group = new RecipeGroup(() => "Any Common Gem", OreBag.CommonGems.ToArray());
             RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
 
-            group = new RecipeGroup(() => "Any Rare Gem", OreBagUI.RareGems.ToArray());
+            group = new RecipeGroup(() => "Any Rare Gem", OreBag.RareGems.ToArray());
             RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
 
             group = new RecipeGroup(() => "Workbenches", new int[] {
