@@ -614,7 +614,7 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static bool CanVacuumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && (RoomInStorage(item) || CanBeTrashed(item));
+		public static bool CanVacuumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.highestTableTierUsed >= 0 && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && (RoomInStorage(item) || CanBeTrashed(item));
 		public static bool CanBeTrashed(Item item) => WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(item.type.GetItemIDOrName());
 		public static bool TryVacuumItem(ref Item item, Player player) {
 			if (CanVacuumItem(item, player))

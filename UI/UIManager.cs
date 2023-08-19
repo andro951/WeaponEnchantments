@@ -66,10 +66,13 @@ namespace WeaponEnchantments.UI
 			MasterUIManager.ShouldPreventRecipeScrolling.Add(() => MasterUIManager.HoveringMyUIType(WE_UI_ID.EnchantmentLoadout_UITypeID) && EnchantmentLoadoutUI.useingScrollBar);
 
 			StorageManager.CanVacuumItemHandler.Add(EnchantmentStorage.CanVacuumItem);
-
-			//StorageManager.TryReturnItemToPlayerHandler.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
+			StorageManager.CanVacuumItemHandler.Add(EnchantingTableUI.CanVacuumItem);
 
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
+			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantingTableUI.TryVacuumItem(ref item, player));
+
+			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantmentStorage.QuickStack(ref item));
+			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantingTableUI.QuickStack(ref item));
 
 			StorageManager.CloseAllStorageUIEvent += () => {
 				if (WEPlayer.LocalWEPlayer.usingEnchantingTable)

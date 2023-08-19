@@ -70,7 +70,6 @@ namespace WeaponEnchantments
 			}
 
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
-			On_ChestUI.LootAll += OnChestUI_LootAll;
 			On_Item.GetShimmered += On_Item_GetShimmered;
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
@@ -175,46 +174,6 @@ namespace WeaponEnchantments
 			}
 
 			orig(self, thePlayer, itemType);
-		}
-		private void OnChestUI_LootAll(On_ChestUI.orig_LootAll orig) {//TODO: check this still works with enchantments/essence/ores
-			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			int chest = wePlayer.Player.chest;
-			if (chest != -1) {
-				Item[] chestItmes = wePlayer.Player.GetChestItems();
-				bool synchChest = chest > -1 && Main.netMode == NetmodeID.MultiplayerClient;
-				for (int i = 0; i < chestItmes.Length; i++) {
-					ref Item item = ref chestItmes[i];
-					if (StorageManager.TryVacuumItem(ref item, Main.LocalPlayer)) {
-						if (synchChest)
-							NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
-					}
-				}
-
-				/*
-				if (wePlayer.vacuumItemsIntoEnchantmentStorage) {
-					for (int i = 0; i < chestItmes.Length; i++) {
-						ref Item item = ref chestItmes[i];
-						if (EnchantmentStorage.CanBeStored(item) && EnchantmentStorage.RoomInStorage(item)) {
-							EnchantmentStorage.DepositAll(ref item);
-							if (synchChest)
-								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
-						}
-					}
-				}
-
-				if (wePlayer.vacuumItemsIntoOreBag) {
-					for (int i = 0; i < chestItmes.Length; i++) {
-						ref Item item = ref chestItmes[i];
-						if (OreBagUI.TryVacuumItem(ref item, wePlayer.Player)) {
-							if (synchChest)
-								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
-						}
-					}
-				}
-				*/
-			}
-
-			orig();
 		}
 		private void On_Item_GetShimmered(On_Item.orig_GetShimmered orig, Item self) {
 			EnchantingTableUI.ReturnAllModifications(ref self);

@@ -540,7 +540,7 @@ namespace WeaponEnchantments.UI
 					if (Main.mouseItem.IsAir) {
 						if (!item.IsAir) {
 							if (ItemSlot.ShiftInUse) {
-								if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
+								if (wePlayer.Player.ItemWillBeTrashedFromShiftClick(item)) {
 									normalClickInteractions = false;
 									if (MasterUIManager.LeftMouseClicked)
 										MasterUIManager.SwapMouseItem(ref item);
@@ -551,7 +551,7 @@ namespace WeaponEnchantments.UI
 					else {
 						if (ValidItemForEnchantingSlot(Main.mouseItem)) {
 							if (ItemSlot.ShiftInUse) {
-								if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
+								if (wePlayer.Player.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
 									normalClickInteractions = false;
 									if (MasterUIManager.LeftMouseClicked) {
 										if (item.IsAir)
@@ -662,7 +662,7 @@ namespace WeaponEnchantments.UI
 						else if (Main.mouseItem.IsAir) {
 							if (!item.IsAir) {
 								if (ItemSlot.ShiftInUse) {
-									if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
+									if (wePlayer.Player.ItemWillBeTrashedFromShiftClick(item)) {
 										normalClickInteractions = false;
 										if (MasterUIManager.LeftMouseClicked)
 											MasterUIManager.SwapMouseItem(ref item);
@@ -673,7 +673,7 @@ namespace WeaponEnchantments.UI
 						else {
 							if (ValidItemForEssenceSlot(Main.mouseItem, i)) {
 								if (ItemSlot.ShiftInUse) {
-									if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
+									if (wePlayer.Player.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
 										normalClickInteractions = false;
 										if (MasterUIManager.LeftMouseClicked) {
 											if (item.IsAir)
@@ -1048,7 +1048,7 @@ namespace WeaponEnchantments.UI
 			if (Main.mouseItem.IsAir) {
 				if (!item.IsAir) {
 					if (ItemSlot.ShiftInUse) {
-						if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
+						if (wePlayer.Player.ItemWillBeTrashedFromShiftClick(item)) {
 							normalClickInteractions = false;
 							StorageManager.TryUpdateMouseOverrideForDeposit(item);
 							if (MasterUIManager.LeftMouseClicked) {
@@ -1068,7 +1068,7 @@ namespace WeaponEnchantments.UI
 			else {
 				if (ValidItemForEnchantingTableEnchantmentSlot(Main.mouseItem, slotNum, isUtilitySlot)) {
 					if (ItemSlot.ShiftInUse) {
-						if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
+						if (wePlayer.Player.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
 							normalClickInteractions = false;
 							StorageManager.TryUpdateMouseOverrideForDeposit(item);
 							if (MasterUIManager.LeftMouseClicked) {
@@ -1229,6 +1229,109 @@ namespace WeaponEnchantments.UI
 			}
 
 			return xpInitial - xpNotConsumed;
+		}
+		public static bool CanVacuumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.highestTableTierUsed >= 0 && WEMod.clientConfig.teleportEssence && CanBeStored(item) && RoomInStorage(item);
+		public static bool CanBeStored(Item item) => !item.NullOrAir() && item.ModItem != null && item.ModItem is EnchantmentEssence;
+		public static bool RoomInStorage(Item item, Player player = null) {
+			if (item.NullOrAir())
+				return false;
+
+			if (Main.netMode == NetmodeID.Server)
+				return false;
+
+			if (player == null)
+				player = Main.LocalPlayer;
+
+			if (player.whoAmI != Main.myPlayer)
+				return false;
+
+			EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
+			Item[] essenceSlots = WEPlayer.LocalWEPlayer.enchantingTableEssence;
+			if (essenceSlots == null)
+				return false;
+
+			int tier = essence.EssenceTier;
+			if (essenceSlots[tier] == null)
+				return false;
+
+			int tableStack = essenceSlots[tier].stack;
+			if (tableStack == 0 || tableStack < essenceSlots[tier].maxStack)
+				return true;
+
+			return false;
+		}
+		public static bool TryVacuumItem(ref Item item, Player player) {
+			if (CanVacuumItem(item, player))
+				return DepositAll(ref item);
+
+			return false;
+		}
+		public static bool DepositAll(ref Item item) => DepositAll(new Item[] { item });
+		public static bool DepositAll(Item[] inv) {
+			bool transferedAnyItem = QuickStack(inv, false);
+
+			for (int i = 0; i < inv.Length; i++) {
+				ref Item item = ref inv[i];
+				if (item.NullOrAir() || item.favorited || item.ModItem == null || item.ModItem is not EnchantmentEssence essence)
+					continue;
+
+				Item[] essenceSlots = WEPlayer.LocalWEPlayer.enchantingTableEssence;
+				int storageIndex = essence.EssenceTier;
+				if (essenceSlots[storageIndex] == null)
+					essenceSlots[storageIndex] = new();
+
+				if (essenceSlots[storageIndex].stack > 0) {
+					if (QuickStack(ref item))
+						transferedAnyItem = true;
+				}
+				else {
+					essenceSlots[storageIndex] = item.Clone();
+					item.SetDefaults();
+					transferedAnyItem = true;
+				}
+			}
+
+			if (transferedAnyItem) {
+				SoundEngine.PlaySound(SoundID.Grab);
+				Recipe.FindRecipes(true);
+			}
+
+			return transferedAnyItem;
+		}
+		public static bool QuickStack(ref Item item) => QuickStack(new Item[] { item });
+		public static bool QuickStack(Item[] inv, bool playSound = true) {
+			bool transferedAnyItem = false;
+			SortedDictionary<int, List<int>> nonAirItemsInStorage = new();
+			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantingTableEssence.Length; i++) {
+				int type = WEPlayer.LocalWEPlayer.enchantingTableEssence[i].type;
+				if (type > ItemID.None)
+					nonAirItemsInStorage.AddOrCombine(type, i);
+			}
+
+			for (int i = 0; i < inv.Length; i++) {
+				ref Item item = ref inv[i];
+				if (!item.favorited && CanBeStored(item) && nonAirItemsInStorage.TryGetValue(item.type, out List<int> storageIndexes)) {
+					foreach (int storageIndex in storageIndexes) {
+						ref Item storageItem = ref WEPlayer.LocalWEPlayer.enchantingTableEssence[storageIndex];
+						if (storageItem.stack < item.maxStack) {
+							if (ItemLoader.TryStackItems(storageItem, item, out int transfered)) {
+								transferedAnyItem = true;
+								if (item.stack < 1) {
+									item.TurnToAir();
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (playSound && transferedAnyItem) {
+				SoundEngine.PlaySound(SoundID.Grab);
+				Recipe.FindRecipes(true);
+			}
+
+			return transferedAnyItem;
 		}
 		public static int GetEssence(int tier, int stack, bool canQuckSpawn = true, WEPlayer wePlayer = null) {
 			if (Main.netMode == NetmodeID.Server)

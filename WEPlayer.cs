@@ -51,7 +51,7 @@ namespace WeaponEnchantments
 		internal byte versionUpdate;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
-        public int highestTableTierUsed;
+        public int highestTableTierUsed = -1;
         public bool itemInEnchantingTable;
         public Item itemBeingEnchanted = new();
         static float baseOneForAllRange = 240f;
@@ -309,15 +309,17 @@ namespace WeaponEnchantments
 
 			UpdateEnchantmentEffects();
 
+            //Give all items in old ore bag to player
+			for (int i = 0; i < oreBagItems.Length; i++) {
+				ref Item item = ref oreBagItems[i];
+				if (item.NullOrAir())
+					continue;
+
+				StorageManager.TryReturnItemToPlayer(ref item, Player, true);
+			}
+
+            //Transfer old ore bag settings to AndroLib
 			if (!transferedToAndroLib) {
-				for (int i = 0; i < oreBagItems.Length; i++) {
-					ref Item item = ref oreBagItems[i];
-					if (item.NullOrAir())
-						continue;
-
-					StorageManager.TryReturnItemToPlayer(ref item, Player, true);
-				}
-
 				if (VacuumOreBag.VacuumOreBag.androLibEnabled) {
 					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetUIPosition", OreBag.OreBagStorageID, oreBagUILeft, oreBagUITop);
 					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetShouldVacuum", OreBag.OreBagStorageID, vacuumItemsIntoOreBag);
@@ -360,10 +362,7 @@ namespace WeaponEnchantments
 				tag["allOfferedItems"] = allOfferedItems.ToList();
 
             tag["transferedToAndroLib"] = transferedToAndroLib;
-   //         tag["oreBagItems"] = oreBagItems;//OreBag-Delete
-			//tag["oreBagUILeft"] = oreBagUILeft;//OreBag-Delete
-			//tag["oreBagUITop"] = oreBagUITop;//OreBag-Delete
-			//tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;//OreBag-Delete
+            tag["oreBagItems"] = oreBagItems;
 
 			tag["enchantmentLoadouts"] = enchantmentLoadouts.Select(p => p.Value).ToList();
             tag["loadoutKeys"] = enchantmentLoadouts.Select(p => p.Key).ToList();
@@ -415,18 +414,18 @@ namespace WeaponEnchantments
 			allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));
 
             transferedToAndroLib = tag.Get<bool>("transferedToAndroLib");
-			//transferedToAndroLib = false;//TODO: DELETE ME!!!  For testing only
+
+			//Load old ore bag items to give back to player
+			if (!tag.TryGet("oreBagItems", out oreBagItems))
+                oreBagItems = Enumerable.Repeat(new Item(), OreBagSize).ToArray();
+
 			if (!transferedToAndroLib) {
-				tag.TryGet("oreBagItems", out oreBagItems);
+                //Load old ore bag settings to transfer
 				oreBagUILeft = tag.Get<int>("oreBagUILeft");
 				oreBagUITop = tag.Get<int>("oreBagUITop");
 				MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, 80, 675);
 				if (tag.TryGet("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
 					vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;
-
-				//oreBagUILeft = 80;//TODO: DELETE ME!!!  For testing only
-				//oreBagUITop = 675;//TODO: DELETE ME!!!  For testing only
-				//vacuumItemsIntoOreBag = false;//TODO: DELETE ME!!!  For testing only
 			}
 
 			if (!tag.TryGet("enchantmentLoadouts", out List<List<Item[]>> justLoadouts)) {
@@ -2007,44 +2006,6 @@ namespace WeaponEnchantments
                     player.buffTime[buffIndex] += ticks;
                 }
             }
-        }
-		public static Item[] GetChestItems(this Player player, int chest = int.MinValue) {
-            if (chest == int.MinValue)
-                chest = player.chest;
-
-			switch (chest) {
-				case > -1:
-					return Main.chest[chest].item;
-				case -2:
-					return player.bank.item;
-				case -3:
-					return player.bank2.item;
-				case -4:
-					return player.bank3.item;
-				case -5:
-					return player.bank4.item;
-				default:
-					return new Item[0];
-			}
-		}
-        public static bool ItemWillBeTrashedFromShiftClick(this WEPlayer wePlayer, Item item) {
-            Player player = wePlayer.Player;
-            int stack = item.stack;
-			for (int i = 49; i >= 0; i--) {
-                //Any open invenotry space or a stack of the same item in the inventory can hold the 
-                Item inventoryItem = player.inventory[i];
-				if (inventoryItem.IsAir) {
-                    return false;
-                }
-                else if (inventoryItem.type == item.type) {
-                    int availableStack = Math.Max(inventoryItem.maxStack - inventoryItem.stack, 0);
-					stack -= availableStack;
-					if (stack < 1)
-						return false;
-				}
-			}
-
-            return true;
 		}
 	}
 }
