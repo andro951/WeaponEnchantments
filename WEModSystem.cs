@@ -333,13 +333,7 @@ namespace WeaponEnchantments
             }
         }
         public override void AddRecipeGroups() {
-            RecipeGroup group = new RecipeGroup(() => "Any Common Gem", OreBag.CommonGems.ToArray());
-            RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
-
-            group = new RecipeGroup(() => "Any Rare Gem", OreBag.RareGems.ToArray());
-            RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
-
-            group = new RecipeGroup(() => "Workbenches", new int[] {
+			RecipeGroup group = new RecipeGroup(() => "Workbenches", new int[] {
                 ItemID.WorkBench,
                 ItemID.BambooWorkbench,
                 ItemID.BlueDungeonWorkBench,

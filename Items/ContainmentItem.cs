@@ -71,7 +71,7 @@ namespace WeaponEnchantments.Items
                 recipie = CreateRecipe();
                 recipie.AddTile(TileID.WorkBenches);
                 if (tier == 2) {
-                    recipie.AddRecipeGroup("WeaponEnchantments:CommonGems", 4);
+                    recipie.AddRecipeGroup("androLib:CommonGems", 4);
                 }
                 else {
                     int glassNum = glass[tier];

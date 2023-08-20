@@ -819,10 +819,10 @@ namespace WeaponEnchantments.Items
 
 				//Gems
 				if (EnchantmentTier == 3) {
-					recipe.AddRecipeGroup("WeaponEnchantments:CommonGems", 2);
+					recipe.AddRecipeGroup("androLib:CommonGems", 2);
 				}
 				if (EnchantmentTier == 4) {
-					recipe.AddRecipeGroup("WeaponEnchantments:RareGems");
+					recipe.AddRecipeGroup("androLib:RareGems");
 				}
 
 				//Enchanting Table
@@ -858,7 +858,7 @@ namespace WeaponEnchantments.Items
 
 				//Gems
 				if (EnchantmentTier == 3) {
-					recipe.AddRecipeGroup("WeaponEnchantments:CommonGems", 2);
+					recipe.AddRecipeGroup("androLib:CommonGems", 2);
 				}
 
 				recipe.Register();

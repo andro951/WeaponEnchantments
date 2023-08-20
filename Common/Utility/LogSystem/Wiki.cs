@@ -471,8 +471,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 Enchantments.AddParagraph($"Essence in the enchanting table is available for crafting. There is no need to take them out of the crafting table. " +
                     $"({"https://steamcommunity.com/sharedfiles/filedetails/?id=2563309347&searchtext=magic+storage".ToExternalLink("Magic Storage")} can access the essence via the Environment Simulator.  See {"Magic Storage Integration".ToLink()})<br/>\n" +
                     $"Each enchantment page has the specific crafting recipes for the enchantment.  These are the general recipes:<br/>\n" +
-                    $"Topaz can be any Common Gem: {"WeaponEnchantments:CommonGems".ToItemPNGs(link: true)}<br/>\n" +
-                    $"Amber can be any Rare Gem: {"WeaponEnchantments:RareGems".ToItemPNGs(link: true)}<br/>\n" +
+                    $"Topaz can be any Common Gem: {"androLib:CommonGems".ToItemPNGs(link: true)}<br/>\n" +
+                    $"Amber can be any Rare Gem: {"androLib:RareGems".ToItemPNGs(link: true)}<br/>\n" +
                     $"{"Enchantment Basic".ToLabledPNG()} is used as a generic enchantment when any enchantment could be used.");
 
                 Enchantments.AddSubHeading("Utility Enchantments");
