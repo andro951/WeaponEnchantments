@@ -771,10 +771,7 @@ namespace WeaponEnchantments
 			}
         }
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
-            List<Item> items = new List<Item>() {
-                new(ModContent.ItemType<OreBag>())
-            };
-
+            List<Item> items = new();
             if (WEMod.serverConfig.DCUStart) {
                 Item item = new Item(ItemID.DrillContainmentUnit);
                 items.Add(item);
