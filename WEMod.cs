@@ -89,13 +89,6 @@ namespace WeaponEnchantments
 			hooks = null;
 		}
 		public override void PostSetupContent() {
-			if (ModLoader.TryGetMod("Census", out Mod Census)) {
-				foreach(ModNPC modNPC in ModContent.GetContent<ModNPC>().Where(m => m is INPCWikiInfo wikiInfo && wikiInfo.TownNPC)) {
-					string spawnCondition = ((INPCWikiInfo)modNPC).SpawnCondition;
-					Census.Call("TownNPCCondition", modNPC.Type, spawnCondition);
-				}
-			}
-
 			if (wikiThis != null)
 				wikiThis.Call("url", this, WIKI_URL + "{}");
 		}
