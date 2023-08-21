@@ -71,6 +71,9 @@ namespace WeaponEnchantments
 
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
 			On_Item.GetShimmered += On_Item_GetShimmered;
+			On_WorldGen.KillTile_GetItemDrops += On_WorldGen_KillTile_GetItemDrops;
+			On_HitTile.AddDamage += On_HitTile_AddDamage;
+			On_WorldGen.KillTile_DropItems += On_WorldGen_KillTile_DropItems;
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
@@ -78,6 +81,33 @@ namespace WeaponEnchantments
 
 			UIManager.RegisterWithMaster();
 		}
+
+		#region Kill tile
+
+		public static Item bestPickaxe = new();
+		private static bool justBrokeBlock = false;
+		private void On_WorldGen_KillTile_DropItems(On_WorldGen.orig_KillTile_DropItems orig, int x, int y, Tile tileCache, bool includeLargeObjectDrops, bool includeAllModdedLargeObjectDrops) {
+			justBrokeBlock = true;
+			orig(x, y, tileCache, includeLargeObjectDrops, includeAllModdedLargeObjectDrops);
+		}
+		private int On_HitTile_AddDamage(On_HitTile.orig_AddDamage orig, HitTile self, int tileId, int damageAmount, bool updateAmount) {
+			bestPickaxe = Main.LocalPlayer.GetBestPickaxe();
+
+			return orig(self, tileId, damageAmount, updateAmount);
+		}
+		private void On_WorldGen_KillTile_GetItemDrops(On_WorldGen.orig_KillTile_GetItemDrops orig, int x, int y, Tile tileCache, out int dropItem, out int dropItemStack, out int secondaryItem, out int secondaryItemStack, bool includeLargeObjectDrops) {
+			orig(x, y, tileCache, out dropItem, out dropItemStack, out secondaryItem, out secondaryItemStack, includeLargeObjectDrops);
+
+			if (!justBrokeBlock)
+				return;
+
+			justBrokeBlock = false;
+			
+			if (bestPickaxe != null)
+				WEGlobalTile.KillTile(bestPickaxe, tileCache.TileType, dropItem, dropItemStack, secondaryItem, secondaryItemStack);
+		}
+
+		#endregion
 
 		public override void Unload() {
 			BossChecklistIntegration.UnloadBossChecklistIntegration();

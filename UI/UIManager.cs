@@ -60,6 +60,11 @@ namespace WeaponEnchantments.UI
 			MasterUIManager.DrawAllInterfaces += EnchantmentStorage.PostDrawInterface;
 			MasterUIManager.DrawAllInterfaces += WitchRerollUI.PostDrawInterface;
 
+			//MasterUIManager.UpdateInterfaces += EnchantmentLoadoutUI.UpdateInterface;
+			//MasterUIManager.UpdateInterfaces += EnchantingTableUI.UpdateInterface;
+			//MasterUIManager.UpdateInterfaces += EnchantmentStorage.UpdateInterface;
+			MasterUIManager.UpdateInterfaces += WitchRerollUI.UpdateInterface;
+
 			MasterUIManager.ShouldPreventRecipeScrolling.Add(() => MasterUIManager.HoveringMyUIType(WE_UI_ID.EnchantmentStorage_UITypeID));
 			MasterUIManager.ShouldPreventRecipeScrolling.Add(() => MasterUIManager.HoveringMyUIType(WE_UI_ID.EnchantmentLoadout_UITypeID) && EnchantmentLoadoutUI.useingScrollBar);
 

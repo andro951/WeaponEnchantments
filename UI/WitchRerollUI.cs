@@ -23,14 +23,23 @@ using androLib.UI;
 
 namespace WeaponEnchantments.UI
 {
+	public class DrawnUIData {
+		public int cost;
+		public bool hovering;
+	}
 	public class WitchRerollUI
 	{
 		private static int GetUI_ID(int id) => MasterUIManager.GetUI_ID(id, WE_UI_ID.Witch_UITypeID);
+
+		private static bool talkingToWitch = false;
+		private static DrawnUIData drawnUIData = new();
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			//Witch Re-roll ItemSlot
 			if (Witch.rerollUI) {
 				int talkNPC = Main.LocalPlayer.talkNPC;
-				if (talkNPC < 0 || Main.npc[talkNPC].ModFullName() != "WeaponEnchantments/Witch") {
+				talkingToWitch = talkNPC >= 0 && Main.npc[talkNPC].ModFullName() == "WeaponEnchantments/Witch";
+				if (!talkingToWitch) {
+					//Not talking to the Witch
 					Witch.rerollUI = false;
 					if (Witch.rerollItem.type > 0) {
 						Witch.rerollItem.position = Main.LocalPlayer.Center;
@@ -43,6 +52,11 @@ namespace WeaponEnchantments.UI
 					}
 				}
 				else {
+					//Talking to the Witch
+					drawnUIData = new();
+
+					#region Determine Text
+
 					if (Witch.mouseRerollEnchantment) {
 						if (Witch.rerollScale < 1f) {
 							Witch.rerollScale += 0.02f;
@@ -56,18 +70,18 @@ namespace WeaponEnchantments.UI
 					int num57 = 270;
 					string text = Lang.inter[46].Value + ": ";
 					if (Witch.rerollItem.type > 0) {
-						int num58 = 100000;
+						int cost = 100000;
 						if (Main.LocalPlayer.discountAvailable)
-							num58 *= (int)((double)num58 * 0.8);
+							cost *= (int)((double)cost * 0.8);
 
-						num58 = (int)((double)num58 * Main.LocalPlayer.currentShoppingSettings.PriceAdjustment);
+						cost = (int)((double)cost * Main.LocalPlayer.currentShoppingSettings.PriceAdjustment);
 
 						string text2 = "";
 						int num59 = 0;
 						int num60 = 0;
 						int num61 = 0;
 						int num62 = 0;
-						int num63 = num58;
+						int num63 = cost;
 						if (num63 < 1)
 							num63 = 1;
 
@@ -103,41 +117,27 @@ namespace WeaponEnchantments.UI
 
 						ItemSlot.DrawSavings(spriteBatch, num56 + 130, Main.instance.invBottom, horizontal: true);
 						ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text2, new Vector2((float)(num56 + 50) + FontAssets.MouseText.Value.MeasureString(text).X, num57), Microsoft.Xna.Framework.Color.White, 0f, Vector2.Zero, Vector2.One);
+
 						int num64 = num56 + 70;
 						int num65 = num57 + 40;
-						bool num66 = Main.mouseX > num64 - 15 && Main.mouseX < num64 + 15 && Main.mouseY > num65 - 15 && Main.mouseY < num65 + 15 && !PlayerInput.IgnoreMouseInterface;
+						bool mouseHovering = MasterUIManager.NoUIBeingHovered && Main.mouseX > num64 - 15 && Main.mouseX < num64 + 15 && Main.mouseY > num65 - 15 && Main.mouseY < num65 + 15 && !PlayerInput.IgnoreMouseInterface;
 						Texture2D value4 = TextureAssets.Reforge[0].Value;
-						if (num66)
+						if (mouseHovering) {
+							MasterUIManager.UIBeingHovered = GetUI_ID(WE_UI_ID.WitchReroll);
 							value4 = TextureAssets.Reforge[1].Value;
+						}
 
 						spriteBatch.Draw(value4, new Vector2(num64, num65), null, Color.White, 0f, value4.Size() / 2f, Witch.rerollScale, SpriteEffects.None, 0f);
 						UILinkPointNavigator.SetPosition(304, new Vector2(num64, num65) + value4.Size() / 4f);
-						if (num66) {
-							Main.hoverItemName = "Re-roll";//Lang.inter[19].Value;
-							if (!Witch.mouseRerollEnchantment)
-								SoundEngine.PlaySound(SoundID.MenuTick);
 
-							Witch.mouseRerollEnchantment = true;
-							Main.LocalPlayer.mouseInterface = true;
-
-							if (Main.mouseLeftRelease && Main.mouseLeft && Main.LocalPlayer.CanAfford(num58) && Witch.rerollItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
-								Main.LocalPlayer.BuyItem(num58);
-								rerollableEnchantment.Reroll();
-								Witch.rerollItem.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(Witch.rerollItem.width / 2);
-								Witch.rerollItem.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(Witch.rerollItem.height / 2);
-
-								//Todo Popup text for this
-								//PopupText.NewText(PopupTextContext.ItemReforge, Witch.rerollItem, Witch.rerollItem.stack, noStack: true);
-								SoundEngine.PlaySound(SoundID.Item37);
-							}
-						}
-						else {
-							Witch.mouseRerollEnchantment = false;
-						}
+						drawnUIData.hovering = mouseHovering;
+						drawnUIData.cost = cost;
 					}
 					else {
 						text = "Place an enchantment here to re-roll";
 					}
+
+					#endregion
 
 					if (Witch.rerollItem?.ModItem is Enchantment enchantment) {
 						text += "\n";
@@ -155,6 +155,42 @@ namespace WeaponEnchantments.UI
 					}
 
 					MasterUIManager.DrawItemSlot(spriteBatch, Witch.rerollItem, num56, num57);
+				}
+			}
+			else {
+				talkingToWitch = false;
+			}
+		}
+		public static void UpdateInterface() {
+			if (!talkingToWitch)
+				return;
+
+			if (Witch.rerollItem.type > 0) {
+				bool mouseHovering = drawnUIData.hovering;
+				int cost = drawnUIData.cost;
+
+				//Mouse hovering?
+				if (mouseHovering) {
+					Main.hoverItemName = "Re-roll";//Lang.inter[19].Value;
+					if (!Witch.mouseRerollEnchantment)
+						SoundEngine.PlaySound(SoundID.MenuTick);
+
+					Witch.mouseRerollEnchantment = true;
+					Main.LocalPlayer.mouseInterface = true;
+
+					if (Main.mouseLeftRelease && Main.mouseLeft && Main.LocalPlayer.CanAfford(cost) && Witch.rerollItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
+						Main.LocalPlayer.BuyItem(cost);
+						rerollableEnchantment.Reroll();
+						Witch.rerollItem.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(Witch.rerollItem.width / 2);
+						Witch.rerollItem.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(Witch.rerollItem.height / 2);
+
+						//Todo Popup text for this
+						//PopupText.NewText(PopupTextContext.ItemReforge, Witch.rerollItem, Witch.rerollItem.stack, noStack: true);
+						SoundEngine.PlaySound(SoundID.Item37);
+					}
+				}
+				else {
+					Witch.mouseRerollEnchantment = false;
 				}
 			}
 		}
