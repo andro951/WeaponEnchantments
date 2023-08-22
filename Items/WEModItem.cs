@@ -20,8 +20,12 @@ namespace WeaponEnchantments.Items
 		public virtual bool ConfigOnlyDrop => false;
 		public abstract int CreativeItemSacrifice { get; }
 		public override void SetStaticDefaults() {
-			if (!WEMod.serverConfig.DisableResearch && CreativeItemSacrifice > -1)
+			if (!WEMod.serverConfig.DisableResearch && CreativeItemSacrifice > -1) {
 				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = CreativeItemSacrifice;
+			}
+			else {
+				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = -1;
+			}
 
 			if (Tooltip != LocalizedText.Empty)
 				this.AddLocalizationTooltip(LocalizationTooltip);

@@ -817,6 +817,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			resetGlobals = false;
 		}
+		/*
 		public override bool OnPickup(Item item, Player player) {
             if (Modified)
                 return true;
@@ -839,6 +840,10 @@ namespace WeaponEnchantments.Common.Globals
 				return true;
 
 			return !Modified && player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
+		}
+        */
+		public override void OnResearched(Item item, bool fullyResearched) {
+			EnchantingTableUI.ReturnAllModifications(ref item);
 		}
 	}
 	public class EnchantmentsArray

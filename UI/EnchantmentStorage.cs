@@ -33,6 +33,7 @@ using androLib.Common.Utility;
 using androLib.UI;
 using androLib.Common.Globals;
 using androLib;
+using Terraria.WorldBuilding;
 
 namespace WeaponEnchantments.UI
 {
@@ -316,7 +317,7 @@ namespace WeaponEnchantments.UI
 							ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
 							Main.cursorOverride = CursorOverrideID.BackInventory;
 							if (MasterUIManager.LeftMouseClicked) {
-								if (recipeNum != -1 && recipeNum.TryCraftItem(out Item crafted)) {
+								if (recipeNum != -1 && recipeNum.TryCraftItem(out Item crafted, true)) {
 									DepositAll(ref crafted);
 									SoundEngine.PlaySound(SoundID.Tink);
 								}
@@ -367,44 +368,46 @@ namespace WeaponEnchantments.UI
 										}
 									}
 								}
-								if (ItemSlot.ShiftInUse) {
-									normalClickInteractions = false;
-									if (wePlayer.displayEnchantmentLoadoutUI) {
-										if (item.ModItem is Enchantment) {
-											if (EnchantmentLoadoutUI.AvailableSlot(item)) {
-												Main.cursorOverride = CursorOverrideID.InventoryToChest;
+								else {
+									if (ItemSlot.ShiftInUse) {
+										normalClickInteractions = false;
+										if (wePlayer.displayEnchantmentLoadoutUI) {
+											if (item.ModItem is Enchantment) {
+												if (EnchantmentLoadoutUI.AvailableSlot(item)) {
+													Main.cursorOverride = CursorOverrideID.InventoryToChest;
+													if (MasterUIManager.LeftMouseClicked)
+														EnchantmentLoadoutUI.UpdateAvailableEnchantmentSlot(wePlayer, item);
+												}
+											}
+										}
+										else {
+											if (wePlayer.CheckShiftClickValid(ref item)) {
 												if (MasterUIManager.LeftMouseClicked)
-													EnchantmentLoadoutUI.UpdateAvailableEnchantmentSlot(wePlayer, item);
+													wePlayer.CheckShiftClickValid(ref item, true);
+											}
+											else {
+												if (Main.mouseItem.IsAir) {
+													if (!item.IsAir) {
+														if (MasterUIManager.LeftMouseClicked) {
+															MasterUIManager.SwapMouseItem(ref item);
+														}
+													}
+												}
+												else {
+													if (CanBeStored(Main.mouseItem)) {
+														if (MasterUIManager.LeftMouseClicked) {
+															MasterUIManager.SwapMouseItem(ref item);
+														}
+													}
+												}
 											}
 										}
 									}
 									else {
-										if (wePlayer.CheckShiftClickValid(ref item)) {
-											if (MasterUIManager.LeftMouseClicked)
-												wePlayer.CheckShiftClickValid(ref item, true);
+										if (!Main.mouseItem.IsAir) {
+											if (!CanBeStored(Main.mouseItem))
+												normalClickInteractions = false;
 										}
-										else {
-											if (Main.mouseItem.IsAir) {
-												if (!item.IsAir) {
-													if (MasterUIManager.LeftMouseClicked) {
-														MasterUIManager.SwapMouseItem(ref item);
-													}
-												}
-											}
-											else {
-												if (CanBeStored(Main.mouseItem)) {
-													if (MasterUIManager.LeftMouseClicked) {
-														MasterUIManager.SwapMouseItem(ref item);
-													}
-												}
-											}
-										}
-									}
-								}
-								else {
-									if (!Main.mouseItem.IsAir) {
-										if (!CanBeStored(Main.mouseItem))
-											normalClickInteractions = false;
 									}
 								}
 							}
@@ -620,6 +623,16 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
+		public static bool CanAutoOfferItem(Item item, Player player) => !item.NullOrAir() && item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && !enchantedItem.Modified && player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
+		public static bool TryAutoOfferItem(ref Item item, Player player) {
+			if (CanAutoOfferItem(item, player)) {
+				EnchantingTableUI.OfferItem(ref item);
+				item.TurnToAir();
+				return true;
+			}
+
+			return false;
+		}
 		public static bool CanVacuumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.highestTableTierUsed >= 0 && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && (RoomInStorage(item) || CanBeTrashed(item));
 		public static bool CanBeTrashed(Item item) => WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(item.type.GetItemIDOrName());
 		public static bool TryVacuumItem(ref Item item, Player player) {
@@ -773,8 +786,9 @@ namespace WeaponEnchantments.UI
 									}
 								}
 							}
-							
-							if (shouldCraft && recipeNum.TryCraftItem(out Item crafted))
+
+							shouldCraft = true;
+							if (shouldCraft && recipeNum.TryCraftItem(out Item crafted, true))
 								uncraftedExtraItems.AddOrCombine(crafted.type, crafted.stack);
 						}
 					}
@@ -811,7 +825,7 @@ namespace WeaponEnchantments.UI
 					foreach (int slot in itemType.Value) {
 						int stack = WEPlayer.LocalWEPlayer.enchantmentStorageItems[slot].stack;
 						for (int i = 0; i < stack; i++) {
-							if (recipeNum.TryCraftItem(out Item crafted)) {
+							if (recipeNum.TryCraftItem(out Item crafted, true)) {
 								uncraftedItems.Add(crafted);
 							}
 							else {
@@ -827,7 +841,7 @@ namespace WeaponEnchantments.UI
 			Recipe.FindRecipes();
 			crafting = false;
 		}
-		public static bool TryCraftItem(this int recipeNum, out Item crafted) {
+		public static bool TryCraftItem(this int recipeNum, out Item crafted, bool ignoreTileAndEnvironmentRequirements = false) {
 			crafted = null;
 			Recipe.FindRecipes();
 			for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
@@ -835,6 +849,14 @@ namespace WeaponEnchantments.UI
 				if (recipeNum == availableRecipeNum) {
 					crafted = recipeNum.CraftItem();
 
+					return true;
+				}
+			}
+
+			if (ignoreTileAndEnvironmentRequirements) {
+				Recipe recipe = Main.recipe[recipeNum];
+				if (Recipe.CollectedEnoughItemsToCraftRecipeNew(recipe) && RecipeLoader.RecipeAvailable(recipe)) {
+					crafted = recipeNum.CraftItem();
 					return true;
 				}
 			}

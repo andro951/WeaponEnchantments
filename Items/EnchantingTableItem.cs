@@ -37,7 +37,11 @@ namespace WeaponEnchantments.Items
 			}
 		}
 		public override int CreativeItemSacrifice => 1;
-		public override string LocalizationTooltip => $"Used to apply enchantments to items. (tier {enchantingTableTier})";
+		public override string LocalizationTooltip =>
+			$"Used to apply enchantments to items. (tier {enchantingTableTier})\n" +
+			$"Can be used from your inventory by right clicking." +
+			$"(Shift right click allows you to split the stack.)";
+
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 		public override void SetStaticDefaults() {

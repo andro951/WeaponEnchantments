@@ -1230,7 +1230,7 @@ namespace WeaponEnchantments.UI
 
 			return xpInitial - xpNotConsumed;
 		}
-		public static bool CanVacuumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.highestTableTierUsed >= 0 && WEMod.clientConfig.teleportEssence && CanBeStored(item) && RoomInStorage(item);
+		public static bool CanVacuumItem(Item item, Player player) => !item.NullOrAir() && player.GetWEPlayer().highestTableTierUsed >= 0 && WEMod.clientConfig.teleportEssence && CanBeStored(item) && RoomInStorage(item);
 		public static bool CanBeStored(Item item) => !item.NullOrAir() && item.ModItem != null && item.ModItem is EnchantmentEssence;
 		public static bool RoomInStorage(Item item, Player player = null) {
 			if (item.NullOrAir())
@@ -1733,7 +1733,6 @@ namespace WeaponEnchantments.UI
 			if (!nonTableItem && !LootAllEnchantments(ref item))
 				return -1;
 
-
 			if (AndroMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log_WE();
 
 			float value = item.value;
@@ -1800,13 +1799,12 @@ namespace WeaponEnchantments.UI
 					ConvertXPToEssence(essenceValue, true, item);
 			}
 
-			item = new Item();
+			item.TurnToAir();
 			SoundEngine.PlaySound(SoundID.Grab);
 
 			return type;
 		}
 
 		#endregion
-
 	}
 }

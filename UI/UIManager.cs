@@ -70,9 +70,11 @@ namespace WeaponEnchantments.UI
 
 			StorageManager.CanVacuumItemHandler.Add(EnchantmentStorage.CanVacuumItem);
 			StorageManager.CanVacuumItemHandler.Add(EnchantingTableUI.CanVacuumItem);
+			StorageManager.CanVacuumItemHandler.Add(EnchantmentStorage.CanAutoOfferItem);
 
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantingTableUI.TryVacuumItem(ref item, player));
+			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantmentStorage.TryAutoOfferItem(ref item, player));
 
 			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantmentStorage.QuickStack(ref item));
 			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantingTableUI.QuickStack(ref item));
