@@ -57,7 +57,7 @@ namespace WeaponEnchantments
         static float baseOneForAllRange = 240f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
-        public Item infusionConsumeItem = null;
+        public Item infusionConsumeItem = new();
         public string previousInfusedItemName = "";
         public Item trackedTrashItem = new Item();
         public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
@@ -73,7 +73,7 @@ namespace WeaponEnchantments
 		public int enchantingTableUITop;
         public bool vacuumItemsIntoEnchantmentStorage = true;
         public SortedSet<string> trashEnchantmentsFullNames = new();
-        public Item enchantingTableItem;
+        public Item enchantingTableItem = new();
         public EnchantmentsArray emptyEnchantments = new EnchantmentsArray(null);
 		public EnchantmentsArray enchantingTableEnchantments;
         public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
@@ -812,8 +812,6 @@ namespace WeaponEnchantments
 		}
 		public override void ResetEffects() {
 			cursedEssenceCount = 0;
-            if (enchantingTableItem == null)
-                enchantingTableItem = new();
 		}
 		public override void PostUpdateMiscEffects() {
 			ApplyPostMiscEnchants();

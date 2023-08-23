@@ -350,7 +350,7 @@ namespace WeaponEnchantments.Common.Globals
                                         inventoryLocation = i - 170;
                                         break;
                                     case 210:
-                                        if (wePlayer.enchantingTableItem != null) {
+                                        if (!wePlayer.enchantingTableItem.IsAir) {
                                             inventory = new Item[] { wePlayer.enchantingTableItem };
                                         }
                                         else {

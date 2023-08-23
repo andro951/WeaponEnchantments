@@ -775,6 +775,7 @@ namespace WeaponEnchantments.UI
 					foreach (int slot in itemType.Value) {
 						int stack = inv[slot].stack;
 						for (int i = 0; i < stack; i++) {
+							/*
 							Recipe.FindRecipes();
 							bool shouldCraft = force;
 							if (!shouldCraft) {
@@ -788,7 +789,8 @@ namespace WeaponEnchantments.UI
 							}
 
 							shouldCraft = true;
-							if (shouldCraft && recipeNum.TryCraftItem(out Item crafted, true))
+							*/
+							if (/*shouldCraft &&*/ recipeNum.TryCraftItem(out Item crafted, true))
 								uncraftedExtraItems.AddOrCombine(crafted.type, crafted.stack);
 						}
 					}
