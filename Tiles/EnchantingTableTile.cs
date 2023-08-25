@@ -77,10 +77,17 @@ namespace WeaponEnchantments.Tiles
 			return -1;
 		}
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+		public override string HighlightTexture => (GetType().Namespace + ".Sprites." + (enchantingTableTier > 0 ? "EnchantingTable" : Name) + "_Highlight").Replace('.', '/');
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
-
+		public static Color[] MapColors = {
+			new Color(170, 170, 170),
+			new Color(141, 168, 141),
+			new Color(132, 167, 176),
+			new Color(153, 132, 176),
+			new Color(230, 179, 71)
+		};
 		public override void SetStaticDefaults() {
 			GetDefaults();
 
@@ -90,6 +97,7 @@ namespace WeaponEnchantments.Tiles
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
+			TileID.Sets.HasOutlines[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
 			TileID.Sets.BasicChest[Type] = true;
@@ -105,7 +113,7 @@ namespace WeaponEnchantments.Tiles
 
 			//Etc
 			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(200, 200, 200), name);
+			AddMapEntry(MapColors[enchantingTableTier], name);
 
 			List<int> adjTiles = new() { TileID.WorkBenches };
 			if (enchantingTableTier > 0)

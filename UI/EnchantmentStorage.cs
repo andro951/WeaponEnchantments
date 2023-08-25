@@ -125,7 +125,7 @@ namespace WeaponEnchantments.UI
 				inventory = AllEnchantments;
 			}
 			else if (quickCrafting) {
-				for (int i = 0; i < Main.availableRecipe.Length; i++) {
+				for (int i = Main.availableRecipe.Length - 1; i >= 0; i--) {
 					int recipeNum = Main.availableRecipe[i];
 					Recipe r = Main.recipe[recipeNum];
 					if (r.createItem.IsAir || availableEnchantmentRecipes.ContainsKey(r.createItem.type))
@@ -317,7 +317,7 @@ namespace WeaponEnchantments.UI
 							ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
 							Main.cursorOverride = CursorOverrideID.BackInventory;
 							if (MasterUIManager.LeftMouseClicked) {
-								if (recipeNum != -1 && recipeNum.TryCraftItem(out Item crafted, true)) {
+								if (recipeNum != -1 && recipeNum.TryCraftItem(out Item crafted, true, true)) {
 									DepositAll(ref crafted);
 									SoundEngine.PlaySound(SoundID.Tink);
 								}
@@ -643,11 +643,10 @@ namespace WeaponEnchantments.UI
 		}
 		public static bool DepositAll(ref Item item) => DepositAll(new Item[] { item });
 		public static bool DepositAll(Item[] inv) {
-			UncraftTrash(inv);
-
 			bool transferedAnyItem = QuickStack(inv, false);
 
 			int storageIndex = 0;
+			List<Item> acceptedItemsForUncraftTrashCheck = new();
 			for (int i = 0; i < inv.Length; i++) {
 				ref Item item = ref inv[i];
 				if (!item.favorited && CanBeStored(item)) {
@@ -657,7 +656,7 @@ namespace WeaponEnchantments.UI
 
 					if (storageIndex < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length) {
 						WEPlayer.LocalWEPlayer.enchantmentStorageItems[storageIndex] = item.Clone();
-
+						acceptedItemsForUncraftTrashCheck.Add(WEPlayer.LocalWEPlayer.enchantmentStorageItems[storageIndex]);
 						item.TurnToAir();
 						transferedAnyItem = true;
 					}
@@ -666,6 +665,8 @@ namespace WeaponEnchantments.UI
 					}
 				}
 			}
+
+			UncraftTrash(acceptedItemsForUncraftTrashCheck.ToArray());
 
 			if (transferedAnyItem) {
 				SoundEngine.PlaySound(SoundID.Grab);
@@ -748,8 +749,8 @@ namespace WeaponEnchantments.UI
 		private static void ToggleMarkTrash() {
 			markingTrash = !markingTrash;
 		}
-		public static void UncraftTrash(Item item, bool force = true) => UncraftTrash(new Item[] { item }, force);
-		private static void UncraftTrash(Item[] inv, bool force = false) {
+		public static void UncraftTrash(Item item) => UncraftTrash(new Item[] { item });
+		private static void UncraftTrash(Item[] inv) {
 			crafting = true;
 			Recipe.FindRecipes();
 			uncraftedExtraItems.Clear();
@@ -775,22 +776,7 @@ namespace WeaponEnchantments.UI
 					foreach (int slot in itemType.Value) {
 						int stack = inv[slot].stack;
 						for (int i = 0; i < stack; i++) {
-							/*
-							Recipe.FindRecipes();
-							bool shouldCraft = force;
-							if (!shouldCraft) {
-								for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
-									int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
-									if (recipeNum == availableRecipeNum) {
-										shouldCraft = true;
-										break;
-									}
-								}
-							}
-
-							shouldCraft = true;
-							*/
-							if (/*shouldCraft &&*/ recipeNum.TryCraftItem(out Item crafted, true))
+							if (recipeNum.TryCraftItem(out Item crafted, true))
 								uncraftedExtraItems.AddOrCombine(crafted.type, crafted.stack);
 						}
 					}
@@ -843,15 +829,27 @@ namespace WeaponEnchantments.UI
 			Recipe.FindRecipes();
 			crafting = false;
 		}
-		public static bool TryCraftItem(this int recipeNum, out Item crafted, bool ignoreTileAndEnvironmentRequirements = false) {
+		public static bool TryCraftItem(this int recipeNum, out Item crafted, bool ignoreTileAndEnvironmentRequirements = false, bool reverseOrder = false) {
 			crafted = null;
 			Recipe.FindRecipes();
-			for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
-				int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
-				if (recipeNum == availableRecipeNum) {
-					crafted = recipeNum.CraftItem();
+			if (!reverseOrder) {
+				for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
+					int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
+					if (recipeNum == availableRecipeNum) {
+						crafted = recipeNum.CraftItem();
 
-					return true;
+						return true;
+					}
+				}
+			}
+			else {
+				for (int availableRecipeIndex = Main.numAvailableRecipes - 1; availableRecipeIndex >= 0; availableRecipeIndex--) {
+					int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
+					if (recipeNum == availableRecipeNum) {
+						crafted = recipeNum.CraftItem();
+
+						return true;
+					}
 				}
 			}
 
