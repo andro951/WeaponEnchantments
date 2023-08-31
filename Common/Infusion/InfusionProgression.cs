@@ -1004,7 +1004,7 @@ namespace WeaponEnchantments.Common
 		}
 	}
 	public static class InfusionProgression {
-		public const int VANILLA_RECIPE_COUNT = 2691;
+		public static int vanillaRecipeCount = -1;//Set by WEMod.Load()
 		private static bool finishedSetup = false;
 		private static bool finishedRecipeSetup = false;
 		public static SortedDictionary<int, InfusionPowerSource> WeaponInfusionPowers { get; private set; } = new();//Not cleared
@@ -1134,8 +1134,8 @@ namespace WeaponEnchantments.Common
 					if (!otherRequiredItemTypes.Contains(createItemType))
 						continue;
 
-					bool modRecipe = recipe.Key >= VANILLA_RECIPE_COUNT;
-					bool otherModRecipe = otherRecipe.Key >= VANILLA_RECIPE_COUNT;
+					bool modRecipe = recipe.Key >= vanillaRecipeCount;
+					bool otherModRecipe = otherRecipe.Key >= vanillaRecipeCount;
 					bool isWeapon = WeaponsList.Contains(createItemType);
 					bool otherIsWeapon = WeaponsList.Contains(otherCreateItemType);
 					bool reverse = isWeapon ? modRecipe ? otherIsWeapon && createItemType <= otherCreateItemType /* && recipeNumbersByCraftedItem[createItemType].Count <= recipeNumbersByCraftedItem[otherCreateItemType].Count */: !otherModRecipe : modRecipe || !otherModRecipe;
@@ -1321,7 +1321,8 @@ namespace WeaponEnchantments.Common
 					ItemID.Tombstone,
 					ItemID.Count,//April Fools Joke
 					ItemID.Sunflower,
-					ItemID.Daybloom
+					ItemID.Daybloom,
+					ItemID.Stinkbug
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.BlueSlime,
@@ -1527,7 +1528,9 @@ namespace WeaponEnchantments.Common
 					ItemID.Shadewood,
 					ItemID.Deathweed,
 					ItemID.EbonstoneBlock,
-					ItemID.CrimstoneBlock
+					ItemID.CrimstoneBlock,
+					ItemID.PurpleIceBlock,
+					ItemID.RedIceBlock
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.EaterofSouls,
@@ -1567,7 +1570,8 @@ namespace WeaponEnchantments.Common
 					ItemID.DyeVat,
 					ItemID.DynastyWood,
 					ItemID.DD2ElderCrystal,
-					ItemID.LightningCarrot
+					ItemID.LightningCarrot,
+					ItemID.LawnMower//Golfer
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.KingSlime, 85));
 			AddProgressionGroup(new(ProgressionGroupID.Diamond, 85,
@@ -1590,7 +1594,7 @@ namespace WeaponEnchantments.Common
 					ItemID.ThunderSpear,
 					ItemID.ThunderStaff,
 					ItemID.HardenedSand,
-					ItemID.SandstorminaBottle
+					ItemID.SandstorminaBottle,
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.WalkingAntlion,
@@ -1727,7 +1731,8 @@ namespace WeaponEnchantments.Common
 				}));//190
 			AddProgressionGroup(new(ProgressionGroupID.Hell, 190,
 				itemTypes: new SortedSet<int>() {
-					ItemID.Fireblossom
+					ItemID.Fireblossom,
+					ItemID.AshWood
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Demon,
@@ -1883,7 +1888,8 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.Hallow, 420,
 				itemTypes: new SortedSet<int>() {
 					ItemID.Pearlwood,
-					ItemID.PearlstoneBlock
+					ItemID.PearlstoneBlock,
+					ItemID.PinkIceBlock
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Pixie,
@@ -3578,7 +3584,7 @@ namespace WeaponEnchantments.Common
 			if (!createItemTypesAlreadyBeingProcessed.Contains(createItemType) && (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType))) {
 				createItemTypesAlreadyBeingProcessed.Add(createItemType);
 				//IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType);//TODO: troubleshoot, Goes infinite with Calamity.  
-				IEnumerable<int> recipeNumbers = Main.recipe.Select((r, index) => index).Where(index => Main.recipe[index].createItem.type == createItemType && (Main.recipe[index].createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT));
+				IEnumerable<int> recipeNumbers = Main.recipe.Select((r, index) => index).Where(index => Main.recipe[index].createItem.type == createItemType && (Main.recipe[index].createItem.type > ItemID.Count || index <= vanillaRecipeCount));
 				HashSet<HashSet<HashSet<int>>> requiredItemTypeLists = new();
 				foreach (int recipeNum in recipeNumbers) {
 					Recipe recipe = Main.recipe[recipeNum];

@@ -76,7 +76,7 @@ namespace WeaponEnchantments
         public Item enchantingTableItem = new();
         public EnchantmentsArray emptyEnchantments = new EnchantmentsArray(null);
 		public EnchantmentsArray enchantingTableEnchantments;
-        public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
+        public Item[] enchantingTableEssence = Enumerable.Repeat(new Item(), EnchantingTableUI.MaxEssenceSlots).ToArray();
 		public bool openStorageWhenOpeningTable = false;
         public SortedSet<string> allOfferedItems = new();
         public bool transferedToAndroLib = false;
@@ -338,7 +338,7 @@ namespace WeaponEnchantments
             enchantingTableEnchantments = emptyEnchantments;
 		}
         public override void SaveData(TagCompound tag) {
-            tag["enchantingTableItem0"] = enchantingTableItem;
+            tag["enchantingTableItem0"] = enchantingTableItem ?? new();
             for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
                 tag[$"enchantingTableEssenceItem{i}"] = enchantingTableEssence[i] ?? new();
             }

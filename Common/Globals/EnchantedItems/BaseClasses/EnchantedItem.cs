@@ -817,31 +817,6 @@ namespace WeaponEnchantments.Common.Globals
 
 			resetGlobals = false;
 		}
-		/*
-		public override bool OnPickup(Item item, Player player) {
-            if (Modified)
-                return true;
-
-            if (player.whoAmI != Main.myPlayer)
-                return true;
-
-			if (player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName())) {
-				PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
-				SoundEngine.PlaySound(SoundID.Grab);
-                EnchantingTableUI.OfferItem(ref item);
-
-				return false;
-            }
-
-            return true;
-		}
-		public override bool ItemSpace(Item item, Player player) {
-			if (Main.netMode == NetmodeID.Server)
-				return true;
-
-			return !Modified && player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
-		}
-        */
 		public override void OnResearched(Item item, bool fullyResearched) {
 			EnchantingTableUI.ReturnAllModifications(ref item);
 		}
@@ -1007,6 +982,7 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.ExplosiveBunny:
                 case ItemID.TreeGlobe:
                 case ItemID.WorldGlobe:
+                case ItemID.MoonGlobe:
                     isWeapon = false;
                     break;
                 case ItemID.LawnMower:
