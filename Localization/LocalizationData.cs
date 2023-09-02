@@ -22,20 +22,14 @@ using androLib.Common.Utility;
 using androLib.Common.Globals;
 using static androLib.Localization.AndroLocalizationData;
 using androLib.Localization;
+using androLib;
 
 namespace WeaponEnchantments.Localization
 {
-	public class LocalizationData
-	{
-		public static SortedDictionary<string, SData> All {
-			get {
-				if (all == null)
-					all = AllData;
-
-				return all;
-			}
+	public class LocalizationData {
+		public static void RegisterSDataPackage() {
+			AndroLogModSystem.RegisterModLocalizationSDataPackage(new(ModContent.GetInstance<WEMod>, () => AllData));
 		}
-		private static SortedDictionary<string, SData> all;
 
 		private static SortedDictionary<string, SData> allData;
 		public static SortedDictionary<string, SData> AllData {
@@ -1019,9 +1013,11 @@ namespace WeaponEnchantments.Localization
 
 	public static class LocalizationDataStaticMethods
 	{
-		public static void AddLocalizationTooltip(this ModItem modItem, string tooltip) {
-			if ((LogModSystem.printLocalization || LogModSystem.printLocalizationKeysAndValues) && !LocalizationData.AllData[L_ID1.Items.ToString()].Children[modItem.Name].Dict.ContainsKey(L_ID1.Tooltip.ToString())) {
+		public static void AddLocalizationTooltip(this ModItem modItem, string tooltip, string name = null) {
+			if ((AndroLogModSystem.printLocalization || AndroLogModSystem.printLocalizationKeysAndValues) && !LocalizationData.AllData[L_ID1.Items.ToString()].Children[modItem.Name].Dict.ContainsKey(L_ID1.Tooltip.ToString())) {
+				//LocalizationData.AllData[L_ID1.Items.ToString()].Children.Add(modItem.Name, new(dict: new()));
 				LocalizationData.AllData[L_ID1.Items.ToString()].Children[modItem.Name].Dict.Add(L_ID1.Tooltip.ToString(), tooltip);
+				//LocalizationData.AllData[L_ID1.Items.ToString()].Children[modItem.Name].Dict.Add(L_ID2.DisplayName.ToString(), name ?? modItem.Name.AddSpaces());
 			}
 		}
 	}

@@ -29,6 +29,8 @@ using Terraria.GameInput;
 using Microsoft.Xna.Framework.Input;
 using androLib.UI;
 using androLib;
+using androLib.Localization;
+using WeaponEnchantments.Localization;
 
 namespace WeaponEnchantments
 {
@@ -80,6 +82,8 @@ namespace WeaponEnchantments
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 
 			UIManager.RegisterWithMaster();
+
+			LocalizationData.RegisterSDataPackage();
 		}
 
 		#region Kill tile

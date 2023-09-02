@@ -477,12 +477,6 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public bool PrintEnchantmentDrops;
 
-		[Label("$Mods.androLib.Config.PrintLocalizationLists.Label")]
-		[Tooltip("$Mods.androLib.Config.PrintLocalizationLists.Tooltip")]
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool PrintLocalizationLists;
-
 		[Label("$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip")]
 		[DefaultValue(false)]

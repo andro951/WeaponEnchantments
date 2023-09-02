@@ -190,7 +190,7 @@ namespace WeaponEnchantments.UI
 			UITextData[] textButtons = new UITextData[EnchantmentStorageButtonID.Count];
 			int longestButtonNameWidth = 0;
 			for (int buttonIndex = 0; buttonIndex < EnchantmentStorageButtonID.Count; buttonIndex++) {
-				string text = buttonIndex >= (int)StorageTextID.CloseBag ? ((EnchantmentStorageTextID)buttonIndex).ToString().Lang_WE(L_ID1.EnchantmentStorageText) : ((StorageTextID)buttonIndex).ToString().Lang(AndroMod.ModName, L_ID1.StorageText);
+				string text = buttonIndex >= (int)EnchantmentStorageTextID.ToggleMarkTrash ? ((EnchantmentStorageTextID)buttonIndex).ToString().Lang_WE(L_ID1.EnchantmentStorageText) : ((StorageTextID)buttonIndex).ToString().Lang(AndroMod.ModName, L_ID1.StorageText);
 				float scale = ButtonScale[buttonIndex];
 				Color color;
 				if (buttonIndex == EnchantmentStorageButtonID.ToggleVacuum && wePlayer.vacuumItemsIntoEnchantmentStorage) {

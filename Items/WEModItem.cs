@@ -19,6 +19,7 @@ namespace WeaponEnchantments.Items
 		public virtual DropRestrictionsID DropRestrictionsID => DropRestrictionsID.None;
 		public virtual bool ConfigOnlyDrop => false;
 		public abstract int CreativeItemSacrifice { get; }
+		protected override Action<ModItem, string, string> AddLocalizationTooltipFunc => WeaponEnchantments.Localization.LocalizationDataStaticMethods.AddLocalizationTooltip;
 		public override void SetStaticDefaults() {
 			if (!WEMod.serverConfig.DisableResearch && CreativeItemSacrifice > -1) {
 				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = CreativeItemSacrifice;
@@ -27,10 +28,7 @@ namespace WeaponEnchantments.Items
 				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = -1;
 			}
 
-			if (Tooltip != LocalizedText.Empty)
-				this.AddLocalizationTooltip(LocalizationTooltip);
-
-			LogModSystem.UpdateContributorsList(this);
+			LogModSystem.UpdateContributorsList(this);//TODO: move to androLib
 			base.SetStaticDefaults();
 		}
 	}
