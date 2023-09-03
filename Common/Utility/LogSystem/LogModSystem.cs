@@ -36,7 +36,6 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static readonly bool printListForDocumentConversion = false;
         public static readonly bool zzzLocalizationForTesting = false;
-        private static int localizationValuesCharacterCount = 0;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static readonly bool printWiki = WEMod.serverConfig.PrintWikiInfo;
         public static readonly bool printNPCIDSwitch = false;

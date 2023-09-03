@@ -697,8 +697,8 @@ Mods: {
 				DisplayName: 尘封附魔台
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 1)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					用于对物品施加附魔。 （1 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
 					'''
 			}
 
@@ -782,8 +782,8 @@ Mods: {
 				DisplayName: 地狱附魔台
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 2)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					用于对物品施加附魔。 （2 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
 					'''
 			}
 
@@ -994,8 +994,8 @@ Mods: {
 				DisplayName: 灵魂附魔台
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 3)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					用于对物品施加附魔。 （3 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
 					'''
 			}
 
@@ -1025,8 +1025,8 @@ Mods: {
 				DisplayName: 终极附魔台
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 4)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					用于对物品施加附魔。 （4 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
 					'''
 			}
 
@@ -1060,8 +1060,8 @@ Mods: {
 				DisplayName: 木质附魔台
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 0)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					用于对物品施加附魔。 （0 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
 					'''
 			}
 
@@ -1163,7 +1163,7 @@ Mods: {
 
 			DamageClassNames: {
 				Generic: 通用
-				Ki: Ki
+				Ki: 基
 				Magic: 魔法
 				Melee: 近战
 				Ranged: 远程
@@ -1237,7 +1237,7 @@ Mods: {
 				Juiced: 兴奋
 				JumpSpeed: 跳跃速度
 				JunglesFury: 丛林之怒
-				Ki: Ki
+				Ki: 基
 				KiClassSwap: Ki类型伤害转换
 				KiDamage: Ki伤害
 				KiRegen: Ki再生
@@ -1336,12 +1336,6 @@ Mods: {
 					{0}
 					（持续时间在增益激活时持续增加，而不是在第一次获得增益时）
 					'''
-
-				BuffEffect: {
-					All: “{0}（{1}% 的几率获得 {2} 增益）”
-					OnTickPlayerBuff: “{0}（每 {3} 个有 {1}% 的几率获得 {2} 增益）”
-				}
-
 				CatastrophicRelease: 灾难性释放
 				Channel: 渠道
 				CrateChance: 箱子机会
@@ -1420,6 +1414,11 @@ Mods: {
 				BoolEffect: {
 					Enabled: “{0}：启用”
 					Prevented: “{0}：禁用”
+				}
+
+				BuffEffect: {
+					All: “{0}（{1}% 的几率获得 {2} 增益）”
+					OnTickPlayerBuff: “{0}（每 {3} 个有 {1}% 的几率获得 {2} 增益）”
 				}
 
 				PlayerSetEffect: {

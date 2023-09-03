@@ -87,6 +87,7 @@ namespace WeaponEnchantments.Common
 		TownNPCDrops,
 		GoldChest,
 		Extractinator,
+		TorchGod,
 		KingSlime,
 		Diamond,
 		UndergroundDesert,
@@ -299,6 +300,7 @@ namespace WeaponEnchantments.Common
 		LifeQuartz,
 		ThoriumOre,
 		Viscount,
+		DestinyWeaverUnobtainable,
 		//Thorium
 
 		//Fargos Souls
@@ -346,6 +348,7 @@ namespace WeaponEnchantments.Common
 		UltraStarite,
 		DemonSiege,
 		DemonSiegeEasyAfter,
+		OmegaStariteEasyAfter,
 		OmegaStarite,
 		GaleStreams,
 		RedSprite,
@@ -353,8 +356,27 @@ namespace WeaponEnchantments.Common
 		DustDevil,
 		AequusUnobtainable,
 		AequusUndergroundOcean,
-		RockMan
+		RockMan,
+		AequusWorkInProgress,
 		//Aquees
+
+		//SOTS
+		Glowmoth,
+		PutridPinkyPhase2,
+		PharaohsCurse,
+		TheAdvisorHead,
+		Polaris,
+		Lux,
+		SubspaceSerpentHead,
+		OtherworldyConstruct,
+		NatureConstruct,
+		EarthenConstruct,
+		PermafrostConstruct,
+		TidalConstruct,
+		EvilConstruct,
+		InfernoConstruct,
+		ChaosConstruct
+		//SOTS
 	}
 	public struct ItemSource {
 		public ItemSource(int resultItem, ItemSourceType itemSourceType, int sourceItem) {
@@ -621,6 +643,9 @@ namespace WeaponEnchantments.Common
 		public static SortedSet<int> GetBossType(ProgressionGroupID id) {
 			int npcid = NPCID.NegativeIDCount;
 			switch (id) {
+				case ProgressionGroupID.TorchGod:
+					npcid = NPCID.TorchGod;
+					break;
 				case ProgressionGroupID.KingSlime:
 					npcid = NPCID.KingSlime;
 					break;
@@ -770,12 +795,12 @@ namespace WeaponEnchantments.Common
 							bossName = "StarsAbove/Arbitration";
 							break;
 						case ProgressionGroupID.WarriorOfLight:
-							bossName = "StarsAbove/WarriorOfLight";
+							bossName = "StarsAbove/WarriorOfLightBossFinalPhase";
 							break;
 
 						//ThoriumMod
 						case ProgressionGroupID.ForgottenOne:
-							bossName = "ThoriumMod/Abyssion";
+							bossName = "ThoriumMod/ForgottenOne";
 							break;
 						case ProgressionGroupID.LunaticCultistThorium:
 							bossName = "NPCID.CultistBoss";
@@ -796,10 +821,10 @@ namespace WeaponEnchantments.Common
 							bossName = "ThoriumMod/GraniteEnergyStorm";
 							break;
 						case ProgressionGroupID.FallenBeholder:
-							bossName = "ThoriumMod/FallenDeathBeholder";
+							bossName = "ThoriumMod/FallenBeholder";
 							break;
 						case ProgressionGroupID.BuriedChampion:
-							bossName = "ThoriumMod/TheBuriedWarrior";
+							bossName = "ThoriumMod/BuriedChampion";
 							break;
 						case ProgressionGroupID.Lich:
 							bossName = "ThoriumMod/Lich";
@@ -811,13 +836,13 @@ namespace WeaponEnchantments.Common
 							bossName = "Martian Saucer";
 							break;
 						case ProgressionGroupID.QueenJellyfish:
-							bossName = "ThoriumMod/QueenJelly";
+							bossName = "ThoriumMod/QueenJellyfish";
 							break;
 						case ProgressionGroupID.StarScouter:
-							bossName = "ThoriumMod/ThePrimeScouter";
+							bossName = "ThoriumMod/StarScouter";
 							break;
 						case ProgressionGroupID.GrandThunderBird:
-							bossName = "ThoriumMod/TheGrandThunderBirdv2";
+							bossName = "ThoriumMod/TheGrandThunderBird";
 							break;
 						case ProgressionGroupID.Viscount:
 							bossName = "ThoriumMod/Viscount";
@@ -916,13 +941,36 @@ namespace WeaponEnchantments.Common
 
 						//Aequus
 						case ProgressionGroupID.Crabson:
-							bossName = "Aequus/Crabson";
+							bossName = "Aequus/CrabsonOld";
 							break;
 						case ProgressionGroupID.DustDevil:
 							bossName = "Aequus/DustDevil";
 							break;
 						case ProgressionGroupID.OmegaStarite:
 							bossName = "Aequus/OmegaStarite";
+							break;
+
+						//SOTS
+						case ProgressionGroupID.Glowmoth:
+							bossName = "SOTS/Glowmoth";
+							break;
+						case ProgressionGroupID.PutridPinkyPhase2:
+							bossName = "SOTS/PutridPinkyPhase2";
+							break;
+						case ProgressionGroupID.PharaohsCurse:
+							bossName = "SOTS/PharaohsCurse";
+							break;
+						case ProgressionGroupID.TheAdvisorHead:
+							bossName = "SOTS/TheAdvisorHead";
+							break;
+						case ProgressionGroupID.Polaris:
+							bossName = "SOTS/Polaris";
+							break;
+						case ProgressionGroupID.Lux:
+							bossName = "SOTS/Lux";
+							break;
+						case ProgressionGroupID.SubspaceSerpentHead:
+							bossName = "SOTS/SubspaceSerpentHead";
 							break;
 
 							/*
@@ -1322,7 +1370,9 @@ namespace WeaponEnchantments.Common
 					ItemID.Count,//April Fools Joke
 					ItemID.Sunflower,
 					ItemID.Daybloom,
-					ItemID.Stinkbug
+					ItemID.Stinkbug,
+					ItemID.YellowMarigold,
+					ItemID.BlueBerries
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.BlueSlime,
@@ -1392,7 +1442,8 @@ namespace WeaponEnchantments.Common
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Beach, 30,
 				itemTypes: new SortedSet<int>() {
-					ItemID.PalmWood
+					ItemID.PalmWood,
+					ItemID.Banana
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Snow, 35,
 				itemTypes: new SortedSet<int>() {
@@ -1419,11 +1470,17 @@ namespace WeaponEnchantments.Common
 					NPCID.UndeadMiner,
 					NPCID.CaveBat,
 					NPCID.PantlessSkeleton,
-					NPCID.Salamander6
+					NPCID.Salamander6,
+					NPCID.BlueJellyfish
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Ocean, 50,
 				itemTypes: new SortedSet<int>() {
 					ItemID.SharkBait
+				},
+				npcTypes: new SortedSet<int>() {
+					NPCID.SeaSnail,
+					NPCID.Crab,
+					NPCID.PinkJellyfish
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Amethyst, 50,
 				itemTypes: new SortedSet<int>() {
@@ -1498,7 +1555,8 @@ namespace WeaponEnchantments.Common
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Mushroom, 75,
 				npcTypes: new SortedSet<int>() {
-					NPCID.SporeBat
+					NPCID.SporeBat,
+					NPCID.SporeSkeleton
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.GoldOre, 75,
 				itemTypes: new SortedSet<int>() {
@@ -1508,6 +1566,7 @@ namespace WeaponEnchantments.Common
 				itemTypes: new SortedSet<int>() {
 					ItemID.PlatinumOre
 				}));
+			AddProgressionGroup(new(ProgressionGroupID.TorchGod, 75));
 			AddProgressionGroup(new(ProgressionGroupID.PostKingSlimeEasy, -10, ProgressionGroupID.KingSlime));//75
 			AddProgressionGroup(new(ProgressionGroupID.TownNPCDrops, 80,
 				npcTypes: new SortedSet<int>() {
@@ -1610,7 +1669,8 @@ namespace WeaponEnchantments.Common
 					ItemID.SawtoothShark,
 					ItemID.ZephyrFish,
 					ItemID.GoldenFishingRod,
-					ItemID.Shrimp
+					ItemID.Shrimp,
+					ItemID.SpecularFish
 				},
 				lootItemTypes: new SortedSet<int>() {
 					ItemID.WoodenCrate,
@@ -1732,7 +1792,8 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.Hell, 190,
 				itemTypes: new SortedSet<int>() {
 					ItemID.Fireblossom,
-					ItemID.AshWood
+					ItemID.AshWood,
+					ItemID.Obsidifish
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Demon,
@@ -1781,7 +1842,7 @@ namespace WeaponEnchantments.Common
 					ItemID.Wire,
 					ItemID.Lever,
 					ItemID.MechanicalLens,
-					ItemID.Wrench
+					ItemID.Wrench//Mechanic
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.AngryBones,
@@ -1802,6 +1863,9 @@ namespace WeaponEnchantments.Common
 				npcTypes: new SortedSet<int>() {
 					//NPCID.DungeonSlime,
 					NPCID.CursedSkull
+				},
+				lootItemTypes: new SortedSet<int>() {
+					ItemID.LockBox
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.ShadowChest, 350,
 				itemTypes: new SortedSet<int>() {
@@ -1814,6 +1878,9 @@ namespace WeaponEnchantments.Common
 					ItemID.BoneWelder,
 					ItemID.HellCake,
 					ItemID.OrnateShadowKey
+				},
+				lootItemTypes: new SortedSet<int>() {
+					ItemID.ObsidianLockbox
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Deer, 380));
 			AddProgressionGroup(new(ProgressionGroupID.DungeonGuardian, 390,
@@ -1855,6 +1922,7 @@ namespace WeaponEnchantments.Common
 					ItemID.CrystalBall,//Wizard
 					ItemID.MusicBox,//Wizard
 					ItemID.SpellTome,//Wizard
+					ItemID.EmptyDropper,//Wizard
 					ItemID.ZapinatorOrange,//Traveling Merchant
 					ItemID.Gatligator,//Traveling Merchant
 					ItemID.BouncingShield,//Traveling Merchant
@@ -2139,7 +2207,8 @@ namespace WeaponEnchantments.Common
 				npcTypes: new SortedSet<int>() {
 					NPCID.Everscream,
 					NPCID.Pumpking,
-					NPCID.MourningWood
+					NPCID.MourningWood,
+					NPCID.ElfCopter
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.OldOneArmyT3, -10, ProgressionGroupID.Golem,
 				itemTypes: new SortedSet<int>() {
@@ -2221,7 +2290,7 @@ namespace WeaponEnchantments.Common
 				progressionGroups[ProgressionGroupID.Hell].AddItems(
 					new SortedSet<string>() {
 						"CalamityMod/DragoonDrizzlefish"
-					});//90
+					});//190
 				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddItems(
 					new SortedSet<string>() {
 						"CalamityMod/Cinquedea",
@@ -2248,6 +2317,10 @@ namespace WeaponEnchantments.Common
 					new SortedSet<string>() {
 						"CalamityMod/EvilSmasher"
 					});//410
+				progressionGroups[ProgressionGroupID.PostMechanicalBoss].AddItems(
+					new SortedSet<string>() {
+						"CalamityMod/DeepcoreGK2"
+					});//595
 				progressionGroups[ProgressionGroupID.HardModeRare].AddNPCs(
 					new SortedSet<string>() {
 						"CalamityMod/Horse",
@@ -2524,7 +2597,7 @@ namespace WeaponEnchantments.Common
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AdultEidolon, 1450,
 					npcNames: new SortedSet<string>() {
-						"CalamityMod/AdultEidolonWyrmHead"
+						"CalamityMod/PrimordialWyrmHead"
 					}));
 			}
 
@@ -2554,7 +2627,8 @@ namespace WeaponEnchantments.Common
 					new SortedSet<string>() {
 						"StarsAbove/EssenceOfAsh",
 						"StarsAbove/EssenceOfOuterGods",
-						"StarsAbove/EssenceOfTheAnomaly"
+						"StarsAbove/EssenceOfTheAnomaly",
+						"StarsAbove/EssenceOfTheSoldier"
 					});//190
 				progressionGroups[ProgressionGroupID.Hell].AddItems(
 					new SortedSet<string>() {
@@ -2573,7 +2647,8 @@ namespace WeaponEnchantments.Common
 						"StarsAbove/EssenceOfTheSharpshooter",
 						"StarsAbove/EssenceOfTheUnderworldGoddess",
 						"StarsAbove/EssenceOfTheAutomaton",
-						"StarsAbove/EssenceOfThePegasus"
+						"StarsAbove/EssenceOfThePegasus",
+						"StarsAbove/EssenceOfTheHallownest"
 					});//290
 				AddProgressionGroup(new(ProgressionGroupID.PostDeerEasy, -10, ProgressionGroupID.Deer,
 					itemNames: new SortedSet<string>() {
@@ -2584,7 +2659,8 @@ namespace WeaponEnchantments.Common
 						"StarsAbove/EssenceOfBlasting",
 						"StarsAbove/EssenceOfPerfection",
 						"StarsAbove/EssenceOfSilverAsh",
-						"StarsAbove/EssenceOfTheObservatory"
+						"StarsAbove/EssenceOfTheObservatory",
+						"StarsAbove/EssenceOfTheVoid"
 					});//400
 				progressionGroups[ProgressionGroupID.Hallow].AddItems(
 					new SortedSet<string>() {
@@ -2594,7 +2670,8 @@ namespace WeaponEnchantments.Common
 					itemNames: new SortedSet<string>() {
 						"StarsAbove/EssenceOfIzanagi",
 						"StarsAbove/EssenceOfTheHawkmoon",
-						"StarsAbove/EssenceOfTheWatch"
+						"StarsAbove/EssenceOfTheWatch",
+						"StarsAbove/EssenceOfSpinning"
 					}));
 				progressionGroups[ProgressionGroupID.PostPiratesEasy].AddItems(
 					new SortedSet<string>() {
@@ -2632,7 +2709,8 @@ namespace WeaponEnchantments.Common
 					new SortedSet<string>() {
 						"StarsAbove/EssenceOfFoxfire",
 						"StarsAbove/EssenceOfTheFallen",
-						"StarsAbove/EssenceOfTheSwarm"
+						"StarsAbove/EssenceOfTheSwarm",
+						"StarsAbove/EssenceOfDreams"
 					});//715
 				AddProgressionGroup(new(ProgressionGroupID.Penthesilea, 810,
 					itemNames: new SortedSet<string>() {
@@ -2669,7 +2747,9 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.PostDukeFishronEasy, -10, ProgressionGroupID.DukeFishron,
 					itemNames: new SortedSet<string>() {
 						"StarsAbove/EssenceOfSin",
-						"StarsAbove/EssenceOfAlpha"
+						"StarsAbove/EssenceOfAlpha",
+						"StarsAbove/EssenceOfKinetics",
+						"StarsAbove/EssenceOfMania"
 					}));//930
 				progressionGroups[ProgressionGroupID.PostLunaticCultistEasy].AddItems(
 					new SortedSet<string>() {
@@ -2704,12 +2784,19 @@ namespace WeaponEnchantments.Common
 						"StarsAbove/EssenceOfTheBeginningAndEnd",
 						"StarsAbove/EssenceOfTheOverwhelmingBlaze",
 						"StarsAbove/EssenceOfTheTreasury",
-						"StarsAbove/EssenceOfBalance"
-					}));
+						"StarsAbove/EssenceOfBalance",
+						"StarsAbove/EssenceOfAuthority"
+					}
+					//,
+					//npcNames: new SortedSet<string>() {
+					//	"StarsAbove/WarriorOfLight"
+					//}//Might be needed at some point.  Warror of light has 2 phases.  The final phase is used in the boss switch way above.
+					));
 				AddProgressionGroup(new(ProgressionGroupID.FirstStarfarer, 1160,
 					itemNames: new SortedSet<string>() {
 						"StarsAbove/EssenceOfLuminance",
-						"StarsAbove/EssenceOfTheFuture"
+						"StarsAbove/EssenceOfTheFuture",
+						"StarsAbove/EssenceOfSurya"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.SpatialMemoriam, 1200,
 					itemNames: new SortedSet<string>() {
@@ -2773,6 +2860,7 @@ namespace WeaponEnchantments.Common
 				progressionGroups[ProgressionGroupID.GoldChest].AddItems(
 					new SortedSet<string>() {
 						"ThoriumMod/EnchantedStaff",
+						"ThoriumMod/EnchantedCane",
 						"ThoriumMod/Webgun"
 					});//80
 				progressionGroups[ProgressionGroupID.PreHardmodeUncommonShops].AddItems(
@@ -2835,11 +2923,11 @@ namespace WeaponEnchantments.Common
 					});//150
 				AddProgressionGroup(new(ProgressionGroupID.TrackerContractT1, 10, ProgressionGroupID.Eye,
 					itemNames: new SortedSet<string>() {
-						"ThoriumMod/TrackerBlade",
+						"ThoriumMod/TrackersSkinningBlade",
 						"ThoriumMod/RosySlimeStaff",
 						//"ThoriumMod/GrimPedestal",
 						"ThoriumMod/Whip",
-						"ThoriumMod/HagTotemCaller"
+						"ThoriumMod/TotemCaller"
 					}));//130
 				AddProgressionGroup(new(ProgressionGroupID.PatchWerk, 10, ProgressionGroupID.BloodMoon,
 					itemNames: new SortedSet<string>() {
@@ -2973,6 +3061,8 @@ namespace WeaponEnchantments.Common
 						"ThoriumMod/DurasteelBlade",
 						"ThoriumMod/DurasteelJavelin",
 						"ThoriumMod/DurasteelRepeater",
+						"ThoriumMod/DurasteelThrowingSpear",
+						"ThoriumMod/SteelThrowingAxe",
 						"ThoriumMod/Kunai",
 						"ThoriumMod/BenignBalloon",
 						"ThoriumMod/SacrificialDagger",
@@ -2985,7 +3075,8 @@ namespace WeaponEnchantments.Common
 						"ThoriumMod/StaffofOvergrowth",
 						"ThoriumMod/FlanPlatter",
 						"ThoriumMod/ScholarsHarp",
-						"ThoriumMod/TranquilLyre"
+						"ThoriumMod/TranquilLyre",
+						"ThoriumMod/HeavenlyCloudScepter"
 					});//400
 				progressionGroups[ProgressionGroupID.HardModeUnderground].AddItems(
 					new SortedSet<string>() {
@@ -3007,7 +3098,7 @@ namespace WeaponEnchantments.Common
 					});//430
 				progressionGroups[ProgressionGroupID.HardModeBloodMoon].AddNPCs(
 					new SortedSet<string>() {
-						"ThoriumMod/Warg",
+						"ThoriumMod/BloodyWarg",
 						"ThoriumMod/BloodMage"
 					});//440
 				progressionGroups[ProgressionGroupID.HardModeBloodMoon].AddItems(
@@ -3075,18 +3166,21 @@ namespace WeaponEnchantments.Common
 						"ThoriumMod/Scalper",
 						"ThoriumMod/Executioner",
 						"ThoriumMod/Rapier",
-						"ThoriumMod/Kazoo"
+						"ThoriumMod/Kazoo",
+						"ThoriumMod/Thunderstruck",
+						"ThoriumMod/LilCherubsWand",
+						"ThoriumMod/LilDevilsWand"
 					}));//550
 				AddProgressionGroup(new(ProgressionGroupID.FlyingDutchmanThorium, 10, ProgressionGroupID.Pirates));//555
 				progressionGroups[ProgressionGroupID.Eclipse].AddNPCs(
 					new SortedSet<string>() {
-						"ThoriumMod/Phantom"
+						"ThoriumMod/LeFantome"
 					});//560
 				AddProgressionGroup(new(ProgressionGroupID.FallenBeholder, 560));
 				AddProgressionGroup(new(ProgressionGroupID.OgreThorium, 0, ProgressionGroupID.OldOneArmyT2));//595
 				progressionGroups[ProgressionGroupID.PostMechanicalBoss].AddItems(
 					new SortedSet<string>() {
-						"ThoriumMod/Battery",
+						"ThoriumMod/SteamBattery",
 						"ThoriumMod/BaritoneSaxophone",
 						"ThoriumMod/OnemanQuartet",
 						"ThoriumMod/LifePulseStaff",
@@ -3115,17 +3209,18 @@ namespace WeaponEnchantments.Common
 						"ThoriumMod/LethalInjection",
 						"ThoriumMod/SupersonicBomber",
 						"ThoriumMod/PhaseLauncher",
-						"ThoriumMod/PLG"
+						"ThoriumMod/PLG",
+						"ThoriumMod/MicroLauncher"
 					});//715
 				progressionGroups[ProgressionGroupID.DungeonPostPlanteraRare].AddItems(
 					new SortedSet<string>() {
-						"ThoriumMod/BlackBlade",
-						"ThoriumMod/BlackBow",
-						"ThoriumMod/BlackStaff",
-						"ThoriumMod/BlackCane",
-						"ThoriumMod/BlackDagger",
-						"ThoriumMod/BlackScythe",
-						"ThoriumMod/BlackOtamatone"
+						"ThoriumMod/TheBlackBlade",
+						"ThoriumMod/TheBlackBow",
+						"ThoriumMod/TheBlackStaff",
+						"ThoriumMod/TheBlackCane",
+						"ThoriumMod/TheBlackDagger",
+						"ThoriumMod/TheBlackScythe",
+						"ThoriumMod/TheBlackOtamatone"
 					});//775
 				progressionGroups[ProgressionGroupID.BiomeChests].AddItems(
 					new SortedSet<string>() {
@@ -3152,6 +3247,12 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.Primordials, 1200,
 					npcNames: new SortedSet<string>() {
 						"ThoriumMod/Aquaius"
+					}, lootItemNames: new SortedSet<string>() {
+						"ThoriumMod/ThePrimordialsTreasureBag"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.DestinyWeaverUnobtainable, 1450,
+					itemNames: new SortedSet<string>() {
+						"ThoriumMod/DestinyWeaver"
 					}));
 			}
 
@@ -3382,6 +3483,10 @@ namespace WeaponEnchantments.Common
 					new SortedSet<string>() {
 						"Aequus/Starite"
 					});//20
+				progressionGroups[ProgressionGroupID.UndergroundSnow].AddItems(
+					new SortedSet<string>() {
+						"Aequus/CrystalDagger"
+					});//65
 				progressionGroups[ProgressionGroupID.TownNPCDrops].AddNPCs(
 					new SortedSet<string>() {
 						"Aequus/Carpenter"
@@ -3410,11 +3515,16 @@ namespace WeaponEnchantments.Common
 						"Aequus/EnthrallingScepter",
 						"Aequus/SilkHammer",
 						"Aequus/SilkPickaxe",
-						"Aequus/Narrizuul"
+						"Aequus/Narrizuul",
+						"Aequus/ThrashBag"
+					},
+					lootItemNames: new SortedSet<string>() {
+						"Aequus/EnvelopeGlimmer"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.CrabsonEasyAfter, -10, ProgressionGroupID.Crabson,
 					itemNames: new SortedSet<string>() {
-						"Aequus/Mallet"
+						"Aequus/Mallet",
+						"Aequus/RecyclingMachine"
 					}));//120
 				AddProgressionGroup(new(ProgressionGroupID.Crabson, 130,
 					itemNames: new SortedSet<string>() {
@@ -3435,16 +3545,20 @@ namespace WeaponEnchantments.Common
 						"Aequus/DungeonCandle",
 						"Aequus/Revenant"
 					});//320
-				AddProgressionGroup(new(ProgressionGroupID.DemonSiegeEasyAfter, 370,
+				AddProgressionGroup(new(ProgressionGroupID.DemonSiegeEasyAfter, -10, ProgressionGroupID.DemonSiege,
 					itemNames: new SortedSet<string>() {
 						"Aequus/OccultistCandle"
-					}));
+					}));//370
 				AddProgressionGroup(new(ProgressionGroupID.DemonSiege, 380,
 					npcNames: new SortedSet<string>() {
 						"Aequus/Cindera",
 						"Aequus/Magmabubble",
 						"Aequus/TrapperImp"
 					}));
+				AddProgressionGroup(new(ProgressionGroupID.OmegaStariteEasyAfter, -10, ProgressionGroupID.OmegaStarite,
+					itemNames: new SortedSet<string>() {
+						"Aequus/PhysicistSentry"
+					}));//385
 				AddProgressionGroup(new(ProgressionGroupID.OmegaStarite, 395));
 				progressionGroups[ProgressionGroupID.HardMode].AddItems(
 					new SortedSet<string>() {
@@ -3469,6 +3583,137 @@ namespace WeaponEnchantments.Common
 					new SortedSet<string>() {
 						"Aequus/Heckto"
 					});//750
+				AddProgressionGroup(new(ProgressionGroupID.AequusWorkInProgress, 0,
+					itemNames: new SortedSet<string>() {
+						"Aequus/ZombieSceptre",
+						"Aequus/CrimsonSceptre",
+						"Aequus/BattleAxe",
+						"Aequus/RecordBreaker",
+						"Aequus/BloodMoonCandle",
+						"Aequus/CorruptionCandle",
+						"Aequus/CrimsonCandle",
+						"Aequus/LihzahrdKusariyari",
+						"Aequus/Dynaknife",
+						"Aequus/SickBeat",
+						"Aequus/Osiris",
+						"Aequus/Insurgency",
+						"Aequus/DragonsBreath"
+					}));
+			}
+
+			if (WEMod.clickerClassEnabled) {
+				progressionGroups[ProgressionGroupID.ForestPreHardModeNight].AddItems(
+					new SortedSet<string>() {
+						"ClickerClass/DreamClicker"
+					});//20
+				progressionGroups[ProgressionGroupID.Underground].AddItems(
+					new SortedSet<string>() {
+						"ClickerClass/HeartyClicker"
+					});//45
+				progressionGroups[ProgressionGroupID.PreHardmodeUncommonShops].AddItems(
+					new SortedSet<string>() {
+						"ClickerClass/ConfettiClicker",
+						"ClickerClass/CandleClicker",
+						"ClickerClass/CritterClicker"
+					});//80
+				progressionGroups[ProgressionGroupID.GoldChest].AddItems(
+					new SortedSet<string>() {
+						"ClickerClass/FaultyClicker"
+					});//80
+				progressionGroups[ProgressionGroupID.UndergroundDesert].AddItems(
+					new SortedSet<string>() {
+						"ClickerClass/PharaohsClicker"
+					});//90
+				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddItems(
+					new SortedSet<string>() {
+						"ClickerClass/MagnetClicker"
+					});//290
+				progressionGroups[ProgressionGroupID.PostMoonLordEasy].AddItems(
+					new SortedSet<string>() {
+						"ClickerClass/QuintessenceClicker"
+					});//1050
+			}
+
+			if (WEMod.secretsOfTheShadowsEnabled) {
+				progressionGroups[ProgressionGroupID.ForestPreHardModeRare].AddNPCs(
+					new SortedSet<string>() {
+						"SOTS/BasicTreasureSlime"
+					});//40
+				progressionGroups[ProgressionGroupID.Underground].AddNPCs(
+					new SortedSet<string>() {
+						"SOTS/GoldenTreasureSlime"
+					});//45
+				progressionGroups[ProgressionGroupID.Mushroom].AddNPCs(
+					new SortedSet<string>() {
+						"SOTS/SittingMushroom"
+					});//75
+				progressionGroups[ProgressionGroupID.UndergroundDesert].AddNPCs(
+					new SortedSet<string>() {
+						"SOTS/PyramidTreasureSlime"
+					});//90
+				progressionGroups[ProgressionGroupID.Sky].AddNPCs(
+					new SortedSet<string>() {
+						"SOTS/TwilightScouter"
+					});//95
+				progressionGroups[ProgressionGroupID.Fishing].AddLootItems(
+					new SortedSet<string>() {
+						"SOTS/PyramidCrate"
+					});//95
+				AddProgressionGroup(new(ProgressionGroupID.OtherworldyConstruct, 100,
+					npcNames: new SortedSet<string>() {
+						"SOTS/OtherworldlyConstructHead",
+						"SOTS/OtherworldlySpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.NatureConstruct, 105,
+					npcNames: new SortedSet<string>() {
+						"SOTS/NatureConstruct",
+						"SOTS/NatureSpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.EarthenConstruct, 110,
+					npcNames: new SortedSet<string>() {
+						"SOTS/EarthenConstruct",
+						"SOTS/EarthenSpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.PermafrostConstruct, 115,
+					npcNames: new SortedSet<string>() {
+						"SOTS/PermafrostConstruct",
+						"SOTS/PermafrostSpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.TidalConstruct, 120,
+					npcNames: new SortedSet<string>() {
+						"SOTS/TidalConstruct",
+						"SOTS/TidalSpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.Glowmoth, 125));
+				progressionGroups[ProgressionGroupID.Hell].AddNPCs(
+					new SortedSet<string>() {
+						"SOTS/LesserWisp"
+					});//190
+				AddProgressionGroup(new(ProgressionGroupID.PutridPinkyPhase2, 260));
+				AddProgressionGroup(new(ProgressionGroupID.PharaohsCurse, 275));
+				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddNPCs(
+					new SortedSet<string>() {
+						"SOTS/CorruptionTreasureSlime"
+					});//290
+				AddProgressionGroup(new(ProgressionGroupID.TheAdvisorHead, 395));
+				AddProgressionGroup(new(ProgressionGroupID.EvilConstruct, 560,
+					npcNames: new SortedSet<string>() {
+						"SOTS/EvilConstruct",
+						"SOTS/EvilSpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.ChaosConstruct, 580,
+					npcNames: new SortedSet<string>() {
+						"SOTS/ChaosConstruct",
+						"SOTS/ChaosSpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.InfernoConstruct, 620,
+					npcNames: new SortedSet<string>() {
+						"SOTS/InfernoConstruct",
+						"SOTS/InfernoSpirit"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.Polaris, 610));
+				AddProgressionGroup(new(ProgressionGroupID.Lux, 905));
+				AddProgressionGroup(new(ProgressionGroupID.SubspaceSerpentHead, 1090));
 			}
 		}
 		private static void PopulateItemInfusionPowers() {

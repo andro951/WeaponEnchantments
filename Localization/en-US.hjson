@@ -1354,12 +1354,6 @@ Mods: {
 					{0}
 					(Duration is continuously increased while the buff is active, not upon first gaining the buff.)
 					'''
-
-				BuffEffect: {
-					All: "{0} ({1}% chance to apply for {2})"
-					OnTickPlayerBuff: "{0} ({1}% chance to apply for {2} every {3})"
-				}
-
 				CatastrophicRelease: Catastrophic Release
 				Channel: Channel
 				CrateChance: Crate Chance
@@ -1438,6 +1432,11 @@ Mods: {
 				BoolEffect: {
 					Enabled: "{0}: Enabled"
 					Prevented: "{0}: Prevented"
+				}
+
+				BuffEffect: {
+					All: "{0} ({1}% chance to apply for {2})"
+					OnTickPlayerBuff: "{0} ({1}% chance to apply for {2} every {3})"
 				}
 
 				PlayerSetEffect: {

@@ -712,8 +712,8 @@ Mods: {
 				DisplayName: Пыльный стол зачарования
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 1)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Используется для наложения чар на предметы. (уровень 1)
+					Можно использовать из вашего инвентаря, щелкнув правой кнопкой мыши. (Щелчок правой кнопкой мыши позволяет разделить стопку.)
 					'''
 			}
 
@@ -797,8 +797,8 @@ Mods: {
 				DisplayName: Адский стол зачарования
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 2)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Используется для наложения чар на предметы. (уровень 2)
+					Можно использовать из вашего инвентаря, щелкнув правой кнопкой мыши. (Щелчок правой кнопкой мыши позволяет разделить стопку.)
 					'''
 			}
 
@@ -1009,8 +1009,8 @@ Mods: {
 				DisplayName: Стол зачарования души
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 3)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Используется для наложения чар на предметы. (уровень 3)
+					Можно использовать из вашего инвентаря, щелкнув правой кнопкой мыши. (Щелчок правой кнопкой мыши позволяет разделить стопку.)
 					'''
 			}
 
@@ -1040,8 +1040,8 @@ Mods: {
 				DisplayName: Абсолютный стол зачарования
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 4)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Используется для наложения чар на предметы. (уровень 4)
+					Можно использовать из вашего инвентаря, щелкнув правой кнопкой мыши. (Щелчок правой кнопкой мыши позволяет разделить стопку.)
 					'''
 			}
 
@@ -1075,8 +1075,8 @@ Mods: {
 				DisplayName: Деревянный стол зачарования
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 0)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Используется для наложения чар на предметы. (уровень 0)
+					Можно использовать из вашего инвентаря, щелкнув правой кнопкой мыши. (Щелчок правой кнопкой мыши позволяет разделить стопку.)
 					'''
 			}
 
@@ -1351,12 +1351,6 @@ Mods: {
 					{0}
 					(Длительность непрерывно увеличивается пока эффект активен, а не при первом получении эффекта)
 					'''
-
-				BuffEffect: {
-					All: "{0} ({1}% шанс применить на {2})"
-					OnTickPlayerBuff: "{0} ({1}% шанс применить на {2} каждые {3})"
-				}
-
 				CatastrophicRelease: Катастрофический выпуск
 				Channel: Канал
 				CrateChance: шанс ящика
@@ -1435,6 +1429,11 @@ Mods: {
 				BoolEffect: {
 					Enabled: "{0}: Включено"
 					Prevented: "{0}: Предотвращено"
+				}
+
+				BuffEffect: {
+					All: "{0} ({1}% шанс применить на {2})"
+					OnTickPlayerBuff: "{0} ({1}% шанс применить на {2} каждые {3})"
 				}
 
 				PlayerSetEffect: {

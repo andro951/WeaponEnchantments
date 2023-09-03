@@ -25,7 +25,7 @@ Mods: {
 			ModTestingTools: Outils de test de mod
 			Multipliers: Multiplicateurs
 			NoneSelected: Aucune sélection
-			Normal: Normal
+			Normal: Normale
 			OtherDropRates: Autres taux de drop
 			Presets: Préconfigurations
 			RandomExtraStuff: Trucs supplémentaires aléatoires
@@ -636,7 +636,7 @@ Mods: {
 			BardClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de barde rare
 			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Enchantment Basique
 			BerserkersRageEnchantmentCommon.DisplayName: Rage des berserkers Enchantement Commun
-			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentEpic.DisplayName: Rage du Berserker Enchantement Épique
 			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rage Enchantement Légendaire
 			BerserkersRageEnchantmentRare.DisplayName: Rage des Berserkers Enchantement Rare
 			CalmWatersEnchantmentBasic.DisplayName: Enchantement des eaux calmes de base
@@ -715,8 +715,8 @@ Mods: {
 				DisplayName: Table d'enchantement poussiéreuse
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 1)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilisé pour appliquer des enchantements aux objets. (niveau 1)
+					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
 					'''
 			}
 
@@ -800,8 +800,8 @@ Mods: {
 				DisplayName: Table d'enchantement infernale
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 2)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilisé pour appliquer des enchantements aux objets. (niveau 2)
+					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
 					'''
 			}
 
@@ -908,7 +908,7 @@ Mods: {
 			MultishotEnchantmentRare.DisplayName: Enchantement de Multi-tir Rare
 			NpcContactAnglerEnchantmentBasic.DisplayName: Enchantement de base du pêcheur à la ligne de contact Npc
 			NpcContactAnglerEnchantmentCommon.DisplayName: PNJ Contact Pêcheur Enchantement Commun
-			NpcContactAnglerEnchantmentEpic.DisplayName: Npc Contact Angler Enchantment Epic
+			NpcContactAnglerEnchantmentEpic.DisplayName: PNJ Contact Pêcheur Enchantement Épique
 			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Pêcheur Enchantement Légendaire
 			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Pêcheur Enchantement Rare
 			ObsidianSkinEnchantmentBasic.DisplayName: Enchantement de peau d'obsidienne de base
@@ -1012,8 +1012,8 @@ Mods: {
 				DisplayName: Table d'enchantement d'âme
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 3)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilisé pour appliquer des enchantements aux objets. (niveau 3)
+					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
 					'''
 			}
 
@@ -1043,8 +1043,8 @@ Mods: {
 				DisplayName: Table d'enchantement ultime
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 4)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilisé pour appliquer des enchantements aux objets. (niveau 4)
+					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
 					'''
 			}
 
@@ -1078,14 +1078,14 @@ Mods: {
 				DisplayName: Table d'enchantement en bois
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 0)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilisé pour appliquer des enchantements aux objets. (niveau 0)
+					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
 					'''
 			}
 
 			WorldAblazeEnchantmentBasic.DisplayName: Enchantement du Monde Enflammé de base
 			WorldAblazeEnchantmentCommon.DisplayName: Enchantement du Monde Enflammé Commun
-			WorldAblazeEnchantmentEpic.DisplayName: World Ablaze Enchantment Epic
+			WorldAblazeEnchantmentEpic.DisplayName: Monde en feu Enchantement Épique
 			WorldAblazeEnchantmentLegendary.DisplayName: World Ablaze Enchantement Légendaire
 			WorldAblazeEnchantmentRare.DisplayName: Enchantement du Monde Enflammé Rare
 		}
@@ -1258,7 +1258,7 @@ Mods: {
 				Ki: Ki
 				KiClassSwap: Échange de classe Ki
 				KiDamage: Dégâts Ki
-				KiRegen: Ki Regen
+				KiRegen: Ki Régénération
 				LavaFishing: Pêche à la lave
 				LifeRegen: Régénération de vie
 				LifeRegeneration: Régénération de la vie
@@ -1272,7 +1272,7 @@ Mods: {
 				MaxKi: Max Ki
 				MaxLife: Durée de vie maximale
 				MaxLifeSteal: Vol de vie max
-				MaxMinions: Max Minions
+				MaxMinions: Max serviteurs
 				MaxMP: MP max
 				MeleeClassSwap: Échange de classe de mêlée
 				MiningSpeed: Vitesse de minage
@@ -1312,7 +1312,7 @@ Mods: {
 				Spelunker: Spéléologue
 				ThrowingClassSwap: Lancer un échange de classe
 				Time: Temps
-				VanillaDash1: Ninja Tabi Dash
+				VanillaDash1: Ninja Tabi Tiret
 				VanillaDash2: Tiret de bouclier de l'œil de Cthulhu
 				VanillaDash3: Tiret solaire
 				VanillaDash5: Dash ninja de cristal
@@ -1354,12 +1354,6 @@ Mods: {
 					{0}
 					(La durée est continuellement augmentée pendant que le buff est actif, pas après avoir obtenu le buff pour la première fois.)
 					'''
-
-				BuffEffect: {
-					All: "{0} ({1} % de chances de postuler pour {2})"
-					OnTickPlayerBuff: "{0} ({1} % de chances de postuler pour {2} tous les {3})"
-				}
-
 				CatastrophicRelease: Libération catastrophique
 				Channel: Canal
 				CrateChance: Chance de caisse
@@ -1394,7 +1388,7 @@ Mods: {
 				ItemCooldown: (CD de l'objet égal à {0} vitesse d'utilisation)
 				JumpSpeed: Vitesse de saut
 				KiDamage: Dégâts Ki
-				KiRegen: Ki Regen
+				KiRegen: Ki Régénération
 				LavaFishing: "{0} (Permet de pêcher dans la lave et a une chance d'améliorer les taux de capture dans la lave. Se cumule avec d'autres sources.)"
 				LifeRegeneration: Régénération de la vie
 				LifeSteal: "{0} (le reste est enregistré pour éviter de toujours arrondir à 0 pour les armes à faibles dégâts)"
@@ -1404,7 +1398,7 @@ Mods: {
 				MaxKi: Max Ki
 				MaxLife: Durée de vie maximale
 				MaxLifeSteal: "{0} (Le pourcentage du pool de vol de vie vanille qui peut être utilisé.)"
-				MaxMinions: Max Minions
+				MaxMinions: Max serviteurs
 				MaxMP: MP max
 				MiningSpeed: Vitesse de minage
 				MinionAttackTarget: Les ennemis touchés deviennent la cible de l'attaque des sbires. Même effet que les fouets.
@@ -1438,6 +1432,11 @@ Mods: {
 				BoolEffect: {
 					Enabled: "{0} : Activé"
 					Prevented: "{0} : empêché"
+				}
+
+				BuffEffect: {
+					All: "{0} ({1} % de chances de postuler pour {2})"
+					OnTickPlayerBuff: "{0} ({1} % de chances de postuler pour {2} tous les {3})"
 				}
 
 				PlayerSetEffect: {

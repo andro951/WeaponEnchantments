@@ -28,7 +28,7 @@ namespace WeaponEnchantments.Localization
 {
 	public class LocalizationData {
 		public static void RegisterSDataPackage() {
-			AndroLogModSystem.RegisterModLocalizationSDataPackage(new(ModContent.GetInstance<WEMod>, () => AllData));
+			AndroLogModSystem.RegisterModLocalizationSDataPackage(new(ModContent.GetInstance<WEMod>, () => AllData, () => ChangedData, () => RenamedKeys, () => RenamedFullKeys, () => SameAsEnglish));
 		}
 
 		private static SortedDictionary<string, SData> allData;
@@ -720,12 +720,13 @@ namespace WeaponEnchantments.Localization
 					string enchantmentEffectsKey = L_ID2.EnchantmentEffects.ToString();
 					SortedDictionary<string, string> dict = allData[tooltipKey].Children[displayNameKey].Dict;
 					SortedDictionary<string, string> enchantmentEffectsDict = allData[tooltipKey].Children[enchantmentEffectsKey].Dict;
+					SortedDictionary<string, SData> enchantmentEffectsChildren = allData[tooltipKey].Children[enchantmentEffectsKey].Children;
 					foreach (Type effectType in effectTypes) {
 						string name = effectType.Name;
 						if (!dict.ContainsKey(name) && !dict.ContainsKey(name + "1"))
 							dict.Add(name, name.AddSpaces());
 
-						if (!enchantmentEffectsDict.ContainsKey(name))
+						if (!enchantmentEffectsDict.ContainsKey(name) && !enchantmentEffectsChildren.ContainsKey(name))
 							enchantmentEffectsDict.Add(name, name.AddSpaces());
 					}
 
@@ -860,13 +861,10 @@ namespace WeaponEnchantments.Localization
 					"Ichor",
 					"Ki Regen",
 					"Max Ki",
-					"Solar Dash",
 					"Sonar",
-					"Ninja Tabi Dash",
-					"Solar Dash",
-					"Crystal Ninja Dash",
 					"Normal",
-					"Basic"
+					"Basic",
+					"Max MP"
 				}
 			},
 			{
@@ -893,9 +891,6 @@ namespace WeaponEnchantments.Localization
 			{
 				CultureName.French,
 				new() {
-					"Berserkers Rage Enchantment Epic",
-					"Npc Contact Angler Enchantment Epic",
-					"World Ablaze Enchantment Epic",
 					"Amaterasu",
 					"Akko",
 					"Binx",
@@ -917,14 +912,11 @@ namespace WeaponEnchantments.Localization
 					"Infusion",
 					"Ki",
 					"Ichor",
-					"Ki Regen",
 					"Max Ki",
-					"Max Minions",
 					"Sonar",
-					"Ninja Tabi Dash",
 					"Expert",
-					"Normal",
-					"Rare"
+					"Rare",
+					"Poison"
 				}
 			},
 			{
@@ -937,9 +929,7 @@ namespace WeaponEnchantments.Localization
 					"Gruntilda",
 					"Jasminka",
 					"Ki",
-					"Ki Regen",
 					"Kyubey",
-					"Max Ki",
 					"Medusa",
 					"Mingella",
 					"Morgana",
@@ -970,8 +960,7 @@ namespace WeaponEnchantments.Localization
 					"xp",
 					"Ki",
 					"Ki Regen",
-					"Sonar",
-					"Ninja Tabi Dash",
+					"Sonar"
 				}
 			},
 			{
@@ -992,7 +981,6 @@ namespace WeaponEnchantments.Localization
 					"Winifred",
 					"Item",
 					"Ki",
-					"Max Ki",
 					"Sonar"
 				}
 			},
@@ -1005,7 +993,7 @@ namespace WeaponEnchantments.Localization
 			{
 				CultureName.Chinese,
 				new() {
-					"Ki"
+					
 				}
 			},
 		};

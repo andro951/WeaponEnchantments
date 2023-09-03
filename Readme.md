@@ -248,6 +248,8 @@ Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode b
 
 [Weapon Enchantments forum page](https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/) (Not checked as often as Steam and Discord.)
 
+[Weapon Enchantments Ko-Fi](https://ko-fi.com/andro951)
+
 [Weapon Enchantments Patreon](https://www.patreon.com/andro951)
 
 ## Contributors

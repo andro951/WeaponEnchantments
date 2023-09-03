@@ -27,6 +27,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetResetWarReduction(NPC npc);
 		public void NetOfferChestItems(SortedDictionary<int, SortedSet<short>> chestItems);
 		public void NetResetEnchantedItemInChest(int chestNum, short index);
+		public void NetAnglerQuestSwap();
 	}
 	public class NetManager : ModHandler<INetMethods>, INetMethods
 	{
@@ -83,6 +84,16 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetResetEnchantedItemInChest(int chestNum, short index) {
 			if (Main.netMode == NetmodeID.Server)
 				EnchantedItemStaticMethods.ResetEnchantedItemInChestFromNet(chestNum, index);
+		}
+
+		public void NetAnglerQuestSwap() {
+			if (Main.netMode == NetmodeID.Server) {
+				Main.AnglerQuestSwap();
+				Net<INetMethods>.Proxy.NetAnglerQuestSwap();
+			}
+			else {
+				QuestFish.PrintAnglerQuest();
+			}
 		}
 	}
 }

@@ -715,8 +715,8 @@ Mods: {
 				DisplayName: Zakurzony stół do czarowania
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 1)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Służy do nakładania zaklęć na przedmioty. (poziom 1)
+					Można go użyć z poziomu ekwipunku, klikając prawym przyciskiem myszy. (Kliknięcie prawym klawiszem Shift pozwala na podzielenie stosu).
 					'''
 			}
 
@@ -800,8 +800,8 @@ Mods: {
 				DisplayName: Piekielna Zaklinająca Stół
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 2)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Służy do nakładania zaklęć na przedmioty. (poziom 2)
+					Można go użyć z poziomu ekwipunku, klikając prawym przyciskiem myszy. (Kliknięcie prawym klawiszem Shift pozwala na podzielenie stosu).
 					'''
 			}
 
@@ -1012,8 +1012,8 @@ Mods: {
 				DisplayName: Stół Zaklinania Duszy
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 3)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Służy do nakładania zaklęć na przedmioty. (poziom 3)
+					Można go użyć z poziomu ekwipunku, klikając prawym przyciskiem myszy. (Kliknięcie prawym klawiszem Shift pozwala na podzielenie stosu).
 					'''
 			}
 
@@ -1043,8 +1043,8 @@ Mods: {
 				DisplayName: Ostateczny stół zaklinający
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 4)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Służy do nakładania zaklęć na przedmioty. (poziom 4)
+					Można go użyć z poziomu ekwipunku, klikając prawym przyciskiem myszy. (Kliknięcie prawym klawiszem Shift pozwala na podzielenie stosu).
 					'''
 			}
 
@@ -1078,8 +1078,8 @@ Mods: {
 				DisplayName: Stół do zaklinania drewna
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 0)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Służy do nakładania zaklęć na przedmioty. (poziom 0)
+					Można go użyć z poziomu ekwipunku, klikając prawym przyciskiem myszy. (Kliknięcie prawym klawiszem Shift pozwala na podzielenie stosu).
 					'''
 			}
 
@@ -1312,7 +1312,7 @@ Mods: {
 				Spelunker: grotołaz
 				ThrowingClassSwap: Rzucanie Zamiana klas
 				Time: Czas
-				VanillaDash1: Ninja Tabi Dash
+				VanillaDash1: Ninja Tabi Kropla
 				VanillaDash2: Zryw tarczy oka Cthulhu
 				VanillaDash3: Słoneczna kreska
 				VanillaDash5: Kryształowy Ninja Dash
@@ -1354,12 +1354,6 @@ Mods: {
 					{0}
 					(Czas trwania jest stale zwiększany, gdy wzmocnienie jest aktywne, a nie po pierwszym zdobyciu wzmocnienia.)
 					'''
-
-				BuffEffect: {
-					All: "{0} ({1}% szans na zgłoszenie się do {2})"
-					OnTickPlayerBuff: „{0} ({1}% szans na zgłoszenie się o {2} co {3})”
-				}
-
 				CatastrophicRelease: Katastrofalne uwolnienie
 				Channel: Kanał
 				CrateChance: Szansa na skrzynię
@@ -1438,6 +1432,11 @@ Mods: {
 				BoolEffect: {
 					Enabled: „{0}: Włączone”
 					Prevented: „{0}: Zabronione”
+				}
+
+				BuffEffect: {
+					All: "{0} ({1}% szans na zgłoszenie się do {2})"
+					OnTickPlayerBuff: „{0} ({1}% szans na zgłoszenie się o {2} co {3})”
 				}
 
 				PlayerSetEffect: {

@@ -59,13 +59,13 @@ namespace WeaponEnchantments
         public int allForOneTimer = 0;
         public Item infusionConsumeItem = new();
         public string previousInfusedItemName = "";
-        public Item trackedTrashItem = new Item();
+        public Item trackedTrashItem = new();
         public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
         public Point enchantingTableLocation = new Point(-1, -1);
 		public int cursedEssenceCount;
         public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
-        public Item[] enchantmentStorageItems = new Item[] { new() };
-        public const int EnchantmentStorageSize = 300;
+        public Item[] enchantmentStorageItems = Enumerable.Repeat(new Item(), EnchantmentStorageSize).ToArray();
+		public const int EnchantmentStorageSize = 300;
         public int enchantmentStorageUILeft;
 		public int enchantmentStorageUITop;
         public bool displayEnchantmentStorage;

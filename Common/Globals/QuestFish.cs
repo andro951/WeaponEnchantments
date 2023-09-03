@@ -1,6 +1,8 @@
-﻿using System;
+﻿using KokoLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
@@ -10,6 +12,7 @@ using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.ModLib.KokoLib;
 using static Terraria.Player;
 
 namespace WeaponEnchantments.Common.Globals
@@ -46,7 +49,7 @@ namespace WeaponEnchantments.Common.Globals
 						Main.LocalPlayer.GetAnglerReward(angler, type);
 					}
 					else {
-						$"Failed to locate the Angler.  You will still recieve rewards".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
+						$"Failed to locate the Angler.  You will still receive rewards".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
 						GetAnglerLoot();
 					}
 
@@ -60,12 +63,21 @@ namespace WeaponEnchantments.Common.Globals
 
 					AchievementsHelper.HandleAnglerService();
 
-					Main.AnglerQuestSwap();
-					int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
-					Main.NewText($"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.  Quests finished: {Main.LocalPlayer.anglerQuestsFinished}\n" +
-						$"{Lang.AnglerQuestChat(false)}");
+					if (Main.netMode == NetmodeID.MultiplayerClient) {
+						Net<INetMethods>.Proxy.NetAnglerQuestSwap();
+					}
+					else {
+						Main.AnglerQuestSwap();
+						PrintAnglerQuest();
+					}
 				}
 			}
+		}
+
+		public static void PrintAnglerQuest() {
+			int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
+			Main.NewText($"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.  Quests finished: {Main.LocalPlayer.anglerQuestsFinished}\n" +
+				$"{Lang.AnglerQuestChat(false)}");
 		}
 
 		private void GetAnglerLoot() {

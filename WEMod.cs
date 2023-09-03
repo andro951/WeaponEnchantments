@@ -53,6 +53,8 @@ namespace WeaponEnchantments
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
 		public static bool aequusEnabled = ModLoader.TryGetMod("aequus", out Mod _);
+		public static bool clickerClassEnabled = ModLoader.TryGetMod("ClickerClass", out Mod _);
+		public static bool secretsOfTheShadowsEnabled = ModLoader.TryGetMod("SOTS", out Mod _);
 		public static Mod wikiThis;
 		public static bool wikiThisEnabled = ModLoader.TryGetMod("Wikithis", out wikiThis);
 

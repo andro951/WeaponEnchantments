@@ -715,8 +715,8 @@ Mods: {
 				DisplayName: Mesa de Encantamento Empoeirada
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 1)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Usado para aplicar encantamentos em itens. (nível 1)
+					Pode ser usado em seu inventário clicando com o botão direito. (Shift, clique com o botão direito permite que você divida a pilha.)
 					'''
 			}
 
@@ -800,8 +800,8 @@ Mods: {
 				DisplayName: Mesa de Encantamento Infernal
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 2)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Usado para aplicar encantamentos em itens. (nível 2)
+					Pode ser usado em seu inventário clicando com o botão direito. (Shift, clique com o botão direito permite que você divida a pilha.)
 					'''
 			}
 
@@ -1012,8 +1012,8 @@ Mods: {
 				DisplayName: Mesa de Encantamento de Almas
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 3)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Usado para aplicar encantamentos em itens. (Nível 3)
+					Pode ser usado em seu inventário clicando com o botão direito. (Shift, clique com o botão direito permite que você divida a pilha.)
 					'''
 			}
 
@@ -1043,8 +1043,8 @@ Mods: {
 				DisplayName: Mesa de Encantamento Suprema
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 4)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Usado para aplicar encantamentos em itens. (nível 4)
+					Pode ser usado em seu inventário clicando com o botão direito. (Shift, clique com o botão direito permite que você divida a pilha.)
 					'''
 			}
 
@@ -1078,8 +1078,8 @@ Mods: {
 				DisplayName: Mesa de Encantamento de Madeira
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 0)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Usado para aplicar encantamentos em itens. (nível 0)
+					Pode ser usado em seu inventário clicando com o botão direito. (Shift, clique com o botão direito permite que você divida a pilha.)
 					'''
 			}
 
@@ -1269,7 +1269,7 @@ Mods: {
 				ManaUsage1: Uso de Mana Reduzido
 				ManaUsage2: Aumento do uso de mana
 				MaxFallSpeed: Velocidade máxima de queda
-				MaxKi: Max Ki
+				MaxKi: Máx Ki
 				MaxLife: Vida máxima
 				MaxLifeSteal: Máximo Roubo de Vida
 				MaxMinions: Invocações Máximas
@@ -1304,7 +1304,7 @@ Mods: {
 				RangedClassSwap: Troca de classe de atirador
 				ReducedManaUsage: Uso de Mana Reduzido
 				RogueClassSwap: Troca de classe de ladino
-				Shadowflame: Shadowflame
+				Shadowflame: Chama Sombria
 				Shine: Brilhar
 				Size: Tamanho
 				SolarDash: Investida Solar
@@ -1354,12 +1354,6 @@ Mods: {
 					{0}
 					(A duração é continuamente aumentada enquanto o efeito está ativo, não ao ganhar o efeito pela primeira vez.)
 					'''
-
-				BuffEffect: {
-					All: "{0} ({1}% de chance de se candidatar {2})"
-					OnTickPlayerBuff: "{0} ({1}% de chance de aplicar para {2} a cada {3})"
-				}
-
 				CatastrophicRelease: Liberação Catastrófica
 				Channel: Canal
 				CrateChance: Possibilidade de caixa
@@ -1401,7 +1395,7 @@ Mods: {
 				Luck: Sorte
 				ManaUsage: Uso de Mana
 				MaxFallSpeed: Velocidade máxima de queda
-				MaxKi: Max Ki
+				MaxKi: Máx Ki
 				MaxLife: Vida máxima
 				MaxLifeSteal: "{0} (A porcentagem do pool de roubo de vida vanilla que pode ser usado.)"
 				MaxMinions: Máximo Minions
@@ -1438,6 +1432,11 @@ Mods: {
 				BoolEffect: {
 					Enabled: "{0}: Habilitado"
 					Prevented: "{0}: Impedido"
+				}
+
+				BuffEffect: {
+					All: "{0} ({1}% de chance de se candidatar {2})"
+					OnTickPlayerBuff: "{0} ({1}% de chance de aplicar para {2} a cada {3})"
 				}
 
 				PlayerSetEffect: {

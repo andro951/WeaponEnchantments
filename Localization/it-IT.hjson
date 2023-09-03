@@ -715,8 +715,8 @@ Mods: {
 				DisplayName: Tavolo incantevole polveroso
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 1)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilizzato per applicare incantesimi agli oggetti. (livello 1)
+					Può essere utilizzato dal tuo inventario facendo clic con il pulsante destro del mouse. (Shift clic destro ti consente di dividere la pila.)
 					'''
 			}
 
@@ -800,8 +800,8 @@ Mods: {
 				DisplayName: Tavolo incantevole infernale
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 2)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilizzato per applicare incantesimi agli oggetti. (livello 2)
+					Può essere utilizzato dal tuo inventario facendo clic con il pulsante destro del mouse. (Shift clic destro ti consente di dividere la pila.)
 					'''
 			}
 
@@ -1012,8 +1012,8 @@ Mods: {
 				DisplayName: Tavolo incantevole dell'anima
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 3)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilizzato per applicare incantesimi agli oggetti. (livello 3)
+					Può essere utilizzato dal tuo inventario facendo clic con il pulsante destro del mouse. (Shift clic destro ti consente di dividere la pila.)
 					'''
 			}
 
@@ -1043,8 +1043,8 @@ Mods: {
 				DisplayName: Tavolo incantevole definitivo
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 4)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilizzato per applicare incantesimi agli oggetti. (livello 4)
+					Può essere utilizzato dal tuo inventario facendo clic con il pulsante destro del mouse. (Shift clic destro ti consente di dividere la pila.)
 					'''
 			}
 
@@ -1078,8 +1078,8 @@ Mods: {
 				DisplayName: Tavolo incantevole in legno
 				Tooltip:
 					'''
-					Used to apply enchantments to items. (tier 0)
-					Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)
+					Utilizzato per applicare incantesimi agli oggetti. (livello 0)
+					Può essere utilizzato dal tuo inventario facendo clic con il pulsante destro del mouse. (Shift clic destro ti consente di dividere la pila.)
 					'''
 			}
 
@@ -1258,7 +1258,7 @@ Mods: {
 				Ki: Ki
 				KiClassSwap: Scambio di classe Ki
 				KiDamage: Ki Danni
-				KiRegen: Ki Regen
+				KiRegen: Ki Rigenerazione
 				LavaFishing: Pesca alla lava
 				LifeRegen: Vita rigenerata
 				LifeRegeneration: Rigenerazione della vita
@@ -1269,7 +1269,7 @@ Mods: {
 				ManaUsage1: Consumo di mana ridotto
 				ManaUsage2: Aumento del consumo di mana
 				MaxFallSpeed: Velocità massima di caduta
-				MaxKi: Max Ki
+				MaxKi: Massimo Ki
 				MaxLife: Massimo Vita
 				MaxLifeSteal: Massimo furto di vita
 				MaxMinions: Max Minion
@@ -1354,12 +1354,6 @@ Mods: {
 					{0}
 					(La durata viene continuamente aumentata mentre il buff è attivo, non prima di aver ottenuto il buff.)
 					'''
-
-				BuffEffect: {
-					All: "{0} ({1}% di possibilità di richiedere {2})"
-					OnTickPlayerBuff: "{0} ({1}% di possibilità di richiedere {2} ogni {3})"
-				}
-
 				CatastrophicRelease: Rilascio catastrofico
 				Channel: Canale
 				CrateChance: Possibilità di cassa
@@ -1394,14 +1388,14 @@ Mods: {
 				ItemCooldown: (CD oggetto uguale a {0} velocità di utilizzo)
 				JumpSpeed: Velocità di salto
 				KiDamage: Ki Danni
-				KiRegen: Ki Regen
+				KiRegen: Ki Rigenerazione
 				LavaFishing: "{0} (Consente di pescare nella lava e ha la possibilità di migliorare i tassi di cattura nella lava. Si accumula con altre fonti.)"
 				LifeRegeneration: Rigenerazione della vita
 				LifeSteal: "{0} (il resto viene salvato per evitare di arrotondare sempre a 0 per armi a basso danno)"
 				Luck: Fortuna
 				ManaUsage: Utilizzo del mana
 				MaxFallSpeed: Velocità massima di caduta
-				MaxKi: Max Ki
+				MaxKi: Massimo Ki
 				MaxLife: Massimo Vita
 				MaxLifeSteal: "{0} (La percentuale del pool Vanilla Lifesteal che può essere utilizzato.)"
 				MaxMinions: Minion massimi
@@ -1438,6 +1432,11 @@ Mods: {
 				BoolEffect: {
 					Enabled: "{0}: abilitato"
 					Prevented: "{0}: Impedito"
+				}
+
+				BuffEffect: {
+					All: "{0} ({1}% di possibilità di richiedere {2})"
+					OnTickPlayerBuff: "{0} ({1}% di possibilità di richiedere {2} ogni {3})"
 				}
 
 				PlayerSetEffect: {
