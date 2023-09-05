@@ -26,9 +26,12 @@ using System.Diagnostics;
 using WeaponEnchantments.ModIntegration;
 using static WeaponEnchantments.ModIntegration.BossChecklistIntegration;
 using androLib.Common.Utility;
+using androLib.ModIntegration;
+using static androLib.ModIntegration.BossChecklistIntegration;
 
 namespace WeaponEnchantments.Common.Globals
 {
+	using androLib;
 	using androLib.Common.Globals;
 	public class WEGlobalNPC : GlobalNPC {
         #region Static
@@ -767,7 +770,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public void ResetWarReduction() => myWarReduction = 1f;
 		private static void GetAllNpcDrops() {
-            if (!WEModSystem.StartedPostAddRecipes)
+            if (!AndroModSystem.StartedPostAddRecipes)
                 return;
 
 			allItemDropsFromNpcs = new();

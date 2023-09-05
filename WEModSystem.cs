@@ -40,27 +40,14 @@ namespace WeaponEnchantments
 	public class WEModSystem : ModSystem {
         public static bool FavoriteKeyDown => Main.keyState.IsKeyDown(Main.FavoriteKey);
         public static bool ShiftDown => ItemSlot.ShiftInUse;
-        internal static UserInterface weModSystemUI;
-        internal static UserInterface mouseoverUIInterface;
-        internal static UserInterface promptInterface;
         internal static byte versionUpdate = 0;
-        public static bool PromptInterfaceActive => promptInterface?.CurrentState != null;
         public static int[] levelXps = new int[EnchantedItem.MAX_Level];
         public static int stolenItemToBeCleared = -1;
         public static List<string> updatedPlayerNames;
         public static SortedDictionary<ChestID, List<DropData>> chestDrops = new();
-
-        private GameTime _lastUpdateUiGameTime;
         private bool dayTime = Main.dayTime;
-		public static bool StartedPostAddRecipes { get; private set; } = false;
 
 		public override void OnModLoad() {
-			if (!Main.dedServ) {
-                weModSystemUI = new UserInterface();
-                promptInterface = new UserInterface();
-                mouseoverUIInterface = new UserInterface();
-            }
-
             double previous = 0;
             double current;
             int l;
@@ -78,18 +65,10 @@ namespace WeaponEnchantments
 			SetupInfusion();
 		}
 		public static void SetupInfusion() {
-			StartedPostAddRecipes = true;
 			InfusionManager.SetUpVanillaWeaponInfusionPowers();
 			InfusionProgression.PostSetupContent();
 			InfusionManager.LogAllInfusionPowers();
 		}
-		public override void Unload() {
-            if (!Main.dedServ) {
-                weModSystemUI = null;
-                mouseoverUIInterface = null;
-                promptInterface = null;
-            }
-        }
 		public override void PostUpdateEverything() {
 			MasterUIManager.PostUpdateEverything();
 		}
@@ -103,53 +82,6 @@ namespace WeaponEnchantments
 					string temp2 = item.DamageType.Name;
 				}
 			}
-
-            /*
-            //Fix for splitting stack of enchanted items in a chest
-            if (wePlayer.Player.chest != -1 && Main.mouseRight) {
-                int chest = wePlayer.Player.chest;
-                if (Main.HoverItem.maxStack > 1 && Main.HoverItem.type == Main.mouseItem.type && Main.HoverItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedHoverItem) && enchantedHoverItem.Modified && Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedMouseItem)) {
-                    Player player = wePlayer.Player;
-                    Item[] inventory;
-                    switch (chest) {
-                        case -2:
-                            inventory = player.bank.item;
-                            break;
-                        case -3:
-                            inventory = player.bank2.item;
-                            break;
-                        case -4:
-                            inventory = player.bank3.item;
-                            break;
-                        case -5:
-                            inventory = player.bank4.item;
-                            break;
-                        default:
-                            if (chest > -1) {
-                                //Chest
-                                inventory = Main.chest[chest].item;
-                            }
-                            else {
-                                inventory = new Item[] { };
-                            }
-
-                            break;
-                    }
-
-                    for (int i = 0; i < inventory.Length; i++) {
-                        ref Item item = ref inventory[i];
-						if (item.IsSameEnchantedItem(Main.HoverItem) && item.stack == Main.HoverItem.stack) {
-							if (!item.IsSameEnchantedItem(Main.mouseItem))
-								Main.mouseItem.CombineEnchantedItems(new() { item });
-
-							enchantedHoverItem.ResetGlobals(item);
-
-							break;
-						}
-					}
-                }
-            }
-            */
 
 			//Calamity Reforge
 			if (EnchantedItem.calamityReforged) {
@@ -269,68 +201,8 @@ namespace WeaponEnchantments
         }
         public override void PreSaveAndQuit() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            weModSystemUI.SetState(null);
-            promptInterface.SetState(null);
             if (wePlayer.usingEnchantingTable)
                 EnchantingTableUI.CloseEnchantingTableUI();
-        }
-        public override void UpdateUI(GameTime gameTime) {
-            _lastUpdateUiGameTime = gameTime;
-            if (weModSystemUI?.CurrentState != null) {
-                weModSystemUI.Update(gameTime);
-            }
-
-            if (PromptInterfaceActive)
-                promptInterface.Update(gameTime);
-        }
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
-            int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Over"));
-            if (index != -1) {
-                layers.Insert
-                (
-                    ++index,
-                    new LegacyGameInterfaceLayer
-                    (
-                        "WeaponEnchantments: Mouse Over",
-                        delegate {
-                            if (_lastUpdateUiGameTime != null && mouseoverUIInterface?.CurrentState != null) {
-                                mouseoverUIInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                            }
-                            return true;
-                        },
-                        InterfaceScaleType.UI
-                     )
-                );
-            }
-
-            index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            if (index != -1) {
-                layers.Insert(index, new LegacyGameInterfaceLayer(
-                    "WeaponEnchantments: WeaponEnchantmentsUI",
-                    delegate {
-                        if (_lastUpdateUiGameTime != null && weModSystemUI?.CurrentState != null) {
-                            weModSystemUI.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                        }
-
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-            }
-
-            index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            if (index != -1) {
-                layers.Insert(index, new LegacyGameInterfaceLayer(
-                    "WeaponEnchantments: PromptUI",
-                    delegate {
-                        if (_lastUpdateUiGameTime != null && PromptInterfaceActive)
-                            promptInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-            }
         }
         public override void AddRecipeGroups() {
 			RecipeGroup group = new RecipeGroup(() => "Workbenches", new int[] {

@@ -28,16 +28,7 @@ namespace WeaponEnchantments.Common.Globals
                 return manuallySetModBossBags;
             }
         }
-        private static SortedSet<int> bossBags = null;
-        public static SortedSet<int> BossBags {
-            get {
-                if (bossBags == null)
-                    SetupModBossBagIntegration();
-
-                return bossBags;
-            }
-        }
-        private static SortedDictionary<string, int> bossTypes = null;
+		private static SortedDictionary<string, int> bossTypes = null;
 		public static SortedDictionary<string, int> BossTypes {
             get {
                 if (bossTypes == null)
@@ -58,28 +49,11 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
             int type = item.type;
 
-            if (!BossBags.Contains(type))
+            if (!BossBagsData.BossBags.Contains(type))
 				return;
 
             ModdedLootBagDropRule moddedLootBagDropRule = new(type);
             itemLoot.Add(moddedLootBagDropRule);
-        }
-        private static void SetupModBossBagIntegration() {
-            bossBags = new();
-            SortedDictionary<string, int> supportedNPCsThatDropBags = new SortedDictionary<string, int>();
-            SortedSet<int> bossBagsNotIncludedInItemIdSets = new();
-            if (WEMod.qwertyModEnabled)
-				bossBagsNotIncludedInItemIdSets.UnionWith(ContentSamples.ItemsByType.Where(p => p.Key > ItemID.Count).Select(p => p.Value.ModItem).Where(m => m != null && m.Mod.Name == "QwertyMod" && m.FullName.Contains("Bag")).Select(m => m.Type));
-
-            for(int i = 0; i < ItemLoader.ItemCount; i++) {
-                Item sampleItem = ContentSamples.ItemsByType[i];
-				bool itemIsBossBag = ItemID.Sets.BossBag[i] || bossBagsNotIncludedInItemIdSets.Contains(i);
-                
-                if (!itemIsBossBag)
-                    continue;
-
-                bossBags.Add(i);
-            }
         }
         private static void SetupBossTypes() {
             if (AllItemDropsFromNpcs == null)
@@ -87,7 +61,7 @@ namespace WeaponEnchantments.Common.Globals
 
             bossTypes = new();
             bossBagNPCs = new();
-			foreach (int bossBagType in BossBags) {
+			foreach (int bossBagType in BossBagsData.BossBags) {
                 if (!AllItemDropsFromNpcs.ContainsKey(bossBagType)) {
                     switch (bossBagType) {
                         case ItemID.CultistBossBag:

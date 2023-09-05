@@ -431,7 +431,7 @@ namespace WeaponEnchantments.Common.Globals
 			#endregion
 		}
         public override void UpdateInventory(Item item, Player player) {
-            if (Modified) {
+			if (Modified) {
                 //Update Item Value if stack changed.
                 Stack = item.stack;
             }
@@ -629,7 +629,7 @@ namespace WeaponEnchantments.Common.Globals
             return false;
         }
         public override void RightClick(Item item, Player player) {
-            if (item.stack <= 1)
+			if (item.stack <= 1)
                 return;
 
             if (!Modified)

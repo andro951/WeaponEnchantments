@@ -47,7 +47,6 @@ namespace WeaponEnchantments
 		public static bool fargosSoulsEnabled = ModLoader.TryGetMod("FargowiltasSouls", out Mod _);
 		public static bool imkSushisModEnabled = ModLoader.TryGetMod("imkSushisMod", out Mod _);
 		public static bool avaliRaceEnabled = ModLoader.TryGetMod("AvaliRace", out Mod _);
-		public static bool qwertyModEnabled = ModLoader.TryGetMod("QwertyMod", out Mod _);
 		public static bool bossChecklistEnabled = ModLoader.TryGetMod("BossChecklist", out Mod _);
 		public static bool bountifulGoodieBagsEnabled = ModLoader.TryGetMod("BountifulGoodieBags", out Mod _);
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
@@ -116,7 +115,6 @@ namespace WeaponEnchantments
 		#endregion
 
 		public override void Unload() {
-			BossChecklistIntegration.UnloadBossChecklistIntegration();
 			foreach (Hook hook in hooks) {
 				hook?.Undo();
 			}
