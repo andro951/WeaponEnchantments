@@ -76,24 +76,24 @@ namespace WeaponEnchantments.Common.Globals
         #endregion
 
         #region Tracking (instance)
-
-        private bool _stack0 = false;
-        public bool Stack0 {
-            get {
-                if (_stack0) {
-                    if (Item.stack > 1) {
-                        Item.stack--;
-                        _stack0 = false;
-                        Stack = Item.stack;
-                    }
-                }
-
-                return _stack0;
+        public bool GetStack0(Item item) {
+            if (_stack0) {
+                if (item.stack > 1) {
+					item.stack--;
+					_stack0 = false;
+				}
             }
-            set {
-                _stack0 = value;
-            }
+
+            return _stack0;
         }
+        public void SetStack0(Item item, bool newValue) {
+            if (!_stack0 && newValue && item.stack < 2) {
+                item.stack = 2;
+            }
+
+            _stack0 = newValue;
+        }
+        private bool _stack0 = false;
 
         #endregion
 
@@ -138,7 +138,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 #region Tracking (instance)
 
-                clone.Stack0 = Stack0;
+                clone._stack0 = _stack0;
 
                 #endregion
             }
@@ -157,7 +157,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Tracking (instance)
 
-			Stack0 = tag.Get<bool>("stack0");
+			_stack0 = tag.Get<bool>("stack0");
 
             #endregion
 
@@ -175,7 +175,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Tracking (instance)
 
-			tag["stack0"] = Stack0;
+			tag["stack0"] = GetStack0(item);
 
             #endregion
 
@@ -194,7 +194,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Tracking (instance)
 
-			writer.Write(Stack0);
+			writer.Write(_stack0);
 
 			#endregion
 
@@ -215,7 +215,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Tracking (instance)
 
-			Stack0 = reader.ReadBoolean();
+			_stack0 = reader.ReadBoolean();
 
 			#endregion
 
@@ -252,7 +252,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Stack0
             if (Modified || inEnchantingTable) {
-                if (Stack0) {
+                if (GetStack0(item)) {
                     string tooltip = $"♦ OUT OF AMMO ♦";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
@@ -316,7 +316,7 @@ namespace WeaponEnchantments.Common.Globals
                 return null;
             }*/
         }
-        private void Restock(Item item) {
+        private void Restock(Item item) {//TODO: make this look in the ammo bag.
             Player player = Main.LocalPlayer;
 
             //Find same item
@@ -331,12 +331,12 @@ namespace WeaponEnchantments.Common.Globals
                 if (invEnchantedWeapon.Modified)
                     continue;
 
-                if (invEnchantedWeapon.Stack0)
+                if (invEnchantedWeapon.GetStack0(item))
                     continue;
 
                 //Restock (found same item)
-                item.stack = inventoryItem.stack;
-                Stack0 = false;
+                item.stack = inventoryItem.stack;//TODO: Make this use ItemLoader.TransferStack instead of setting stack equal to.
+                SetStack0(item, false);
                 player.inventory[i] = new Item();
                 return;
             }
@@ -362,11 +362,7 @@ namespace WeaponEnchantments.Common.Globals
             if (item.consumable && Modified && item.placeStyle == 0) {//Restock and Stack0
                 if (item.stack < 2) {
                     Restock(item);
-
-                    if (item.stack < 2 || item.Name == "") {
-                        Stack0 = true;
-                        item.stack = 2;
-                    }
+                    SetStack0(item, true);
                 }
             }
 
@@ -377,10 +373,10 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
             //stack0
-            if (Stack0) {
+            if (GetStack0(item)) {
                 Restock(item);
 
-                if (Stack0) {
+                if (GetStack0(item)) {
                     //Restock failed
                     return false;
                 }

@@ -138,17 +138,6 @@ namespace WeaponEnchantments.Common.Globals
         public bool inEnchantingTable = false;
         public bool trashItem = false;
         public bool favorited = false;
-        protected int _stack = 0;
-        public int Stack {
-            get {
-                if (_stack <= 0)
-                    _stack = Item.stack;
-                return _stack;
-            }
-            set {
-                _stack = value;
-            }
-        }
 
         private bool skipFirstLeftCanStackStack0Check = true;
 
@@ -431,11 +420,6 @@ namespace WeaponEnchantments.Common.Globals
 			#endregion
 		}
         public override void UpdateInventory(Item item, Player player) {
-			if (Modified) {
-                //Update Item Value if stack changed.
-                Stack = item.stack;
-            }
-
             //Track favorited
             if (item.favorited) {
                 if (!favorited && WEModSystem.FavoriteKeyDown) {
@@ -661,12 +645,6 @@ namespace WeaponEnchantments.Common.Globals
             else if (Main.mouseItem.type == item.type) {
                 Main.mouseItem.stack++;
             }
-
-            if(Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem mGlobal))
-                mGlobal.Stack = Main.mouseItem.stack;
-
-            //Update Item Value if stack changed.
-            Stack = item.stack;
         }
 		public override void PreReforge(Item item) {
 
