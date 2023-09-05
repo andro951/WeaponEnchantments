@@ -73,15 +73,7 @@ namespace WeaponEnchantments
 			MasterUIManager.PostUpdateEverything();
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
-            //UIManager.PostDrawInterface(spriteBatch);
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
-                Item item = wePlayer.Player.HeldItem;
-				string temp = item.ModFullName();
-                if (item.DamageType != DamageClass.Default) {
-					string temp2 = item.DamageType.Name;
-				}
-			}
 
 			//Calamity Reforge
 			if (EnchantedItem.calamityReforged) {
