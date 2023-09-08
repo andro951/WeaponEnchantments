@@ -761,7 +761,7 @@ namespace WeaponEnchantments
 			return num >= chestPointX - Player.tileRangeX && num <= chestPointX + Player.tileRangeX + 1 && num2 >= chestPointY - Player.tileRangeY && num2 <= chestPointY + Player.tileRangeY + 1;
         }
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
-            if (WEMod.calamityEnabled) {
+            if (AndroMod.calamityEnabled) {
                 CalamityRespawnMinionSourceItems.Clear();
                 for (int i = 0; i < 200; i++) {
                     Projectile projectile = Main.projectile[i];

@@ -9,6 +9,7 @@ using System.Linq;
 using Terraria.GameContent.ItemDropRules;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -20,7 +21,7 @@ namespace WeaponEnchantments.Common.Globals
             get {
                 if (manuallySetModBossBags == null) {
                     manuallySetModBossBags = new();
-                    if (WEMod.starsAboveEnabled) {
+                    if (AndroMod.starsAboveEnabled) {
                         manuallySetModBossBags.Add("StarsAbove/VagrantBoss", ("StarsAbove/VagrantBossBag", 1f));
                     }
 				}

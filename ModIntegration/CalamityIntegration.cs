@@ -13,6 +13,7 @@ using WeaponEnchantments.Common.Utility;
 using Terraria.ID;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib;
 
 namespace WeaponEnchantments.ModIntegration
 {
@@ -20,23 +21,20 @@ namespace WeaponEnchantments.ModIntegration
 	internal class CalamityIntegration : ModSystem
 	{
 		public const string CALAMITY_NAME = "CalamityMod";
-		public static bool Enabled { get; private set; }
 		private List<Item> mouseItemClones = new List<Item>();
 		private Item lastMouseItem = null;
 		private double closeInventoryTimerEnd = 0;
 		private bool skipOnce = false;
 
 		public override void Load() {
-			Enabled = ModLoader.TryGetMod(CALAMITY_NAME, out Mod calamityMod);
-			WEMod.calamityEnabled = Enabled;
-			if (Enabled) {
-				calamityMod.TryFind("RogueDamageClass", out CalamityValues.rogue);
-				calamityMod.TryFind("TrueMeleeDamageClass", out CalamityValues.trueMelee);
-				calamityMod.TryFind("TrueMeleeNoSpeedDamageClass", out CalamityValues.trueMeleeNoSpeed);
+			if (AndroMod.calamityEnabled) {
+				AndroMod.calamityMod.TryFind("RogueDamageClass", out CalamityValues.rogue);
+				AndroMod.calamityMod.TryFind("TrueMeleeDamageClass", out CalamityValues.trueMelee);
+				AndroMod.calamityMod.TryFind("TrueMeleeNoSpeedDamageClass", out CalamityValues.trueMeleeNoSpeed);
 			}
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
-			if (Enabled) {
+			if (AndroMod.calamityEnabled) {
 				HandleOnTickEvents();
 			}
 		}

@@ -37,14 +37,9 @@ namespace WeaponEnchantments
 	public class WEMod : Mod {
 		public static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		public static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
-		public static bool calamityEnabled = false;
 		public static bool playerSwapperModEnabled = false;
 		public static bool dbtEnabled = false;
-		public static bool thoriumEnabled = false;
 		public static bool recursiveCraftEnabled = ModLoader.TryGetMod("RecursiveCraft", out Mod _);
-		public static bool starsAboveEnabled = ModLoader.TryGetMod("StarsAbove", out Mod _);
-		public static bool fargosEnabled = ModLoader.TryGetMod("Fargowiltas", out Mod _);
-		public static bool fargosSoulsEnabled = ModLoader.TryGetMod("FargowiltasSouls", out Mod _);
 		public static bool imkSushisModEnabled = ModLoader.TryGetMod("imkSushisMod", out Mod _);
 		public static bool avaliRaceEnabled = ModLoader.TryGetMod("AvaliRace", out Mod _);
 		public static bool bossChecklistEnabled = ModLoader.TryGetMod("BossChecklist", out Mod _);

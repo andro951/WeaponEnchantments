@@ -1,4 +1,5 @@
-﻿using System;
+﻿using androLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +42,7 @@ namespace WeaponEnchantments.Common.Globals
 			float attackSpeed = GetVanillaModifierStrength(EnchantmentStat.AttackSpeed);
 
 			//Calamity Rogue weapon Attackspeed fix
-			if (WEMod.calamityEnabled && attackSpeed != 1f && !findingUseSpeed) {
+			if (AndroMod.calamityEnabled && attackSpeed != 1f && !findingUseSpeed) {
 				if (ContentSamples.ItemsByType[item.type].DamageType == CalamityValues.rogue) {
 					if (item.Name == "Executioner's Blade") {
 						findingUseSpeed = true;

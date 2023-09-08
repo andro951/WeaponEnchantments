@@ -2264,7 +2264,7 @@ namespace WeaponEnchantments.Common
 
 			#endregion
 
-			if (WEMod.calamityEnabled) {
+			if (AndroMod.calamityEnabled) {
 				progressionGroups[ProgressionGroupID.Beach].AddNPCs(
 					new SortedSet<string>() {
 						"CalamityMod/SeaUrchin",
@@ -2601,7 +2601,7 @@ namespace WeaponEnchantments.Common
 					}));
 			}
 
-			if (WEMod.starsAboveEnabled) {
+			if (AndroMod.starsAboveEnabled) {
 				/*Not used to make weapons
 				progressionGroups[ProgressionGroupID.GraveYard].AddItems(
 					new SortedSet<string>() {
@@ -2804,7 +2804,7 @@ namespace WeaponEnchantments.Common
 					}));
 			}
 
-			if (WEMod.thoriumEnabled) {
+			if (AndroMod.thoriumEnabled) {
 				progressionGroups[ProgressionGroupID.ForestPreHardModeNight].AddItems(
 					new SortedSet<string>() {
 						"ThoriumMod/ArcaneDust"
@@ -3263,14 +3263,14 @@ namespace WeaponEnchantments.Common
 					});//80
 			}
 
-			if (WEMod.fargosEnabled) {
+			if (AndroMod.fargosEnabled) {
 				progressionGroups[ProgressionGroupID.MerchantShop].AddItems(
 					new SortedSet<string>() {
 						"Fargowiltas/LumberJaxe"
 					});//10
 			}
 
-			if (WEMod.fargosSoulsEnabled) {
+			if (AndroMod.fargosSoulsEnabled) {
 				AddProgressionGroup(new(ProgressionGroupID.Energizers, 1000,
 					itemTypes:
 						ContentSamples.ItemsByType.Where(p => p.Value.type > ItemID.Count && p.Value.ModItem?.Mod.Name == "Fargowiltas" && p.Value.Name.Contains("Energizer")).Select(p => p.Value.type)

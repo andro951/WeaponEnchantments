@@ -1,4 +1,5 @@
-﻿using System;
+﻿using androLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,13 +12,10 @@ namespace WeaponEnchantments.ModIntegration
 	internal class ThoriumIntegration : ModSystem
 	{
 		public const string THORIUM_NAME = "ThoriumMod";
-		public static bool Enabled { get; private set; }
 		public override void Load() {
-			Enabled = ModLoader.TryGetMod(THORIUM_NAME, out Mod thoriumMod);
-			WEMod.thoriumEnabled = Enabled;
-			if (Enabled) {
-				bool h = thoriumMod.TryFind("HealerDamage", out ThoriumValues.healerRadiation);
-				bool b = thoriumMod.TryFind("BardDamage", out ThoriumValues.bard);
+			if (AndroMod.thoriumEnabled) {
+				bool h = AndroMod.thoriumMod.TryFind("HealerDamage", out ThoriumValues.healerRadiation);
+				bool b = AndroMod.thoriumMod.TryFind("BardDamage", out ThoriumValues.bard);
 			}
 		}
 	}

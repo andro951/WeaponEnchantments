@@ -10,6 +10,7 @@ using static WeaponEnchantments.WEPlayer;
 using WeaponEnchantments.Effects.CustomEffects;
 using androLib.Common.Utility;
 using WeaponEnchantments.Common.Configs;
+using androLib;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -121,8 +122,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class ThrowingClassSwapEnchantmentBasic : ThrowingClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => WEMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
-		public override List<ModDropData> ModNpcDropNames => WEMod.thoriumEnabled ? new() {
+		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
+		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
 			new("ThoriumMod/TheGrandThunderBirdv2")
 		} : null;
 	}
@@ -140,8 +141,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => WEMod.calamityEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
-		public override List<ModDropData> ModNpcDropNames => WEMod.calamityEnabled ? new() {
+		public override SellCondition SellCondition => AndroMod.calamityEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
+		public override List<ModDropData> ModNpcDropNames => AndroMod.calamityEnabled ? new() {
 			new("CalamityMod/DesertScourgeHead")
 		} : null;
 	}
@@ -181,8 +182,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class BardClassSwapEnchantmentBasic : BardClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => WEMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
-		public override List<ModDropData> ModNpcDropNames => WEMod.thoriumEnabled ? new() {
+		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
+		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
 			new("ThoriumMod/QueenJelly")
 		} : null;
 	}
@@ -198,8 +199,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class HealerClassSwapEnchantmentBasic : HealerClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => WEMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
-		public override List<ModDropData> ModNpcDropNames => WEMod.thoriumEnabled ? new() {
+		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
+		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
 			new("ThoriumMod/GraniteEnergyStorm"),
 			new("ThoriumMod/TheBuriedWarrior")
 		} : null;

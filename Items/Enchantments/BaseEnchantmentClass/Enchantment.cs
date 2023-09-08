@@ -20,6 +20,7 @@ using WeaponEnchantments.Items.Enchantments.Utility;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
 using androLib.Items;
+using androLib;
 
 namespace WeaponEnchantments.Items
 {
@@ -756,7 +757,7 @@ namespace WeaponEnchantments.Items
 				case (int)DamageClassID.MagicSummonHybrid:
 					return (int)DamageClassID.Summon;
 				default:
-					if (WEMod.calamityEnabled) {
+					if (AndroMod.calamityEnabled) {
 						if (damageType == ModIntegration.CalamityValues.trueMelee.Type || damageType == ModIntegration.CalamityValues.trueMeleeNoSpeed.Type)
 							return (int)DamageClassID.Melee;
 					}
@@ -780,7 +781,7 @@ namespace WeaponEnchantments.Items
 			if (damageType <= (int)DamageClassID.Throwing)
 				return ((DamageClassID)damageType).ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);
 
-			if (WEMod.calamityEnabled) {
+			if (AndroMod.calamityEnabled) {
 				int rogue = ModIntegration.CalamityValues.rogue.Type;
 				if (damageType == rogue)
 					return DamageClassID.Rogue.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.DamageClassNames);

@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -65,7 +66,7 @@ namespace WeaponEnchantments.Common.Globals
                 TryUpdateFromParent();
             }
             else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar") {
-                if (WEMod.calamityEnabled && projectile.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.CalamityRespawnMinionSourceItems.ContainsKey(projectile.type)) {
+                if (AndroMod.calamityEnabled && projectile.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.CalamityRespawnMinionSourceItems.ContainsKey(projectile.type)) {
                     sourceItem = wePlayer.CalamityRespawnMinionSourceItems[projectile.type];
                     wePlayer.CalamityRespawnMinionSourceItems.Remove(projectile.type);
                 }

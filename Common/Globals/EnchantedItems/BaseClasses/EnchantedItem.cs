@@ -687,11 +687,11 @@ namespace WeaponEnchantments.Common.Globals
 			Item = item;
 
             //Calamity
-            if (WEMod.calamityEnabled)
+            if (AndroMod.calamityEnabled)
                 calamityReforged = true;
 
 			//Calamity deletes global data after reforge, so it is handled on the next tick in WEModSystem.
-			if (!WEMod.calamityEnabled) {
+			if (!AndroMod.calamityEnabled) {
                 //Vanilla and AutoReforge (No Calamity)
                 ReforgeItem(ref item, Main.LocalPlayer);
             }
@@ -902,7 +902,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (item.ModItem != null) {
                 string modName = item.ModItem.Mod.Name;
 				//Manually prevent calamity items from being weapons
-				if (WEMod.calamityEnabled && modName == CalamityIntegration.CALAMITY_NAME) {
+				if (AndroMod.calamityEnabled && modName == CalamityIntegration.CALAMITY_NAME) {
 					switch (item.Name) {
                         case "Experimental Wulfrum Fusion Array":
 							return false;
@@ -917,7 +917,7 @@ namespace WeaponEnchantments.Common.Globals
 					}
 				}
 
-				if (WEMod.thoriumEnabled && modName == "ThoriumMod") {
+				if (AndroMod.thoriumEnabled && modName == "ThoriumMod") {
 					switch (item.Name) {
 						case "Hive Mind":
                         case "Inspiration Note":
@@ -941,7 +941,7 @@ namespace WeaponEnchantments.Common.Globals
 						return false;
 				}
 
-                if (WEMod.fargosEnabled && modName == "Fargowiltas") {
+                if (AndroMod.fargosEnabled && modName == "Fargowiltas") {
                     switch (item.ModFullName()) {
                         case "Fargowiltas/BrittleBone":
                             return false;
