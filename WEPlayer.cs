@@ -1678,37 +1678,6 @@ namespace WeaponEnchantments
 
 			Net<INetMethods>.Proxy.NetAddNPCValue(realNPC, coins);
 		}
-		public void UpdateItemStats(ref Item item) {
-            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-                return;
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log_WE();
-
-            #endregion
-
-            //Prefix
-            int trackedPrefix = enchantedItem.prefix;
-            if (trackedPrefix != item.prefix) {
-                enchantedItem.prefix = item.prefix;
-                if (enchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.damageType != DamageClass.Default)
-                    item.DamageType = enchantedWeapon.damageType;
-            }
-
-            if (enchantedItem is EnchantedArmor enchantedArmor) {
-                int infusedArmorSlot = enchantedArmor.infusedArmorSlot;
-                int armorSlot = item.GetInfusionArmorSlot(false, true);
-                if (infusedArmorSlot != -1 && armorSlot != infusedArmorSlot)
-                    item.UpdateArmorSlot(enchantedArmor.infusedArmorSlot);
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log_WE();
-
-            #endregion
-        }
 
 		#endregion
 

@@ -742,10 +742,10 @@ namespace WeaponEnchantments.Common.Globals
             reforgeItem = null;
 
             //Vanilla
-            player.GetWEPlayer().UpdateItemStats(ref item);
+            item.UpdateItemStats();
 
-            //Calamity
-            calamityReforged = false;
+			//Calamity
+			calamityReforged = false;
 
             //Calamity and AutoReforge
             calamityAndAutoReforgePostReforgeItem = null;
@@ -850,7 +850,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (!isAir)
                     ApplyEnchantment(index);
 
-				WEPlayer.LocalWEPlayer.UpdateItemStats(ref enchantedItem.Item);
+                enchantedItem.Item.UpdateItemStats();
 			}
 		}
         private void RemoveEnchantment(int index) {
@@ -1072,9 +1072,41 @@ namespace WeaponEnchantments.Common.Globals
             enchantedItem.TryGetInfusionStats();
 
             //Update Stats
-            Main.LocalPlayer?.GetWEPlayer().UpdateItemStats(ref item);
+            item.UpdateItemStats();
         }
-        public static void ApplyEnchantment(this Item item, int i) {
+
+		public static void UpdateItemStats(this Item item) {
+			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
+				return;
+
+			#region Debug
+
+			if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log_WE();
+
+			#endregion
+
+			//Prefix
+			int trackedPrefix = enchantedItem.prefix;
+			if (trackedPrefix != item.prefix) {
+				enchantedItem.prefix = item.prefix;
+				if (enchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.damageType != DamageClass.Default)
+					item.DamageType = enchantedWeapon.damageType;
+			}
+
+			if (enchantedItem is EnchantedArmor enchantedArmor) {
+				int infusedArmorSlot = enchantedArmor.infusedArmorSlot;
+				int armorSlot = item.GetInfusionArmorSlot(false, true);
+				if (infusedArmorSlot != -1 && armorSlot != infusedArmorSlot)
+					item.UpdateArmorSlot(enchantedArmor.infusedArmorSlot);
+			}
+
+			#region Debug
+
+			if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log_WE();
+
+			#endregion
+		}
+		public static void ApplyEnchantment(this Item item, int i) {
 
 			#region Debug
 
@@ -1085,8 +1117,8 @@ namespace WeaponEnchantments.Common.Globals
             if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 Enchantment enchantment = (Enchantment)enchantedItem.enchantments[i].ModItem;
                 item.UpdateEnchantment(ref enchantment, i);
-				WEPlayer.LocalWEPlayer.UpdateItemStats(ref item); 
-            }
+				item.UpdateItemStats();
+			}
 
 			#region Debug
 
