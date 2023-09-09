@@ -241,23 +241,6 @@ namespace WeaponEnchantments.Common
 
 			return tooltip;
 		}
-		/*
-		string final = "";
-        float mult = EStatModifier.Multiplicative + EStatModifier.Additive - 2;
-        float flats = EStatModifier.Base * mult + EStatModifier.Flat;
-
-        if (flats > 0f) {
-            final += $"{s(flats)}{flats}";
-        }
-
-        if (mult > 0f) {
-            if (final != "") final += ' ';
-            final += $"{s(mult)}{mult.Percent()}%";
-        }
-
-        return final;
-		*/
-
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
 		public EStatModifier(EnchantmentStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f, CombineModeID combineModeID = CombineModeID.Normal) {
 			StatType = statType;

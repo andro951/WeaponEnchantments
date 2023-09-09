@@ -207,9 +207,8 @@ namespace WeaponEnchantments.Items
 		/// </summary>
 		public virtual int EnchantmentTier {
 			get {
-				if (enchantmentTier == -1) {
+				if (enchantmentTier == -1)
 					enchantmentTier = GetTierNumberFromName(Name);
-				}
 
 				return enchantmentTier;
 			}

@@ -33,6 +33,8 @@ namespace WeaponEnchantments.Common.Globals
 {
 	using androLib;
 	using androLib.Common.Globals;
+	using Terraria.Social.Base;
+
 	public abstract class EnchantedItem : GlobalItem {
 
         #region Constants
@@ -139,7 +141,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool trashItem = false;
         public bool favorited = false;
 
-        private bool skipFirstLeftCanStackStack0Check = true;
+        private bool globalsSetup = false;
 
         #endregion
 
@@ -158,8 +160,9 @@ namespace WeaponEnchantments.Common.Globals
             return IsEnchantable(entity);
 		}
 		public override GlobalItem Clone(Item item, Item itemClone) {
-            EnchantedItem clone;
+			SetupGlobals(item);
 
+			EnchantedItem clone;
             //Set Tracked Item (similar to ModItem.Item)
             if (resetGlobals) {
                 Item = itemClone;
@@ -212,9 +215,10 @@ namespace WeaponEnchantments.Common.Globals
 
                 clone.inEnchantingTable = inEnchantingTable;
                 clone.favorited = favorited;
+                clone.globalsSetup = globalsSetup;
 
-                #endregion
-            }
+				#endregion
+			}
             else {
                 clone = (EnchantedItem)base.Clone(item, itemClone);
             }
@@ -411,7 +415,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-            item.SetupGlobals();
+            SetupGlobals(item);
 
             #region Debug
 
@@ -436,6 +440,21 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
+
+            SetupGlobals(item);
+        }
+		public override void UpdateEquip(Item item, Player player) {
+			SetupGlobals(item);
+		}
+		public override void UpdateVanity(Item item, Player player) {
+            SetupGlobals(item);
+		}
+		public void SetupGlobals(Item item) {
+			if (globalsSetup)
+                return;
+
+			item.SetupGlobals();
+			globalsSetup = true;
         }
         public void UpdateLevel() {
             int l;

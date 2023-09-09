@@ -261,7 +261,7 @@ namespace WeaponEnchantments.Common
                     if (player != null)
                         item.CheckRemoveEnchantments(player);
 
-                    item.SetupGlobals();
+                    enchantedItem.SetupGlobals(item);
                 }
 
                 #region Debug
