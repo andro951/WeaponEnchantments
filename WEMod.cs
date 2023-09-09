@@ -72,6 +72,7 @@ namespace WeaponEnchantments
 			On_WorldGen.KillTile_GetItemDrops += On_WorldGen_KillTile_GetItemDrops;
 			On_HitTile.AddDamage += On_HitTile_AddDamage;
 			On_WorldGen.KillTile_DropItems += On_WorldGen_KillTile_DropItems;
+			On_Recipe.FindRecipes += EnchantmentStorage.FindRecipes;
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;

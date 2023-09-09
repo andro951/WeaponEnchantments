@@ -20,7 +20,7 @@ namespace WeaponEnchantments.ModIntegration
     [ExtendsFromMod(AndroMod.magicStorageName)]
     public class WEEnvironmentModule : EnvironmentModule
     {
-        public override string Name => "Weapon Enchantments Storage";
+        public override string Name => "Enchanting Table Tile (Andros Storage for items)";
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information) {
             int highestTableTierUsed = Main.LocalPlayer.GetWEPlayer().highestTableTierUsed;
 

@@ -925,14 +925,7 @@ namespace WeaponEnchantments.UI
 			return SlotAllowedByConfig(itemType, slotTier);
 		}
 		public static bool SlotAllowedByConfig(EItemType itemType, int slot) {
-			int configSlots;
-
-			if (itemType == EItemType.None) {
-				configSlots = ConfigValues.EnchantmentSlotsOnItems.Max();
-			}
-			else {
-				configSlots = ConfigValues.EnchantmentSlotsOnItems[(int)itemType - 1];
-			}
+			int configSlots = ConfigSlotsNum(itemType);
 
 			if (configSlots <= 0)
 				return false;
@@ -944,6 +937,7 @@ namespace WeaponEnchantments.UI
 
 			return utilitySlot || slot <= configSlots - 2;
 		}
+		public static int ConfigSlotsNum(EItemType itemType) => itemType == EItemType.None ? ConfigValues.EnchantmentSlotsOnItems.Max() : ConfigValues.EnchantmentSlotsOnItems[(int)itemType - 1];
 		public static bool IsValidEnchantmentForSlot(Item item, bool utility) {
 			if (item.ModItem is Enchantment enchantment) {
 				if (utility) {
@@ -1005,7 +999,11 @@ namespace WeaponEnchantments.UI
 				return -1;
 
 			if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-				for (int i = 0; i < MaxEnchantmentSlots; i++) {
+				int configSlots = ConfigSlotsNum(enchantedItem.ItemType);
+				if (configSlots == 1)
+					return 0;
+
+				for (int i = 0; i < configSlots; i++) {
 					if (IsSwapEnchantmentSlot(enchantement, enchantedItem.enchantments[i]))
 						return i;
 				}

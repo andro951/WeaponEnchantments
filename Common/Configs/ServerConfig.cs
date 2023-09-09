@@ -57,7 +57,6 @@ namespace WeaponEnchantments.Common.Configs
 		[Label("$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip")]
 		[DefaultValue(true)]
-		[ReloadRequired]
 		public bool AutoReuseDisabledOnMagicMissile;
 
 		[Label("$Mods.WeaponEnchantments.Config.BuffDuration.Label")]
@@ -158,6 +157,7 @@ namespace WeaponEnchantments.Common.Configs
 		[Tooltip("$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip")]
 		[Range(0, 10000)]
 		[DefaultValue(100)]
+		[ReloadRequired]
 		public int CrateDropChance;
 
 		//Other Drop Rates
@@ -247,6 +247,7 @@ namespace WeaponEnchantments.Common.Configs
 		[Label("$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip")]
 		[DefaultValue(false)]
+		[ReloadRequired]
 		public bool DamageReductionPerLevelDisabled;
 
 		[Label("$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label")]

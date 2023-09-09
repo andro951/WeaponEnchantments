@@ -78,6 +78,10 @@ namespace WeaponEnchantments.UI
 		public static bool managingTrash = false;
 		public static bool managingOfferdItems = false;
 		public static bool quickCrafting = false;
+		private static Item[] quickCraftInventory = null;
+		private static SortedDictionary<int, int> availableEnchantmentRecipes = new();
+		private static SortedDictionary<int, int> quickCraftItemCounts = new();
+		public static bool recipiesUpdated = true;
 		private static Item[] allEnchantments = null;
 		private static Item[] AllEnchantments {
 			get {
@@ -118,34 +122,13 @@ namespace WeaponEnchantments.UI
 			}
 
 			//ItemSlots Data 1/2
-			SortedDictionary<int, int> availableEnchantmentRecipes = new();
-			SortedDictionary<int, int> quickCraftItemCounts = new();
 			Item[] inventory;
 			if (managingTrash) {
 				inventory = AllEnchantments;
 			}
 			else if (quickCrafting) {
-				for (int i = Main.availableRecipe.Length - 1; i >= 0; i--) {
-					int recipeNum = Main.availableRecipe[i];
-					Recipe r = Main.recipe[recipeNum];
-					if (r.createItem.IsAir || availableEnchantmentRecipes.ContainsKey(r.createItem.type))
-						continue;
-
-					if (r.createItem.ModItem is Enchantment)
-						availableEnchantmentRecipes.Add(r.createItem.type, recipeNum);
-				}
-
-				IEnumerable<Item> storageItems = wePlayer.enchantmentStorageItems.GetSortedEnchantments();
-				foreach (Item storageItem in storageItems) {
-					quickCraftItemCounts.AddOrCombine(storageItem.type, storageItem.stack);
-				}
-
-				IEnumerable<Item> allOtherCraftableEnchantments = AllEnchantments.Where(all => availableEnchantmentRecipes.ContainsKey(all.type) || storageItems.Select(i => i.type).Contains(all.type));
-				foreach (Item otherCraftableEnchantment in allOtherCraftableEnchantments) {
-					quickCraftItemCounts.TryAdd(otherCraftableEnchantment.type, 0);
-				}
-
-				inventory = allOtherCraftableEnchantments.OrderByDescending(i => availableEnchantmentRecipes.ContainsKey(i.type)).ToArray();
+				UpdateQuickCraftInventory(wePlayer);
+				inventory = quickCraftInventory;
 			}
 			else if (managingOfferdItems) {
 				inventory = AllOfferableItems;
@@ -581,6 +564,36 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
+
+		private static void UpdateQuickCraftInventory(WEPlayer wePlayer) {
+			if (recipiesUpdated) {
+				recipiesUpdated = false;
+				availableEnchantmentRecipes = new();
+				quickCraftItemCounts = new();
+				for (int i = Main.availableRecipe.Length - 1; i >= 0; i--) {
+					int recipeNum = Main.availableRecipe[i];
+					Recipe r = Main.recipe[recipeNum];
+					if (r.createItem.IsAir || availableEnchantmentRecipes.ContainsKey(r.createItem.type))
+						continue;
+
+					if (r.createItem.ModItem is Enchantment)
+						availableEnchantmentRecipes.Add(r.createItem.type, recipeNum);
+				}
+
+				IEnumerable<Item> storageItems = wePlayer.enchantmentStorageItems.GetSortedEnchantments();
+				foreach (Item storageItem in storageItems) {
+					quickCraftItemCounts.AddOrCombine(storageItem.type, storageItem.stack);
+				}
+
+				IEnumerable<Item> allOtherCraftableEnchantments = AllEnchantments.Where(all => availableEnchantmentRecipes.ContainsKey(all.type) || storageItems.Select(i => i.type).Contains(all.type));
+				foreach (Item otherCraftableEnchantment in allOtherCraftableEnchantments) {
+					quickCraftItemCounts.TryAdd(otherCraftableEnchantment.type, 0);
+				}
+
+				quickCraftInventory = allOtherCraftableEnchantments.OrderByDescending(i => availableEnchantmentRecipes.ContainsKey(i.type)).ToArray();
+			}
+		}
+
 		public static bool CanBeStored(Item item) {
 			if (item?.ModItem is WEModItem weModItem)
 				return weModItem.CanBeStoredInEnchantmentStroage;
@@ -946,6 +959,13 @@ namespace WeaponEnchantments.UI
 					}
 				}
 			}
+		}
+
+		internal static void FindRecipes(On_Recipe.orig_FindRecipes orig, bool canDelayCheck) {
+			orig(canDelayCheck);
+
+			if (!canDelayCheck)
+				recipiesUpdated = true;
 		}
 	}
 }
