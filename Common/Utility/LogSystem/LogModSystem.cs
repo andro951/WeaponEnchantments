@@ -171,7 +171,7 @@ namespace WeaponEnchantments.Common.Utility
                 .Where(item => IsWeaponItem(item) && !ignoreItemTypes.Contains(item.type))
                 .Select(item => item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon) ? enchantedWeapon : null)
                 .Where(enchantedWeapon => enchantedWeapon != null)
-                .OrderBy(enchantedWeapon => enchantedWeapon.GetWeaponInfusionPower())
+                .OrderBy(enchantedWeapon => enchantedWeapon.GetInfusionPower(ref enchantedWeapon.Item))
                 .Select(enchantedWeapon => enchantedWeapon.Item.type)
                 .ToArray();
 

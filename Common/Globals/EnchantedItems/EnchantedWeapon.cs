@@ -59,16 +59,14 @@ namespace WeaponEnchantments.Common.Globals
 
 		#region Infusion
 
-		public int InfusionPower {
-			get {
-				if (infusionPower == -1) {
-					if (Item != null)
-						infusionPower = Item.GetWeaponInfusionPower();
-				}
+        public int GetInfusionPower(ref Item item) {
+            if (infusionPower == -1)
+                infusionPower = item.GetWeaponInfusionPowerSearchIfNeeded(infusedItemName);
 
-				return infusionPower;
-			}
-			set => infusionPower = value;
+            return infusionPower;
+        }
+        public void SetInfusionPower(int newValue) {
+			infusionPower = newValue;
 		}
 		private int infusionPower = -1;
 		public float infusionDamageMultiplier = 1f;
@@ -131,7 +129,7 @@ namespace WeaponEnchantments.Common.Globals
 
 				#region Infusion
 
-				clone.InfusionPower = InfusionPower;
+				clone.infusionPower = GetInfusionPower(ref item);
 				clone.infusionDamageMultiplier = infusionDamageMultiplier;
 
                 #endregion
@@ -151,7 +149,7 @@ namespace WeaponEnchantments.Common.Globals
 			#region Infusion
 
 			if (infusedItemName != "" && tag.TryGet<int>("infusedPower", out int infusionPower))
-				InfusionPower = infusionPower;
+				this.infusionPower = infusionPower;
 
 			#endregion
 
@@ -168,7 +166,7 @@ namespace WeaponEnchantments.Common.Globals
 			#region Infusion
 
 			if (infusedItemName != "") {
-				tag["infusedPower"] = InfusionPower;
+				tag["infusedPower"] = GetInfusionPower(ref item);
 			}
 
 			#endregion
@@ -187,7 +185,7 @@ namespace WeaponEnchantments.Common.Globals
 			bool noName = infusedItemName == "";
 			writer.Write(noName);
 			if (!noName) {
-				writer.Write(InfusionPower);
+				writer.Write(GetInfusionPower(ref item));
 			}
 
 			#endregion
@@ -277,11 +275,14 @@ namespace WeaponEnchantments.Common.Globals
 
             return tooltip;
         }
-        protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {InfusionPower}   Infused Item: {infusedItemName}";
-        protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {InfusionPower}";
+        protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {GetInfusionPower(ref item)}   Infused Item: {infusedItemName}";
+        protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {GetInfusionPower(ref item)}";
         protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
+            if (!wePlayer.infusionConsumeItem.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon))
+                return "";
+
             return
-                $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   " +
+                $"*New Infusion Power: {enchantedWeapon.GetInfusionPower(ref wePlayer.infusionConsumeItem)}   " +
                 $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
@@ -369,9 +370,6 @@ namespace WeaponEnchantments.Common.Globals
             return returnValue;
         }
         public override bool CanUseItem(Item item, Player player) {
-
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-
             //stack0
             if (GetStack0(item)) {
                 Restock(item);
@@ -413,6 +411,11 @@ namespace WeaponEnchantments.Common.Globals
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
             return factor;
 		}
-		public static float GetPrideOfTheWeakMultiplier(this EnchantedWeapon enchantedWeapon) => 1f - enchantedWeapon.GetWeaponInfusionPower() / 500f;
+		public static float GetPrideOfTheWeakMultiplier(this EnchantedWeapon enchantedWeapon) {
+            Item item = enchantedWeapon.Item;
+            int infusionPower = enchantedWeapon.GetInfusionPower(ref item);
+			int infusionPowerFromInfusion = InfusionManager.ReverseEngInfusionPowerFromMultiplierForPrideOfTheWeak(item);
+            return 1f - (float)(infusionPower + infusionPowerFromInfusion) / 500f;
+		}
 	}
 }

@@ -835,7 +835,7 @@ namespace WeaponEnchantments.Common.Globals
 		public Item this[int index] {
 			get => _enchantments[index];
 			set {
-                if (value == null)
+                if (value == null || value.stack < 0)
                     value = new();
 
                 bool wasAir = _enchantments[index].IsAir;
@@ -856,8 +856,14 @@ namespace WeaponEnchantments.Common.Globals
         private void RemoveEnchantment(int index) {
 			Enchantment oldEnchantment = (Enchantment)_enchantments[index].ModItem;
 			enchantedItem?.Item?.UpdateEnchantment(ref oldEnchantment, index, true);
+            if (Main.mouseLeft) {
+                //Only remove enchantedItem from the dynamic effect if it's being picked up by the mouse.  Otherwise, hoveritem needs it for the tooltip.
+				foreach (IAddDynamicEffects effect in oldEnchantment.Effects.OfType<IAddDynamicEffects>()) {
+					effect.EnchantedItem = null;
+				}
+			}
 		}
-        private void ApplyEnchantment(int index) {
+		private void ApplyEnchantment(int index) {
 			Enchantment enchantment = (Enchantment)_enchantments[index].ModItem;
 			enchantedItem?.Item?.UpdateEnchantment(ref enchantment, index);
 			foreach (IAddDynamicEffects effect in enchantment.Effects.OfType<IAddDynamicEffects>()) {
@@ -876,8 +882,9 @@ namespace WeaponEnchantments.Common.Globals
 		}
         public EnchantmentsArray Clone(EnchantedItem enchantedItem) {
             EnchantmentsArray enchantmentsArray = new(enchantedItem);
-			for (int i = 0; i < _enchantments.Length; i++)
-				enchantmentsArray.AddNoUpdate(_enchantments[i].Clone(), i);
+            for (int i = 0; i < _enchantments.Length; i++) {
+                enchantmentsArray.AddNoUpdate(_enchantments[i].Clone(), i);
+            }
 
             return enchantmentsArray;
 		}
@@ -889,7 +896,7 @@ namespace WeaponEnchantments.Common.Globals
 		}
         public bool TryReturnAllEnchantments(WEPlayer wePlayer, bool allowQuickspawn = false) {
             for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
-                if (!wePlayer.TryReturnEnchantmentToPlayer(i, this, allowQuickspawn))
+                if (!wePlayer.TryHandleEnchantmentRemoval(i, this, allowQuickspawn))
                     return false; 
             }
 
@@ -1069,7 +1076,7 @@ namespace WeaponEnchantments.Common.Globals
             enchantedItem.enchantments.ApplyAll();
 
             //Get Global Item Stats
-            enchantedItem.TryGetInfusionStats();
+            enchantedItem.TryGetInfusionStats(ref item);
 
             //Update Stats
             item.UpdateItemStats();
@@ -1330,7 +1337,9 @@ namespace WeaponEnchantments.Common.Globals
 				if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                     item.CheckConvertExcessExperience(consumedItem);
                     if (enchantedItem is EnchantedWeapon enchantedWeapon && consumedEnchantedItem is EnchantedWeapon consumedEnchantedWeapon) {
-						if (enchantedWeapon.InfusionPower < consumedEnchantedWeapon.InfusionPower && item.GetWeaponInfusionPower() < consumedEnchantedWeapon.InfusionPower) {
+                        int weaponInfusionPower = enchantedWeapon.GetInfusionPower(ref item);
+                        int consumedWeaponInfusionPower = consumedEnchantedWeapon.GetInfusionPower(ref consumedItem);
+						if (weaponInfusionPower < consumedWeaponInfusionPower) {
 							item.TryInfuseItem(consumedItem);
 							item.TryInfuseItem(consumedItem, false, true);
 						}
@@ -1395,7 +1404,7 @@ namespace WeaponEnchantments.Common.Globals
                             }
 
                             if (cantFit)
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), consumedEnchantedItem.enchantments[k].type, 1);
+                                WEPlayer.LocalWEPlayer.TryHandleEnchantmentRemoval(k, consumedEnchantedItem.enchantments, true);
                         }
 
                         consumedEnchantedItem.enchantments[k] = new Item();
@@ -1498,13 +1507,7 @@ namespace WeaponEnchantments.Common.Globals
             //Check too many enchantments on item
             if (enchantedItem.GetLevelsAvailable() < 0) {
                 for (int k = EnchantingTableUI.MaxEnchantmentSlots - 1; k >= 0 && enchantedItem.GetLevelsAvailable() < 0; k--) {
-                    if (!enchantedItem.enchantments[k].IsAir)
-                        enchantedItem.enchantments[k] = player.GetItem(player.whoAmI, enchantedItem.enchantments[k], GetItemSettings.LootAllSettings);
-
-                    if (!enchantedItem.enchantments[k].IsAir) {
-                        player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantedItem.enchantments[k]);
-                        enchantedItem.enchantments[k] = new Item();
-                    }
+                    WEPlayer.LocalWEPlayer.TryHandleEnchantmentRemoval(k, enchantedItem.enchantments, true);
                 }
 
                 Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
@@ -1543,7 +1546,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static bool IsSameEnchantment(this Item item1, Item item2) {
             if (item1.ModItem is not Enchantment enchantment1)
-                return false;
+                return item1.NullOrAir() && item2.NullOrAir();
 
             return enchantment1.SameAs(item2);
         }

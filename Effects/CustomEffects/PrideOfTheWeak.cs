@@ -26,14 +26,18 @@ namespace WeaponEnchantments.Effects
 		}
 		public override float EffectStrength => EnchantedWeapon == null ? EStatModifier.Strength : 1f + (EStatModifier.Strength - 1f) * EnchantedWeapon.GetPrideOfTheWeakMultiplier();
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };
-		public override string TooltipValue => EStatModifier.GetTootlip(true, false, false, multiplier: EnchantedWeapon?.GetPrideOfTheWeakMultiplier());
+		public override string TooltipValue => EStatModifier.GetTootlip(true, false, false, multiplier: EnchantedWeapon?.GetPrideOfTheWeakMultiplier() ?? 1f);
 		public override string Tooltip => StandardTooltip;
 		public EnchantedWeapon EnchantedWeapon { get; set; } = null;
 		public EnchantedItem EnchantedItem {
 			get => EnchantedWeapon;
 			set {
-				if (value is EnchantedWeapon enchantedWeapon)
+				if (value is EnchantedWeapon enchantedWeapon) {
 					EnchantedWeapon = enchantedWeapon;
+				}
+				else if (value is null) {
+					EnchantedWeapon = null;
+				}
 			}
 		}
 		public void AddDynamicEffects(List<EnchantmentEffect> effects, EnchantedItem enchantedItem) {

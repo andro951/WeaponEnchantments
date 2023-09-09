@@ -27,6 +27,7 @@ using WeaponEnchantments.Content.NPCs;
 using static System.Net.Mime.MediaTypeNames;
 using androLib;
 using WeaponEnchantments.Items;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.UI
 {
@@ -97,15 +98,29 @@ namespace WeaponEnchantments.UI
 		}
 		public static void ItemSlotClickInteractions(EnchantmentsArray enchantmentsArray, int index, int context) {
 			Item enchantmentItem = enchantmentsArray[index];
-			MasterUIManager.ItemSlotClickInteractions(ref enchantmentItem, context);
-			if (!enchantmentItem.IsSameEnchantment(enchantmentsArray[index]))
-				enchantmentsArray[index] = enchantmentItem;
+			if (enchantmentItem.NullOrAir() && Main.mouseItem.NullOrAir())
+				return;
+
+			WEPlayer.LocalWEPlayer.TryHandleEnchantmentRemoval(index, enchantmentsArray, returnFunc: (Item itemToReturn, Player player, bool quickSpawnAllowed) => {
+				MasterUIManager.ItemSlotClickInteractions(ref itemToReturn, context);
+				return new ItemAndBool(ref itemToReturn);
+			});
 		}
 		public static void SwapMouseItem(EnchantmentsArray enchantmentsArray, int index) {
-			Item enchantmentItem = enchantmentsArray[index];
-			MasterUIManager.SwapMouseItem(ref enchantmentItem);
-			enchantmentsArray[index] = enchantmentItem;
+			WEPlayer.LocalWEPlayer.TryHandleEnchantmentRemoval(index, enchantmentsArray, returnFunc: (Item itemToReturn, Player player, bool quickSpawnAllowed) => {
+				MasterUIManager.SwapMouseItem(ref itemToReturn);
+				return new ItemAndBool(ref itemToReturn);
+			});
 		}
+	}
+	public struct ItemAndBool {
+		public ItemAndBool(ref Item item, bool result = true) {
+			Item = item;
+			Result = result;
+		}
+
+		public Item Item;
+		public bool Result;
 	}
 	public static class WE_UI_ID {
 		public const int None = UI_ID.None;

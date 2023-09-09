@@ -721,13 +721,24 @@ namespace WeaponEnchantments
             return valid;
 		}
         public bool TryReturnEnchantmentFromTableToPlayer(int enchantmentIndex, bool allowQuickSpawn = false) {
-            return TryReturnEnchantmentToPlayer(enchantmentIndex, enchantingTableEnchantments, allowQuickSpawn);
+            return TryHandleEnchantmentRemoval(enchantmentIndex, enchantingTableEnchantments, allowQuickSpawn);
 		}
-		public bool TryReturnEnchantmentToPlayer(int enchantmentIndex, EnchantmentsArray enchantmentsArray, bool allowQuickSpawn = false) {
+        /// <summary>
+        /// Default is to return to the player.  Set returnFunc to change this to other things like swapping with mouse.
+        /// </summary>
+		public bool TryHandleEnchantmentRemoval(int enchantmentIndex, EnchantmentsArray enchantmentsArray, bool allowQuickSpawn = false, Func<Item, Player, bool, ItemAndBool> returnFunc = null) {
+			if (returnFunc == null)
+				returnFunc = (Item itemToReturn, Player player, bool quickSpawnAllowed) => {
+                    bool returnResult = StorageManager.TryReturnItemToPlayer(ref itemToReturn, player, quickSpawnAllowed);
+                    return new ItemAndBool(ref itemToReturn, returnResult);
+				};
+
 			Item item = enchantmentsArray[enchantmentIndex];
-            bool result = StorageManager.TryReturnItemToPlayer(ref item, Player, allowQuickSpawn);
-			enchantmentsArray[enchantmentIndex] = item;
-			return result;
+			enchantmentsArray[enchantmentIndex] = new Item();
+			ItemAndBool result = returnFunc(item, Player, allowQuickSpawn);
+            enchantmentsArray[enchantmentIndex] = result.Item;
+
+			return result.Result;
 		}
         public void GiveNewItemToPlayer(int itemType) {
             Item item = new Item(itemType);

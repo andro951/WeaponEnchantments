@@ -1192,7 +1192,7 @@ namespace WeaponEnchantments.UI
 			}
 
 			if (item?.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) == true && WEMod.serverConfig.ReduceOfferEfficiencyByBaseInfusionPower) {
-				float infusionPower = Math.Min((float)enchantedWeapon.InfusionPower, 1100f);
+				float infusionPower = Math.Min((float)enchantedWeapon.GetInfusionPower(ref item), 1100f);
 				xpCounter = (int)Math.Round((float)xpCounter * (1f - 0.2f * (infusionPower / 1100f)));
 			}
 
