@@ -27,6 +27,7 @@ using WeaponEnchantments.Tiles;
 using androLib.Common.Utility;
 using androLib.UI;
 using androLib;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.UI
 {
@@ -1414,8 +1415,8 @@ namespace WeaponEnchantments.UI
 					bool canConsume = false;
 
 					//Prevent specific items from being consumed for infusion.
-					switch (tableItem.Name) {
-						case "Murasama":
+					switch (tableItem.ModFullName()) {
+						case "CalamityMod/Murasama":
 							Main.NewText("Murasama cannot be consumed for infusion until a check for the Yharon, Dragon of Rebirth being defeated can be added.");
 							break;
 						default:
@@ -1442,16 +1443,12 @@ namespace WeaponEnchantments.UI
 					}
 				}
 				else {
-					bool canInfuse = false;
+					bool canInfuse = true;
 
 					//Prevent specific items from being upgraded with infusion.
-					switch (tableItem.Name) {
-						case "Primary Zenith":
-							Main.NewText($"{tableItem.Name} resisted your attempt to empower it.");
-							break;
-						default:
-							canInfuse = true;
-							break;
+					if (tableItem.ModFullName().Contains("PrimaryZenith")) {
+						canInfuse = false;
+						Main.NewText($"The {tableItem.Name} resisted your attempt to empower it.");
 					}
 
 					if (!canInfuse)

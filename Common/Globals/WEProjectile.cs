@@ -155,9 +155,9 @@ namespace WeaponEnchantments.Common.Globals
         }
         protected override void ActivateMultishot(Projectile projectile, IEntitySource source) {
             //Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
-            switch (sourceItem.Name) {
+            switch (sourceItem.ModFullName()) {
                 //Fix issues with weapons and multishot
-                case "Titanium Railgun":
+                case "CalamityMod/TitaniumRailgun":
                     multiShotConvertedToDamage = true;
                     break;
             }

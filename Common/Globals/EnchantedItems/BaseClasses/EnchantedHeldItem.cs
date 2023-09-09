@@ -10,6 +10,8 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.ModIntegration;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -44,7 +46,7 @@ namespace WeaponEnchantments.Common.Globals
 			//Calamity Rogue weapon Attackspeed fix
 			if (AndroMod.calamityEnabled && attackSpeed != 1f && !findingUseSpeed) {
 				if (ContentSamples.ItemsByType[item.type].DamageType == CalamityValues.rogue) {
-					if (item.Name == "Executioner's Blade") {
+					if (item.ModFullName() == "CalamityMod/ExecutionersBlade") {
 						findingUseSpeed = true;
 						float multiplier = CombinedHooks.TotalUseTimeMultiplier(player, item);
 						Item sampleItem = ContentSamples.ItemsByType[item.type];

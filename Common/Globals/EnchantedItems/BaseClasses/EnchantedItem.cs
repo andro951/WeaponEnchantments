@@ -639,10 +639,8 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Prevent specific items from running RightClickStackableItem
-            switch (item.Name) {
-                case "Primary Zenith":
-                    return;
-            }
+            if (item.ModFullName().Contains("PrimaryZenith"))
+                return;
 
             //Prevent global item duplication exploit
             if (Main.mouseItem.IsAir) {
@@ -929,37 +927,39 @@ namespace WeaponEnchantments.Common.Globals
                 string modName = item.ModItem.Mod.Name;
 				//Manually prevent calamity items from being weapons
 				if (AndroMod.calamityEnabled && modName == CalamityIntegration.CALAMITY_NAME) {
-					switch (item.Name) {
-                        case "Experimental Wulfrum Fusion Array":
+					switch (item.ModFullName()) {
+                        case "CalamityMod/WulfrumFusionCannon":
 							return false;
 					}
 				}
 
 				//Manually prevent magic storage items from being weapons
 				if (AndroMod.magicStorageEnabled && modName == "MagicStorage") {
-					switch (item.Name) {
-						case "Biome Globe":
+					switch (item.ModFullName()) {
+						case "MagicStorage/BiomeGlobe":
 							return false;
 					}
 				}
 
 				if (AndroMod.thoriumEnabled && modName == "ThoriumMod") {
-					switch (item.Name) {
-						case "Hive Mind":
-                        case "Inspiration Note":
-                        case "Purity Tester":
-						case "Text Tester":
-                        case "Empowerment Tester":
-                        case "Pious Banner":
-                        case "Precision Banner":
+                    string modItemFullName = item.ModFullName();
+					switch (modItemFullName) {
+						case "ThoriumMod/HiveMind":
+                        case "ThoriumMod/PiousBanner":
+                        case "ThoriumMod/PrecisionBanner":
 							return false;
-						case "Technique: Hidden Blade":
-						case "Technique: Blood Lotus":
-						case "Technique: Cobra's Bite":
-						case "Technique: Sticky Explosive":
-						case "Technique: Shadow Clone":
-                        case "Gauze":
+						case "ThoriumMod/TechniqueBloodLotus":
+						case "ThoriumMod/TechniqueCobraBite":
+						case "ThoriumMod/TechniqueHiddenBlade":
+						case "ThoriumMod/TechniquePaperExplosive":
+						case "ThoriumMod/TechniqueShadowClone":
+                        case "ThoriumMod/Gauze":
 							return true;
+                        default:
+                            if (modItemFullName.Contains("InspirationNote") || modItemFullName.Contains("Tester"))
+                                return false;
+
+                            break;
 					}
 
 					//Some Thorium non-weapon consumables were counting as weapons.
@@ -976,7 +976,18 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 if (WEMod.amuletOfManyMinionsEnabled && modName == "AmuletOfManyMinions") {
-                    if (item.Name.Contains("Bow of Friendship") || item.Name.Contains("Replica "))
+                    List<string> aOMMNonItemNames = new() {
+						"AmuletOfManyMinions/AxolotlMinionItem",
+						"AmuletOfManyMinions/CinderHenMinionItem",
+						"AmuletOfManyMinions/WyvernFlyMinionItem",
+						"AmuletOfManyMinions/TruffleTurtleMinionItem",
+						"AmuletOfManyMinions/SmolederMinionItem",
+						"AmuletOfManyMinions/PlantPupMinionItem",
+						"AmuletOfManyMinions/LilGatorMinionItem",
+						"AmuletOfManyMinions/CloudiphantMinionItem"
+					};
+                    string modItemFullName = item.ModFullName();
+                    if (aOMMNonItemNames.Contains(modItemFullName) || modItemFullName.Contains("Replica"))
                         return false;
                 }
 			}
