@@ -605,7 +605,7 @@ namespace WeaponEnchantments.Common.Globals
                     continue;
 
                 if (target.whoAmI != npc.whoAmI) {
-                    if (target.friendly || target.townNPC || target.netID == NPCID.DD2LanePortal)
+                    if (target.friendly || target.townNPC || target.dontTakeDamage)
                         continue;
 
                     Vector2 vector2 = target.Center - npc.Center;

@@ -237,19 +237,17 @@ namespace WeaponEnchantments.Common.Globals
         protected override void GetTopTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
-            if (Enchanted) {
-                //~Damage tooltip
-                if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
-                    if (GetPlayerModifierStrengthForTooltip(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
-                        int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
-                        string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
-                        tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
-                    }
-                }
-            }
+			//~Damage tooltip
+			if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
+				if (GetPlayerModifierStrengthForTooltip(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
+					int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
+					string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
+					tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
+				}
+			}
 
-            //Stack0
-            if (Modified || inEnchantingTable) {
+			//Stack0
+			if (Modified || inEnchantingTable) {
                 if (GetStack0(item)) {
                     string tooltip = $"♦ OUT OF AMMO ♦";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });

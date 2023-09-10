@@ -838,8 +838,12 @@ namespace WeaponEnchantments.Common.Globals
 
                 bool wasAir = _enchantments[index].IsAir;
                 bool isAir = value.IsAir;
-                if (!wasAir)
-					RemoveEnchantment(index);
+                if (_enchantments[index]?.ModItem is Enchantment oldEnchantment) {
+                    Item oldEnchantmentItem = _enchantments[index];
+                    _enchantments[index] = new Item();
+					RemoveEnchantment(oldEnchantment);
+					_enchantments[index] = oldEnchantmentItem;
+				}
 
 				_enchantments[index] = value;
 				if (wasAir && isAir)
@@ -851,9 +855,8 @@ namespace WeaponEnchantments.Common.Globals
                 enchantedItem.Item.UpdateItemStats();
 			}
 		}
-        private void RemoveEnchantment(int index) {
-			Enchantment oldEnchantment = (Enchantment)_enchantments[index].ModItem;
-			enchantedItem?.Item?.UpdateEnchantment(ref oldEnchantment, index, true);
+        private void RemoveEnchantment(Enchantment oldEnchantment) {
+			enchantedItem?.Item?.UpdateEnchantment(ref oldEnchantment, true);
             if (Main.mouseLeft) {
                 //Only remove enchantedItem from the dynamic effect if it's being picked up by the mouse.  Otherwise, hoveritem needs it for the tooltip.
 				foreach (IAddDynamicEffects effect in oldEnchantment.Effects.OfType<IAddDynamicEffects>()) {
@@ -863,7 +866,7 @@ namespace WeaponEnchantments.Common.Globals
 		}
 		private void ApplyEnchantment(int index) {
 			Enchantment enchantment = (Enchantment)_enchantments[index].ModItem;
-			enchantedItem?.Item?.UpdateEnchantment(ref enchantment, index);
+			enchantedItem?.Item?.UpdateEnchantment(ref enchantment);
 			foreach (IAddDynamicEffects effect in enchantment.Effects.OfType<IAddDynamicEffects>()) {
 				effect.EnchantedItem = enchantedItem;
 			}
@@ -1092,7 +1095,6 @@ namespace WeaponEnchantments.Common.Globals
             //Update Stats
             item.UpdateItemStats();
         }
-
 		public static void UpdateItemStats(this Item item) {
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return;
@@ -1124,47 +1126,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#endregion
 		}
-		public static void ApplyEnchantment(this Item item, int i) {
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/ApplyEnchantment(i: " + i + ")").Log_WE();
-
-			#endregion
-
-            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-                Enchantment enchantment = (Enchantment)enchantedItem.enchantments[i].ModItem;
-                item.UpdateEnchantment(ref enchantment, i);
-				item.UpdateItemStats();
-			}
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log_WE();
-
-			#endregion
-		}
-        public static void RemoveEnchantment(this Item item, int i) {
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/RemoveEnchantment(i: " + i + ")").Log_WE();
-
-			#endregion
-
-			if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-				Enchantment enchantment = (Enchantment)(enchantedItem.enchantments[i].ModItem);
-				item.UpdateEnchantment(ref enchantment, i, true);
-				//WEPlayer.LocalWEPlayer.UpdateItemStats(ref item);
-			}
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\RemoveEnchantment(i: " + i + ")").Log_WE();
-
-			#endregion
-		}
-		public static void UpdateEnchantment(this Item item, ref Enchantment enchantment, int slotNum, bool remove = false) {
+		public static void UpdateEnchantment(this Item item, ref Enchantment enchantment, bool remove = false) {
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return;
 
@@ -1172,7 +1134,7 @@ namespace WeaponEnchantments.Common.Globals
 
 				#region Debug
 
-				if (LogMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log_WE();
+				if (LogMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", remove: " + remove).Log_WE();
 
 				#endregion
 
@@ -1189,7 +1151,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log_WE();
+            if (LogMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", remove: " + remove).Log_WE();
 
 			#endregion
 		}
@@ -1395,11 +1357,9 @@ namespace WeaponEnchantments.Common.Globals
                                 if (uniqueItemSlot == -1) {
                                     if ((RemoveEnchantmentRestrictions || enchantment.Utility) && enchantedItem.enchantments[4].IsAir && EnchantingTableUI.SlotAllowedByConfig(enchantedItem.ItemType, 4)) {
 										enchantedItem.enchantments[4] = consumedEnchantedItem.enchantments[k].Clone();
-                                        item.ApplyEnchantment(4);
                                     }
                                     else if (j < 4) {
                                         enchantedItem.enchantments[j] = consumedEnchantedItem.enchantments[k].Clone();
-                                        item.ApplyEnchantment(j);
                                         j++;
                                     }
                                     else {

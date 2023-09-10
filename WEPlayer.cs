@@ -490,14 +490,10 @@ namespace WeaponEnchantments
                 }
 			}
 
-			//if (MasterUIManager.NoUIBeingHovered) {
-   //             if (displayOreBagUI && (OreBagUI.CanBeStored(item))) {
-			//		if (!OreBagUI.TryVacuumItem(Main.LocalPlayer, ref item))
-			//			MasterUIManager.SwapMouseItem(ref item);
-
-			//		return true;
-			//	}
-   //         }
+            if (context == 3 && EnchantmentStorage.CanVacuumItem(item, Player)) {
+                if (EnchantmentStorage.TryVacuumItem(ref item, Player))
+                    return true;
+            }
 
             return false;
 		}
@@ -827,10 +823,7 @@ namespace WeaponEnchantments
 		public override void PostUpdateMiscEffects() {
 			ApplyPostMiscEnchants();
 		}
-		public override void UpdateAutopause() {
-			ApplyPostMiscEnchants();
-		}
-        public void OnSwapEquipmentLoadout(int loadoutIndex) {
+		public void OnSwapEquipmentLoadout(int loadoutIndex) {
 			//Main.NewText($"new Loadout Number: {loadoutIndex}, old: {Player.CurrentLoadoutIndex}");
 
 		}

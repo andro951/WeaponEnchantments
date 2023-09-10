@@ -44,7 +44,7 @@ namespace WeaponEnchantments.Items
 			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 5f, 10f }),
 			new EnchantmentStrengths(new float[] { 2f, 4f, 6f, 10f, 20f }),
 			new EnchantmentStrengths(new float[] { 0.005f, 0.01f, 0.015f, 0.02f, 0.025f }),
-			new EnchantmentStrengths(new float[] { 2f, 3f, 5f, 8f, 10f }),
+			new EnchantmentStrengths(new float[] { 4f, 5f, 6.5f, 8f, 10f }),
 			new EnchantmentStrengths(new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.10f }),
 			new EnchantmentStrengths(new float[] { 0.5f, 0.6f, 0.75f, 0.85f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }),
