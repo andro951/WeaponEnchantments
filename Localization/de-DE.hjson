@@ -533,10 +533,7 @@ Mods: {
 				Tooltip: Entfernt Dinge wie Unique, Max 1 und waffen- oder gegenstandstypspezifische Verzauberungen.
 			}
 
-			ServerConfig: {
-				Label: Server-Konfig
-				// $parentVal: preset Data Header
-			}
+			ServerConfig.Label: Server-Konfig
 
 			Strength: {
 				Label: Stärke (1000 = 1, 10 = 1 %)
@@ -592,7 +589,9 @@ Mods: {
 
 		EnchantmentStorageText: {
 			Add: Hinzufügen
+			AddFromEquippedEnchantments: Aus ausgerüsteten Verzauberungen hinzufügen
 			All: Alle
+			Delete: Löschen
 			EnchantmentLoadouts: Verzauberungs-Loadouts
 			EnchantmentStorage: Verzauberungslager
 			HeldItem: Zurückgehaltener Gegenstand
@@ -611,6 +610,84 @@ Mods: {
 			RevertAllToBasic: Alles auf Basic zurücksetzen
 			ToggleMarkTrash: Aktivieren Sie die Option „Papierkorb markieren“.
 			UncraftAllTrash: Entferne den gesamten Müll
+		}
+
+		GameMessages: {
+			AlreadyMaxLevel: „Dein {0} hat bereits das maximale Level.“
+			Back: Zurück
+			BossChecklistNotEnabled: Der BossChecklist-Mod ist nicht aktiviert. Weapon Enchantments verwendet BossChecklist, um zu bestimmen, welche Bosse Power-Booster-Drops von modifizierten Bossen bestimmen. Da BossChecklist nicht aktiviert ist, lassen alle modifizierten Bosse den regulären Power Booster fallen.
+			CannotGainAdditionalPower: „Dein {0}({1}) kann durch das angebotene {2}({3}) keine zusätzliche Kraft erhalten.“
+			CantInfusionArmorDifferentTypes: Es ist nicht möglich, Rüstungen unterschiedlicher Art wie Helm und Körper zu infundieren.
+			CongradulationsMaxLevel: „Herzlichen Glückwunsch! {1} von {0} hat das maximale Level {2} ({3} xp) erreicht.“
+			CouldntFindItemsInWeaponsList: Es konnten keine Gegenstände in WeaponsList oder WeaponCraftingIngredients mit den Namen gefunden werden:
+			CouldntFindNPCsInIngredientsList: Es konnten keine NPCs in NPCsThatDropWeaponsOrIngredients mit den Namen gefunden werden:
+			DailyFishingQuestReset: „Die tägliche Angelquest wurde zurückgesetzt. Deine nächste Quest ist {0}.“
+			DetectedNonEnchantmentInEnchantmentSlot: „Auf deinem {1} wurde ein Nicht-Verzauberungsgegenstand entdeckt:{0}. Er wurde in dein Inventar zurückgebracht.“
+			EnchantmentNoLongerAllowed: „{0} ist auf {1} nicht mehr zulässig und wurde aus Ihrem {2} entfernt.“
+			FailedConvertExcessExperience: „CheckConvertExcessExperience(item: {0}, verbrauchtItem: {1}) konnte nicht überprüft werden“
+			FailedDetermineProgression: Der Fortschritt von Wall of Flesh und Plantera konnte anhand von BossChecklistData nicht ermittelt werden
+			FailedFindBossBag: Boss-Tasche für Boss konnte nicht gefunden werden:
+			FailedFindItemDropsForGroup: Es konnten keine Gegenstandsdrops für Beutegegenstände für die Gruppe gefunden werden
+			FailedInfuseItem: „Element: {0} konnte nicht mit verbrauchtem Element verknüpft werden: {1}“
+			FailedReplaceOldItem: Der alte Artikel konnte nicht ersetzt werden:
+			FailedReplaceWithCoins: „Artikel konnte nicht durch Münzen ersetzt werden: {0}“
+			FailedToCloneItem: „In EnchantedItem konnte das Klonen von (item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3} nicht durchgeführt werden.“
+			FailedToFindInfusionPower: Für den Artikel konnte keine Infusionskraft gefunden werden:
+			FailedToLocateAngler: Der Angler konnte nicht gefunden werden. Sie erhalten weiterhin Belohnungen
+			FavoritedItemsCantBeConsumedForInfusion: Lieblingsartikel können nicht zur Infusion konsumiert werden.
+			FishingQuestTurnedIn: „Quest eingereicht. Deine nächste Quest ist {0}. Quests abgeschlossen: {1}“
+			InfusionConsumeItemWasNull: „wePlayer.infusionConsumeItem war null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
+			InfusionOnlyPossibleSameType: Infusion ist nur zwischen Gegenständen desselben Typs (Waffe/Rüstung) möglich.
+			InfusionPowerMustBeLower: Die Infusionskraft des aufzuwertenden Gegenstands muss geringer sein als die Infusionskraft des verbrauchten Gegenstands.
+			IngredientInfusionPowersNotSetup: Zutaten-Infusionskräfte nicht eingerichtet
+			IngredientsFromLootItemsNotincluded: Zutaten aus WeaponsFromLootItems, die nicht in ItemInfusionPowers enthalten sind
+			ItemLevelUp: „{0}s {1} hat Level {2} erreicht ({3} XP).“
+			ItemRemovedFromWeaponEnchantments: „{0} wurde aus Waffenverzauberungen entfernt.“
+			ItemRemovedRecieveCoins: „{0} wurde aus den Waffenverzauberungen entfernt. Du hast Münzen in Höhe des Verkaufspreises erhalten.“
+			ItemRemovedReiceveCompensation: „{0} wurde aus den Waffenverzauberungen entfernt. Du hast {1} als Entschädigung erhalten.“
+			ItemRemovedRelacedWithItem: „{0} wurde aus den Waffenverzauberungen entfernt. Es wurde durch {1} ersetzt.“
+			ItemsFromLootItemsNotIncluded: Gegenstände aus WeaponsFromLootItems, die nicht in ItemInfusionPowers enthalten sind
+			ItemsFromNPCIngredientsNotIncluded: Gegenstände von IngredientsFromNPCs, die nicht in ItemInfusionPowers enthalten sind
+			ItemsFromNPCsNotIncluded: Gegenstände von WeaponsFromNPCs, die nicht in ItemInfusionPowers enthalten sind
+			ItemTooLowLevel: „Deine {0}-Stufe ist zu niedrig, um so viele Verzauberungen zu nutzen.“
+			LogInfusionPowerLabels: Mod, Waffe, Infusionskraft, Wertseltenheit, Seltenheit, Originalseltenheit, Wert, Gegenstands-ID, Schaden, Nutzungsdauer, DPS
+			LogInfusionPowerOtherLabels: Seltenheit, Durchschnitt, Min., Max
+			MainUpdateCount: „Main.GameUpdateCount: {0}“
+			MultipleUniqueEnchantments: „Auf Ihrem {0} wurden mehrere einzigartige Verzauberungen entdeckt. {1} wurde aus Ihrem {2} entfernt.“
+			MurasamaNoInfusion: Murasama kann nicht als Aufguss eingenommen werden.
+			NewItemIsAir: newItem war Luft.
+			NoLongerAllowedOnDamageType: „{0} ist auf {1}-Waffen nicht mehr zulässig und wurde von Ihrem {2} entfernt.“
+			NoLongerUtilityEnchantment: „{0} ist keine Hilfsverzauberung mehr und wurde von deinem {1} entfernt.“
+			NonEnchantableItemInTable:
+				'''
+				Nicht verzauberbarer Gegenstand in Tabelle gefunden: {0}.
+				ACHTUNG, NICHT BESTÄTIGEN DRÜCKEN.
+				Bitte melden Sie dieses Problem an andro951 (Weapon Enchantments).
+				'''
+			NotEnchantableAndNotAirInfusionItem: „tableItem: {0}{1} ist nicht verzauberbar und infusionConsumeItem: {2}{3} ist keine Luft“
+			NotEnoughEssence: „Nicht genug Essenz. Du brauchst {0} Erfahrung für Level {1}, es stehen dir nur {2} zur Verfügung.“
+			NowLimitedToOne: „{0} Verzauberungen sind jetzt auf 1 pro Gegenstand begrenzt. {1} wurde von deinem {2} entfernt.“
+			NPCInProgressionGroupNotInDropList: Es wurde ein NPC in einer Fortschrittsgruppe erkannt, der nicht in NPCsThatDropWeaponsOrIngredients enthalten ist.
+			NPCInProgressionGroupNoUniqueEnchantments: Es wurde ein NPC in einer Fortschrittsgruppe entdeckt, der keine einzigartigen Waffen oder Zutaten hat.
+			OnlySyphonMaxLevel: „Du kannst einen Gegenstand nur absaugen, wenn er die maximale Stufe und mehr als {0} Erfahrung hat.“
+			OreInfusionPowerNotSetup: „Erz {0} Infusionsleistung nicht eingerichtet. Geschätzte Infusionsleistung:“
+			PreventedIssueLooseExperience: „Ein Problem wurde verhindert, das dazu führen würde, dass deine XP reduziert werden. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
+			PreventedIssueLooseExperienceTwo: „Ein Problem wurde verhindert, das dazu führen würde, dass du Erfahrung verlierst. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
+			PreventedLoosingExperience: „Es wurde verhindert, dass Ihr {0} aufgrund eines Berechnungsfehlers Erfahrungspunkte verliert.“
+			PreventedWitchShopDuplication: Es wurde ein Problem behoben, das dazu führte, dass dem Shop-Artikel der Hexe ein doppelter Artikel hinzugefügt wurde:
+			RemovedEnchantedItemData: „EnchantedItem-Daten aus Element entfernt: {0}, Anzahl: {1}, newCount: {2}“
+			RemovedUnloadedEnchantmentFromItem: „Ungeladener Gegenstand:{0} aus deinem {1} entfernt. Bitte informiere andro951(WeaponEnchantments).“
+			ReportErrorToAndro: Bitte melden Sie dies andro951 (Weapon Enchantments) zusammen mit einer Beschreibung dessen, was Sie zu diesem Zeitpunkt getan haben.
+			RerollEnchantment: Verzauberung erneut würfeln
+			ResistsYourAttemptToEmpower: „Die {0} haben sich Ihrem Versuch widersetzt, es zu stärken.“
+			SameSetBonusNoEffect: Der aufzuwertende Gegenstand hat den gleichen Setbonus wie der verbrauchte Gegenstand und hat keine Wirkung.
+			SlotNumDisabledByConfig: „Steckplatz {0} durch Konfiguration deaktiviert. {1} aus Ihrem {2} entfernt.“
+			TryInfuseFailed: „TryInfuseItem fehlgeschlagen, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
+			UnableDetermineNPCDropsBossBag: Der NPC, der diese Boss-Tasche fallen lässt, kann nicht ermittelt werden:
+			WeaponInfusionPowersNotSetup: Waffeninfusionskräfte nicht eingerichtet
+			WitchChatText: Was willst du noch? Ich bin beschäftigt.
+			WitchEnchantmentRerolText: Ich denke, ich könnte versuchen, Ihre Verzauberungen zu verbessern, aber keine Rückerstattung oder Beschwerden.
+			WitchSpawnCondition: Haben Sie eine Verzauberung in Ihrem Inventar oder auf Ihrer Ausrüstung.
 		}
 
 		Items: {
@@ -1251,6 +1328,7 @@ Mods: {
 				Hunter: Jäger
 				Ichor: Ichor
 				InfinitePenetration: Unendliche Durchdringung
+				ItemAttractionAndPickupSpeed: Gegenstandsanziehung und Aufnahmegeschwindigkeit
 				ItemCooldown: Abklingzeit des Gegenstands
 				Juiced: Entsaftet
 				JumpSpeed: Sprunggeschwindigkeit
@@ -1385,6 +1463,7 @@ Mods: {
 					(Bonusschaden nicht von LifeSteal betroffen)
 					'''
 				InfinitePenetration: Unendliche Durchdringung
+				ItemAttractionAndPickupSpeed: Gegenstandsanziehung und Aufnahmegeschwindigkeit
 				ItemCooldown: (Artikel-CD gleich {0} Nutzungsgeschwindigkeit)
 				JumpSpeed: Sprunggeschwindigkeit
 				KiDamage: Ki-Schaden
@@ -1448,13 +1527,31 @@ Mods: {
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Erlaubt an
 				And: und
+				ApproximateItemDamage: „Gegenstandsschaden ~ {0} (Gegen 0 Rüstungsgegner)“
 				ArmorSlotOnly: Nur {0} Rüstungsplatz
+				BoosterInstalled: Booster installiert
+				EnchantmentCapacity: Verzauberungskapazität
+				Experience: „Erfahrung: {0}“
+				InfusedArmorID: „Infundierte Rüstungs-ID: {0} Infundierter Gegenstand: {1}“
+				InfusedItem: Infundierter Gegenstand:
+				InfusionPower: Infusionskraft:
+				LevelAvailable: „Level: {0} {1} verfügbar: {2}“
 				LevelCost: Stufenkosten: {0}
 				Max1: Maximal 1 pro Artikel
+				MaxLevel: (Maximales Level)
+				NewInfusedItem: Neuer infundierter Gegenstand:
+				NewInfusionPower: Neue Infusionskraft:
+				NewSetBonusID: Neue Set-Bonus-ID:
+				NormalBoosterAbreviation: N
 				NotAllowed: Auf {0} Waffen nicht erlaubt
 				Only: Nur {0}
 				OnlyAllowedOn: Nur erlaubt auf
 				Or: oder
+				OutOfAmmo: KEINE MUNITION MEHR
+				Points: Punkte
+				SetBonusID: „Bonus-ID festlegen: {0}“
+				ToNextLevel: „({0} zur nächsten Ebene)“
+				UltraBoosterAbreviation: U
 				Unique: Einzigartig (begrenzt auf 1 einzigartige Verzauberung)
 				Utility: Dienstprogramm
 			}

@@ -14,6 +14,7 @@ using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common
 {
@@ -90,7 +91,7 @@ namespace WeaponEnchantments.Common
 			if (PrintListOfItems[GetItemDictModeID.Weapon]) {
 				GetItemDict(GetItemDictModeID.Weapon, postSetupPrintList: true);
 
-				string msg = "\nRarity, Average, Min, Max";
+				string msg = $"\n{GameMessageTextID.LogInfusionPowerOtherLabels.ToString().Lang_WE(L_ID1.GameMessages)}";
 				for (int i = 0; i < numRarities; i++) {
 					msg += $"\n{i}, {averageValues[i]}, {minValues[i]}, {maxValues[i]}";
 				}
@@ -126,8 +127,6 @@ namespace WeaponEnchantments.Common
                     bool accessory = mode == GetItemDictModeID.Accessory && EnchantedItemStaticMethods.IsAccessoryItem(item);
                     if ( weaponList || armorList || accessory) {
                         int[] itemStats = { item.rare, item.value, item.damage };
-                        //if (Debugger.IsAttached && item.rare >= numRarities && modName != "CalamityMod") $"Item above max supported rarities detected: {item.S()}, rare: {item.rare}, value: {item.value}.  It will be treated as rarity {numRarities - 1} for Infusion.".LogSimple();
-
                         if (!itemsDict.ContainsKey(modName))
                             itemsDict.Add(modName, new List<int[]>());
 
@@ -168,7 +167,7 @@ namespace WeaponEnchantments.Common
 
             if(printList && postSetupPrintList) {
                 if (mode == GetItemDictModeID.Weapon) {
-                    msg += "\nMod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS";
+                    msg += $"\n{GameMessageTextID.LogInfusionPowerLabels.ToString().Lang_WE(L_ID1.GameMessages)}";
                     foreach (int infusionPower in infusionPowers.Keys) {
                         foreach(string name in infusionPowers[infusionPower].Keys) {
                             msg += $"\n{GetDataString(infusionPower, name, infusionPowers[infusionPower][name])}";
@@ -261,11 +260,8 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			switch (sampleItem.Name) {
-				case "Primary Zenith"://Primary Zenith
-					rarity = 0f;
-					break;
-			}
+            if (sampleItem.ModFullName().Contains("PrimaryZenith"))
+				rarity = 0f;
 
 			return rarity;
         }
@@ -393,7 +389,7 @@ namespace WeaponEnchantments.Common
             }
 
             if(!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-                $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT_WE(ChatMessagesIDs.FailedInfuseItem);
+				GameMessageTextID.FailedInfuseItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), consumedItem.S() }).LogNT_WE(ChatMessagesIDs.FailedInfuseItem);// $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT_WE(ChatMessagesIDs.FailedInfuseItem);
                 return false;
 			}
             
@@ -431,12 +427,12 @@ namespace WeaponEnchantments.Common
                         return true;
                     }
                     else if (finalize) {
-                        Main.NewText($"Your {item.Name}({enchantedWeapon.GetInfusionPower(ref item)}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
+                        Main.NewText(GameMessageTextID.CannotGainAdditionalPower.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.Name, enchantedWeapon.GetInfusionPower(ref item), consumedItem.Name, infusedPower }));// $"Your {item.Name}({enchantedWeapon.GetInfusionPower(ref item)}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
                     }
                 }
                 else if (finalize) {
-                    Main.NewText($"The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.");
-                }
+                    Main.NewText(GameMessageTextID.InfusionPowerMustBeLower.ToString().Lang_WE(L_ID1.GameMessages));//$"The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.");
+				}
 
                 return false;
             }
@@ -467,20 +463,20 @@ namespace WeaponEnchantments.Common
                         return true;
                     }
                     else if (finalize && !failedItemFind) {
-                        Main.NewText($"The item being upgraded has the same set bonus as the item being consumed and will have no effect.");
-                    }
+                        Main.NewText(GameMessageTextID.SameSetBonusNoEffect.ToString().Lang_WE(L_ID1.GameMessages));//$"The item being upgraded has the same set bonus as the item being consumed and will have no effect.");
+					}
 
                     return false;
                 }
                 else if (finalize && !failedItemFind) {
-                    Main.NewText($"You cannot infuse armor of different types such as a helmet and body.");
-                }
+                    Main.NewText(GameMessageTextID.CantInfusionArmorDifferentTypes.ToString().Lang_WE(L_ID1.GameMessages));//$"You cannot infuse armor of different types such as a helmet and body.");
+				}
 
                 return false;
             }
             if (finalize && !failedItemFind && (EnchantedItemStaticMethods.IsWeaponItem(item) || EnchantedItemStaticMethods.IsArmorItem(item))) {
-                Main.NewText($"Infusion is only possible between items of the same type (Weapon/Armor)");
-            }
+                Main.NewText(GameMessageTextID.InfusionOnlyPossibleSameType.ToString().Lang_WE(L_ID1.GameMessages));//$"Infusion is only possible between items of the same type (Weapon/Armor)");
+			}
 
             return false;
         }

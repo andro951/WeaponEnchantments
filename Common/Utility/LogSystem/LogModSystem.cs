@@ -116,7 +116,7 @@ namespace WeaponEnchantments.Common.Utility
 							Main.NewText(newItem.S());
 						}
 						else {
-							Main.NewText("newItem was air.");
+                            Main.NewText(GameMessageTextID.NewItemIsAir.ToString().Lang_WE(L_ID1.GameMessages));// "newItem was air.");
 						}
 					}
 				}

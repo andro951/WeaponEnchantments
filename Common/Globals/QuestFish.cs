@@ -1,4 +1,5 @@
-﻿using KokoLib;
+﻿using androLib.Common.Utility;
+using KokoLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace WeaponEnchantments.Common.Globals
 						Main.LocalPlayer.GetAnglerReward(angler, type);
 					}
 					else {
-						$"Failed to locate the Angler.  You will still receive rewards".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
+						GameMessageTextID.FailedToLocateAngler.ToString().Lang_WE(L_ID1.GameMessages).LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);// $"Failed to locate the Angler.  You will still receive rewards".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
 						GetAnglerLoot();
 					}
 
@@ -76,7 +77,7 @@ namespace WeaponEnchantments.Common.Globals
 
 		public static void PrintAnglerQuest() {
 			int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
-			Main.NewText($"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.  Quests finished: {Main.LocalPlayer.anglerQuestsFinished}\n" +
+			Main.NewText($"{GameMessageTextID.FishingQuestTurnedIn.ToString().Lang_WE(L_ID1.GameMessages, new object[] { ContentSamples.ItemsByType[newQuestFish].Name, Main.LocalPlayer.anglerQuestsFinished })}\n" +//$"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.  Quests finished: {Main.LocalPlayer.anglerQuestsFinished}\n" +
 				$"{Lang.AnglerQuestChat(false)}");
 		}
 

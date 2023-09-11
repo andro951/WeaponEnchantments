@@ -199,6 +199,7 @@ namespace WeaponEnchantments.UI
 		public const int EnchantmentLoadoutUIScrollPanel = 2;
 		public const int EnchantmentLoadoutUITextButton = 3;
 		public const int EnchantmentLoadoutAddTextButton = 4;
+		public const int EnchantmentLoadoutAddFromEquippedEnchantmentsTextButton = 5;
 		public const int EnchantmentLoadoutUIItemSlot = 200;
 	}
 }

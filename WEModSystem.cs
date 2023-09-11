@@ -464,7 +464,7 @@ namespace WeaponEnchantments
                         foreach(Enchantment enchantment in enchantedFishingPole.enchantments.All.Select(e => e.ModItem).OfType<Enchantment>()) {
                             if (enchantment is NpcContactAnglerEnchantment anglerEnchantment) {
                                 int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
-                                Main.NewText($"The daily fishing quest has reset.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.\n" +
+                                Main.NewText($"{GameMessageTextID.DailyFishingQuestReset.ToString().Lang_WE(L_ID1.GameMessages, new object[] { ContentSamples.ItemsByType[newQuestFish].Name })}\n" +//$"The daily fishing quest has reset.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.\n" +
                                     $"{Lang.AnglerQuestChat(false)}");
                             }
 						}

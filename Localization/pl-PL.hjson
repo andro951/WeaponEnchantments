@@ -533,10 +533,7 @@ Mods: {
 				Tooltip: Usuwa rzeczy takie jak Unique, Max 1 i zaklęcia specyficzne dla broni lub przedmiotu.
 			}
 
-			ServerConfig: {
-				Label: Konfiguracja serwera
-				// $parentVal: preset Data Header
-			}
+			ServerConfig.Label: Konfiguracja serwera
 
 			Strength: {
 				Label: Siła (1000 = 1, 10 = 1%)
@@ -592,7 +589,9 @@ Mods: {
 
 		EnchantmentStorageText: {
 			Add: Dodać
+			AddFromEquippedEnchantments: Dodaj z wyposażonych zaklęć
 			All: Wszystko
+			Delete: Usuwać
 			EnchantmentLoadouts: Ładunki zaklęć
 			EnchantmentStorage: Magazyn zaklęć
 			HeldItem: Wstrzymany przedmiot
@@ -611,6 +610,84 @@ Mods: {
 			RevertAllToBasic: Przywróć wszystko do podstawowego
 			ToggleMarkTrash: Przełącz opcję Oznacz kosz
 			UncraftAllTrash: Roztwórz wszystkie śmieci
+		}
+
+		GameMessages: {
+			AlreadyMaxLevel: „Twój {0} jest już na maksymalnym poziomie.”
+			Back: Z powrotem
+			BossChecklistNotEnabled: Mod BossChecklist nie jest włączony. Zaklęcia broni korzystają z listy kontrolnej bossów, aby określić, którzy bossowie decydują o wypadaniu Boosterów mocy ze zmodyfikowanych bossów. Ponieważ lista kontrolna bossów nie jest włączona, wszyscy zmodyfikowani bossowie upuszczą zwykły wzmacniacz mocy.
+			CannotGainAdditionalPower: „Twoje {0}({1}) nie może zyskać dodatkowej mocy z oferowanego {2}({3}).”.
+			CantInfusionArmorDifferentTypes: Nie możesz napełniać zbroi różnych typów, np. hełmu i korpusu.
+			CongradulationsMaxLevel: „Gratulacje! {1} użytkownika {0} osiągnęło maksymalny poziom, {2} ({3} PD).”.
+			CouldntFindItemsInWeaponsList: Nie można znaleźć przedmiotów na liście broni lub składnikach wytwarzania broni o nazwach:
+			CouldntFindNPCsInIngredientsList: Nie można znaleźć NPC w NPCsThatDropWeaponsOrIngredients o nazwach:
+			DailyFishingQuestReset: „Codzienna misja wędkarska została zresetowana. Twoja następna misja to {0}.”
+			DetectedNonEnchantmentInEnchantmentSlot: „Wykryto przedmiot niebędący zaklęciem:{0} na Twoim {1}. Został on zwrócony do Twojego ekwipunku.”
+			EnchantmentNoLongerAllowed: „{0} nie jest już dozwolony w {1} i został usunięty z Twojego {2}.”
+			FailedConvertExcessExperience: „Nie udało się sprawdzićConvertExcessExperience(element: {0}, zużyty element: {1})”
+			FailedDetermineProgression: Nie udało się określić postępu Wall of Flesh i Plantera z BossChecklistData
+			FailedFindBossBag: Nie udało się znaleźć torby szefa dla szefa:
+			FailedFindItemDropsForGroup: Nie udało się znaleźć zrzutów przedmiotów dla łupów dla grupy
+			FailedInfuseItem: „Nie udało się nasycić elementu: {0} skonsumowanym elementem: {1}”
+			FailedReplaceOldItem: Nie udało się zastąpić starego elementu:
+			FailedReplaceWithCoins: „Nie udało się zastąpić przedmiotu: {0} monetami”
+			FailedToCloneItem: „W EnchantedItem nie udało się sklonować (element: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}.”
+			FailedToFindInfusionPower: Nie udało się znaleźć mocy infuzji dla przedmiotu:
+			FailedToLocateAngler: Nie udało się zlokalizować wędkarza. Nadal będziesz otrzymywać nagrody
+			FavoritedItemsCantBeConsumedForInfusion: Ulubione przedmioty nie mogą być spożywane do naparu.
+			FishingQuestTurnedIn: „Misja oddana. Twoja następna misja to {0}. Zadania ukończone: {1}”
+			InfusionConsumeItemWasNull: „wePlayer.infusionConsumeItem miał wartość null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}”
+			InfusionOnlyPossibleSameType: Infuzja jest możliwa tylko pomiędzy przedmiotami tego samego typu (broń/zbroja)
+			InfusionPowerMustBeLower: Moc Naparu ulepszanego przedmiotu musi być niższa niż Moc Naparu zużywanego przedmiotu.
+			IngredientInfusionPowersNotSetup: Nie skonfigurowano mocy infuzji składników
+			IngredientsFromLootItemsNotincluded: Składniki z WeaponsFromLootPrzedmioty nie zawarte w Mocach ItemInfusion
+			ItemLevelUp: „{0} {1} osiągnął poziom {2} ({3} PD).”
+			ItemRemovedFromWeaponEnchantments: „{0} został usunięty z zaklęć broni.”
+			ItemRemovedRecieveCoins: „{0} został usunięty z zaklęć broni. Otrzymałeś monety równe cenie sprzedaży.”
+			ItemRemovedReiceveCompensation: „{0} został usunięty z zaklęć broni. Otrzymałeś {1} w ramach rekompensaty.”
+			ItemRemovedRelacedWithItem: „{0} został usunięty z zaklęć broni. Został zastąpiony przez {1}”
+			ItemsFromLootItemsNotIncluded: Przedmioty z WeaponsFromLootItems nie zawarte w ItemInfusionPowers
+			ItemsFromNPCIngredientsNotIncluded: Przedmioty pochodzące ze składników od NPC nie są uwzględnione w mocy naparu przedmiotów
+			ItemsFromNPCsNotIncluded: Przedmioty z broni od NPC nie są uwzględnione w mocach infuzji przedmiotów
+			ItemTooLowLevel: „Twój poziom {0} jest zbyt niski, aby móc używać tak wielu zaklęć.”
+			LogInfusionPowerLabels: Mod, broń, moc infuzji, wartość rzadkości, rzadkość, oryginalna rzadkość, wartość, identyfikator przedmiotu, obrażenia, czas użytkowania, DPS
+			LogInfusionPowerOtherLabels: Rzadkość, średnia, minimalna, maksymalna
+			MainUpdateCount: „Main.GameUpdateCount: {0}”
+			MultipleUniqueEnchantments: „Wykryto wiele unikalnych zaklęć na twoim {0}. {1} zostało usunięte z twojego {2}.”
+			MurasamaNoInfusion: Murasamy nie można spożywać do naparu.
+			NewItemIsAir: nowośćPrzedmiotem było powietrze.
+			NoLongerAllowedOnDamageType: „{0} nie jest już dozwolony w broniach {1} i został usunięty z twojej broni {2}.”
+			NoLongerUtilityEnchantment: „{0} nie jest już zaklęciem użytkowym i zostało usunięte z twojego {1}.”
+			NonEnchantableItemInTable:
+				'''
+				W tabeli wykryto przedmiot, którego nie można zaklinać: {0}.
+				OSTRZEŻENIE, NIE NACISKAJ POTWIERDŹ.
+				Zgłoś ten problem do andro951 (zaklęcia broni)
+				'''
+			NotEnchantableAndNotAirInfusionItem: „tableItem: {0}{1} nie można zaklęć, a infusionConsumeItem: {2}{3} nie jest powietrzem”
+			NotEnoughEssence: „Za mało esencji. Potrzebujesz {0} doświadczenia na poziom {1}, a masz tylko {2}.”
+			NowLimitedToOne: „{0} Zaklęcia są teraz ograniczone do 1 na przedmiot. {1} zostało usunięte z twojego {2}.”
+			NPCInProgressionGroupNotInDropList: Wykryto NPC w grupie Postępu, którego nie ma w NPCsThatDropWeaponsOrIngredients.
+			NPCInProgressionGroupNoUniqueEnchantments: Wykryto NPC w grupie Postępu, który nie ma unikalnej broni ani składników.
+			OnlySyphonMaxLevel: „Możesz wyssać przedmiot tylko wtedy, gdy ma on maksymalny poziom i ponad {0} doświadczenia.”
+			OreInfusionPowerNotSetup: „Nie ustawiono mocy infuzji rudy {0}. Zgadywana moc infuzji:”
+			PreventedIssueLooseExperience: „Zapobiegnięto problemowi, który powodowałby zmniejszenie twoich PD. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, target.obrona: {5}, xpDamage: {6}, niskie obrażenia na trafienieXPBoost: {7}"
+			PreventedIssueLooseExperienceTwo: „Zapobiegnięto problemowi, który powodował utratę doświadczenia. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, niskie obrażenia na trafienieXPBoost: {7}, "
+			PreventedLoosingExperience: „Zapobiegłeś utracie doświadczenia przez {0} z powodu błędu w obliczeniach.”
+			PreventedWitchShopDuplication: Zapobiegnięto problemowi, który powodował dodanie zduplikowanego przedmiotu do przedmiotu w sklepie Wiedźmy:
+			RemovedEnchantedItemData: „Usunięto dane EnchantedItem z przedmiotu: {0}, liczba: {1}, nowa liczba: {2}”
+			RemovedUnloadedEnchantmentFromItem: „Usunięto niewyładowany przedmiot:{0} z Twojego {1}. Poinformuj andro951(WeaponEnchantments).”
+			ReportErrorToAndro: Zgłoś to do andro951 (Zaklęcia Broni) wraz z opisem tego, co robiłeś w tym czasie.
+			RerollEnchantment: Rzuć ponownie Zaklęcie
+			ResistsYourAttemptToEmpower: „{0} oparł się twojej próbie wzmocnienia go.”
+			SameSetBonusNoEffect: Ulepszany przedmiot ma taką samą premię jak przedmiot zużywany i nie będzie miał żadnego efektu.
+			SlotNumDisabledByConfig: „Gniazdo {0} wyłączone przez konfigurację. Usunięto {1} z Twojego {2}.”
+			TryInfuseFailed: „TryInfuseItem nie powiodło się, tableItem: {0}{1}, infusionConsumeItem: {2}{3}”
+			UnableDetermineNPCDropsBossBag: Nie można określić NPC, który upuszcza tę torbę z bossem:
+			WeaponInfusionPowersNotSetup: Moce infuzyjne broni nie są skonfigurowane
+			WitchChatText: Czego jeszcze chcesz? Jestem zajęty.
+			WitchEnchantmentRerolText: Myślę, że mógłbym spróbować ulepszyć twoje zaklęcia, ale bez zwrotów pieniędzy i reklamacji.
+			WitchSpawnCondition: Posiadaj zaklęcie w swoim ekwipunku lub na swoim wyposażeniu.
 		}
 
 		Items: {
@@ -1251,6 +1328,7 @@ Mods: {
 				Hunter: Łowca
 				Ichor: Posoka
 				InfinitePenetration: Nieskończona penetracja
+				ItemAttractionAndPickupSpeed: Przyciąganie przedmiotu i prędkość odbioru
 				ItemCooldown: Czas odnowienia przedmiotu
 				Juiced: sok
 				JumpSpeed: Prędkość skoku
@@ -1385,6 +1463,7 @@ Mods: {
 					(Dodatkowe obrażenia, na które nie ma wpływu LifeSteal)
 					'''
 				InfinitePenetration: Nieskończona penetracja
+				ItemAttractionAndPickupSpeed: Przyciąganie przedmiotu i prędkość odbioru
 				ItemCooldown: (Pozycja na płycie CD równa {0} prędkości użytkowania)
 				JumpSpeed: Szybkość skoku
 				KiDamage: Obrażenia Ki
@@ -1448,13 +1527,31 @@ Mods: {
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Dozwolone na
 				And: oraz
+				ApproximateItemDamage: „Obrażenia przedmiotów ~ {0} (Przeciwko wrogowi o zbroi 0)”
 				ArmorSlotOnly: Tylko {0} gniazdo pancerza
+				BoosterInstalled: Zainstalowano wzmacniacz
+				EnchantmentCapacity: Pojemność zaklęć
+				Experience: „Doświadczenie: {0}”
+				InfusedArmorID: „Identyfikator natchnionej zbroi: {0} Nasycony przedmiot: {1}”
+				InfusedItem: Natchniony przedmiot:
+				InfusionPower: Moc infuzji:
+				LevelAvailable: „Poziom: {0} {1} dostępny: {2}”
 				LevelCost: Koszt poziomu: {0}
 				Max1: Maksymalnie 1 za sztukę
+				MaxLevel: (Najwyższy poziom)
+				NewInfusedItem: Nowy natchniony przedmiot:
+				NewInfusionPower: Nowa moc infuzji:
+				NewSetBonusID: Identyfikator bonusu nowego zestawu:
+				NormalBoosterAbreviation: N
 				NotAllowed: „Niedozwolone dla {0} broni”
 				Only: „{0} Tylko”
 				OnlyAllowedOn: Dozwolone tylko na
 				Or: lub
+				OutOfAmmo: KONIEC AMUNICJI
+				Points: Zwrotnica
+				SetBonusID: „Ustaw identyfikator bonusu: {0}”
+				ToNextLevel: ({0} do następnego poziomu)
+				UltraBoosterAbreviation: U
 				Unique: Unikalny (ograniczony do 1 unikalnego zaklęcia)
 				Utility: Pożytek
 			}

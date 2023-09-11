@@ -85,7 +85,7 @@ namespace WeaponEnchantments.Common.Globals
         private static void TryBossChecklistSetup() {
             if (!WEMod.bossChecklistEnabled) {
                 if (preHardModeBossTypes == null || postPlanteraBossTypes == null)
-                    $"BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determin which bosses determin Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster.".LogSimple_WE();
+					GameMessageTextID.BossChecklistNotEnabled.ToString().Lang_WE(L_ID1.GameMessages).LogSimple_WE();// $"BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determin which bosses determin Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster.".LogSimple_WE();
 
 				return;
 			}
@@ -96,8 +96,8 @@ namespace WeaponEnchantments.Common.Globals
 			preHardModeBossTypes = new();
 			postPlanteraBossTypes = new();
 			if (!BossInfoNetIDKeys.TryGetValue(NPCID.WallofFlesh, out string wallKey) || !BossInfos.TryGetValue(wallKey, out BossChecklistBossInfo wallInfo) || !BossInfoNetIDKeys.TryGetValue(NPCID.Plantera, out string planteraKey) || !BossInfos.TryGetValue(planteraKey, out BossChecklistBossInfo planteraInfo)) {
-                "Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData".LogSimple_WE();
-                return;
+				GameMessageTextID.FailedDetermineProgression.ToString().Lang_WE(L_ID1.GameMessages).LogSimple_WE();//"Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData".LogSimple_WE();
+				return;
             }
 
             float wallOfFleshProgression = wallInfo.progression;
@@ -812,9 +812,6 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class NPCStaticMethods
     {
-        //public static bool IsWorm(this NPC npc) {
-        //    return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
-        //}
         public static bool IsDummy(this NPC npc) => npc.netID < NPCID.Count ? npc.netID == NPCID.TargetDummy : npc.ModFullName() is string modFullName && (AndroMod.calamityEnabled && modFullName == "CalamityMod/SuperDummyNPC" || AndroMod.fargosEnabled && modFullName == "Fargowiltas/SuperDummy");
         public static bool IsBoss(this NPC npc) => npc.boss || WEGlobalNPC.multipleSegmentBossTypes.ContainsKey(npc.netID) || WEGlobalNPC.normalNpcsThatDropsBags.Contains(npc.netID);
 		public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
@@ -852,15 +849,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        //public static int RealNetID(this NPC npc) => npc.realLife == -1 ? npc.netID : Main.npc[npc.realLife].netID;
-        //public static NPC RealNPC(this NPC npc) => npc.realLife == -1 ? npc : Main.npc[npc.realLife];
-        //public static int RealLife(this NPC npc) => npc.realLife == -1 ? npc.life : Main.npc[npc.realLife].life;
-        //public static int RealLifeMax(this NPC npc) => npc.realLife == -1 ? npc.lifeMax : Main.npc[npc.realLife].lifeMax;
-        //public static int RealLifeRegen(this NPC npc) => npc.realLife == -1 ? npc.lifeRegen : Main.npc[npc.realLife].lifeRegen;
-        //public static float RealValue(this NPC npc) => npc.realLife == -1 ? npc.value : Main.npc[npc.realLife].value;
-        //public static void AddValue(this NPC npc, int value) {
-        //    npc.extraValue += value;
-        //}
 
         //Fix for Draedon boss having a null reference error in Calamity code when sampleNPC.FullName is called.  (Error in NPC.ToString())
         public static string FullName(this NPC npc) {
@@ -880,7 +868,5 @@ namespace WeaponEnchantments.Common.Globals
 				return npc.FullName;
 			}
 		}
-        
-        //public static string ModFullName(this NPC npc) => npc.ModNPC?.FullName ?? npc.type.GetNPCIDOrName();
 	}
 }

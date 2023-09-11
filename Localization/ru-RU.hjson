@@ -530,10 +530,7 @@ Mods: {
 				Tooltip: Убирает ограничения типа Уникальный, Не более одного и Только для определённых предметов.
 			}
 
-			ServerConfig: {
-				Label: Настройки сервера
-				// $parentVal: preset Data Header
-			}
+			ServerConfig.Label: Настройки сервера
 
 			Strength: {
 				Label: Сила (1000 = 1, 10 = 1%).
@@ -589,7 +586,9 @@ Mods: {
 
 		EnchantmentStorageText: {
 			Add: Добавлять
+			AddFromEquippedEnchantments: Добавить из экипированных чар
 			All: Все
+			Delete: Удалить
 			EnchantmentLoadouts: Чары
 			EnchantmentStorage: Хранилище чар
 			HeldItem: Удерживаемый предмет
@@ -608,6 +607,84 @@ Mods: {
 			RevertAllToBasic: Вернуть все к основному
 			ToggleMarkTrash: Переключить пометку корзины
 			UncraftAllTrash: Удалить весь мусор
+		}
+
+		GameMessages: {
+			AlreadyMaxLevel: «У вашего {0} уже максимальный уровень».
+			Back: Назад
+			BossChecklistNotEnabled: Мод BossChecklist не включен. Оружейные чары используют BossChecklist, чтобы определить, какие боссы определяют, что Power Booster выпадает из модифицированных боссов. Поскольку BossChecklist не включен, из всех модифицированных боссов выпадет обычный Power Booster.
+			CannotGainAdditionalPower: «Ваш {0}({1}) не может получить дополнительную мощность от предлагаемого {2}({3})».
+			CantInfusionArmorDifferentTypes: Вы не можете наделить доспехи разных типов, такие как шлем и тело.
+			CongradulationsMaxLevel: «Поздравляем! {1} пользователя {0} достиг максимального уровня, {2} ({3} опыта)».
+			CouldntFindItemsInWeaponsList: Не удалось найти предметы в WeaponsList или WeaponCraftingIngredients с именами:
+			CouldntFindNPCsInIngredientsList: Не удалось найти NPC в NPCsThatDropWeaponsOrIngredients с именами:
+			DailyFishingQuestReset: «Ежедневное задание на рыбалку сброшено. Ваше следующее задание — {0}».
+			DetectedNonEnchantmentInEnchantmentSlot: «Обнаружен не зачарованный предмет:{0} на вашем {1}. Он был возвращен в ваш инвентарь».
+			EnchantmentNoLongerAllowed: «Пользователь {0} больше не доступен на {1} и удален из вашего {2}».
+			FailedConvertExcessExperience: «Не удалось проверитьConvertExcessExperience(item: {0}, потребляемыйItem: {1})»
+			FailedDetermineProgression: Не удалось определить прогресс Стены плоти и Плантеры из BossChecklistData.
+			FailedFindBossBag: Не удалось найти сумку для босса:
+			FailedFindItemDropsForGroup: Не удалось найти предметы для добычи для группы.
+			FailedInfuseItem: «Не удалось объединить элемент: {0} с потребляемым элементом: {1}»
+			FailedReplaceOldItem: Не удалось заменить старый элемент:
+			FailedReplaceWithCoins: «Не удалось заменить элемент: {0} монетами»
+			FailedToCloneItem: «В EnchantedItem не удалось клонировать (item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}».
+			FailedToFindInfusionPower: Не удалось найти силу вливания для предмета:
+			FailedToLocateAngler: Не удалось найти рыболова. Вы все равно будете получать награды
+			FavoritedItemsCantBeConsumedForInfusion: Любимые предметы нельзя использовать для настаивания.
+			FishingQuestTurnedIn: «Квест сдан. Ваш следующий квест — {0}. Квесты завершены: {1}»
+			InfusionConsumeItemWasNull: wePlayer.infusionConsumeItem имел значение null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
+			InfusionOnlyPossibleSameType: Инфузия возможна только между предметами одного типа (оружие/броня).
+			InfusionPowerMustBeLower: Сила вливания улучшаемого предмета должна быть ниже силы вливания потребляемого предмета.
+			IngredientInfusionPowersNotSetup: Не настроена мощность вливания ингредиентов.
+			IngredientsFromLootItemsNotincluded: Ингредиенты из WeaponsFromLootItems, не включенные в ItemInfusionPowers
+			ItemLevelUp: «{1} пользователя {0} достиг уровня {2} ({3} опыта)».
+			ItemRemovedFromWeaponEnchantments: «{0} был удален из чар оружия».
+			ItemRemovedRecieveCoins: «{0} был удален из чар оружия. Вы получили монеты, равные цене его продажи».
+			ItemRemovedReiceveCompensation: «{0} был удален из чар оружия. Вы получили {1} в качестве компенсации».
+			ItemRemovedRelacedWithItem: «{0} был удален из чар оружия. Он был заменен на {1}»
+			ItemsFromLootItemsNotIncluded: Предметы из WeaponsFromLootItems, не включенные в ItemInfusionPowers
+			ItemsFromNPCIngredientsNotIncluded: Предметы из IngredientsFromNPC, не включенные в ItemInfusionPowers
+			ItemsFromNPCsNotIncluded: Предметы из оружия от неигровых персонажей, не включенные в ItemInfusionPowers
+			ItemTooLowLevel: «Ваш уровень {0} слишком низок, чтобы использовать такое количество чар».
+			LogInfusionPowerLabels: Модификация, оружие, сила вливания, значение редкости, редкость, исходная редкость, ценность, идентификатор предмета, урон, время использования, урон в секунду
+			LogInfusionPowerOtherLabels: Редкость, Средняя, Мин, Макс
+			MainUpdateCount: Main.GameUpdateCount: {0}
+			MultipleUniqueEnchantments: «На вашем {0} обнаружено несколько уникальных чар. {1} был удален из вашего {2}».
+			MurasamaNoInfusion: Мурасаму нельзя употреблять в виде настоя.
+			NewItemIsAir: newItem был воздух.
+			NoLongerAllowedOnDamageType: «Пользователю {0} больше не разрешено использовать оружие {1}, и он удален из вашего {2}».
+			NoLongerUtilityEnchantment: «{0} больше не является служебным зачарованием и был удален из вашего {1}».
+			NonEnchantableItemInTable:
+				'''
+				В таблице обнаружен незачарованный предмет: {0}.
+				ВНИМАНИЕ, НЕ НАЖИМАЙТЕ ПОДТВЕРДИТЬ.
+				Пожалуйста, сообщите об этой проблеме andro951 (Чары для оружия).
+				'''
+			NotEnchantableAndNotAirInfusionItem: tableItem: {0}{1} не зачаровывается, а infusionConsumeItem: {2}{3} не является воздухом
+			NotEnoughEssence: «Недостаточно эссенции. Вам нужно {0} опыта для уровня {1}, у вас есть только {2}».
+			NowLimitedToOne: «Чары {0} теперь ограничены 1 на предмет. {1} был удален из вашего {2}».
+			NPCInProgressionGroupNotInDropList: Обнаружен NPC в группе Progression, которого нет в NPCsThatDropWeaponsOrIngredients.
+			NPCInProgressionGroupNoUniqueEnchantments: Обнаружен NPC в группе прогресса, у которого нет уникального оружия или ингредиентов.
+			OnlySyphonMaxLevel: «Вы можете выкачивать предмет только в том случае, если он имеет максимальный уровень и опыт более {0}».
+			OreInfusionPowerNotSetup: «Мощность вливания руды {0} не настроена. Предполагаемая мощность вливания:»
+			PreventedIssueLooseExperience: «Предотвращена проблема, приводившая к снижению вашего опыта. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
+			PreventedIssueLooseExperienceTwo: «Предотвращена проблема, из-за которой вы теряли опыт. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
+			PreventedLoosingExperience: «Предотвращена потеря опыта вашего {0} из-за ошибки расчета».
+			PreventedWitchShopDuplication: Предотвращена проблема, из-за которой в магазин Ведьмы добавлялся дубликат предмета:
+			RemovedEnchantedItemData: «Удалены данные EnchantedItem из элемента: {0}, количество: {1}, newCount: {2}»
+			RemovedUnloadedEnchantmentFromItem: «Удален выгруженный предмет:{0} из вашего {1}. Пожалуйста, сообщите andro951(WeaponEnchantments)».
+			ReportErrorToAndro: Пожалуйста, сообщите об этом в andro951 (Weapon Enchantments) вместе с описанием того, что вы делали в то время.
+			RerollEnchantment: Перебросить Чары
+			ResistsYourAttemptToEmpower: «{0} сопротивляется вашей попытке усилить его».
+			SameSetBonusNoEffect: Улучшаемый предмет имеет тот же набор бонусов, что и потребляемый предмет, и не будет иметь никакого эффекта.
+			SlotNumDisabledByConfig: «Слот {0} отключен конфигурацией. Удален {1} из вашего {2}».
+			TryInfuseFailed: «Ошибка TryInfuseItem, tableItem: {0}{1}, infusionConsumeItem: {2}{3}»
+			UnableDetermineNPCDropsBossBag: Невозможно определить NPC, с которого выпадает эта сумка с боссом:
+			WeaponInfusionPowersNotSetup: Способности добавления оружия не настроены
+			WitchChatText: Что вы еще хотите? Я занят.
+			WitchEnchantmentRerolText: Думаю, я мог бы попытаться улучшить ваши чары, но никаких возмещений или жалоб.
+			WitchSpawnCondition: Имейте зачарование в своем инвентаре или на своем снаряжении.
 		}
 
 		Items: {
@@ -1248,6 +1325,7 @@ Mods: {
 				Hunter: Охотник
 				Ichor: Ихор
 				InfinitePenetration: Бесконечное пробивание
+				ItemAttractionAndPickupSpeed: Привлекательность предметов и скорость получения
 				ItemCooldown: Перезарядка предмета
 				Juiced: Выжатый
 				JumpSpeed: Скорость прыжка
@@ -1382,6 +1460,7 @@ Mods: {
 					(Похищение жизни не влияет на бонусный урон)
 					'''
 				InfinitePenetration: Бесконечное проникновение
+				ItemAttractionAndPickupSpeed: Привлекательность предметов и скорость получения
 				ItemCooldown: (Время между использованием предмета равно {0} скорость использования)
 				JumpSpeed: Скорость прыжка
 				KiDamage: Ки Урон
@@ -1445,13 +1524,31 @@ Mods: {
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Разрешено на
 				And: и
+				ApproximateItemDamage: «Урон предмета ~ {0} (против врага с 0 броней)»
 				ArmorSlotOnly: Только для слота '{0}'
+				BoosterInstalled: Усилитель установлен
+				EnchantmentCapacity: Мощность чар
+				Experience: «Опыт: {0}»
+				InfusedArmorID: «Идентификатор усиленной брони: {0} Наполненный предмет: {1}»
+				InfusedItem: Настоянный предмет:
+				InfusionPower: Мощность инфузии:
+				LevelAvailable: «Уровень: {0} Доступно {1}: {2}»
 				LevelCost: Стоимость в уровнях: {0}
 				Max1: Не более одного на предмет
+				MaxLevel: (Макс. уровень)
+				NewInfusedItem: Новый усиленный предмет:
+				NewInfusionPower: Новая сила вливания:
+				NewSetBonusID: Идентификатор нового набора бонусов:
+				NormalBoosterAbreviation: Н
 				NotAllowed: Не разрешен на оружиях типа '{0}'
 				Only: Только {0}
 				OnlyAllowedOn: Разрешен только на
 				Or: или
+				OutOfAmmo: НЕТ ПАТРОНОВ
+				Points: Точки
+				SetBonusID: «Установить идентификатор бонуса: {0}»
+				ToNextLevel: " ({0} на следующий уровень)"
+				UltraBoosterAbreviation: У
 				Unique: Уникальное (Ограничение до 1 уникального зачарования)
 				Utility: Вспомогательное
 			}

@@ -23,6 +23,8 @@ using androLib.Common.Globals;
 using static androLib.Localization.AndroLocalizationData;
 using androLib.Localization;
 using androLib;
+using Terraria;
+using System.Diagnostics.Metrics;
 
 namespace WeaponEnchantments.Localization
 {
@@ -143,7 +145,25 @@ namespace WeaponEnchantments.Localization
 								{ $"{EnchantmentGeneralTooltipsID.Or}", "or" },
 								{ $"{EnchantmentGeneralTooltipsID.OnlyAllowedOn}", "Only allowed on" },
 								{ $"{EnchantmentGeneralTooltipsID.AllowedOn}", "Allowed on" },
-								{ $"{EnchantmentGeneralTooltipsID.And}", "and" }
+								{ $"{EnchantmentGeneralTooltipsID.And}", "and" },
+								{ $"{EnchantmentGeneralTooltipsID.Points}", "Points" },
+								{ $"{EnchantmentGeneralTooltipsID.EnchantmentCapacity}", "Enchantment Capacity" },
+								{ $"{EnchantmentGeneralTooltipsID.LevelAvailable}", "Level: {0}  {1} available: {2}" },
+								{ $"{EnchantmentGeneralTooltipsID.BoosterInstalled}", "Booster Installed" },
+								{ $"{EnchantmentGeneralTooltipsID.NormalBoosterAbreviation}", "N" },
+								{ $"{EnchantmentGeneralTooltipsID.UltraBoosterAbreviation}", "U" },
+								{ $"{EnchantmentGeneralTooltipsID.Experience}", "Experience: {0}" },
+								{ $"{EnchantmentGeneralTooltipsID.ToNextLevel}", " ({0} to next level)" },
+								{ $"{EnchantmentGeneralTooltipsID.MaxLevel}", "(Max Level)" },
+								{ $"{EnchantmentGeneralTooltipsID.InfusedArmorID}", "Infused Armor ID: {0}   Infused Item: {1}" },
+								{ $"{EnchantmentGeneralTooltipsID.SetBonusID}", "Set Bonus ID: {0}" },
+								{ $"{EnchantmentGeneralTooltipsID.NewSetBonusID}", "New Set Bonus ID:" },
+								{ $"{EnchantmentGeneralTooltipsID.NewInfusedItem}", "New Infused Item:" },
+								{ $"{EnchantmentGeneralTooltipsID.ApproximateItemDamage}", "Item Damage ~ {0} (Against 0 armor enemy)" },
+								{ $"{EnchantmentGeneralTooltipsID.OutOfAmmo}", "OUT OF AMMO" },
+								{ $"{EnchantmentGeneralTooltipsID.InfusionPower}", "Infusion Power:" },
+								{ $"{EnchantmentGeneralTooltipsID.InfusedItem}", "Infused Item:" },
+								{ $"{EnchantmentGeneralTooltipsID.NewInfusionPower}", "New Infusion Power:" }
 							}) },
 							{ L_ID2.ItemType.ToString(), new(values: new() {
 								//Filled Automatically
@@ -276,6 +296,81 @@ namespace WeaponEnchantments.Localization
 								{ EnchantmentStorageTextID.NoAccessories.ToString(), "You must be wearing at least one accessory to swap enchantment loadouts." },
 								{ EnchantmentStorageTextID.NoItems.ToString(), "You must be holding an enchantable item or wearing a piece of armor or an accessory to swap enchantment loadouts." },
 								{ EnchantmentStorageTextID.NotEnoughEnchantments.ToString(), "You are missing enchantments for this loadout.  {0}" }
+						}) },
+						{ L_ID1.GameMessages.ToString(), new(
+							dict: new() {
+								{ GameMessageTextID.ItemTooLowLevel.ToString(), "Your {0} level is too low to use that many enchantments." },
+								{ GameMessageTextID.SlotNumDisabledByConfig.ToString(), "Slot {0} disabled by config.  Removed {1} from your {2}." },
+								{ GameMessageTextID.RemovedUnloadedEnchantmentFromItem.ToString(), "Removed Unloaded Item:{0} from your {1}.  Please inform andro951(WeaponEnchantments)." },
+								{ GameMessageTextID.DetectedNonEnchantmentInEnchantmentSlot.ToString(), "Detected a non-enchantment item:{0} on your {1}.  It has been returned to your inventory." },
+								{ GameMessageTextID.EnchantmentNoLongerAllowed.ToString(), "{0} is no longer allowed on {1} and has been removed from your {2}." },
+								{ GameMessageTextID.NoLongerUtilityEnchantment.ToString(), "{0} is no longer a utility enchantment and has been removed from your {1}." },
+								{ GameMessageTextID.NoLongerAllowedOnDamageType.ToString(), "{0} is no longer allowed on {1} weapons and has removed from your {2}." },
+								{ GameMessageTextID.NowLimitedToOne.ToString(), "{0} Enchantments are now limited to 1 per item.  {1} has been removed from your {2}." },
+								{ GameMessageTextID.MultipleUniqueEnchantments.ToString(), "Detected multiple unique enchantments on your {0}.  {1} has been removed from your {2}." },
+								{ GameMessageTextID.CongradulationsMaxLevel.ToString(), "Congratulations!  {0}'s {1} reached the maximum level, {2} ({3} xp)." },
+								{ GameMessageTextID.ItemLevelUp.ToString(), "{0}'s {1} reached level {2} ({3} xp)." },
+								{ GameMessageTextID.PreventedLoosingExperience.ToString(), "Prevented your {0} from loosing experience due to a calculation error." },
+								{ GameMessageTextID.FishingQuestTurnedIn.ToString(), "Quest turned in.  Your next quest is {0}.  Quests finished: {1}" },
+								{ GameMessageTextID.CannotGainAdditionalPower.ToString(), "Your {0}({1}) cannot gain additional power from the offered {2}({3})." },
+								{ GameMessageTextID.InfusionPowerMustBeLower.ToString(), "The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item." },
+								{ GameMessageTextID.SameSetBonusNoEffect.ToString(), "The item being upgraded has the same set bonus as the item being consumed and will have no effect." },
+								{ GameMessageTextID.CantInfusionArmorDifferentTypes.ToString(), "You cannot infuse armor of different types such as a helmet and body." },
+								{ GameMessageTextID.InfusionOnlyPossibleSameType.ToString(), "Infusion is only possible between items of the same type (Weapon/Armor)" },
+								{ GameMessageTextID.ItemRemovedFromWeaponEnchantments.ToString(), "{0} has been removed from Weapon Enchantments." },
+								{ GameMessageTextID.ItemRemovedReiceveCompensation.ToString(), "{0} has been removed from Weapon Enchantments.  You've received {1} as compensation." },
+								{ GameMessageTextID.FailedReplaceWithCoins.ToString(), "Failed to replace item: {0} with coins" },
+								{ GameMessageTextID.ItemRemovedRecieveCoins.ToString(), "{0} has been removed from Weapon Enchantments.  You have received Coins equal to its sell price." },
+								{ GameMessageTextID.ItemRemovedRelacedWithItem.ToString(), "{0} has been removed from Weapon Enchantments.  It has been replaced with {1}" },
+								{ GameMessageTextID.MainUpdateCount.ToString(), "Main.GameUpdateCount: {0}" },
+								{ GameMessageTextID.ReportErrorToAndro.ToString(), "Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time." },
+								{ GameMessageTextID.NewItemIsAir.ToString(), "newItem was air." },
+								{ GameMessageTextID.OnlySyphonMaxLevel.ToString(), "You can only Syphon an item if it is max level and over {0} experience." },
+								{ GameMessageTextID.InfusionConsumeItemWasNull.ToString(), "wePlayer.infusionConsumeItem was null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}" },
+								{ GameMessageTextID.MurasamaNoInfusion.ToString(), "Murasama cannot be consumed for infusion." },
+								{ GameMessageTextID.FavoritedItemsCantBeConsumedForInfusion.ToString(), "Favorited items cannot be consumed for infusion." },
+								{ GameMessageTextID.ResistsYourAttemptToEmpower.ToString(), "The {0} resisted your attempt to empower it." },
+								{ GameMessageTextID.TryInfuseFailed.ToString(), "TryInfuseItem failed, tableItem: {0}{1}, infusionConsumeItem: {2}{3}" },
+								{ GameMessageTextID.NotEnchantableAndNotAirInfusionItem.ToString(), "tableItem: {0}{1} is not enchantable, and infusionConsumeItem: {2}{3} is not air" },
+								{ GameMessageTextID.AlreadyMaxLevel.ToString(), "Your {0} is already max level." },
+								{ GameMessageTextID.NotEnoughEssence.ToString(), "Not Enough Essence. You need {0} experience for level {1} you only have {2} available." },
+								{ GameMessageTextID.NonEnchantableItemInTable.ToString(),   "Non-Enchantable item detected in table: {0}.\n" +
+																	$"WARNING, DO NOT PRESS CONFIRM.\n" +
+																	$"Please report this issue to andro951(Weapon Enchantments)" },
+								{ GameMessageTextID.DailyFishingQuestReset.ToString(), "The daily fishing quest has reset.  Your next quest is {0}." },
+								{ GameMessageTextID.PreventedIssueLooseExperienceTwo.ToString(), "Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, xpDamage: {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, " },
+								{ GameMessageTextID.FailedToCloneItem.ToString(), "In EnchantedItem, Failed to Clone(item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}." },
+								{ GameMessageTextID.PreventedIssueLooseExperience.ToString(), "Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}" },
+								{ GameMessageTextID.FailedToLocateAngler.ToString(), "Failed to locate the Angler.  You will still receive rewards" },
+								{ GameMessageTextID.BossChecklistNotEnabled.ToString(), "BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determine which bosses determine Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster." },
+								{ GameMessageTextID.FailedDetermineProgression.ToString(), "Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData" },
+								{ GameMessageTextID.FailedInfuseItem.ToString(), "Failed to infuse item: {0} with consumedItem: {1}" },
+								{ GameMessageTextID.LogInfusionPowerLabels.ToString(), "Mod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS" },
+								{ GameMessageTextID.LogInfusionPowerOtherLabels.ToString(), "Rarity, Average, Min, Max" },
+								{ GameMessageTextID.CouldntFindItemsInWeaponsList.ToString(), "Couldn't find Items in WeaponsList or WeaponCraftingIngredients with the names:" },
+								{ GameMessageTextID.CouldntFindNPCsInIngredientsList.ToString(), "Couldn't find Npcs in NPCsThatDropWeaponsOrIngredients with the names:" },
+								{ GameMessageTextID.FailedFindBossBag.ToString(), "Failed to find boss bag for boss:" },
+								{ GameMessageTextID.FailedFindItemDropsForGroup.ToString(), "Failed to find item drops for loot items for group" },
+								{ GameMessageTextID.NPCInProgressionGroupNoUniqueEnchantments.ToString(), "Detected an npc in a Progression group that has no unique weapons or ingredients." },
+								{ GameMessageTextID.NPCInProgressionGroupNotInDropList.ToString(), "Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients." },
+								{ GameMessageTextID.ItemsFromNPCsNotIncluded.ToString(), "Items from WeaponsFromNPCs not included in ItemInfusionPowers" },
+								{ GameMessageTextID.ItemsFromNPCIngredientsNotIncluded.ToString(), "Items from IngredientsFromNPCs not included in ItemInfusionPowers" },
+								{ GameMessageTextID.ItemsFromLootItemsNotIncluded.ToString(), "Items from WeaponsFromLootItems not included in ItemInfusionPowers" },
+								{ GameMessageTextID.IngredientsFromLootItemsNotincluded.ToString(), "Ingredients from WeaponsFromLootItems not included in ItemInfusionPowers" },
+								{ GameMessageTextID.WeaponInfusionPowersNotSetup.ToString(), "Weapon infusion powers not setup" },
+								{ GameMessageTextID.IngredientInfusionPowersNotSetup.ToString(), "Ingredient infusion powers not setup" },
+								{ GameMessageTextID.OreInfusionPowerNotSetup.ToString(), "Ore {0} infusion power not set up. Guessed infusion power:" },
+								{ GameMessageTextID.FailedToFindInfusionPower.ToString(), "Failed to find an infusion power for item:" },
+								{ GameMessageTextID.UnableDetermineNPCDropsBossBag.ToString(), "Unable to determine the npc that drops this boss bag:" },
+								{ GameMessageTextID.FailedReplaceOldItem.ToString(), "Failed to replace old item:" },
+								{ GameMessageTextID.RemovedEnchantedItemData.ToString(), "Removed EnchantedItem data from item: {0}, count: {1}, newCount: {2}" },
+								{ GameMessageTextID.FailedConvertExcessExperience.ToString(), "Failed to CheckConvertExcessExperience(item: {0}, consumedItem: {1})" },
+								{ GameMessageTextID.PreventedWitchShopDuplication.ToString(), "Prevented an issue that would add a duplicate item to the Witch's shop item:" },
+								{ GameMessageTextID.WitchEnchantmentRerolText.ToString(), "I guess I could try to improve your enchantments, but no refunds or complaints." },
+								{ GameMessageTextID.WitchChatText.ToString(), "What more do you want?  I'm busy." },
+								{ GameMessageTextID.RerollEnchantment.ToString(), "Re-roll Enchantment" },
+								{ GameMessageTextID.Back.ToString(), "Back" },
+								{ GameMessageTextID.WitchSpawnCondition.ToString(), "Have an enchantment in your inventory or on your equipment." }
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
 							{ nameof(ServerConfig), new(dict: new() {

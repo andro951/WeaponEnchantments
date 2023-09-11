@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using androLib.Common.Utility;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -70,12 +71,12 @@ namespace WeaponEnchantments.Common.Globals
 				}
 			}
 		}
-		protected override string GetInfusedItemTooltip(Item item) => $"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
-		protected override string GetInfusionTooltip(Item item) => $"Set Bonus ID: {item.GetInfusionArmorSlot(true)}";
+		protected override string GetInfusedItemTooltip(Item item) => $"{EnchantmentGeneralTooltipsID.InfusedArmorID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { item.GetInfusionArmorSlot(), infusedItemName });//$"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
+		protected override string GetInfusionTooltip(Item item) => $"{EnchantmentGeneralTooltipsID.SetBonusID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { item.GetInfusionArmorSlot(true) });// $"Set Bonus ID: {item.GetInfusionArmorSlot(true)}";
 		protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
 			return 
-				$"*New Set Bonus ID: {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
-				$"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
+				$"*{$"{EnchantmentGeneralTooltipsID.NewSetBonusID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
+				$"{$"{EnchantmentGeneralTooltipsID.NewInfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
 		}
 	}
 }

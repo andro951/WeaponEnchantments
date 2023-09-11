@@ -37,6 +37,16 @@ namespace WeaponEnchantments.UI
 {
 	public static class EnchantmentLoadoutUI
 	{
+		public class EnchantmentLoadoutButtonID
+		{
+			public const int LoadoutSelect = 0;
+			public const int All = 1;
+			public const int HeldItem = 2;
+			public const int Armor = 3;
+			public const int Accessories = 4;
+			public const int Delete = 5;
+			public const int Count = 6;
+		}
 		private static int GetUI_ID(int id) => MasterUIManager.GetUI_ID(id, WE_UI_ID.EnchantmentLoadout_UITypeID);
 		public static int ID => GetUI_ID(WE_UI_ID.EnchantmentLoadoutUI);
 		public static int EnchantmentLoadoutUIDefaultLeft => 745;
@@ -73,7 +83,14 @@ namespace WeaponEnchantments.UI
 		private static int scrollPanelY = int.MinValue;
 		private static int scrollPanelPosition = 0;
 		public const int MaxLoadouts = 20;
-		public static string[] buttonNames = { null, EnchantmentStorageTextID.All.ToString().Lang_WE(L_ID1.EnchantmentStorageText), EnchantmentStorageTextID.HeldItem.ToString().Lang_WE(L_ID1.EnchantmentStorageText), EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType) };
+		public static string[] buttonNames = { 
+			null, 
+			EnchantmentStorageTextID.All.ToString().Lang_WE(L_ID1.EnchantmentStorageText), 
+			EnchantmentStorageTextID.HeldItem.ToString().Lang_WE(L_ID1.EnchantmentStorageText), 
+			EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), 
+			EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType),
+			EnchantmentStorageTextID.Delete.ToString().Lang_WE(L_ID1.EnchantmentStorageText),
+		};
 		public static bool useingScrollBar = false;
 		public static int availableSlotRow = -1;
 		public static int availableSlotIndex = -1;
@@ -147,11 +164,20 @@ namespace WeaponEnchantments.UI
 				string addButton = EnchantmentStorageTextID.Add.ToString().Lang_WE(L_ID1.EnchantmentStorageText);
 				TextData addButtonTextData = new(addButton);
 				UIButtonData addButtonData = new(GetUI_ID(WE_UI_ID.EnchantmentLoadoutAddTextButton), buttonsLeft, currentButtonTop, addButtonTextData, mouseColor, ButtonBorderX, ButtonBorderY, EnchantingTableUI.BackGroundColor, EnchantingTableUI.HoverColor);
+				int longestButtonsWidth = addButtonData.Width;
+
+				//Add from Equipped Enchantments button Data
+				int addfromEquippedEnchantmentsButtonLeft = buttonsLeft + addButtonData.Width + Spacing;
+				string addfromEquippedEnchantmentsButton = EnchantmentStorageTextID.AddFromEquippedEnchantments.ToString().Lang_WE(L_ID1.EnchantmentStorageText);
+				TextData addfromEquippedEnchantmentsButtonTextData = new(addfromEquippedEnchantmentsButton);
+				UIButtonData addfromEquippedEnchantmentsButtonData = new(GetUI_ID(WE_UI_ID.EnchantmentLoadoutAddFromEquippedEnchantmentsTextButton), addfromEquippedEnchantmentsButtonLeft, currentButtonTop, addfromEquippedEnchantmentsButtonTextData, mouseColor, ButtonBorderX, ButtonBorderY, EnchantingTableUI.BackGroundColor, EnchantingTableUI.HoverColor);
+
+				//UI button cleanup
 				currentButtonTop += addButtonData.Height + Spacing;
+				longestButtonsWidth += Spacing + addfromEquippedEnchantmentsButtonData.Width;
 
 				//Text buttons Data
 				UITextData[,] textButtons = new UITextData[wePlayer.enchantmentLoadouts.Count, buttonNames.Length];
-				int longestButtonsWidth = 0;
 				for (int buttonRow = 0; buttonRow < wePlayer.enchantmentLoadouts.Count; buttonRow++) {
 					int currentButtonLeft = buttonsLeft;
 					int buttonsWidth = 0;
@@ -247,7 +273,11 @@ namespace WeaponEnchantments.UI
 				//Name Draw
 				nameData.Draw(spriteBatch);
 
+				//Add Button Draw
 				addButtonData.Draw(spriteBatch);
+
+				//Add from Equipped Enchantments button Draw
+				addfromEquippedEnchantmentsButtonData.Draw(spriteBatch);
 
 				//Text Buttons Draw
 				for (int buttonRow = 0; buttonRow < wePlayer.enchantmentLoadouts.Count; buttonRow++) {
@@ -262,12 +292,23 @@ namespace WeaponEnchantments.UI
 								buttonScale[buttonRow][buttonIndex] = buttonScaleMaximum;
 
 							if (MasterUIManager.LeftMouseClicked) {
-								if (buttonIndex == 0) {
-									wePlayer.displayedLoadout = textButton.Text;
-								}
-								else {
-									if (TrySwapToLoadout((LoadoutSwapID)(buttonIndex - 1), wePlayer.enchantmentLoadouts.ElementAt(buttonRow).Key))
-										SoundEngine.PlaySound(SoundID.Grab);//SoundEngine.PlaySound(SoundID.AbigailUpgrade);
+								switch (buttonIndex) {
+									case EnchantmentLoadoutButtonID.LoadoutSelect:
+										wePlayer.displayedLoadout = textButton.Text;
+
+										break;
+									case EnchantmentLoadoutButtonID.All:
+									case EnchantmentLoadoutButtonID.HeldItem:
+									case EnchantmentLoadoutButtonID.Armor:
+									case EnchantmentLoadoutButtonID.Accessories:
+										if (TrySwapToLoadout((LoadoutSwapID)(buttonIndex - 1), wePlayer.enchantmentLoadouts.ElementAt(buttonRow).Key))
+											SoundEngine.PlaySound(SoundID.Grab);//SoundEngine.PlaySound(SoundID.AbigailUpgrade);
+
+										break;
+									case EnchantmentLoadoutButtonID.Delete:
+										DeleteLoadout(wePlayer, buttonRow);
+
+										break;
 								}
 
 								SoundEngine.PlaySound(SoundID.MenuTick);
@@ -282,10 +323,16 @@ namespace WeaponEnchantments.UI
 					}
 				}
 
-				//Add button Data
+				//Add button Hover
 				if (addButtonData.MouseHovering()) {
 					if (MasterUIManager.LeftMouseClicked)
 						AddNewBlankLoadout(wePlayer);
+				}
+
+				//Add from Equipped Enchantments button Hover
+				if (addfromEquippedEnchantmentsButtonData.MouseHovering()) {
+					if (MasterUIManager.LeftMouseClicked)
+						AddNewLoadoutFromEquippedEnchantments(wePlayer);
 				}
 
 				//Scroll Bar
@@ -387,14 +434,61 @@ namespace WeaponEnchantments.UI
 
 			return loadout;
 		}
-		public static void AddNewBlankLoadout(WEPlayer wePlayer) {
-			if (wePlayer.enchantmentLoadouts.Count < 15)
-				wePlayer.enchantmentLoadouts.Add($"{EnchantmentStorageTextID.Loadout.ToString().Lang_WE(L_ID1.EnchantmentStorageText)} {wePlayer.enchantmentLoadouts.Count + 1}", GetBlankLoadout(wePlayer));
+		private static int enchantmentLoadoutMaxCount = 15;
+		public static bool AddNewBlankLoadout(WEPlayer wePlayer) {
+			if (wePlayer.enchantmentLoadouts.Count < enchantmentLoadoutMaxCount) {
+				int i = 1;
+				string loadoutName = GetLoadoutName(i);
+				while (wePlayer.enchantmentLoadouts.ContainsKey(loadoutName)) {
+					loadoutName = GetLoadoutName(++i);
+				}
+
+				wePlayer.enchantmentLoadouts.Add(loadoutName, GetBlankLoadout(wePlayer));
+				return true;
+			}
+			
+			return false;
+		}
+		public static string GetLoadoutName(int num) => $"{EnchantmentStorageTextID.Loadout.ToString().Lang_WE(L_ID1.EnchantmentStorageText)} {num}";
+		public static void AddNewLoadoutFromEquippedEnchantments(WEPlayer wePlayer) {
+			if (!AddNewBlankLoadout(wePlayer))
+				return;
+
+			List<Item[]> loadout = wePlayer.enchantmentLoadouts.Last().Value;
+			Item heldItem = wePlayer.Player.HeldItem;
+			if (!heldItem.NullOrAir() && heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedHeldItem)) {
+				for (int i = 0; i < enchantedHeldItem.enchantments.Length; i++) {
+					Item enchantment = enchantedHeldItem.enchantments[i].Clone();
+					if (enchantment.NullOrAir())
+						continue;
+
+					loadout[0][i] = enchantment;
+				}
+			}
+
+			List<Item> armor = wePlayer.Equipment.GetAllArmor().ToList();
+			for (int i = 0; i < armor.Count && i - 1 < loadout.Count; i++) {
+				Item equipItem = armor[i];
+				if (equipItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedEquipItem)) {
+					for (int k = 0; k < enchantedEquipItem.enchantments.Length; k++) {
+						Item enchantment = enchantedEquipItem.enchantments[k].Clone();
+						if (enchantment.NullOrAir())
+							continue;
+
+						loadout[i + 1][k] = enchantment;
+					}
+				}
+			}
 		}
 		private static int GetRequiredLoudoutSize(WEPlayer wePlayer) => wePlayer.Equipment.GetAllArmor().Count() + 1;
 		private static List<Item[]> GetBlankLoadout(WEPlayer wePlayer) {
 			int count = GetRequiredLoudoutSize(wePlayer);
-			return Enumerable.Repeat(GetEnchantmentRow(), count).ToList();
+			List<Item[]> loadout = new();
+			for (int i = 0; i < count; i++) {
+				loadout.Add(GetEnchantmentRow());
+			}
+
+			return loadout;
 		}
 		private static Item[] GetEnchantmentRow() => Enumerable.Repeat(new Item(), EnchantingTableUI.MaxEnchantmentSlots).ToArray();
 		public static void Open(bool noSound = false) {
@@ -689,6 +783,16 @@ namespace WeaponEnchantments.UI
 		public static void ResetAvailableSlot() {
 			availableSlotRow = -1;
 			availableSlotIndex = -1;
+		}
+		public static void DeleteLoadout(WEPlayer wePlayer, int loadoutIndex) {
+			if (loadoutIndex >= wePlayer.enchantmentLoadouts.Count)
+				return;
+
+			wePlayer.enchantmentLoadouts.Remove(wePlayer.enchantmentLoadouts.ElementAt(loadoutIndex).Key);
+			if (wePlayer.enchantmentLoadouts.Count < 1)
+				AddNewBlankLoadout(wePlayer);
+
+			wePlayer.displayedLoadout = wePlayer.enchantmentLoadouts.First().Key;
 		}
 	}
 }

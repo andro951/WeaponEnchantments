@@ -10,7 +10,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 		public override float ScalePercent => 2f/3f;
 		public override void GetMyStats() {
             Effects = new() {
-                new PickupRange(additive: EnchantmentStrengthData)
+                new PickupRange(additive: EnchantmentStrengthData),
+                new ItemAttractionAndPickupSpeed(additive: EnchantmentStrengthData)
             };
 
             AllowedList = new Dictionary<EItemType, float>() {

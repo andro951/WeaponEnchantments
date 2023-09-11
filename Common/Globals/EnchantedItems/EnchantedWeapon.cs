@@ -241,7 +241,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
 				if (GetPlayerModifierStrengthForTooltip(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
 					int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
-					string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
+                    string tooltip = $"{EnchantmentGeneralTooltipsID.ApproximateItemDamage}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { damage });// $"Item Damage ~ {damage} (Against 0 armor enemy)";
 					tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
 				}
 			}
@@ -249,7 +249,7 @@ namespace WeaponEnchantments.Common.Globals
 			//Stack0
 			if (Modified || inEnchantingTable) {
                 if (GetStack0(item)) {
-                    string tooltip = $"♦ OUT OF AMMO ♦";
+                    string tooltip = $"♦ {$"{EnchantmentGeneralTooltipsID.OutOfAmmo}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ♦";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
             }
@@ -273,15 +273,15 @@ namespace WeaponEnchantments.Common.Globals
 
             return tooltip;
         }
-        protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {GetInfusionPower(ref item)}   Infused Item: {infusedItemName}";
-        protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {GetInfusionPower(ref item)}";
+        protected override string GetInfusedItemTooltip(Item item) => $"{$"{EnchantmentGeneralTooltipsID.InfusionPower}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {GetInfusionPower(ref item)}   {$"{EnchantmentGeneralTooltipsID.InfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {infusedItemName}";
+        protected override string GetInfusionTooltip(Item item) => $"{$"{EnchantmentGeneralTooltipsID.InfusionPower}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {GetInfusionPower(ref item)}";
         protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
             if (!wePlayer.infusionConsumeItem.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon))
                 return "";
 
             return
-                $"*New Infusion Power: {enchantedWeapon.GetInfusionPower(ref wePlayer.infusionConsumeItem)}   " +
-                $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
+                $"*{$"{EnchantmentGeneralTooltipsID.NewInfusionPower}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)}: {enchantedWeapon.GetInfusionPower(ref wePlayer.infusionConsumeItem)}   " +
+                $"{$"{EnchantmentGeneralTooltipsID.NewInfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
             CheckEnchantmnetStatsApplyTo(ref crit, EnchantmentStat.CriticalStrikeChance);

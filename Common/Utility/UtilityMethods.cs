@@ -241,7 +241,6 @@ namespace WeaponEnchantments.Common.Utility
                 }
                 else {
                     enchantedItem.Experience = int.MaxValue;
-                    if (AndroMod.magicStorageEnabled) $"CheckConvertExcessExperience. item: {item.S()}, consumedItem: {consumedItem.S()}".Log_WE();
                     EnchantingTableUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true, item);
                 }
             }
@@ -249,7 +248,7 @@ namespace WeaponEnchantments.Common.Utility
 				if (consumedItem.NullOrAir())
 					return;
 
-				$"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);
+				GameMessageTextID.FailedConvertExcessExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), consumedItem.S() }).LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);// $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);
             }
         }
         public static int GetOneFromWeightedList(this IEnumerable<WeightedPair> options, float chance) {
@@ -501,197 +500,9 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, new List<(T, List<DropData>)>() { newValue });
             }
         }
-        /*
-        public static void AddOrCombine(this IDictionary<int, int> dict1, IDictionary<int, int> dict2) {
-            foreach (var pair in dict2) {
-                dict1.AddOrCombine(pair);
-            }
-        }
-        public static void AddOrCombine(this IDictionary<int, int> dict1, KeyValuePair<int, int> pair) {
-            int key = pair.Key;
-            if (dict1.ContainsKey(key)) {
-                dict1[key] += pair.Value;
-            }
-            else {
-                dict1.Add(key, pair.Value);
-            }
-        }
-        public static void AddOrCombine<T>(this IDictionary<T, int> dict1, (T, int) pair) =>
-            dict1.AddOrCombine(pair.Item1, pair.Item2);
-        public static void AddOrCombine<T>(this IDictionary<T, int> dict, T key, int value) {
-            if (dict.ContainsKey(key)) {
-                dict[key] += value;
-            }
-            else {
-                dict.Add(key, value);
-            }
-        }
-        public static void TrySubtractRemove<T>(this IDictionary<T, int> dict, T key, int value) {
-            if (dict.ContainsKey(key)) {
-                dict[key] -= value;
-                if (dict[key] <= 0)
-                    dict.Remove(key);
-            }
-        }
-        public static void AddOrCombine<T>(this IDictionary<T, List<int>> dict, T key, int value) {
-			if (dict.ContainsKey(key)) {
-				dict[key].Add(value);
-			}
-			else {
-				dict.Add(key, new() { value });
-			}
-		}
-        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, HashSet<T>> dict, TKey key, T value) {
-            if (dict.ContainsKey(key)) {
-                dict[key].Add(value);
-            }
-            else {
-                dict.Add(key, new() { value });
-            }
-        }
-        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, SortedSet<T>> dict, TKey key, T value) {
-            if (dict.ContainsKey(key)) {
-                dict[key].Add(value);
-            }
-            else {
-                dict.Add(key, new() { value });
-            }
-        }
-        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, HashSet<T>> dict, TKey key, HashSet<T> value) {
-            if (dict.ContainsKey(key)) {
-                dict[key] = dict[key].Concat(value).ToHashSet();
-            }
-            else {
-                dict.Add(key, value);
-            }
-        }
-        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, (HashSet<T>, HashSet<T>)> dict, TKey key, (HashSet<T>, HashSet<T>) value) {
-            if (dict.ContainsKey(key)) {
-                dict[key].Item1.UnionWith(value.Item1);
-                dict[key].Item2.UnionWith(value.Item2);
-            }
-            else {
-                dict.Add(key, value);
-            }
-        }
-        public static void AddOrCombine<TKey, T1, T2>(this IDictionary<TKey, List<(T1, T2)>> dict, TKey key, (T1, T2) value) {
-            if (dict.ContainsKey(key)) {
-                dict[key].Add(value);
-            }
-            else {
-                dict.Add(key, new List<(T1, T2)> { value });
-            }
-        }
-		public static void AddOrCombineSetOrKeepHigher<TKey, TKey2>(this SortedDictionary<TKey, Dictionary<TKey2, int>> dict, TKey key, Dictionary<TKey2, int> dict2) {
-            if (dict.ContainsKey(key)) {
-                foreach(TKey2 key2 in dict2.Keys) {
-                    dict[key].SetOrKeepHigher(key2, dict2[key2]);
-				}
-            }
-            else {
-                dict.Add(key, dict2);
-            }
-        }
 
-        public static void AddOrCombineAddCheckOverflow<TKey, T>(this IDictionary<TKey, T> dictionary, TKey key, T newValue) {
-			if (dictionary.ContainsKey(key)) {
-				dictionary[key] = WEMath.AddCheckOverflow(newValue, dictionary[key]);
-			}
-			else {
-				dictionary.Add(key, newValue);
-			}
-		}
-        public static void SetValue<TKey, T>(this IDictionary<TKey, T> dictionary, TKey key, T value) {
-            if (dictionary.ContainsKey(key)) {
-                dictionary[key] = value;
-            }
-            else {
-                dictionary.Add(key, value);
-            }
-        }
-        public static void SetOrKeepHigher<TKey>(this IDictionary<TKey, int> dictionary, TKey key, int value) {
-            if (dictionary.ContainsKey(key)) {
-                if (dictionary[key] < value)
-                    dictionary[key] = value;
-            }
-            else {
-                dictionary.Add(key, value);
-            }
-        }
-        public static void SetValue<TKey, T>(this Dictionary<TKey, T> dictionary, TKey key, T value) {
-            if (dictionary.ContainsKey(key)) {
-                dictionary[key] = value;
-            }
-            else {
-                dictionary.Add(key, value);
-            }
-		}
-		public static bool ContainsHashSet(this HashSet<HashSet<int>> ingredients, HashSet<int> requiredItemType) {
-			bool contains = false;
-			foreach (HashSet<int> ingredientType in ingredients) {
-				contains = true;
-				if (ingredientType.Count != requiredItemType.Count) {
-					contains = false;
-				}
-				else {
-					foreach (int eachIngredientType in ingredientType) {
-						if (!requiredItemType.Contains(eachIngredientType)) {
-							contains = false;
-							break;
-						}
-					}
-				}
-
-				if (contains)
-					break;
-			}
-
-			return contains;
-		}
-		public static void CombineHashSet(this HashSet<HashSet<int>> set1, HashSet<HashSet<int>> set2) {
-            foreach (HashSet<int> set in set2) {
-                if (!set1.ContainsHashSet(set))
-                    set1.Add(set);
-            }
-        }
-        public static void TryAdd(this HashSet<HashSet<int>> sets, HashSet<int> newSet) {
-			if (!sets.ContainsHashSet(newSet))
-				sets.Add(newSet);
-		}
-        public static int RoundNearest(this float f, int mult) {
-            float r = f % mult;
-            int result = (int)(f - r);
-            if (r >= mult / 2f)
-                result += mult;
-
-            return result;
-        }
-        */
 		#endregion
 
-		/*
-        public static void Combine<T>(this List<T> list, List<T> list2) {
-            foreach(T item in list2) {
-                list.Add(item);
-			}
-		}
-        */
-
-		/*
-		public static bool NullOrAir(this Item item) => item?.IsAir ?? true;
-        public static SortedList<TKey, TValue> CombineSortedLists<TKey, TValue>(this SortedList<TKey, TValue> list1, SortedList<TKey, TValue> list2) {
-            SortedList <TKey, TValue> newList = new SortedList <TKey, TValue>();
-            foreach (KeyValuePair<TKey, TValue> pair in list1) {
-                newList.Add(pair.Key, pair.Value);
-			}
-
-            foreach (KeyValuePair<TKey, TValue> pair in list2) {
-                newList.Add(pair.Key, pair.Value);
-            }
-
-            return newList;
-        }
-        */
         public static SortedList<EnchantmentStat, T> ToSortedList<T>(this IEnumerable<T> list) where T : class, IEnchantmentStat {
             SortedList<EnchantmentStat, T> newList = new SortedList<EnchantmentStat, T>();
             foreach (T i in list) {
@@ -700,22 +511,6 @@ namespace WeaponEnchantments.Common.Utility
             
             return newList;
 		}
-		/*
-        public static void Clamp(this ref int value, int min = 0, int max = 100) {
-            value = value < min ? min : value > max ? max : value;
-		}
-        public static void Clamp(this ref float value, float min = 0f, float max = 1f) {
-            value = value < min ? min : value > max ? max : value;
-        }
-        public static void CombineLists(this List<Item> list1, IEnumerable<Item> list2, bool noDuplicates = false) {
-            List<int> list1Types = list1.Select(i => i.type).ToList();
-            List<int> list2Types = list2.Select(i => i.type).ToList();
-            foreach (Item item2 in list2) {
-                if (!noDuplicates || !list1Types.Contains(item2.type))
-                    list1.Add(item2);
-			}
-		}
-        */
 		public static Type TypeAboveModItem(this Item item) {
 			if (item == null)
 				return null;
@@ -740,49 +535,6 @@ namespace WeaponEnchantments.Common.Utility
 
             return type;
         }
-        /*
-        public static Type TypeAboveGrandParent(this object child, Type parent) => child.GetType().TypeAboveGrandParent(parent);
-        public static Type TypeAboveGrandParent(this Type child, Type parent) {
-            Type type = child;
-            bool foundListUniqueType = false;
-            while (!foundListUniqueType && type.BaseType != null) {
-                if (type.BaseType == parent) {
-                    foundListUniqueType = true;
-				}
-				else {
-                    type = type.BaseType;
-				}
-			}
-
-            return type;
-		}
-        public static int ChildNumber(this object child, Type parent) => child.GetType().ChildNumber(parent);
-        public static int ChildNumber(this Type child, Type parent) {
-            Type type = child;
-            int i = 0;
-			while (type.BaseType != null) {
-                if (type.BaseType == parent) {
-                    return i;
-				}
-                else {
-                    type = type.BaseType;
-				}
-
-                i++;
-			}
-
-            return -1;
-		}
-        public static bool ValidOwner(this Projectile projectile, out Player player) {
-            player = null;
-            if (projectile.owner >= 0 && projectile.owner < Main.player.Length) {
-                player = Main.player[projectile.owner];
-                return true;
-			}
-            
-            return false;
-        }
-        */
 
         #endregion
     }

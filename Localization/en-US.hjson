@@ -533,10 +533,7 @@ Mods: {
 				Tooltip: Removes things like Unique, Max 1 and weapon or item type specific enchantments.
 			}
 
-			ServerConfig: {
-				Label: Server Config
-				$parentVal: preset Data Header
-			}
+			ServerConfig.Label: Server Config
 
 			Strength: {
 				Label: Strength (1000 = 1, 10 = 1%)
@@ -592,7 +589,9 @@ Mods: {
 
 		EnchantmentStorageText: {
 			Add: Add
+			AddFromEquippedEnchantments: Add From Equipped Enchantments
 			All: All
+			Delete: Delete
 			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
 			HeldItem: Held Item
@@ -611,6 +610,84 @@ Mods: {
 			RevertAllToBasic: Revert All To Basic
 			ToggleMarkTrash: Toggle Mark Trash
 			UncraftAllTrash: Uncraft All Trash
+		}
+
+		GameMessages: {
+			AlreadyMaxLevel: Your {0} is already max level.
+			Back: Back
+			BossChecklistNotEnabled: BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determine which bosses determine Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster.
+			CannotGainAdditionalPower: Your {0}({1}) cannot gain additional power from the offered {2}({3}).
+			CantInfusionArmorDifferentTypes: You cannot infuse armor of different types such as a helmet and body.
+			CongradulationsMaxLevel: Congratulations!  {0}'s {1} reached the maximum level, {2} ({3} xp).
+			CouldntFindItemsInWeaponsList: Couldn't find Items in WeaponsList or WeaponCraftingIngredients with the names:
+			CouldntFindNPCsInIngredientsList: Couldn't find Npcs in NPCsThatDropWeaponsOrIngredients with the names:
+			DailyFishingQuestReset: The daily fishing quest has reset.  Your next quest is {0}.
+			DetectedNonEnchantmentInEnchantmentSlot: Detected a non-enchantment item:{0} on your {1}.  It has been returned to your inventory.
+			EnchantmentNoLongerAllowed: "{0} is no longer allowed on {1} and has been removed from your {2}."
+			FailedConvertExcessExperience: Failed to CheckConvertExcessExperience(item: {0}, consumedItem: {1})
+			FailedDetermineProgression: Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData
+			FailedFindBossBag: Failed to find boss bag for boss:
+			FailedFindItemDropsForGroup: Failed to find item drops for loot items for group
+			FailedInfuseItem: Failed to infuse item: {0} with consumedItem: {1}
+			FailedReplaceOldItem: Failed to replace old item:
+			FailedReplaceWithCoins: Failed to replace item: {0} with coins
+			FailedToCloneItem: In EnchantedItem, Failed to Clone(item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}.
+			FailedToFindInfusionPower: Failed to find an infusion power for item:
+			FailedToLocateAngler: Failed to locate the Angler.  You will still receive rewards
+			FavoritedItemsCantBeConsumedForInfusion: Favorited items cannot be consumed for infusion.
+			FishingQuestTurnedIn: Quest turned in.  Your next quest is {0}.  Quests finished: {1}
+			InfusionConsumeItemWasNull: wePlayer.infusionConsumeItem was null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
+			InfusionOnlyPossibleSameType: Infusion is only possible between items of the same type (Weapon/Armor)
+			InfusionPowerMustBeLower: The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.
+			IngredientInfusionPowersNotSetup: Ingredient infusion powers not setup
+			IngredientsFromLootItemsNotincluded: Ingredients from WeaponsFromLootItems not included in ItemInfusionPowers
+			ItemLevelUp: "{0}'s {1} reached level {2} ({3} xp)."
+			ItemRemovedFromWeaponEnchantments: "{0} has been removed from Weapon Enchantments."
+			ItemRemovedRecieveCoins: "{0} has been removed from Weapon Enchantments.  You have received Coins equal to its sell price."
+			ItemRemovedReiceveCompensation: "{0} has been removed from Weapon Enchantments.  You've received {1} as compensation."
+			ItemRemovedRelacedWithItem: "{0} has been removed from Weapon Enchantments.  It has been replaced with {1}"
+			ItemsFromLootItemsNotIncluded: Items from WeaponsFromLootItems not included in ItemInfusionPowers
+			ItemsFromNPCIngredientsNotIncluded: Items from IngredientsFromNPCs not included in ItemInfusionPowers
+			ItemsFromNPCsNotIncluded: Items from WeaponsFromNPCs not included in ItemInfusionPowers
+			ItemTooLowLevel: Your {0} level is too low to use that many enchantments.
+			LogInfusionPowerLabels: Mod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS
+			LogInfusionPowerOtherLabels: Rarity, Average, Min, Max
+			MainUpdateCount: Main.GameUpdateCount: {0}
+			MultipleUniqueEnchantments: Detected multiple unique enchantments on your {0}.  {1} has been removed from your {2}.
+			MurasamaNoInfusion: Murasama cannot be consumed for infusion.
+			NewItemIsAir: newItem was air.
+			NoLongerAllowedOnDamageType: "{0} is no longer allowed on {1} weapons and has removed from your {2}."
+			NoLongerUtilityEnchantment: "{0} is no longer a utility enchantment and has been removed from your {1}."
+			NonEnchantableItemInTable:
+				'''
+				Non-Enchantable item detected in table: {0}.
+				WARNING, DO NOT PRESS CONFIRM.
+				Please report this issue to andro951(Weapon Enchantments)
+				'''
+			NotEnchantableAndNotAirInfusionItem: tableItem: {0}{1} is not enchantable, and infusionConsumeItem: {2}{3} is not air
+			NotEnoughEssence: Not Enough Essence. You need {0} experience for level {1} you only have {2} available.
+			NowLimitedToOne: "{0} Enchantments are now limited to 1 per item.  {1} has been removed from your {2}."
+			NPCInProgressionGroupNotInDropList: Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.
+			NPCInProgressionGroupNoUniqueEnchantments: Detected an npc in a Progression group that has no unique weapons or ingredients.
+			OnlySyphonMaxLevel: You can only Syphon an item if it is max level and over {0} experience.
+			OreInfusionPowerNotSetup: Ore {0} infusion power not set up. Guessed infusion power:
+			PreventedIssueLooseExperience: Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
+			PreventedIssueLooseExperienceTwo: "Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, xpDamage: {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
+			PreventedLoosingExperience: Prevented your {0} from loosing experience due to a calculation error.
+			PreventedWitchShopDuplication: Prevented an issue that would add a duplicate item to the Witch's shop item:
+			RemovedEnchantedItemData: Removed EnchantedItem data from item: {0}, count: {1}, newCount: {2}
+			RemovedUnloadedEnchantmentFromItem: Removed Unloaded Item:{0} from your {1}.  Please inform andro951(WeaponEnchantments).
+			ReportErrorToAndro: Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.
+			RerollEnchantment: Re-roll Enchantment
+			ResistsYourAttemptToEmpower: The {0} resisted your attempt to empower it.
+			SameSetBonusNoEffect: The item being upgraded has the same set bonus as the item being consumed and will have no effect.
+			SlotNumDisabledByConfig: Slot {0} disabled by config.  Removed {1} from your {2}.
+			TryInfuseFailed: TryInfuseItem failed, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
+			UnableDetermineNPCDropsBossBag: Unable to determine the npc that drops this boss bag:
+			WeaponInfusionPowersNotSetup: Weapon infusion powers not setup
+			WitchChatText: What more do you want?  I'm busy.
+			WitchEnchantmentRerolText: I guess I could try to improve your enchantments, but no refunds or complaints.
+			WitchSpawnCondition: Have an enchantment in your inventory or on your equipment.
 		}
 
 		Items: {
@@ -1251,6 +1328,7 @@ Mods: {
 				Hunter: Hunter
 				Ichor: Ichor
 				InfinitePenetration: Infinite Penetration
+				ItemAttractionAndPickupSpeed: Item Attraction And Pickup Speed
 				ItemCooldown: Item Cooldown
 				Juiced: Juiced
 				JumpSpeed: Jump Speed
@@ -1385,6 +1463,7 @@ Mods: {
 					(Bonus damage not affected by LifeSteal)
 					'''
 				InfinitePenetration: Infinite Penetration
+				ItemAttractionAndPickupSpeed: Item Attraction And Pickup Speed
 				ItemCooldown: (Item CD equal to {0} use speed)
 				JumpSpeed: Jump Speed
 				KiDamage: Ki Damage
@@ -1448,13 +1527,31 @@ Mods: {
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Allowed on
 				And: and
+				ApproximateItemDamage: Item Damage ~ {0} (Against 0 armor enemy)
 				ArmorSlotOnly: "{0} armor slot Only"
+				BoosterInstalled: Booster Installed
+				EnchantmentCapacity: Enchantment Capacity
+				Experience: Experience: {0}
+				InfusedArmorID: Infused Armor ID: {0}   Infused Item: {1}
+				InfusedItem: Infused Item:
+				InfusionPower: Infusion Power:
+				LevelAvailable: Level: {0}  {1} available: {2}
 				LevelCost: Level cost: {0}
 				Max1: Max of 1 per item
+				MaxLevel: (Max Level)
+				NewInfusedItem: New Infused Item:
+				NewInfusionPower: New Infusion Power:
+				NewSetBonusID: New Set Bonus ID:
+				NormalBoosterAbreviation: N
 				NotAllowed: Not allowed on {0} weapons
 				Only: "{0} Only"
 				OnlyAllowedOn: Only allowed on
 				Or: or
+				OutOfAmmo: OUT OF AMMO
+				Points: Points
+				SetBonusID: Set Bonus ID: {0}
+				ToNextLevel: " ({0} to next level)"
+				UltraBoosterAbreviation: U
 				Unique: Unique (Limited to 1 Unique Enchantment)
 				Utility: Utility
 			}

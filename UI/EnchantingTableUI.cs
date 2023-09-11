@@ -1392,7 +1392,7 @@ namespace WeaponEnchantments.UI
 			int smallestXpPerEssence = (int)EnchantmentEssence.xpPerEssence[0];
 			int minimumXPToSyphon = maxLevelXP + smallestXpPerEssence;
 			if (enchantedItem.Experience < minimumXPToSyphon) {
-				Main.NewText($"You can only Syphon an item if it is max level and over {minimumXPToSyphon} experience.");
+				Main.NewText(GameMessageTextID.OnlySyphonMaxLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { minimumXPToSyphon }));// $"You can only Syphon an item if it is max level and over {minimumXPToSyphon} experience.");
 			}
 			else {
 				int xp = enchantedItem.Experience - maxLevelXP;
@@ -1408,7 +1408,7 @@ namespace WeaponEnchantments.UI
 					return;
 
 				if (wePlayer.infusionConsumeItem == null) {
-					$"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+					GameMessageTextID.InfusionConsumeItemWasNull.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);// $"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 				}
 
 				if (wePlayer.infusionConsumeItem.IsAir) {
@@ -1417,7 +1417,7 @@ namespace WeaponEnchantments.UI
 					//Prevent specific items from being consumed for infusion.
 					switch (tableItem.ModFullName()) {
 						case "CalamityMod/Murasama":
-							Main.NewText("Murasama cannot be consumed for infusion until a check for the Yharon, Dragon of Rebirth being defeated can be added.");
+							Main.NewText(GameMessageTextID.MurasamaNoInfusion.ToString().Lang_WE(L_ID1.GameMessages));// "Murasama cannot be consumed for infusion until a check for the Yharon, Dragon of Rebirth being defeated can be added.");
 							break;
 						default:
 							canConsume = true;
@@ -1434,7 +1434,7 @@ namespace WeaponEnchantments.UI
 					}
 					else {
 						if (wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
-							Main.NewText("Favorited items cannot be consumed for infusion.");
+							Main.NewText(GameMessageTextID.FavoritedItemsCantBeConsumedForInfusion.ToString().Lang_WE(L_ID1.GameMessages));//"Favorited items cannot be consumed for infusion.");
 							return;
 						}
 
@@ -1448,7 +1448,7 @@ namespace WeaponEnchantments.UI
 					//Prevent specific items from being upgraded with infusion.
 					if (tableItem.ModFullName().Contains("PrimaryZenith")) {
 						canInfuse = false;
-						Main.NewText($"The {tableItem.Name} resisted your attempt to empower it.");
+						Main.NewText(GameMessageTextID.ResistsYourAttemptToEmpower.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.Name }));//$"The {tableItem.Name} resisted your attempt to empower it.");
 					}
 
 					if (!canInfuse)
@@ -1460,7 +1460,7 @@ namespace WeaponEnchantments.UI
 						wePlayer.infusionConsumeItem = new();
 					}
 					else {
-						$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+						GameMessageTextID.TryInfuseFailed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);//$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 					}
 				}
 			}
@@ -1470,7 +1470,7 @@ namespace WeaponEnchantments.UI
 				wePlayer.infusionConsumeItem = new();
 			}
 			else if (!tableItem.IsAir) {
-				$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+				GameMessageTextID.NotEnchantableAndNotAirInfusionItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError); //$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 			}
 		}
 		private static void LevelUp() {
@@ -1482,7 +1482,7 @@ namespace WeaponEnchantments.UI
 			int xpAvailable = 0;
 			int nonFavoriteXpAvailable = 0;
 			if (enchantedItem.levelBeforeBooster == EnchantedItem.MAX_Level) {
-				Main.NewText("Your " + item.Name + " is already max level.");
+				Main.NewText(GameMessageTextID.AlreadyMaxLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.Name }));// "Your " + item.Name + " is already max level.");
 				return;
 			}
 
@@ -1500,7 +1500,7 @@ namespace WeaponEnchantments.UI
 			int xpNeeded = WEModSystem.levelXps[targetLevelXPIndex] - enchantedItem.Experience;
 			bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
 			if (xpAvailable < xpNeeded) {
-				Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (targetLevelXPIndex + 1).ToString() + " you only have " + xpAvailable + " available.");
+				Main.NewText(GameMessageTextID.NotEnoughEssence.ToString().Lang_WE(L_ID1.GameMessages, new object[] { xpNeeded, targetLevelXPIndex + 1, xpAvailable }));//"Not Enough Essence. You need " + xpNeeded + " experience for level " + (targetLevelXPIndex + 1).ToString() + " you only have " + xpAvailable + " available.");
 				return;
 			}
 
@@ -1548,9 +1548,7 @@ namespace WeaponEnchantments.UI
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			string warning;
 			if (!wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-				warning = $"Non-Enchantable item detected in table.\n" +
-					$"WARNING, DO NOT PRESS CONFIRM.\n" +
-					$"Please report this issue to andro951(Weapon Enchantments)";
+				warning = GameMessageTextID.NonEnchantableItemInTable.ToString().Lang_WE(L_ID1.GameMessages, new object[] { wePlayer.enchantingTableItem.S() });// "Non-Enchantable item detected in table: {}.\n" + $"WARNING, DO NOT PRESS CONFIRM.\n" + $"Please report this issue to andro951(Weapon Enchantments)";
 			}
 			else {
 				int oresEnd = !WEMod.serverConfig.AllowHighTierOres || !Main.hardMode ? 3 : 8;
@@ -1727,8 +1725,6 @@ namespace WeaponEnchantments.UI
 			//Enchantments
 			if (!nonTableItem && !LootAllEnchantments(ref item))
 				return -1;
-
-			if (AndroMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log_WE();
 
 			float value = item.value;
 

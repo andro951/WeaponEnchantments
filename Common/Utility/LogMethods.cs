@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using androLib.Common.Utility;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +35,7 @@ namespace WeaponEnchantments.Common.Utility
         public readonly static bool debuggingOnTick = false;
         private static int charNum = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
-        public static string reportMessage = "\nPlease report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.";
+        public static string reportMessage => $"\n{GameMessageTextID.ReportErrorToAndro.ToString().Lang_WE(L_ID1.GameMessages)}";//"\nPlease report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.";
         public static HashSet<int> LoggedChatMessagesIDs = new HashSet<int>();
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <param name="s">Message that will be printed </param>
         /// <param name="messageID"></param>
         public static void LogNT_WE(this string s, int messageID) {
-            s += $" Main.GameUpdateCount: {Main.GameUpdateCount}" + reportMessage;
+            s += GameMessageTextID.MainUpdateCount.ToString().Lang_WE(L_ID1.GameMessages, new object[] { Main.GameUpdateCount }) + reportMessage;// $" Main.GameUpdateCount: {Main.GameUpdateCount}" + reportMessage;
 
             if (Main.netMode < NetmodeID.Server) {
                 bool doChatMessage = messageID < 0;

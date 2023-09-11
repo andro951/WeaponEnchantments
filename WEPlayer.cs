@@ -825,7 +825,6 @@ namespace WeaponEnchantments
 		}
 		public void OnSwapEquipmentLoadout(int loadoutIndex) {
 			//Main.NewText($"new Loadout Number: {loadoutIndex}, old: {Player.CurrentLoadoutIndex}");
-
 		}
 		public override void PostSellItem(NPC vendor, Item[] shopInventory, Item item) {
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))

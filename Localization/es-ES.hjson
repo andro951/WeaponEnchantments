@@ -533,10 +533,7 @@ Mods: {
 				Tooltip: Elimina cosas como Unique, Max 1 y encantamientos específicos de tipo de arma o elemento.
 			}
 
-			ServerConfig: {
-				Label: Configuración del servidor
-				// $parentVal: preset Data Header
-			}
+			ServerConfig.Label: Configuración del servidor
 
 			Strength: {
 				Label: Fuerza (1000 = 1, 10 = 1%)
@@ -592,7 +589,9 @@ Mods: {
 
 		EnchantmentStorageText: {
 			Add: Agregar
+			AddFromEquippedEnchantments: Agregar desde encantamientos equipados
 			All: Todo
+			Delete: Borrar
 			EnchantmentLoadouts: Cargas de encantamiento
 			EnchantmentStorage: Almacenamiento de encantamiento
 			HeldItem: Artículo retenido
@@ -611,6 +610,84 @@ Mods: {
 			RevertAllToBasic: Revertir todo a básico
 			ToggleMarkTrash: Alternar Marcar papelera
 			UncraftAllTrash: Deshacer toda la basura
+		}
+
+		GameMessages: {
+			AlreadyMaxLevel: Tu {0} ya está en el nivel máximo.
+			Back: Atrás
+			BossChecklistNotEnabled: El mod BossChecklist no está habilitado. Enchantments de armas usa BossChecklist para determinar qué jefes determinan las caídas de Power Booster de los jefes modificados. Dado que BossChecklist no está habilitado, todos los jefes modificados eliminarán el Power Booster normal.
+			CannotGainAdditionalPower: Su {0}({1}) no puede obtener energía adicional del {2}({3}) ofrecido.
+			CantInfusionArmorDifferentTypes: No puedes infundir armaduras de diferentes tipos, como un casco y un cuerpo.
+			CongradulationsMaxLevel: ¡Felicitaciones! El {1} de {0} alcanzó el nivel máximo, {2} ({3} xp).
+			CouldntFindItemsInWeaponsList: No se pudieron encontrar elementos en WeaponsList o WeaponCraftingIngredients con los nombres:
+			CouldntFindNPCsInIngredientsList: No se pudieron encontrar Npcs en NPCsThatDropWeaponsOrIngredients con los nombres:
+			DailyFishingQuestReset: La misión de pesca diaria se ha reiniciado. Tu próxima misión es {0}.
+			DetectedNonEnchantmentInEnchantmentSlot: Se detectó un artículo sin encantamiento:{0} en tu {1}. Ha sido devuelto a tu inventario.
+			EnchantmentNoLongerAllowed: "{0} ya no está permitido en {1} y se ha eliminado de tu {2}."
+			FailedConvertExcessExperience: Error al CheckConvertExcessExperience (elemento: {0}, elemento consumido: {1})
+			FailedDetermineProgression: No se pudo determinar la progresión de Wall of Flesh y Plantera de BossChecklistData
+			FailedFindBossBag: No se pudo encontrar la bolsa de jefe para el jefe:
+			FailedFindItemDropsForGroup: No se pudieron encontrar artículos para el botín del grupo
+			FailedInfuseItem: No se pudo infundir el artículo: {0} con el artículo consumido: {1}
+			FailedReplaceOldItem: No se pudo reemplazar el artículo antiguo:
+			FailedReplaceWithCoins: Error al reemplazar el artículo: {0} con monedas
+			FailedToCloneItem: En EnchantedItem, no se pudo clonar (item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}.
+			FailedToFindInfusionPower: No se pudo encontrar un poder de infusión para el artículo:
+			FailedToLocateAngler: No se pudo localizar al pescador. Seguirás recibiendo recompensas
+			FavoritedItemsCantBeConsumedForInfusion: Los artículos favoritos no se pueden consumir para infusión.
+			FishingQuestTurnedIn: Misión entregada. Tu próxima misión es {0}. Misiones terminadas: {1}
+			InfusionConsumeItemWasNull: wePlayer.infusionConsumeItem era nulo, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
+			InfusionOnlyPossibleSameType: La infusión sólo es posible entre elementos del mismo tipo (Arma/Armadura)
+			InfusionPowerMustBeLower: El poder de infusión del artículo que se actualiza debe ser menor que el poder de infusión del artículo consumido.
+			IngredientInfusionPowersNotSetup: Poderes de infusión de ingredientes no configurados
+			IngredientsFromLootItemsNotincluded: Ingredientes de WeaponsFromLootItems no incluidos en ItemInfusionPowers
+			ItemLevelUp: El {1} de {0} alcanzó el nivel {2} ({3} xp).
+			ItemRemovedFromWeaponEnchantments: "{0} ha sido eliminado de los encantamientos de armas."
+			ItemRemovedRecieveCoins: "{0} ha sido eliminado de los encantamientos de armas. Has recibido monedas equivalentes a su precio de venta."
+			ItemRemovedReiceveCompensation: "{0} ha sido eliminado de los encantamientos de armas. Has recibido {1} como compensación."
+			ItemRemovedRelacedWithItem: "{0} ha sido eliminado de los encantamientos de armas. Ha sido reemplazado por {1}"
+			ItemsFromLootItemsNotIncluded: Artículos de WeaponsFromLootItems no incluidos en ItemInfusionPowers
+			ItemsFromNPCIngredientsNotIncluded: Artículos de IngredientsFromNPCs no incluidos en ItemInfusionPowers
+			ItemsFromNPCsNotIncluded: Artículos de WeaponsFromNPCs no incluidos en ItemInfusionPowers
+			ItemTooLowLevel: Tu nivel {0} es demasiado bajo para usar tantos encantamientos.
+			LogInfusionPowerLabels: Mod, Arma, Poder de infusión, Valor Rareza, Rareza, Rareza original, Valor, ID de artículo, Daño, Tiempo de uso, DPS
+			LogInfusionPowerOtherLabels: Rareza, Promedio, Mín., Máx.
+			MainUpdateCount: Main.GameUpdateCount: {0}
+			MultipleUniqueEnchantments: Se detectaron múltiples encantamientos únicos en tu {0}. {1} ha sido eliminado de tu {2}.
+			MurasamaNoInfusion: Murasama no se puede consumir en infusión.
+			NewItemIsAir: newItem era aire.
+			NoLongerAllowedOnDamageType: "{0} ya no está permitido en {1} armas y se eliminó de tu {2}."
+			NoLongerUtilityEnchantment: "{0} ya no es un encantamiento de utilidad y ha sido eliminado de tu {1}."
+			NonEnchantableItemInTable:
+				'''
+				Elemento no encantable detectado en la tabla: {0}.
+				ADVERTENCIA, NO PULSE CONFIRMAR.
+				Informe este problema a andro951 (Encantamientos de armas)
+				'''
+			NotEnchantableAndNotAirInfusionItem: tableItem: {0}{1} no se puede encantar e infusionConsumeItem: {2}{3} no es aire
+			NotEnoughEssence: No hay suficiente esencia. Necesitas {0} experiencia para el nivel {1}, solo tienes {2} disponible.
+			NowLimitedToOne: "{0} Los encantamientos ahora están limitados a 1 por artículo. {1} se ha eliminado de tu {2}."
+			NPCInProgressionGroupNotInDropList: Se detectó un npc en un grupo de Progresión que no está en NPCsThatDropWeaponsOrIngredients.
+			NPCInProgressionGroupNoUniqueEnchantments: Se detectó un npc en un grupo de progresión que no tiene armas ni ingredientes únicos.
+			OnlySyphonMaxLevel: Solo puedes extraer un objeto si tiene el nivel máximo y más de {0} experiencia.
+			OreInfusionPowerNotSetup: El poder de infusión de mineral {0} no está configurado. Poder de infusión adivinado:
+			PreventedIssueLooseExperience: Se evitó un problema que causaría que tu XP se redujera. (xpInt < 0) elemento: {0}, objetivo: {1}, golpe: {2}, cuerpo a cuerpo: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
+			PreventedIssueLooseExperienceTwo: "Se evitó un problema que haría que perdieras experiencia. (xpInt < 0) elemento: {0}, objetivo: {1}, golpe: {2}, cuerpo a cuerpo: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
+			PreventedLoosingExperience: Evité que tu {0} perdiera experiencia debido a un error de cálculo.
+			PreventedWitchShopDuplication: Se evitó un problema que agregaba un artículo duplicado al artículo de la tienda de la Bruja:
+			RemovedEnchantedItemData: Se eliminaron los datos de EnchantedItem del elemento: {0}, recuento: {1}, nuevoConteo: {2}
+			RemovedUnloadedEnchantmentFromItem: Eliminado elemento descargado:{0} de tu {1}. Por favor, informa a andro951(WeaponEnchantments).
+			ReportErrorToAndro: Informe esto a andro951 (Encantamientos de armas) junto con una descripción de lo que estaba haciendo en ese momento.
+			RerollEnchantment: Repetir encantamiento
+			ResistsYourAttemptToEmpower: El {0} se resistió a tu intento de darle poder.
+			SameSetBonusNoEffect: El elemento que se actualiza tiene la misma bonificación establecida que el elemento que se consume y no tendrá ningún efecto.
+			SlotNumDisabledByConfig: Ranura {0} deshabilitada por configuración. Se eliminó {1} de su {2}.
+			TryInfuseFailed: TryInfuseItem falló, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
+			UnableDetermineNPCDropsBossBag: No se puede determinar el npc que arroja esta bolsa de jefe:
+			WeaponInfusionPowersNotSetup: Poderes de infusión de armas no configurados
+			WitchChatText: ¿Qué más quieres? Estoy ocupado.
+			WitchEnchantmentRerolText: Supongo que podría intentar mejorar tus encantamientos, pero no hay reembolsos ni quejas.
+			WitchSpawnCondition: Ten un encantamiento en tu inventario o en tu equipo.
 		}
 
 		Items: {
@@ -1251,6 +1328,7 @@ Mods: {
 				Hunter: Cazador
 				Ichor: Icor
 				InfinitePenetration: Penetración infinita
+				ItemAttractionAndPickupSpeed: Atracción de artículos y velocidad de recogida
 				ItemCooldown: Enfriamiento del artículo
 				Juiced: Jugo
 				JumpSpeed: Velocidad de salto
@@ -1385,6 +1463,7 @@ Mods: {
 					(Daño adicional no afectado por Robo de Vida)
 					'''
 				InfinitePenetration: Penetración infinita
+				ItemAttractionAndPickupSpeed: Atracción de artículos y velocidad de recogida
 				ItemCooldown: (Ítem CD igual a {0} velocidad de uso)
 				JumpSpeed: Velocidad de salto
 				KiDamage: Daño Ki
@@ -1448,13 +1527,31 @@ Mods: {
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Permitido en
 				And: y
+				ApproximateItemDamage: Daño del objeto ~ {0} (contra 0 enemigos con armadura)
 				ArmorSlotOnly: Solo para ranuras de {0}
+				BoosterInstalled: Refuerzo instalado
+				EnchantmentCapacity: Capacidad de encantamiento
+				Experience: Experiencia: {0}
+				InfusedArmorID: ID de armadura infundida: {0} Artículo infundido: {1}
+				InfusedItem: Artículo infundido:
+				InfusionPower: Poder de infusión:
+				LevelAvailable: Nivel: {0} {1} disponible: {2}
 				LevelCost: Coste de nivel: {0}
 				Max1: Máximo de 1 por artículo
+				MaxLevel: (Máximo nivel)
+				NewInfusedItem: Nuevo artículo infundido:
+				NewInfusionPower: Nuevo poder de infusión:
+				NewSetBonusID: ID de bonificación del nuevo conjunto:
+				NormalBoosterAbreviation: N
 				NotAllowed: No permitido en armas {0}
 				Only: "{0} Solamente"
 				OnlyAllowedOn: Solo permitido en
 				Or: o
+				OutOfAmmo: SIN MUNICIONES
+				Points: Puntos
+				SetBonusID: Establecer ID de bonificación: {0}
+				ToNextLevel: ({0} al siguiente nivel)
+				UltraBoosterAbreviation: U
 				Unique: Único (limitado a 1 encantamiento único)
 				Utility: Utilidad
 			}

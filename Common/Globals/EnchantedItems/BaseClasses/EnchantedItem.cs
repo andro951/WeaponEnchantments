@@ -176,7 +176,7 @@ namespace WeaponEnchantments.Common.Globals
                     clone = enchantedItem;
                 }
                 else {
-                    $"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}.".LogNT_WE(ChatMessagesIDs.CloneFailGetEnchantedItem);
+					GameMessageTextID.FailedToCloneItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), itemClone.S(), cloneReforgedItem.S(), resetGlobals.S() }).LogNT_WE(ChatMessagesIDs.CloneFailGetEnchantedItem);// $"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}.".LogNT_WE(ChatMessagesIDs.CloneFailGetEnchantedItem);
                     return this;
                 }
 
@@ -531,12 +531,12 @@ namespace WeaponEnchantments.Common.Globals
         protected virtual void GetXPAndLevelTooltips(Item item, List<TooltipLine> tooltips) {
             //Xp and level Tooltips
             if (Enchanted || inEnchantingTable) {
-                string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
+                string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? $"{EnchantmentGeneralTooltipsID.Points}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips) : $"{EnchantmentGeneralTooltipsID.EnchantmentCapacity}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips);// "Points" : "Enchantment Capacity";
 
-                string levelTooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
+                string levelTooltip = $"{EnchantmentGeneralTooltipsID.LevelAvailable}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { levelBeforeBooster, pointsName, GetLevelsAvailable() });// $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
                 if (PowerBoosterInstalled || UltraPowerBoosterInstalled) {
                     bool both = PowerBoosterInstalled && UltraPowerBoosterInstalled;
-                    levelTooltip += $" (Booster Installed {(PowerBoosterInstalled ? "N" : "")}{(both ? " " : "")}{(UltraPowerBoosterInstalled ? "U" : "")})";
+                    levelTooltip += $" ({$"{EnchantmentGeneralTooltipsID.BoosterInstalled}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {(PowerBoosterInstalled ? $"{EnchantmentGeneralTooltipsID.NormalBoosterAbreviation}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips) : "")}{(both ? " " : "")}{(UltraPowerBoosterInstalled ? $"{EnchantmentGeneralTooltipsID.UltraBoosterAbreviation}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips) : "")})";
                 }
 
                 tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
@@ -546,12 +546,12 @@ namespace WeaponEnchantments.Common.Globals
                     tooltips.Add(new TooltipLine(Mod, "PerLevelBonus", bonusPerLevelTooltip) { OverrideColor = Color.Blue });
 
                 //Experience tooltip
-                string experienceTooltip = $"Experience: {Experience}";
-                if (levelBeforeBooster < MAX_Level) {
-                    experienceTooltip += $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
-                }
+                string experienceTooltip = $"{EnchantmentGeneralTooltipsID.Experience}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { Experience });//$"Experience: {Experience}";
+				if (levelBeforeBooster < MAX_Level) {
+                    experienceTooltip += $"{EnchantmentGeneralTooltipsID.ToNextLevel}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { WEModSystem.levelXps[levelBeforeBooster] - Experience });// $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
+				}
                 else {
-                    experienceTooltip += " (Max Level)";
+                    experienceTooltip += $" {$"{EnchantmentGeneralTooltipsID.MaxLevel}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)}";// " (Max Level)";
                 }
 
                 tooltips.Add(new TooltipLine(Mod, "experience", experienceTooltip) { OverrideColor = Color.White });
@@ -565,14 +565,8 @@ namespace WeaponEnchantments.Common.Globals
             IEnumerable<Enchantment> enchantmentModItems = enchantments.All.Select(e => e.ModItem).OfType<Enchantment>();
 		    int i = 0;
             foreach (Enchantment enchantment in enchantmentModItems) {
-                //float effectiveness = enchantment.AllowedList[ItemType];
-                //var effectTooltips = enchantment.GetEffectsTooltips();
 		        string tooltip = enchantment.ShortTooltip;
 		        tooltips.Add(new TooltipLine(Mod, $"enchantment{i}", tooltip) { OverrideColor = TierColors[enchantment.EnchantmentTier] });
-                //tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
-                //foreach (var tooltipTuple in effectTooltips) {
-                //    tooltips.Add(new TooltipLine(Mod, $"effects:{enchantment.Name}", $"• {tooltipTuple.Item1}") { OverrideColor = tooltipTuple.Item2 });
-                //}
 		        i++;
             }
         }
@@ -583,9 +577,9 @@ namespace WeaponEnchantments.Common.Globals
 
             //xp < 0 return
             if (xpInt < 0) {
-                $"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);
+				GameMessageTextID.PreventedLoosingExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);//$"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);
 
-                return;
+				return;
             }
 
             if(Experience + xpInt >= 0) {
@@ -609,12 +603,11 @@ namespace WeaponEnchantments.Common.Globals
                     (IsTool(item) || IsFishingRod(item)) && WEMod.clientConfig.AlwaysDisplayToolLevelUpMessages))) {
                 if (levelBeforeBooster >= MAX_Level) {
                     SoundEngine.PlaySound(SoundID.Unlock);
-                    Main.NewText($"Congratulations!  {wePlayer.Player.name}'s {item.Name} reached the maximum level, " +
-						$"{levelBeforeBooster} ({WEModSystem.levelXps[levelBeforeBooster - 1]} xp).");
+                    Main.NewText(GameMessageTextID.CongradulationsMaxLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { wePlayer.Player.name, item.Name, levelBeforeBooster, WEModSystem.levelXps[levelBeforeBooster - 1] }));// $"Congratulations!  {wePlayer.Player.name}'s {item.Name} reached the maximum level, {levelBeforeBooster} ({WEModSystem.levelXps[levelBeforeBooster - 1]} xp).");
                 }
                 else {
-                    Main.NewText($"{wePlayer.Player.name}'s {item.Name} reached level {levelBeforeBooster} ({WEModSystem.levelXps[levelBeforeBooster - 1]} xp).");
-                }
+                    Main.NewText(GameMessageTextID.ItemLevelUp.ToString().Lang_WE(L_ID1.GameMessages, new object[] { wePlayer.Player.name, item.Name, levelBeforeBooster, WEModSystem.levelXps[levelBeforeBooster - 1] }));//$"{wePlayer.Player.name}'s {item.Name} reached level {levelBeforeBooster} ({WEModSystem.levelXps[levelBeforeBooster - 1]} xp).");
+				}
             }
         }
         public override bool CanRightClick(Item item) {
@@ -1131,13 +1124,6 @@ namespace WeaponEnchantments.Common.Globals
 				return;
 
 			if (enchantment != null) {
-
-				#region Debug
-
-				if (LogMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", remove: " + remove).Log_WE();
-
-				#endregion
-
 				//New Damage Type
 				foreach (IPermenantStat effect in enchantment.Effects.Where(e => e is IPermenantStat).Select(e => (IPermenantStat)e)) {
 					effect.Update(ref item, remove);
@@ -1148,12 +1134,6 @@ namespace WeaponEnchantments.Common.Globals
 
             if (enchantedItem is EnchantedHeldItem)
                 Main.LocalPlayer.GetWEPlayer().Equipment.UpdateHeldItemEnchantmentEffects(item);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", remove: " + remove).Log_WE();
-
-			#endregion
 		}
 		public static void DamageNPC(this Item item, Player player, NPC target, NPC.HitInfo hit, bool melee = false) {
 
@@ -1225,9 +1205,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             if(lowDamagePerHitXPBoost < 1f) {
-                ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " +
-                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" +
-					$"target.defense: {target.defense}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}").LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);
+				GameMessageTextID.PreventedIssueLooseExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, target.defense, xpDamage, lowDamagePerHitXPBoost }).LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);// ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " + $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" + $"target.defense: {target.defense}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}").LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);
                 lowDamagePerHitXPBoost = 1f;
 			}
 
@@ -1245,9 +1223,7 @@ namespace WeaponEnchantments.Common.Globals
                 xpInt = 1;
             }
             else if (xpInt < 0) {
-                ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " +
-                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, " +
-                    $"").LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
+                GameMessageTextID.PreventedIssueLooseExperienceTwo.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, xpDamage, xpInt, lowDamagePerHitXPBoost }).LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);// ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, ").LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
                 xpInt = 1;
             }
 
@@ -1346,7 +1322,6 @@ namespace WeaponEnchantments.Common.Globals
                             Enchantment enchantment = ((Enchantment)consumedEnchantedItem.enchantments[k].ModItem);
                             int uniqueItemSlot = EnchantingTableUI.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
-                            //int slotToUse = enchantment.Utility && enchantedItem.enchantments[j].IsAir ? 4 : j;
                             if (!EnchantingTableUI.UseEnchantmentSlot(item, j, true))
                                 cantFit = true;
 
@@ -1422,7 +1397,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 bool slotAllowedByConfig = EnchantingTableUI.SlotAllowedByConfig(enchantedItem.ItemType, i);
                 if (!slotAllowedByConfig)
-                    RemoveEnchantmentNoUpdate(enchantedItem, i, player, $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.");
+                    RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.SlotNumDisabledByConfig.ToString().Lang_WE(L_ID1.GameMessages, new object[] { i, enchantment.Name, item.Name }));// $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.")
             }
 
             //Check enchantment limitations
@@ -1434,38 +1409,38 @@ namespace WeaponEnchantments.Common.Globals
                 if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                     ModItem modItem = enchantmentItem.ModItem;
                     if (modItem is UnloadedItem unloadedItem) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, $"Removed Unloaded Item:{unloadedItem.ItemName} from your {item.S()}.  Please inform andro951(WeaponEnchantments).");
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.RemovedUnloadedEnchantmentFromItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItem.ItemName, item.S() }));// $"Removed Unloaded Item:{unloadedItem.ItemName} from your {item.S()}.  Please inform andro951(WeaponEnchantments).");
                         continue;
                     }
 
                     if (modItem is not Enchantment enchantment) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.DetectedNonEnchantmentInEnchantmentSlot.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() }));// $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
                         continue;
                     }
 
                     if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Weapons.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                     }
                     else if (IsArmorItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
-                    }
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+					}
                     else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
-                    }
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on accessories and has been removed from your " + item.Name + ".");
+					}
 
                     if (i == EnchantingTableUI.MaxEnchantmentSlots - 1 && !enchantment.Utility)
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NoLongerUtilityEnchantment.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() })); //enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
 
-                    if (enchantment.RestrictedClass.Count > 0 && enchantment.RestrictedClass.Contains(ContentSamples.ItemsByType[item.type].DamageType.Type))
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
+					if (enchantment.RestrictedClass.Count > 0 && enchantment.RestrictedClass.Contains(ContentSamples.ItemsByType[item.type].DamageType.Type))
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NoLongerAllowedOnDamageType.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.DamageType.Name, item.S() })); //enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
 
-                    if (enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+					if (enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
+                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NowLimitedToOne.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantment.EnchantmentTypeName, enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
 
-                    if (enchantment.Unique) {
+					if (enchantment.Unique) {
                         if (unique) {
-                            RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
-                        }
+                            RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.MultipleUniqueEnchantments.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+						}
                         else {
                             unique = true;
                         }
@@ -1481,8 +1456,8 @@ namespace WeaponEnchantments.Common.Globals
                     WEPlayer.LocalWEPlayer.TryHandleEnchantmentRemoval(k, enchantedItem.enchantments, true);
                 }
 
-                Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
-            }
+                Main.NewText(GameMessageTextID.ItemTooLowLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.Name }));
+			}
         }
         private static void RemoveEnchantmentNoUpdate(EnchantedItem enchantedItem, int i, Player player, string msg) {
             Item enchantmentItem = enchantedItem.enchantments[i];
@@ -1515,60 +1490,6 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
-        public static bool IsSameEnchantment(this Item item1, Item item2) {
-            if (item1.ModItem is not Enchantment enchantment1)
-                return item1.NullOrAir() && item2.NullOrAir();
-
-            return enchantment1.SameAs(item2);
-        }
-        public static void ApplyAllowedList(this Item item, Enchantment enchantment, ref float add, ref float mult, ref float flat, ref float @base) {
-            if (IsWeaponItem(item)) {
-                if (enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
-                    add *= enchantment.AllowedList[EItemType.Weapons];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Weapons];
-                    flat *= enchantment.AllowedList[EItemType.Weapons];
-                    @base *= enchantment.AllowedList[EItemType.Weapons];
-                    return;
-                }
-                else {
-                    add = 1f;
-                    mult = 1f;
-                    flat = 0f;
-                    @base = 0f;
-                }
-            }
-            if (IsArmorItem(item)) {
-                if (enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
-                    add *= enchantment.AllowedList[EItemType.Armor];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Armor];
-                    flat *= enchantment.AllowedList[EItemType.Armor];
-                    @base *= enchantment.AllowedList[EItemType.Armor];
-                    return;
-                }
-                else {
-                    add = 1f;
-                    mult = 1f;
-                    flat = 0f;
-                    @base = 0f;
-                }
-            }
-            if (IsAccessoryItem(item)) {
-                if (enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
-                    add *= enchantment.AllowedList[EItemType.Accessories];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Accessories];
-                    flat *= enchantment.AllowedList[EItemType.Accessories];
-                    @base *= enchantment.AllowedList[EItemType.Accessories];
-                    return;
-                }
-                else {
-                    add = 1f;
-                    mult = 1f;
-                    flat = 0f;
-                    @base = 0f;
-                }
-            }
-        }//d
-        //public static string ModFullName(this Item item) => item.ModItem?.FullName ?? item.Name;
         public static bool TryResetSameEnchantedItem(this Item item, IEnumerable<Item> storageItems, out int index) {
             bool found = false;
             index = -1;

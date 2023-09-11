@@ -515,10 +515,7 @@ Mods: {
 				Tooltip: 移除 Unique、Max 1 和武器或物品类型特定的附魔。
 			}
 
-			ServerConfig: {
-				Label: 服务器配置
-				// $parentVal: preset Data Header
-			}
+			ServerConfig.Label: 服务器配置
 
 			Strength: {
 				Label: 力量 (1000 = 1, 10 = 1%)
@@ -574,7 +571,9 @@ Mods: {
 
 		EnchantmentStorageText: {
 			Add: 添加
+			AddFromEquippedEnchantments: 从装备的附魔添加
 			All: 全部
+			Delete: 删除
 			EnchantmentLoadouts: 附魔负载
 			EnchantmentStorage: 附魔储存
 			HeldItem: 持有物品
@@ -593,6 +592,84 @@ Mods: {
 			RevertAllToBasic: 全部恢复为基本
 			ToggleMarkTrash: 切换标记垃圾箱
 			UncraftAllTrash: 解构所有垃圾
+		}
+
+		GameMessages: {
+			AlreadyMaxLevel: “您的 {0} 已经达到最高等级。”
+			Back: 后退
+			BossChecklistNotEnabled: BossChecklist 模组未启用。 武器附魔使用 BossChecklist 来确定哪些 Boss 决定来自 Modded Boss 的能量助推器掉落。 由于 BossChecklist 未启用，所有 Modded Boss 都会掉落常规能量助推器。
+			CannotGainAdditionalPower: “您的 {0}({1}) 无法从所提供的 {2}({3}) 中获得额外的能量。”
+			CantInfusionArmorDifferentTypes: 你不能注入不同类型的盔甲，例如头盔和身体。
+			CongradulationsMaxLevel: “恭喜！{0} 的 {1} 达到最高等级，{2} ({3} xp)。”
+			CouldntFindItemsInWeaponsList: 无法在 WeaponsList 或 WeaponCraftingIngredients 中找到具有以下名称的物品：
+			CouldntFindNPCsInIngredientsList: 在 NPCsThatDropWeaponsOrIngredients 中找不到名称为以下的 Npc：
+			DailyFishingQuestReset: “每日钓鱼任务已重置。您的下一个任务是{0}。”
+			DetectedNonEnchantmentInEnchantmentSlot: “在您的 {1} 上检测到非附魔物品：{0}。它已返回到您的库存中。”
+			EnchantmentNoLongerAllowed: “{1} 上不再允许使用 {0}，并且已从您的 {2} 中删除。”
+			FailedConvertExcessExperience: “无法检查ConvertExcessExperience（项目：{0}，消费项目：{1}）”
+			FailedDetermineProgression: 无法从 BossChecklistData 确定血肉墙和世纪之花的进度
+			FailedFindBossBag: 找不到老板的老板包：
+			FailedFindItemDropsForGroup: 无法找到群组战利品的掉落物品
+			FailedInfuseItem: “无法将物品：{0} 与已消耗物品：{1} 融合”
+			FailedReplaceOldItem: 更换旧项目失败：
+			FailedReplaceWithCoins: “无法用硬币替换项目：{0}”
+			FailedToCloneItem: “在 EnchantedItem 中，克隆失败（项目：{0}、itemClone：{1}）、cloneReforgedItem：{2}、resetGlobals：{3}。”
+			FailedToFindInfusionPower: 找不到物品的灌注能力：
+			FailedToLocateAngler: 未能找到钓鱼者。 您仍将获得奖励
+			FavoritedItemsCantBeConsumedForInfusion: 喜爱的物品不能用于输液。
+			FishingQuestTurnedIn: “任务已上交。您的下一个任务是 {0}。任务已完成：{1}”
+			InfusionConsumeItemWasNull: “wePlayer.infusionConsumeItem 为空，tableItem：{0}{1}，infusionConsumeItem：{2}{3}”
+			InfusionOnlyPossibleSameType: 只能在相同类型的物品（武器/盔甲）之间进行输注
+			InfusionPowerMustBeLower: 升级物品的灌注力必须低于消耗物品的灌注力。
+			IngredientInfusionPowersNotSetup: 未设置成分输注功率
+			IngredientsFromLootItemsNotincluded: 来自 WeaponsFromLootItems 的成分不包含在 ItemInfusionPowers 中
+			ItemLevelUp: “{0} 的 {1} 达到了等级 {2} ({3} xp)。”
+			ItemRemovedFromWeaponEnchantments: “{0} 已从武器附魔中删除。”
+			ItemRemovedRecieveCoins: “{0} 已从武器附魔中删除。您已收到等于其售价的硬币。”
+			ItemRemovedReiceveCompensation: “{0} 已从武器附魔中删除。您已收到 {1} 作为补偿。”
+			ItemRemovedRelacedWithItem: “{0} 已从武器附魔中删除。已替换为 {1}”
+			ItemsFromLootItemsNotIncluded: WeaponsFromLootItems 中的物品不包含在 ItemInfusionPowers 中
+			ItemsFromNPCIngredientsNotIncluded: 来自 IngredientsFromNPC 的物品不包含在 ItemInfusionPowers 中
+			ItemsFromNPCsNotIncluded: WeaponsFromNPC 中的物品不包含在 ItemInfusionPowers 中
+			ItemTooLowLevel: “你的 {0} 等级太低，无法使用那么多魔法。”
+			LogInfusionPowerLabels: 模组、武器、注入威力、价值稀有度、稀有度、原始稀有度、价值、物品 ID、伤害、使用时间、DPS
+			LogInfusionPowerOtherLabels: 稀有度、平均、最小、最大
+			MainUpdateCount: “Main.GameUpdateCount：{0}”
+			MultipleUniqueEnchantments: “在您的 {0} 上检测到多个独特的魔咒。{1} 已从您的 {2} 中删除。”
+			MurasamaNoInfusion: Murasama 不能用于输液。
+			NewItemIsAir: 新物品是空气。
+			NoLongerAllowedOnDamageType: “{0} 不再允许用于 {1} 武器，并且已从您的 {2} 中删除。”
+			NoLongerUtilityEnchantment: “{0} 不再是实用结界，已从您的 {1} 中删除。”
+			NonEnchantableItemInTable:
+				'''
+				在表中检测到不可附魔的物品：{0}。
+				警告，请勿按确认键。
+				请将此问题报告给andro951（武器附魔）
+				'''
+			NotEnchantableAndNotAirInfusionItem: “tableItem: {0}{1} 不可附魔，并且 infusionConsumeItem: {2}{3} 不是空气”
+			NotEnoughEssence: “精华不足。您需要 {0} 级经验来达到 {1} 级，而您只有 {2} 可用。”
+			NowLimitedToOne: “{0} 结界现在每件物品仅限 1 个。{1} 已从您的 {2} 中删除。”
+			NPCInProgressionGroupNotInDropList: 检测到进度组中有一个 NPC 不在 NPCsThatDropWeaponsOrIngredients 中。
+			NPCInProgressionGroupNoUniqueEnchantments: 在进展组中检测到一个没有独特武器或成分的NPC。
+			OnlySyphonMaxLevel: “只有达到最高等级且经验值超过 {0} 的物品，您才可以虹吸该物品。”
+			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
+			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
+			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
+			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
+			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
+			RemovedEnchantedItemData: “已从项目中删除 EnchantedItem 数据：{0}，计数：{1}，新计数：{2}”
+			RemovedUnloadedEnchantmentFromItem: “已从您的 {1} 中删除已卸载的物品：{0}。请通知 andro951(WeaponEnchantments)。”
+			ReportErrorToAndro: 请将此事报告给andro951（武器附魔）并描述您当时所做的事情。
+			RerollEnchantment: 重新投掷附魔
+			ResistsYourAttemptToEmpower: “{0} 抵制了你赋予它权力的尝试。”
+			SameSetBonusNoEffect: 正在升级的物品与正在消耗的物品具有相同的套装奖励，并且不会产生任何效果。
+			SlotNumDisabledByConfig: “插槽 {0} 已被配置禁用。已从您的 {2} 中删除了 {1}。”
+			TryInfuseFailed: “TryInfuseItem 失败，tableItem：{0}{1}，infusionConsumeItem：{2}{3}”
+			UnableDetermineNPCDropsBossBag: 无法确定掉落此Boss包的npc：
+			WeaponInfusionPowersNotSetup: 武器注入能力未设置
+			WitchChatText: 你还想要什么？ 我很忙。
+			WitchEnchantmentRerolText: 我想我可以尝试提高你的魅力，但不会退款或投诉。
+			WitchSpawnCondition: 在你的物品栏或装备上有一个结界。
 		}
 
 		Items: {
@@ -1233,6 +1310,7 @@ Mods: {
 				Hunter: 猎人
 				Ichor: 脓液
 				InfinitePenetration: 穿透
+				ItemAttractionAndPickupSpeed: 物品吸引力和拾取速度
 				ItemCooldown: 物品冷却时间
 				Juiced: 兴奋
 				JumpSpeed: 跳跃速度
@@ -1367,6 +1445,7 @@ Mods: {
 					（额外伤害不受生命窃取影响）
 					'''
 				InfinitePenetration: 无限穿透
+				ItemAttractionAndPickupSpeed: 物品吸引力和拾取速度
 				ItemCooldown: “（物品冷却时间等于 {0} 使用速度）”
 				JumpSpeed: 跳跃速度
 				KiDamage: 气伤害
@@ -1430,13 +1509,31 @@ Mods: {
 			EnchantmentGeneralTooltips: {
 				AllowedOn: 允许在
 				And: 和
+				ApproximateItemDamage: “物品伤害 ~ {0}（针对 0 护甲敌人）”
 				ArmorSlotOnly: “仅限 {0} 个盔甲槽”
+				BoosterInstalled: 已安装助推器
+				EnchantmentCapacity: 附魔能力
+				Experience: “经验：{0}”
+				InfusedArmorID: “注入的盔甲 ID：{0} 注入的物品：{1}”
+				InfusedItem: 注入物品：
+				InfusionPower: 输液功率：
+				LevelAvailable: “级别：{0} {1} 可用：{2}”
 				LevelCost: “等级成本：{0}”
 				Max1: 每件最多 1 个
+				MaxLevel: （最高等级）
+				NewInfusedItem: 新注入物品：
+				NewInfusionPower: 新的输液能力：
+				NewSetBonusID: 新套装奖励 ID：
+				NormalBoosterAbreviation: 普
 				NotAllowed: “不允许在 {0} 种武器上使用”
 				Only: “仅限 {0}”
 				OnlyAllowedOn: 只允许在
 				Or: 或者
+				OutOfAmmo: 弹药耗尽
+				Points: 积分
+				SetBonusID: “设置奖励 ID：{0}”
+				ToNextLevel: “（{0}到下一级）”
+				UltraBoosterAbreviation: 极
 				Unique: 独特（仅限 1 个独特的附魔）
 				Utility: 效用
 			}

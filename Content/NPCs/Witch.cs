@@ -60,7 +60,7 @@ namespace WeaponEnchantments.Content.NPCs
 
 		public bool TownNPC => true;
 
-		public string SpawnCondition => "Have an enchantment in your inventory or on your equipment.";
+		public string SpawnCondition => GameMessageTextID.WitchSpawnCondition.ToString().Lang_WE(L_ID1.GameMessages);//"Have an enchantment in your inventory or on your equipment.";
 
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = 25; // The amount of frames the NPC has
@@ -176,18 +176,18 @@ namespace WeaponEnchantments.Content.NPCs
 		}
 		public override void SetChatButtons(ref string button, ref string button2) {
 			if (rerollUI) {
-				button = "Back";
+				button = GameMessageTextID.Back.ToString().Lang_WE(L_ID1.GameMessages);// "Back";
 			}
 			else {
 				button = Language.GetTextValue("LegacyInterface.28");
-				button2 = "Re-roll Enchantment";
+				button2 = GameMessageTextID.RerollEnchantment.ToString().Lang_WE(L_ID1.GameMessages);// "Re-roll Enchantment";
 			}
 		}
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName) {
 			if (firstButton) {
 				if (rerollUI) {
 					rerollUI = false;
-					Main.npcChatText = "What more do you want?  I'm busy.";
+					Main.npcChatText = GameMessageTextID.WitchChatText.ToString().Lang_WE(L_ID1.GameMessages);// "What more do you want?  I'm busy.";
 				}
 				else {
 					shopName = EnchantmentShopName;
@@ -205,7 +205,7 @@ namespace WeaponEnchantments.Content.NPCs
 				else {
 					rerollUI = true;
 					Main.playerInventory = true;
-					Main.npcChatText = "I guess I could try to improve your enchantments, but no refunds or complaints.";
+					Main.npcChatText = GameMessageTextID.WitchEnchantmentRerolText.ToString().Lang_WE(L_ID1.GameMessages);// "I guess I could try to improve your enchantments, but no refunds or complaints.";
 					SoundEngine.PlaySound(SoundID.MenuOpen);
 				}
 			}
@@ -277,7 +277,7 @@ namespace WeaponEnchantments.Content.NPCs
 				int type = list.GetOneFromList();
 				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
 				if (shopItems.ContainsKey(type)) {
-					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT_WE(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
+					$"{GameMessageTextID.PreventedWitchShopDuplication.ToString().Lang_WE(L_ID1.GameMessages)} {ContentSamples.ItemsByType[type].S()}".LogNT_WE(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
 					i--;
 					list.Remove(type);
 					continue;

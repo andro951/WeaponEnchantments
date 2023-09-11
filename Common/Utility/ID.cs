@@ -9,22 +9,6 @@ using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Utility
 {
-	/*
-    public enum DamageClassID {
-		Default,
-		Generic,
-		Melee,
-		MeleeNoSpeed,
-		Ranged,
-		Magic,
-		Summon,
-		Whip,
-		MagicSummonHybrid,
-		Throwing,
-		Rogue,
-		Ki
-	} //Located in DamageClassLoader.cs
-	*/
     public enum EItemType
     {
         None,
@@ -69,7 +53,8 @@ namespace WeaponEnchantments.Common.Utility
         FishingPower,
         GodSlayer,
         InfinitePenetration,
-        JumpSpeed,
+		ItemAttractionAndPickupSpeed,
+		JumpSpeed,
 		KiDamage,
 		KiRegen,
         Knockback,
@@ -379,48 +364,6 @@ namespace WeaponEnchantments.Common.Utility
         SkeletonMerchant = 453,
         OldMan = 37
     }
-    /*
-	public enum L_ID1 {
-		Items,
-		Tooltip,
-		Buffs,
-		Dialogue,
-        NPCNames,
-        Bestiary,
-        TownNPCMood,
-		Ores,
-		TableText,
-		EnchantmentStorageText,
-		Config
-	}
-    public enum L_ID2 {
-        None,
-        Witch,
-        EffectDisplayName,
-        EnchantmentEffects,
-        EnchantmentCustomTooltips,
-		EnchantmentTypeNames,
-		EnchantmentShortTooltip,
-		EnchantmentGeneralTooltips,
-		ItemType,
-		ArmorSlotNames,
-		DamageClassNames,
-		VanillaBuffs,
-		Header,
-		DisplayName
-	}
-	public enum L_ID3 {
-		Label,
-		Tooltip
-	}
-    public enum L_ID_V {
-        Item,
-        Projectile,
-        NPC,
-        Buff,
-		BuffDescription
-	}
-	*/
 	public enum EnchantmentGeneralTooltipsID
 	{
 		LevelCost,
@@ -433,7 +376,26 @@ namespace WeaponEnchantments.Common.Utility
 		Or,
 		OnlyAllowedOn,
 		AllowedOn,
-		And
+		And,
+		Points,
+		EnchantmentCapacity,
+		LevelAvailable,
+		BoosterInstalled,
+		NormalBoosterAbreviation,
+		UltraBoosterAbreviation,
+		Experience,
+		ToNextLevel,
+		MaxLevel,
+		InfusedArmorID,
+		SetBonusID,
+		NewSetBonusID,
+		NewInfusedItem,
+		ApproximateItemDamage,
+		OutOfAmmo,
+		InfusionPower,
+		InfusedItem,
+		NewInfusionPower,
+
 	}
 	public enum TableTextID
 	{
@@ -492,7 +454,82 @@ namespace WeaponEnchantments.Common.Utility
 		NoItems,
 		NotEnoughEnchantments,
 		Add,
-		Loadout
+		Loadout,
+		AddFromEquippedEnchantments,
+		Delete
+	}
+	public enum GameMessageTextID {
+		ItemTooLowLevel,
+		SlotNumDisabledByConfig,
+		RemovedUnloadedEnchantmentFromItem,
+		DetectedNonEnchantmentInEnchantmentSlot,
+		EnchantmentNoLongerAllowed,
+		NoLongerUtilityEnchantment,
+		NoLongerAllowedOnDamageType,
+		NowLimitedToOne,
+		MultipleUniqueEnchantments,
+		CongradulationsMaxLevel,
+		ItemLevelUp,
+		PreventedLoosingExperience,
+		FishingQuestTurnedIn,
+		CannotGainAdditionalPower,
+		InfusionPowerMustBeLower,
+		SameSetBonusNoEffect,
+		CantInfusionArmorDifferentTypes,
+		InfusionOnlyPossibleSameType,
+		ItemRemovedFromWeaponEnchantments,
+		ItemRemovedReiceveCompensation,
+		FailedReplaceWithCoins,
+		ItemRemovedRecieveCoins,
+		ItemRemovedRelacedWithItem,
+		MainUpdateCount,
+		ReportErrorToAndro,
+		NewItemIsAir,
+		OnlySyphonMaxLevel,
+		InfusionConsumeItemWasNull,
+		MurasamaNoInfusion,
+		FavoritedItemsCantBeConsumedForInfusion,
+		ResistsYourAttemptToEmpower,
+		TryInfuseFailed,
+		NotEnchantableAndNotAirInfusionItem,
+		AlreadyMaxLevel,
+		NotEnoughEssence,
+		NonEnchantableItemInTable,
+		DailyFishingQuestReset,
+		PreventedIssueLooseExperienceTwo,
+		FailedToCloneItem,
+		PreventedIssueLooseExperience,
+		FailedToLocateAngler,
+		BossChecklistNotEnabled,
+		FailedDetermineProgression,
+		FailedInfuseItem,
+		LogInfusionPowerLabels,
+		LogInfusionPowerOtherLabels,
+		CouldntFindItemsInWeaponsList,
+		CouldntFindNPCsInIngredientsList,
+		FailedFindBossBag,
+		FailedFindItemDropsForGroup,
+		NPCInProgressionGroupNoUniqueEnchantments,
+		NPCInProgressionGroupNotInDropList,
+		ItemsFromNPCsNotIncluded,
+		ItemsFromNPCIngredientsNotIncluded,
+		ItemsFromLootItemsNotIncluded,
+		IngredientsFromLootItemsNotincluded,
+		WeaponInfusionPowersNotSetup,
+		IngredientInfusionPowersNotSetup,
+		OreInfusionPowerNotSetup,
+		FailedToFindInfusionPower,
+		UnableDetermineNPCDropsBossBag,
+		FailedReplaceOldItem,
+		RemovedEnchantedItemData,
+		FailedConvertExcessExperience,
+		PreventedWitchShopDuplication,
+		WitchEnchantmentRerolText,
+		WitchChatText,
+		RerollEnchantment,
+		Back,
+		WitchSpawnCondition,
+
 	}
 	public enum DialogueID {
         StandardDialogue,

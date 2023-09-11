@@ -244,7 +244,7 @@ namespace WeaponEnchantments.Common
 
                             if (newGlobalItems.Count < count) {
                                 fieldInfo.SetValue(item, newGlobalItems.ToArray());
-                                $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log_WE();
+								GameMessageTextID.RemovedEnchantedItemData.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), count, newGlobalItems.Count }).Log_WE();// $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log_WE();
                             }
                         }
                     }
@@ -363,7 +363,7 @@ namespace WeaponEnchantments.Common
                                         ReplaceItem(ref item, enchantment.Item.type + typeOffset);
                                     }
 									else {
-                                        $"Failed to replace old item: {name}".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToReplaceOldItem);
+                                        $"{GameMessageTextID.FailedReplaceOldItem.ToString().Lang_WE(L_ID1.GameMessages)} {name}".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToReplaceOldItem);
 									}
 
                                     return true;
@@ -403,12 +403,12 @@ namespace WeaponEnchantments.Common
             int valueEnchantment = GetEnchantmentValueByName(unloadedItemName);
             int stack = valueEnchantment / valueItemToSpawn;
             if (stack <= 0) {
-                Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.");
+                Main.NewText(GameMessageTextID.ItemRemovedFromWeaponEnchantments.ToString().Lang_WE(L_ID1.GameMessages, new object[]{ unloadedItemName }));// $"{unloadedItemName} has been removed from Weapon Enchantments.");
                 return true;
             }
 
-            Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.  You've recieved {itemToSpawn.S()} as compensation.");
-            Main.LocalPlayer.QuickSpawnItem(null, itemToSpawn, stack);
+            Main.NewText(GameMessageTextID.ItemRemovedReiceveCompensation.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName, itemToSpawn.S() }));//$"{unloadedItemName} has been removed from Weapon Enchantments.  You've recieved {itemToSpawn.S()} as compensation.");
+			Main.LocalPlayer.QuickSpawnItem(null, itemToSpawn, stack);
 
             return true;
         }
@@ -433,7 +433,7 @@ namespace WeaponEnchantments.Common
                 ReplaceItem(ref item, value, true);
             }
 			else {
-                $"Failed to replace item: {item.S()} with coins".LogNT_WE(ChatMessagesIDs.FailedGetEnchantmentValueByName);
+				GameMessageTextID.FailedReplaceWithCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT_WE(ChatMessagesIDs.FailedGetEnchantmentValueByName);//$"Failed to replace item: {item.S()} with coins".LogNT_WE(ChatMessagesIDs.FailedGetEnchantmentValueByName);
 			}
 
             return true;
@@ -454,11 +454,11 @@ namespace WeaponEnchantments.Common
 				//type is coins when replaceWithCoins is true
 				androLib.Common.Utility.AndroUtilityMethods.ReplaceItemWithCoins(ref item, total);
 
-                ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log_WE();
+                GameMessageTextID.ItemRemovedRecieveCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName }).Log_WE();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log_WE();
             }
             else {
                 item = new Item(type, stack);
-                ($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}").Log_WE();
+				GameMessageTextID.ItemRemovedRelacedWithItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName, ContentSamples.ItemsByType[type].S() }).Log_WE();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}").Log_WE();
             }
         }
         private static int GetEnchantmentValueByName(string name) {
