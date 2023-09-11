@@ -391,10 +391,10 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public bool UseAlternateEnchantmentEssenceTextures;
 
-		[Label("$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip")]
-		[DefaultValue(true)]
-		public bool DisplayApproximateWeaponDamageTooltip;
+		[Label("$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label")]
+		[Tooltip("$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip")]
+		[DefaultValue(false)]
+		public bool DisplayDamageTooltipSeperatly;
 
 		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip")]

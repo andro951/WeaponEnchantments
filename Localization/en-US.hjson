@@ -250,12 +250,13 @@ Mods: {
 
 			DisableResearch.Label: Disable Ability to research Weapon Enchantment items
 
-			DisplayApproximateWeaponDamageTooltip: {
-				Label: Display approximate weapon damage in the tooltip
+			DisplayDamageTooltipSeperatly: {
+				Label: Display approximate damage from enchantments in a separate tooltip.
 				Tooltip:
 					'''
 					Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.
-					This displays the damage against a 0 armor enemy.
+					If this is off, the tooltip damage will show the damage against zero armor targets.
+					Enable to show a separate tooltip instead of updating the normal damage value.  This displays the damage against a 0 armor enemy.
 					'''
 			}
 
@@ -533,7 +534,10 @@ Mods: {
 				Tooltip: Removes things like Unique, Max 1 and weapon or item type specific enchantments.
 			}
 
-			ServerConfig.Label: Server Config
+			ServerConfig: {
+				Label: Server Config
+				$parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Strength (1000 = 1, 10 = 1%)
@@ -1664,9 +1668,9 @@ Mods: {
 					Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
 				}
 
-				DisplayApproximateWeaponDamageTooltip: {
-					Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-					Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				DisplayDamageTooltipSeperatly: {
+					Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
+					Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
 				}
 
 				AlwaysDisplayWeaponLevelUpMessages: {

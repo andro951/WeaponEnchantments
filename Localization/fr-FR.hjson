@@ -250,12 +250,13 @@ Mods: {
 
 			DisableResearch.Label: Désactiver la possibilité de rechercher des objets d'enchantement d'arme
 
-			DisplayApproximateWeaponDamageTooltip: {
-				Label: Afficher les dégâts approximatifs de l'arme dans l'info-bulle
+			DisplayDamageTooltipSeperatly: {
+				Label: Affichez les dégâts approximatifs des enchantements dans une info-bulle séparée.
 				Tooltip:
 					'''
 					Les enchantements de dégâts sont calculés après que l'armure ennemie a réduit les dégâts au lieu de modifier directement les dégâts de l'objet.
-					Cela affiche les dégâts contre un ennemi à 0 armure.
+					Si cette option est désactivée, l'infobulle des dégâts affichera les dégâts contre des cibles sans armure.
+					Activer pour afficher une info-bulle distincte au lieu de mettre à jour la valeur normale des dégâts. Ceci affiche les dégâts contre un ennemi à 0 armure.
 					'''
 			}
 
@@ -533,7 +534,10 @@ Mods: {
 				Tooltip: Supprime des éléments tels que Unique, Max 1 et les enchantements spécifiques à un type d'arme ou d'objet.
 			}
 
-			ServerConfig.Label: Configuration du serveur
+			ServerConfig: {
+				Label: Configuration du serveur
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Force (1000 = 1, 10 = 1%)
@@ -1664,9 +1668,9 @@ Mods: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
 				}
 
-				DisplayApproximateWeaponDamageTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				DisplayDamageTooltipSeperatly: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
 				}
 
 				AlwaysDisplayWeaponLevelUpMessages: {

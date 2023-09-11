@@ -238,7 +238,7 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
 			//~Damage tooltip
-			if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
+			if (WEMod.clientConfig.DisplayDamageTooltipSeperatly) {
 				if (GetPlayerModifierStrengthForTooltip(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
 					int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
                     string tooltip = $"{EnchantmentGeneralTooltipsID.ApproximateItemDamage}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { damage });// $"Item Damage ~ {damage} (Against 0 armor enemy)";

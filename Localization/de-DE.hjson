@@ -250,12 +250,13 @@ Mods: {
 
 			DisableResearch.Label: Deaktivieren Sie die Fähigkeit, Waffenverzauberungsgegenstände zu erforschen
 
-			DisplayApproximateWeaponDamageTooltip: {
-				Label: Ungefähren Waffenschaden im Tooltip anzeigen
+			DisplayDamageTooltipSeperatly: {
+				Label: Zeigt den ungefähren Schaden durch Verzauberungen in einem separaten Tooltip an.
 				Tooltip:
 					'''
-					Schadensverzauberungen werden berechnet, nachdem die feindliche Rüstung den Schaden reduziert hat, anstatt den Schaden des Gegenstands direkt zu ändern.
-					Dies zeigt den Schaden gegen einen Feind mit 0 Rüstung an.
+					Schadensverzauberungen werden berechnet, nachdem die Rüstung des Gegners den Schaden verringert, anstatt den Schaden des Gegenstands direkt zu ändern.
+					Wenn diese Option deaktiviert ist, zeigt der Tooltip-Schaden den Schaden gegen Ziele ohne Panzerung an.
+					Aktivieren Sie diese Option, um einen separaten Tooltip anzuzeigen, anstatt den normalen Schadenswert zu aktualisieren. Hier wird der Schaden gegen einen Feind mit 0 Rüstung angezeigt.
 					'''
 			}
 
@@ -533,7 +534,10 @@ Mods: {
 				Tooltip: Entfernt Dinge wie Unique, Max 1 und waffen- oder gegenstandstypspezifische Verzauberungen.
 			}
 
-			ServerConfig.Label: Server-Konfig
+			ServerConfig: {
+				Label: Server-Konfig
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Stärke (1000 = 1, 10 = 1 %)
@@ -1664,9 +1668,9 @@ Mods: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
 				}
 
-				DisplayApproximateWeaponDamageTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				DisplayDamageTooltipSeperatly: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
 				}
 
 				AlwaysDisplayWeaponLevelUpMessages: {

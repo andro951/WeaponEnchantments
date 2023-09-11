@@ -623,10 +623,11 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Label.ToString(), "Use Alternate Enchantment Essence Textures" },
 								{ L_ID3.Tooltip.ToString(), "The default colors are color blind friendly.  The alternate textures have minor differences, but were voted to be kept." }
 							}) },
-							{ nameof(ClientConfig.DisplayApproximateWeaponDamageTooltip), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Display approximate weapon damage in the tooltip" },
+							{ nameof(ClientConfig.DisplayDamageTooltipSeperatly), new(dict: new() {
+								{ L_ID3.Label.ToString(), "Display approximate damage from enchantments in a separate tooltip." },
 								{ L_ID3.Tooltip.ToString(), "Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
-													"This displays the damage against a 0 armor enemy." }
+													"If this is off, the tooltip damage will show the damage against zero armor targets.\n" +
+													"Enable to show a separate tooltip instead of updating the normal damage value.  This displays the damage against a 0 armor enemy." }
 							}) },
 							{ nameof(ClientConfig.AlwaysDisplayWeaponLevelUpMessages), new(dict: new() {
 								{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayWeaponLevelUpMessages).AddSpaces() },
@@ -758,7 +759,6 @@ namespace WeaponEnchantments.Localization
 								{ "Custom", "Custom" },
 								{ "ArmorDRValues", "Armor {0}% ({1}% at 40)" },
 								{ "AccessoryDRValues", "Accessory {0}% ({1}% at 40)" }/*,
-								{ "", "" },
 								{ "", "" },
 								{ "", "" },
 								{ "", "" },
@@ -959,7 +959,9 @@ namespace WeaponEnchantments.Localization
 					"Sonar",
 					"Normal",
 					"Basic",
-					"Max MP"
+					"Max MP",
+					"N",
+					"U"
 				}
 			},
 			{
@@ -980,7 +982,9 @@ namespace WeaponEnchantments.Localization
 					"Sabrina",
 					"Salem",
 					"Winifred",
-					"Sonar"
+					"Sonar",
+					"N",
+					"U"
 				}
 			},
 			{
@@ -1011,7 +1015,10 @@ namespace WeaponEnchantments.Localization
 					"Sonar",
 					"Expert",
 					"Rare",
-					"Poison"
+					"Poison",
+					"U",
+					"Points",
+					"N"
 				}
 			},
 			{
@@ -1033,7 +1040,9 @@ namespace WeaponEnchantments.Localization
 					"Winifred",
 					"No",
 					"xp",
-					"Sonar"
+					"Sonar",
+					"N",
+					"U"
 				}
 			},
 			{
@@ -1055,7 +1064,9 @@ namespace WeaponEnchantments.Localization
 					"xp",
 					"Ki",
 					"Ki Regen",
-					"Sonar"
+					"Sonar",
+					"N",
+					"U"
 				}
 			},
 			{
@@ -1076,7 +1087,9 @@ namespace WeaponEnchantments.Localization
 					"Winifred",
 					"Item",
 					"Ki",
-					"Sonar"
+					"Sonar",
+					"N",
+					"U"
 				}
 			},
 			{

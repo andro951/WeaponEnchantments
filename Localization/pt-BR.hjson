@@ -250,12 +250,13 @@ Mods: {
 
 			DisableResearch.Label: Desativar a capacidade de pesquisar itens de encantamento de armas
 
-			DisplayApproximateWeaponDamageTooltip: {
-				Label: Exibe o dano aproximado da arma na dica de ferramenta
+			DisplayDamageTooltipSeperatly: {
+				Label: Exiba o dano aproximado dos encantamentos em uma dica separada.
 				Tooltip:
 					'''
 					Os encantamentos de dano são calculados depois que a armadura inimiga reduz o dano, em vez de alterar diretamente o dano do item.
-					Isso exibe o dano contra um inimigo de armadura 0.
+					Se estiver desativado, o dano da dica de ferramenta mostrará o dano contra zero alvos de armadura.
+					Ative para mostrar uma dica de ferramenta separada em vez de atualizar o valor normal do dano. Isso exibe o dano contra um inimigo com armadura 0.
 					'''
 			}
 
@@ -533,7 +534,10 @@ Mods: {
 				Tooltip: Remove coisas como Unique, Max 1 e encantamentos específicos de tipo de arma ou item.
 			}
 
-			ServerConfig.Label: Configuração do servidor
+			ServerConfig: {
+				Label: Configuração do servidor
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Força (1000 = 1, 10 = 1%)
@@ -652,7 +656,7 @@ Mods: {
 			ItemTooLowLevel: Seu nível {0} é muito baixo para usar tantos encantamentos.
 			LogInfusionPowerLabels: Mod, Arma, Poder de Infusão, Valor Raridade, Raridade, Raridade Original, Valor, ID do Item, Dano, Tempo de Uso, DPS
 			LogInfusionPowerOtherLabels: Raridade, Média, Mínimo, Máx.
-			MainUpdateCount: Main.GameUpdateCount: {0}
+			MainUpdateCount: Contagem de atualizações do jogo principal: {0}
 			MultipleUniqueEnchantments: Detectados vários encantamentos exclusivos em seu {0}. {1} foi removido de seu {2}.
 			MurasamaNoInfusion: Murasama não pode ser consumido para infusão.
 			NewItemIsAir: newItem estava no ar.
@@ -1664,9 +1668,9 @@ Mods: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
 				}
 
-				DisplayApproximateWeaponDamageTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				DisplayDamageTooltipSeperatly: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
 				}
 
 				AlwaysDisplayWeaponLevelUpMessages: {

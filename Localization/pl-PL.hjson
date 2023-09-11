@@ -250,12 +250,13 @@ Mods: {
 
 			DisableResearch.Label: Wyłącz możliwość badania przedmiotów zaklinających broń
 
-			DisplayApproximateWeaponDamageTooltip: {
-				Label: Wyświetlaj przybliżone obrażenia broni w etykiecie
+			DisplayDamageTooltipSeperatly: {
+				Label: Wyświetl przybliżone obrażenia od zaklęć w osobnej podpowiedzi.
 				Tooltip:
 					'''
-					Zaklęcia zadające obrażenia są obliczane po tym, jak pancerz wroga zmniejsza obrażenia, zamiast bezpośrednio zmieniać obrażenia przedmiotu.
-					Wyświetla obrażenia zadane przeciwnikowi o pancerzu 0.
+					Zaklęcia zadające obrażenia są obliczane po tym, jak zbroja wroga zmniejszy obrażenia, zamiast bezpośrednio zmieniać obrażenia przedmiotu.
+					Jeśli ta opcja jest wyłączona, w podpowiedziach obrażeń będą widoczne obrażenia zadawane celom o zerowym pancerzu.
+					Włącz wyświetlanie osobnej podpowiedzi zamiast aktualizowania normalnej wartości obrażeń. Wyświetla obrażenia zadane wrogowi o pancerzu 0.
 					'''
 			}
 
@@ -533,7 +534,10 @@ Mods: {
 				Tooltip: Usuwa rzeczy takie jak Unique, Max 1 i zaklęcia specyficzne dla broni lub przedmiotu.
 			}
 
-			ServerConfig.Label: Konfiguracja serwera
+			ServerConfig: {
+				Label: Konfiguracja serwera
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Siła (1000 = 1, 10 = 1%)
@@ -1664,9 +1668,9 @@ Mods: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
 				}
 
-				DisplayApproximateWeaponDamageTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				DisplayDamageTooltipSeperatly: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
 				}
 
 				AlwaysDisplayWeaponLevelUpMessages: {

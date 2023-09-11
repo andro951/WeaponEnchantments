@@ -250,12 +250,13 @@ Mods: {
 
 			DisableResearch.Label: Disabilita la possibilità di ricercare oggetti di incantesimo per armi
 
-			DisplayApproximateWeaponDamageTooltip: {
-				Label: Mostra il danno approssimativo dell'arma nel tooltip
+			DisplayDamageTooltipSeperatly: {
+				Label: Visualizza i danni approssimativi derivanti dagli incantesimi in un tooltip separato.
 				Tooltip:
 					'''
-					Gli incantesimi di danno vengono calcolati dopo che l'armatura nemica ha ridotto il danno invece di modificare direttamente il danno dell'oggetto.
-					Questo mostra il danno contro un nemico con armatura pari a 0.
+					Gli incantesimi di danno vengono calcolati dopo che l'armatura nemica riduce il danno invece di modificare direttamente il danno dell'oggetto.
+					Se questa opzione è disattivata, il tooltip del danno mostrerà il danno contro bersagli con armatura zero.
+					Abilita per mostrare un tooltip separato invece di aggiornare il normale valore del danno. Questo mostra il danno contro un nemico con armatura 0.
 					'''
 			}
 
@@ -533,7 +534,10 @@ Mods: {
 				Tooltip: Rimuove cose come Unique, Max 1 e incantesimi specifici per tipo di arma o oggetto.
 			}
 
-			ServerConfig.Label: Configurazione server
+			ServerConfig: {
+				Label: Configurazione server
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Forza (1000 = 1, 10 = 1%)
@@ -652,7 +656,7 @@ Mods: {
 			ItemTooLowLevel: Il tuo livello {0} è troppo basso per usare così tanti incantesimi.
 			LogInfusionPowerLabels: Mod, Arma, Potenza dell'infusione, Valore Rarità, Rarità, Rarità originale, Valore, ID oggetto, Danno, Tempo di utilizzo, DPS
 			LogInfusionPowerOtherLabels: Rarità, Media, Min, Max
-			MainUpdateCount: Main.GameUpdateCount: {0}
+			MainUpdateCount: Conteggio degli aggiornamenti del gioco principale: {0}
 			MultipleUniqueEnchantments: Sono stati rilevati più incantesimi unici sul tuo {0}. {1} è stato rimosso dal tuo {2}.
 			MurasamaNoInfusion: Murasama non può essere consumato per infusione.
 			NewItemIsAir: newItem era aria.
@@ -1664,9 +1668,9 @@ Mods: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
 				}
 
-				DisplayApproximateWeaponDamageTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				DisplayDamageTooltipSeperatly: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
 				}
 
 				AlwaysDisplayWeaponLevelUpMessages: {

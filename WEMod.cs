@@ -31,6 +31,7 @@ using androLib.UI;
 using androLib;
 using androLib.Localization;
 using WeaponEnchantments.Localization;
+using Terraria.Map;
 
 namespace WeaponEnchantments
 {
@@ -73,10 +74,12 @@ namespace WeaponEnchantments
 			On_HitTile.AddDamage += On_HitTile_AddDamage;
 			On_WorldGen.KillTile_DropItems += On_WorldGen_KillTile_DropItems;
 			On_Recipe.FindRecipes += EnchantmentStorage.FindRecipes;
+			
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
+			IL_Main.MouseText_DrawItemTooltip_GetLinesInfo += OnMouseText_DrawItemTooltip_GetLinesInfo;
 
 			UIManager.RegisterWithMaster();
 
@@ -202,6 +205,77 @@ namespace WeaponEnchantments
 			EnchantingTableUI.ReturnAllModifications(ref self);
 
 			orig(self);
+		}
+
+		private static bool shouldShowCritChance = false;
+		private void OnMouseText_DrawItemTooltip_GetLinesInfo(ILContext il) {
+
+			var c = new ILCursor(il);
+			//IL_01e4: ldarg.0
+			//IL_01e5: ldc.i4.1
+			//IL_01e6: callvirt instance int32 Terraria.Player::GetWeaponDamage(class Terraria.Item, bool)
+			if (!c.TryGotoNext(MoveType.After,
+				i => i.MatchLdarg(0),
+				i => i.MatchLdcI4(1),
+				i => i.MatchCallvirt<Player>("GetWeaponDamage")
+			)) { throw new Exception("Failed to find instructions OnMouseText_DrawItemTooltip_GetLinesInfo 1/3"); }
+
+			c.Emit(OpCodes.Ldarg_0);
+			c.EmitDelegate((int damage, Item item) => {
+				if (!WEMod.clientConfig.DisplayDamageTooltipSeperatly && item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon)) {
+					if (enchantedWeapon.GetPlayerModifierStrengthForTooltip(Main.LocalPlayer, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier))
+						damage = (int)Math.Round((float)damage * damageMultiplier);
+				}
+
+				return damage;
+			});
+
+			//IL_0219: ldarg.0
+			//IL_021a: callvirt instance class Terraria.ModLoader.DamageClass Terraria.Item::get_DamageType()
+			//IL_021f: callvirt instance bool Terraria.ModLoader.DamageClass::get_UseStandardCritCalcs()
+			if (!c.TryGotoNext(MoveType.After,
+				i => i.MatchLdarg(0),
+				i => i.MatchCallvirt<Item>("get_DamageType"),
+				i => i.MatchCallvirt<DamageClass>("get_UseStandardCritCalcs")
+			)) { throw new Exception("Failed to find instructions OnMouseText_DrawItemTooltip_GetLinesInfo 2/3"); }
+
+			c.Emit(OpCodes.Ldarg_0);
+			c.EmitDelegate((bool useStandardCritCalcs, Item item) => {
+				shouldShowCritChance = false;
+				if (useStandardCritCalcs)
+					return useStandardCritCalcs;
+
+				if (!WEMod.serverConfig.DisableMinionCrits && (item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.SummonMeleeSpeed)) {
+					shouldShowCritChance = true;
+				}
+
+				return shouldShowCritChance;
+			});
+
+			//IL_0226: ldarg.0
+			//IL_0227: callvirt instance class Terraria.ModLoader.DamageClass Terraria.Item::get_DamageType()
+			//IL_022c: ldsfld class Terraria.Player[] Terraria.Main::player
+			//IL_0231: ldsfld int32 Terraria.Main::myPlayer
+			//IL_0236: ldelem.ref
+			//IL_0237: ldstr "CritChance"
+			//IL_023c: callvirt instance bool Terraria.ModLoader.DamageClass::ShowStatTooltipLine(class Terraria.Player, string)
+
+			if (!c.TryGotoNext(MoveType.After,
+				//i => i.MatchLdarg(0),
+				//i => i.MatchCallvirt<Item>("get_DamageType"),
+				//i => i.MatchLdsfld<Main>("player"),
+				//i => i.MatchLdsfld<int>("myPlayer"),
+				//i => i.MatchLdelemRef(),
+				i => i.MatchLdstr("CritChance"),
+				i => i.MatchCallvirt<DamageClass>("ShowStatTooltipLine")
+			)) { throw new Exception("Failed to find instructions OnMouseText_DrawItemTooltip_GetLinesInfo 3/3"); }
+
+			c.EmitDelegate((bool useStandardCritCalcs) => {
+				if (useStandardCritCalcs)
+					return useStandardCritCalcs;
+
+				return shouldShowCritChance;
+			});
 		}
 		/*
 		private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {

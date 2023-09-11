@@ -236,9 +236,14 @@ Mods: {
 
 			DisableResearch.Label: 禁止研究武器附魔
 
-			DisplayApproximateWeaponDamageTooltip: {
-				Label: 显示大致的武器伤害
-				Tooltip: 伤害附魔是提高对敌人的伤害，而非直接提高武器的攻击力，为了方便玩家了解相关信息，启动此选项会显示对0护甲敌人造成的伤害
+			DisplayDamageTooltipSeperatly: {
+				Label: 在单独的工具提示中显示结界造成的大致伤害。
+				Tooltip:
+					'''
+					伤害附魔是在敌方护甲减少伤害后计算的，而不是直接改变物品的伤害。
+					如果关闭此选项，工具提示伤害将显示对零装甲目标的伤害。
+					启用显示单独的工具提示，而不是更新正常伤害值。 这显示了对 0 护甲敌人的伤害。
+					'''
 			}
 
 			EnableSwappingWeapons: {
@@ -515,7 +520,10 @@ Mods: {
 				Tooltip: 移除 Unique、Max 1 和武器或物品类型特定的附魔。
 			}
 
-			ServerConfig.Label: 服务器配置
+			ServerConfig: {
+				Label: 服务器配置
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: 力量 (1000 = 1, 10 = 1%)
@@ -653,7 +661,7 @@ Mods: {
 			NPCInProgressionGroupNoUniqueEnchantments: 在进展组中检测到一个没有独特武器或成分的NPC。
 			OnlySyphonMaxLevel: “只有达到最高等级且经验值超过 {0} 的物品，您才可以虹吸该物品。”
 			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
-			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
+			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\"
 			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
 			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
 			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
@@ -1646,9 +1654,9 @@ Mods: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
 				}
 
-				DisplayApproximateWeaponDamageTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				DisplayDamageTooltipSeperatly: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
 				}
 
 				AlwaysDisplayWeaponLevelUpMessages: {

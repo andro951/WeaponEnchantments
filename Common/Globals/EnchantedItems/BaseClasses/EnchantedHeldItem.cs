@@ -187,7 +187,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			return false;
 		}
-		protected bool GetPlayerModifierStrengthForTooltip(Player player, EnchantmentStat enchantmentStat, out float strength) {
+		public bool GetPlayerModifierStrengthForTooltip(Player player, EnchantmentStat enchantmentStat, out float strength) {
 			WEPlayer wePlayer = player.GetWEPlayer();
 			strength = 1f;
 			if (wePlayer.EnchantmentStats.ContainsKey(enchantmentStat))
