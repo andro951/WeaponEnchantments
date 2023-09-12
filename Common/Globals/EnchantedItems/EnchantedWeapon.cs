@@ -23,6 +23,7 @@ using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
 using static WeaponEnchantments.WEPlayer;
 using androLib.Common.Utility;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -30,23 +31,12 @@ namespace WeaponEnchantments.Common.Globals
 
         #region Stats
 
-        //New system
-        //public SortedDictionary<PermenantItemFields, StatModifier> AppliedPermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
-        //public SortedDictionary<PermenantItemFields, StatModifier> PermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
         public DamageClassSwap DamageTypeEffect;
-
-        //public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        //public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        //public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
         public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
-        //public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
-
-        //public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
-        //public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
         public List<IOnHitEffect> OnHitEffects { set; get; } = new List<IOnHitEffect>();
-        //public List<IModifyShootStats> ModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
-        //public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
+
+        public static int AmmoBagStorageID = -1;
 
         #endregion
 
@@ -318,6 +308,9 @@ namespace WeaponEnchantments.Common.Globals
         private void Restock(Item item) {//TODO: make this look in the ammo bag.
             Player player = Main.LocalPlayer;
 
+            if (TryRestockFromInventory(item, player.inventory))
+                return;
+
             //Find same item
             for (int i = 0; i < 59; i++) {
                 Item inventoryItem = player.inventory[i];
@@ -335,12 +328,36 @@ namespace WeaponEnchantments.Common.Globals
 
                 //Restock (found same item)
                 item.stack = inventoryItem.stack;//TODO: Make this use ItemLoader.TransferStack instead of setting stack equal to.
-                SetStack0(item, false);
+                //SetStack0(item, false);
                 player.inventory[i] = new Item();
                 return;
             }
-        }
-        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+
+            if (AndroMod.vacuumBagsEnabled) {
+                IEnumerable<Item> ammoBagItems = StorageManager.GetItems(AmmoBagStorageID);
+                if (TryRestockFromInventory(item, ammoBagItems))
+					return;
+
+			}
+		}
+		private bool TryRestockFromInventory(Item item, IEnumerable<Item> inventory) {
+            foreach (Item inventoryItem in inventory.Where(i => !i.NullOrAir() && i.type == item.type)) {
+				if (!inventoryItem.TryGetEnchantedWeapon(out EnchantedWeapon invEnchantedWeapon))
+					continue;
+
+				if (invEnchantedWeapon.Modified)
+					continue;
+
+				if (invEnchantedWeapon.GetStack0(item))
+					continue;
+
+                if (ItemLoader.TryStackItems(item, inventoryItem, out int _))
+                    return true;
+			}
+
+            return false;
+		}
+		public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
             IEnumerable<IUseTimer> useTimers = player.GetWEPlayer().EffectTimers.Where(n => n.Value.TimerStatName == EnchantmentStat.CatastrophicRelease).Select(t => t.Value);
             foreach (IUseTimer useTimer in useTimers) {
                 if (!useTimer.TimerOver(player))

@@ -763,19 +763,33 @@ namespace WeaponEnchantments.Common.Globals
 			return base.CanStackInWorld(destination, source);
 		}
 		public override void OnStack(Item destination, Item source, int numToTransfer) {
-            if (destination.maxStack < 2 || !destination.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem1) || !source.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem2))
+            if (destination.maxStack < 2 || !destination.TryGetEnchantedItemSearchAll(out EnchantedItem destinationEnchantedItem) || !source.TryGetEnchantedItemSearchAll(out EnchantedItem sourceEnchantedItem))
                 return;
 
             //Only combine if the destination item already exists to prevent duplicating enchantments and xp.
             if (destination.stack > 0) {
 				List<Item> list = new List<Item>() { source };
+				if (sourceEnchantedItem is EnchantedWeapon sourceEnchantedWeapon) {
+					if (sourceEnchantedWeapon.GetStack0(source)) {
+						destination.stack--;
+						sourceEnchantedWeapon.SetStack0(source, false);
+					}
+				}
+
 				destination.CombineEnchantedItems(list);
+
+				if (destinationEnchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.GetStack0(destination)) {
+                    if (source.stack > 0) {
+                        destination.stack--;
+                        enchantedWeapon.SetStack0(destination, false);
+                    }
+                }
 			}
 
 			//Clear source if source stack will be > 0 after the transfer
 			if (numToTransfer < source.stack) {
 				//Clear enchantments in enchanting table if source is in it (Will only have cleared off of the player tracked enchantments from combining)
-				if (enchantedItem2.inEnchantingTable) {
+				if (sourceEnchantedItem.inEnchantingTable) {
 					for (int i = 0; i < enchantments.Length; i++) {
 						Main.LocalPlayer.GetWEPlayer().enchantingTableEnchantments[i] = new Item();
 					}

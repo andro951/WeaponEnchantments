@@ -1,6 +1,9 @@
 ﻿#Wiki
 https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
 
+#Tutorial Video:
+https://www.youtube.com/watch?v=VNkNEovQQr0
+
 #Some information below is OUTDATED.  Please use the wiki above instead!!
 
 # Weapon Enchantments

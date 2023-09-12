@@ -124,6 +124,9 @@ namespace WeaponEnchantments
 		public override void PostSetupContent() {
 			if (wikiThis != null)
 				wikiThis.Call("url", this, WIKI_URL + "{}");
+
+			if (AndroMod.vacuumBagsEnabled)
+				EnchantedWeapon.AmmoBagStorageID = StorageManager.GetStorageID(AndroMod.vacuumBagsName, "AmmoBag");
 		}
 
 		private delegate Item orig_ItemIOLoad(TagCompound tag);
