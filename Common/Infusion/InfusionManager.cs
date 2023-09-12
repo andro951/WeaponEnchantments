@@ -342,7 +342,7 @@ namespace WeaponEnchantments.Common
             return (int)Math.Round(100f * Math.Log(enchantedWeapon.infusionDamageMultiplier / baseInfusionPowerMult) / Math.Log(InfusionDamageMultiplier));
 		}
 		public static int GetWeaponInfusionPower(this Item item, bool includeNonFinalizedInfusion = false) {
-            if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
+            if (!item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
                 return -1;
 
 			if (enchantedWeapon.infusedItemName != "" && includeNonFinalizedInfusion && TryFindItem(enchantedWeapon.infusedItemName, out Item infusedItem)) {
