@@ -28,7 +28,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 		public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class MagneticEnchantmentBasic : MagneticEnchantment
+    [Autoload(false)]
+	public class MagneticEnchantmentBasic : MagneticEnchantment
     {
         public override List<DropData> ChestDrops => new() {
             new(ChestID.Skyware, chance: 0.3f),
@@ -47,9 +48,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
             new(NPCID.Harpy, chance: 0.05f)
 		};
 	}
-    public class MagneticEnchantmentCommon : MagneticEnchantment { }
-    public class MagneticEnchantmentRare : MagneticEnchantment { }
-    public class MagneticEnchantmentEpic : MagneticEnchantment { }
-    public class MagneticEnchantmentLegendary : MagneticEnchantment { }
+    [Autoload(false)]
+	public class MagneticEnchantmentCommon : MagneticEnchantment { }
+    [Autoload(false)]
+	public class MagneticEnchantmentRare : MagneticEnchantment { }
+    [Autoload(false)]
+	public class MagneticEnchantmentEpic : MagneticEnchantment { }
+    [Autoload(false)]
+	public class MagneticEnchantmentLegendary : MagneticEnchantment { }
 
 }

@@ -41,6 +41,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostTwins;
@@ -49,9 +50,13 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(NPCID.Spazmatism)
 		};
 	}
+	[Autoload(false)]
 	public class WorldAblazeEnchantmentCommon : WorldAblazeEnchantment { }
+	[Autoload(false)]
 	public class WorldAblazeEnchantmentRare : WorldAblazeEnchantment { }
+	[Autoload(false)]
 	public class WorldAblazeEnchantmentEpic : WorldAblazeEnchantment { }
+	[Autoload(false)]
 	public class WorldAblazeEnchantmentLegendary : WorldAblazeEnchantment { }
 
 }

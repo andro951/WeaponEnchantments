@@ -744,7 +744,7 @@ namespace WeaponEnchantments
             if (newItem.NullOrAir())
                 return true;
 
-            bool tryingToSwapArmor = IsAccessoryItem(currentItem) && !IsArmorItem(currentItem) && (IsAccessoryItem(newItem) || IsArmorItem(newItem));
+            bool tryingToSwapArmor = currentItem.IsAccessoryItem() && !currentItem.IsArmorItem() && (newItem.IsAccessoryItem() || newItem.IsArmorItem());
             bool armorTypeDoesntMatch = currentItem.headSlot > -1 && newItem.headSlot == -1 || currentItem.bodySlot > -1 && newItem.bodySlot == -1 || currentItem.legSlot > -1 && newItem.legSlot == -1;
             if (tryingToSwapArmor || armorTypeDoesntMatch)
                 return false;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
@@ -802,16 +802,6 @@ namespace WeaponEnchantments
                     ref Item item = ref enchantmentStorageItems[i];
                     if (!item.NullOrAir() && item.stack > 0 && !item.favorited)
                         items.Add(item);
-                }
-            }
-
-            foreach (Storage storage in StorageManager.BagUIs.Select(b => b.Storage)) {
-                if (storage.HasRequiredItemToUseStorage(Main.LocalPlayer)) {
-                    for (int i = 0; i < storage.Items.Length; i++) {
-						ref Item item = ref storage.Items[i];
-						if (!item.NullOrAir() && item.stack > 0)
-							items.Add(item);
-					}
                 }
             }
 

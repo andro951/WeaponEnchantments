@@ -39,6 +39,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class JunglesFuryEnchantmentBasic : JunglesFuryEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostPlantera;
@@ -46,8 +47,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.Plantera)
 		};
 	}
+	[Autoload(false)]
 	public class JunglesFuryEnchantmentCommon : JunglesFuryEnchantment { }
+	[Autoload(false)]
 	public class JunglesFuryEnchantmentRare : JunglesFuryEnchantment { }
+	[Autoload(false)]
 	public class JunglesFuryEnchantmentEpic : JunglesFuryEnchantment { }
+	[Autoload(false)]
 	public class JunglesFuryEnchantmentLegendary : JunglesFuryEnchantment { }
 }

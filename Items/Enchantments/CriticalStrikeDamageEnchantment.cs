@@ -25,6 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Designer => "Kokopai";
 	}
 
+	[Autoload(false)]
 	public class CriticalStrikeDamageEnchantmentBasic : CriticalStrikeDamageEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.HardMode;
@@ -37,8 +38,12 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Mirage_OasisHard, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class CriticalStrikeDamageEnchantmentCommon : CriticalStrikeDamageEnchantment { }
+	[Autoload(false)]
 	public class CriticalStrikeDamageEnchantmentRare : CriticalStrikeDamageEnchantment { }
+	[Autoload(false)]
 	public class CriticalStrikeDamageEnchantmentEpic : CriticalStrikeDamageEnchantment { }
+	[Autoload(false)]
 	public class CriticalStrikeDamageEnchantmentLegendary : CriticalStrikeDamageEnchantment { }
 }

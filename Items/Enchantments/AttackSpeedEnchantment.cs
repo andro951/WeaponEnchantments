@@ -5,6 +5,7 @@ using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -39,6 +40,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			$"and reduces how long it takes a fish to bite when used on fishing poles.  If the enchantment gives 10%(configurable) or more attack speed, " +
 			$"it will also enable [https://terraria.wiki.gg/wiki/Autoswing autoswing].";
 	}
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentBasic : AttackSpeedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
@@ -65,9 +67,13 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Bramble_JungleHard, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentCommon : AttackSpeedEnchantment { }
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentRare : AttackSpeedEnchantment { }
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentEpic : AttackSpeedEnchantment { }
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentLegendary : AttackSpeedEnchantment { }
 
 }

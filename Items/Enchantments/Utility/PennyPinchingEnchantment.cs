@@ -5,6 +5,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -28,6 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class PennyPinchingEnchantmentBasic : PennyPinchingEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
@@ -35,9 +37,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(NPCID.EyeofCthulhu)
 		};
 	}
+	[Autoload(false)]
 	public class PennyPinchingEnchantmentCommon : PennyPinchingEnchantment { }
+	[Autoload(false)]
 	public class PennyPinchingEnchantmentRare : PennyPinchingEnchantment { }
+	[Autoload(false)]
 	public class PennyPinchingEnchantmentEpic : PennyPinchingEnchantment { }
+	[Autoload(false)]
 	public class PennyPinchingEnchantmentLegendary : PennyPinchingEnchantment { }
 
 }

@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -24,6 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class MultishotEnchantmentBasic : MultishotEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostPlantera;
@@ -31,9 +33,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCAIStyleID.BiomeMimic)
 		};
 	}
+	[Autoload(false)]
 	public class MultishotEnchantmentCommon : MultishotEnchantment { }
+	[Autoload(false)]
 	public class MultishotEnchantmentRare : MultishotEnchantment { }
+	[Autoload(false)]
 	public class MultishotEnchantmentEpic : MultishotEnchantment { }
+	[Autoload(false)]
 	public class MultishotEnchantmentLegendary : MultishotEnchantment { }
 
 }

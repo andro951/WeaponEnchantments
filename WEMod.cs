@@ -36,6 +36,7 @@ using Terraria.Map;
 namespace WeaponEnchantments
 {
 	public class WEMod : Mod {
+		public static string ModName = ModContent.GetInstance<WEMod>().Name;
 		public static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		public static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool playerSwapperModEnabled = false;
@@ -57,6 +58,8 @@ namespace WeaponEnchantments
 
 		List<Hook> hooks = new();
 		public override void Load() {
+			AddAllContent(this);
+
 			InfusionProgression.vanillaRecipeCount = Recipe.numRecipes;
 			hooks.Add(new(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour));
 			//hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
@@ -84,6 +87,33 @@ namespace WeaponEnchantments
 			UIManager.RegisterWithMaster();
 
 			LocalizationData.RegisterSDataPackage();
+		}
+		private void AddAllContent(WEMod weMod) {
+			IEnumerable<Type> types = null;
+			try {
+				types = Assembly.GetExecutingAssembly().GetTypes();
+			}
+			catch (ReflectionTypeLoadException e) {
+				types = e.Types.Where(t => t != null);
+			}
+
+			types = types.Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(WEModItem)));
+
+			IEnumerable<ModItem> allItems = types.Select(t => Activator.CreateInstance(t)).Where(i => i != null).OfType<ModItem>();
+			IEnumerable<ModItem> enchantingTables = allItems.OfType<EnchantingTableItem>();
+			IEnumerable<ModItem> containments = allItems.OfType<ContainmentItem>();
+			IEnumerable<ModItem> powerBoosters = allItems.Where(i => i is PowerBooster or UltraPowerBooster).OrderBy(i => i.Name);
+			IEnumerable<ModItem> enchantmentEssences = allItems.OfType<EnchantmentEssence>().OrderBy(i => i.EssenceTier);
+			IEnumerable<ModItem> enchantments =
+				allItems
+				.OfType<Enchantment>()
+				.GroupBy(i => i.EnchantmentTier)
+				.Select(g => g.ToList().OrderBy(i => i.EnchantmentTypeName))
+				.SelectMany(i => i);
+
+			foreach (ModItem modItem in enchantingTables.Concat(containments).Concat(powerBoosters).Concat(enchantmentEssences).Concat(enchantments)) {
+				weMod.AddContent(modItem);
+			}
 		}
 
 		#region Kill tile
@@ -124,7 +154,7 @@ namespace WeaponEnchantments
 		public override void PostSetupContent() {
 			if (wikiThis != null)
 				wikiThis.Call("url", this, WIKI_URL + "{}");
-
+			
 			if (AndroMod.vacuumBagsEnabled)
 				EnchantedWeapon.AmmoBagStorageID = StorageManager.GetStorageID(AndroMod.vacuumBagsName, "AmmoBag");
 		}

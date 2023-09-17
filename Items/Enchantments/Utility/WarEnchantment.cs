@@ -6,6 +6,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -33,6 +34,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class WarEnchantmentBasic : WarEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
@@ -48,8 +50,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(CrateID.Obsidian_LockBox, 0.4f)
 		};
 	}
+	[Autoload(false)]
 	public class WarEnchantmentCommon : WarEnchantment { }
+	[Autoload(false)]
 	public class WarEnchantmentRare : WarEnchantment { }
+	[Autoload(false)]
 	public class WarEnchantmentEpic : WarEnchantment { }
+	[Autoload(false)]
 	public class WarEnchantmentLegendary : WarEnchantment { }
 }

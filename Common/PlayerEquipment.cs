@@ -122,7 +122,7 @@ namespace WeaponEnchantments.Common {
 					if (enchantedHeldItem.Item.pick > 0 || enchantedHeldItem.Item.hammer > 0 || enchantedHeldItem.Item.axe > 0) {
 						enchantmentEffects.Add(new MiningSpeed(@base: new DifficultyStrength(bonus)));
 					}
-                    else if (EnchantedItemStaticMethods.IsFishingRod(enchantedHeldItem.Item)) {
+                    else if (enchantedHeldItem.Item.IsFishingPole()) {
 						enchantmentEffects.Add(new FishingPower(@base: new DifficultyStrength(bonus * 100)));
 					}
 					else if (WEMod.serverConfig.DamagePerLevelInstead) {
@@ -357,7 +357,7 @@ namespace WeaponEnchantments.Common {
 				//Gain xp on each armor
 				if (!armor.vanity && armor.TryGetEnchantedItemSearchAll(out EnchantedItem aGlobal)) {
 					float reductionFactor;
-					if (EnchantedItemStaticMethods.IsArmorItem(armor)) {
+					if (armor.IsArmorItem()) {
 						reductionFactor = 2f;
 					}
 					else {

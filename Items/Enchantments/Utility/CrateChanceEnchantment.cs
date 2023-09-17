@@ -23,7 +23,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class CrateChanceEnchantmentBasic : CrateChanceEnchantment
+    [Autoload(false)]
+	public class CrateChanceEnchantmentBasic : CrateChanceEnchantment
     {
         public override List<DropData> ChestDrops => new() {
             new(ChestID.Water)
@@ -33,9 +34,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
             new(CrateID.Mythril_IronHard)
         };
     }
-    public class CrateChanceEnchantmentCommon : CrateChanceEnchantment { }
-    public class CrateChanceEnchantmentRare : CrateChanceEnchantment { }
-    public class CrateChanceEnchantmentEpic : CrateChanceEnchantment { }
-    public class CrateChanceEnchantmentLegendary : CrateChanceEnchantment { }
+    [Autoload(false)]
+	public class CrateChanceEnchantmentCommon : CrateChanceEnchantment { }
+    [Autoload(false)]
+	public class CrateChanceEnchantmentRare : CrateChanceEnchantment { }
+    [Autoload(false)]
+	public class CrateChanceEnchantmentEpic : CrateChanceEnchantment { }
+    [Autoload(false)]
+	public class CrateChanceEnchantmentLegendary : CrateChanceEnchantment { }
 
 }

@@ -5,6 +5,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -22,6 +23,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class DamageEnchantmentBasic : DamageEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.Always;
@@ -39,9 +41,13 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Pearlwood_WoodenHard, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class DamageEnchantmentCommon : DamageEnchantment { }
+	[Autoload(false)]
 	public class DamageEnchantmentRare : DamageEnchantment { }
+	[Autoload(false)]
 	public class DamageEnchantmentEpic : DamageEnchantment { }
+	[Autoload(false)]
 	public class DamageEnchantmentLegendary : DamageEnchantment { }
 
 }

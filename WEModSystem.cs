@@ -66,7 +66,7 @@ namespace WeaponEnchantments
 		}
 		public static void SetupInfusion() {
 			InfusionManager.SetUpVanillaWeaponInfusionPowers();
-			InfusionProgression.PostSetupContent();
+			InfusionProgression.PostSetupRecipes();
 			InfusionManager.LogAllInfusionPowers();
 		}
 		public override void PostUpdateEverything() {
@@ -195,58 +195,6 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.usingEnchantingTable)
                 EnchantingTableUI.CloseEnchantingTableUI();
-        }
-        public override void AddRecipeGroups() {
-			RecipeGroup group = new RecipeGroup(() => "Workbenches", new int[] {
-                ItemID.WorkBench,
-                ItemID.BambooWorkbench,
-                ItemID.BlueDungeonWorkBench,
-                ItemID.BoneWorkBench,
-                ItemID.BorealWoodWorkBench,
-                ItemID.CactusWorkBench,
-                ItemID.CrystalWorkbench,
-                ItemID.DynastyWorkBench,
-                ItemID.EbonwoodWorkBench,
-                ItemID.FleshWorkBench,
-                ItemID.FrozenWorkBench,
-                ItemID.GlassWorkBench,
-                ItemID.GoldenWorkbench,
-                ItemID.GothicWorkBench,
-                ItemID.GraniteWorkBench,
-                ItemID.GreenDungeonWorkBench,
-                ItemID.HoneyWorkBench,
-                ItemID.LesionWorkbench,
-                ItemID.LihzahrdWorkBench,
-                ItemID.LivingWoodWorkBench,
-                ItemID.MarbleWorkBench,
-                ItemID.MartianWorkBench,
-                ItemID.MeteoriteWorkBench,
-                ItemID.MushroomWorkBench,
-                ItemID.NebulaWorkbench,
-                ItemID.ObsidianWorkBench,
-                ItemID.PalmWoodWorkBench,
-                ItemID.PearlwoodWorkBench,
-                ItemID.PinkDungeonWorkBench,
-                ItemID.PumpkinWorkBench,
-                ItemID.RichMahoganyWorkBench,
-                ItemID.SandstoneWorkbench,
-                ItemID.ShadewoodWorkBench,
-                ItemID.SkywareWorkbench,
-                ItemID.SlimeWorkBench,
-                ItemID.SolarWorkbench,
-                ItemID.SpiderWorkbench,
-                ItemID.SpookyWorkBench,
-                ItemID.StardustWorkbench,
-                ItemID.SteampunkWorkBench,
-                ItemID.VortexWorkbench
-            });
-            RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
-
-            group = new RecipeGroup(() => "Any Aligned Soul", new int[] {
-                ItemID.SoulofLight,
-                ItemID.SoulofNight
-            });
-            RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
         }
         public override void PostWorldGen() {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) {

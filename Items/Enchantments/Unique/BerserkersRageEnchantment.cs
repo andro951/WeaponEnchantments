@@ -6,10 +6,11 @@ using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
-    public abstract class BerserkersRageEnchantment : Enchantment
+	public abstract class BerserkersRageEnchantment : Enchantment
     {
 		public override int StrengthGroup => 21;
 		public override void GetMyStats()
@@ -35,8 +36,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
         public override string Artist => "Zorutan";
         public override string ArtModifiedBy => "andro951";
         public override string Designer => "Jangiot";
-    }
-    public class BerserkersRageEnchantmentBasic : BerserkersRageEnchantment
+	}
+	[Autoload(false)]
+	public class BerserkersRageEnchantmentBasic : BerserkersRageEnchantment
 	{
         public override SellCondition SellCondition => SellCondition.PostSkeletron;
         public override List<DropData> NpcDropTypes => new() {
@@ -46,9 +48,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
             new(CrateID.Dungeon, 0.5f),
             new(CrateID.Stockade_DungeonHard, 0.5f)
         };
-    }
-    public class BerserkersRageEnchantmentCommon : BerserkersRageEnchantment { }
-    public class BerserkersRageEnchantmentRare : BerserkersRageEnchantment { }
-    public class BerserkersRageEnchantmentEpic : BerserkersRageEnchantment { }
-    public class BerserkersRageEnchantmentLegendary : BerserkersRageEnchantment { }
+	}
+	[Autoload(false)]
+	public class BerserkersRageEnchantmentCommon : BerserkersRageEnchantment { }
+	[Autoload(false)]
+	public class BerserkersRageEnchantmentRare : BerserkersRageEnchantment { }
+	[Autoload(false)]
+	public class BerserkersRageEnchantmentEpic : BerserkersRageEnchantment { }
+	[Autoload(false)]
+	public class BerserkersRageEnchantmentLegendary : BerserkersRageEnchantment { }
 }

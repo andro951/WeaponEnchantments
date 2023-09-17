@@ -28,7 +28,8 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class DamageReductionEnchantmentBasic : DamageReductionEnchantment
+    [Autoload(false)]
+	public class DamageReductionEnchantmentBasic : DamageReductionEnchantment
     {
         public override SellCondition SellCondition => SellCondition.PostSkeletron;
         public override List<DropData> NpcDropTypes => new() {
@@ -44,9 +45,13 @@ namespace WeaponEnchantments.Items.Enchantments {
             new(CrateID.Stockade_DungeonHard, 0.5f)
         };
     }
-    public class DamageReductionEnchantmentCommon : DamageReductionEnchantment { }
-    public class DamageReductionEnchantmentRare : DamageReductionEnchantment { }
-    public class DamageReductionEnchantmentEpic : DamageReductionEnchantment { }
-    public class DamageReductionEnchantmentLegendary : DamageReductionEnchantment { }
+    [Autoload(false)]
+	public class DamageReductionEnchantmentCommon : DamageReductionEnchantment { }
+    [Autoload(false)]
+	public class DamageReductionEnchantmentRare : DamageReductionEnchantment { }
+    [Autoload(false)]
+	public class DamageReductionEnchantmentEpic : DamageReductionEnchantment { }
+    [Autoload(false)]
+	public class DamageReductionEnchantmentLegendary : DamageReductionEnchantment { }
 
 }

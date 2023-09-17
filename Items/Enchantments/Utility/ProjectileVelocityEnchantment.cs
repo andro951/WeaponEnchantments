@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -19,6 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Sir Bumpleton ✿";
 	}
+	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentBasic : ProjectileVelocityEnchantment
 	{
 		public override List<DropData> NpcDropTypes => new() {
@@ -31,8 +33,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(CrateID.Boreal_FrozenHard)
 		};
 	}
+	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentCommon : ProjectileVelocityEnchantment { }
+	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentRare : ProjectileVelocityEnchantment { }
+	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentEpic : ProjectileVelocityEnchantment { }
+	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentLegendary : ProjectileVelocityEnchantment { }
 }

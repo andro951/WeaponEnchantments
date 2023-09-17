@@ -19,6 +19,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class CriticalStrikeChanceEnchantmentBasic : CriticalStrikeChanceEnchantment
 	{
 		public override List<DropData> NpcDropTypes => new() {
@@ -44,8 +45,12 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Jungle, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class CriticalStrikeChanceEnchantmentCommon : CriticalStrikeChanceEnchantment { }
+	[Autoload(false)]
 	public class CriticalStrikeChanceEnchantmentRare : CriticalStrikeChanceEnchantment { }
+	[Autoload(false)]
 	public class CriticalStrikeChanceEnchantmentEpic : CriticalStrikeChanceEnchantment { }
+	[Autoload(false)]
 	public class CriticalStrikeChanceEnchantmentLegendary : CriticalStrikeChanceEnchantment { }
 }

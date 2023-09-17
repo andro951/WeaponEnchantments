@@ -30,7 +30,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string ArtModifiedBy => null;
         public override string Designer => "Sir Bumpleton ✿";
     }
-    public class MobilityControlEnchantmentBasic : MobilityControlEnchantment
+    [Autoload(false)]
+	public class MobilityControlEnchantmentBasic : MobilityControlEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
         public override List<DropData> NpcDropTypes => new() {
@@ -45,8 +46,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
             new(CrateID.Azure_SkyHard)
         };
     }
-    public class MobilityControlEnchantmentCommon : MobilityControlEnchantment { }
-    public class MobilityControlEnchantmentRare : MobilityControlEnchantment { }
-    public class MobilityControlEnchantmentEpic : MobilityControlEnchantment { }
-    public class MobilityControlEnchantmentLegendary : MobilityControlEnchantment { }
+    [Autoload(false)]
+	public class MobilityControlEnchantmentCommon : MobilityControlEnchantment { }
+    [Autoload(false)]
+	public class MobilityControlEnchantmentRare : MobilityControlEnchantment { }
+    [Autoload(false)]
+	public class MobilityControlEnchantmentEpic : MobilityControlEnchantment { }
+    [Autoload(false)]
+	public class MobilityControlEnchantmentLegendary : MobilityControlEnchantment { }
 }

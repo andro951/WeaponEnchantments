@@ -39,6 +39,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class MoonlightEnchantmentBasic : MoonlightEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostCultist;
@@ -46,8 +47,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.CultistBoss)
 		};
 	}
+	[Autoload(false)]
 	public class MoonlightEnchantmentCommon : MoonlightEnchantment { }
+	[Autoload(false)]
 	public class MoonlightEnchantmentRare : MoonlightEnchantment { }
+	[Autoload(false)]
 	public class MoonlightEnchantmentEpic : MoonlightEnchantment { }
+	[Autoload(false)]
 	public class MoonlightEnchantmentLegendary : MoonlightEnchantment { }
 }

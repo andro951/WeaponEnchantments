@@ -9,6 +9,7 @@ using WeaponEnchantments.Localization;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using androLib.Items;
 using androLib.Common.Utility;
+using androLib;
 
 namespace WeaponEnchantments.Items
 {
@@ -71,7 +72,7 @@ namespace WeaponEnchantments.Items
                 recipie = CreateRecipe();
                 recipie.AddTile(TileID.WorkBenches);
                 if (tier == 2) {
-                    recipie.AddRecipeGroup("androLib:CommonGems", 4);
+                    recipie.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyCommonGem}", 4);
                 }
                 else {
                     int glassNum = glass[tier];
@@ -86,10 +87,13 @@ namespace WeaponEnchantments.Items
             IDs[tier] = Item.type;
             Recipe.Create(barIDs[0, tier], bars).AddIngredient(Item.type).AddTile(TileID.Furnaces).Register();
         }
-    }
-    public class Containment : ContainmentItem { }
-    public class MediumContainment : ContainmentItem { }
-    public class SuperiorContainment : ContainmentItem {
+	}
+	[Autoload(false)]
+	public class Containment : ContainmentItem { }
+	[Autoload(false)]
+	public class MediumContainment : ContainmentItem { }
+	[Autoload(false)]
+	public class SuperiorContainment : ContainmentItem {
         public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
     }
 }

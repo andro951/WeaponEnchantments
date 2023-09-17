@@ -95,7 +95,7 @@ namespace WeaponEnchantments.UI
 		private static Item[] AllOfferableItems {
 			get {
 				if (allOfferableItems == null) {
-					allOfferableItems = ContentSamples.ItemsByType.Select(p => p.Value).Where(i => EnchantedItemStaticMethods.IsEnchantable(i)).Select(i => new Item(i.type)).ToArray();
+					allOfferableItems = ContentSamples.ItemsByType.Select(p => p.Value).Where(i => i.IsEnchantable()).Select(i => new Item(i.type)).ToArray();
 				}
 
 				return allOfferableItems;
@@ -312,7 +312,7 @@ namespace WeaponEnchantments.UI
 
 						int stack = quickCraftItemCounts[item.type];
 						if (recipeNum != -1) {
-							slotData.Draw(spriteBatch, item, ItemSlotContextID.Gold, glowHue, glowTime, stack);
+							slotData.Draw(spriteBatch, item, ItemSlotContextID.GoldFavorited, glowHue, glowTime, stack);
 						}
 						else {
 							slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime, stack);

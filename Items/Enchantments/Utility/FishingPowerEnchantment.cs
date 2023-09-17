@@ -23,7 +23,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class FishingPowerEnchantmentBasic : FishingPowerEnchantment
+    [Autoload(false)]
+	public class FishingPowerEnchantmentBasic : FishingPowerEnchantment
     {
         public override List<DropData> ChestDrops => new() {
             new(ChestID.Water)
@@ -33,9 +34,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
             new(CrateID.Pearlwood_WoodenHard)
         };
     }
-    public class FishingPowerEnchantmentCommon : FishingPowerEnchantment { }
-    public class FishingPowerEnchantmentRare : FishingPowerEnchantment { }
-    public class FishingPowerEnchantmentEpic : FishingPowerEnchantment { }
-    public class FishingPowerEnchantmentLegendary : FishingPowerEnchantment { }
+    [Autoload(false)]
+	public class FishingPowerEnchantmentCommon : FishingPowerEnchantment { }
+    [Autoload(false)]
+	public class FishingPowerEnchantmentRare : FishingPowerEnchantment { }
+    [Autoload(false)]
+	public class FishingPowerEnchantmentEpic : FishingPowerEnchantment { }
+    [Autoload(false)]
+	public class FishingPowerEnchantmentLegendary : FishingPowerEnchantment { }
 
 }

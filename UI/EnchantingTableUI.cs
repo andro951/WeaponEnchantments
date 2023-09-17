@@ -387,7 +387,7 @@ namespace WeaponEnchantments.UI
 
 			//Enchanting Item Slot Draw
 			UIItemSlotData enchantingItemSlotData = new(GetUI_ID(WE_UI_ID.EnchantingTableItemSlot), enchantingItemSlotLeft, enchantingItemSlotTop);
-			enchantingItemSlotData.Draw(spriteBatch, wePlayer.enchantingTableItem, ItemSlotContextID.Gold);
+			enchantingItemSlotData.Draw(spriteBatch, wePlayer.enchantingTableItem, ItemSlotContextID.GoldFavorited);
 
 			//Loot All Button Draw
 			lootAllData.Draw(spriteBatch);
@@ -850,7 +850,7 @@ namespace WeaponEnchantments.UI
 					return true;
 			}
 
-			return EnchantedItemStaticMethods.IsEnchantable(item);
+			return item.IsEnchantable();
 		}
 		public static bool ValidItemForEnchantingTableEnchantmentSlot(Item item, int slot, bool utility) {
 			if (item.IsAir)
@@ -956,7 +956,7 @@ namespace WeaponEnchantments.UI
 			if (ConfigValues.RemoveEnchantmentRestrictions)
 				return true;
 
-			if (EnchantedItemStaticMethods.IsEnchantable(item)) {
+			if (item.IsEnchantable()) {
 				int damageType = item.type.CSI().DamageType.Type;
 
 				int damageClassSpecific = Enchantment.GetDamageClass(damageType);
@@ -1402,7 +1402,7 @@ namespace WeaponEnchantments.UI
 		private static void Infusion() {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			Item tableItem = wePlayer.enchantingTableItem;
-			if (EnchantedItemStaticMethods.IsEnchantable(tableItem)) {
+			if (tableItem.IsEnchantable()) {
 				tableItem.InfusionAllowed(out bool infusionAllowed);
 				if (!infusionAllowed)
 					return;

@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -23,6 +24,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class GodSlayerEnchantmentBasic : GodSlayerEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostPlantera;
@@ -30,9 +32,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCAIStyleID.BiomeMimic)
 		};
 	}
+	[Autoload(false)]
 	public class GodSlayerEnchantmentCommon : GodSlayerEnchantment { }
+	[Autoload(false)]
 	public class GodSlayerEnchantmentRare : GodSlayerEnchantment { }
+	[Autoload(false)]
 	public class GodSlayerEnchantmentEpic : GodSlayerEnchantment { }
+	[Autoload(false)]
 	public class GodSlayerEnchantmentLegendary : GodSlayerEnchantment { }
 
 }

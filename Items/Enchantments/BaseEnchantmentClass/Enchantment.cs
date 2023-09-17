@@ -819,10 +819,10 @@ namespace WeaponEnchantments.Items
 
 				//Gems
 				if (EnchantmentTier == 3) {
-					recipe.AddRecipeGroup("androLib:CommonGems", 2);
+					recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyCommonGem}", 2);
 				}
 				if (EnchantmentTier == 4) {
-					recipe.AddRecipeGroup("androLib:RareGems");
+					recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyRareGem}");
 				}
 
 				//Enchanting Table
@@ -858,7 +858,7 @@ namespace WeaponEnchantments.Items
 
 				//Gems
 				if (EnchantmentTier == 3) {
-					recipe.AddRecipeGroup("androLib:CommonGems", 2);
+					recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyCommonGem}", 2);
 				}
 
 				recipe.Register();

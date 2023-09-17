@@ -91,6 +91,9 @@ namespace WeaponEnchantments.UI
 
 			StorageManager.MagicStorageItemsHandler.Add(() => WEPlayer.LocalWEPlayer.enchantmentStorageItems);
 			StorageManager.MagicStorageItemsHandler.Add(() => WEPlayer.LocalWEPlayer.enchantingTableEssence);
+
+			if (AndroMod.vacuumBagsEnabled)
+				AndroMod.vacuumBagsMod.Call("RegisterAllBagsWithAndroLib");
 		}
 		public static void OnUpdateUIAlpha() {
 			UIAlpha = ConfigValues.UIAlpha;

@@ -5,6 +5,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -29,6 +30,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class OneForAllEnchantmentBasic : OneForAllEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
@@ -43,9 +45,13 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Golden_LockBox, 0.45f)
 		};
 	}
+	[Autoload(false)]
 	public class OneForAllEnchantmentCommon : OneForAllEnchantment { }
+	[Autoload(false)]
 	public class OneForAllEnchantmentRare : OneForAllEnchantment { }
+	[Autoload(false)]
 	public class OneForAllEnchantmentEpic : OneForAllEnchantment { }
+	[Autoload(false)]
 	public class OneForAllEnchantmentLegendary : OneForAllEnchantment { }
 
 }

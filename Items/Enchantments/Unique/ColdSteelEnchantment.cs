@@ -39,6 +39,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletronPrime;
@@ -46,8 +47,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.SkeletronPrime)
 		};
 	}
+	[Autoload(false)]
 	public class ColdSteelEnchantmentCommon : ColdSteelEnchantment { }
+	[Autoload(false)]
 	public class ColdSteelEnchantmentRare : ColdSteelEnchantment { }
+	[Autoload(false)]
 	public class ColdSteelEnchantmentEpic : ColdSteelEnchantment { }
+	[Autoload(false)]
 	public class ColdSteelEnchantmentLegendary : ColdSteelEnchantment { }
 }

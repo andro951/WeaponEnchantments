@@ -10,6 +10,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Effects.CustomEffects;
 using WeaponEnchantments.ModIntegration;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -38,7 +39,8 @@ namespace WeaponEnchantments.Items.Enchantments
         public override string Designer => "Vyklade";
     }
 
-    public class KiEnchantmentBasic : KiEnchantment
+    [Autoload(false)]
+	public class KiEnchantmentBasic : KiEnchantment
     {
         public override SellCondition SellCondition => WEMod.dbtEnabled ? SellCondition.HardMode : SellCondition.Never;
 		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new() {
@@ -46,8 +48,12 @@ namespace WeaponEnchantments.Items.Enchantments
             new(NPCID.LihzahrdCrawler)
         } : null;
     }
-    public class KiEnchantmentCommon : KiEnchantment { }
-    public class KiEnchantmentRare : KiEnchantment { }
-    public class KiEnchantmentEpic : KiEnchantment { }
-    public class KiEnchantmentLegendary : KiEnchantment { }
+    [Autoload(false)]
+	public class KiEnchantmentCommon : KiEnchantment { }
+    [Autoload(false)]
+	public class KiEnchantmentRare : KiEnchantment { }
+    [Autoload(false)]
+	public class KiEnchantmentEpic : KiEnchantment { }
+    [Autoload(false)]
+	public class KiEnchantmentLegendary : KiEnchantment { }
 }

@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -30,7 +31,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
         public override string ArtModifiedBy => null;
         public override string Designer => "Auseawesome";
     }
-    public class LifeRegenEnchantmentBasic : LifeRegenEnchantment
+    [Autoload(false)]
+	public class LifeRegenEnchantmentBasic : LifeRegenEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTime;
         public override List<DropData> NpcDropTypes => new() {
@@ -44,8 +46,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
             new(CrateID.Iron, 0.5f)
         };
     }
-    public class LifeRegenEnchantmentCommon : LifeRegenEnchantment { }
-    public class LifeRegenEnchantmentRare : LifeRegenEnchantment { }
-    public class LifeRegenEnchantmentEpic : LifeRegenEnchantment { }
-    public class LifeRegenEnchantmentLegendary : LifeRegenEnchantment { }
+    [Autoload(false)]
+	public class LifeRegenEnchantmentCommon : LifeRegenEnchantment { }
+    [Autoload(false)]
+	public class LifeRegenEnchantmentRare : LifeRegenEnchantment { }
+    [Autoload(false)]
+	public class LifeRegenEnchantmentEpic : LifeRegenEnchantment { }
+    [Autoload(false)]
+	public class LifeRegenEnchantmentLegendary : LifeRegenEnchantment { }
 }

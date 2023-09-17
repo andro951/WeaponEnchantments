@@ -263,7 +263,7 @@ namespace WeaponEnchantments.UI
 						}
 
 						bool isAvailableSlot = availableSlotRow == rowNum && availableSlotIndex == enchantmentSlotIndex;
-						enchantmentSlot.Draw(spriteBatch, item, canUseSlot ? isAvailableSlot ? ItemSlotContextID.Gold : isUtilitySlot ? ItemSlotContextID.Favorited : ItemSlotContextID.Normal : ItemSlotContextID.Red);
+						enchantmentSlot.Draw(spriteBatch, item, canUseSlot ? isAvailableSlot ? ItemSlotContextID.GoldFavorited : isUtilitySlot ? ItemSlotContextID.Favorited : ItemSlotContextID.Normal : ItemSlotContextID.Red);
 						itemSlotX += itemSlotSpaceWidth;
 					}
 

@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -29,6 +30,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentBasic : MovementSpeedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
@@ -42,8 +44,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(CrateID.Mirage_OasisHard)
 		};
 	}
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentCommon : MovementSpeedEnchantment { }
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentRare : MovementSpeedEnchantment { }
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentEpic : MovementSpeedEnchantment { }
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentLegendary : MovementSpeedEnchantment { }
 }

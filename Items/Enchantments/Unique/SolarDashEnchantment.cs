@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -31,6 +32,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => "𝐍𝐢𝐱𝐲♱";
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class SolarDashEnchantmentBasic : SolarDashEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostDeerclops;
@@ -38,8 +40,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.Deerclops)
 		};
 	}
+	[Autoload(false)]
 	public class SolarDashEnchantmentCommon : SolarDashEnchantment { }
+	[Autoload(false)]
 	public class SolarDashEnchantmentRare : SolarDashEnchantment { }
+	[Autoload(false)]
 	public class SolarDashEnchantmentEpic : SolarDashEnchantment { }
+	[Autoload(false)]
 	public class SolarDashEnchantmentLegendary : SolarDashEnchantment { }
 }

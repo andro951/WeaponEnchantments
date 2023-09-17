@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -27,6 +28,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostQueenBee;
@@ -43,9 +45,13 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Bramble_JungleHard, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class MaxMinionsEnchantmentCommon : MaxMinionsEnchantment { }
+	[Autoload(false)]
 	public class MaxMinionsEnchantmentRare : MaxMinionsEnchantment { }
+	[Autoload(false)]
 	public class MaxMinionsEnchantmentEpic : MaxMinionsEnchantment { }
+	[Autoload(false)]
 	public class MaxMinionsEnchantmentLegendary : MaxMinionsEnchantment { }
 
 }

@@ -157,7 +157,7 @@ namespace WeaponEnchantments.Common.Globals
             enchantments = new EnchantmentsArray(this);
         }
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-            return IsEnchantable(entity);
+            return entity.IsEnchantable();
 		}
 		public override GlobalItem Clone(Item item, Item itemClone) {
 			SetupGlobals(item);
@@ -597,10 +597,10 @@ namespace WeaponEnchantments.Common.Globals
 
             //Level up message
             if (levelBeforeBooster > currentLevel && (wePlayer.usingEnchantingTable || (
-                    IsWeaponItem(item) && WEMod.clientConfig.AlwaysDisplayWeaponLevelUpMessages || 
-                    IsArmorItem(item) && WEMod.clientConfig.AlwaysDisplayArmorLevelUpMessages ||
-                    IsAccessoryItem(item) && WEMod.clientConfig.AlwaysDisplayAccessoryLevelUpMessages ||
-                    (IsTool(item) || IsFishingRod(item)) && WEMod.clientConfig.AlwaysDisplayToolLevelUpMessages))) {
+                    item.IsWeaponItem() && WEMod.clientConfig.AlwaysDisplayWeaponLevelUpMessages || 
+                    item.IsArmorItem() && WEMod.clientConfig.AlwaysDisplayArmorLevelUpMessages ||
+                    item.IsAccessoryItem() && WEMod.clientConfig.AlwaysDisplayAccessoryLevelUpMessages ||
+                    (item.IsTool() || item.IsFishingPole()) && WEMod.clientConfig.AlwaysDisplayToolLevelUpMessages))) {
                 if (levelBeforeBooster >= MAX_Level) {
                     SoundEngine.PlaySound(SoundID.Unlock);
                     Main.NewText(GameMessageTextID.CongradulationsMaxLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { wePlayer.Player.name, item.Name, levelBeforeBooster, WEModSystem.levelXps[levelBeforeBooster - 1] }));// $"Congratulations!  {wePlayer.Player.name}'s {item.Name} reached the maximum level, {levelBeforeBooster} ({WEModSystem.levelXps[levelBeforeBooster - 1]} xp).");
@@ -918,146 +918,6 @@ namespace WeaponEnchantments.Common.Globals
         }
 	}
 	public static class EnchantedItemStaticMethods {
-        public static bool IsEnchantable(Item item) {
-            if (IsArmorItem(item) || IsWeaponItem(item) || IsAccessoryItem(item) || IsFishingRod(item) || IsTool(item)) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        public static bool IsWeaponItem(Item item) {
-			if (item.NullOrAir())
-                return false;
-
-			if (IsArmorItem(item))
-				return false;
-
-			if (item.ModItem != null) {
-                string modName = item.ModItem.Mod.Name;
-				//Manually prevent calamity items from being weapons
-				if (AndroMod.calamityEnabled && modName == CalamityIntegration.CALAMITY_NAME) {
-					switch (item.ModFullName()) {
-                        case "CalamityMod/WulfrumFusionCannon":
-							return false;
-					}
-				}
-
-				//Manually prevent magic storage items from being weapons
-				if (AndroMod.magicStorageEnabled && modName == "MagicStorage") {
-					switch (item.ModFullName()) {
-						case "MagicStorage/BiomeGlobe":
-							return false;
-					}
-				}
-
-				if (AndroMod.thoriumEnabled && modName == "ThoriumMod") {
-                    string modItemFullName = item.ModFullName();
-					switch (modItemFullName) {
-						case "ThoriumMod/HiveMind":
-                        case "ThoriumMod/PiousBanner":
-                        case "ThoriumMod/PrecisionBanner":
-							return false;
-						case "ThoriumMod/TechniqueBloodLotus":
-						case "ThoriumMod/TechniqueCobraBite":
-						case "ThoriumMod/TechniqueHiddenBlade":
-						case "ThoriumMod/TechniquePaperExplosive":
-						case "ThoriumMod/TechniqueShadowClone":
-                        case "ThoriumMod/Gauze":
-							return true;
-                        default:
-                            if (modItemFullName.Contains("InspirationNote") || modItemFullName.Contains("Tester"))
-                                return false;
-
-                            break;
-					}
-
-					//Some Thorium non-weapon consumables were counting as weapons.
-					if (item.consumable && item.damage <= 0 && item.mana <= 0)
-						return false;
-				}
-
-                if (AndroMod.fargosEnabled && modName == "Fargowiltas") {
-                    switch (item.ModFullName()) {
-                        case "Fargowiltas/BrittleBone":
-                            return false;
-
-					}
-                }
-
-                if (WEMod.amuletOfManyMinionsEnabled && modName == "AmuletOfManyMinions") {
-                    List<string> aOMMNonItemNames = new() {
-						"AmuletOfManyMinions/AxolotlMinionItem",
-						"AmuletOfManyMinions/CinderHenMinionItem",
-						"AmuletOfManyMinions/WyvernFlyMinionItem",
-						"AmuletOfManyMinions/TruffleTurtleMinionItem",
-						"AmuletOfManyMinions/SmolederMinionItem",
-						"AmuletOfManyMinions/PlantPupMinionItem",
-						"AmuletOfManyMinions/LilGatorMinionItem",
-						"AmuletOfManyMinions/CloudiphantMinionItem"
-					};
-                    string modItemFullName = item.ModFullName();
-                    if (aOMMNonItemNames.Contains(modItemFullName) || modItemFullName.Contains("Replica"))
-                        return false;
-                }
-			}
-
-			bool isWeapon;
-            switch (item.type) {
-                case ItemID.ExplosiveBunny:
-                case ItemID.TreeGlobe:
-                case ItemID.WorldGlobe:
-                case ItemID.MoonGlobe:
-                    isWeapon = false;
-                    break;
-                case ItemID.LawnMower:
-					isWeapon = true;
-                    break;
-                default:
-                    isWeapon = (item.DamageType != DamageClass.Default || item.damage > 0 || item.crit > 0) && (item.ammo == 0 || item.ammo == ItemID.Grenade);
-                    break;
-            }
-
-            return isWeapon && !item.accessory;
-        }
-        public static bool IsArmorItem(Item item) {
-            if (item.NullOrAir())
-                return false;
-
-            return !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1);
-        }
-        public static bool IsAccessoryItem(Item item) {
-            if (item.NullOrAir())
-                return false;
-
-            //Check for armor item is a fix for Reforge-able armor mod setting armor to accessories
-            return item.accessory && !IsArmorItem(item);
-        }
-        public static bool IsFishingRod(Item item) {
-            if (item.NullOrAir())
-                return false;
-
-            return item.fishingPole > 0;
-        }
-        public static bool IsTool(Item item) {
-            if (item.NullOrAir())
-                return false;
-
-			switch (item.type) {
-                case ItemID.Clentaminator:
-                case ItemID.BugNet:
-                case ItemID.GoldenBugNet:
-                case ItemID.FireproofBugNet:
-                case ItemID.BottomlessBucket:
-                case ItemID.BottomlessLavaBucket:
-                case ItemID.SuperAbsorbantSponge:
-                case ItemID.LavaAbsorbantSponge:
-                case ItemID.Clentaminator2:
-					return true;
-                default:
-                    return item.mana > 0 && !IsWeaponItem(item);
-			}
-        }
         public static bool IsSameEnchantedType(this Item item, Item otherItem) {
             if (item == null || otherItem == null)
                 return false;
@@ -1432,13 +1292,13 @@ namespace WeaponEnchantments.Common.Globals
                         continue;
                     }
 
-                    if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
+                    if (item.IsWeaponItem() && !enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
                         RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Weapons.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                     }
-                    else if (IsArmorItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
+                    else if (item.IsArmorItem() && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
                         RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
 					}
-                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
+                    else if (item.IsAccessoryItem() && !enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
                         RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on accessories and has been removed from your " + item.Name + ".");
 					}
 

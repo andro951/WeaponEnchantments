@@ -37,6 +37,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostQueenSlime;
@@ -44,8 +45,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.QueenSlimeBoss)
 		};
 	}
+	[Autoload(false)]
 	public class HellsWrathEnchantmentCommon : HellsWrathEnchantment { }
+	[Autoload(false)]
 	public class HellsWrathEnchantmentRare : HellsWrathEnchantment { }
+	[Autoload(false)]
 	public class HellsWrathEnchantmentEpic : HellsWrathEnchantment { }
+	[Autoload(false)]
 	public class HellsWrathEnchantmentLegendary : HellsWrathEnchantment { }
 }

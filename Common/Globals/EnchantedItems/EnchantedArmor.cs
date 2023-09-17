@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Common.Globals
 
 		#endregion
 		public override bool InstancePerEntity => true;
-		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsArmorItem(entity);
+		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.IsArmorItem();
 		public override EItemType ItemType => EItemType.Armor;
 		public override GlobalItem Clone(Item item, Item itemClone) {
 			EnchantedArmor clone = (EnchantedArmor)base.Clone(item, itemClone);

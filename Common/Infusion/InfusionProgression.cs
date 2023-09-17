@@ -471,7 +471,7 @@ namespace WeaponEnchantments.Common
 				//else if (itemSource.LockedByBoss) {
 				//	return InfusionOffset.EasyObtain;
 				//}
-				else if (IsWeaponItem(sourceItem) && sourceItem.type != itemSource.ResultItemID && itemSource.IngredientCount > 2) {
+				else if (sourceItem.IsWeaponItem() && sourceItem.type != itemSource.ResultItemID && itemSource.IngredientCount > 2) {
 					return InfusionOffset.CraftFromWeapon;
 				}
 				else {
@@ -1097,7 +1097,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 		public static SortedDictionary<int, int> ItemInfusionPowers { get; private set; } = new();//Not Cleared
-		public static void PostSetupContent() {
+		public static void PostSetupRecipes() {
 			if (finishedSetup)
 				return;
 
@@ -1129,7 +1129,7 @@ namespace WeaponEnchantments.Common
 		private static void SetupWeaponsList() {
 			for (int i = 0; i < ItemLoader.ItemCount; i++) {
 				Item sampleItem = i.CSI();
-				if (IsWeaponItem(sampleItem))
+				if (sampleItem.IsWeaponItem())
 					WeaponsList.Add(i);
 			}
 
@@ -1149,7 +1149,7 @@ namespace WeaponEnchantments.Common
 				//if (Debugger.IsAttached) $"{ingredients.StringList(i => i.CSI().S(), $"createItem: {r.createItem.S()}")}".LogSimple();
 
 				allRecipes.Add(i, (r.createItem.type, ingredients, tiles));
-				if (IsWeaponItem(r.createItem))
+				if (r.createItem.IsWeaponItem())
 					originalWeaponIngredients.UnionWith(ingredients);
 			}
 
@@ -4031,7 +4031,7 @@ namespace WeaponEnchantments.Common
 			foreach (KeyValuePair<int, int> pair in ItemInfusionPowers) {
 				int itemType = pair.Key;
 				Item item = itemType.CSI();
-				if (IsWeaponItem(item))
+				if (item.IsWeaponItem())
 					continue;
 
 				if (TryGetAllCraftingIngredientTypes(itemType, out HashSet<HashSet<int>> ingredients)) {

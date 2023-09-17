@@ -42,7 +42,8 @@ namespace WeaponEnchantments.Items.Enchantments {
 			$"The moon lord's Moon Leach debuff normally prevents all lifesteal.  I personally don't like mechanics that completely " +
 			$"turn off effects like this, so life steal from enchantments is reduced by 50% from this debuff instead.";
     }
-    public class LifeStealEnchantmentBasic : LifeStealEnchantment
+    [Autoload(false)]
+	public class LifeStealEnchantmentBasic : LifeStealEnchantment
     {
         public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
         public override List<DropData> NpcDropTypes => new() {
@@ -63,9 +64,13 @@ namespace WeaponEnchantments.Items.Enchantments {
             new(CrateID.Hematic_CrimsonHard, 0.5f)
         };
     }
-    public class LifeStealEnchantmentCommon : LifeStealEnchantment { }
-    public class LifeStealEnchantmentRare : LifeStealEnchantment { }
-    public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
-    public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentCommon : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentRare : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
 
 }

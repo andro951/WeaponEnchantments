@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -28,6 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Mew";
 	}
+	[Autoload(false)]
 	public class JuicedEnchantmentBasic : JuicedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
@@ -36,8 +38,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.BrainofCthulhu, 1f/9f)
 		};
 	}
+	[Autoload(false)]
 	public class JuicedEnchantmentCommon : JuicedEnchantment { }
+	[Autoload(false)]
 	public class JuicedEnchantmentRare : JuicedEnchantment { }
+	[Autoload(false)]
 	public class JuicedEnchantmentEpic : JuicedEnchantment { }
+	[Autoload(false)]
 	public class JuicedEnchantmentLegendary : JuicedEnchantment { }
 }

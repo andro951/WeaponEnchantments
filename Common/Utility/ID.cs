@@ -2122,4 +2122,13 @@ namespace WeaponEnchantments.Common.Utility
 			}
 		}
 	}
+	public enum WELoadOrder {
+		EnchantingTableItems = 1000,
+		EnchantingTableTiles = EnchantingTableItems + 1000,
+		Essence = EnchantingTableTiles + 1000,
+		PowerBoosters = Essence + 1000,
+		Containments = PowerBoosters + 1000,
+		NPCs = Containments + 1000,
+		Enchantments = NPCs + 1000
+	}
 }

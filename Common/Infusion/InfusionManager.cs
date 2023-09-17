@@ -122,9 +122,9 @@ namespace WeaponEnchantments.Common
 						continue;
 
                     string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
-                    bool weaponList = mode == GetItemDictModeID.Weapon && EnchantedItemStaticMethods.IsWeaponItem(item);
-                    bool armorList = mode == GetItemDictModeID.Armor && EnchantedItemStaticMethods.IsArmorItem(item);
-                    bool accessory = mode == GetItemDictModeID.Accessory && EnchantedItemStaticMethods.IsAccessoryItem(item);
+                    bool weaponList = mode == GetItemDictModeID.Weapon && item.IsWeaponItem();
+                    bool armorList = mode == GetItemDictModeID.Armor && item.IsArmorItem();
+                    bool accessory = mode == GetItemDictModeID.Accessory && item.IsAccessoryItem();
                     if ( weaponList || armorList || accessory) {
                         int[] itemStats = { item.rare, item.value, item.damage };
                         if (!itemsDict.ContainsKey(modName))
@@ -474,7 +474,7 @@ namespace WeaponEnchantments.Common
 
                 return false;
             }
-            if (finalize && !failedItemFind && (EnchantedItemStaticMethods.IsWeaponItem(item) || EnchantedItemStaticMethods.IsArmorItem(item))) {
+            if (finalize && !failedItemFind && (item.IsWeaponItem() || item.IsArmorItem())) {
                 Main.NewText(GameMessageTextID.InfusionOnlyPossibleSameType.ToString().Lang_WE(L_ID1.GameMessages));//$"Infusion is only possible between items of the same type (Weapon/Armor)");
 			}
 
@@ -499,7 +499,7 @@ namespace WeaponEnchantments.Common
             return false;
 		}
         public static void GetGlotalItemStats(this Item item, Item infusedItem, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
-			if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
+			if (item.IsWeaponItem()) {
                 damageMultiplier = GetWeaponMultiplier(item, infusedItem, out infusedPower);
                 infusedArmorSlot = -1;
             }
@@ -624,8 +624,8 @@ namespace WeaponEnchantments.Common
 
     public static class InfusionStaticClasses {
         public static bool InfusionAllowed(this Item item, out bool configAllowed) {
-            bool weapon = EnchantedItemStaticMethods.IsWeaponItem(item);
-            bool armor = EnchantedItemStaticMethods.IsArmorItem(item);
+            bool weapon = item.IsWeaponItem();
+            bool armor = item.IsArmorItem();
             bool WeaponAndWeaponInfusionAllowed = weapon && WEMod.serverConfig.InfusionDamageMultiplier > 1000;
 			bool ArmorAndArmorInfusionAllowed = armor && !WEMod.serverConfig.DisableArmorInfusion;
 			configAllowed = WeaponAndWeaponInfusionAllowed || ArmorAndArmorInfusionAllowed;

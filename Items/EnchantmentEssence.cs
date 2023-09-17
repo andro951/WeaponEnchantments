@@ -151,23 +151,28 @@ namespace WeaponEnchantments.Items
 			}
 		}
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceBasic : EnchantmentEssence
 	{
 		public override int animationFrames => 8;
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceCommon : EnchantmentEssence
 	{
 		public override int animationFrames => 8;
 
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceRare : EnchantmentEssence
 	{
 		public override int animationFrames => 6;
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceEpic : EnchantmentEssence
 	{
 		public override int animationFrames => 10;
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceLegendary : EnchantmentEssence
 	{
 		public override int animationFrames => 16;

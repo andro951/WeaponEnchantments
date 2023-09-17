@@ -44,6 +44,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		protected override DamageClass MyDamageClass => DamageClass.Melee;
 	}
+	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentBasic : MeleeClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
@@ -54,9 +55,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.FaceMonster, chance: DropChance)
 		};
 	}
+	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentCommon : MeleeClassSwapEnchantment { }
+	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentRare : MeleeClassSwapEnchantment { }
+	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentEpic : MeleeClassSwapEnchantment { }
+	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentLegendary : MeleeClassSwapEnchantment { }
 
 	public abstract class WhipClassSwapEnchantment : ClassSwapEnchantment
@@ -67,6 +72,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			Effects.Add(new MinionAttackTarget());
 		}
 	}
+	[Autoload(false)]
 	public class WhipClassSwapEnchantmentBasic : WhipClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
@@ -75,9 +81,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.JungleSlime, chance: DropChance)
 		};
 	}
+	[Autoload(false)]
 	public class WhipClassSwapEnchantmentCommon : WhipClassSwapEnchantment { }
+	[Autoload(false)]
 	public class WhipClassSwapEnchantmentRare : WhipClassSwapEnchantment { }
+	[Autoload(false)]
 	public class WhipClassSwapEnchantmentEpic : WhipClassSwapEnchantment { }
+	[Autoload(false)]
 	public class WhipClassSwapEnchantmentLegendary : WhipClassSwapEnchantment { }
 
 
@@ -85,6 +95,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		protected override DamageClass MyDamageClass => DamageClass.Magic;
 	}
+	[Autoload(false)]
 	public class MagicClassSwapEnchantmentBasic : MagicClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
@@ -93,9 +104,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.ZombieEskimo, chance: DropChance)
 		};
 	}
+	[Autoload(false)]
 	public class MagicClassSwapEnchantmentCommon : MagicClassSwapEnchantment { }
+	[Autoload(false)]
 	public class MagicClassSwapEnchantmentRare : MagicClassSwapEnchantment { }
+	[Autoload(false)]
 	public class MagicClassSwapEnchantmentEpic : MagicClassSwapEnchantment { }
+	[Autoload(false)]
 	public class MagicClassSwapEnchantmentLegendary : MagicClassSwapEnchantment { }
 
 
@@ -103,6 +118,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		protected override DamageClass MyDamageClass => DamageClass.Ranged;
 	}
+	[Autoload(false)]
 	public class RangedClassSwapEnchantmentBasic : RangedClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
@@ -111,15 +127,20 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.Vulture, chance: DropChance)
 		};
 	}
+	[Autoload(false)]
 	public class RangedClassSwapEnchantmentCommon : RangedClassSwapEnchantment { }
+	[Autoload(false)]
 	public class RangedClassSwapEnchantmentRare : RangedClassSwapEnchantment { }
+	[Autoload(false)]
 	public class RangedClassSwapEnchantmentEpic : RangedClassSwapEnchantment { }
+	[Autoload(false)]
 	public class RangedClassSwapEnchantmentLegendary : RangedClassSwapEnchantment { }
 
 	public abstract class ThrowingClassSwapEnchantment : ClassSwapEnchantment
 	{
 		protected override DamageClass MyDamageClass => DamageClass.Throwing;
 	}
+	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentBasic : ThrowingClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
@@ -127,9 +148,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new("ThoriumMod/TheGrandThunderBirdv2")
 		} : null;
 	}
+	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentCommon : ThrowingClassSwapEnchantment { }
+	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentRare : ThrowingClassSwapEnchantment { }
+	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentEpic : ThrowingClassSwapEnchantment { }
+	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentLegendary : ThrowingClassSwapEnchantment { }
 
 
@@ -139,6 +164,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string CustomTooltip => CalamityIntegration.CALAMITY_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override string Designer => "Vyklade";
 	}
+	[Autoload(false)]
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => AndroMod.calamityEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
@@ -146,9 +172,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new("CalamityMod/DesertScourgeHead")
 		} : null;
 	}
+	[Autoload(false)]
 	public class RogueClassSwapEnchantmentCommon : RogueClassSwapEnchantment { }
+	[Autoload(false)]
 	public class RogueClassSwapEnchantmentRare : RogueClassSwapEnchantment { }
+	[Autoload(false)]
 	public class RogueClassSwapEnchantmentEpic : RogueClassSwapEnchantment { }
+	[Autoload(false)]
 	public class RogueClassSwapEnchantmentLegendary : RogueClassSwapEnchantment { }
 
 
@@ -163,6 +193,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		protected override DamageClassID DamageClassNameOveride => DamageClassID.Ki;
 		public override string Designer => "Vyklade";
 	}
+	[Autoload(false)]
 	public class KiClassSwapEnchantmentBasic : KiClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => WEMod.dbtEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
@@ -170,9 +201,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new(NPCID.Golem, 9f)
 		} : null;
 	}
+	[Autoload(false)]
 	public class KiClassSwapEnchantmentCommon : KiClassSwapEnchantment { }
+	[Autoload(false)]
 	public class KiClassSwapEnchantmentRare : KiClassSwapEnchantment { }
+	[Autoload(false)]
 	public class KiClassSwapEnchantmentEpic : KiClassSwapEnchantment { }
+	[Autoload(false)]
 	public class KiClassSwapEnchantmentLegendary : KiClassSwapEnchantment { }
 
 	public abstract class BardClassSwapEnchantment : ClassSwapEnchantment
@@ -180,6 +215,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		protected override DamageClass MyDamageClass => ThoriumValues.bard ?? DamageClass.Melee;
 		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 	}
+	[Autoload(false)]
 	public class BardClassSwapEnchantmentBasic : BardClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
@@ -187,9 +223,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new("ThoriumMod/QueenJelly")
 		} : null;
 	}
+	[Autoload(false)]
 	public class BardClassSwapEnchantmentCommon : BardClassSwapEnchantment { }
+	[Autoload(false)]
 	public class BardClassSwapEnchantmentRare : BardClassSwapEnchantment { }
+	[Autoload(false)]
 	public class BardClassSwapEnchantmentEpic : BardClassSwapEnchantment { }
+	[Autoload(false)]
 	public class BardClassSwapEnchantmentLegendary : BardClassSwapEnchantment { }
 
 	public abstract class HealerClassSwapEnchantment : ClassSwapEnchantment
@@ -197,6 +237,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		protected override DamageClass MyDamageClass => ThoriumValues.healerRadiation ?? DamageClass.Ranged;
 		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 	}
+	[Autoload(false)]
 	public class HealerClassSwapEnchantmentBasic : HealerClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
@@ -205,8 +246,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			new("ThoriumMod/TheBuriedWarrior")
 		} : null;
 	}
+	[Autoload(false)]
 	public class HealerClassSwapEnchantmentCommon : HealerClassSwapEnchantment { }
+	[Autoload(false)]
 	public class HealerClassSwapEnchantmentRare : HealerClassSwapEnchantment { }
+	[Autoload(false)]
 	public class HealerClassSwapEnchantmentEpic : HealerClassSwapEnchantment { }
+	[Autoload(false)]
 	public class HealerClassSwapEnchantmentLegendary : HealerClassSwapEnchantment { }
 }

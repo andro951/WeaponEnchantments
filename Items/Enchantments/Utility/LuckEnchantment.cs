@@ -29,7 +29,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class LuckEnchantmentBasic : LuckEnchantment
+    [Autoload(false)]
+	public class LuckEnchantmentBasic : LuckEnchantment
     {
         public override SellCondition SellCondition => SellCondition.Luck;
         public override List<DropData> NpcDropTypes => new() {
@@ -145,9 +146,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
             new(CrateID.Obsidian_LockBox, 0.05f)
         };
 	}
-    public class LuckEnchantmentCommon : LuckEnchantment { }
-    public class LuckEnchantmentRare : LuckEnchantment { }
-    public class LuckEnchantmentEpic : LuckEnchantment { }
-    public class LuckEnchantmentLegendary : LuckEnchantment { }
+    [Autoload(false)]
+	public class LuckEnchantmentCommon : LuckEnchantment { }
+    [Autoload(false)]
+	public class LuckEnchantmentRare : LuckEnchantment { }
+    [Autoload(false)]
+	public class LuckEnchantmentEpic : LuckEnchantment { }
+    [Autoload(false)]
+	public class LuckEnchantmentLegendary : LuckEnchantment { }
 
 }

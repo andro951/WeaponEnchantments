@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
@@ -27,6 +28,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Creature";
 	}
+	[Autoload(false)]
 	public class CalmWatersEnchantmentBasic : CalmWatersEnchantment
 	{
 		public override List<DropData> ChestDrops => new() {
@@ -37,9 +39,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(CrateID.Pearlwood_WoodenHard)
 		};
 	}
+	[Autoload(false)]
 	public class CalmWatersEnchantmentCommon : CalmWatersEnchantment { }
+	[Autoload(false)]
 	public class CalmWatersEnchantmentRare : CalmWatersEnchantment { }
+	[Autoload(false)]
 	public class CalmWatersEnchantmentEpic : CalmWatersEnchantment { }
+	[Autoload(false)]
 	public class CalmWatersEnchantmentLegendary : CalmWatersEnchantment { }
 
 }

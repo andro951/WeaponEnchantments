@@ -24,7 +24,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment
+    [Autoload(false)]
+	public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment
     {
         public override SellCondition SellCondition => SellCondition.HardMode;
         public override List<DropData> NpcDropTypes => new() {
@@ -39,9 +40,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
             new(CrateID.Titanium_GoldenHard)
 		};
 	}
-    public class ChaoticFishingEnchantmentCommon : ChaoticFishingEnchantment { }
-    public class ChaoticFishingEnchantmentRare : ChaoticFishingEnchantment { }
-    public class ChaoticFishingEnchantmentEpic : ChaoticFishingEnchantment { }
-    public class ChaoticFishingEnchantmentLegendary : ChaoticFishingEnchantment { }
+    [Autoload(false)]
+	public class ChaoticFishingEnchantmentCommon : ChaoticFishingEnchantment { }
+    [Autoload(false)]
+	public class ChaoticFishingEnchantmentRare : ChaoticFishingEnchantment { }
+    [Autoload(false)]
+	public class ChaoticFishingEnchantmentEpic : ChaoticFishingEnchantment { }
+    [Autoload(false)]
+	public class ChaoticFishingEnchantmentLegendary : ChaoticFishingEnchantment { }
 
 }

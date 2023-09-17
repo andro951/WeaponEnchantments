@@ -118,6 +118,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class TimeEnchantmentBasic : TimeEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.Never;
@@ -134,8 +135,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(CrateID.Azure_SkyHard)
 		};
 	}
+	[Autoload(false)]
 	public class TimeEnchantmentCommon : TimeEnchantment { }
+	[Autoload(false)]
 	public class TimeEnchantmentRare : TimeEnchantment { }
+	[Autoload(false)]
 	public class TimeEnchantmentEpic : TimeEnchantment { }
+	[Autoload(false)]
 	public class TimeEnchantmentLegendary : TimeEnchantment { }
 }

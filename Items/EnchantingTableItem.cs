@@ -10,6 +10,10 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
 using WeaponEnchantments.Tiles;
 using androLib.Common.Utility;
+using androLib;
+using System.Reflection;
+using System;
+using System.Linq;
 
 namespace WeaponEnchantments.Items
 {
@@ -96,7 +100,7 @@ namespace WeaponEnchantments.Items
 					Recipe recipe = CreateRecipe();
 
 					if (i == -1) {
-						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches"); //Workbench
+						recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.Workbenches}"); //Workbench
 					}
 					else {
 						recipe.AddIngredient(Mod, GetTableName(i), 1); //Enchanting Table
@@ -121,10 +125,13 @@ namespace WeaponEnchantments.Items
 					}
 
 					if (i < 3 && enchantingTableTier >= 3)
-						recipe.AddRecipeGroup("WeaponEnchantments:AlignedSoul", 2); //Soul of Light or Night
+						recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyAlignedSoul}", 2); //Soul of Light or Night
 
 					if (i < 4 && enchantingTableTier >= 4)
 						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars
+
+					//if (enchantingTableTier == 0)
+					//	recipe.SortBeforeFirstRecipesOf(ModContent.ItemType<DustyEnchantingTable>());
 
 					recipe.Register();
 				}
@@ -156,9 +163,15 @@ namespace WeaponEnchantments.Items
 			EnchantingTableTile.RightClickEnchantingTable(x, y, enchantingTableTier);
 		}
 	}
+
+	[Autoload(false)]
 	public class WoodEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class DustyEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class HellishEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class SoulEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class UltimateEnchantingTable : EnchantingTableItem { }
 }

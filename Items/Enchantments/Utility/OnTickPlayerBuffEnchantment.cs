@@ -8,6 +8,7 @@ using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Utility
 {
@@ -44,6 +45,7 @@ namespace WeaponEnchantments.Items.Utility
 		protected override int buffID => BuffID.Dangersense;
 		public override string Artist => "Zorutan";
 	}
+	[Autoload(false)]
 	public class DangerSenseEnchantmentBasic : DangerSenseEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
@@ -58,15 +60,20 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Iron, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class DangerSenseEnchantmentCommon : DangerSenseEnchantment { }
+	[Autoload(false)]
 	public class DangerSenseEnchantmentRare : DangerSenseEnchantment { }
+	[Autoload(false)]
 	public class DangerSenseEnchantmentEpic : DangerSenseEnchantment { }
+	[Autoload(false)]
 	public class DangerSenseEnchantmentLegendary : DangerSenseEnchantment { }
 	public abstract class HunterEnchantment : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Hunter;
 		public override string Artist => "Zorutan";
 	}
+	[Autoload(false)]
 	public class HunterEnchantmentBasic : HunterEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
@@ -81,15 +88,20 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Iron, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class HunterEnchantmentCommon : HunterEnchantment { }
+	[Autoload(false)]
 	public class HunterEnchantmentRare : HunterEnchantment { }
+	[Autoload(false)]
 	public class HunterEnchantmentEpic : HunterEnchantment { }
+	[Autoload(false)]
 	public class HunterEnchantmentLegendary : HunterEnchantment { }
 	public abstract class ObsidianSkinEnchantment : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.ObsidianSkin;
 		public override string Artist => "Zorutan";
 	}
+	[Autoload(false)]
 	public class ObsidianSkinEnchantmentBasic : ObsidianSkinEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
@@ -104,15 +116,20 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Iron, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class ObsidianSkinEnchantmentCommon : ObsidianSkinEnchantment { }
+	[Autoload(false)]
 	public class ObsidianSkinEnchantmentRare : ObsidianSkinEnchantment { }
+	[Autoload(false)]
 	public class ObsidianSkinEnchantmentEpic : ObsidianSkinEnchantment { }
+	[Autoload(false)]
 	public class ObsidianSkinEnchantmentLegendary : ObsidianSkinEnchantment { }
 	public abstract class SpelunkerEnchantment : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Spelunker;
 		public override string Artist => "Zorutan";
 	}
+	[Autoload(false)]
 	public class SpelunkerEnchantmentBasic : SpelunkerEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
@@ -127,9 +144,13 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Iron, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class SpelunkerEnchantmentCommon : SpelunkerEnchantment { }
+	[Autoload(false)]
 	public class SpelunkerEnchantmentRare : SpelunkerEnchantment { }
+	[Autoload(false)]
 	public class SpelunkerEnchantmentEpic : SpelunkerEnchantment { }
+	[Autoload(false)]
 	public class SpelunkerEnchantmentLegendary : SpelunkerEnchantment { }
 
 	public abstract class FishingEnchantment : OnTickPlayerBuffEnchantment
@@ -137,6 +158,7 @@ namespace WeaponEnchantments.Items.Utility
 		protected override int buffID => BuffID.Fishing;
 		public override string Artist => "andro951";
 	}
+	[Autoload(false)]
 	public class FishingEnchantmentBasic : FishingEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
@@ -151,15 +173,20 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Iron, 1f)
 		};
 	}
+	[Autoload(false)]
 	public class FishingEnchantmentCommon : FishingEnchantment { }
+	[Autoload(false)]
 	public class FishingEnchantmentRare : FishingEnchantment { }
+	[Autoload(false)]
 	public class FishingEnchantmentEpic : FishingEnchantment { }
+	[Autoload(false)]
 	public class FishingEnchantmentLegendary : FishingEnchantment { }
 	public abstract class CrateEnchantment : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Crate;
 		public override string Artist => "andro951";
 	}
+	[Autoload(false)]
 	public class CrateEnchantmentBasic : CrateEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
@@ -174,15 +201,20 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Iron, 1f)
 		};
 	}
+	[Autoload(false)]
 	public class CrateEnchantmentCommon : CrateEnchantment { }
+	[Autoload(false)]
 	public class CrateEnchantmentRare : CrateEnchantment { }
+	[Autoload(false)]
 	public class CrateEnchantmentEpic : CrateEnchantment { }
+	[Autoload(false)]
 	public class CrateEnchantmentLegendary : CrateEnchantment { }
 	public abstract class SonarEnchantment : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Sonar;
 		public override string Artist => "andro951";
 	}
+	[Autoload(false)]
 	public class SonarEnchantmentBasic : SonarEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
@@ -197,15 +229,20 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Iron, 1f)
 		};
 	}
+	[Autoload(false)]
 	public class SonarEnchantmentCommon : SonarEnchantment { }
+	[Autoload(false)]
 	public class SonarEnchantmentRare : SonarEnchantment { }
+	[Autoload(false)]
 	public class SonarEnchantmentEpic : SonarEnchantment { }
+	[Autoload(false)]
 	public class SonarEnchantmentLegendary : SonarEnchantment { }
 	public abstract class ShineEnchantment : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Shine;
 		public override string Artist => "andro951";
 	}
+	[Autoload(false)]
 	public class ShineEnchantmentBasic : ShineEnchantment
 	{
 		public override List<DropData> NpcDropTypes => new() {
@@ -219,8 +256,12 @@ namespace WeaponEnchantments.Items.Utility
 			new(CrateID.Pearlwood_WoodenHard, 1f)
 		};
 	}
+	[Autoload(false)]
 	public class ShineEnchantmentCommon : ShineEnchantment { }
+	[Autoload(false)]
 	public class ShineEnchantmentRare : ShineEnchantment { }
+	[Autoload(false)]
 	public class ShineEnchantmentEpic : ShineEnchantment { }
+	[Autoload(false)]
 	public class ShineEnchantmentLegendary : ShineEnchantment { }
 }

@@ -11,7 +11,8 @@ using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
-    public class PowerBooster : WEModItem
+	[Autoload(false)]
+	public class PowerBooster : WEModItem
     {
         public static int ID;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');

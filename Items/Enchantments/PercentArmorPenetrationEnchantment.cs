@@ -5,6 +5,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -22,6 +23,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentBasic : PercentArmorPenetrationEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
@@ -36,8 +38,12 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Obsidian_LockBox, 0.05f)
 		};
 	}
+	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentCommon : PercentArmorPenetrationEnchantment { }
+	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentRare : PercentArmorPenetrationEnchantment { }
+	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentEpic : PercentArmorPenetrationEnchantment { }
+	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentLegendary : PercentArmorPenetrationEnchantment { }
 }

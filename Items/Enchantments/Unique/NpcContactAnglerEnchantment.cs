@@ -22,7 +22,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment
+    [Autoload(false)]
+	public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
         public override List<DropData> CrateDrops => new() {
@@ -30,9 +31,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
             new(CrateID.Titanium_GoldenHard)
         };
     }
-    public class NpcContactAnglerEnchantmentCommon : NpcContactAnglerEnchantment { }
-    public class NpcContactAnglerEnchantmentRare : NpcContactAnglerEnchantment { }
-    public class NpcContactAnglerEnchantmentEpic : NpcContactAnglerEnchantment { }
-    public class NpcContactAnglerEnchantmentLegendary : NpcContactAnglerEnchantment { }
+    [Autoload(false)]
+	public class NpcContactAnglerEnchantmentCommon : NpcContactAnglerEnchantment { }
+    [Autoload(false)]
+	public class NpcContactAnglerEnchantmentRare : NpcContactAnglerEnchantment { }
+    [Autoload(false)]
+	public class NpcContactAnglerEnchantmentEpic : NpcContactAnglerEnchantment { }
+    [Autoload(false)]
+	public class NpcContactAnglerEnchantmentLegendary : NpcContactAnglerEnchantment { }
 
 }

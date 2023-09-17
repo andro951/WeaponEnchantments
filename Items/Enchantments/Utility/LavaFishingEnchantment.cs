@@ -27,7 +27,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string ArtModifiedBy => null;
         public override string Designer => "Fran";
     }
-    public class LavaFishingEnchantmentBasic : LavaFishingEnchantment
+    [Autoload(false)]
+	public class LavaFishingEnchantmentBasic : LavaFishingEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
         public override List<DropData> NpcDropTypes => new() {
@@ -41,9 +42,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
             new(CrateID.Mythril_IronHard)
 		};
 	}
-    public class LavaFishingEnchantmentCommon : LavaFishingEnchantment { }
-    public class LavaFishingEnchantmentRare : LavaFishingEnchantment { }
-    public class LavaFishingEnchantmentEpic : LavaFishingEnchantment { }
-    public class LavaFishingEnchantmentLegendary : LavaFishingEnchantment { }
+    [Autoload(false)]
+	public class LavaFishingEnchantmentCommon : LavaFishingEnchantment { }
+    [Autoload(false)]
+	public class LavaFishingEnchantmentRare : LavaFishingEnchantment { }
+    [Autoload(false)]
+	public class LavaFishingEnchantmentEpic : LavaFishingEnchantment { }
+    [Autoload(false)]
+	public class LavaFishingEnchantmentLegendary : LavaFishingEnchantment { }
 
 }

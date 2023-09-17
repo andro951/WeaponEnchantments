@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -17,6 +18,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentBasic : ReducedManaUsageEnchantment
 	{
 		public override List<DropData> NpcDropTypes => new() {
@@ -38,9 +40,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(CrateID.Boreal_FrozenHard, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentCommon : ReducedManaUsageEnchantment { }
+	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentRare : ReducedManaUsageEnchantment { }
+	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentEpic : ReducedManaUsageEnchantment { }
+	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentLegendary : ReducedManaUsageEnchantment { }
 
 }
