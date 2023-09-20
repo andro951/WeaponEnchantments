@@ -77,8 +77,11 @@ namespace WeaponEnchantments.UI
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantingTableUI.TryVacuumItem(ref item, player));
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantmentStorage.TryAutoOfferItem(ref item, player));
 
-			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantmentStorage.QuickStack(ref item));
-			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantingTableUI.QuickStack(ref item));
+			StorageManager.TryRestockItemHandler.Add((Item item) => EnchantmentStorage.Restock(ref item));
+			StorageManager.TryRestockItemHandler.Add((Item item) => EnchantingTableUI.Restock(ref item));
+
+			StorageManager.TryQuickStackItemHandler.Add((Item item, Player player) => EnchantmentStorage.QuickStack(ref item, player));
+			StorageManager.TryQuickStackItemHandler.Add((Item item, Player player) => EnchantingTableUI.QuickStack(ref item, player));
 
 			StorageManager.CloseAllStorageUIEvent += () => {
 				if (WEPlayer.LocalWEPlayer.usingEnchantingTable)

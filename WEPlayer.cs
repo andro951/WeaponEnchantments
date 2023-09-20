@@ -77,7 +77,7 @@ namespace WeaponEnchantments
         public EnchantmentsArray emptyEnchantments = new EnchantmentsArray(null);
 		public EnchantmentsArray enchantingTableEnchantments;
         public Item[] enchantingTableEssence = Enumerable.Repeat(new Item(), EnchantingTableUI.MaxEssenceSlots).ToArray();
-		public bool openStorageWhenOpeningTable = false;
+		public bool openStorageWhenOpeningTable = true;
         public SortedSet<string> allOfferedItems = new();
         public bool transferedToAndroLib = false;
         public Item[] oreBagItems = new Item[] { new() };
@@ -153,13 +153,13 @@ namespace WeaponEnchantments
 				i => i.MatchLdloc(8),
 				i => i.MatchBgt(out _),
 				i => i.MatchLdcI4(1)
-			)) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs 1/2"); }
+			)) { throw new Exception("Failed to find instructions HookProcessHitAgainstNPC 1/2"); }
 			c.Emit(OpCodes.Pop);
 			c.Emit(OpCodes.Ldc_I4_0);
 
             if (!c.TryGotoNext(MoveType.Before,
                 i => i.MatchLdarg(3)
-			)) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs 2/2"); }
+			)) { throw new Exception("Failed to find instructions HookProcessHitAgainstNPC 2/2"); }
             c.Emit(OpCodes.Ldloc, 7);
             c.Emit(OpCodes.Ldarga, 0);
             c.Emit(OpCodes.Ldarga, 1);

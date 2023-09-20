@@ -473,7 +473,7 @@ namespace WeaponEnchantments.UI
 								DepositAll(Main.LocalPlayer.inventory);
 								break;
 							case EnchantmentStorageButtonID.QuickStack:
-								QuickStack(Main.LocalPlayer.inventory);
+								Restock(Main.LocalPlayer.inventory);
 								break;
 							case EnchantmentStorageButtonID.Sort:
 								Sort();
@@ -656,7 +656,7 @@ namespace WeaponEnchantments.UI
 		}
 		public static bool DepositAll(ref Item item) => DepositAll(new Item[] { item });
 		public static bool DepositAll(Item[] inv) {
-			bool transferedAnyItem = QuickStack(inv, false);
+			bool transferedAnyItem = Restock(inv, false);
 
 			int storageIndex = 0;
 			List<Item> acceptedItemsForUncraftTrashCheck = new();
@@ -688,8 +688,15 @@ namespace WeaponEnchantments.UI
 
 			return transferedAnyItem;
 		}
-		public static bool QuickStack(ref Item item) => QuickStack(new Item[] { item });
-		public static bool QuickStack(Item[] inv, bool playSound = true) {
+		public static bool Contains(Item item, Player player) => !item.NullOrAir() && player.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.enchantmentStorageItems.Select(i => i.type).Contains(item.type);
+		public static bool QuickStack(ref Item item, Player player) {
+			if (Contains(item, player))
+				return TryVacuumItem(ref item, player);
+
+			return false;
+		}
+		public static bool Restock(ref Item item) => Restock(new Item[] { item });
+		public static bool Restock(Item[] inv, bool playSound = true) {
 			bool transferedAnyItem = false;
 			SortedDictionary<int, List<int>> nonAirItemsInStorage = new();
 			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length; i++) {
