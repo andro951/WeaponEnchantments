@@ -36,7 +36,7 @@ using Terraria.Map;
 namespace WeaponEnchantments
 {
 	public class WEMod : Mod {
-		public static string ModName = ModContent.GetInstance<WEMod>().Name;
+		public const string ModName = "WeaponEnchantments";
 		public static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		public static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool playerSwapperModEnabled = false;

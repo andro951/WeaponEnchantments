@@ -99,7 +99,7 @@ namespace WeaponEnchantments.UI
 				AndroMod.vacuumBagsMod.Call("RegisterAllBagsWithAndroLib");
 		}
 		public static void OnUpdateUIAlpha() {
-			UIAlpha = ConfigValues.UIAlpha;
+			UIAlpha = androLib.Common.Configs.ConfigValues.UIAlpha;
 			UIAlphaHovered = (byte)Math.Min(UIAlpha + 20, byte.MaxValue);
 		}
 		public static void ItemSlotClickInteractions(EnchantmentsArray enchantmentsArray, int index, int context) {

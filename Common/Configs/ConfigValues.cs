@@ -56,7 +56,6 @@ namespace WeaponEnchantments.Common.Configs
 			serverConfig.EnchantmentSlotsOnFishingPoles,
 			serverConfig.EnchantmentSlotsOnTools
 		};
-		public static byte UIAlpha => (byte)(byte.MaxValue - clientConfig.UITransparency);
 		public static float MinionLifeStealMultiplier => serverConfig.MinionLifeStealMultiplier / 100f;
 	}
 }

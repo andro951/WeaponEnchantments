@@ -2110,13 +2110,13 @@ namespace WeaponEnchantments.Common.Utility
 		public static string ToGameModeIDName(this short id) {
 			switch (id) {
 				case GameModeID.Normal:
-					return "Normal".Lang_WE(L_ID1.Config);
+					return "Normal".Lang_WE(L_ID1.Configs);
 				case GameModeID.Expert:
-					return "Expert".Lang_WE(L_ID1.Config);
+					return "Expert".Lang_WE(L_ID1.Configs);
 				case GameModeID.Master:
-					return "Master".Lang_WE(L_ID1.Config);
+					return "Master".Lang_WE(L_ID1.Configs);
 				case GameModeID.Creative:
-					return "Journey".Lang_WE(L_ID1.Config);
+					return "Journey".Lang_WE(L_ID1.Configs);
 				default:
 					return "";
 			}

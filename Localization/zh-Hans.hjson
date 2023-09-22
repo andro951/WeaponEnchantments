@@ -4,555 +4,609 @@ Mods: {
 		Bestiary.Witch: 女巫是一位丑陋而邪恶的女士，从事更多邪恶的事情。她买卖可疑的材料，用于改进具有神秘效果的设备。
 		Buffs.Amaterasu.DisplayName: 天照
 
-		Config: {
-			AccessoryDRValues: “配件 {0}%（40 时 {1}%）”
-			ArmorDRValues: “护甲 {0}%（40 时为 {1}%）”
+		Configs: {
+			AccessoryDRValues: “配件 {0}%（40 时为 {1}%）”
+			ArmorDRValues: “护甲值 {0}%（40 时为 {1}%）”
 			Automatic: 自动的
 			Custom: 风俗
-			DisplaySettings: 显示设定
-			EnchantingTableOptions: 附魔桌选项
 			Enchantment: 魅力
-			EnchantmentDropRates(%): 附魔掉率(%)
-			EnchantmentSettings: 附魔设置
-			ErrorMessages: 错误信息
-			EssenceandExperience: 本源与经验
 			Expert: 专家
-			GeneralGameChanges: 整体游戏改变
-			IndividualEnchantmentStrengths: 个体附魔强度
 			Journey: 旅行
-			LoggingInformation: 日志信息
 			Master: 掌握
-			ModTestingTools: Mod测试工具
-			Multipliers: 乘数
 			NoneSelected: 未选择
 			Normal: 普通的
-			OtherDropRates: 其他掉率
-			Presets: 预设
-			RandomExtraStuff: 随机额外的东西
-			RarityEnchantmentStrengthMultipliers: 稀有附魔强度倍数
-
-			AccessoryDamageReductionPerLevel: {
-				Label: 每级饰品 DR（100000 = 1%）
-				Tooltip: 250000 (2.5%) 是最大值，即 40 级时 100% 的伤害减免。
-			}
-
-			AffectOnVanillaLifeStealLimmit: {
-				Label: 治疗量(这也会改变原版的治疗量) (%)
-				Tooltip: 使用高于100%的值会提高治疗量，使用低于100%的值则是减少治疗量。当值为0时则没有治疗量。
-			}
-
-			AllowCraftingIntoLowerTier.Label: 允许将高级附魔制作成较低等级的附魔。
-
-			AllowCriticalChancePast100: {
-				Label: 暴击率上限
-				Tooltip: 当暴击率超过100%时，则可能会造成双倍暴击。例如现在有120%的暴击率，则必定造成暴击，且有20%（120%-100%）的几率造成双倍暴击
-			}
-
-			AllowHighTierOres: {
-				Label: 分解物品可获得更高等级的矿石
-				Tooltip:
-					'''
-					禁用此选项只允许您获得铁、银、金（或是等价替代矿石）
-					(启动此选项仅在困难模式下生效且只有杀死一个机械BOSS后才会出现更高等级的矿石)
-					'''
-			}
-
-			AllowInfusingToLowerPower: {
-				Label: 允许将物品注能到更低等级的物品里
-				Tooltip: 警告：这将允许你消耗一个更强的武器来为武器注能
-			}
-
-			AllowShiftClickMoveFavoritedItems.Label: 允许点击shift将相关物品移动到附魔桌中
-
-			AlwaysDisplayAccessoryLevelUpMessages: {
-				Label: 始终显示附件升级消息
-				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示配件升级消息。
-			}
-
-			AlwaysDisplayArmorLevelUpMessages: {
-				Label: 始终显示装甲升级消息
-				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示护甲升级消息。
-			}
-
-			AlwaysDisplayInfusionPower: {
-				Label: 始终显示物品注能
-				Tooltip: 启用以始终显示物品注能，而不是仅在附魔桌打开时显示。
-			}
-
-			AlwaysDisplayToolLevelUpMessages: {
-				Label: 始终显示工具升级消息
-				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示工具升级消息。
-			}
-
-			AlwaysDisplayWeaponLevelUpMessages: {
-				Label: 始终显示武器升级消息
-				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示武器升级消息。
-			}
-
-			AlwaysOverrideDamageType: {
-				Label: 附魔始终改变伤害类型
-				Tooltip:
-					'''
-					一些MOD，如Stars Above，会改变武器伤害类型。  如果启用此选项，更改伤害类型的附魔将始终更改武器的伤害类型。
-					            如果不启用该选项，则只有当武器当前为原版伤害类型时，才会更改伤害类型。
-					'''
-			}
-
-			AmaterasuSelfGrowthPerTick: {
-				Label: 天照伤害每秒增加
-				Tooltip: 影响天照伤害自然增加的速度（天照的叠加伤害不受此影响）
-			}
-
-			ArmorDamageReductionPerLevel: {
-				Label: 每级护甲减免 (100000 = 1%)
-				Tooltip: 250000 (2.5%) 是最大值，即 40 级时 100% 的伤害减免。
-			}
-
-			ArmorDamageReductions.Label: 减少装甲和附件伤害
-
-			AttackSpeedEnchantmentAutoReuseSetpoint: {
-				Label: 启用速度附魔自动重用 (%)
-				Tooltip:
-					'''
-					速度附魔将开始提供自动重用统计数据的强度。
-					将所有速度附魔设置为 0 以提供自动重用。 设置为 10000 以防止任何获得自动重用（除非你的强度乘数很大）
-					'''
-			}
-
-			AutomaticallyMatchPreseTtoWorldDifficulty.Label: 自动匹配预设到世界难度
-
-			AutoReuseDisabledOnMagicMissile: {
-				Label: 禁用导弹类武器附魔自动重复使用
-				Tooltip: 自动重复使用魔法导弹等武器可以让你连续发射炮弹，无限累积伤害。
-			}
-
-			BasicEnchantmentStrengthMultiplier: {
-				Label: 基本的
-				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			BossEnchantmentDropChance: {
-				Label: BOSS附魔掉率(%)
-				Tooltip:
-					'''
-					调整boss附魔的掉落率。
-					(默认为50%)
-					'''
-			}
-
-			BossEssenceMultiplier: {
-				Label: Boss本源爆率(%)
-				Tooltip: 修改从Boss那里获得的本源数量。
-			}
-
-			BossExperienceMultiplier: {
-				Label: Boss经验倍率(%)
-				Tooltip: 修改从Boss那里获得的经验倍率。
-			}
-
-			BuffDuration: {
-				Label: Buff冷却持续时间 (秒)
-				Tooltip: 影响buff冷却时间和持续时间。
-			}
-
-			CalculateDamageReductionBeforeDefense: {
-				Label: 在玩家防御前计算伤害减免
-				Tooltip:
-					'''
-					默认情况下，免伤是在玩家防御后计算的。选择此项免伤将在防御之前计算。
-					这样会使你受到更少的伤害
-					'''
-			}
-
-			ChestSpawnChance: {
-				Label: 宝箱附魔几率(%)
-				Tooltip: 调整在箱子里找到附魔的几率。可以超过100%。但超过100%的部分不会生效。（它们总是100%）
-			}
-
-			ClientConfig.Label: 客户端配置
-
-			CommonEnchantmentStrengthMultiplier: {
-				Label: 常见的
-				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			ConfigCapacityCostMultiplier: {
-				Label: 附魔所需容量(%)
-				Tooltip: 影响给物品附魔所需的注能.  Base values are 基本值为1/2/3/4/5为实用，2/4/6/8/10为正常，3/6/9/12/15为困难
-			}
-
-			CrateDropChance: {
-				Label: 板条箱掉落附魔的概率(%)
-				Tooltip: 调整在板条箱中找到附魔的几率。
-			}
-
-			CritPerLevelDisabled: {
-				Label: 禁止武器每级获得暴击几率
-				Tooltip: 武器每级获得实际的暴击率= 武器每级获得的暴击率 * 整体附魔强度倍率
-			}
-
-			DamagePerLevelInstead: {
-				Label: 武器每级获得伤害而不是暴击率
-				Tooltip: 武器每级获得伤害，而不是暴击率 * Global Enchantment Strength Multiplier
-			}
-
-			DamageReductionPerLevelDisabled: {
-				Label: 禁用护甲和附件的每级伤害减免
-				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
-			}
-
-			DCUStart: {
-				Label: 从钻井控制单元开始
-				Tooltip:
-					'''
-					所有玩家在第一次创建时都会得到一个基元。
-					当你想有更快的进度，这是个很不错的选项。
-					'''
-			}
-
-			DisableAllErrorMessagesInChat: {
-				Label: 禁用聊天中的所有错误消息
-				Tooltip:
-					'''
-					阻止聊天框中的
-					Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.
-					'''
-			}
-
-			DisableArmorInfusion: {
-				Label: 禁用护甲注入
-				Tooltip: 这将阻止你注能盔甲物品，并将忽略注入的套装武器。
-			}
-
-			DisableMinionCrits: {
-				Label: 禁用召唤物暴击
-				Tooltip:
-					'''
-					在原版中，召唤物不会受到武器暴击率的影响。
-					武器附魔根据武器暴击几率给召唤物暴击的机会。
-					此选项默认禁用
-					'''
-			}
-
-			DisableResearch.Label: 禁止研究武器附魔
-
-			DisplayDamageTooltipSeperatly: {
-				Label: 在单独的工具提示中显示结界造成的大致伤害。
-				Tooltip:
-					'''
-					伤害附魔是在敌方护甲减少伤害后计算的，而不是直接改变物品的伤害。
-					如果关闭此选项，工具提示伤害将显示对零装甲目标的伤害。
-					启用显示单独的工具提示，而不是更新正常伤害值。 这显示了对 0 护甲敌人的伤害。
-					'''
-			}
-
-			EnableSwappingWeapons: {
-				Label: 启用使用num键交换武器（武器按注能排序）
-				Tooltip:
-					'''
-					使用num1和num3在所有武器之间交换。使用num4和num6在仅改装的武器之间进行切换。
-					               不会取代附魔或改装武器。
-					'''
-			}
-
-			EnchantmentDropChance: {
-				Label: 非Boss的附魔掉率(%)
-				Tooltip:
-					'''
-					调整非boss敌人附魔的掉落率。
-					(默认为100%)
-					'''
-			}
-
-			EnchantmentSlotsOnAccessories: {
-				Label: Enchantment Slots On Accissories
-				Tooltip:
-					'''
-					第一个插槽是普通插槽。
-					第二个插槽是实用程序插槽。
-					第 3-5 个是普通插槽。
-					'''
-			}
-
-			EnchantmentSlotsOnArmor: {
-				Label: 盔甲上的附魔槽
-				Tooltip:
-					'''
-					第一个插槽是普通插槽。
-					第二个插槽是实用程序插槽。
-					第 3-5 个是普通插槽。
-					'''
-			}
-
-			EnchantmentSlotsOnFishingPoles: {
-				Label: 钓鱼竿上的附魔槽
-				Tooltip:
-					'''
-					第一个插槽是普通插槽。
-					第二个插槽是实用程序插槽。
-					第 3-5 个是普通插槽。
-					'''
-			}
-
-			EnchantmentSlotsOnTools: {
-				Label: 工具上的附魔槽
-				Tooltip:
-					'''
-					第一个插槽是普通插槽。
-					第二个插槽是实用程序插槽。
-					第 3-5 个是普通插槽。
-					环境改造器是迄今为止唯一的工具。
-					'''
-			}
-
-			EnchantmentSlotsOnWeapons: {
-				Label: 武器附魔槽
-				Tooltip:
-					'''
-					第一个插槽是普通插槽。
-					第二个插槽是实用程序插槽。
-					第 3-5 个是普通插槽。
-					'''
-			}
-
-			EpicEnchantmentStrengthMultiplier: {
-				Label: 史诗
-				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			EssenceGrabRange: {
-				Label: 精华拾取范围
-				Tooltip: 影响本质开始向玩家移动时可以远离玩家的距离。
-			}
-
-			EssenceMultiplier: {
-				Label: 非Boss基元掉率(%)
-				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
-			}
-
-			ExperienceMultiplier: {
-				Label: 非Boss敌人经验掉率(%)
-				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
-			}
-
-			GatheringExperienceMultiplier: {
-				Label: 日常经验获取倍率(%)
-				Tooltip: 修改从采矿/切割/捕鱼中获得的经验
-			}
-
-			GlobalEnchantmentStrengthMultiplier: {
-				Label: 全局附魔强度乘数 (%)
-				Tooltip:
-					'''
-					Adjusts all enchantment strengths based on recomended enchantment changes.
-					Uses the same calculations as the presets but allows you to pick a different number.
-					preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)
-					'''
-			}
-
-			individualStrengths: {
-				Label: 个体物品强度
-				Tooltip:
-					'''
-					通过数值修改个人附魔强度
-					（不是百分比！）
-					（覆盖所有其他选项）
-					'''
-			}
-
-			individualStrengthsEnabled: {
-				Label: 启用个体强度
-				Tooltip: 启用此选项将导致下面选择的个体强度值覆盖所有其他设置。
-			}
-
-			InfusionDamageMultiplier: {
-				Label: 注能伤害倍率 (会除以 1000, 1 -> 0.001)
-				Tooltip:
-					'''
-					改变输液的伤害乘数。 DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
-					示例：Iron Broadsword，伤害 = 10，BaseInfusionPower = 31，注入了喵喵喵，注入能量 1100。
-					铁阔剑伤害 = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 伤害。
-					将此乘数设置为 1000 将阻止您注入武器，并且不会为已经注入的武器提供伤害加成。
-					'''
-			}
-
-			itemDefinition: {
-				Label: 魅力
-				Tooltip:
-					'''
-					仅选择附魔物品。
-					如果选择任何其他项目，可能会导致错误。
-					'''
-			}
-
-			LegendaryEnchantmentStrengthMultiplier: {
-				Label: 传奇的
-				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			LogDummyDPS: {
-				Label: 启用目标虚拟Dps计算和日志记录
-				Tooltip:
-					'''
-					追踪所有来源对目标的伤害并追踪它们。按num0开始，然后再按一次停止。
-					               按num8将所有存储的dps值打印到客户端。log\nclient.log默认位置为C:\Steam\SteamApps\common\tModLoader\tModLoader Logs
-					               通过按num0启动新的测试将重置保留项目的先前dps数据，以允许重新进行测试。
-					'''
-			}
-
-			MinionLifeStealMultiplier: {
-				Label: 召唤物治疗量 (%)
-				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
-			}
-
-			MultiplicativeCriticalHits: {
-				Label: 双倍暴击设置
-				Tooltip:
-					'''
-					武器附魔超过100%的暴击几率会让你造成双倍暴击
-					默认情况下，第一次暴击200%伤害，第二次300%伤害，第三次400%伤害。。。。。
-					启用此选项会使其倍增：第一次暴击200%伤害，第二次暴击400%伤害，第三次暴击800%伤害。。。
-					'''
-			}
-
-			OfferAll: {
-				Label: 分解所有相同的物品
-				Tooltip:
-					'''
-					在您的库存中搜索所有可分解的相同类型的物品，即使他们没有经验且没有安装附魔基元，也可以提供。
-					还提供接触附魔台的箱子中的所有物品。
-					'''
-			}
-
-			OnlyShowErrorMessagesInChatOnce: {
-				Label: 只在聊天中显示一次错误消息
-				Tooltip:
-					'''
-					消息将继续显示在您的聊天中，但在游戏会话中仅显示一次。
-					(错误消息必须不能与前一条消息完全相同。)
-					'''
-			}
-
-			PercentOfferEssence.Label: 分解物品转化为精华的百分比。
-			Preset.Tooltip:
-				'''
-				旅程、普通、专家、大师、自动、自定义
-				（这里不能选择Custom，是在调整Global Strength Multiplier时自动设置的。）
-				'''
-			presetData.Label: 预设和乘数
-
-			PreventPowerBoosterFromPreHardMode: {
-				Label: 防止困难模式前的老板掉落能量助推器。
-				Tooltip: 不包括肉壁。
-			}
-
-			PrintEnchantmentDrops: {
-				Label: 记录附魔掉落来源列表
-				Tooltip:
-					'''
-					当您进入一个世界时，该列表将打印到 client.log。
-					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintEnchantmentTooltips: {
-				Label: 记录附魔工具提示列表
-				Tooltip:
-					'''
-					当您进入一个世界时，该列表将打印到client.log中
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintWeaponInfusionPowers: {
-				Label: 记录所有武器注能
-				Tooltip:
-					'''
-					当你进入一个世界时，信息会打印到 client.log 中。
-					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintWikiInfo: {
-				Label: 记录所有wiki信息
-				Tooltip:
-					'''
-					当你进入一个世界时，信息会打印到 client.log 中。
-					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			RareEnchantmentStrengthMultiplier: {
-				Label: 稀有的
-				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			ReduceOfferEfficiencyByBaseInfusionPower: {
-				Label: 通过基础注入功率降低报价效率
-				Tooltip:
-					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
-					Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).
-					'''
-			}
-
-			ReduceOfferEfficiencyByTableTier: {
-				Label: 按表层降低报价效率
-				Tooltip:
-					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
-					Enabling this will cause the wood table to be 60% efficient.
-					Each table gains 10% efficiency.  100% with Ultimate table.
-					'''
-			}
-
-			ReduceRecipesToMinimum: {
-				Label: 将食谱减少到最低限度。
-				Tooltip:
-					'''
-					删除所有在层之间跳转的食谱，以减少查看食谱时的混乱情况。
-					还使所有精华配方 4 比 1，而不是随附魔台层级缩放。
-					'''
-			}
 
-			RemoveEnchantmentRestrictions: {
-				Label: 移除附魔限制（使用风险自负！）
-				Tooltip: 移除 Unique、Max 1 和武器或物品类型特定的附魔。
+			ArmorDamageReduction: {
+				Tooltip: 允许您修改盔甲和配件在升级时获得的伤害减免。
+
+				AccessoryDamageReductionPerLevel: {
+					Label: 每级配件 DR (100000 = 1%)
+					Tooltip: 250000 (2.5%) 是最大值，在 40 级时伤害减少 100%。
+				}
+
+				ArmorDamageReductionPerLevel: {
+					Label: 每级护甲 DR (100000 = 1%)
+					Tooltip: 250000 (2.5%) 是最大值，在 40 级时伤害减少 100%。
+				}
+			}
+
+			ClientConfig: {
+				DisplayName: 客户端配置
+				DisplaySettings: 显示设置
+				ErrorMessages: 错误信息
+				LoggingInformation: 记录信息
+				ModTestingTools: 模组测试工具
+
+				AllowCraftingIntoLowerTier: {
+					Label: 允许将结界制作成较低层的结界。
+					Tooltip: 当将结界制作成较低等级的结界时，您将收到所有成分，包括收容物、精华和宝石。
+				}
+
+				AllowInfusingToLowerPower: {
+					Label: 允许输注物品以降低输注能力
+					Tooltip: 警告：这将允许你消耗弱武器来降级强武器。
+				}
+
+				AllowShiftClickMoveFavoritedItems: {
+					Label: 允许按住 Shift 键单击将收藏的项目移动到附魔表中。
+					Tooltip: 如果未启用，则必须取消收藏项目或通过使用鼠标移动来手动移动项目。
+				}
+
+				AlwaysDisplayAccessoryLevelUpMessages: {
+					Label: 始终显示配件升级消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示配件升级消息。
+				}
+
+				AlwaysDisplayArmorLevelUpMessages: {
+					Label: 始终显示护甲等级提升消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示护甲等级提升消息。
+				}
+
+				AlwaysDisplayInfusionPower: {
+					Label: 始终显示输液功率
+					Tooltip: 启用始终显示物品的灌注能量，而不是仅在附魔台打开时显示。
+				}
+
+				AlwaysDisplayToolLevelUpMessages: {
+					Label: 始终显示工具升级消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示工具升级消息。
+				}
+
+				AlwaysDisplayWeaponLevelUpMessages: {
+					Label: 始终显示武器升级消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示武器升级消息。
+				}
+
+				DisableAllErrorMessagesInChat: {
+					Label: 禁用聊天中的所有错误消息
+					Tooltip:
+						'''
+						防止在您的聊天中显示要求您这样做的消息
+						请将此事报告给andro951（武器附魔）并描述您当时所做的事情。
+						'''
+				}
+
+				DisplayDamageTooltipSeperatly: {
+					Label: 在单独的工具提示中显示结界造成的大致伤害。
+					Tooltip:
+						'''
+						伤害附魔是在敌方护甲减少伤害后计算的，而不是直接改变物品的伤害。
+						如果关闭此选项，工具提示伤害将显示对零装甲目标的伤害。
+						启用显示单独的工具提示，而不是更新正常伤害值。 这显示了对 0 护甲敌人的伤害。
+						'''
+				}
+
+				EnableSwappingWeapons: {
+					Label: 使用数字键启用交换武器（武器按输注能力排序）
+					Tooltip:
+						'''
+						使用 num1 和 num3 在所有武器之间交换。 使用 num4 和 num6 仅在改装武器之间进行交换。
+						不会取代附魔或改装的武器。
+						'''
+				}
+
+				LogDummyDPS: {
+					Label: 启用目标虚拟 Dps 计算和记录
+					Tooltip:
+						'''
+						追踪所有来源对目标造成的伤害并对其进行跟踪。 按 num0 开始，然后再按一次停止。
+						按 num8 将所有存储的 dps 值打印到 client.log\nclient.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						按 num0 开始新测试会重置所持有物品之前的 dps 数据，以便重新进行测试。
+						'''
+				}
+
+				OfferAll: {
+					Label: 提供所有相同的项目。
+					Tooltip:
+						'''
+						在您的库存中搜索所有已提供的相同类型的物品，如果它们的经验为 0 并且未安装动力增强器，也提供它们。
+						还提供接触迷人桌子的箱子中的所有物品。
+						'''
+				}
+
+				OnlyShowErrorMessagesInChatOnce: {
+					Label: 仅在聊天中显示一次错误消息
+					Tooltip:
+						'''
+						消息将继续显示在您的聊天中，但仅在游戏会话期间显示一次。
+						（错误消息必须与之前要阻止的消息完全相同。）
+						'''
+				}
+
+				PrintEnchantmentDrops: {
+					Label: 记录附魔掉落源列表
+					Tooltip:
+						'''
+						当您进入世界时，该列表将打印到 client.log 中。
+						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				PrintEnchantmentTooltips: {
+					Label: 记录附魔工具提示列表
+					Tooltip:
+						'''
+						当您进入世界时，该列表将打印到 client.log 中。
+						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				PrintWeaponInfusionPowers: {
+					Label: 记录所有武器注入能力
+					Tooltip:
+						'''
+						当您进入世界时，该信息将打印到 client.log 中。
+						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				teleportEssence: {
+					Label: 自动发送精华到UI
+					Tooltip:
+						'''
+						自动将精华从您的库存发送到 UI 精华槽。
+						（在 UI 打开时禁用。）
+						'''
+				}
+
+				UseAlternateEnchantmentEssenceTextures: {
+					Label: 使用备用附魔精华纹理
+					Tooltip: 默认颜色适合色盲。 替代纹理有细微差别，但被投票保留。
+				}
+
+				UsePointsAsTooltip: {
+					Label: “点”而不是“结界容量”
+					Tooltip: 工具提示将显示可用点数而不是可用附魔容量
+				}
+			}
+
+			Pair: {
+				Tooltip: 允许您为特定的结界分配强度。
+
+				itemDefinition: {
+					Label: 魅力
+					Tooltip:
+						'''
+						仅选择附魔物品。
+						如果选择任何其他项目，可能会导致错误。
+						'''
+				}
+
+				Strength: {
+					Label: 强度（1000 = 1, 10 = 1%）
+					Tooltip:
+						'''
+						调整该值时要小心。
+						强度是所使用的精确值。
+						示例 40% 伤害魔咒为 0.4
+						10防御为10
+						'''
+				}
+			}
+
+			PresetData: {
+				Tooltip: 预设使您可以轻松地一次影响所有结界。
+
+				AutomaticallyMatchPreseTtoWorldDifficulty: {
+					Label: 自动匹配预设的世界难度
+					Tooltip: 必须关闭才能编辑其他选项。
+				}
+
+				BasicEnchantmentStrengthMultiplier: {
+					Label: 基本的
+					Tooltip: 影响所有基本结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				CommonEnchantmentStrengthMultiplier: {
+					Label: 常见的
+					Tooltip: 影响所有普通结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				EpicEnchantmentStrengthMultiplier: {
+					Label: 史诗
+					Tooltip: 影响所有史诗结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				GlobalEnchantmentStrengthMultiplier: {
+					Label: 全局附魔强度乘数 (%)
+					Tooltip:
+						'''
+						根据推荐的附魔变化调整所有附魔强度。
+						使用与预设相同的计算，但允许您选择不同的数字。
+						预设值为； 旅程：250，普通：100，专家：50，大师：25（覆盖预设）
+						'''
+				}
+
+				LegendaryEnchantmentStrengthMultiplier: {
+					Label: 传奇的
+					Tooltip: 影响所有传奇结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				Preset: {
+					Label: 预设
+					Tooltip:
+						'''
+						旅程、普通、专家、大师、自动、自定义
+						（这里不能选择自定义。它是在调整全局强度乘数时自动设置的。）
+						'''
+				}
+
+				RareEnchantmentStrengthMultiplier: {
+					Label: 稀有的
+					Tooltip: 影响所有稀有结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
 			}
 
 			ServerConfig: {
-				Label: 服务器配置
-				// $parentVal: preset Data Header
-			}
+				DisplayName: 服务器配置
+				EnchantingTableOptions: 迷人的桌子选项
+				EnchantmentDropRates(%): 附魔掉落率(%)
+				EnchantmentSettings: 附魔设置
+				EssenceandExperience: 本质与经验
+				GeneralGameChanges: 一般游戏变更
+				IndividualEnchantmentStrengths: 个人附魔优势
+				Multipliers: 乘数
+				OtherDropRates: 其他掉落率
+				Presets: 预设
+				RandomExtraStuff: 随机额外的东西
+				RarityEnchantmentStrengthMultipliers: 稀有度附魔强度乘数
+				ServerConfig: 服务器配置
 
-			Strength: {
-				Label: 力量 (1000 = 1, 10 = 1%)
-				Tooltip:
-					'''
-					调整该值时要小心。
-					强度是使用的确切值。
-					例如 40% 伤害附魔是 0.4
-					10防御是10
-					'''
-			}
+				AffectOnVanillaLifeStealLimmit: {
+					Label: 生命偷取附魔限制（对原版生命偷取限制的影响）（%）
+					Tooltip:
+						'''
+						使用高于 100% 的值可以更多地限制吸血，使用低于 100% 的值可以减少限制。 0 表示没有限制。
+						原版泰拉瑞亚使用吸血限制系统：在下面的示例中，使用的值为普通模式（括号内为专家/大师模式值）
+						它有一个 80(70) 的池子，可供你从中吸取生命。 通过吸血获得生命会减少这个池子。
+						池每秒恢复 36(30) 点。 如果池值为负，你就无法通过吸血获得生命。
+						此配置值会更改您从吸血结界中恢复的生命对该限制的影响程度。
+						示例：200% 你通过吸血获得 200 点生命。 200 * 200% = 400。80(70) 池 - 400 治愈 = -320(-330) 池。
+						池子需要 320/36(330/30) 秒 -> 8.9(11) 秒才能再次变为正值，这样你就可以再次从吸血中获得生命。
+						注意：机制对你一次可以获得的收益没有上限。 您获得的越多，恢复所需的时间就越长。
+						'''
+				}
 
-			teleportEssence: {
-				Label: 自动将精华发送到附魔桌
-				Tooltip:
-					'''
-					自动将库存中的精华发送到附魔桌的精华槽。
-					               （在UI打开时禁用。）
-					'''
-			}
+				AllowCriticalChancePast100: {
+					Label: 暴击率有效率超过 100%
+					Tooltip:
+						'''
+						原版泰拉瑞亚将暴击率上限限制为 100%。 默认情况下，武器附魔在 100% 后计算额外暴击。
+						120%暴击几率是100%伤害加倍，然后20%几率暴击增加伤害。 有关详细信息，请参阅下一个配置选项。
+						'''
+				}
 
-			UseAlternateEnchantmentEssenceTextures: {
-				Label: 使用备用的附魔纹理
-				Tooltip: 默认纹理的颜色对色盲友好。备用纹理有微小的差异，但被投票保留。
-			}
+				AllowHighTierOres: {
+					Label: 从提供的物品中接收最高可达叶绿的矿石。
+					Tooltip:
+						'''
+						禁用此选项只允许您接收铁、银、金（或基于世界生成的等价物）。
+						（仅在困难模式下有效。叶绿只能在杀死机械 Boss 后使用。）
+						'''
+				}
 
-			UsePointsAsTooltip: {
-				Label: 用点数代替附魔容量显示
-				Tooltip: 物品提示栏将显示可用点数，而不是可用附魔容量
+				AlwaysOverrideDamageType: {
+					Label: 伤害类型转换结界总是会被覆盖。
+					Tooltip:
+						'''
+						一些模组（例如《星辰之上》）会更改武器伤害类型。 如果启用此选项，则更改伤害类型的结界将始终更改武器的伤害类型。
+						如果未选择，则仅当武器当前为原始伤害类型时才会更改伤害类型。
+						'''
+				}
+
+				AmaterasuSelfGrowthPerTick: {
+					Label: 天照每刻自我增长
+					Tooltip: 影响天照伤害自然上升的速度（不是再次被世界炽热武器击中时。）
+				}
+
+				ArmorDamageReductions: {
+					Label: 装甲和配件伤害减免
+					Tooltip: 用于修改盔甲和配饰在升级时获得的护甲减少量。
+				}
+
+				AttackSpeedEnchantmentAutoReuseSetpoint: {
+					Label: 启用速度附魔自动重用 (%)
+					Tooltip:
+						'''
+						速度附魔将开始提供自动重用统计数据的强度。
+						将所有速度附魔设置为 0 以自动重用。 设置为 10000 以防止任何获得自动重用（除非你的力量乘数很大）
+						'''
+				}
+
+				AutoReuseDisabledOnMagicMissile: {
+					Label: 魔法导弹类型武器禁用自动重复使用
+					Tooltip: 魔法导弹等武器的自动重复使用允许您连续射击射弹以无限叠加伤害。
+				}
+
+				BossEnchantmentDropChance: {
+					Label: Boss附魔掉落率(%)
+					Tooltip:
+						'''
+						调整 Boss 附魔的掉落率。
+						（默认为 50%）
+						'''
+				}
+
+				BossEssenceMultiplier: {
+					Label: Boss精华倍率(%)
+					Tooltip: 修改从boss处获得的精华数量。
+				}
+
+				BossExperienceMultiplier: {
+					Label: Boss经验倍数(%)
+					Tooltip: 修改从老板那里获得的经验量。
+				}
+
+				BuffDuration: {
+					Label: 增益冷却时间（秒）
+					Tooltip: 影响增益效果的冷却时间和持续时间。
+				}
+
+				CalculateDamageReductionBeforeDefense: {
+					Label: 在玩家防御之前计算伤害减少
+					Tooltip:
+						'''
+						默认情况下，伤害减免是在玩家防御后应用的。 选择此选项之前应用。
+						之前会让你受到更少的伤害。
+						'''
+				}
+
+				ChestSpawnChance: {
+					Label: 宝箱附魔生成几率(%)
+					Tooltip: 调整在宝箱中找到结界的几率。 可以超过100%。 不影响生物群系宝箱。（它们始终是 100%）
+				}
+
+				ConfigCapacityCostMultiplier: {
+					Label: 附魔能力成本乘数(%)
+					Tooltip: 影响应用于物品的附魔成本。 实用的基值为 1/2/3/4/5，普通的基值为 2/4/6/8/10，唯一的基值为 3/6/9/12/15。
+				}
+
+				CrateDropChance: {
+					Label: 宝箱附魔掉落几率倍数(%)
+					Tooltip: 调整在钓鱼箱中找到结界的几率。
+				}
+
+				CritPerLevelDisabled: {
+					Label: 每级禁用武器暴击率
+					Tooltip: 武器获得的致命一击几率等于其等级 * 全局附魔强度乘数。
+				}
+
+				DamagePerLevelInstead: {
+					Label: 每级造成伤害而不是暴击率
+					Tooltip: 武器按等级获得伤害，而不是等于其等级的致命一击几率*全局附魔强度乘数
+				}
+
+				DamageReductionPerLevelDisabled: {
+					Label: 禁用每级的护甲和配件伤害减免
+					Tooltip: 盔甲和配饰获得的伤害减免等于其等级*以下世界难度的适当设定值。
+				}
+
+				DCUStart: {
+					Label: 从钻头密封装置开始
+					Tooltip:
+						'''
+						所有玩家第一次生成时都会获得一个钻头遏制装置。
+						当您想要更快地玩游戏时，这只是为了好玩。
+						'''
+				}
+
+				DisableArmorInfusion: {
+					Label: 禁用护甲注入
+					Tooltip: 这将阻止你注入盔甲物品并忽略注入的套装奖励。
+				}
+
+				DisableMinionCrits: {
+					Label: 禁用小兵暴击
+					Tooltip:
+						'''
+						在原版中，小兵不受武器暴击率的影响。
+						武器附魔根据武器暴击几率为小兵提供暴击几率。
+						此选项禁用暴击（原版机制）
+						'''
+				}
+
+				DisableResearch: {
+					Label: 禁用研究武器附魔物品的能力。
+					Tooltip: 启用后，所有精华和结界将无法研究，从而防止它们在旅程模式中被复制。
+				}
+
+				EnchantmentDropChance: {
+					Label: 非Boss附魔掉落率(%)
+					Tooltip:
+						'''
+						调整非头目敌人的结界掉落率。
+						（默认为 100%）
+						'''
+				}
+
+				EnchantmentSlotsOnAccessories: {
+					Label: 配件上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EnchantmentSlotsOnArmor: {
+					Label: 盔甲上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EnchantmentSlotsOnFishingPoles: {
+					Label: 钓鱼竿上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EnchantmentSlotsOnTools: {
+					Label: 工具上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						环境改造枪是迄今为止唯一的工具。
+						'''
+				}
+
+				EnchantmentSlotsOnWeapons: {
+					Label: 武器上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EssenceGrabRange: {
+					Label: 精华抓取范围倍增器
+					Tooltip: 影响精华开始向玩家移动时距离玩家的距离。
+				}
+
+				EssenceMultiplier: {
+					Label: 非Boss精华倍率(%)
+					Tooltip: 修改从非boss敌人处获得的精华量。
+				}
+
+				ExperienceMultiplier: {
+					Label: 非Boss经验倍数(%)
+					Tooltip: 修改从非头目敌人那里获得的经验量。
+				}
+
+				GatheringExperienceMultiplier: {
+					Label: 积累经验倍数(%)
+					Tooltip: 修改采矿/砍伐/钓鱼获得的经验值
+				}
+
+				individualStrengths: {
+					Label: 个人优势
+					Tooltip:
+						'''
+						按值修改个人附魔强度
+						（不是百分比！）
+						（覆盖所有其他选项）
+						'''
+				}
+
+				individualStrengthsEnabled: {
+					Label: 发挥个人优势
+					Tooltip: 启用此功能将导致下面选择的个人强度值覆盖所有其他设置。
+				}
+
+				InfusionDamageMultiplier: {
+					Label: 灌注伤害倍数（除以 1000，1 -> 0.001）
+					Tooltip:
+						'''
+						改变输注的伤害倍数。 伤害倍数 = 注入伤害倍数^((注入功率 - 基础注入功率) / 100)
+						示例：铁阔剑，伤害 = 10，BaseInfusionPower = 31 注入 Meowmere，注入功率 1100。
+						铁阔剑伤害 = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 伤害。
+						将此乘数设置为 1000 将阻止您注入武器，并且不会为已注入的武器提供任何伤害加成。
+						'''
+				}
+
+				MinionLifeStealMultiplier: {
+					Label: 小兵生命窃取倍数 (%)
+					Tooltip: 允许你减少小兵通过吸血附魔获得的治疗量。
+				}
+
+				MultiplicativeCriticalHits: {
+					Label: 乘数暴击超过第一个。
+					Tooltip:
+						'''
+						武器附魔利用暴击率超过 100% 来让你再次暴击。
+						默认情况下，这是一个附加奖励：第一次暴击 200% 伤害，第二次 300% 伤害，第三次 400% 伤害......
+						启用此功能会使它们相乘：第一个暴击 200% 伤害，第二个暴击 400% 伤害，第三个暴击 400% 伤害......
+						'''
+				}
+
+				PercentOfferEssence: {
+					Label: 提供的物品价值转换为精华的百分比。
+					Tooltip: 所有精华为 100%，所有矿石为 0%。 精华和矿石的售价将是相等的。
+				}
+
+				presetData: {
+					Label: 预设和乘数
+					Tooltip: 预设和乘数可让您同时影响所有结界。
+				}
+
+				PreventPowerBoosterFromPreHardMode: {
+					Label: 防止困难模式前的 Boss 掉落强力助推器。
+					Tooltip: 不包括肉墙。
+				}
+
+				PrintWikiInfo: {
+					Label: 记录所有维基信息
+					Tooltip:
+						'''
+						当您进入世界时，该信息将打印到 client.log 中。
+						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				ReduceOfferEfficiencyByBaseInfusionPower: {
+					Label: 通过基础输液功率降低报价效率
+					Tooltip:
+						'''
+						提供物品时，您会收到相当于物品经验的精华。
+						启用此选项将使武器在输注功率为 0 时效率为 100%，在输注功率为 1100（及以上）时效率为 80%。
+						'''
+				}
+
+				ReduceOfferEfficiencyByTableTier: {
+					Label: 按表层降低报价效率
+					Tooltip:
+						'''
+						提供物品时，您会收到相当于物品经验的精华。
+						启用此选项将使木桌的效率达到 60%。
+						每张桌子获得 10% 的效率。 100% 使用 Ultimate 表。
+						'''
+				}
+
+				ReduceRecipesToMinimum: {
+					Label: 将食谱减少到最少。
+					Tooltip:
+						'''
+						删除所有在层之间跳转的食谱，以减少查看食谱时的混乱。
+						还使所有精华配方为 4 比 1，而不是通过附魔表层进行缩放。
+						'''
+				}
+
+				RemoveEnchantmentRestrictions: {
+					Label: 删除结界限制（使用风险自负！）
+					Tooltip: 删除诸如“Unique”、“Max 1”以及武器或物品类型特定附魔之类的东西。
+				}
 			}
 		}
 
@@ -661,7 +715,7 @@ Mods: {
 			NPCInProgressionGroupNoUniqueEnchantments: 在进展组中检测到一个没有独特武器或成分的NPC。
 			OnlySyphonMaxLevel: “只有达到最高等级且经验值超过 {0} 的物品，您才可以虹吸该物品。”
 			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
-			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\"
+			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\\\\"
 			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
 			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
 			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
@@ -1577,454 +1631,37 @@ Mods: {
 			}
 		}
 
-		Tiles: {
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-		}
-
 		NPCs: {
 			Witch: {
-				// DisplayName: Witch
-
 				TownNPCMood: {
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// LikeNPC_Princess: I like {NPCName}.
 					// Princess_LovesNPC: I like {NPCName}.
+					// LikeNPC_Princess: I like {NPCName}.
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
 				}
+
+				// DisplayName: Witch
 			}
 		}
 
-		Configs: {
-			ClientConfig: {
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ClientConfig.Label}"
-
-				teleportEssence: {
-					// Label: "{$Mods.WeaponEnchantments.Config.teleportEssence.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.teleportEssence.Tooltip}"
-				}
-
-				OfferAll: {
-					// Label: "{$Mods.WeaponEnchantments.Config.OfferAll.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OfferAll.Tooltip}"
-				}
-
-				AllowShiftClickMoveFavoritedItems: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowShiftClickMoveFavoritedItems.Label}"
-					// Tooltip: ""
-				}
-
-				AlwaysDisplayInfusionPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip}"
-				}
-
-				AllowCraftingIntoLowerTier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label}"
-					// Tooltip: ""
-				}
-
-				AllowInfusingToLowerPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Tooltip}"
-				}
-
-				UsePointsAsTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Tooltip}"
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					// Label: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
-				}
-
-				DisplayDamageTooltipSeperatly: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
-				}
-
-				AlwaysDisplayWeaponLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayArmorLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayAccessoryLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayToolLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip}"
-				}
-
-				UITransparency: {
-					// Label: "{$Mods.androLib.Config.UITransparency.Label}"
-					// Tooltip: ""
-				}
-
-				PrintEnchantmentTooltips: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip}"
-				}
-
-				PrintEnchantmentDrops: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Tooltip}"
-				}
-
-				PrintWeaponInfusionPowers: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip}"
-				}
-
-				EnableSwappingWeapons: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Tooltip}"
-				}
-
-				LogDummyDPS: {
-					// Label: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Tooltip}"
-				}
-
-				DisableAllErrorMessagesInChat: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Tooltip}"
-				}
-
-				OnlyShowErrorMessagesInChatOnce: {
-					// Label: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Tooltip}"
-				}
-			}
-
-			ServerConfig: {
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				presetData: {
-					// Label: "{$Mods.WeaponEnchantments.Config.presetData.Label}"
-					// Tooltip: ""
-				}
-
-				individualStrengthsEnabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Tooltip}"
-				}
-
-				individualStrengths: {
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengths.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengths.Tooltip}"
-				}
-
-				AlwaysOverrideDamageType: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Tooltip}"
-				}
-
-				AffectOnVanillaLifeStealLimmit: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Tooltip}"
-				}
-
-				AttackSpeedEnchantmentAutoReuseSetpoint: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Tooltip}"
-				}
-
-				AutoReuseDisabledOnMagicMissile: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip}"
-				}
-
-				BuffDuration: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BuffDuration.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BuffDuration.Tooltip}"
-				}
-
-				AmaterasuSelfGrowthPerTick: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Tooltip}"
-				}
-
-				ReduceRecipesToMinimum: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Tooltip}"
-				}
-
-				ConfigCapacityCostMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Tooltip}"
-				}
-
-				RemoveEnchantmentRestrictions: {
-					// Label: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Tooltip}"
-				}
-
-				BossEssenceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Tooltip}"
-				}
-
-				EssenceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Tooltip}"
-				}
-
-				BossExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Tooltip}"
-				}
-
-				ExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Tooltip}"
-				}
-
-				GatheringExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Tooltip}"
-				}
-
-				EssenceGrabRange: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Tooltip}"
-				}
-
-				BossEnchantmentDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Tooltip}"
-				}
-
-				EnchantmentDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Tooltip}"
-				}
-
-				ChestSpawnChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Tooltip}"
-				}
-
-				CrateDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip}"
-				}
-
-				PreventPowerBoosterFromPreHardMode: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Tooltip}"
-				}
-
-				AllowHighTierOres: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Tooltip}"
-				}
-
-				EnchantmentSlotsOnWeapons: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Tooltip}"
-				}
-
-				EnchantmentSlotsOnArmor: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Tooltip}"
-				}
-
-				EnchantmentSlotsOnAccessories: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Tooltip}"
-				}
-
-				EnchantmentSlotsOnFishingPoles: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Tooltip}"
-				}
-
-				EnchantmentSlotsOnTools: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Tooltip}"
-				}
-
-				PercentOfferEssence: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label}"
-					// Tooltip: ""
-				}
-
-				ReduceOfferEfficiencyByTableTier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip}"
-				}
-
-				ReduceOfferEfficiencyByBaseInfusionPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Tooltip}"
-				}
-
-				DisableMinionCrits: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip}"
-				}
-
-				CritPerLevelDisabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Tooltip}"
-				}
-
-				DamagePerLevelInstead: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Tooltip}"
-				}
-
-				DamageReductionPerLevelDisabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip}"
-				}
-
-				CalculateDamageReductionBeforeDefense: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Tooltip}"
-				}
-
-				ArmorDamageReductions: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductions.Label}"
-					// Tooltip: ""
-				}
-
-				AllowCriticalChancePast100: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Tooltip}"
-				}
-
-				MultiplicativeCriticalHits: {
-					// Label: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Tooltip}"
-				}
-
-				InfusionDamageMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Tooltip}"
-				}
-
-				DisableArmorInfusion: {
-					// Label: Disable Armor Infusion
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableArmorInfusion.Tooltip}"
-				}
-
-				MinionLifeStealMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Tooltip}"
-				}
-
-				DCUStart: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
-				}
-
-				DisableResearch: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					// Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
-			}
-
-			PresetData: {
-				// Tooltip: ""
-
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label}"
-					// Tooltip: ""
-				}
-
-				Preset: {
-					// Label: Preset
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Preset.Tooltip}"
-				}
-
-				GlobalEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				BasicEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				CommonEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				RareEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				EpicEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				LegendaryEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip}"
-				}
-			}
-
-			Pair: {
-				// Tooltip: ""
-
-				itemDefinition: {
-					// Label: "{$Mods.WeaponEnchantments.Config.itemDefinition.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.itemDefinition.Tooltip}"
-				}
-
-				Strength: {
-					// Label: "{$Mods.WeaponEnchantments.Config.Strength.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Strength.Tooltip}"
-				}
-			}
-
-			ArmorDamageReduction: {
-				// Tooltip: ""
-
-				ArmorDamageReductionPerLevel: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Tooltip}"
-				}
-
-				AccessoryDamageReductionPerLevel: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Tooltip}"
-				}
-			}
+		Tiles: {
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
 		}
 	}
 }

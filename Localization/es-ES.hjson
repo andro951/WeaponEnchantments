@@ -4,569 +4,609 @@ Mods: {
 		Bestiary.Witch: La Bruja es una dama fea y malvada y se ocupa de otras cosas malvadas. Comercia con materiales dudosos utilizados para mejorar equipos con efectos misteriosos.
 		Buffs.Amaterasu.DisplayName: Amaterasu
 
-		Config: {
-			AccessoryDRValues: Accesorio {0}% ({1}% a los 40)
+		Configs: {
+			AccessoryDRValues: Accesorio {0}% ({1}% en 40)
 			ArmorDRValues: Armadura {0}% ({1}% a 40)
 			Automatic: Automático
 			Custom: Costumbre
-			DisplaySettings: Configuración de pantalla
-			EnchantingTableOptions: Opciones de mesa encantadora
 			Enchantment: Encantamiento
-			EnchantmentDropRates(%): Tasas de caída de encantamiento (%)
-			EnchantmentSettings: Ajustes de encantamiento
-			ErrorMessages: Error de mensajes
-			EssenceandExperience: Esencia y Experiencia
 			Expert: Experto
-			GeneralGameChanges: Cambios generales en el juego
-			IndividualEnchantmentStrengths: Fortalezas de encantamiento individuales
 			Journey: Viaje
-			LoggingInformation: Información de registro
 			Master: Maestro
-			ModTestingTools: Herramientas de prueba de mods
-			Multipliers: multiplicadores
 			NoneSelected: Ninguna seleccionada
 			Normal: Normal
-			OtherDropRates: Otras tasas de caída
-			Presets: Preajustes
-			RandomExtraStuff: Cosas adicionales aleatorias
-			RarityEnchantmentStrengthMultipliers: Multiplicadores de fuerza de encantamiento de rareza
-
-			AccessoryDamageReductionPerLevel: {
-				Label: Accesorio DR por nivel (100000 = 1%)
-				Tooltip: 250000 (2.5%) es el máximo que sería 100% de reducción de daño en el nivel 40.
-			}
-
-			AffectOnVanillaLifeStealLimmit: {
-				Label: Limitación de encantamiento de robo de vida (afecta al límite de robo de vida de vainilla) (%)
-				Tooltip:
-					'''
-					Use un valor por encima del 100% para limitar más el robo de vida, menos del 100% para limitar menos. 0 para no tener límite.
-					Vanilla Terraria utiliza un sistema de limitación de robo de vida: en el siguiente ejemplo, los valores utilizados están en modo normal (valores de modo Experto/Maestro entre paréntesis)
-					Tiene un grupo de 80 (70) que se guarda para que ganes robo de vida. Ganar vida a través del robo de vida reduce este grupo.
-					La piscina se restaura en 36 (30) puntos por segundo. Si el valor de la reserva es negativo, no puedes ganar vida con el robo de vida.
-					Este valor de configuración cambia cuánto afecta este límite la vida que curas de los encantamientos de robo de vida.
-					Ejemplo: 200% Obtienes 200 vidas por robo de vida. 200 * 200% = 400. 80(70) grupo - 400 curados = -320(-330) grupo.
-					Tomará 320/36 (330/30) segundos -> 8.9 (11) segundos para que el grupo sea positivo nuevamente para que pueda ganar vida con el robo de vida nuevamente.
-					Nota: la mecánica no tiene un límite sobre cuánto puedes ganar a la vez. Solo tomará más tiempo recuperarse cuanto más gane.
-					'''
-			}
-
-			AllowCraftingIntoLowerTier.Label: Permitir la elaboración de encantamientos en encantamientos de nivel inferior.
-
-			AllowCriticalChancePast100: {
-				Label: Probabilidad de golpe crítico efectiva sobre el 100% de probabilidad
-				Tooltip:
-					'''
-					Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.
-					120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info.
-					'''
-			}
-
-			AllowHighTierOres: {
-				Label: Recieve ores up to Chlorophyte from Offering items.
-				Tooltip:
-					'''
-					Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).
-					(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)
-					'''
-			}
-
-			AllowInfusingToLowerPower: {
-				Label: Permitir infundir elementos para reducir los poderes de infusión
-				Tooltip: Advertencia: esto te permitirá consumir un arma débil para degradar un arma fuerte.
-			}
-
-			AllowShiftClickMoveFavoritedItems.Label: Permita que haga clic en Mayús para mover los elementos favoritos a la mesa de encantamiento.
-
-			AlwaysDisplayAccessoryLevelUpMessages: {
-				Label: Mostrar siempre mensajes de aumento de nivel de accesorios
-				Tooltip: Solo muestra mensajes de aumento de nivel de accesorios cuando se usa la mesa de encantamiento si esta opción está desactivada.
-			}
-
-			AlwaysDisplayArmorLevelUpMessages: {
-				Label: Mostrar siempre mensajes de aumento de nivel de armadura
-				Tooltip: Solo muestra mensajes de aumento de nivel de armadura cuando se usa la tabla de encantamiento si esta opción está desactivada.
-			}
-
-			AlwaysDisplayInfusionPower: {
-				Label: Mostrar siempre la potencia de infusión
-				Tooltip: Habilite para mostrar el poder de infusión del elemento siempre en lugar de solo cuando la mesa de encantamiento está abierta.
-			}
-
-			AlwaysDisplayToolLevelUpMessages: {
-				Label: Mostrar siempre mensajes de subida de nivel de herramienta
-				Tooltip: Solo muestra mensajes de nivel de herramienta cuando se usa la tabla de encantamiento si esta opción está desactivada.
-			}
-
-			AlwaysDisplayWeaponLevelUpMessages: {
-				Label: Mostrar siempre mensajes de aumento de nivel de arma
-				Tooltip: Solo muestra mensajes de aumento de nivel de armas cuando se usa la tabla de encantamiento si esta opción está desactivada.
-			}
-
-			AlwaysOverrideDamageType: {
-				Label: Los encantamientos de conversión de tipo de daño siempre se anulan.
-				Tooltip:
-					'''
-					Algunas modificaciones como Stars Above cambian los tipos de daño de las armas. Si esta opción está habilitada, los encantamientos que cambian el tipo de daño siempre cambiarán el tipo de daño del arma.
-					Si no se selecciona, el tipo de daño solo se cambiará si el arma tiene actualmente el tipo de daño original.
-					'''
-			}
-
-			AmaterasuSelfGrowthPerTick: {
-				Label: Autocrecimiento de Amaterasu por garrapata
-				Tooltip: Afecta la rapidez con la que aumentará el daño de Amaterasu de forma natural (no cuando se vuelve a golpear con un arma World Ablaze).
-			}
-
-			ArmorDamageReductionPerLevel: {
-				Label: Armadura DR por nivel (100000 = 1%)
-				Tooltip: 250000 (2.5%) es el máximo que sería 100% de reducción de daño en el nivel 40.
-			}
-
-			ArmorDamageReductions.Label: Reducciones de daño de armaduras y accesorios
-
-			AttackSpeedEnchantmentAutoReuseSetpoint: {
-				Label: Reutilización automática de encantamiento de velocidad habilitada (%)
-				Tooltip:
-					'''
-					La fuerza que un encantamiento de velocidad comenzará a dar a la estadística de reutilización automática.
-					Establézcalo en 0 para todos los encantamientos de velocidad para dar reutilización automática. Establézcalo en 10000 para evitar que se gane la reutilización automática (a menos que su multiplicador de fuerza sea enorme)
-					'''
-			}
-
-			AutomaticallyMatchPreseTtoWorldDifficulty.Label: Emparejar automáticamente el ajuste preestablecido con la dificultad mundial
-
-			AutoReuseDisabledOnMagicMissile: {
-				Label: Reutilización automática deshabilitada en armas de tipo Magic Missile
-				Tooltip: La reutilización automática en armas como Magic Missile te permite disparar continuamente los proyectiles para acumular daño infinitamente.
-			}
-
-			BasicEnchantmentStrengthMultiplier: {
-				Label: Básico
-				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			BossEnchantmentDropChance: {
-				Label: Tasa de caída de encantamiento de jefe (%)
-				Tooltip:
-					'''
-					Ajusta la tasa de caída de los encantamientos de los jefes.
-					(El valor predeterminado es 50 %)
-					'''
-			}
-
-			BossEssenceMultiplier: {
-				Label: Multiplicador de esencia de jefe (%)
-				Tooltip: Modify the ammount of essence recieved from bosses.
-			}
-
-			BossExperienceMultiplier: {
-				Label: Multiplicador de experiencia de jefe (%)
-				Tooltip: Modify the ammount of experience recieved from bosses.
-			}
-
-			BuffDuration: {
-				Label: Duración del enfriamiento de la mejora (segundos)
-				Tooltip: Afecta el tiempo de reutilización y la duración de la mejora.
-			}
-
-			CalculateDamageReductionBeforeDefense: {
-				Label: Calcular la reducción de daños antes de la defensa del jugador
-				Tooltip:
-					'''
-					De forma predeterminada, la reducción de daños se aplica después de la defensa del jugador. Seleccione esto para aplicar antes.
-					Antes hará que sufras mucho menos daño.
-					'''
-			}
-
-			ChestSpawnChance: {
-				Label: Probabilidad de generación de encantamiento de cofre (%)
-				Tooltip: Ajusta la posibilidad de encontrar encantamientos en los cofres. Puede ser superior al 100%. No afecta a los cofres de Bioma. (Siempre están al 100%)
-			}
-
-			ClientConfig.Label: Configuración del cliente
-
-			CommonEnchantmentStrengthMultiplier: {
-				Label: Común
-				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			ConfigCapacityCostMultiplier: {
-				Label: Multiplicador de costo de capacidad de encantamiento (%)
-				Tooltip: Afecta cuánto cuesta aplicar los encantamientos a un objeto. Los valores base son 1/2/3/4/5 para utilidad, 2/4/6/8/10 para normal y 3/6/9/12/15 para único.
-			}
-
-			CrateDropChance: {
-				Label: Multiplicador de probabilidad de caída de encantamiento de caja (%)
-				Tooltip: Ajusta la posibilidad de encontrar encantamientos en las cajas de pesca.
-			}
-
-			CritPerLevelDisabled: {
-				Label: Deshabilitar probabilidad de golpe crítico de arma por nivel
-				Tooltip: Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.
-			}
-
-			DamagePerLevelInstead: {
-				Label: Daño en lugar de probabilidad crítica por nivel
-				Tooltip: Las armas ganan daño por nivel en lugar de una probabilidad de golpe crítico igual a su nivel * Multiplicador de fuerza de encantamiento global
-			}
-
-			DamageReductionPerLevelDisabled: {
-				Label: Desactiva la reducción de daño de armaduras y accesorios por nivel
-				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
-			}
-
-			DCUStart: {
-				Label: Comience con una unidad de contención de perforación
-				Tooltip:
-					'''
-					Todos los jugadores obtendrán una Unidad de contención de perforación cuando aparezcan por primera vez.
-					Esto es solo por diversión cuando te apetece un juego más rápido.
-					'''
-			}
-
-			DisableAllErrorMessagesInChat: {
-				Label: Deshabilitar todos los mensajes de error en el chat
-				Tooltip:
-					'''
-					Evita que aparezcan mensajes en tu chat que te pidan que
-					Informe esto a andro951 (Weapon Enchantments) junto con una descripción de lo que estaba haciendo en ese momento.
-					'''
-			}
-
-			DisableArmorInfusion: {
-				Label: Desactivar infusión de armadura
-				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
-			}
-
-			DisableMinionCrits: {
-				Label: Deshabilitar golpes críticos de Minion
-				Tooltip:
-					'''
-					En vainilla, los súbditos no se ven afectados por la probabilidad crítica del arma.
-					Los encantamientos de armas otorgan a los súbditos una probabilidad de golpe crítico basada en la probabilidad de crítico del arma.
-					Esta opción deshabilita los críticos (mecánica de vainilla)
-					'''
-			}
-
-			DisableResearch.Label: Deshabilitar la capacidad de investigar elementos de encantamiento de armas
-
-			DisplayDamageTooltipSeperatly: {
-				Label: Muestra el daño aproximado de los encantamientos en una información sobre herramientas separada.
-				Tooltip:
-					'''
-					Los encantamientos de daño se calculan después de que la armadura enemiga reduce el daño en lugar de cambiar directamente el daño del objeto.
-					Si esto está desactivado, el daño de la información sobre herramientas mostrará el daño contra objetivos sin armadura.
-					Habilite para mostrar una información sobre herramientas separada en lugar de actualizar el valor de daño normal. Esto muestra el daño contra un enemigo con armadura 0.
-					'''
-			}
-
-			EnableSwappingWeapons: {
-				Label: Habilite el intercambio de armas con teclas numéricas (armas ordenadas por poder de infusión)
-				Tooltip:
-					'''
-					Utilice num1 y num3 para cambiar entre todas las armas. Use num4 y num6 para cambiar entre armas modificadas.
-					No reemplazará armas encantadas o modificadas.
-					'''
-			}
-
-			EnchantmentDropChance: {
-				Label: Tasa de caída de encantamiento que no es de jefe (%)
-				Tooltip:
-					'''
-					Ajusta la tasa de caída de los encantamientos de los enemigos que no son jefes.
-					(El valor predeterminado es 100 %)
-					'''
-			}
-
-			EnchantmentSlotsOnAccessories: {
-				Label: Enchantment Slots On Accissories
-				Tooltip:
-					'''
-					La primera ranura es una ranura normal.
-					La segunda ranura es la ranura de utilidad.
-					3rd-5th son ranuras normales.
-					'''
-			}
-
-			EnchantmentSlotsOnArmor: {
-				Label: Ranuras de encantamiento en la armadura
-				Tooltip:
-					'''
-					La primera ranura es una ranura normal.
-					La segunda ranura es la ranura de utilidad.
-					3rd-5th son ranuras normales.
-					'''
-			}
-
-			EnchantmentSlotsOnFishingPoles: {
-				Label: Ranuras de encantamiento en cañas de pescar
-				Tooltip:
-					'''
-					La primera ranura es una ranura normal.
-					La segunda ranura es la ranura de utilidad.
-					3rd-5th son ranuras normales.
-					'''
-			}
-
-			EnchantmentSlotsOnTools: {
-				Label: Ranuras de encantamiento en herramientas
-				Tooltip:
-					'''
-					La primera ranura es una ranura normal.
-					La segunda ranura es la ranura de utilidad.
-					3rd-5th son ranuras normales.
-					El Clentaminator es la única herramienta hasta ahora.
-					'''
-			}
-
-			EnchantmentSlotsOnWeapons: {
-				Label: Ranuras de encantamiento en armas
-				Tooltip:
-					'''
-					La primera ranura es una ranura normal.
-					La segunda ranura es la ranura de utilidad.
-					3rd-5th son ranuras normales.
-					'''
-			}
-
-			EpicEnchantmentStrengthMultiplier: {
-				Label: Épico
-				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			EssenceGrabRange: {
-				Label: Multiplicador de rango de agarre de esencia
-				Tooltip: Afecta qué tan lejos puede estar la esencia del jugador cuando comienza a moverse hacia el jugador.
-			}
-
-			EssenceMultiplier: {
-				Label: Multiplicador de esencia sin jefe (%)
-				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
-			}
-
-			ExperienceMultiplier: {
-				Label: Multiplicador de experiencia sin jefe (%)
-				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
-			}
-
-			GatheringExperienceMultiplier: {
-				Label: Multiplicador de Experiencia de Recopilación (%)
-				Tooltip: Modify the ammount of experience recieved from Mining/chopping/fishing
-			}
-
-			GlobalEnchantmentStrengthMultiplier: {
-				Label: Multiplicador de fuerza de encantamiento global (%)
-				Tooltip:
-					'''
-					Adjusts all enchantment strengths based on recomended enchantment changes.
-					Uses the same calculations as the presets but allows you to pick a different number.
-					preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)
-					'''
-			}
-
-			individualStrengths: {
-				Label: Fortalezas individuales
-				Tooltip:
-					'''
-					Modificar las fortalezas de encantamiento individuales por valor
-					(¡NO PORCENTAJE!)
-					(Anula todas las demás opciones)
-					'''
-			}
-
-			individualStrengthsEnabled: {
-				Label: Fortalezas individuales habilitadas
-				Tooltip: Enabling this will cause the Indvidual strength values selected below to overite all other settings.
-			}
-
-			InfusionDamageMultiplier: {
-				Label: Multiplicador de daño de infusión (divide por 1000, 1 -> 0.001)
-				Tooltip:
-					'''
-					Cambia el multiplicador de daño de la infusión. DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
-					Ejemplo: Iron Broadsword, Damage = 10, BaseInfusionPower = 31 infundido con un Meowmere, Infusion Power 1100.
-					Daño de Iron Broadsword = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 de daño.
-					Establecer este multiplicador en 1000 evitará que infundas armas y no proporcionará bonificación de daño a las armas ya infundidas.
-					'''
-			}
-
-			itemDefinition: {
-				Label: Encantamiento
-				Tooltip:
-					'''
-					Solo seleccione elementos de encantamiento.
-					Es probable que cause un error si selecciona cualquier otro elemento.
-					'''
-			}
-
-			LegendaryEnchantmentStrengthMultiplier: {
-				Label: Legendario
-				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			LogDummyDPS: {
-				Label: Habilite el cálculo y el registro de Target Dummy Dps
-				Tooltip:
-					'''
-					Rastrea el daño a los objetivos de todas las fuentes y los rastrea. Presione num0 para comenzar y luego nuevamente para detener.
-					Presione num8 para imprimir todos los valores de dps almacenados en client.log\nLa ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					Comenzar una nueva prueba presionando num0 restablece los datos de dps anteriores para el elemento retenido para permitir volver a hacer una prueba.
-					'''
-			}
-
-			MinionLifeStealMultiplier: {
-				Label: Multiplicador de robo de vida de súbditos (%)
-				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
-			}
-
-			MultiplicativeCriticalHits: {
-				Label: Golpes críticos multiplicativos más allá del primero.
-				Tooltip:
-					'''
-					Encantamientos de armas hace uso de la probabilidad de golpe crítico más allá del 100% para permitirte volver a criticar.
-					Por defecto, esta es una bonificación adicional: 1er crit 200% de daño, 2nd 300% de daño, 3rd 400% de daño...
-					Habilitar esto los hace multiplicativos en su lugar: 1er crit 200% de daño, 2nd crit 400% de daño, 3rd crit 400% de daño...
-					'''
-			}
-
-			OfferAll: {
-				Label: Oferta todo del mismo artículo.
-				Tooltip:
-					'''
-					Busque en su inventario todos los artículos del mismo tipo que se ofrecieron y ofrézcalos también si tienen 0 experiencia y no tienen instalado un amplificador de potencia.
-					También ofrece todos los elementos de los cofres que tocan la mesa de encantamiento.
-					'''
-			}
-
-			OnlyShowErrorMessagesInChatOnce: {
-				Label: Solo mostrar mensajes de error en el chat una vez
-				Tooltip:
-					'''
-					Los mensajes seguirán apareciendo en su chat, pero solo una vez durante una sesión de juego.
-					(El mensaje de error debe ser exactamente igual a un mensaje anterior para evitarlo).
-					'''
-			}
-
-			PercentOfferEssence.Label: Porcentaje del valor del artículo ofrecido convertido en esencia.
-			Preset.Tooltip:
-				'''
-				Viaje, Normal, Experto, Maestro, Automático, Personalizado
-				(Personalizado no se puede seleccionar aquí. Se establece automáticamente al ajustar el multiplicador de fuerza global).
-				'''
-			presetData.Label: Presets y multiplicadores
-
-			PreventPowerBoosterFromPreHardMode: {
-				Label: Evite que los jefes del modo predifícil suelten potenciadores de potencia.
-				Tooltip: No incluye pared de carne.
-			}
-
-			PrintEnchantmentDrops: {
-				Label: Registrar una lista de fuentes de caída de encantamiento
-				Tooltip:
-					'''
-					La lista se imprime en client.log cuando ingresa a un mundo.
-					La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintEnchantmentTooltips: {
-				Label: Registrar una lista de información sobre herramientas de encantamiento
-				Tooltip:
-					'''
-					La lista se imprime en client.log cuando ingresa a un mundo.
-					La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintWeaponInfusionPowers: {
-				Label: Registra todos los poderes de infusión de armas
-				Tooltip:
-					'''
-					La información se imprime en el archivo client.log cuando ingresa a un mundo.
-					La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintWikiInfo: {
-				Label: Registra toda la información de la wiki
-				Tooltip:
-					'''
-					La información se imprime en el archivo client.log cuando ingresa a un mundo.
-					La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			RareEnchantmentStrengthMultiplier: {
-				Label: Extraño
-				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			ReduceOfferEfficiencyByBaseInfusionPower: {
-				Label: Reduzca la eficiencia de la oferta por potencia de infusión base
-				Tooltip:
-					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
-					Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).
-					'''
-			}
-
-			ReduceOfferEfficiencyByTableTier: {
-				Label: Reducir la eficiencia de la oferta por nivel de tabla
-				Tooltip:
-					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
-					Enabling this will cause the wood table to be 60% efficient.
-					Each table gains 10% efficiency.  100% with Ultimate table.
-					'''
-			}
-
-			ReduceRecipesToMinimum: {
-				Label: Reducir las recetas al mínimo.
-				Tooltip:
-					'''
-					Elimina todas las recetas que saltan entre niveles para reducir el desorden al ver recetas.
-					También hace que todas las recetas de esencia sean de 4 a 1 en lugar de escalar con el nivel de la mesa de encantamiento.
-					'''
-			}
 
-			RemoveEnchantmentRestrictions: {
-				Label: Elimine las restricciones de encantamiento (¡Úselo bajo su propio riesgo!)
-				Tooltip: Elimina cosas como Unique, Max 1 y encantamientos específicos de tipo de arma o elemento.
+			ArmorDamageReduction: {
+				Tooltip: Te permite modificar la reducción de daño obtenida por armaduras y accesorios a medida que se nivelan.
+
+				AccessoryDamageReductionPerLevel: {
+					Label: Accesorio DR por nivel (100000 = 1%)
+					Tooltip: 250000 (2,5%) es el máximo que sería una reducción de daño del 100% en el nivel 40.
+				}
+
+				ArmorDamageReductionPerLevel: {
+					Label: Armadura DR por nivel (100000 = 1%)
+					Tooltip: 250000 (2,5%) es el máximo que sería una reducción de daño del 100% en el nivel 40.
+				}
+			}
+
+			ClientConfig: {
+				DisplayName: Configuración del cliente
+				DisplaySettings: Configuración de pantalla
+				ErrorMessages: Error de mensajes
+				LoggingInformation: Información de registro
+				ModTestingTools: Herramientas de prueba de modificaciones
+
+				AllowCraftingIntoLowerTier: {
+					Label: Permitir crear encantamientos en encantamientos de nivel inferior.
+					Tooltip: Al crear encantamientos en niveles inferiores, recibirás todos los ingredientes, incluidas las contenciones, la esencia y las gemas.
+				}
+
+				AllowInfusingToLowerPower: {
+					Label: Permitir que los elementos de infusión reduzcan los poderes de infusión
+					Tooltip: Advertencia: esto te permitirá consumir un arma débil para degradar un arma fuerte.
+				}
+
+				AllowShiftClickMoveFavoritedItems: {
+					Label: Permita que Mayús haga clic para mover elementos favoritos a la mesa encantadora.
+					Tooltip: Si no está habilitado, los elementos deben eliminarse de sus favoritos o moverse manualmente con el mouse.
+				}
+
+				AlwaysDisplayAccessoryLevelUpMessages: {
+					Label: Mostrar siempre mensajes de subida de nivel de accesorios
+					Tooltip: Solo muestra mensajes de nivel de accesorios cuando se usa la mesa de encantamiento si esta opción está desactivada.
+				}
+
+				AlwaysDisplayArmorLevelUpMessages: {
+					Label: Mostrar siempre mensajes de subida de nivel de armadura
+					Tooltip: Solo muestra mensajes de subida de nivel de armadura cuando se usa la mesa de encantamiento si esta opción está desactivada.
+				}
+
+				AlwaysDisplayInfusionPower: {
+					Label: Mostrar siempre el poder de infusión
+					Tooltip: Habilite para mostrar el poder de infusión del elemento siempre en lugar de solo cuando la mesa de encantamiento esté abierta.
+				}
+
+				AlwaysDisplayToolLevelUpMessages: {
+					Label: Mostrar siempre mensajes de subida de nivel de herramienta
+					Tooltip: Solo muestra mensajes de nivel de herramienta cuando se usa la mesa de encantamiento si esta opción está desactivada.
+				}
+
+				AlwaysDisplayWeaponLevelUpMessages: {
+					Label: Mostrar siempre mensajes de subida de nivel de arma
+					Tooltip: Solo muestra mensajes de nivel de arma cuando se usa la mesa de encantamiento si esta opción está desactivada.
+				}
+
+				DisableAllErrorMessagesInChat: {
+					Label: Deshabilitar todos los mensajes de error en el chat
+					Tooltip:
+						'''
+						Evita que aparezcan mensajes en tu chat que te piden que
+						Informe esto a andro951 (Encantamientos de armas) junto con una descripción de lo que estaba haciendo en ese momento.
+						'''
+				}
+
+				DisplayDamageTooltipSeperatly: {
+					Label: Muestra el daño aproximado de los encantamientos en una información sobre herramientas separada.
+					Tooltip:
+						'''
+						Los encantamientos de daño se calculan después de que la armadura enemiga reduce el daño en lugar de cambiar directamente el daño del objeto.
+						Si esto está desactivado, el daño de la información sobre herramientas mostrará el daño contra objetivos sin armadura.
+						Habilite para mostrar una información sobre herramientas separada en lugar de actualizar el valor de daño normal. Esto muestra el daño contra un enemigo con armadura 0.
+						'''
+				}
+
+				EnableSwappingWeapons: {
+					Label: Habilitar el intercambio de armas con teclas numéricas (Armas ordenadas por poder de infusión)
+					Tooltip:
+						'''
+						Usa num1 y num3 para intercambiar entre todas las armas. Usa num4 y num6 para intercambiar solo entre armas modificadas.
+						No reemplazará las armas encantadas o modificadas.
+						'''
+				}
+
+				LogDummyDPS: {
+					Label: Habilitar el cálculo y el registro de Target Dummy Dps
+					Tooltip:
+						'''
+						Realiza un seguimiento del daño a los objetivos de todas las fuentes y los rastrea. Presione num0 para comenzar y luego nuevamente para detener.
+						Presione num8 para imprimir todos los valores de dps almacenados en client.log\nLa ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						Al iniciar una nueva prueba presionando num0 se restablecen los datos de dps anteriores para el elemento retenido para permitir volver a realizar una prueba.
+						'''
+				}
+
+				OfferAll: {
+					Label: Ofrezca todo el mismo artículo.
+					Tooltip:
+						'''
+						Busque en su inventario todos los artículos del mismo tipo que se ofrecieron y ofrézcalos también si tienen 0 experiencia y no tienen ningún potenciador instalado.
+						También ofrece todos los artículos de los cofres que tocan la mesa encantadora.
+						'''
+				}
+
+				OnlyShowErrorMessagesInChatOnce: {
+					Label: Mostrar mensajes de error en el chat solo una vez
+					Tooltip:
+						'''
+						Los mensajes seguirán apareciendo en tu chat, pero solo una vez durante una sesión de juego.
+						(El mensaje de error debe ser exactamente el mismo que un mensaje anterior para evitarlo).
+						'''
+				}
+
+				PrintEnchantmentDrops: {
+					Label: Registrar una lista de fuentes de caída de encantamientos
+					Tooltip:
+						'''
+						La lista se imprime en client.log cuando ingresa a un mundo.
+						La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				PrintEnchantmentTooltips: {
+					Label: Registrar una lista de información sobre herramientas de encantamiento
+					Tooltip:
+						'''
+						La lista se imprime en client.log cuando ingresa a un mundo.
+						La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				PrintWeaponInfusionPowers: {
+					Label: Registra todos los poderes de infusión de armas.
+					Tooltip:
+						'''
+						La información se imprime en client.log cuando ingresa a un mundo.
+						La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				teleportEssence: {
+					Label: Enviar esencia automáticamente a la interfaz de usuario
+					Tooltip:
+						'''
+						Envía esencia automáticamente desde tu inventario a las ranuras de esencia de la interfaz de usuario.
+						(Se desactiva mientras la interfaz de usuario está abierta).
+						'''
+				}
+
+				UseAlternateEnchantmentEssenceTextures: {
+					Label: Utilice texturas de esencia de encantamiento alternativas
+					Tooltip: Los colores predeterminados son aptos para daltónicos. Las texturas alternativas tienen diferencias menores, pero se votó a favor de mantenerlas.
+				}
+
+				UsePointsAsTooltip: {
+					Label: '''"Puntos" en lugar de "Capacidad de encantamiento"'''
+					Tooltip: La información sobre herramientas mostrará los puntos disponibles en lugar de la capacidad de encantamiento disponible.
+				}
+			}
+
+			Pair: {
+				Tooltip: Te permite asignar una fuerza a un encantamiento específico.
+
+				itemDefinition: {
+					Label: Encantamiento
+					Tooltip:
+						'''
+						Solo seleccione elementos de encantamiento.
+						Es probable que cause un error si selecciona cualquier otro elemento.
+						'''
+				}
+
+				Strength: {
+					Label: Fuerza (1000 = 1, 10 = 1%)
+					Tooltip:
+						'''
+						Tenga cuidado al ajustar este valor.
+						La fuerza es el valor exacto utilizado.
+						Ejemplo El encantamiento de daño del 40 % es 0,4
+						10 La defensa es 10
+						'''
+				}
+			}
+
+			PresetData: {
+				Tooltip: Los ajustes preestablecidos te permiten afectar fácilmente todos los encantamientos a la vez.
+
+				AutomaticallyMatchPreseTtoWorldDifficulty: {
+					Label: Haga coincidir automáticamente el ajuste preestablecido con la dificultad mundial
+					Tooltip: Debe estar desactivado para poder editar las otras opciones.
+				}
+
+				BasicEnchantmentStrengthMultiplier: {
+					Label: Básico
+					Tooltip: Afecta la fuerza de todos los encantamientos básicos. Anula todos los multiplicadores excepto los multiplicadores de fuerza de encantamiento individuales. Establézcalo en -1 para que se ignore este multiplicador.
+				}
+
+				CommonEnchantmentStrengthMultiplier: {
+					Label: Común
+					Tooltip: Afecta la fuerza de todos los encantamientos comunes. Anula todos los multiplicadores excepto los multiplicadores de fuerza de encantamiento individuales. Establézcalo en -1 para que se ignore este multiplicador.
+				}
+
+				EpicEnchantmentStrengthMultiplier: {
+					Label: Épico
+					Tooltip: Afecta la fuerza de todos los encantamientos épicos. Anula todos los multiplicadores excepto los multiplicadores de fuerza de encantamiento individuales. Establézcalo en -1 para que se ignore este multiplicador.
+				}
+
+				GlobalEnchantmentStrengthMultiplier: {
+					Label: Multiplicador de fuerza de encantamiento global (%)
+					Tooltip:
+						'''
+						Ajusta todos los puntos fuertes de los encantamientos según los cambios de encantamientos recomendados.
+						Utiliza los mismos cálculos que los ajustes preestablecidos pero le permite elegir un número diferente.
+						los valores preestablecidos son; Viaje: 250, Normal: 100, Experto: 50, Maestro: 25 (Anula el preajuste)
+						'''
+				}
+
+				LegendaryEnchantmentStrengthMultiplier: {
+					Label: Legendario
+					Tooltip: Afecta la fuerza de todos los encantamientos legendarios. Anula todos los multiplicadores excepto los multiplicadores de fuerza de encantamiento individuales. Establézcalo en -1 para que se ignore este multiplicador.
+				}
+
+				Preset: {
+					Label: Preestablecido
+					Tooltip:
+						'''
+						Viaje, Normal, Experto, Maestro, Automático, Personalizado
+						(Aquí no se puede seleccionar Personalizado. Se configura automáticamente al ajustar el Multiplicador de fuerza global).
+						'''
+				}
+
+				RareEnchantmentStrengthMultiplier: {
+					Label: Extraño
+					Tooltip: Afecta la fuerza de todos los encantamientos raros. Anula todos los multiplicadores excepto los multiplicadores de fuerza de encantamiento individuales. Establézcalo en -1 para que se ignore este multiplicador.
+				}
 			}
 
 			ServerConfig: {
-				Label: Configuración del servidor
-				// $parentVal: preset Data Header
-			}
+				DisplayName: Configuración del servidor
+				EnchantingTableOptions: Opciones de mesa encantadoras
+				EnchantmentDropRates(%): Tasas de caída de encantamientos (%)
+				EnchantmentSettings: Configuración de encantamiento
+				EssenceandExperience: Esencia y Experiencia
+				GeneralGameChanges: Cambios generales en el juego
+				IndividualEnchantmentStrengths: Fortalezas de encantamiento individuales
+				Multipliers: Multiplicadores
+				OtherDropRates: Otras tasas de caída
+				Presets: Preajustes
+				RandomExtraStuff: Cosas adicionales al azar
+				RarityEnchantmentStrengthMultipliers: Multiplicadores de fuerza de encantamiento de rareza
+				ServerConfig: Configuración del servidor
 
-			Strength: {
-				Label: Fuerza (1000 = 1, 10 = 1%)
-				Tooltip:
-					'''
-					Tenga cuidado al ajustar este valor.
-					La fuerza es el valor exacto utilizado.
-					Ejemplo 40% El encantamiento de daño es 0.4
-					10 Defensa es 10
-					'''
-			}
+				AffectOnVanillaLifeStealLimmit: {
+					Label: Límite de encantamiento de robo de vida (efecto en el límite de robo de vida de vainilla) (%)
+					Tooltip:
+						'''
+						Utilice un valor superior al 100% para limitar más el robo de vida, menos del 100% para limitar menos. 0 para no tener límite.
+						Vanilla Terraria utiliza un sistema de limitación de robo de vida: en el siguiente ejemplo, los valores utilizados están en modo normal (los valores del modo Experto/Maestro están entre paréntesis)
+						Tiene un grupo de 80 (70) que se guarda para que puedas robar vida. Ganar vida mediante el robo de vida reduce este grupo.
+						El grupo se restablece a 36(30) puntos por segundo. Si el valor del grupo es negativo, no puedes ganar vida con el robo de vida.
+						Este valor de configuración cambia en qué medida la vida que recuperas de los encantamientos de robo de vida afecta este límite.
+						Ejemplo: 200% Obtienes 200 vidas por robo de vida. 200 * 200% = 400. 80(70) grupo - 400 curados = -320(-330) grupo.
+						Tomará 320/36(330/30) segundos -> 8.9(11) segundos para que el grupo vuelva a ser positivo para que puedas ganar vida con el robo de vida nuevamente.
+						Nota: la mecánica no tiene un límite sobre cuánto puedes ganar a la vez. Simplemente tomará más tiempo recuperarse cuanto más ganes.
+						'''
+				}
 
-			teleportEssence: {
-				Label: Enviar esencia automáticamente a la interfaz de usuario
-				Tooltip:
-					'''
-					Envía esencia automáticamente desde tu inventario a las ranuras de esencia de la interfaz de usuario.
-					(Se desactiva mientras la interfaz de usuario está abierta).
-					'''
-			}
+				AllowCriticalChancePast100: {
+					Label: Probabilidad de golpe crítico efectiva con más del 100% de probabilidad
+					Tooltip:
+						'''
+						Vanilla Terraria limita la probabilidad de golpe crítico al 100%. De forma predeterminada, los encantamientos de armas calculan críticos adicionales después del 100%.
+						120% de probabilidad crítica es 100% para duplicar el daño y luego 20% de probabilidad de crítico para aumentar el daño. Consulte la siguiente opción de configuración para obtener más información.
+						'''
+				}
 
-			UseAlternateEnchantmentEssenceTextures: {
-				Label: Usar texturas de esencia de encantamiento alternativas
-				Tooltip: Los colores predeterminados son aptos para daltónicos. Las texturas alternativas tienen pequeñas diferencias, pero se votó para mantenerlas.
-			}
+				AllowHighTierOres: {
+					Label: Reciba minerales hasta clorofita de los artículos de oferta.
+					Tooltip:
+						'''
+						Deshabilitar esta opción solo le permite recibir Hierro, Plata, Oro (o sus equivalentes según la generación mundial).
+						(Solo funciona en modo difícil. Clorofita solo después de matar a un jefe mecánico).
+						'''
+				}
 
-			UsePointsAsTooltip: {
-				Label: '''"Puntos" en lugar de "Capacidad de encantamiento"'''
-				Tooltip: La información sobre herramientas mostrará los puntos disponibles en lugar de la capacidad de encantamiento disponible.
+				AlwaysOverrideDamageType: {
+					Label: Los encantamientos de conversión de tipos de daño siempre anulan.
+					Tooltip:
+						'''
+						Algunas modificaciones como Stars Above cambian los tipos de daño de las armas. Si esta opción está habilitada, los encantamientos que cambian el tipo de daño siempre cambiarán el tipo de daño del arma.
+						Si no se selecciona, el tipo de daño solo se cambiará si el arma tiene actualmente su tipo de daño original.
+						'''
+				}
+
+				AmaterasuSelfGrowthPerTick: {
+					Label: Autocrecimiento de Amaterasu por tic
+					Tooltip: Afecta la rapidez con la que el daño de Amaterasu aumentará de forma natural (no cuando te golpean nuevamente con un arma de World Ablaze).
+				}
+
+				ArmorDamageReductions: {
+					Label: Reducciones de daños de armaduras y accesorios
+					Tooltip: Se utiliza para modificar la reducción de armadura obtenida por armaduras y accesorios a medida que suben de nivel.
+				}
+
+				AttackSpeedEnchantmentAutoReuseSetpoint: {
+					Label: Reutilización automática de encantamiento de velocidad habilitada (%)
+					Tooltip:
+						'''
+						La fuerza con la que un encantamiento de velocidad comenzará a dar la estadística de reutilización automática.
+						Establécelo en 0 para que todos los encantamientos de velocidad se reutilicen automáticamente. Configúrelo en 10000 para evitar que se obtenga reutilización automática (a menos que su multiplicador de fuerza sea enorme)
+						'''
+				}
+
+				AutoReuseDisabledOnMagicMissile: {
+					Label: Reutilización automática deshabilitada en armas tipo Magic Missile
+					Tooltip: La reutilización automática de armas como Magic Missile te permite disparar proyectiles continuamente para acumular daño infinitamente.
+				}
+
+				BossEnchantmentDropChance: {
+					Label: Tasa de caída de encantamiento de jefe (%)
+					Tooltip:
+						'''
+						Ajusta la tasa de caída de encantamientos de los jefes.
+						(El valor predeterminado es 50%)
+						'''
+				}
+
+				BossEssenceMultiplier: {
+					Label: Multiplicador de esencia de jefe (%)
+					Tooltip: Modifica la cantidad de esencia recibida de los jefes.
+				}
+
+				BossExperienceMultiplier: {
+					Label: Multiplicador de experiencia del jefe (%)
+					Tooltip: Modifica la cantidad de experiencia recibida de los jefes.
+				}
+
+				BuffDuration: {
+					Label: Duración del tiempo de recuperación de la mejora (segundos)
+					Tooltip: Afecta el tiempo de reutilización y la duración del beneficio.
+				}
+
+				CalculateDamageReductionBeforeDefense: {
+					Label: Calcular la reducción de daños antes de la defensa del jugador
+					Tooltip:
+						'''
+						De forma predeterminada, la reducción de daño se aplica después de la defensa del jugador. Seleccione esto para aplicar antes.
+						Antes hará que sufras mucho menos daño.
+						'''
+				}
+
+				ChestSpawnChance: {
+					Label: Probabilidad de generación de encantamiento de cofre (%)
+					Tooltip: Ajusta la posibilidad de encontrar encantamientos en cofres. Puede ser superior al 100%. No afecta a los cofres de Bioma. (Siempre son 100%)
+				}
+
+				ConfigCapacityCostMultiplier: {
+					Label: Multiplicador de costo de capacidad de encantamiento (%)
+					Tooltip: Afecta el costo de aplicar los encantamientos a un artículo. Los valores base son 1/2/3/4/5 para utilidad, 2/4/6/8/10 para normal y 3/6/9/12/15 para único.
+				}
+
+				CrateDropChance: {
+					Label: Multiplicador de probabilidad de caída de encantamiento de caja (%)
+					Tooltip: Ajusta la posibilidad de encontrar encantamientos en cajas de pesca.
+				}
+
+				CritPerLevelDisabled: {
+					Label: Desactivar la probabilidad de golpe crítico del arma por nivel
+					Tooltip: Las armas obtienen una probabilidad de golpe crítico igual a su nivel * Multiplicador de fuerza de encantamiento global.
+				}
+
+				DamagePerLevelInstead: {
+					Label: Daño en lugar de probabilidad crítica por nivel
+					Tooltip: Las armas obtienen daño por nivel en lugar de una probabilidad de golpe crítico igual a su nivel * Multiplicador de fuerza de encantamiento global
+				}
+
+				DamageReductionPerLevelDisabled: {
+					Label: Desactiva la reducción de daño de armaduras y accesorios por nivel
+					Tooltip: Las armaduras y los accesorios obtienen una reducción de daño igual a su nivel * el punto de ajuste apropiado a continuación para la dificultad mundial.
+				}
+
+				DCUStart: {
+					Label: Comience con una unidad de contención de perforación
+					Tooltip:
+						'''
+						Todos los jugadores obtendrán una Unidad de Contención de Perforaciones cuando aparezcan por primera vez.
+						Esto es sólo por diversión cuando te apetece jugar más rápido.
+						'''
+				}
+
+				DisableArmorInfusion: {
+					Label: Desactivar la infusión de armadura
+					Tooltip: Esto evitará que infundas elementos de armadura e ignorará las bonificaciones de conjunto infundidas.
+				}
+
+				DisableMinionCrits: {
+					Label: Deshabilitar los golpes críticos de Minion
+					Tooltip:
+						'''
+						En Vanilla, los minions no se ven afectados por la probabilidad crítica del arma.
+						Los encantamientos de armas otorgan a los súbditos una probabilidad de golpe crítico según la probabilidad de crítico del arma.
+						Esta opción desactiva los críticos (mecánica básica).
+						'''
+				}
+
+				DisableResearch: {
+					Label: Desactiva la capacidad de investigar elementos de encantamiento de armas.
+					Tooltip: Cuando esté habilitado, no se podrán investigar todas las esencias y encantamientos, lo que evitará que se dupliquen en el modo Viaje.
+				}
+
+				EnchantmentDropChance: {
+					Label: Tasa de caída de encantamientos que no son de jefe (%)
+					Tooltip:
+						'''
+						Ajusta la tasa de caída de encantamientos de enemigos que no son jefes.
+						(El valor predeterminado es 100%)
+						'''
+				}
+
+				EnchantmentSlotsOnAccessories: {
+					Label: Ranuras de encantamiento en accesorios
+					Tooltip:
+						'''
+						La primera ranura es una ranura normal.
+						La segunda ranura es la ranura de servicios públicos.
+						Del 3 al 5 son espacios normales.
+						'''
+				}
+
+				EnchantmentSlotsOnArmor: {
+					Label: Ranuras de encantamiento en armadura
+					Tooltip:
+						'''
+						La primera ranura es una ranura normal.
+						La segunda ranura es la ranura de servicios públicos.
+						Del 3 al 5 son espacios normales.
+						'''
+				}
+
+				EnchantmentSlotsOnFishingPoles: {
+					Label: Ranuras de encantamiento en cañas de pescar
+					Tooltip:
+						'''
+						La primera ranura es una ranura normal.
+						La segunda ranura es la ranura de servicios públicos.
+						Del 3 al 5 son espacios normales.
+						'''
+				}
+
+				EnchantmentSlotsOnTools: {
+					Label: Ranuras de encantamiento en herramientas
+					Tooltip:
+						'''
+						La primera ranura es una ranura normal.
+						La segunda ranura es la ranura de servicios públicos.
+						Del 3 al 5 son espacios normales.
+						El Clentaminator es la única herramienta hasta el momento.
+						'''
+				}
+
+				EnchantmentSlotsOnWeapons: {
+					Label: Ranuras de encantamiento para armas
+					Tooltip:
+						'''
+						La primera ranura es una ranura normal.
+						La segunda ranura es la ranura de servicios públicos.
+						Del 3 al 5 son espacios normales.
+						'''
+				}
+
+				EssenceGrabRange: {
+					Label: Multiplicador de rango de agarre de esencia
+					Tooltip: Afecta a qué tan lejos puede estar la esencia del jugador cuando comienza a moverse hacia él.
+				}
+
+				EssenceMultiplier: {
+					Label: Multiplicador de esencia que no es jefe (%)
+					Tooltip: Modifica la cantidad de esencia recibida de enemigos que no son jefes.
+				}
+
+				ExperienceMultiplier: {
+					Label: Multiplicador de experiencia sin jefe(%)
+					Tooltip: Modifica la cantidad de experiencia recibida de enemigos que no son jefes.
+				}
+
+				GatheringExperienceMultiplier: {
+					Label: Multiplicador de experiencia de recolección (%)
+					Tooltip: Modificar la cantidad de experiencia recibida de Minería/corte/pesca.
+				}
+
+				individualStrengths: {
+					Label: Fortalezas individuales
+					Tooltip:
+						'''
+						Modificar las fortalezas de los encantamientos individuales por valor
+						(¡NO PORCENTAJE!)
+						(Anula todas las demás opciones)
+						'''
+				}
+
+				individualStrengthsEnabled: {
+					Label: Fortalezas individuales habilitadas
+					Tooltip: Habilitar esto hará que los valores de fuerza individuales seleccionados a continuación anulen todas las demás configuraciones.
+				}
+
+				InfusionDamageMultiplier: {
+					Label: Multiplicador de daño por infusión (se divide entre 1000, 1 -> 0,001)
+					Tooltip:
+						'''
+						Cambia el multiplicador de daño de la infusión. Multiplicador de daño = Multiplicador de daño de infusión ^ ((Poder de infusión - Poder de infusión base) / 100)
+						Ejemplo: espada de hierro, daño = 10, poder de infusión base = 31 infundido con un maullido, poder de infusión 1100.
+						Daño de espada ancha de hierro = 10 * 1,3^((1100 - 31) / 100) = 10 * 1,3^10,69 = 10 * 16,52 = 165 de daño.
+						Establecer este multiplicador en 1000 evitará que infundas armas y no proporcionará ninguna bonificación de daño a las armas ya infundidas.
+						'''
+				}
+
+				MinionLifeStealMultiplier: {
+					Label: Multiplicador de robo de vida de súbditos (%)
+					Tooltip: Te permite reducir la cantidad de curación que reciben los súbditos con el encantamiento Robo de vida.
+				}
+
+				MultiplicativeCriticalHits: {
+					Label: Golpes críticos multiplicados más allá del primero.
+					Tooltip:
+						'''
+						Los encantamientos de armas utilizan una probabilidad de golpe crítico superior al 100% para permitirte volver a realizar críticos.
+						Por defecto, esto es una bonificación aditiva: 1er crítico 200% de daño, 2do 300% de daño, 3er daño 400%...
+						Habilitar esto los hace multiplicativos: 1er crítico 200% de daño, 2do crítico 400% de daño, 3er crítico 400% de daño...
+						'''
+				}
+
+				PercentOfferEssence: {
+					Label: Porcentaje del valor del artículo ofrecido convertido en esencia.
+					Tooltip: 100% para toda la esencia, 0% para todos los minerales. El valor de venta de la esencia y los minerales será equivalente.
+				}
+
+				presetData: {
+					Label: Presets y multiplicadores
+					Tooltip: Presets y multiplicadores que te permiten afectar todos los encantamientos a la vez.
+				}
+
+				PreventPowerBoosterFromPreHardMode: {
+					Label: Evita que los jefes del modo anterior al modo difícil suelten potenciadores.
+					Tooltip: No incluye pared de carne.
+				}
+
+				PrintWikiInfo: {
+					Label: Registrar toda la información wiki
+					Tooltip:
+						'''
+						La información se imprime en client.log cuando ingresa a un mundo.
+						La ubicación predeterminada de client.log es C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				ReduceOfferEfficiencyByBaseInfusionPower: {
+					Label: Reducir la eficiencia de la oferta mediante el poder de infusión base
+					Tooltip:
+						'''
+						Al ofrecer artículos, recibes una esencia equivalente a la experiencia del artículo.
+						Habilitar esto hará que las armas sean 100 % eficientes con un poder de infusión de 0 a 80 % de eficiencia con un poder de infusión de 1100 (y superior).
+						'''
+				}
+
+				ReduceOfferEfficiencyByTableTier: {
+					Label: Reducir la eficiencia de la oferta por nivel de tabla
+					Tooltip:
+						'''
+						Al ofrecer artículos, recibes una esencia equivalente a la experiencia del artículo.
+						Habilitar esto hará que la mesa de madera tenga una eficiencia del 60%.
+						Cada mesa gana un 10% de eficiencia. 100% con mesa Ultimate.
+						'''
+				}
+
+				ReduceRecipesToMinimum: {
+					Label: Reducir las recetas al mínimo.
+					Tooltip:
+						'''
+						Elimina todas las recetas que saltan entre niveles para reducir el desorden al ver recetas.
+						También hace que todas las recetas de esencias sean 4 a 1 en lugar de escalar con un nivel de mesa encantador.
+						'''
+				}
+
+				RemoveEnchantmentRestrictions: {
+					Label: Elimina las restricciones de encantamiento (¡Úsalo bajo tu propia responsabilidad!)
+					Tooltip: Elimina cosas como Unique, Max 1 y encantamientos específicos de tipo de arma o elemento.
+				}
 			}
 		}
 
@@ -1591,454 +1631,37 @@ Mods: {
 			}
 		}
 
-		Tiles: {
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-		}
-
 		NPCs: {
 			Witch: {
-				// DisplayName: Witch
-
 				TownNPCMood: {
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// LikeNPC_Princess: I like {NPCName}.
 					// Princess_LovesNPC: I like {NPCName}.
+					// LikeNPC_Princess: I like {NPCName}.
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
 				}
+
+				// DisplayName: Witch
 			}
 		}
 
-		Configs: {
-			ClientConfig: {
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ClientConfig.Label}"
-
-				teleportEssence: {
-					// Label: "{$Mods.WeaponEnchantments.Config.teleportEssence.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.teleportEssence.Tooltip}"
-				}
-
-				OfferAll: {
-					// Label: "{$Mods.WeaponEnchantments.Config.OfferAll.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OfferAll.Tooltip}"
-				}
-
-				AllowShiftClickMoveFavoritedItems: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowShiftClickMoveFavoritedItems.Label}"
-					// Tooltip: ""
-				}
-
-				AlwaysDisplayInfusionPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip}"
-				}
-
-				AllowCraftingIntoLowerTier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label}"
-					// Tooltip: ""
-				}
-
-				AllowInfusingToLowerPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Tooltip}"
-				}
-
-				UsePointsAsTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Tooltip}"
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					// Label: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
-				}
-
-				DisplayDamageTooltipSeperatly: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
-				}
-
-				AlwaysDisplayWeaponLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayArmorLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayAccessoryLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayToolLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip}"
-				}
-
-				UITransparency: {
-					// Label: "{$Mods.androLib.Config.UITransparency.Label}"
-					// Tooltip: ""
-				}
-
-				PrintEnchantmentTooltips: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip}"
-				}
-
-				PrintEnchantmentDrops: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Tooltip}"
-				}
-
-				PrintWeaponInfusionPowers: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip}"
-				}
-
-				EnableSwappingWeapons: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Tooltip}"
-				}
-
-				LogDummyDPS: {
-					// Label: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Tooltip}"
-				}
-
-				DisableAllErrorMessagesInChat: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Tooltip}"
-				}
-
-				OnlyShowErrorMessagesInChatOnce: {
-					// Label: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Tooltip}"
-				}
-			}
-
-			ServerConfig: {
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				presetData: {
-					// Label: "{$Mods.WeaponEnchantments.Config.presetData.Label}"
-					// Tooltip: ""
-				}
-
-				individualStrengthsEnabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Tooltip}"
-				}
-
-				individualStrengths: {
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengths.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengths.Tooltip}"
-				}
-
-				AlwaysOverrideDamageType: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Tooltip}"
-				}
-
-				AffectOnVanillaLifeStealLimmit: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Tooltip}"
-				}
-
-				AttackSpeedEnchantmentAutoReuseSetpoint: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Tooltip}"
-				}
-
-				AutoReuseDisabledOnMagicMissile: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip}"
-				}
-
-				BuffDuration: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BuffDuration.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BuffDuration.Tooltip}"
-				}
-
-				AmaterasuSelfGrowthPerTick: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Tooltip}"
-				}
-
-				ReduceRecipesToMinimum: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Tooltip}"
-				}
-
-				ConfigCapacityCostMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Tooltip}"
-				}
-
-				RemoveEnchantmentRestrictions: {
-					// Label: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Tooltip}"
-				}
-
-				BossEssenceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Tooltip}"
-				}
-
-				EssenceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Tooltip}"
-				}
-
-				BossExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Tooltip}"
-				}
-
-				ExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Tooltip}"
-				}
-
-				GatheringExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Tooltip}"
-				}
-
-				EssenceGrabRange: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Tooltip}"
-				}
-
-				BossEnchantmentDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Tooltip}"
-				}
-
-				EnchantmentDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Tooltip}"
-				}
-
-				ChestSpawnChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Tooltip}"
-				}
-
-				CrateDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip}"
-				}
-
-				PreventPowerBoosterFromPreHardMode: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Tooltip}"
-				}
-
-				AllowHighTierOres: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Tooltip}"
-				}
-
-				EnchantmentSlotsOnWeapons: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Tooltip}"
-				}
-
-				EnchantmentSlotsOnArmor: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Tooltip}"
-				}
-
-				EnchantmentSlotsOnAccessories: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Tooltip}"
-				}
-
-				EnchantmentSlotsOnFishingPoles: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Tooltip}"
-				}
-
-				EnchantmentSlotsOnTools: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Tooltip}"
-				}
-
-				PercentOfferEssence: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label}"
-					// Tooltip: ""
-				}
-
-				ReduceOfferEfficiencyByTableTier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip}"
-				}
-
-				ReduceOfferEfficiencyByBaseInfusionPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Tooltip}"
-				}
-
-				DisableMinionCrits: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip}"
-				}
-
-				CritPerLevelDisabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Tooltip}"
-				}
-
-				DamagePerLevelInstead: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Tooltip}"
-				}
-
-				DamageReductionPerLevelDisabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip}"
-				}
-
-				CalculateDamageReductionBeforeDefense: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Tooltip}"
-				}
-
-				ArmorDamageReductions: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductions.Label}"
-					// Tooltip: ""
-				}
-
-				AllowCriticalChancePast100: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Tooltip}"
-				}
-
-				MultiplicativeCriticalHits: {
-					// Label: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Tooltip}"
-				}
-
-				InfusionDamageMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Tooltip}"
-				}
-
-				DisableArmorInfusion: {
-					// Label: Disable Armor Infusion
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableArmorInfusion.Tooltip}"
-				}
-
-				MinionLifeStealMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Tooltip}"
-				}
-
-				DCUStart: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
-				}
-
-				DisableResearch: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					// Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
-			}
-
-			PresetData: {
-				// Tooltip: ""
-
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label}"
-					// Tooltip: ""
-				}
-
-				Preset: {
-					// Label: Preset
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Preset.Tooltip}"
-				}
-
-				GlobalEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				BasicEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				CommonEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				RareEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				EpicEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				LegendaryEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip}"
-				}
-			}
-
-			Pair: {
-				// Tooltip: ""
-
-				itemDefinition: {
-					// Label: "{$Mods.WeaponEnchantments.Config.itemDefinition.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.itemDefinition.Tooltip}"
-				}
-
-				Strength: {
-					// Label: "{$Mods.WeaponEnchantments.Config.Strength.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Strength.Tooltip}"
-				}
-			}
-
-			ArmorDamageReduction: {
-				// Tooltip: ""
-
-				ArmorDamageReductionPerLevel: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Tooltip}"
-				}
-
-				AccessoryDamageReductionPerLevel: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Tooltip}"
-				}
-			}
+		Tiles: {
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
 		}
 	}
 }
