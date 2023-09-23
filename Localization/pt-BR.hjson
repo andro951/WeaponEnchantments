@@ -714,6 +714,12 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: Detectado um NPC em um grupo de Progressão que não está em NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Detectado um NPC em um grupo de Progressão que não possui armas ou ingredientes exclusivos.
 			OnlySyphonMaxLevel: Você só pode drenar um item se ele estiver no nível máximo e tiver mais de {0} experiência.
+			OpenEnchantingTableFirstTime:
+				'''
+				Você sente que todos os seus Encantamentos e Essências são puxados para a Mesa de Encantamento.
+				Os Encantamentos de Armas possuem seu próprio armazenamento dentro da Mesa de Encantamento.
+				Pegar Encantamentos, Essências e outros itens de Encantamentos de Armas os enviará automaticamente para o armazenamento da Mesa de Encantamento.
+				'''
 			OreInfusionPowerNotSetup: Potência de infusão de minério {0} não configurada. Potência de infusão estimada:
 			PreventedIssueLooseExperience: Evitou um problema que faria com que seu XP fosse reduzido. (xpInt <0) item: {0}, alvo: {1}, hit: {2}, corpo a corpo: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
 			PreventedIssueLooseExperienceTwo: "Evitou um problema que faria com que você perdesse experiência. (xpInt <0) item: {0}, alvo: {1}, hit: {2}, corpo a corpo: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 
 				// DisplayName: Witch

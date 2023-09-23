@@ -714,6 +714,12 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: Обнаружен NPC в группе Progression, которого нет в NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Обнаружен NPC в группе прогресса, у которого нет уникального оружия или ингредиентов.
 			OnlySyphonMaxLevel: «Вы можете выкачивать предмет только в том случае, если он имеет максимальный уровень и опыт более {0}».
+			OpenEnchantingTableFirstTime:
+				'''
+				Вы чувствуете, как все ваши чары и сущности попадают на стол зачаровывания.
+				У зачарования оружия есть собственное хранилище внутри стола зачарования.
+				При подборе чар, эссенций и других чар для оружия они автоматически отправляются в хранилище стола зачарования.
+				'''
 			OreInfusionPowerNotSetup: «Мощность вливания руды {0} не настроена. Предполагаемая мощность вливания:»
 			PreventedIssueLooseExperience: «Предотвращена проблема, приводившая к снижению вашего опыта. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: «Предотвращена проблема, из-за которой вы теряли опыт. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 
 				// DisplayName: Witch

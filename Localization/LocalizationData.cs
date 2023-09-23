@@ -373,7 +373,10 @@ namespace WeaponEnchantments.Localization
 								{ GameMessageTextID.WitchChatText.ToString(), "What more do you want?  I'm busy." },
 								{ GameMessageTextID.RerollEnchantment.ToString(), "Re-roll Enchantment" },
 								{ GameMessageTextID.Back.ToString(), "Back" },
-								{ GameMessageTextID.WitchSpawnCondition.ToString(), "Have an enchantment in your inventory or on your equipment." }
+								{ GameMessageTextID.WitchSpawnCondition.ToString(), "Have an enchantment in your inventory or on your equipment." } ,
+								{ GameMessageTextID.OpenEnchantingTableFirstTime.ToString(), "You feel all of your Enchantments and Essence get pulled into the Enchanting Table.\n" +
+									"Weapon Enchantments has it's own storage inside the Enchanting Table.\n" +
+									"Picking up Enchantments, Essence and other Weapon Enchantments items will automatically send them to the Enchanting Table storage." }
 						}) },
 						{ L_ID1.Configs.ToString(), new(children: new() {
 							//Server Config

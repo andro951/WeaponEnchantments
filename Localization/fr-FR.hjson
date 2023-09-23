@@ -714,6 +714,12 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: Détection d'un PNJ dans un groupe de progression qui n'est pas dans NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Détection d'un PNJ dans un groupe de progression qui n'a pas d'armes ou d'ingrédients uniques.
 			OnlySyphonMaxLevel: Vous ne pouvez siphonner un objet que s'il est au niveau maximum et supérieur à {0} d'expérience.
+			OpenEnchantingTableFirstTime:
+				'''
+				Vous sentez que tous vos enchantements et votre essence sont attirés vers la table d'enchantement.
+				Les enchantements d'armes ont leur propre stockage à l'intérieur de la table d'enchantement.
+				Récupérer des enchantements, des essences et d’autres objets d’enchantements d’armes les enverra automatiquement vers le stockage de la table d’enchantement.
+				'''
 			OreInfusionPowerNotSetup: La puissance d'infusion du minerai {0} n'est pas configurée. Puissance d'infusion estimée :
 			PreventedIssueLooseExperience: Un problème qui entraînerait une réduction de votre XP a été évité. (xpInt < 0) élément : {0}, cible : {1}, coup : {2}, mêlée : {3}, Main.GameMode : {4}, target.defense : {5}, xpDamage : {6}, lowDamagePerHitXPBoost : {7}
 			PreventedIssueLooseExperienceTwo: "Prévention d'un problème qui vous ferait perdre de l'expérience. (xpInt < 0) objet : {0}, cible : {1}, coup : {2}, mêlée : {3}, Main.GameMode : {4}, xpDamage : {5}, xpInt : {6}, lowDamagePerHitXPBoost : {7}, "
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 
 				// DisplayName: Witch

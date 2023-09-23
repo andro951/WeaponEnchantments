@@ -529,7 +529,7 @@ namespace WeaponEnchantments.Common.Utility
 		RerollEnchantment,
 		Back,
 		WitchSpawnCondition,
-
+		OpenEnchantingTableFirstTime,
 	}
 	public enum DialogueID {
         StandardDialogue,

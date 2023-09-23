@@ -714,6 +714,12 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: Es wurde ein NPC in einer Fortschrittsgruppe erkannt, der nicht in NPCsThatDropWeaponsOrIngredients enthalten ist.
 			NPCInProgressionGroupNoUniqueEnchantments: Es wurde ein NPC in einer Fortschrittsgruppe entdeckt, der keine einzigartigen Waffen oder Zutaten hat.
 			OnlySyphonMaxLevel: „Du kannst einen Gegenstand nur absaugen, wenn er die maximale Stufe und mehr als {0} Erfahrung hat.“
+			OpenEnchantingTableFirstTime:
+				'''
+				Sie spüren, wie alle Ihre Verzauberungen und Essenzen in den Verzauberungstisch gezogen werden.
+				Waffenverzauberungen verfügen über einen eigenen Aufbewahrungsort im Verzauberungstisch.
+				Wenn du Verzauberungen, Essenzen und andere Waffenverzauberungen einsammelst, werden diese automatisch in den Verzauberungstabellenspeicher verschoben.
+				'''
 			OreInfusionPowerNotSetup: „Erz {0} Infusionsleistung nicht eingerichtet. Geschätzte Infusionsleistung:“
 			PreventedIssueLooseExperience: „Ein Problem wurde verhindert, das dazu führen würde, dass deine XP reduziert werden. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: „Ein Problem wurde verhindert, das dazu führen würde, dass du Erfahrung verlierst. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 
 				// DisplayName: Witch

@@ -470,10 +470,10 @@ namespace WeaponEnchantments.UI
 								LootAll();
 								break;
 							case EnchantmentStorageButtonID.DepositAll:
-								DepositAll(Main.LocalPlayer.inventory);
+								DepositAll(Main.LocalPlayer.inventory.TakePlayerInventory40());
 								break;
 							case EnchantmentStorageButtonID.QuickStack:
-								Restock(Main.LocalPlayer.inventory);
+								QuickStack(Main.LocalPlayer.inventory.TakePlayerInventory40(), Main.LocalPlayer);
 								break;
 							case EnchantmentStorageButtonID.Sort:
 								Sort();
@@ -694,6 +694,12 @@ namespace WeaponEnchantments.UI
 				return TryVacuumItem(ref item, player);
 
 			return false;
+		}
+		public static void QuickStack(Item[] inv, Player player) {
+			for (int i = 0; i < inv.Length; i++) {
+				ref Item item = ref inv[i];
+				QuickStack(ref item, player);
+			}
 		}
 		public static bool Restock(ref Item item) => Restock(new Item[] { item });
 		public static bool Restock(Item[] inv, bool playSound = true) {

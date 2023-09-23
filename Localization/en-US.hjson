@@ -714,6 +714,12 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Detected an npc in a Progression group that has no unique weapons or ingredients.
 			OnlySyphonMaxLevel: You can only Syphon an item if it is max level and over {0} experience.
+			OpenEnchantingTableFirstTime:
+				'''
+				You feel all of your Enchantments and Essence get pulled into the Enchanting Table.
+				Weapon Enchantments has it's own storage inside the Enchanting Table.
+				Picking up Enchantments, Essence and other Weapon Enchantments items will automatically send them to the Enchanting Table storage.
+				'''
 			OreInfusionPowerNotSetup: Ore {0} infusion power not set up. Guessed infusion power:
 			PreventedIssueLooseExperience: Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
 			PreventedIssueLooseExperienceTwo: "Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, xpDamage: {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					Princess_LovesNPC: I like {NPCName}.
 					LikeNPC_Princess: I like {NPCName}.
 					HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					Princess_LovesNPC: I like {NPCName}.
 				}
 
 				DisplayName: Witch

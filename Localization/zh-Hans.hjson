@@ -714,8 +714,14 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: 检测到进度组中有一个 NPC 不在 NPCsThatDropWeaponsOrIngredients 中。
 			NPCInProgressionGroupNoUniqueEnchantments: 在进展组中检测到一个没有独特武器或成分的NPC。
 			OnlySyphonMaxLevel: “只有达到最高等级且经验值超过 {0} 的物品，您才可以虹吸该物品。”
+			OpenEnchantingTableFirstTime:
+				'''
+				你感觉你所有的结界和精华都被拉进了结界台。
+				武器附魔在附魔台内有自己的存储空间。
+				拾取附魔、精华和其他武器附魔物品会自动将它们发送到附魔台存储区。
+				'''
 			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
-			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\\\\"
+			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\\\\\"
 			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
 			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
 			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 
 				// DisplayName: Witch

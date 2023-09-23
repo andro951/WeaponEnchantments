@@ -166,8 +166,15 @@ namespace WeaponEnchantments.Tiles
 
 				wePlayer.enchantingTableLocation = new(x, y);
 				wePlayer.enchantingTableTier = tier;
-				if (wePlayer.highestTableTierUsed < tier)
+				if (wePlayer.highestTableTierUsed < tier) {
+					if (wePlayer.highestTableTierUsed == -1) {
+						EnchantmentStorage.DepositAll(Main.LocalPlayer.inventory.TakePlayerInventory40());
+						EnchantingTableUI.DepositAll(Main.LocalPlayer.inventory.TakePlayerInventory40());
+						Main.NewText(GameMessageTextID.OpenEnchantingTableFirstTime.ToString().Lang_WE(L_ID1.GameMessages));
+					}
+
 					wePlayer.highestTableTierUsed = tier;
+				}
 
 				wePlayer.Player.chest = -1;
 				Main.playerInventory = true;

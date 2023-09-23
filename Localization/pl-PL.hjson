@@ -714,6 +714,12 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: Wykryto NPC w grupie Postępu, którego nie ma w NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Wykryto NPC w grupie Postępu, który nie ma unikalnej broni ani składników.
 			OnlySyphonMaxLevel: „Możesz wyssać przedmiot tylko wtedy, gdy ma on maksymalny poziom i ponad {0} doświadczenia.”
+			OpenEnchantingTableFirstTime:
+				'''
+				Czujesz, jak wszystkie Twoje Zaklęcia i Esencja zostają wciągnięte na Stół Zaklinający.
+				Zaklęcia Broni mają swój własny schowek w Stole Zaklęć.
+				Podniesienie Zaklęć, Esencji i innych przedmiotów Zaklęć Broni spowoduje automatyczne wysłanie ich do magazynu Zaklinającego Stołu.
+				'''
 			OreInfusionPowerNotSetup: „Nie ustawiono mocy infuzji rudy {0}. Zgadywana moc infuzji:”
 			PreventedIssueLooseExperience: „Zapobiegnięto problemowi, który powodowałby zmniejszenie twoich PD. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, target.obrona: {5}, xpDamage: {6}, niskie obrażenia na trafienieXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: „Zapobiegnięto problemowi, który powodował utratę doświadczenia. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, niskie obrażenia na trafienieXPBoost: {7}, "
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 
 				// DisplayName: Witch

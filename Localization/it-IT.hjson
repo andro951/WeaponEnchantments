@@ -714,6 +714,12 @@ Mods: {
 			NPCInProgressionGroupNotInDropList: Rilevato un NPC in un gruppo di progressione che non è in NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Rilevato un NPC in un gruppo di progressione che non ha armi o ingredienti unici.
 			OnlySyphonMaxLevel: Puoi prelevare un oggetto solo se è al livello massimo e ha più di {0} esperienza.
+			OpenEnchantingTableFirstTime:
+				'''
+				Senti che tutti i tuoi incantesimi e le tue essenze vengono trascinati nella tabella degli incantesimi.
+				Gli incantesimi delle armi hanno il proprio deposito all'interno della tabella degli incantesimi.
+				Raccogliere incantesimi, essenze e altri oggetti di incantesimi per armi li invierà automaticamente al deposito del tavolo degli incantesimi.
+				'''
 			OreInfusionPowerNotSetup: Potenza di infusione del minerale {0} non impostata. Potenza di infusione indovinata:
 			PreventedIssueLooseExperience: Prevenuto un problema che avrebbe causato la riduzione dei tuoi XP. (xpInt < 0) oggetto: {0}, bersaglio: {1}, colpo: {2}, corpo a corpo: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
 			PreventedIssueLooseExperienceTwo: "Prevenuto un problema che ti avrebbe fatto perdere esperienza. (xpInt < 0) oggetto: {0}, bersaglio: {1}, colpo: {2}, corpo a corpo: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
@@ -1634,7 +1640,6 @@ Mods: {
 		NPCs: {
 			Witch: {
 				TownNPCMood: {
-					// Princess_LovesNPC: I like {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
@@ -1650,6 +1655,7 @@ Mods: {
 					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
 					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
 					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 
 				// DisplayName: Witch
