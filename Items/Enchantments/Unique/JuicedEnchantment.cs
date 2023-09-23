@@ -12,6 +12,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 10;
 		protected override bool UsesTierStrengthData => true;
+		public override float ScalePercent => 0f;
+		public override bool OnlyApplyScalePercentBelow100 => true;
 		public override int ArmorSlotSpecific => (int)ArmorSlotSpecificID.Head;
 		public override void GetMyStats() {
 			Effects = new() {
@@ -24,7 +26,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			};
 		}
 
-		//public override string ShortTooltip => GetShortTooltip();
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Mew";

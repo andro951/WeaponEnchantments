@@ -152,6 +152,11 @@ namespace WeaponEnchantments.Items
 		public virtual float ScalePercent { private set; get; } = 1f;
 
 		/// <summary>
+		/// With Enchantments strength multiplier >= 1f, this will set the multiplier from ScalePercent back to 1f to allow the value going up above 100%, but not down below.
+		/// </summary>
+		public virtual bool OnlyApplyScalePercentBelow100 { private set; get; } = false;
+
+		/// <summary>
 		/// Allows you to manually adjust affect the cost of enchantments.
 		/// Utility are 1f by default -> 1, 2, 3, 4, 5
 		/// Normal are 2f by defualt -> 2, 4, 6, 8, 10
@@ -598,6 +603,9 @@ namespace WeaponEnchantments.Items
 		private float GetStrengthApplyScalePercent(float multiplier) {
 			float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
 			float scale = Math.Abs(ScalePercent);
+			if (multiplier > 1f && OnlyApplyScalePercentBelow100)
+				scale = 1f;
+
 			float strength;
 			if (ScalePercent < 0f) {
 				strength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
