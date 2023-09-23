@@ -145,7 +145,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
-			new("ThoriumMod/TheGrandThunderBirdv2")
+			new("ThoriumMod/TheGrandThunderBird")
 		} : null;
 	}
 	[Autoload(false)]
@@ -220,7 +220,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
-			new("ThoriumMod/QueenJelly")
+			new("ThoriumMod/QueenJellyfish")
 		} : null;
 	}
 	[Autoload(false)]
@@ -243,7 +243,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
 			new("ThoriumMod/GraniteEnergyStorm"),
-			new("ThoriumMod/TheBuriedWarrior")
+			new("ThoriumMod/BuriedChampion")
 		} : null;
 	}
 	[Autoload(false)]

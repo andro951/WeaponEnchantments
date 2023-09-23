@@ -285,7 +285,6 @@ namespace WeaponEnchantments.Common.Configs
 		public const string ClientConfigName = "ClientConfig";
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		//Enchanting Table Options
-		[JsonIgnore]
 		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfig.ServerConfigName}.{ServerConfig.EnchantingTableOptionsKey}")]
 
 		[DefaultValue(true)]
