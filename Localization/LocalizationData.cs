@@ -569,7 +569,7 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Label.ToString(), "Multiplicative critical hits past the first." },
 									{ L_ID3.Tooltip.ToString(), "Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.\n" +
 														"By default, this is an additive bonus: 1st crit 200% damage, 2nd 300% damage, 3rd 400% damage.....\n" +
-														"Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 400% damage... " }
+														"Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 800% damage... " }
 								}) },
 								{ nameof(ServerConfig.InfusionDamageMultiplier), new(dict: new() {
 									{ L_ID3.Label.ToString(), "Infusion Damage Multiplier (Divides by 1000, 1 -> 0.001)" },
