@@ -47,7 +47,14 @@ namespace WeaponEnchantments.Common.Configs
 		public static bool useAllRecipes = !recursiveCraftEnabled && !serverConfig.ReduceRecipesToMinimum;
 		public static bool RemoveEnchantmentRestrictions = serverConfig.RemoveEnchantmentRestrictions;
 		public static float ConfigCapacityCostMultiplier = serverConfig.ConfigCapacityCostMultiplier / 100f;
-		public static float ArmorDamageReductionPerLevel => serverConfig.ArmorDamageReductions[Main.GameMode].ArmorDamageReductionPerLevel / 10000000f;
+		public static float ArmorDamageReductionPerLevel {
+			get {
+				if (serverConfig.ArmorDamageReductions.Count != ServerConfig.DefaultArmorDamageReductionsCount)
+					serverConfig.ArmorDamageReductions = ServerConfig.DefaultArmorDamageReductions;
+
+				return serverConfig.ArmorDamageReductions[Main.GameMode].ArmorDamageReductionPerLevel / 10000000f;
+			}
+		}
 		public static float AccessoryDamageReductionPerLevel => serverConfig.ArmorDamageReductions[Main.GameMode].AccessoryDamageReductionPerLevel / 10000000f;
 		public static int[] EnchantmentSlotsOnItems = new int[] {
 			serverConfig.EnchantmentSlotsOnWeapons,

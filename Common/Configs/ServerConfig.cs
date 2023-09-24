@@ -205,7 +205,11 @@ namespace WeaponEnchantments.Common.Configs
 		public bool CalculateDamageReductionBeforeDefense;
 
 		[ReloadRequired]
-		public List<ArmorDamageReduction> ArmorDamageReductions = new() { new(0), new(1), new(2), new(3) };
+		public List<ArmorDamageReduction> ArmorDamageReductions = DefaultArmorDamageReductions;
+		[JsonIgnore]
+		public static List<ArmorDamageReduction> DefaultArmorDamageReductions => new() { new(0), new(1), new(2), new(3) };
+		[JsonIgnore]
+		public static int DefaultArmorDamageReductionsCount = DefaultArmorDamageReductions.Count;
 
 		[DefaultValue(true)]
 		public bool AllowCriticalChancePast100;
