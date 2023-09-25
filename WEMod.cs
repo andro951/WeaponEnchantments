@@ -152,6 +152,9 @@ namespace WeaponEnchantments
 			hooks = null;
 		}
 		public override void PostSetupContent() {
+			if (Main.netMode == NetmodeID.Server)
+				return;
+
 			if (wikiThis != null)
 				wikiThis.Call("url", this, WIKI_URL + "{}");
 			
