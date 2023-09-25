@@ -41,6 +41,7 @@ using VacuumOreBag.Items;
 namespace WeaponEnchantments
 {
 	public class WEPlayer : ModPlayer, ISortedEnchantmentEffects, ISortedOnHitEffects {
+
 		#region fields/properties
 
 		public static bool WorldOldItemsReplaced = false;

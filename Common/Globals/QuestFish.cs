@@ -20,7 +20,6 @@ namespace WeaponEnchantments.Common.Globals
 {
 	public class QuestFish : GlobalItem
 	{
-		public bool automaticTurnIn = false;
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
 			return Main.anglerQuestItemNetIDs.ToList().Contains(entity.type);
