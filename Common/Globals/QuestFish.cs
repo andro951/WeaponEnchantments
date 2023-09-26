@@ -1,4 +1,5 @@
-﻿using androLib.Common.Utility;
+﻿using androLib;
+using androLib.Common.Utility;
 using KokoLib;
 using System;
 using System.Collections.Generic;
@@ -96,16 +97,19 @@ namespace WeaponEnchantments.Common.Globals
 
 			PlayerLoader.AnglerQuestReward(player, num2, rewardItems);
 
-			foreach (Item rewardItem in rewardItems) {
+			for (int i = 0; i < rewardItems.Count; i++) {
+				Item rewardItem = rewardItems[i];
 				rewardItem.position = player.Center;
 
-				Item getItem = player.GetItem(player.whoAmI, rewardItem, GetItemSettings.NPCEntityToPlayerInventorySettings);
+				if (!StorageManager.TryReturnItemToPlayer(ref rewardItem, player, true)) {
+					Item getItem = player.GetItem(player.whoAmI, rewardItem, GetItemSettings.NPCEntityToPlayerInventorySettings);
 
-				if (getItem.stack > 0) {
-					int number = Item.NewItem(player.GetSource_Loot("Angler Quest Rewards (Weapon Enchantments)") , (int)player.position.X, (int)player.position.Y, player.width, player.height, getItem.type, getItem.stack, noBroadcast: false, 0, noGrabDelay: true);
+					if (getItem.stack > 0) {
+						int number = Item.NewItem(player.GetSource_Loot("Angler Quest Rewards (Weapon Enchantments)"), (int)player.position.X, (int)player.position.Y, player.width, player.height, getItem.type, getItem.stack, noBroadcast: false, 0, noGrabDelay: true);
 
-					if (Main.netMode == 1)
-						NetMessage.SendData(21, -1, -1, null, number, 1f);
+						if (Main.netMode == 1)
+							NetMessage.SendData(21, -1, -1, null, number, 1f);
+					}
 				}
 			}
 		}

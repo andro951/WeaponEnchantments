@@ -787,7 +787,7 @@ namespace WeaponEnchantments.Common.Globals
 						int itemType = dropRate.itemId;
                         float chance = dropRate.dropRate;
 						//Item item = itemType.CSI();
-						allItemDropsFromNpcs.AddOrCombine(itemType, (netID, chance));
+						allItemDropsFromNpcs.AddOrCombineTouple(itemType, (netID, chance));
 					}
 				}
 
@@ -801,7 +801,7 @@ namespace WeaponEnchantments.Common.Globals
 
 				string modFullName = i.CSI().ModFullName();
 				if (manuallySetModBossBags.TryGetValue(modFullName, out (int netID, float chance) value)) {
-                    allItemDropsFromNpcs.AddOrCombine(i, (value.netID, value.chance));
+                    allItemDropsFromNpcs.AddOrCombineTouple(i, (value.netID, value.chance));
 					manuallySetModBossBags.Remove(modFullName);
 				}
 			}
