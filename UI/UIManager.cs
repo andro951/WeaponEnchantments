@@ -83,11 +83,11 @@ namespace WeaponEnchantments.UI
 			StorageManager.TryQuickStackItemHandler.Add((Item item, Player player) => EnchantmentStorage.QuickStack(ref item, player));
 			StorageManager.TryQuickStackItemHandler.Add((Item item, Player player) => EnchantingTableUI.QuickStack(ref item, player));
 
-			StorageManager.CloseAllStorageUIEvent += () => {
+			StorageManager.OnOpenMagicStorageCloseAllStorageUIEvent += () => {
 				if (WEPlayer.LocalWEPlayer.usingEnchantingTable)
 					EnchantingTableUI.CloseEnchantingTableUI(true);
 			};
-			StorageManager.CloseAllStorageUIEvent += () => {
+			StorageManager.OnOpenMagicStorageCloseAllStorageUIEvent += () => {
 				if (WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI)
 					EnchantmentLoadoutUI.Close(true);
 			};
