@@ -1589,7 +1589,8 @@ namespace WeaponEnchantments.Common
 					ItemID.EbonstoneBlock,
 					ItemID.CrimstoneBlock,
 					ItemID.PurpleIceBlock,
-					ItemID.RedIceBlock
+					ItemID.RedIceBlock,
+					ItemID.PinkIceBlock
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.EaterofSouls,
@@ -1957,7 +1958,6 @@ namespace WeaponEnchantments.Common
 				itemTypes: new SortedSet<int>() {
 					ItemID.Pearlwood,
 					ItemID.PearlstoneBlock,
-					ItemID.PinkIceBlock
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Pixie,

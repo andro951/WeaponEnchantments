@@ -1688,7 +1688,7 @@ namespace WeaponEnchantments
                 
                 float combinedStrength = strength * baitMultiplier;
                 float rand = Main.rand.NextFloat();
-                return rand > combinedStrength;
+                return rand > combinedStrength ? null : false;
             }
 
             return null;
@@ -1825,8 +1825,10 @@ namespace WeaponEnchantments
                         weightedChance *= 3.16228f;
 
                     questFishChance *= weightedChance;
+                    float fishingPowerModifier = 1.0f + ((float)attempt.fishingLevel / 100f);
+					questFishChance *= fishingPowerModifier;
 
-                    float rand = Main.rand.NextFloat();
+					float rand = Main.rand.NextFloat();
                     if (rand <= questFishChance) {
                         itemDrop = attempt.questFish;
                         npcSpawn = NPCID.NegativeIDCount;

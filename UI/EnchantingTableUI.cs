@@ -1463,7 +1463,7 @@ namespace WeaponEnchantments.UI
 
 					//Infuse (Finalize)
 					if (wePlayer.enchantingTableItem.TryInfuseItem(wePlayer.infusionConsumeItem, false, true)) {
-						OfferItem(ref wePlayer.infusionConsumeItem, true, true);
+						OfferItem(ref wePlayer.infusionConsumeItem, true, true, false);
 						wePlayer.infusionConsumeItem = new();
 					}
 					else {
@@ -1694,7 +1694,7 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static void ReturnAllModifications(ref Item item) {
+		public static void ReturnAllModifications(ref Item item, bool shouldGiveBackInfusiedItem = true) {
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return;
 
@@ -1715,7 +1715,7 @@ namespace WeaponEnchantments.UI
 			//Xp -> Essence
 			ConvertXPToEssence(xp, true, item);
 
-			if (enchantedItem.infusedItemName != "") {
+			if (shouldGiveBackInfusiedItem && enchantedItem.infusedItemName != "") {
 				if (InfusionManager.TryFindItem(enchantedItem.infusedItemName, out Item foundItem)) {
 					StorageManager.TryReturnItemToPlayer(ref foundItem, Main.LocalPlayer, true);
 				}
@@ -1724,7 +1724,7 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true) {
+		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true, bool returnInfusedItem = true) {
 			int type = item.type;
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return -1;
@@ -1735,7 +1735,7 @@ namespace WeaponEnchantments.UI
 
 			float value = item.value;
 
-			ReturnAllModifications(ref item);
+			ReturnAllModifications(ref item, returnInfusedItem);
 
 			//Item value -> ores/essence
 			if (!noOre) {
