@@ -53,6 +53,7 @@ namespace WeaponEnchantments
 		public static bool secretsOfTheShadowsEnabled = ModLoader.TryGetMod("SOTS", out Mod _);
 		public static Mod wikiThis;
 		public static bool wikiThisEnabled = ModLoader.TryGetMod("Wikithis", out wikiThis);
+		public static bool minionDmgPatchEnabled = ModLoader.TryGetMod("MinionDmgPatch", out Mod _);
 
 		public const string WIKI_URL = "https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/";
 

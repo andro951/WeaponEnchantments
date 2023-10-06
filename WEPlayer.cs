@@ -900,10 +900,13 @@ namespace WeaponEnchantments
                     //case ItemID.StormTigerStaff:
                         notAffectedByDamageStat = true;
 						break;
-                }
+                    default:
+                        notAffectedByDamageStat = !WEMod.minionDmgPatchEnabled && (projectile.minion || projectile.DamageType == DamageClass.Summon);
+                        break;
+				}
 
 				//Minion, item damage doesn't apply to minions
-				if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) && (projectile.minion || projectile.DamageType == DamageClass.Summon || notAffectedByDamageStat))
+				if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) && notAffectedByDamageStat)
                     modifiers.SourceDamage *= enchantedWeapon.infusionDamageMultiplier;
 
                 if (ProjectileID.Sets.StardustDragon[projectile.type]) {
@@ -918,9 +921,9 @@ namespace WeaponEnchantments
                         float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
                         modifiers.SourceDamage *= combinedMultiplier;
                     }
-                    }
                 }
             }
+        }
         public void CalculateCriticalChance(Item item, ref NPC.HitModifiers hitModifiers, bool crit, bool? critOverride, Projectile projectile = null) {
             if (critOverride == false)
                 return;
