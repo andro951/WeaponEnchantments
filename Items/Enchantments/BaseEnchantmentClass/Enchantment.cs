@@ -11,7 +11,7 @@ using Terraria.GameContent.Creative;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using Terraria.Localization;
 using System.Linq;
 using WeaponEnchantments.Effects;
@@ -21,10 +21,13 @@ using androLib.Common.Utility;
 using androLib.Common.Globals;
 using androLib.Items;
 using androLib;
+using WeaponEnchantments.Content.NPCs;
+using androLib.Common.Utility.LogSystem;
+using androLib.Items.Interfaces;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class Enchantment : WEModItem, ISoldByWitch
+	public abstract class Enchantment : WEModItem, ISoldByNPC, IHasDropRates
 	{
 		#region Static
 
@@ -266,6 +269,7 @@ namespace WeaponEnchantments.Items
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
+		public Func<int> SoldByNPCNetID => ModContent.NPCType<Witch>;
 		public virtual SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTime : SellCondition.Never;
 		public override List<WikiTypeID> WikiItemTypes {
 			get {
@@ -276,6 +280,14 @@ namespace WeaponEnchantments.Items
 				return types;
 			}
 		}
+		public override bool IsEquivenantForCondensingWikiCraftingRecipes(ModItem other) {
+			if (other is not Enchantment enchantment)
+				return false;
+
+			return EnchantmentTier == enchantment.EnchantmentTier;
+		}
+		public override Type GroupingType => typeof(Enchantment);
+		public virtual Func<ModItem, string, string> GetNonStandardWikiLinkString => (ModItem modItem, string name) => modItem is Enchantment enchantment ? enchantment.TierName.ToSectionLink(name, $"{enchantment.EnchantmentTypeName.AddSpaces()} Enchantment") : null;
 		public override int CreativeItemSacrifice => 1;
 		public string TierName => tierNames[EnchantmentTier];
 		public override bool CanBeStoredInEnchantmentStroage => true;
@@ -421,48 +433,8 @@ namespace WeaponEnchantments.Items
 				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
 			}
 
-			if (NpcDropTypes != null) {
-				foreach (DropData dropData in NpcDropTypes) {
-					int npcType = dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEGlobalNPC.npcDropTypes.AddOrCombine(npcType, enchantmentDropData);
-				}
-			}
-
-			if (ModNpcDropNames != null) {
-				foreach (ModDropData dropData in ModNpcDropNames) {
-					string modNpcName = dropData.Name;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEGlobalNPC.modNpcDropNames.AddOrCombine(modNpcName, enchantmentDropData);
-				}
-			}
-
-			if (NpcAIDrops != null) {
-				foreach (DropData dropData in NpcAIDrops) {
-					int npcAIStyle = dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEGlobalNPC.npcAIDrops.AddOrCombine(npcAIStyle, enchantmentDropData);
-				}
-			}
-
-			if (ChestDrops != null) {
-				foreach (DropData dropData in ChestDrops) {
-					ChestID chestID = (ChestID)dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEModSystem.chestDrops.AddOrCombine(chestID, enchantmentDropData);
-				}
-			}
-
-			if (CrateDrops != null) {
-				foreach (DropData dropData in CrateDrops) {
-					int crateID = dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					GlobalCrates.crateDrops.AddOrCombine(crateID, enchantmentDropData);
-				}
-			}
-
-			if (WEMod.wikiThis != null)
-				WEMod.wikiThis.Call(1, Type, GetWikiURL());
+			if (AndroMod.wikiThis != null)
+				AndroMod.wikiThis.Call(1, Type, GetWikiURL());
 
 			base.SetStaticDefaults();
 		}

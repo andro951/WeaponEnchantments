@@ -36,14 +36,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override SellCondition SellCondition => SellCondition.Always;
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Fighter)
-		};
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Chest_Normal)
-		};
-		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f)
+			new(NPCAIStyleID.Fighter, 0.95f)
 		};
 	}
 	[Autoload(false)]

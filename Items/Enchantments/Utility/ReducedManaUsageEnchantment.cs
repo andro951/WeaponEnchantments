@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using androLib.Common.Utility;
+using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -22,20 +23,21 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class ReducedManaUsageEnchantmentBasic : ReducedManaUsageEnchantment
 	{
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.BrainofCthulhu)
+			new(NPCID.BrainofCthulhu),
+			new(NPCID.EaterofWorldsHead, chance: 0.2f)
 		};
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Worm),
-			new(NPCAIStyleID.Caster),
-			new(NPCAIStyleID.CursedSkull)
+			new(NPCAIStyleID.Worm, 4f),
+			new(NPCAIStyleID.Caster, 4f),
+			new(NPCAIStyleID.CursedSkull, 4f)
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Chest_Normal),
 			new(ChestID.Frozen)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f),
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 			new(CrateID.Frozen, 0.5f),
 			new(CrateID.Boreal_FrozenHard, 0.5f)
 		};

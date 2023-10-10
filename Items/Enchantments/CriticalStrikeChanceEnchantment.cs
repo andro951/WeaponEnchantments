@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using androLib.Common.Utility;
+using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -26,9 +27,9 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(NPCID.SkeletronHead)
 		};
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.ManEater),
-			new(NPCAIStyleID.Jellyfish),
-			new(NPCAIStyleID.Antlion)
+			new(NPCAIStyleID.ManEater, 4f),
+			new(NPCAIStyleID.Jellyfish, 4f),
+			new(NPCAIStyleID.Antlion, 10f)
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Chest_Normal),
@@ -37,10 +38,8 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(ChestID.RichMahogany)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f),
-			new(CrateID.Iron, 0.5f),
-			new(CrateID.Iron, 0.5f),
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 			new(CrateID.Jungle, 0.5f),
 			new(CrateID.Jungle, 0.5f)
 		};

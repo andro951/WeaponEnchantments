@@ -37,6 +37,8 @@ using androLib;
 using WeaponEnchantments.Items.Enchantments;
 using VacuumOreBag;
 using VacuumOreBag.Items;
+using WeaponEnchantments.Content.NPCs;
+using androLib.Items;
 
 namespace WeaponEnchantments
 {
@@ -291,7 +293,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/OnEnterWorld({Player.S()})").Log_WE();
+            if (LogMethods.debugging) ($"\\/OnEnterWorld({Player.S()})").Log();
 
 			#endregion
 
@@ -331,7 +333,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log_WE();
+            if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log();
 
             #endregion
         }
@@ -462,6 +464,10 @@ namespace WeaponEnchantments
                 autoTrashOfferedItems = val;
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
+			//shop
+			if (context == 15 || Main.npcShop != 0)
+				return false;
+
 			ref Item item = ref inventory[slot];
 			if (usingEnchantingTable) {
 				if (!displayEnchantmentLoadoutUI) {
@@ -818,10 +824,14 @@ namespace WeaponEnchantments
 			//Main.NewText($"new Loadout Number: {loadoutIndex}, old: {Player.CurrentLoadoutIndex}");
 		}
 		public override void PostSellItem(NPC vendor, Item[] shopInventory, Item item) {
-			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-				return;
+			if (item.TryGetEnchantedItemSearchAll(out _))
+				EnchantingTableUI.ReturnAllModifications(ref item);
 
-			EnchantingTableUI.ReturnAllModifications(ref item);
+            Witch.OnSellItem(item);
+		}
+		public override void PostBuyItem(NPC vendor, Item[] shopInventory, Item item) {
+			if (vendor.ModNPC is Witch)
+                Witch.OnPurchaseItem(item, shopInventory);
 		}
 
 		#endregion
@@ -846,7 +856,7 @@ namespace WeaponEnchantments
             //Called from WEMod detours
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log_WE();
+            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log();
 
             #endregion
 
@@ -870,7 +880,7 @@ namespace WeaponEnchantments
             #region Debug
 
             debugBeforeReturn:
-            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log_WE();
+            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log();
 
             #endregion
         }
@@ -988,7 +998,7 @@ namespace WeaponEnchantments
 
 			//Used to help identify the ModNPC name of modded bosses for setting up mod boss bag support.
 			if (GlobalBossBags.printNPCNameOnHitForBossBagSupport)
-                $"NPC hit by item: {item.Name}, target.Name: {target.ModFullName()}, target.ModNPC?.Name: {target.ModNPC?.Name}, target.boss: {target.boss}, target.netID: {target.netID}".LogSimple_WE();
+                $"NPC hit by item: {item.Name}, target.Name: {target.ModFullName()}, target.ModNPC?.Name: {target.ModNPC?.Name}, target.boss: {target.boss}, target.netID: {target.netID}".LogSimple();
 
             int damageReduction = target.defense / 2;
             if (damageReduction < 0)
@@ -1022,7 +1032,7 @@ namespace WeaponEnchantments
                         }
                     }
 
-                    if (target.IsWorm() || multipleSegmentBossTypes.ContainsKey(target.netID)) {
+                    if (target.IsWorm() || AndroGlobalNPC.multipleSegmentBossTypes.ContainsKey(target.netID)) {
                         foreach (short key in debuffs.Keys) {
                             debuffs[key] = (int)Math.Round((float)debuffs[key] / 5f);
                         }
@@ -1034,7 +1044,7 @@ namespace WeaponEnchantments
                     target.HandleOnHitNPCBuffs(amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
 				}
                 else {
-                    $"NetDebuffs called from server.".Log_WE();
+                    $"NetDebuffs called from server.".Log();
                 }
             }
 
@@ -1094,7 +1104,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log_WE();
+            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
 
@@ -1179,7 +1189,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}) total: {total}").Log_WE();
+            if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}) total: {total}").Log();
 
             #endregion
 
@@ -1242,7 +1252,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ActivateGodSlayer").Log_WE();
+            if (LogMethods.debugging) ($"\\/ActivateGodSlayer").Log();
 
             #endregion
 
@@ -1268,12 +1278,12 @@ namespace WeaponEnchantments
                 Net<INetMethods>.Proxy.NetStrikeNPC(target, godSlayerDamageInt, crit);
             }
             else {
-                $"ActivateGodSlayer called from server.".Log_WE();
+                $"ActivateGodSlayer called from server.".Log();
             }
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ActivateGodSlayer").Log_WE();
+            if (LogMethods.debugging) ($"/\\ActivateGodSlayer").Log();
 
             #endregion
 
@@ -1835,11 +1845,11 @@ namespace WeaponEnchantments
                     if (rand <= questFishChance) {
                         itemDrop = attempt.questFish;
                         npcSpawn = NPCID.NegativeIDCount;
-						if (LogMethods.debugging) $"success, questFishChance: {questFishChance}, rand: {rand}".Log_WE();
+						if (LogMethods.debugging) $"success, questFishChance: {questFishChance}, rand: {rand}".Log();
                         return;
                     }
 					else {
-						if (LogMethods.debugging) $"failed, questFishChance: {questFishChance}, rand: {rand}".Log_WE();
+						if (LogMethods.debugging) $"failed, questFishChance: {questFishChance}, rand: {rand}".Log();
                     }
                 }
 			}

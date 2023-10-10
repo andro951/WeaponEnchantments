@@ -10,11 +10,7 @@ Mods: {
 			Automatic: 自动的
 			Custom: 风俗
 			Enchantment: 魅力
-			Expert: 专家
-			Journey: 旅行
-			Master: 掌握
 			NoneSelected: 未选择
-			Normal: 普通的
 
 			ArmorDamageReduction: {
 				Tooltip: 允许您修改盔甲和配件在升级时获得的伤害减免。
@@ -77,15 +73,6 @@ Mods: {
 					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示武器升级消息。
 				}
 
-				DisableAllErrorMessagesInChat: {
-					Label: 禁用聊天中的所有错误消息
-					Tooltip:
-						'''
-						防止在您的聊天中显示要求您这样做的消息
-						请将此事报告给andro951（武器附魔）并描述您当时所做的事情。
-						'''
-				}
-
 				DisplayDamageTooltipSeperatly: {
 					Label: 在单独的工具提示中显示结界造成的大致伤害。
 					Tooltip:
@@ -124,24 +111,6 @@ Mods: {
 						'''
 				}
 
-				OnlyShowErrorMessagesInChatOnce: {
-					Label: 仅在聊天中显示一次错误消息
-					Tooltip:
-						'''
-						消息将继续显示在您的聊天中，但仅在游戏会话期间显示一次。
-						（错误消息必须与之前要阻止的消息完全相同。）
-						'''
-				}
-
-				PrintEnchantmentDrops: {
-					Label: 记录附魔掉落源列表
-					Tooltip:
-						'''
-						当您进入世界时，该列表将打印到 client.log 中。
-						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
 				PrintEnchantmentTooltips: {
 					Label: 记录附魔工具提示列表
 					Tooltip:
@@ -167,11 +136,6 @@ Mods: {
 						自动将精华从您的库存发送到 UI 精华槽。
 						（在 UI 打开时禁用。）
 						'''
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					Label: 使用备用附魔精华纹理
-					Tooltip: 默认颜色适合色盲。 替代纹理有细微差别，但被投票保留。
 				}
 
 				UsePointsAsTooltip: {
@@ -547,7 +511,7 @@ Mods: {
 						'''
 						武器附魔利用暴击率超过 100% 来让你再次暴击。
 						默认情况下，这是一个附加奖励：第一次暴击 200% 伤害，第二次 300% 伤害，第三次 400% 伤害......
-						启用此功能会使它们相乘：第一个暴击 200% 伤害，第二个暴击 400% 伤害，第三个暴击 400% 伤害......
+						启用此功能会使它们相乘：第一个暴击 200% 伤害，第二个暴击 400% 伤害，第三个暴击 800% 伤害......
 						'''
 				}
 
@@ -659,7 +623,6 @@ Mods: {
 		GameMessages: {
 			AlreadyMaxLevel: “您的 {0} 已经达到最高等级。”
 			Back: 后退
-			BossChecklistNotEnabled: BossChecklist 模组未启用。 武器附魔使用 BossChecklist 来确定哪些 Boss 决定来自 Modded Boss 的能量助推器掉落。 由于 BossChecklist 未启用，所有 Modded Boss 都会掉落常规能量助推器。
 			CannotGainAdditionalPower: “您的 {0}({1}) 无法从所提供的 {2}({3}) 中获得额外的能量。”
 			CantInfusionArmorDifferentTypes: 你不能注入不同类型的盔甲，例如头盔和身体。
 			CongradulationsMaxLevel: “恭喜！{0} 的 {1} 达到最高等级，{2} ({3} xp)。”
@@ -669,7 +632,6 @@ Mods: {
 			DetectedNonEnchantmentInEnchantmentSlot: “在您的 {1} 上检测到非附魔物品：{0}。它已返回到您的库存中。”
 			EnchantmentNoLongerAllowed: “{1} 上不再允许使用 {0}，并且已从您的 {2} 中删除。”
 			FailedConvertExcessExperience: “无法检查ConvertExcessExperience（项目：{0}，消费项目：{1}）”
-			FailedDetermineProgression: 无法从 BossChecklistData 确定血肉墙和世纪之花的进度
 			FailedFindBossBag: 找不到老板的老板包：
 			FailedFindItemDropsForGroup: 无法找到群组战利品的掉落物品
 			FailedInfuseItem: “无法将物品：{0} 与已消耗物品：{1} 融合”
@@ -696,7 +658,6 @@ Mods: {
 			ItemTooLowLevel: “你的 {0} 等级太低，无法使用那么多魔法。”
 			LogInfusionPowerLabels: 模组、武器、注入威力、价值稀有度、稀有度、原始稀有度、价值、物品 ID、伤害、使用时间、DPS
 			LogInfusionPowerOtherLabels: 稀有度、平均、最小、最大
-			MainUpdateCount: “Main.GameUpdateCount：{0}”
 			MultipleUniqueEnchantments: “在您的 {0} 上检测到多个独特的魔咒。{1} 已从您的 {2} 中删除。”
 			MurasamaNoInfusion: Murasama 不能用于输液。
 			NewItemIsAir: 新物品是空气。
@@ -721,19 +682,17 @@ Mods: {
 				拾取附魔、精华和其他武器附魔物品会自动将它们发送到附魔台存储区。
 				'''
 			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
-			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\\\\\"
+			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\\\\\\"
 			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
 			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
 			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
 			RemovedEnchantedItemData: “已从项目中删除 EnchantedItem 数据：{0}，计数：{1}，新计数：{2}”
 			RemovedUnloadedEnchantmentFromItem: “已从您的 {1} 中删除已卸载的物品：{0}。请通知 andro951(WeaponEnchantments)。”
-			ReportErrorToAndro: 请将此事报告给andro951（武器附魔）并描述您当时所做的事情。
 			RerollEnchantment: 重新投掷附魔
 			ResistsYourAttemptToEmpower: “{0} 抵制了你赋予它权力的尝试。”
 			SameSetBonusNoEffect: 正在升级的物品与正在消耗的物品具有相同的套装奖励，并且不会产生任何效果。
 			SlotNumDisabledByConfig: “插槽 {0} 已被配置禁用。已从您的 {2} 中删除了 {1}。”
 			TryInfuseFailed: “TryInfuseItem 失败，tableItem：{0}{1}，infusionConsumeItem：{2}{3}”
-			UnableDetermineNPCDropsBossBag: 无法确定掉落此Boss包的npc：
 			WeaponInfusionPowersNotSetup: 武器注入能力未设置
 			WitchChatText: 你还想要什么？ 我很忙。
 			WitchEnchantmentRerolText: 我想我可以尝试提高你的魅力，但不会退款或投诉。
@@ -1637,37 +1596,37 @@ Mods: {
 			}
 		}
 
-		NPCs: {
-			Witch: {
-				TownNPCMood: {
-					// LikeNPC_Princess: I like {NPCName}.
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// Princess_LovesNPC: I like {NPCName}.
-				}
-
-				// DisplayName: Witch
-			}
+		Tiles: {
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 
-		Tiles: {
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+		NPCs: {
+			Witch: {
+				// DisplayName: Witch
+
+				TownNPCMood: {
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
+				}
+			}
 		}
 	}
 }

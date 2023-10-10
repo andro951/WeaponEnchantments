@@ -50,7 +50,7 @@ namespace WeaponEnchantments.Common.Globals
 						Main.LocalPlayer.GetAnglerReward(angler, type);
 					}
 					else {
-						GameMessageTextID.FailedToLocateAngler.ToString().Lang_WE(L_ID1.GameMessages).LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);// $"Failed to locate the Angler.  You will still receive rewards".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
+						GameMessageTextID.FailedToLocateAngler.ToString().Lang_WE(L_ID1.GameMessages).LogNT(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);// $"Failed to locate the Angler.  You will still receive rewards".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
 						GetAnglerLoot();
 					}
 

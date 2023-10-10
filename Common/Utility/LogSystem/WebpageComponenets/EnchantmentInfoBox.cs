@@ -7,6 +7,8 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib.Common.Utility.LogSystem.WebpageComponenets;
+using androLib.Common.Utility.LogSystem;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
@@ -35,13 +37,13 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 			}
 		}
 		public List<Enchantment> enchantments = new();
-		public List<ItemInfo> items = new();
+		public List<ItemInfo_WE> items = new();
 		public void Add(Enchantment enchantment) {
 			if (name == null)
 				name = $"{enchantment.EnchantmentTypeName.AddSpaces()} Enchantment";
 			
 			enchantments.Add(enchantment);
-			items.Add(new ItemInfo(enchantment));
+			items.Add(new ItemInfo_WE(enchantment));
 		}
 		public void AddStatistics(WebPage webPage) => webPage.Add(this);
 		public void AddDrops(WebPage webPage) {
@@ -68,7 +70,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 				foreach(EnchantmentEffect effect in enchantments[i].Effects) {
 					string name = effect.DisplayName;
 					if (effectsDict.Keys.Contains(name)) {
-						$"{name} already exists in the effectsDict.".LogSimple_WE();
+						$"{name} already exists in the effectsDict.".LogSimple();
 					}
 					else {
 						effectsDict.Add(name, effect);
@@ -150,7 +152,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 
 			for (int i = 0; i < items.Count; i++) {
 				int num = i + 1;
-				ItemInfo itemInfo = items[i];
+				ItemInfo_WE itemInfo = items[i];
 				text += $"| image{num}   = {itemInfo.Image}\n";
 
 				itemInfo.GetArtists(out string artistString, out string artModifiedBy);

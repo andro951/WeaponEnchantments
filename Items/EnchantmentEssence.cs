@@ -11,14 +11,16 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
-using static WeaponEnchantments.Common.EnchantingRarity;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
 using androLib.Items;
+using WeaponEnchantments.Content.NPCs;
+using androLib;
+using static androLib.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantmentEssence : WEModItem, ISoldByWitch {
+	public abstract class EnchantmentEssence : WEModItem, ISoldByNPC {
 		public virtual int EssenceTier {
 			get {
 				if (essenceTier == -1) {
@@ -38,9 +40,10 @@ namespace WeaponEnchantments.Items
 
 		private int entitySize = 20;
 		int glowBrightness;
-		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? "Alt" : "")).Replace('.', '/');
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (AndroMod.clientConfig.UseAlternateRarityColors ? "Alt" : "")).Replace('.', '/');
 		public Color glowColor => TierColors[EssenceTier];
 		public abstract int animationFrames { get; }
+		public Func<int> SoldByNPCNetID => ModContent.NPCType<Witch>;
 		public virtual SellCondition SellCondition => SellCondition.Always;
 		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.EnchantmentEssence, WikiTypeID.CraftingMaterial };
 		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier);
@@ -68,9 +71,9 @@ namespace WeaponEnchantments.Items
 			//Log contributors for both normal and alternate spritesheets
 			if (LogModSystem.printListOfContributors) {
 				//LogModSystem.UpdateContributorsList(this);
-				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
+				AndroMod.clientConfig.UseAlternateRarityColors = !AndroMod.clientConfig.UseAlternateRarityColors;
 				LogModSystem.UpdateContributorsList(this);
-				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
+				AndroMod.clientConfig.UseAlternateRarityColors = !AndroMod.clientConfig.UseAlternateRarityColors;
 			}
 
 			IDs[EssenceTier] = Type;

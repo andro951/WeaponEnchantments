@@ -30,10 +30,13 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.Medusa, 1f),
-			new(NPCID.GiantFungiBulb, 1f)
+			new(NPCID.Medusa, chance: 0.2f),
+			new(NPCID.GiantFungiBulb, chance: 0.1f),
+			new(NPCID.GraniteGolem, chance: 0.15f)
 		};
 		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 			new(CrateID.Stockade_DungeonHard, 0.5f),
 			new(CrateID.Mirage_OasisHard, 0.5f)
 		};

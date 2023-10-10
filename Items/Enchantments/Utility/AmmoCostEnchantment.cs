@@ -1,4 +1,5 @@
-﻿using System;
+﻿using androLib.Common.Utility;
+using System;
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,7 +28,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class AmmoCostEnchantmentBasic : AmmoCostEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Flying)
+			new(NPCAIStyleID.Flying, 4f)
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Chest_Normal),
@@ -37,10 +38,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			new(ChestID.SandStone)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f),
-			new(CrateID.Iron, 0.5f),
-			new(CrateID.Iron, 0.5f)
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 		};
 	}
 	[Autoload(false)]

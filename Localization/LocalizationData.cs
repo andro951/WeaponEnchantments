@@ -325,8 +325,6 @@ namespace WeaponEnchantments.Localization
 								{ GameMessageTextID.FailedReplaceWithCoins.ToString(), "Failed to replace item: {0} with coins" },
 								{ GameMessageTextID.ItemRemovedRecieveCoins.ToString(), "{0} has been removed from Weapon Enchantments.  You have received Coins equal to its sell price." },
 								{ GameMessageTextID.ItemRemovedRelacedWithItem.ToString(), "{0} has been removed from Weapon Enchantments.  It has been replaced with {1}" },
-								{ GameMessageTextID.MainUpdateCount.ToString(), "Main.GameUpdateCount: {0}" },
-								{ GameMessageTextID.ReportErrorToAndro.ToString(), "Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time." },
 								{ GameMessageTextID.NewItemIsAir.ToString(), "newItem was air." },
 								{ GameMessageTextID.OnlySyphonMaxLevel.ToString(), "You can only Syphon an item if it is max level and over {0} experience." },
 								{ GameMessageTextID.InfusionConsumeItemWasNull.ToString(), "wePlayer.infusionConsumeItem was null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}" },
@@ -345,8 +343,6 @@ namespace WeaponEnchantments.Localization
 								{ GameMessageTextID.FailedToCloneItem.ToString(), "In EnchantedItem, Failed to Clone(item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}." },
 								{ GameMessageTextID.PreventedIssueLooseExperience.ToString(), "Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}" },
 								{ GameMessageTextID.FailedToLocateAngler.ToString(), "Failed to locate the Angler.  You will still receive rewards" },
-								{ GameMessageTextID.BossChecklistNotEnabled.ToString(), "BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determine which bosses determine Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster." },
-								{ GameMessageTextID.FailedDetermineProgression.ToString(), "Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData" },
 								{ GameMessageTextID.FailedInfuseItem.ToString(), "Failed to infuse item: {0} with consumedItem: {1}" },
 								{ GameMessageTextID.LogInfusionPowerLabels.ToString(), "Mod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS" },
 								{ GameMessageTextID.LogInfusionPowerOtherLabels.ToString(), "Rarity, Average, Min, Max" },
@@ -364,7 +360,6 @@ namespace WeaponEnchantments.Localization
 								{ GameMessageTextID.IngredientInfusionPowersNotSetup.ToString(), "Ingredient infusion powers not setup" },
 								{ GameMessageTextID.OreInfusionPowerNotSetup.ToString(), "Ore {0} infusion power not set up. Guessed infusion power:" },
 								{ GameMessageTextID.FailedToFindInfusionPower.ToString(), "Failed to find an infusion power for item:" },
-								{ GameMessageTextID.UnableDetermineNPCDropsBossBag.ToString(), "Unable to determine the npc that drops this boss bag:" },
 								{ GameMessageTextID.FailedReplaceOldItem.ToString(), "Failed to replace old item:" },
 								{ GameMessageTextID.RemovedEnchantedItemData.ToString(), "Removed EnchantedItem data from item: {0}, count: {1}, newCount: {2}" },
 								{ GameMessageTextID.FailedConvertExcessExperience.ToString(), "Failed to CheckConvertExcessExperience(item: {0}, consumedItem: {1})" },
@@ -645,10 +640,6 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Label.ToString(), "\"Points\" instead of \"Enchantment Capacity\"" },
 									{ L_ID3.Tooltip.ToString(), "Tooltips will show Points Available instead of Enchantment Capacity Available" }
 								}) },
-								{ nameof(ClientConfig.UseAlternateEnchantmentEssenceTextures), new(dict: new() {
-									{ L_ID3.Label.ToString(), "Use Alternate Enchantment Essence Textures" },
-									{ L_ID3.Tooltip.ToString(), "The default colors are color blind friendly.  The alternate textures have minor differences, but were voted to be kept." }
-								}) },
 								{ nameof(ClientConfig.DisplayDamageTooltipSeperatly), new(dict: new() {
 									{ L_ID3.Label.ToString(), "Display approximate damage from enchantments in a separate tooltip." },
 									{ L_ID3.Tooltip.ToString(), "Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
@@ -671,22 +662,8 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayToolLevelUpMessages).AddSpaces() },
 									{ L_ID3.Tooltip.ToString(), "Only displays tool level up messages when using the enchanting table if this option is off." }
 								}) },
-								{ nameof(ClientConfig.DisableAllErrorMessagesInChat), new(dict: new() {
-									{ L_ID3.Label.ToString(), "Disable All Error Messages In Chat" },
-									{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to \n" +
-														"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time." }
-								}) },
-								{ nameof(ClientConfig.OnlyShowErrorMessagesInChatOnce), new(dict: new() {
-									{ L_ID3.Label.ToString(), "Only show error messages in chat once" },
-									{ L_ID3.Tooltip.ToString(), "Messages will continue to show up in your chat, but only once during a game session.\n" +
-														"(The error message must be the exact same as a previous message to be prevented.)" }
-								}) },
 								{ nameof(ClientConfig.PrintEnchantmentTooltips), new(dict: new() {
 									{ L_ID3.Label.ToString(), "Log a List of Enchantment Tooltips" },
-									{ L_ID3.Tooltip.ToString(), "The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
-								}) },
-								{ nameof(ClientConfig.PrintEnchantmentDrops), new(dict: new() {
-									{ L_ID3.Label.ToString(), "Log a List of Enchantment Drop sources" },
 									{ L_ID3.Tooltip.ToString(), "The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
 								}) },
 								{ nameof(ClientConfig.PrintWeaponInfusionPowers), new(dict: new() {
@@ -783,10 +760,6 @@ namespace WeaponEnchantments.Localization
 						}, dict: new() {
 							{ "Enchantment", "Enchantment" },
 							{ "NoneSelected", "None Selected" },
-							{ "Normal", "Normal" },
-							{ "Expert", "Expert" },
-							{ "Master", "Master" },
-							{ "Journey", "Journey" },
 							{ "Automatic", "Automatic" },
 							{ "Custom", "Custom" },
 							{ ArmorDamageReduction.ArmorDRValuesKey, "Armor {0}% ({1}% at 40)" },
@@ -826,7 +799,7 @@ namespace WeaponEnchantments.Localization
 					*/
 
 					Type enchantmentEffectType = typeof(EnchantmentEffect);
-					IEnumerable<Type> effectTypes = types.Where(t => !t.IsAbstract && t.IsAssignableTo(enchantmentEffectType) && t != enchantmentEffectType);
+					IEnumerable<Type> effectTypes = types.Where(t => t.InheritsFrom(enchantmentEffectType));
 
 					string tooltipKey = L_ID1.Tooltip.ToString();
 					string displayNameKey = L_ID2.EffectDisplayName.ToString();

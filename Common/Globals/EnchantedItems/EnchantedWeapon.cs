@@ -18,7 +18,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
 using static WeaponEnchantments.WEPlayer;
@@ -422,10 +422,6 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class EnchantedWeaponStaticMethods
 	{
-        public static float GetReductionFactor(int hp) {
-            float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
-            return factor;
-		}
 		public static float GetPrideOfTheWeakMultiplier(this EnchantedWeapon enchantedWeapon) {
             Item item = enchantedWeapon.Item;
             int infusionPower = enchantedWeapon.GetInfusionPower(ref item);

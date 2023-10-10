@@ -26,6 +26,9 @@ using WeaponEnchantments.Items.Enchantments.Utility;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
 using androLib.Items;
+using androLib.Common;
+using androLib.Content.NPCs;
+using static Terraria.GameContent.Animations.Actions.NPCs;
 
 namespace WeaponEnchantments.Content.NPCs
 {
@@ -33,7 +36,7 @@ namespace WeaponEnchantments.Content.NPCs
 	public class Witch : ModNPC, INPCWikiInfo {
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
-		private Dictionary<int, float> shopItems = new();
+		private static Dictionary<int, (int, float)> shopItems = new();
 		public static bool rerollUI = false;
 		public static Item rerollItem = new();
 		public static bool mouseRerollEnchantment = false;
@@ -223,26 +226,98 @@ namespace WeaponEnchantments.Content.NPCs
 				}
 
 				int nextSlot = 0;
-				foreach (KeyValuePair<int, float> pair in shopItems) {
+				List<KeyValuePair<int, (int stack, float multiplier)>> soldBackItems = new();
+				foreach (KeyValuePair<int, (int stack, float multiplier)> pair in shopItems) {
 					while (!items[nextSlot].NullOrAir()) {
 						nextSlot++;
 					}
 
-					items[nextSlot] = new(pair.Key);
+					float multiplier = pair.Value.multiplier;
+					if (multiplier < 1f) {
+						soldBackItems.Add(pair);
+						continue;
+					}
+
+					int stack = pair.Value.stack;
+					if (stack > 1) {
+						soldBackItems.Add(new(pair.Key, (stack - 1, 1f)));
+						stack = 1;
+					}
+
+					items[nextSlot] = new(pair.Key, stack);
 					Item item = items[nextSlot];
-					float multiplier = pair.Value;
-					item.value = (int)((float)item.value * multiplier);
+					item.value = (int)((float)item.type.CSI().value * multiplier);
+
 					nextSlot++;
+					if (nextSlot >= items.Length)
+						break;
+				}
+
+				foreach (KeyValuePair<int, (int stack, float multiplier)> pair in soldBackItems) {
+					int stack = pair.Value.stack;
+					while (stack > 0) {
+						int itemStack = Math.Min(stack, pair.Key.CSI().maxStack);
+						items[nextSlot] = new(pair.Key, itemStack);
+						stack -= itemStack;
+						Item item = items[nextSlot];
+						item.buyOnce = true;
+
+						nextSlot++;
+						if (nextSlot >= items.Length)
+							break;
+					}
+				}
+			}
+		}
+		public static void OnPurchaseItem(Item item, Item[] shopInventory) {
+			if (item.NullOrAir())
+				return;
+
+			if (item.ModItem is ISoldByNPC soldByNPC && soldByNPC.SellCondition > SellCondition.Always) {
+				item.value = item.type.CSI().value;
+				for (int i = 0; i < shopInventory.Length; i++) {
+					ref Item shopItem = ref shopInventory[i];
+					if (shopItem.NullOrAir())
+						continue;
+
+					if (shopItem.type == item.type && !shopItem.buyOnce) {
+						shopItem.stack--;
+						if (shopItem.stack <= 0) {
+							shopItem.TurnToAir();
+							Main.shopSellbackHelper.Remove(item);
+						}
+
+						break;
+					}
+				}
+
+				if (shopItems.TryGetValue(item.type, out (int, float) shopItemData)) {
+					shopItems[item.type] = (shopItemData.Item1 - 1, shopItemData.Item2);
+					if (shopItems[item.type].Item1 <= 0)
+						shopItems.Remove(item.type);
+				}
+			}
+		}
+		public static void OnSellItem(Item item) {
+			if (item.NullOrAir())
+				return;
+
+			if (item.ModItem is ISoldByNPC soldByNPC && soldByNPC.SellCondition > SellCondition.Always) {
+				if (shopItems.TryGetValue(item.type, out (int, float) shopItemData)) {
+					shopItems[item.type] = (shopItemData.Item1 + item.stack, shopItemData.Item2);
+				}
+				else {
+					shopItems.Add(item.type, (1, 1f));
 				}
 			}
 		}
 		private void GetItemsForShop() {
 			shopItems = new();
-			List<ISoldByWitch> allItems = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition.CanSell()).ToList();
-			List<ISoldByWitch> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByWitch)e).Where(e => e.SellCondition > SellCondition.Always).ToList();
-			List<ISoldByWitch> otherItems = allItems
+			List<ISoldByNPC> allItems = ModContent.GetContent<ModItem>().OfType<ISoldByNPC>().Where(i => i.SellCondition.CanSell()).ToList();
+			List<ISoldByNPC> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByNPC)e).Where(e => e.SellCondition > SellCondition.Always).ToList();
+			List<ISoldByNPC> otherItems = allItems
 				.Where(i => i is not Enchantment || i.SellCondition <= SellCondition.Always)
-				.GroupBy(i => ((ModItem)i).TypeBeforeModItem().Name)
+				.GroupBy(i => ((ModItem)i).GetModItemCompairisonType().Name)
 				.Select(g => g.ToList().OrderBy(i => EnchantingRarity.GetTierNumberFromName(((ModItem)i).Name)))
 				.SelectMany(i => i)
 				.ToList();
@@ -251,16 +326,31 @@ namespace WeaponEnchantments.Content.NPCs
 			AddItemsToShop(otherItems);
 
 			//Any Time
-			AddEnchantmentsToShop(enchanmtnets, SellCondition.AnyTime, 4);
+			AddEnchantmentsToShop(enchanmtnets, SellCondition.AnyTime, 7);
 
-			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime).ToList(), SellCondition.IgnoreCondition, 2);
+			int rare = 3;
+			if (SellCondition.PostEaterOfWorldsOrBrainOfCthulhu.CanSell())
+				rare++;
 
-			if (Main.rand.Next(100) == 0)
+			if (SellCondition.PostSkeletron.CanSell())
+				rare++;
+
+			if (SellCondition.HardMode.CanSell())
+				rare++;
+
+			if (SellCondition.PostPlantera.CanSell())
+				rare++;
+
+			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime).ToList(), SellCondition.IgnoreCondition, rare);
+
+			float rand = Main.rand.NextFloat(100f);
+			float luck = Math.Max(Math.Min(1f * Main.LocalPlayer.luck, 10f), 1f);
+			if (rand <= luck)
 				AddEnchantmentsToShop(enchanmtnets, SellCondition.Luck, 1);
 		}
-		private void AddEnchantmentsToShop(List<ISoldByWitch> soldByWitch, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
+		private void AddEnchantmentsToShop(List<ISoldByNPC> soldByWitch, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
 			List<int> list;
-			List<ISoldByWitch> filteredList;
+			List<ISoldByNPC> filteredList;
 			if (condition == SellCondition.IgnoreCondition) {
 				filteredList = soldByWitch;
 				list = soldByWitch.Select(e => ((ModItem)e).Type).ToList();
@@ -275,23 +365,24 @@ namespace WeaponEnchantments.Content.NPCs
 
 			for (int i = 0; i < num; i++) {
 				int type = list.GetOneFromList();
-				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
+				int index = list.IndexOf(type);
+				float sellPriceModifier = filteredList[index].SellPriceModifier;
 				if (shopItems.ContainsKey(type)) {
-					$"{GameMessageTextID.PreventedWitchShopDuplication.ToString().Lang_WE(L_ID1.GameMessages)} {ContentSamples.ItemsByType[type].S()}".LogNT_WE(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
+					$"{GameMessageTextID.PreventedWitchShopDuplication.ToString().Lang_WE(L_ID1.GameMessages)} {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
 					i--;
 					list.Remove(type);
 					continue;
 				}
 
-				shopItems.Add(type, sellPriceModifier);
+				shopItems.Add(type, (1, sellPriceModifier));
 				list.Remove(type);
 			}
 		}
-		private void AddItemsToShop(List<ISoldByWitch> modItems) {
-			foreach (ISoldByWitch soldByWitch in modItems) {
+		private void AddItemsToShop(List<ISoldByNPC> modItems) {
+			foreach (ISoldByNPC soldByWitch in modItems) {
 				ModItem modItem = (ModItem)soldByWitch;
 				float sellPriceModifier = soldByWitch.SellPriceModifier;
-				shopItems.Add(modItem.Type, sellPriceModifier);
+				shopItems.Add(modItem.Type, (1, sellPriceModifier));
 			}
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {

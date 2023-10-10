@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;

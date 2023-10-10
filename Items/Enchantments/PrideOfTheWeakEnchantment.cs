@@ -48,12 +48,6 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Slime, chance: 0.05f)
 		};
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Chest_Normal, chance: 0.2f)
-		};
-		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, chance: 0.2f)
-		};
 	}
 	[Autoload(false)]
 	public class PrideOfTheWeakEnchantmentCommon : PrideOfTheWeakEnchantment { }

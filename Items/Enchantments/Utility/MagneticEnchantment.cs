@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using androLib.Common.Utility;
+using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -29,24 +30,25 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string Designer => "andro951";
     }
     [Autoload(false)]
-	public class MagneticEnchantmentBasic : MagneticEnchantment
-    {
-        public override List<DropData> ChestDrops => new() {
-            new(ChestID.Skyware, chance: 0.3f),
-			new(ChestID.Granite, chance: 0.5f),
-			new(ChestID.Marble, chance: 0.5f)
+	public class MagneticEnchantmentBasic : MagneticEnchantment {
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.KingSlime),
+			new(NPCID.GreekSkeleton, chance: 0.05f),
+			new(NPCID.GraniteFlyer, chance: 0.05f),
+			new(NPCID.GraniteGolem, chance: 0.05f),
+			new(NPCID.Medusa, chance: 0.2f),
+			new(NPCID.Harpy, chance: 0.01f)
+		};
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+            new(ChestID.Skyware, chance: 0.6f),
+			new(ChestID.Granite, chance: 1f),
+			new(ChestID.Marble, chance: 1f)
 		};
         public override List<DropData> CrateDrops => new() {
-            new(CrateID.Iron, chance: 0.05f),
-            new(CrateID.Mythril_IronHard, chance: 0.05f)
+            new(CrateID.Wooden, 0.25f),
+            new(CrateID.Pearlwood_WoodenHard, 0.25f)
         };
-		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.GreekSkeleton, chance: 0.05f),
-            new(NPCID.GraniteFlyer, chance: 0.05f),
-            new(NPCID.GraniteGolem, chance: 0.05f),
-            new(NPCID.Medusa, chance: 0.05f),
-            new(NPCID.Harpy, chance: 0.05f)
-		};
 	}
     [Autoload(false)]
 	public class MagneticEnchantmentCommon : MagneticEnchantment { }

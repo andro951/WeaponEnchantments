@@ -17,7 +17,6 @@ namespace WeaponEnchantments.Items
 	{
 		public virtual bool CanBeStoredInEnchantmentStroage => false;
 		public virtual DropRestrictionsID DropRestrictionsID => DropRestrictionsID.None;
-		public virtual bool ConfigOnlyDrop => false;
 		public abstract int CreativeItemSacrifice { get; }
 		protected override Action<ModItem, string, string> AddLocalizationTooltipFunc => WeaponEnchantments.Localization.LocalizationDataStaticMethods.AddLocalizationTooltip;
 		public override void SetStaticDefaults() {

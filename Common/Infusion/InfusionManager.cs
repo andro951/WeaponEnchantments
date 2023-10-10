@@ -96,7 +96,7 @@ namespace WeaponEnchantments.Common
 					msg += $"\n{i}, {averageValues[i]}, {minValues[i]}, {maxValues[i]}";
 				}
 
-				msg.Log_WE();
+				msg.Log();
 			}
 		}
         private struct ItemDetails {
@@ -154,7 +154,7 @@ namespace WeaponEnchantments.Common
 
 									($"infusionPowers[{infusionPower}] already contains key({clone.Name}).\n" +
                                         $"Current = {GetDataString(currentInfusionPower, currentItem.Name, currentItemDetails)}\n" +
-                                        $"New = {GetDataString(infusionPower, clone.Name, itemDetails)}").LogSimple_WE();
+                                        $"New = {GetDataString(infusionPower, clone.Name, itemDetails)}").LogSimple();
                                 }
                                 else {
 									infusionPowers[infusionPower].Add(clone.Name, itemDetails);
@@ -175,7 +175,7 @@ namespace WeaponEnchantments.Common
                     }
                 }
                     //Print list of items
-                    msg.Log_WE();
+                    msg.Log();
             }
             
             return itemsDict;
@@ -389,7 +389,7 @@ namespace WeaponEnchantments.Common
             }
 
             if(!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-				GameMessageTextID.FailedInfuseItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), consumedItem.S() }).LogNT_WE(ChatMessagesIDs.FailedInfuseItem);// $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT_WE(ChatMessagesIDs.FailedInfuseItem);
+				GameMessageTextID.FailedInfuseItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), consumedItem.S() }).LogNT(ChatMessagesIDs.FailedInfuseItem);// $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT_WE(ChatMessagesIDs.FailedInfuseItem);
                 return false;
 			}
             

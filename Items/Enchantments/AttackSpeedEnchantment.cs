@@ -45,24 +45,21 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.EaterofWorldsHead)
+			new(NPCID.EaterofWorldsHead),
+			new(NPCID.BrainofCthulhu, chance: 0.2f)
 		};
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Bat),
-			new(NPCAIStyleID.Piranha)
+			new(NPCAIStyleID.Bat, 4f),
+			new(NPCAIStyleID.Piranha, 4f)
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Chest_Normal),
-			new(ChestID.Gold),
-			new(ChestID.Gold_DeadMans),
 			new(ChestID.Ivy),
 			new(ChestID.Granite)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f),
-			new(CrateID.Iron, 0.5f),
-			new(CrateID.Iron, 0.5f),
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 			new(CrateID.Jungle, 0.5f),
 			new(CrateID.Bramble_JungleHard, 0.5f)
 		};

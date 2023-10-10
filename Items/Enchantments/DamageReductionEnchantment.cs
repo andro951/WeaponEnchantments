@@ -33,15 +33,14 @@ namespace WeaponEnchantments.Items.Enchantments {
     {
         public override SellCondition SellCondition => SellCondition.PostSkeletron;
         public override List<DropData> NpcDropTypes => new() {
-            new(NPCID.GraniteFlyer),
-            new(NPCID.GraniteGolem),
-            new(NPCID.GreekSkeleton),
-            new(NPCID.PossessedArmor),
-            new(NPCID.GiantTortoise),
-            new(NPCID.IceTortoise)
+            new(NPCID.GraniteFlyer, chance: 0.1f),
+            new(NPCID.GraniteGolem, chance : 0.1f),
+            new(NPCID.GreekSkeleton, chance: 0.1f),
+            new(NPCID.PossessedArmor, chance: 0.05f),
+            new(NPCID.GiantTortoise, chance: 0.1f),
+            new(NPCID.IceTortoise, chance: 0.2f)
         };
         public override List<DropData> CrateDrops => new() {
-            new(CrateID.Dungeon, 0.5f),
             new(CrateID.Stockade_DungeonHard, 0.5f)
         };
     }

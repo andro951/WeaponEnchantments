@@ -10,11 +10,7 @@ Mods: {
 			Automatic: Автоматический
 			Custom: Обычай
 			Enchantment: Чары
-			Expert: Эксперт
-			Journey: Путешествие
-			Master: Владелец
 			NoneSelected: Не выбрано, ничего не выбрано
-			Normal: Нормальный
 
 			ArmorDamageReduction: {
 				Tooltip: Позволяет вам изменять снижение урона, получаемое доспехами и аксессуарами по мере их повышения уровня.
@@ -77,15 +73,6 @@ Mods: {
 					Tooltip: Сообщения о повышении уровня оружия отображаются только при использовании стола зачарования, если эта опция отключена.
 				}
 
-				DisableAllErrorMessagesInChat: {
-					Label: Отключить все сообщения об ошибках в чате
-					Tooltip:
-						'''
-						Предотвращает появление в вашем чате сообщений с просьбой
-						Пожалуйста, сообщите об этом в andro951 (Weapon Enchantments) вместе с описанием того, что вы делали в то время.
-						'''
-				}
-
 				DisplayDamageTooltipSeperatly: {
 					Label: Отображать приблизительный урон от чар в отдельной подсказке.
 					Tooltip:
@@ -124,24 +111,6 @@ Mods: {
 						'''
 				}
 
-				OnlyShowErrorMessagesInChatOnce: {
-					Label: Показывать сообщения об ошибках в чате только один раз
-					Tooltip:
-						'''
-						Сообщения по-прежнему будут появляться в вашем чате, но только один раз за игровую сессию.
-						(Чтобы предотвратить появление сообщения об ошибке, оно должно быть точно таким же, как и предыдущее.)
-						'''
-				}
-
-				PrintEnchantmentDrops: {
-					Label: Зарегистрируйте список источников чар
-					Tooltip:
-						'''
-						Список печатается в файле client.log при входе в мир.
-						Местоположение client.log по умолчанию — C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs.
-						'''
-				}
-
 				PrintEnchantmentTooltips: {
 					Label: Зарегистрируйте список подсказок по зачарованию
 					Tooltip:
@@ -167,11 +136,6 @@ Mods: {
 						Автоматически отправляйте сущность из своего инвентаря в слоты сущности пользовательского интерфейса.
 						(Отключается, когда пользовательский интерфейс открыт.)
 						'''
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					Label: Используйте альтернативные текстуры эссенции зачарования.
-					Tooltip: Цвета по умолчанию подходят для дальтоников. Альтернативные текстуры имеют незначительные различия, но были проголосованы за сохранение.
 				}
 
 				UsePointsAsTooltip: {
@@ -547,7 +511,7 @@ Mods: {
 						'''
 						Зачарования оружия используют вероятность критического удара выше 100%, чтобы вы могли снова нанести критический удар.
 						По умолчанию это аддитивный бонус: 1-й крит 200% урона, 2-й 300% урона, 3-й 400% урона.....
-						Включение этого параметра делает их мультипликативными: 1-й крит - 200% урона, 2-й крит - 400% урона, 3-й крит - 400% урона...
+						Включение этого параметра делает их мультипликативными: 1-й крит - 200% урона, 2-й крит - 400% урона, 3-й крит - 800% урона...
 						'''
 				}
 
@@ -659,7 +623,6 @@ Mods: {
 		GameMessages: {
 			AlreadyMaxLevel: «У вашего {0} уже максимальный уровень».
 			Back: Назад
-			BossChecklistNotEnabled: Мод BossChecklist не включен. Оружейные чары используют BossChecklist, чтобы определить, какие боссы определяют, что Power Booster выпадает из модифицированных боссов. Поскольку BossChecklist не включен, из всех модифицированных боссов выпадет обычный Power Booster.
 			CannotGainAdditionalPower: «Ваш {0}({1}) не может получить дополнительную мощность от предлагаемого {2}({3})».
 			CantInfusionArmorDifferentTypes: Вы не можете наделить доспехи разных типов, такие как шлем и тело.
 			CongradulationsMaxLevel: «Поздравляем! {1} пользователя {0} достиг максимального уровня, {2} ({3} опыта)».
@@ -669,7 +632,6 @@ Mods: {
 			DetectedNonEnchantmentInEnchantmentSlot: «Обнаружен не зачарованный предмет:{0} на вашем {1}. Он был возвращен в ваш инвентарь».
 			EnchantmentNoLongerAllowed: «Пользователь {0} больше не доступен на {1} и удален из вашего {2}».
 			FailedConvertExcessExperience: «Не удалось проверитьConvertExcessExperience(item: {0}, потребляемыйItem: {1})»
-			FailedDetermineProgression: Не удалось определить прогресс Стены плоти и Плантеры из BossChecklistData.
 			FailedFindBossBag: Не удалось найти сумку для босса:
 			FailedFindItemDropsForGroup: Не удалось найти предметы для добычи для группы.
 			FailedInfuseItem: «Не удалось объединить элемент: {0} с потребляемым элементом: {1}»
@@ -696,7 +658,6 @@ Mods: {
 			ItemTooLowLevel: «Ваш уровень {0} слишком низок, чтобы использовать такое количество чар».
 			LogInfusionPowerLabels: Модификация, оружие, сила вливания, значение редкости, редкость, исходная редкость, ценность, идентификатор предмета, урон, время использования, урон в секунду
 			LogInfusionPowerOtherLabels: Редкость, Средняя, Мин, Макс
-			MainUpdateCount: Количество обновлений основной игры: {0}
 			MultipleUniqueEnchantments: «На вашем {0} обнаружено несколько уникальных чар. {1} был удален из вашего {2}».
 			MurasamaNoInfusion: Мурасаму нельзя употреблять в виде настоя.
 			NewItemIsAir: newItem был воздух.
@@ -727,13 +688,11 @@ Mods: {
 			PreventedWitchShopDuplication: Предотвращена проблема, из-за которой в магазин Ведьмы добавлялся дубликат предмета:
 			RemovedEnchantedItemData: «Удалены данные EnchantedItem из элемента: {0}, количество: {1}, newCount: {2}»
 			RemovedUnloadedEnchantmentFromItem: «Удален выгруженный предмет:{0} из вашего {1}. Пожалуйста, сообщите andro951(WeaponEnchantments)».
-			ReportErrorToAndro: Пожалуйста, сообщите об этом в andro951 (Weapon Enchantments) вместе с описанием того, что вы делали в то время.
 			RerollEnchantment: Перебросить Чары
 			ResistsYourAttemptToEmpower: «{0} сопротивляется вашей попытке усилить его».
 			SameSetBonusNoEffect: Улучшаемый предмет имеет тот же набор бонусов, что и потребляемый предмет, и не будет иметь никакого эффекта.
 			SlotNumDisabledByConfig: «Слот {0} отключен конфигурацией. Удален {1} из вашего {2}».
 			TryInfuseFailed: «Ошибка TryInfuseItem, tableItem: {0}{1}, infusionConsumeItem: {2}{3}»
-			UnableDetermineNPCDropsBossBag: Невозможно определить NPC, с которого выпадает эта сумка с боссом:
 			WeaponInfusionPowersNotSetup: Способности добавления оружия не настроены
 			WitchChatText: Что вы еще хотите? Я занят.
 			WitchEnchantmentRerolText: Думаю, я мог бы попытаться улучшить ваши чары, но никаких возмещений или жалоб.
@@ -1637,37 +1596,37 @@ Mods: {
 			}
 		}
 
-		NPCs: {
-			Witch: {
-				TownNPCMood: {
-					// LikeNPC_Princess: I like {NPCName}.
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// Princess_LovesNPC: I like {NPCName}.
-				}
-
-				// DisplayName: Witch
-			}
+		Tiles: {
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 
-		Tiles: {
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+		NPCs: {
+			Witch: {
+				// DisplayName: Witch
+
+				TownNPCMood: {
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
+				}
+			}
 		}
 	}
 }

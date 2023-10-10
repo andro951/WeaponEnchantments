@@ -35,8 +35,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.EaterofWorldsHead, 1f/9f),
-			new(NPCID.BrainofCthulhu, 1f/9f)
+			new(NPCID.EaterofWorldsHead, chance: 0.2f),
+			new(NPCID.BrainofCthulhu, chance: 0.2f)
 		};
 	}
 	[Autoload(false)]

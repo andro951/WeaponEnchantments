@@ -37,7 +37,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
 
         public override List<DropData> CrateDrops => new() {
             new(CrateID.Golden),
-            new(CrateID.Titanium_GoldenHard)
+            new(CrateID.Titanium_GoldenHard),
+			new(CrateID.Golden_LockBox),
+			new(CrateID.Obsidian_LockBox)
+		};
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Water),
 		};
 	}
     [Autoload(false)]

@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Common.Globals
                 for (int i = 0; i < projectile.ai.Length; i++)
                 {
                     float aiValue = projectile.ai[i];
-                    ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log_WE();
+                    ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
                 }
             }
 
@@ -104,7 +104,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log_WE();
+			if (LogMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
 
             #endregion
         }
@@ -206,7 +206,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (LogMethods.debugging) {
                     string txt = $"parent: {parent.S()} spanedChild at ai values:";
                     txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
-                    txt.Log_WE();
+                    txt.Log();
                 }
 
                 #endregion
@@ -258,7 +258,7 @@ namespace WeaponEnchantments.Common.Globals
 
 				#region Debug
 
-				if (LogMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log_WE();
+				if (LogMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
 
 				#endregion
 

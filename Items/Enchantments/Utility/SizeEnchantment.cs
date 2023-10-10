@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using androLib.Common.Utility;
+using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -26,15 +27,18 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class SizeEnchantmentBasic : SizeEnchantment
 	{
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.DemonEye)
+			new(NPCAIStyleID.DemonEye, 4f)
+		};
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCAIStyleID.EyeOfCthulhu)
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Chest_Normal),
 			new(ChestID.LivingWood)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f)
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f)
 		};
 	}
 	[Autoload(false)]

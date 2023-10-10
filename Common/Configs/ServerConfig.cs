@@ -319,10 +319,6 @@ namespace WeaponEnchantments.Common.Configs
 		public bool UsePointsAsTooltip;
 
 		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool UseAlternateEnchantmentEssenceTextures;
-
-		[DefaultValue(false)]
 		public bool DisplayDamageTooltipSeperatly;
 
 		[DefaultValue(false)]
@@ -342,43 +338,6 @@ namespace WeaponEnchantments.Common.Configs
 		public const string ErrorMessagesKey = "ErrorMessages";
 		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ClientConfigName}.{ErrorMessagesKey}")]
 
-		[DefaultValue(false)]
-		public bool DisableAllErrorMessagesInChat {
-			set {
-				if (value) {
-					OnlyShowErrorMessagesInChatOnce = false;
-				}
-				else {
-					LogMethods.LoggedChatMessagesIDs.Clear();
-				}
-
-				_disableAllErrorMessagesInChat = value;
-			}
-
-			get => _disableAllErrorMessagesInChat;
-		}
-
-		[JsonIgnore]
-		private bool _disableAllErrorMessagesInChat;
-
-		[DefaultValue(true)]
-		public bool OnlyShowErrorMessagesInChatOnce {
-			set {
-				if (value) {
-					DisableAllErrorMessagesInChat = false;
-				}
-				else {
-					LogMethods.LoggedChatMessagesIDs.Clear();
-				}
-
-				_onlyShowErrorMessagesInChatOnce = value;
-			}
-
-			get => _onlyShowErrorMessagesInChatOnce;
-		}
-
-		private bool _onlyShowErrorMessagesInChatOnce;
-
 		//Logging Information
 		[JsonIgnore]
 		public const string LoggingInformationKey = "LoggingInformation";
@@ -387,10 +346,6 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool PrintEnchantmentTooltips;
-
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool PrintEnchantmentDrops;
 
 		[DefaultValue(false)]
 		[ReloadRequired]

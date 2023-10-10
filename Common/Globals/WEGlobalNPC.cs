@@ -24,122 +24,20 @@ using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.Common.Configs;
 using System.Diagnostics;
 using WeaponEnchantments.ModIntegration;
-using static WeaponEnchantments.ModIntegration.BossChecklistIntegration;
 using androLib.Common.Utility;
 using androLib.ModIntegration;
 using static androLib.ModIntegration.BossChecklistIntegration;
+using androLib;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Globals
 {
-	using androLib;
-	using androLib.Common.Globals;
-	public class WEGlobalNPC : GlobalNPC {
+	public class WEGlobalNPC : AndroGlobalNPC {
+
         #region Static
-
-        private static SortedSet<int> preHardModeBossTypes = null;
-		public static SortedSet<int> PreHardModeBossTypes {
-            get {
-                TryBossChecklistSetup();
-				if (preHardModeBossTypes == null)
-                    DefaultBossSetup();
-
-                return preHardModeBossTypes;
-			}
-        }
-		private static SortedSet<int> postPlanteraBossTypes = null;
-		public static SortedSet<int> PostPlanteraBossTypes {
-			get {
-				TryBossChecklistSetup();
-				if (postPlanteraBossTypes == null)
-					DefaultBossSetup();
-
-				return postPlanteraBossTypes;
-			}
-		}
-		private static void DefaultBossSetup() {
-            if (preHardModeBossTypes == null || postPlanteraBossTypes == null) {
-				preHardModeBossTypes = new() {
-					NPCID.EyeofCthulhu,
-					NPCID.EaterofWorldsBody,
-					NPCID.EaterofWorldsHead,
-					NPCID.EaterofWorldsTail,
-					NPCID.BrainofCthulhu,
-					NPCID.KingSlime,
-					NPCID.Deerclops,
-					NPCID.QueenBee,
-					NPCID.SkeletronHead
-				};
-
-				postPlanteraBossTypes = new() {
-					NPCID.HallowBoss,
-					NPCID.CultistBoss,
-					NPCID.MoonLordCore,
-					NPCID.MoonLordHead,
-					NPCID.Plantera,
-					NPCID.Golem,
-					NPCID.DukeFishron,
-					NPCID.MartianSaucer
-				};
-			}
-        }
-        private static void TryBossChecklistSetup() {
-            if (!WEMod.bossChecklistEnabled) {
-                if (preHardModeBossTypes == null || postPlanteraBossTypes == null)
-					GameMessageTextID.BossChecklistNotEnabled.ToString().Lang_WE(L_ID1.GameMessages).LogSimple_WE();// $"BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determin which bosses determin Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster.".LogSimple_WE();
-
-				return;
-			}
-
-            if (!ShouldSetupBossPowerBoosterDrops)
-                return;
-
-			preHardModeBossTypes = new();
-			postPlanteraBossTypes = new();
-			if (!BossInfoNetIDKeys.TryGetValue(NPCID.WallofFlesh, out string wallKey) || !BossInfos.TryGetValue(wallKey, out BossChecklistBossInfo wallInfo) || !BossInfoNetIDKeys.TryGetValue(NPCID.Plantera, out string planteraKey) || !BossInfos.TryGetValue(planteraKey, out BossChecklistBossInfo planteraInfo)) {
-				GameMessageTextID.FailedDetermineProgression.ToString().Lang_WE(L_ID1.GameMessages).LogSimple_WE();//"Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData".LogSimple_WE();
-				return;
-            }
-
-            float wallOfFleshProgression = wallInfo.progression;
-            float planteraProgression = planteraInfo.progression;
-			foreach (KeyValuePair<string, BossChecklistBossInfo> bossInfoPair in BossInfos.Where(p => p.Value.isBoss || p.Value.isMiniboss)) {
-                float progression = bossInfoPair.Value.progression;
-                List<int> netIDs = bossInfoPair.Value.npcIDs;
-                if (netIDs.Count < 1)
-                    continue;
-
-                NPC npc = netIDs.First().CSNPC();
-                if (progression < wallOfFleshProgression) {
-                    preHardModeBossTypes.UnionWith(netIDs);
-				}
-                else if (progression >= planteraProgression) {
-                    postPlanteraBossTypes.UnionWith(netIDs);
-                }
-            }
-
-            if (Debugger.IsAttached) $"{BossInfos.OrderBy(i => i.Value.progression).Select(i => $"Key: {i.Key}, internalName: {i.Value.internalName}, progression: {i.Value.progression}, netIDs: {i.Value.npcIDs.StringList(netID => netID.GetNPCIDOrName())}").S("BossChecklist BossInfos")}".LogSimple_WE();
-
-            UsedBossChecklistForBossPowerBoosterDrops = true;
-		}
-        public static SortedDictionary<int, float> multipleSegmentBossTypes;
-        public static List<int> normalNpcsThatDropsBags;
 
         static bool war = false;
         static float warReduction = 1f;
-        public static SortedDictionary<int, List<DropData>> npcDropTypes = new();
-		public static SortedDictionary<string, List<DropData>> modNpcDropNames = new();
-		public static SortedDictionary<int, List<DropData>> npcAIDrops = new();
-
-		private static SortedDictionary<int, List<(int, float)>> allItemDropsFromNpcs = null;
-		public static SortedDictionary<int, List<(int, float)>> AllItemDropsFromNpcs {
-			get {
-				if (allItemDropsFromNpcs == null)
-					GetAllNpcDrops();
-
-				return allItemDropsFromNpcs;
-			}
-		}
-        public static bool UsedBossChecklist = false;
 
 		#endregion
 
@@ -165,27 +63,6 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override void Load() {
             IL_Projectile.Damage += HookDamage;
-
-            multipleSegmentBossTypes = new SortedDictionary<int, float>() {
-                { NPCID.EaterofWorldsHead, 100f },
-                { NPCID.EaterofWorldsBody, 100f },
-                { NPCID.EaterofWorldsTail, 100f },
-                { NPCID.TheDestroyer, 1f },
-                { NPCID.TheDestroyerBody, 1f },
-                { NPCID.TheDestroyerTail, 1f },
-            };
-
-            normalNpcsThatDropsBags = new List<int>() {
-                NPCID.DD2Betsy
-            };
-
-            if (AndroMod.thoriumEnabled) {
-                normalNpcsThatDropsBags.Add(NPCID.DD2DarkMageT1);
-				normalNpcsThatDropsBags.Add(NPCID.DD2DarkMageT3);
-				normalNpcsThatDropsBags.Add(NPCID.DD2OgreT2);
-				normalNpcsThatDropsBags.Add(NPCID.DD2OgreT3);
-				normalNpcsThatDropsBags.Add(NPCID.PirateShip);
-			}
         }
         private static void HookDamage(ILContext il) {
             bool debuggingHookDamage = false;
@@ -237,82 +114,15 @@ namespace WeaponEnchantments.Common.Globals
 				}
 			});
 		}
-        public static float GetMultiSegmentBossMultiplier(int npcType) {
-            if (multipleSegmentBossTypes.ContainsKey(npcType))
-                return multipleSegmentBossTypes[npcType];
-
-            return 1f;
-        }
-		public override bool CheckDead(NPC npc) {
-			return base.CheckDead(npc);
-		}
-		public static float GetEnchantmentDropChance(int arg, bool bossBag = false) {
-            float chance = BossEnchantmentDropChance;
-
-            //Apply boss specific multiplier.
-            switch (arg) {
-                case NPCID.WallofFlesh:
-                case NPCID.MoonLordCore:
-                case NPCID.TorchGod:
-                    chance *= 2f;
-                    break;
-            }
-
-            //Multi segment bosses
-            if (!bossBag) {
-                float multiSegmentBossMultiplier = GetMultiSegmentBossMultiplier(arg);
-                chance /= multiSegmentBossMultiplier;
-            }
-
-            //Limmit to 1f
-            if (chance > 1f)
-                chance = 1f;
-
-            return chance;
-        }
-        public static float GetModNpcEnchantmentDropChance (string name, bool bossBag = false) {
-			float chance = BossEnchantmentDropChance;
-
-            if (chance > 1f)
-                chance = 1f;
-
-            return chance;
-		}
-        public static void AddBossEnchantmentLoot(NPC npc, float chance, ILoot loot, bool bossBag = false, string modFullName = null) {
-            List<DropData> dropData = modFullName != null ? modNpcDropNames[modFullName] : npcDropTypes[npc.netID];
-			if (dropData.Count == 1)
-				chance *= dropData[0].Weight;
-
-			List<IItemDropRule> dropRules = GetDropRules(chance, dropData, WEMod.serverConfig.BossEnchantmentDropChance);
-			foreach (IItemDropRule rule in dropRules) {
-				AddBossLoot(loot, npc, rule, bossBag);
-			}
-
-			if (LogModSystem.printEnchantmentDrops && (bossBag || AllItemDropsFromNpcs != null && !AllItemDropsFromNpcs.Values.SelectMany(l => l).Select(p => p.Item1).Contains(npc.netID)))
-				LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, dropData));
-		}
-		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-            GetLoot(npcLoot, npc);
-        }
-        public static void GetLoot(ILoot loot, NPC npc, bool bossBag = false) {
-            if (npc.friendly || npc.townNPC || npc.SpawnedFromStatue)
-                return;
+		public override void GetLoot(ILoot loot, NPC npc, float hp, float value, float total, bool boss, bool bossBag = false) {
+			if (total <= 0f)
+				return;
 
 			bool normalNpcThatDropsBag = normalNpcsThatDropsBags.Contains(npc.netID);
 
-			GetEssenceDropList(npc, normalNpcThatDropsBag, out float[] essenceValues, out float[] dropRate, out float hp, out float total);
-
-            if (total <= 0f)
-                return;
+            GetEssenceDropList(npc, normalNpcThatDropsBag, value, hp, total, out float[] essenceValues, out float[] dropRate);
 
             IItemDropRule dropRule;
-
-            bool multipleSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.netID);
-            float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.netID);
-            bool boss = npc.boss || multipleSegmentBoss || normalNpcThatDropsBag;
-
-            if (multipleSegmentBoss && bossBag)
-                total *= multipleSegmentBossMultiplier;
 
             //Essence
             for (int i = 0; i < essenceValues.Length; ++i) {
@@ -321,12 +131,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (thisDropRate <= 0f)
                     continue;
 
-                //Multi-segment boss bag
-                if (multipleSegmentBoss && bossBag)
-                    thisDropRate *= multipleSegmentBossMultiplier;
-
                 //Denom
-                //float denom = multipleSegmentBossMultiplier / thisDropRate;
                 float denom = 1f / thisDropRate;
 
                 int denominator;
@@ -347,7 +152,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 dropRule = ItemDropRule.Common(EnchantmentEssence.IDs[i], denominator, minDropped, maxDropped);
 
-                if (npc.boss || multipleSegmentBoss || normalNpcThatDropsBag) {
+                if (boss) {
                     //Boss or multisegmented boss that doesn't technically count as a boss.
                     AddBossLoot(loot, npc, dropRule, bossBag);
                 }
@@ -361,7 +166,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Boss Drops
 
                 //Superior Containment
-                int denominator = (int)(50000f / total);
+                int denominator = (int)(10000f / total);
                 if (denominator < 1)
                     denominator = 1;
 
@@ -369,172 +174,31 @@ namespace WeaponEnchantments.Common.Globals
                 AddBossLoot(loot, npc, dropRule, bossBag);
 
                 //Power Booster
-                bool preHardModeBoss = PreHardModeBossTypes.Contains(npc.netID);
-                bool postPlanteraBoss = PostPlanteraBossTypes.Contains(npc.netID);
-                float powerBoosterDropChance = total / 100000f;
+                float powerBoosterDropChance = total / 25000f;
                 dropRule = new PowerBoosterDropRule(npc.netID, powerBoosterDropChance);
 				AddBossLoot(loot, npc, dropRule, bossBag);
-
-                //Enchantments
-                if (npcDropTypes.ContainsKey(npc.netID)) {
-                    //Enchantment drop chance
-                    float chance = GetEnchantmentDropChance(npc.netID, bossBag);
-                    AddBossEnchantmentLoot(npc, chance, loot, bossBag);
-				}
-
-                if (npc.netID > NPCID.Count && npc.ModFullName() is string modFullName && modNpcDropNames.ContainsKey(modFullName)) {
-                    //Enchantment drop chance for modded npcs
-                    float chance = GetModNpcEnchantmentDropChance(modFullName, bossBag);
-					AddBossEnchantmentLoot(npc, chance, loot, bossBag, modFullName);
-				}
             }
-            else {
-                //Non-boss drops
 
-                //mult is the config multiplier
-                float mult = EnchantmentDropChance;
-
-                //defaultDenom is the denominator of the drop rate.  The numerator is always 1 (This is part of how Terraria calculates drop rates, I can't change it)
-                //  hp is the npc's max hp
-                //  total is calculated based on npc max hp.  Use total = hp + 0.2 * value
-                //Example: defaultDenom = 5, numerator is 1.  Drop rate = 1/5 = 20%
-                //Aproximate drop rate = (hp + 0.2 * value)/(5000 + hp * 5) * config multiplier
-                if (EnchantmentDropChance <= 0f)
-                    return;
-
-                bool useDefaultChance = true;
-                switch (npc.aiStyle) {
-                    case NPCAIStyleID.Mimic:
-                    case NPCAIStyleID.BiomeMimic:
-                        useDefaultChance = false;
-                        break;
-                }
-
-                float chance;
-                if (useDefaultChance) {
-                    chance = (total * mult) / (5000f + hp * 0.5f);
-				}
-				else {
-                    chance = 1f;
-				}
-
-                if (npcDropTypes.ContainsKey(npc.netID)) {
-                    if (npcDropTypes[npc.netID].Where(d => d.Chance <= 0f).Count() == 1)
-                        chance *= npcDropTypes[npc.netID][0].Weight;
-
-					List<IItemDropRule> dropRules = GetDropRules(chance, npcDropTypes[npc.netID], EnchantmentDropChance);
-					foreach (IItemDropRule rule in dropRules) {
-						loot.Add(rule);
-					}
-
-                    if (LogModSystem.printEnchantmentDrops)
-                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
-                }
-
-                if (npcAIDrops.ContainsKey(npc.aiStyle)) {
-                    if (npcAIDrops[npc.aiStyle].Count == 1)
-                        chance *= npcAIDrops[npc.aiStyle][0].Weight;
-
-					List<IItemDropRule> dropRules = GetDropRules(chance, npcAIDrops[npc.aiStyle], EnchantmentDropChance);
-					foreach (IItemDropRule rule in dropRules) {
-						loot.Add(rule);
-					}
-
-					if (LogModSystem.printEnchantmentDrops)
-                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcAIDrops[npc.aiStyle]));
-                }
-            }
+            //Calling base would duplicate loot.
         }
-        public static List<IItemDropRule> GetDropRules(float chance, IEnumerable<DropData> dropData, float configChance) {
-            List<IItemDropRule> itemDropRules = new();
-            IEnumerable<DropData> weightedDrops = dropData.Where(d => d.Chance <= 0f);
-			IEnumerable<DropData> basicDrops = dropData.Where(d => d.Chance > 0f);
-            if (weightedDrops.Count() > 0)
-                itemDropRules.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, weightedDrops));
+		public override bool UseDefaultDropChance(NPC npc) {
+			switch (npc.aiStyle) {
+				case NPCAIStyleID.Mimic:
+				case NPCAIStyleID.BiomeMimic:
+					return false;
+			}
 
-            foreach(DropData data in basicDrops) {
-                itemDropRules.Add(new BasicDropRule(data, configChance));
-            }
-
-            return itemDropRules;
+            return true;
 		}
-		private static void AddBossLoot(ILoot loot, NPC npc, IItemDropRule dropRule, bool bossBag) {
-            bool bossCantDropBossBags = false;
-
-            switch (npc.netID) {
-                //UnobtainableBossBags
-                case NPCID.CultistBoss:
-                case NPCID.DD2DarkMageT1:
-                case NPCID.DD2OgreT2:
-                    bossCantDropBossBags = !AndroMod.thoriumEnabled;
-                    break;
-            }
-
-            if (bossBag || bossCantDropBossBags) {
-                loot.Add(dropRule);
-            }
-            else {
-                loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
-            }
-        }
-        public static void GetEssenceDropList(NPC npc, bool normalNPCThatDropsBossBag, out float[] essenceValues, out float[] dropRate, out float hp, out float total) {
-            //Defense
-            float defenseMultiplier = 1f + (float)npc.defDefense / 40f;
-
-            //HP
-            int lifeMax = npc.RealLifeMax();
-            hp = (float)lifeMax * defenseMultiplier;
-
-            //Value
-            float value = npc.RealValue();
-
+        public static void GetEssenceDropList(NPC npc, bool normalNPCThatDropsBossBag, float value, float hp, float total, out float[] essenceValues, out float[] dropRate) {
             //Prevent low value enemies like critters from dropping essence
             if (value <= 0 && hp <= 10) {
-                total = 0;
                 dropRate = null;
                 essenceValues = null;
                 return;
             }
 
-            //Total
-            if (value > 0) {
-                total = hp + 0.2f * value;
-            }
-            else {
-                total = hp * 2.6f;
-                //Thorium bags for Dark Mage and Ogre only drop at a 25% rate.
-                if (AndroMod.thoriumEnabled && (npc.type == NPCID.DD2OgreT2 || npc.type == NPCID.DD2OgreT3 || npc.type == NPCID.DD2DarkMageT1 || npc.type == NPCID.DD2DarkMageT3))
-                    total *= 4f;
-            }
-
-            //Hp reduction factor
-            float hpReductionFactor = EnchantedWeaponStaticMethods.GetReductionFactor((int)hp);
-            total /= hpReductionFactor;
-
-            //NPC Characteristics Factors
-            float noGravityFactor = npc.noGravity ? 0.2f : 0f;
-            float noTileCollideFactor = npc.noTileCollide ? 0.2f : 0f;
-            float knockBackResistFactor = 0.2f * npc.knockBackResist;
-            float npcCharacteristicsFactor = 1f + noGravityFactor + noTileCollideFactor + knockBackResistFactor;
-            total *= npcCharacteristicsFactor;
-
-            //Balance Multiplier (Extra multiplier for us to control the values manually)
-            float balanceMultiplier = 0.2f;
-            total *= balanceMultiplier;
-
-            //Modify total for specific enemies.
-            switch (npc.netID) {
-                case NPCID.DungeonGuardian:
-                    total /= 50f;
-                    break;
-                case NPCID.EaterofWorldsHead:
-                case NPCID.EaterofWorldsBody:
-                case NPCID.EaterofWorldsTail:
-                    total /= 8f;
-                    break;
-            }
-
-            float essenceTotal = total;
+			float essenceTotal = total;
             bool multiSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.netID);
 
             //Config Multiplier
@@ -637,7 +301,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.RealLife()} npc.liferegen: {npc.lifeRegen}").Log_WE();
+            if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.RealLife()} npc.liferegen: {npc.lifeRegen}").Log();
 
             #endregion
 
@@ -705,7 +369,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.RealLife()} npc.liferegen: {npc.lifeRegen }").Log_WE();
+            if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.RealLife()} npc.liferegen: {npc.lifeRegen }").Log();
 
             #endregion
         }
@@ -713,7 +377,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT_WE();
+            if (LogMethods.debugging) ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
 
             #endregion
 
@@ -747,7 +411,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT_WE();
+            if (LogMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
 
             #endregion
         }
@@ -769,45 +433,6 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public void ResetWarReduction() => myWarReduction = 1f;
-		private static void GetAllNpcDrops() {
-            if (!AndroModSystem.StartedPostAddRecipes)
-                return;
-
-			allItemDropsFromNpcs = new();
-            SortedDictionary<string, (int, float)> manuallySetModBossBags = new();
-			foreach (KeyValuePair<int, NPC> npcPair in ContentSamples.NpcsByNetId) {
-				int netID = npcPair.Key;
-				NPC npc = npcPair.Value;
-				IEnumerable<IItemDropRule> dropRules = Main.ItemDropsDB.GetRulesForNPCID(netID, false);
-				foreach (IItemDropRule dropRule in dropRules) {
-					List<DropRateInfo> dropRates = new();
-					DropRateInfoChainFeed dropRateInfoChainFeed = new(1f);
-					dropRule.ReportDroprates(dropRates, dropRateInfoChainFeed);
-					foreach (DropRateInfo dropRate in dropRates) {
-						int itemType = dropRate.itemId;
-                        float chance = dropRate.dropRate;
-						//Item item = itemType.CSI();
-						allItemDropsFromNpcs.AddOrCombineTouple(itemType, (netID, chance));
-					}
-				}
-
-                if (GlobalBossBags.ManuallySetModBossBags.TryGetValue(npc.ModFullName(), out (string bagModName, float chance) value))
-                    manuallySetModBossBags.Add(value.bagModName, (netID, value.chance));
-			}
-
-			for (int i = 0; i < ItemLoader.ItemCount; i++) {
-				if (manuallySetModBossBags.Count <= 0)
-					break;
-
-				string modFullName = i.CSI().ModFullName();
-				if (manuallySetModBossBags.TryGetValue(modFullName, out (int netID, float chance) value)) {
-                    allItemDropsFromNpcs.AddOrCombineTouple(i, (value.netID, value.chance));
-					manuallySetModBossBags.Remove(modFullName);
-				}
-			}
-
-			//if (Debugger.IsAttached) allItemDropsFromNpcs.Select(p => p.Value.StringList(n => $"{n.Item1.CSNPC().S()} : {n.Item2.PercentString()}" , p.Key.CSI().S())).S("allItemDropsFromNpcs").LogSimple();
-		}
 	}
 
     public static class NPCStaticMethods
@@ -849,24 +474,5 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-
-        //Fix for Draedon boss having a null reference error in Calamity code when sampleNPC.FullName is called.  (Error in NPC.ToString())
-        public static string FullName(this NPC npc) {
-			if (AndroMod.calamityEnabled) {
-				string sampleModNPCFullName = npc.ModNPC?.FullName;
-				switch (sampleModNPCFullName) {
-					case "CalamityMod/ThanatosBody1":
-					case "CalamityMod/ThanatosBody2":
-						return "Draedon";
-					case "CalamityMod/ThanatosTail":
-						return "XM-05 Thanatos";
-					default:
-						return npc.FullName;
-				}
-			}
-			else {
-				return npc.FullName;
-			}
-		}
 	}
 }

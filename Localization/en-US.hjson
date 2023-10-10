@@ -10,11 +10,7 @@ Mods: {
 			Automatic: Automatic
 			Custom: Custom
 			Enchantment: Enchantment
-			Expert: Expert
-			Journey: Journey
-			Master: Master
 			NoneSelected: None Selected
-			Normal: Normal
 
 			ArmorDamageReduction: {
 				Tooltip: Allows you to modify the damage reduction gained by armor and accessories as they are leveled.
@@ -77,15 +73,6 @@ Mods: {
 					Tooltip: Only displays weapon level up messages when using the enchanting table if this option is off.
 				}
 
-				DisableAllErrorMessagesInChat: {
-					Label: Disable All Error Messages In Chat
-					Tooltip:
-						'''
-						Prevents messages showing up in your chat that ask you to 
-						Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.
-						'''
-				}
-
 				DisplayDamageTooltipSeperatly: {
 					Label: Display approximate damage from enchantments in a separate tooltip.
 					Tooltip:
@@ -124,24 +111,6 @@ Mods: {
 						'''
 				}
 
-				OnlyShowErrorMessagesInChatOnce: {
-					Label: Only show error messages in chat once
-					Tooltip:
-						'''
-						Messages will continue to show up in your chat, but only once during a game session.
-						(The error message must be the exact same as a previous message to be prevented.)
-						'''
-				}
-
-				PrintEnchantmentDrops: {
-					Label: Log a List of Enchantment Drop sources
-					Tooltip:
-						'''
-						The list is printed to the client.log when you enter a world.
-						The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
 				PrintEnchantmentTooltips: {
 					Label: Log a List of Enchantment Tooltips
 					Tooltip:
@@ -167,11 +136,6 @@ Mods: {
 						Automatically send essence from your inventory to the UI essence slots.
 						(Disables while the UI is open.)
 						'''
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					Label: Use Alternate Enchantment Essence Textures
-					Tooltip: The default colors are color blind friendly.  The alternate textures have minor differences, but were voted to be kept.
 				}
 
 				UsePointsAsTooltip: {
@@ -547,7 +511,7 @@ Mods: {
 						'''
 						Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.
 						By default, this is an additive bonus: 1st crit 200% damage, 2nd 300% damage, 3rd 400% damage.....
-						Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 400% damage... 
+						Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 800% damage... 
 						'''
 				}
 
@@ -659,7 +623,6 @@ Mods: {
 		GameMessages: {
 			AlreadyMaxLevel: Your {0} is already max level.
 			Back: Back
-			BossChecklistNotEnabled: BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determine which bosses determine Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster.
 			CannotGainAdditionalPower: Your {0}({1}) cannot gain additional power from the offered {2}({3}).
 			CantInfusionArmorDifferentTypes: You cannot infuse armor of different types such as a helmet and body.
 			CongradulationsMaxLevel: Congratulations!  {0}'s {1} reached the maximum level, {2} ({3} xp).
@@ -669,7 +632,6 @@ Mods: {
 			DetectedNonEnchantmentInEnchantmentSlot: Detected a non-enchantment item:{0} on your {1}.  It has been returned to your inventory.
 			EnchantmentNoLongerAllowed: "{0} is no longer allowed on {1} and has been removed from your {2}."
 			FailedConvertExcessExperience: Failed to CheckConvertExcessExperience(item: {0}, consumedItem: {1})
-			FailedDetermineProgression: Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData
 			FailedFindBossBag: Failed to find boss bag for boss:
 			FailedFindItemDropsForGroup: Failed to find item drops for loot items for group
 			FailedInfuseItem: Failed to infuse item: {0} with consumedItem: {1}
@@ -696,7 +658,6 @@ Mods: {
 			ItemTooLowLevel: Your {0} level is too low to use that many enchantments.
 			LogInfusionPowerLabels: Mod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS
 			LogInfusionPowerOtherLabels: Rarity, Average, Min, Max
-			MainUpdateCount: Main.GameUpdateCount: {0}
 			MultipleUniqueEnchantments: Detected multiple unique enchantments on your {0}.  {1} has been removed from your {2}.
 			MurasamaNoInfusion: Murasama cannot be consumed for infusion.
 			NewItemIsAir: newItem was air.
@@ -727,13 +688,11 @@ Mods: {
 			PreventedWitchShopDuplication: Prevented an issue that would add a duplicate item to the Witch's shop item:
 			RemovedEnchantedItemData: Removed EnchantedItem data from item: {0}, count: {1}, newCount: {2}
 			RemovedUnloadedEnchantmentFromItem: Removed Unloaded Item:{0} from your {1}.  Please inform andro951(WeaponEnchantments).
-			ReportErrorToAndro: Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.
 			RerollEnchantment: Re-roll Enchantment
 			ResistsYourAttemptToEmpower: The {0} resisted your attempt to empower it.
 			SameSetBonusNoEffect: The item being upgraded has the same set bonus as the item being consumed and will have no effect.
 			SlotNumDisabledByConfig: Slot {0} disabled by config.  Removed {1} from your {2}.
 			TryInfuseFailed: TryInfuseItem failed, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
-			UnableDetermineNPCDropsBossBag: Unable to determine the npc that drops this boss bag:
 			WeaponInfusionPowersNotSetup: Weapon infusion powers not setup
 			WitchChatText: What more do you want?  I'm busy.
 			WitchEnchantmentRerolText: I guess I could try to improve your enchantments, but no refunds or complaints.
@@ -1637,37 +1596,37 @@ Mods: {
 			}
 		}
 
-		NPCs: {
-			Witch: {
-				TownNPCMood: {
-					LikeNPC_Princess: I like {NPCName}.
-					HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					Princess_LovesNPC: I like {NPCName}.
-				}
-
-				DisplayName: Witch
-			}
+		Tiles: {
+			DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 
-		Tiles: {
-			WoodEnchantingTable.MapEntry: Wood Enchanting Table
-			UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+		NPCs: {
+			Witch: {
+				DisplayName: Witch
+
+				TownNPCMood: {
+					Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+			}
 		}
 	}
 }

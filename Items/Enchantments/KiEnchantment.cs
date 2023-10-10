@@ -44,8 +44,8 @@ namespace WeaponEnchantments.Items.Enchantments
     {
         public override SellCondition SellCondition => WEMod.dbtEnabled ? SellCondition.HardMode : SellCondition.Never;
 		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new() {
-            new(NPCID.Lihzahrd),
-            new(NPCID.LihzahrdCrawler)
+            new(NPCID.Lihzahrd, chance : 0.05f),
+            new(NPCID.LihzahrdCrawler, chance : 0.05f)
         } : null;
     }
     [Autoload(false)]

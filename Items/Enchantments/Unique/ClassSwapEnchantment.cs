@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		protected abstract DamageClass MyDamageClass { get; }
 		protected virtual string ModdedDamageClass { get; } = "";
 		protected virtual DamageClassID DamageClassNameOveride => DamageClassID.Default;
-		protected virtual float DropChance => 0.05f * ConfigValues.EnchantmentDropChance;
+		protected virtual float DropChance => 0.05f;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
@@ -198,7 +198,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => WEMod.dbtEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new() {
-			new(NPCID.Golem, 9f)
+			new(NPCID.Golem, 2f)
 		} : null;
 	}
 	[Autoload(false)]

@@ -10,11 +10,7 @@ Mods: {
 			Automatic: Automatisch
 			Custom: Brauch
 			Enchantment: Verzauberung
-			Expert: Experte
-			Journey: Reise
-			Master: Meister
 			NoneSelected: Nichts ausgewählt
-			Normal: Normal
 
 			ArmorDamageReduction: {
 				Tooltip: Ermöglicht Ihnen, die Schadensreduzierung von Rüstungen und Zubehör beim Leveln zu ändern.
@@ -77,15 +73,6 @@ Mods: {
 					Tooltip: Zeigt bei Verwendung des Verzauberungstisches nur Meldungen zum Aufsteigen der Waffenstufe an, wenn diese Option deaktiviert ist.
 				}
 
-				DisableAllErrorMessagesInChat: {
-					Label: Deaktivieren Sie alle Fehlermeldungen im Chat
-					Tooltip:
-						'''
-						Verhindert, dass in Ihrem Chat Nachrichten angezeigt werden, in denen Sie dazu aufgefordert werden
-						Bitte melden Sie dies andro951 (Weapon Enchantments) zusammen mit einer Beschreibung dessen, was Sie zu diesem Zeitpunkt getan haben.
-						'''
-				}
-
 				DisplayDamageTooltipSeperatly: {
 					Label: Zeigt den ungefähren Schaden durch Verzauberungen in einem separaten Tooltip an.
 					Tooltip:
@@ -124,24 +111,6 @@ Mods: {
 						'''
 				}
 
-				OnlyShowErrorMessagesInChatOnce: {
-					Label: Fehlermeldungen im Chat nur einmal anzeigen
-					Tooltip:
-						'''
-						Nachrichten werden weiterhin in Ihrem Chat angezeigt, jedoch nur einmal während einer Spielsitzung.
-						(Die Fehlermeldung muss exakt mit einer vorherigen Meldung übereinstimmen, um verhindert zu werden.)
-						'''
-				}
-
-				PrintEnchantmentDrops: {
-					Label: Protokollieren Sie eine Liste der Verzauberungs-Drop-Quellen
-					Tooltip:
-						'''
-						Die Liste wird im client.log gedruckt, wenn Sie eine Welt betreten.
-						Der Standardspeicherort von client.log ist C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
 				PrintEnchantmentTooltips: {
 					Label: Erstellen Sie eine Liste mit Verzauberungs-Tooltips
 					Tooltip:
@@ -167,11 +136,6 @@ Mods: {
 						Senden Sie automatisch Essenzen aus Ihrem Inventar an die Essenzslots der Benutzeroberfläche.
 						(Deaktiviert, während die Benutzeroberfläche geöffnet ist.)
 						'''
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					Label: Verwenden Sie alternative Verzauberungsessenz-Texturen
-					Tooltip: Die Standardfarben sind farbenblind. Die alternativen Texturen weisen geringfügige Unterschiede auf, es wurde jedoch für die Beibehaltung gestimmt.
 				}
 
 				UsePointsAsTooltip: {
@@ -547,7 +511,7 @@ Mods: {
 						'''
 						Waffenverzauberungen nutzen die Chance auf einen kritischen Treffer über 100 % hinaus, damit Sie erneut einen kritischen Treffer erzielen können.
 						Standardmäßig ist dies ein additiver Bonus: 1. kritischer Schaden 200 % Schaden, 2. 300 % Schaden, 3. 400 % Schaden .....
-						Wenn Sie dies aktivieren, werden sie stattdessen multiplikativ: 1. kritischer Treffer 200 % Schaden, 2. kritischer Treffer 400 % Schaden, 3. kritischer Treffer 400 % Schaden ...
+						Wenn Sie dies aktivieren, werden sie stattdessen multiplikativ: 1. kritischer Schaden 200 % Schaden, 2. kritischer Schaden 400 % Schaden, 3. kritischer Schaden 800 % ...
 						'''
 				}
 
@@ -659,7 +623,6 @@ Mods: {
 		GameMessages: {
 			AlreadyMaxLevel: „Dein {0} hat bereits das maximale Level.“
 			Back: Zurück
-			BossChecklistNotEnabled: Der BossChecklist-Mod ist nicht aktiviert. Weapon Enchantments verwendet BossChecklist, um zu bestimmen, welche Bosse Power-Booster-Drops von modifizierten Bossen bestimmen. Da BossChecklist nicht aktiviert ist, lassen alle modifizierten Bosse den regulären Power Booster fallen.
 			CannotGainAdditionalPower: „Dein {0}({1}) kann durch das angebotene {2}({3}) keine zusätzliche Kraft erhalten.“
 			CantInfusionArmorDifferentTypes: Es ist nicht möglich, Rüstungen unterschiedlicher Art wie Helm und Körper zu infundieren.
 			CongradulationsMaxLevel: „Herzlichen Glückwunsch! {1} von {0} hat das maximale Level {2} ({3} xp) erreicht.“
@@ -669,7 +632,6 @@ Mods: {
 			DetectedNonEnchantmentInEnchantmentSlot: „Auf deinem {1} wurde ein Nicht-Verzauberungsgegenstand entdeckt:{0}. Er wurde in dein Inventar zurückgebracht.“
 			EnchantmentNoLongerAllowed: „{0} ist auf {1} nicht mehr zulässig und wurde aus Ihrem {2} entfernt.“
 			FailedConvertExcessExperience: „CheckConvertExcessExperience(item: {0}, verbrauchtItem: {1}) konnte nicht überprüft werden“
-			FailedDetermineProgression: Der Fortschritt von Wall of Flesh und Plantera konnte anhand von BossChecklistData nicht ermittelt werden
 			FailedFindBossBag: Boss-Tasche für Boss konnte nicht gefunden werden:
 			FailedFindItemDropsForGroup: Es konnten keine Gegenstandsdrops für Beutegegenstände für die Gruppe gefunden werden
 			FailedInfuseItem: „Element: {0} konnte nicht mit verbrauchtem Element verknüpft werden: {1}“
@@ -696,7 +658,6 @@ Mods: {
 			ItemTooLowLevel: „Deine {0}-Stufe ist zu niedrig, um so viele Verzauberungen zu nutzen.“
 			LogInfusionPowerLabels: Mod, Waffe, Infusionskraft, Wertseltenheit, Seltenheit, Originalseltenheit, Wert, Gegenstands-ID, Schaden, Nutzungsdauer, DPS
 			LogInfusionPowerOtherLabels: Seltenheit, Durchschnitt, Min., Max
-			MainUpdateCount: „Main.GameUpdateCount: {0}“
 			MultipleUniqueEnchantments: „Auf Ihrem {0} wurden mehrere einzigartige Verzauberungen entdeckt. {1} wurde aus Ihrem {2} entfernt.“
 			MurasamaNoInfusion: Murasama kann nicht als Aufguss eingenommen werden.
 			NewItemIsAir: newItem war Luft.
@@ -727,13 +688,11 @@ Mods: {
 			PreventedWitchShopDuplication: Es wurde ein Problem behoben, das dazu führte, dass dem Shop-Artikel der Hexe ein doppelter Artikel hinzugefügt wurde:
 			RemovedEnchantedItemData: „EnchantedItem-Daten aus Element entfernt: {0}, Anzahl: {1}, newCount: {2}“
 			RemovedUnloadedEnchantmentFromItem: „Ungeladener Gegenstand:{0} aus deinem {1} entfernt. Bitte informiere andro951(WeaponEnchantments).“
-			ReportErrorToAndro: Bitte melden Sie dies andro951 (Weapon Enchantments) zusammen mit einer Beschreibung dessen, was Sie zu diesem Zeitpunkt getan haben.
 			RerollEnchantment: Verzauberung erneut würfeln
 			ResistsYourAttemptToEmpower: „Die {0} haben sich Ihrem Versuch widersetzt, es zu stärken.“
 			SameSetBonusNoEffect: Der aufzuwertende Gegenstand hat den gleichen Setbonus wie der verbrauchte Gegenstand und hat keine Wirkung.
 			SlotNumDisabledByConfig: „Steckplatz {0} durch Konfiguration deaktiviert. {1} aus Ihrem {2} entfernt.“
 			TryInfuseFailed: „TryInfuseItem fehlgeschlagen, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
-			UnableDetermineNPCDropsBossBag: Der NPC, der diese Boss-Tasche fallen lässt, kann nicht ermittelt werden:
 			WeaponInfusionPowersNotSetup: Waffeninfusionskräfte nicht eingerichtet
 			WitchChatText: Was willst du noch? Ich bin beschäftigt.
 			WitchEnchantmentRerolText: Ich denke, ich könnte versuchen, Ihre Verzauberungen zu verbessern, aber keine Rückerstattung oder Beschwerden.
@@ -1637,37 +1596,37 @@ Mods: {
 			}
 		}
 
-		NPCs: {
-			Witch: {
-				TownNPCMood: {
-					// LikeNPC_Princess: I like {NPCName}.
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// Princess_LovesNPC: I like {NPCName}.
-				}
-
-				// DisplayName: Witch
-			}
+		Tiles: {
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 
-		Tiles: {
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+		NPCs: {
+			Witch: {
+				// DisplayName: Witch
+
+				TownNPCMood: {
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
+				}
+			}
 		}
 	}
 }

@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
         public override SellCondition SellCondition => SellCondition.PostSkeletron;
         public override List<DropData> NpcDropTypes => new() {
-            new(NPCID.SkeletronHead, 0.25f)
+            new(NPCID.SkeletronHead, chance: 0.2f)
         };
         public override List<DropData> CrateDrops => new() {
             new(CrateID.Dungeon, 0.5f),

@@ -35,15 +35,15 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
         public override List<DropData> NpcDropTypes => new() {
-            new(NPCID.Harpy),
-            new(NPCID.WyvernHead)
+            new(NPCID.Harpy, chance: 0.02f),
+            new(NPCID.WyvernHead, chance: 0.25f)
 		};
 		public override List<DropData> ChestDrops => new() {
-            new(ChestID.Skyware)           
+            new(ChestID.Skyware)
 		};
         public override List<DropData> CrateDrops => new() {
-            new(CrateID.Sky),
-            new(CrateID.Azure_SkyHard)
+            new(CrateID.Sky, 0.5f),
+            new(CrateID.Azure_SkyHard, 0.5f)
         };
     }
     [Autoload(false)]

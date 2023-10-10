@@ -6,14 +6,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using androLib.Items;
 using androLib.Common.Utility;
 using androLib;
+using WeaponEnchantments.Content.NPCs;
 
 namespace WeaponEnchantments.Items
 {
-    public abstract class ContainmentItem : WEModItem, ISoldByWitch
+    public abstract class ContainmentItem : WEModItem, ISoldByNPC
     {
         public static string[] sizes = new string[] { "", "Medium", "Superior" };
         public static int[] glass = new int[] { 1, 4, 0};
@@ -24,7 +25,8 @@ namespace WeaponEnchantments.Items
         public int tier = 0;
         private int bars;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public virtual SellCondition SellCondition => SellCondition.Always;
+		public Func<int> SoldByNPCNetID => ModContent.NPCType<Witch>;
+		public virtual SellCondition SellCondition => SellCondition.Always;
         public virtual float SellPriceModifier => 1f;
         public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Containments, WikiTypeID.CraftingMaterial };
         public override int CreativeItemSacrifice => 3;

@@ -32,6 +32,7 @@ using androLib;
 using androLib.Localization;
 using WeaponEnchantments.Localization;
 using Terraria.Map;
+using WeaponEnchantments.Common.Utility.LogSystem;
 
 namespace WeaponEnchantments
 {
@@ -44,15 +45,12 @@ namespace WeaponEnchantments
 		public static bool recursiveCraftEnabled = ModLoader.TryGetMod("RecursiveCraft", out Mod _);
 		public static bool imkSushisModEnabled = ModLoader.TryGetMod("imkSushisMod", out Mod _);
 		public static bool avaliRaceEnabled = ModLoader.TryGetMod("AvaliRace", out Mod _);
-		public static bool bossChecklistEnabled = ModLoader.TryGetMod("BossChecklist", out Mod _);
 		public static bool bountifulGoodieBagsEnabled = ModLoader.TryGetMod("BountifulGoodieBags", out Mod _);
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
 		public static bool aequusEnabled = ModLoader.TryGetMod("aequus", out Mod _);
 		public static bool clickerClassEnabled = ModLoader.TryGetMod("ClickerClass", out Mod _);
 		public static bool secretsOfTheShadowsEnabled = ModLoader.TryGetMod("SOTS", out Mod _);
-		public static Mod wikiThis;
-		public static bool wikiThisEnabled = ModLoader.TryGetMod("Wikithis", out wikiThis);
 		public static bool minionDmgPatchEnabled = ModLoader.TryGetMod("MinionDmgPatch", out Mod _);
 
 		public const string WIKI_URL = "https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/";
@@ -88,6 +86,8 @@ namespace WeaponEnchantments
 			UIManager.RegisterWithMaster();
 
 			LocalizationData.RegisterSDataPackage();
+			AndroModSystem.RegisterChestSpawnChanceMultiplier(this, () => ConfigValues.EnchantmentDropChance, () => ConfigValues.BossEnchantmentDropChance, () => ConfigValues.ChestSpawnChance, () => ConfigValues.CrateDropChance);
+			RecipeData_WE.RegisterWithRecipeData(this);
 		}
 		private void AddAllContent(WEMod weMod) {
 			IEnumerable<Type> types = null;
@@ -156,8 +156,8 @@ namespace WeaponEnchantments
 			if (Main.netMode == NetmodeID.Server)
 				return;
 
-			if (wikiThis != null)
-				wikiThis.Call("url", this, WIKI_URL + "{}");
+			if (AndroMod.wikiThis != null)
+				AndroMod.wikiThis.Call("url", this, WIKI_URL + "{}");
 			
 			if (AndroMod.vacuumBagsEnabled)
 				EnchantedWeapon.AmmoBagStorageID = StorageManager.GetStorageID(AndroMod.vacuumBagsName, "AmmoBag");

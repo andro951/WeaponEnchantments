@@ -11,7 +11,7 @@ using Terraria.GameContent.Creative;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using Terraria.Localization;
 using System.Linq;
 using WeaponEnchantments.Effects;

@@ -10,11 +10,7 @@ Mods: {
 			Automatic: Automatyczny
 			Custom: Zwyczaj
 			Enchantment: Zachwyt
-			Expert: Ekspert
-			Journey: Podróż
-			Master: Gospodarz
 			NoneSelected: Nie wybrano
-			Normal: Normalna
 
 			ArmorDamageReduction: {
 				Tooltip: Umożliwia modyfikację redukcji obrażeń uzyskiwanych przez zbroję i akcesoria w miarę ich poziomowania.
@@ -77,15 +73,6 @@ Mods: {
 					Tooltip: Wyświetla komunikaty o podwyższeniu poziomu broni tylko podczas korzystania ze stołu zaklęć, jeśli ta opcja jest wyłączona.
 				}
 
-				DisableAllErrorMessagesInChat: {
-					Label: Wyłącz wszystkie komunikaty o błędach na czacie
-					Tooltip:
-						'''
-						Zapobiega wyświetlaniu na czacie wiadomości z prośbą
-						Zgłoś to do andro951 (Zaklęcia Broni) wraz z opisem tego, co robiłeś w tym czasie.
-						'''
-				}
-
 				DisplayDamageTooltipSeperatly: {
 					Label: Wyświetl przybliżone obrażenia od zaklęć w osobnej podpowiedzi.
 					Tooltip:
@@ -124,24 +111,6 @@ Mods: {
 						'''
 				}
 
-				OnlyShowErrorMessagesInChatOnce: {
-					Label: Wyświetlaj komunikaty o błędach na czacie tylko raz
-					Tooltip:
-						'''
-						Wiadomości będą nadal pojawiać się na czacie, ale tylko raz podczas sesji gry.
-						(Aby można było temu zapobiec, komunikat o błędzie musi być dokładnie taki sam, jak poprzedni komunikat.)
-						'''
-				}
-
-				PrintEnchantmentDrops: {
-					Label: Zarejestruj listę źródeł kropli zaklęć
-					Tooltip:
-						'''
-						Lista jest drukowana w pliku client.log po wejściu na świat.
-						Domyślna lokalizacja pliku Client.log to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
 				PrintEnchantmentTooltips: {
 					Label: Zarejestruj listę podpowiedzi dotyczących zaklęć
 					Tooltip:
@@ -167,11 +136,6 @@ Mods: {
 						Automatycznie wysyłaj esencję ze swojego ekwipunku do miejsc na esencje interfejsu użytkownika.
 						(Wyłącza się, gdy interfejs użytkownika jest otwarty.)
 						'''
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					Label: Użyj alternatywnych tekstur esencji zaklęć
-					Tooltip: Domyślne kolory są przyjazne dla osób niewidomych. Alternatywne tekstury różnią się niewielkimi różnicami, ale uznano, że należy je zachować.
 				}
 
 				UsePointsAsTooltip: {
@@ -547,7 +511,7 @@ Mods: {
 						'''
 						Zaklęcia broni wykorzystują szansę na trafienie krytyczne powyżej 100%, aby umożliwić ci ponowne trafienie krytyczne.
 						Domyślnie jest to premia dodatkowa: 1. trafienie krytyczne 200% obrażeń, 2. 300% obrażeń, 3. 400% obrażeń.....
-						Włączenie tej opcji sprawia, że zamiast tego stają się multiplikatywne: 1. krytyczny 200% obrażeń, 2. krytyczny 400% obrażeń, 3. krytyczny 400% obrażeń...
+						Włączenie tej opcji sprawia, że zamiast tego stają się multiplikatywne: 1. krytyczny 200% obrażeń, 2. krytyczny 400% obrażeń, 3. krytyczny 800% obrażeń...
 						'''
 				}
 
@@ -659,7 +623,6 @@ Mods: {
 		GameMessages: {
 			AlreadyMaxLevel: „Twój {0} jest już na maksymalnym poziomie.”
 			Back: Z powrotem
-			BossChecklistNotEnabled: Mod BossChecklist nie jest włączony. Zaklęcia broni korzystają z listy kontrolnej bossów, aby określić, którzy bossowie decydują o wypadaniu Boosterów mocy ze zmodyfikowanych bossów. Ponieważ lista kontrolna bossów nie jest włączona, wszyscy zmodyfikowani bossowie upuszczą zwykły wzmacniacz mocy.
 			CannotGainAdditionalPower: „Twoje {0}({1}) nie może zyskać dodatkowej mocy z oferowanego {2}({3}).”.
 			CantInfusionArmorDifferentTypes: Nie możesz napełniać zbroi różnych typów, np. hełmu i korpusu.
 			CongradulationsMaxLevel: „Gratulacje! {1} użytkownika {0} osiągnęło maksymalny poziom, {2} ({3} PD).”.
@@ -669,7 +632,6 @@ Mods: {
 			DetectedNonEnchantmentInEnchantmentSlot: „Wykryto przedmiot niebędący zaklęciem:{0} na Twoim {1}. Został on zwrócony do Twojego ekwipunku.”
 			EnchantmentNoLongerAllowed: „{0} nie jest już dozwolony w {1} i został usunięty z Twojego {2}.”
 			FailedConvertExcessExperience: „Nie udało się sprawdzićConvertExcessExperience(element: {0}, zużyty element: {1})”
-			FailedDetermineProgression: Nie udało się określić postępu Wall of Flesh i Plantera z BossChecklistData
 			FailedFindBossBag: Nie udało się znaleźć torby szefa dla szefa:
 			FailedFindItemDropsForGroup: Nie udało się znaleźć zrzutów przedmiotów dla łupów dla grupy
 			FailedInfuseItem: „Nie udało się nasycić elementu: {0} skonsumowanym elementem: {1}”
@@ -696,7 +658,6 @@ Mods: {
 			ItemTooLowLevel: „Twój poziom {0} jest zbyt niski, aby móc używać tak wielu zaklęć.”
 			LogInfusionPowerLabels: Mod, broń, moc infuzji, wartość rzadkości, rzadkość, oryginalna rzadkość, wartość, identyfikator przedmiotu, obrażenia, czas użytkowania, DPS
 			LogInfusionPowerOtherLabels: Rzadkość, średnia, minimalna, maksymalna
-			MainUpdateCount: „Main.GameUpdateCount: {0}”
 			MultipleUniqueEnchantments: „Wykryto wiele unikalnych zaklęć na twoim {0}. {1} zostało usunięte z twojego {2}.”
 			MurasamaNoInfusion: Murasamy nie można spożywać do naparu.
 			NewItemIsAir: nowośćPrzedmiotem było powietrze.
@@ -727,13 +688,11 @@ Mods: {
 			PreventedWitchShopDuplication: Zapobiegnięto problemowi, który powodował dodanie zduplikowanego przedmiotu do przedmiotu w sklepie Wiedźmy:
 			RemovedEnchantedItemData: „Usunięto dane EnchantedItem z przedmiotu: {0}, liczba: {1}, nowa liczba: {2}”
 			RemovedUnloadedEnchantmentFromItem: „Usunięto niewyładowany przedmiot:{0} z Twojego {1}. Poinformuj andro951(WeaponEnchantments).”
-			ReportErrorToAndro: Zgłoś to do andro951 (Zaklęcia Broni) wraz z opisem tego, co robiłeś w tym czasie.
 			RerollEnchantment: Rzuć ponownie Zaklęcie
 			ResistsYourAttemptToEmpower: „{0} oparł się twojej próbie wzmocnienia go.”
 			SameSetBonusNoEffect: Ulepszany przedmiot ma taką samą premię jak przedmiot zużywany i nie będzie miał żadnego efektu.
 			SlotNumDisabledByConfig: „Gniazdo {0} wyłączone przez konfigurację. Usunięto {1} z Twojego {2}.”
 			TryInfuseFailed: „TryInfuseItem nie powiodło się, tableItem: {0}{1}, infusionConsumeItem: {2}{3}”
-			UnableDetermineNPCDropsBossBag: Nie można określić NPC, który upuszcza tę torbę z bossem:
 			WeaponInfusionPowersNotSetup: Moce infuzyjne broni nie są skonfigurowane
 			WitchChatText: Czego jeszcze chcesz? Jestem zajęty.
 			WitchEnchantmentRerolText: Myślę, że mógłbym spróbować ulepszyć twoje zaklęcia, ale bez zwrotów pieniędzy i reklamacji.
@@ -1637,37 +1596,37 @@ Mods: {
 			}
 		}
 
-		NPCs: {
-			Witch: {
-				TownNPCMood: {
-					// LikeNPC_Princess: I like {NPCName}.
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// Princess_LovesNPC: I like {NPCName}.
-				}
-
-				// DisplayName: Witch
-			}
+		Tiles: {
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 
-		Tiles: {
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+		NPCs: {
+			Witch: {
+				// DisplayName: Witch
+
+				TownNPCMood: {
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
+				}
+			}
 		}
 	}
 }

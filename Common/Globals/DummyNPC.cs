@@ -70,7 +70,7 @@ namespace WeaponEnchantments.Common.Globals
 					totalItemDamages.Add("Total", ModMath.SumCheckOverFlow(totalItemDamages.Select(d => d.Value).ToArray()));
 
 				string msg = "\n" + totalItemDamages.Select(pair => $"{npc.ModFullName()} ({npc.whoAmI}), {pair.Key}, {(pair.Value / (ticks / 60d)).ToString("F5")}").JoinList("\n");
-				msg.LogSimple_WE();
+				msg.LogSimple();
 				Main.NewText(msg);
 				string key = totalItemDamages.Count > 1 ? totalItemDamages.Keys.Where(k => k != "Total" && k != "Life Regen").First() : totalItemDamages.Keys.First();
 				double damage = totalItemDamages.Values.Last() / (ticks / 60d);

@@ -597,7 +597,7 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (newItemsSet.Count > 0)
-				$"{GameMessageTextID.CouldntFindItemsInWeaponsList.ToString().Lang_WE(L_ID1.GameMessages)} {newItemsSet.JoinList(", ")}".LogSimple_WE();
+				$"{GameMessageTextID.CouldntFindItemsInWeaponsList.ToString().Lang_WE(L_ID1.GameMessages)} {newItemsSet.JoinList(", ")}".LogSimple();
 		}
 		public void AddLootItems(IEnumerable<string> newItems) {
 			SortedSet<string> newItemsSet = new SortedSet<string>(newItems);
@@ -619,7 +619,7 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (newItemsSet.Count > 0)
-				$"{GameMessageTextID.CouldntFindItemsInWeaponsList.ToString().Lang_WE(L_ID1.GameMessages)} {newItemsSet.JoinList(", ")}".LogSimple_WE();
+				$"{GameMessageTextID.CouldntFindItemsInWeaponsList.ToString().Lang_WE(L_ID1.GameMessages)} {newItemsSet.JoinList(", ")}".LogSimple();
 		}
 		public void AddNPCs(IEnumerable<int> newNPCs) => NpcTypes.UnionWith(newNPCs);
 		public void AddNPCs(IEnumerable<string> newNPCs) {
@@ -634,7 +634,7 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (Debugger.IsAttached && notFoundSet.Count > 0)
-				$"{GameMessageTextID.CouldntFindNPCsInIngredientsList.ToString().Lang_WE(L_ID1.GameMessages)} {newNpcsSet.JoinList(", ")}".LogSimple_WE();
+				$"{GameMessageTextID.CouldntFindNPCsInIngredientsList.ToString().Lang_WE(L_ID1.GameMessages)} {newNpcsSet.JoinList(", ")}".LogSimple();
 		}
 		public void Add(IEnumerable<ChestID> newChests) => Chests.UnionWith(newChests);
 		public void Add(IEnumerable<CrateID> newCrates) => Crates.UnionWith(newCrates);
@@ -1017,7 +1017,7 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (Debugger.IsAttached && lootItemTypes.Count < 1)
-				$"{GameMessageTextID.FailedFindBossBag.ToString().Lang_WE(L_ID1.GameMessages)} {netIds.Select(n => n.CSNPC().S()).JoinList(", ")}".LogSimple_WE();
+				$"{GameMessageTextID.FailedFindBossBag.ToString().Lang_WE(L_ID1.GameMessages)} {netIds.Select(n => n.CSNPC().S()).JoinList(", ")}".LogSimple();
 
 			return true;
 		}
@@ -1043,7 +1043,7 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (Debugger.IsAttached && itemTypes.Count < 1)
-				$"{GameMessageTextID.FailedFindItemDropsForGroup.ToString().Lang_WE(L_ID1.GameMessages)} {ID}: {LootItemTypes.Select(i => i.CSI().S()).JoinList(", ")}".LogSimple_WE();
+				$"{GameMessageTextID.FailedFindItemDropsForGroup.ToString().Lang_WE(L_ID1.GameMessages)} {ID}: {LootItemTypes.Select(i => i.CSI().S()).JoinList(", ")}".LogSimple();
 
 			return itemTypes;
 		}
@@ -3724,7 +3724,7 @@ namespace WeaponEnchantments.Common
 					if (!ItemInfusionPowers.ContainsKey(itemType)) {
 						ItemInfusionPowers.Add(itemType, infusionPower);
 					}
-					else if (Debugger.IsAttached) $"ItemInfusionPowers already contains item: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple_WE();
+					else if (Debugger.IsAttached) $"ItemInfusionPowers already contains item: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple();
 				}
 			}
 
@@ -3744,9 +3744,9 @@ namespace WeaponEnchantments.Common
 							//else if (Debugger.IsAttached) $"ItemInfusionPowers already contains {itemType.CSI().S()}. Skipped drop from {npc.S()}".LogSimple();
 						}
 
-						if (Debugger.IsAttached && !added && netID > NPCID.Count && !progressionGroup.BossNetIDs.Contains(netID)) $"{GameMessageTextID.NPCInProgressionGroupNoUniqueEnchantments.ToString().Lang_WE(L_ID1.GameMessages)}  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple_WE();
+						if (Debugger.IsAttached && !added && netID > NPCID.Count && !progressionGroup.BossNetIDs.Contains(netID)) $"{GameMessageTextID.NPCInProgressionGroupNoUniqueEnchantments.ToString().Lang_WE(L_ID1.GameMessages)}  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
 					}
-					else if (Debugger.IsAttached && netID > NPCID.Count) $"{GameMessageTextID.NPCInProgressionGroupNotInDropList.ToString().Lang_WE(L_ID1.GameMessages)}  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple_WE();
+					else if (Debugger.IsAttached && netID > NPCID.Count) $"{GameMessageTextID.NPCInProgressionGroupNotInDropList.ToString().Lang_WE(L_ID1.GameMessages)}  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
 				}
 			}
 
@@ -3764,29 +3764,29 @@ namespace WeaponEnchantments.Common
 			if (Debugger.IsAttached) {
 				IEnumerable<KeyValuePair<int, SortedSet<int>>> weaponsFromNPCs = WeaponsFromNPCs.Where(w => !ItemInfusionPowers.ContainsKey(w.Key));
 				if (weaponsFromNPCs.Any())
-					$"{weaponsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S(GameMessageTextID.ItemsFromNPCsNotIncluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT_WE(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+					$"{weaponsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S(GameMessageTextID.ItemsFromNPCsNotIncluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 
 				IEnumerable<KeyValuePair<int, SortedSet<int>>> ingredientsFromNPCs = IngredientsFromNPCs.Where(w => !ItemInfusionPowers.ContainsKey(w.Key));
 				if (ingredientsFromNPCs.Any())
-					$"{ingredientsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S(GameMessageTextID.ItemsFromNPCIngredientsNotIncluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT_WE(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+					$"{ingredientsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S(GameMessageTextID.ItemsFromNPCIngredientsNotIncluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 
 				IEnumerable<KeyValuePair<int, SortedSet<int>>> weaponsFromLootItems = WeaponsFromLootItems.Where(w => !ItemInfusionPowers.ContainsKey(w.Key));
 				if (weaponsFromLootItems.Any())
-					$"{weaponsFromLootItems.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSI().S()).JoinList(", ")}").S(GameMessageTextID.ItemsFromLootItemsNotIncluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT_WE(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+					$"{weaponsFromLootItems.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSI().S()).JoinList(", ")}").S(GameMessageTextID.ItemsFromLootItemsNotIncluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 
 				IEnumerable<KeyValuePair<int, SortedSet<int>>> ingredientsFromLootItems = IngredientsFromLootItems.Where(w => !ItemInfusionPowers.ContainsKey(w.Key));
 				if (ingredientsFromLootItems.Any())
-					$"{ingredientsFromLootItems.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSI().S()).JoinList(", ")}").S(GameMessageTextID.IngredientsFromLootItemsNotincluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT_WE(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+					$"{ingredientsFromLootItems.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSI().S()).JoinList(", ")}").S(GameMessageTextID.IngredientsFromLootItemsNotincluded.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 			}
 
 			HashSet<string> ignoredList = new();
 			IEnumerable<int> weaponsNotSetup = WeaponsList.Where(t => !allWeaponRecipies.ContainsKey(t) && !ItemInfusionPowers.ContainsKey(t) && !ignoredList.Contains(t.CSI().Name));
 			if (weaponsNotSetup.Any())
-				$"{weaponsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S(GameMessageTextID.WeaponInfusionPowersNotSetup.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT_WE(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+				$"{weaponsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S(GameMessageTextID.WeaponInfusionPowersNotSetup.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 
 			IEnumerable<int> ingredientsNotSetup = WeaponCraftingIngredients.Where(t => !ItemInfusionPowers.ContainsKey(t) && !ignoredList.Contains(t.CSI().Name));
 			if (ingredientsNotSetup.Any())
-				$"{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S(GameMessageTextID.IngredientInfusionPowersNotSetup.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT_WE(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+				$"{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S(GameMessageTextID.IngredientInfusionPowersNotSetup.ToString().Lang_WE(L_ID1.GameMessages))}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 
 			//if (Debugger.IsAttached) $"{ItemInfusionPowers.OrderBy(p => p.Value).StringList((p) => $"{p.Key.CSI().S()}: {p.Value}", "ItemInfusionPowers")}".LogSimple();
 		}
@@ -3807,7 +3807,7 @@ namespace WeaponEnchantments.Common
 				float value = item.value;
 				int infusionPower = GuessOreInfusionPower(requiredPickaxePower, value);
 				ItemInfusionPowers.Add(itemType, infusionPower);
-				$"{GameMessageTextID.OreInfusionPowerNotSetup.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() })} {infusionPower}".LogNT_WE(ChatMessagesIDs.OreInfusionPowerNotSetup);
+				$"{GameMessageTextID.OreInfusionPowerNotSetup.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() })} {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
 			}
 
 			//if (Debugger.IsAttached) $"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();
@@ -3840,7 +3840,7 @@ namespace WeaponEnchantments.Common
 					foreach (Item ingredientItem in recipe.requiredItem) {
 						int ingredientType = ingredientItem.type;
 						if (recursionCounter > 100)
-							$"|ingredient {ingredientType.CSI().S()}| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}, {recipe.requiredTile.Select(tile => GenericGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).StringList(i => i.CSI().S(), "tiles")}".LogSimple_WE();
+							$"|ingredient {ingredientType.CSI().S()}| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}, {recipe.requiredTile.Select(tile => GenericGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).StringList(i => i.CSI().S(), "tiles")}".LogSimple();
 
 						if (TryGetAllCraftingIngredientTypes(ingredientType, out HashSet<HashSet<int>> ingredientTypes)) {
 							requiredItemTypes.CombineHashSet(ingredientTypes);
@@ -3856,7 +3856,7 @@ namespace WeaponEnchantments.Common
 					foreach (Item requiredTileItem in recipe.requiredTile.Select(tile => GenericGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).Select(type => type.CSI())) {
 						int requiredTileItemType = requiredTileItem.type;
 						if (recursionCounter > 100)
-							$"|tile {requiredTileItemType.CSI().S()}| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}, {recipe.requiredTile.Select(tile => GenericGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).StringList(i => i.CSI().S(), "tiles")}".LogSimple_WE();
+							$"|tile {requiredTileItemType.CSI().S()}| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}, {recipe.requiredTile.Select(tile => GenericGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).StringList(i => i.CSI().S(), "tiles")}".LogSimple();
 
 						if (TryGetAllCraftingIngredientTypes(requiredTileItemType, out HashSet<HashSet<int>> tileIngredientTypes)) {
 							requiredItemTypes.CombineHashSet(tileIngredientTypes);
@@ -4080,7 +4080,7 @@ namespace WeaponEnchantments.Common
 						WeaponInfusionPowers.Add(weaponType, infusionPowerSource);
 					}
 					else {
-						$"{GameMessageTextID.FailedToFindInfusionPower.ToString().Lang_WE(L_ID1.GameMessages)} {weaponType.CSI().S()}".LogSimple_WE();
+						$"{GameMessageTextID.FailedToFindInfusionPower.ToString().Lang_WE(L_ID1.GameMessages)} {weaponType.CSI().S()}".LogSimple();
 					}
 				}
 			}
@@ -4138,7 +4138,7 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (npcs || items)
-				$"stringToConvert:\n{stringToConvert}".LogSimple_WE();
+				$"stringToConvert:\n{stringToConvert}".LogSimple();
 		}
 		private static void ClearSetupData() {
 			progressionGroups.Clear();
@@ -4203,10 +4203,10 @@ namespace WeaponEnchantments.Common
 				int result = GuessOreInfusionPower(pair.pickPower, pair.value);
 				int expectedResult = pair.expectedResult;
 				if (result == expectedResult) {
-					$"Test_GetOreInfusionPower {i} Successful, pickPower: {pair.pickPower}, value: {pair.value}, expectedInfusionPower: {expectedResult}".LogSimple_WE();
+					$"Test_GetOreInfusionPower {i} Successful, pickPower: {pair.pickPower}, value: {pair.value}, expectedInfusionPower: {expectedResult}".LogSimple();
 				}
 				else {
-					$"Test_GetOreInfusionPower {i} Failed, pickPower: {pair.pickPower}, value: {pair.value}, expectedInfusionPower: {expectedResult}, infusionPower: {result}".LogSimple_WE();
+					$"Test_GetOreInfusionPower {i} Failed, pickPower: {pair.pickPower}, value: {pair.value}, expectedInfusionPower: {expectedResult}, infusionPower: {result}".LogSimple();
 				}
 
 				i++;

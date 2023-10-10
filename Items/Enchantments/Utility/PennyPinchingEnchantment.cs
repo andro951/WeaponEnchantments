@@ -34,7 +34,14 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	{
 		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.EyeofCthulhu)
+			new(NPCID.KingSlime)
+		};
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+		};
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f)
 		};
 	}
 	[Autoload(false)]

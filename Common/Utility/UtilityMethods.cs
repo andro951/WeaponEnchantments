@@ -248,64 +248,8 @@ namespace WeaponEnchantments.Common.Utility
 				if (consumedItem.NullOrAir())
 					return;
 
-				GameMessageTextID.FailedConvertExcessExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), consumedItem.S() }).LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);// $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);
+				GameMessageTextID.FailedConvertExcessExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), consumedItem.S() }).LogNT(ChatMessagesIDs.FailedCheckConvertExcessExperience);// $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);
             }
-        }
-        public static int GetOneFromWeightedList(this IEnumerable<WeightedPair> options, float chance) {
-            if (options.Count() == 0)
-                return 0;
-
-            if (chance <= 0f)
-                return 0;
-
-            if (chance > 1f)
-                chance = 1f;
-
-            float randFloat = Main.rand.NextFloat();
-            if (randFloat <= chance) {
-                float total = 0f;
-                foreach (WeightedPair pair in options) {
-                    total += pair.Weight;
-                }
-
-                total *= randFloat / chance;
-
-                foreach (WeightedPair pair in options) {
-                    total -= pair.Weight;
-                    if (total <= 0f)
-                        return pair.ID;
-                }
-            }
-
-            return 0;
-        }
-        public static int GetOneFromWeightedList(this IEnumerable<DropData> options, float chance) {
-            if (options.Count() == 0)
-                return 0;
-
-            if (chance <= 0f)
-                return 0;
-
-            if (chance > 1f)
-                chance = 1f;
-
-            float randFloat = Main.rand.NextFloat();
-            if (randFloat <= chance) {
-                float total = 0f;
-                foreach (DropData pair in options) {
-                    total += pair.Weight;
-                }
-
-                total *= randFloat / chance;
-
-                foreach (DropData pair in options) {
-                    total -= pair.Weight;
-                    if (total <= 0f)
-                        return pair.ID;
-                }
-            }
-
-            return 0;
         }
         
         public static string Lang_WE(this string s, L_ID1 id = L_ID1.Tooltip) => s.Lang_WE(out string result, id) ? result : "";
@@ -511,30 +455,6 @@ namespace WeaponEnchantments.Common.Utility
             
             return newList;
 		}
-		public static Type TypeAboveModItem(this Item item) {
-			if (item == null)
-				return null;
-
-			ModItem modItem = item.ModItem;
-			if (modItem == null)
-				return null;
-
-			return modItem.TypeBeforeModItem();
-		}
-		public static Type TypeBeforeModItem(this ModItem modItem) {
-            Type type = modItem.GetType();
-            bool foundListUniqueType = false;
-            while (!foundListUniqueType) {
-                if (type.BaseType == typeof(WEModItem) || type.BaseType.BaseType != typeof(WEModItem) && type.BaseType == typeof(ModItem) ) {
-                    foundListUniqueType = true;
-                }
-                else {
-                    type = type.BaseType;
-                }
-            }
-
-            return type;
-        }
 
         #endregion
     }

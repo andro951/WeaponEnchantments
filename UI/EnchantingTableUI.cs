@@ -1415,7 +1415,7 @@ namespace WeaponEnchantments.UI
 					return;
 
 				if (wePlayer.infusionConsumeItem == null) {
-					GameMessageTextID.InfusionConsumeItemWasNull.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);// $"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+					GameMessageTextID.InfusionConsumeItemWasNull.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError);// $"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 				}
 
 				if (wePlayer.infusionConsumeItem.IsAir) {
@@ -1467,7 +1467,7 @@ namespace WeaponEnchantments.UI
 						wePlayer.infusionConsumeItem = new();
 					}
 					else {
-						GameMessageTextID.TryInfuseFailed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);//$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+						GameMessageTextID.TryInfuseFailed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError);//$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 					}
 				}
 			}
@@ -1477,7 +1477,7 @@ namespace WeaponEnchantments.UI
 				wePlayer.infusionConsumeItem = new();
 			}
 			else if (!tableItem.IsAir) {
-				GameMessageTextID.NotEnchantableAndNotAirInfusionItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError); //$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+				GameMessageTextID.NotEnchantableAndNotAirInfusionItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError); //$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
 			}
 		}
 		private static void LevelUp() {

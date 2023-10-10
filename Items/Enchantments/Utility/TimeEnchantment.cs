@@ -123,16 +123,19 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	{
 		public override SellCondition SellCondition => SellCondition.Never;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.Pixie),
-			new(NPCID.Wraith),
-			new(NPCID.Mummy)
+			new(NPCID.Pixie, chance: 0.02f),
+			new(NPCID.Wraith, chance: 0.05f),
+			new(NPCID.Mummy, chance: 0.15f),
+			new(NPCID.BloodMummy, chance: 0.15f),
+			new(NPCID.DarkMummy, chance: 0.15f),
+			new(NPCID.LightMummy, chance: 0.15f),
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Skyware, chance: 1f)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Sky),
-			new(CrateID.Azure_SkyHard)
+			new(CrateID.Sky, 0.5f),
+			new(CrateID.Azure_SkyHard, 0.5f)
 		};
 	}
 	[Autoload(false)]

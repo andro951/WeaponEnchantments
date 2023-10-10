@@ -28,14 +28,14 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.WallofFlesh)
+			new(NPCID.WallofFlesh, 2f)
 		};
 		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Shadow, 0.1f),
-			new(ChestID.Shadow_Locked, 0.1f)
+			new(ChestID.Shadow, chance: 0.2f),
+			new(ChestID.Shadow_Locked, chance: 0.2f)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Obsidian_LockBox, 0.05f)
+			new(CrateID.Obsidian_LockBox, chance: 0.1f)
 		};
 	}
 	[Autoload(false)]

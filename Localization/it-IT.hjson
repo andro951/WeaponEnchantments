@@ -10,11 +10,7 @@ Mods: {
 			Automatic: Automatico
 			Custom: Costume
 			Enchantment: Incanto
-			Expert: Esperto
-			Journey: Viaggio
-			Master: Maestro
 			NoneSelected: Nessuno selezionato
-			Normal: Normale
 
 			ArmorDamageReduction: {
 				Tooltip: Ti consente di modificare la riduzione del danno ottenuta da armature e accessori man mano che vengono livellati.
@@ -77,15 +73,6 @@ Mods: {
 					Tooltip: Visualizza i messaggi di aumento di livello dell'arma solo quando si utilizza la tabella incantatrice se questa opzione è disattivata.
 				}
 
-				DisableAllErrorMessagesInChat: {
-					Label: Disabilita tutti i messaggi di errore nella chat
-					Tooltip:
-						'''
-						Impedisce che nella chat vengano visualizzati messaggi che ti chiedono di farlo
-						Per favore segnalalo ad andro951 (Incantesimi per armi) insieme a una descrizione di ciò che stavi facendo in quel momento.
-						'''
-				}
-
 				DisplayDamageTooltipSeperatly: {
 					Label: Visualizza i danni approssimativi derivanti dagli incantesimi in un tooltip separato.
 					Tooltip:
@@ -124,24 +111,6 @@ Mods: {
 						'''
 				}
 
-				OnlyShowErrorMessagesInChatOnce: {
-					Label: Mostra i messaggi di errore nella chat solo una volta
-					Tooltip:
-						'''
-						I messaggi continueranno a essere visualizzati nella chat, ma solo una volta durante una sessione di gioco.
-						(Per essere evitato, il messaggio di errore deve essere identico al messaggio precedente.)
-						'''
-				}
-
-				PrintEnchantmentDrops: {
-					Label: Registra un elenco di fonti di rilascio di incantesimi
-					Tooltip:
-						'''
-						L'elenco viene stampato nel client.log quando entri in un mondo.
-						Il percorso predefinito di client.log è C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
 				PrintEnchantmentTooltips: {
 					Label: Registra un elenco di suggerimenti sugli incantesimi
 					Tooltip:
@@ -167,11 +136,6 @@ Mods: {
 						Invia automaticamente l'essenza dal tuo inventario agli slot dell'essenza dell'interfaccia utente.
 						(Disabilita mentre l'interfaccia utente è aperta.)
 						'''
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					Label: Usa texture alternative dell'essenza dell'incantesimo
-					Tooltip: I colori predefiniti sono adatti ai daltonici. Le texture alternative presentano piccole differenze, ma si è deciso che venissero mantenute.
 				}
 
 				UsePointsAsTooltip: {
@@ -547,7 +511,7 @@ Mods: {
 						'''
 						Gli incantesimi sulle armi sfruttano la probabilità di colpo critico oltre il 100% per consentirti di criticare di nuovo.
 						Per impostazione predefinita, questo è un bonus aggiuntivo: 1° critico 200% di danno, 2° 300% di danno, 3° 400% di danno.....
-						Abilitare questa opzione li rende invece moltiplicativi: 1° critico 200% di danno, 2° critico 400% di danno, 3° critico 400% di danno...
+						Abilitare questa opzione li rende invece moltiplicativi: 1° critico 200% di danno, 2° critico 400% di danno, 3° critico 800% di danno...
 						'''
 				}
 
@@ -659,7 +623,6 @@ Mods: {
 		GameMessages: {
 			AlreadyMaxLevel: Il tuo {0} è già al livello massimo.
 			Back: Indietro
-			BossChecklistNotEnabled: La modalità BossChecklist non è abilitata. Gli incantesimi delle armi utilizzano la lista di controllo dei boss per determinare quali boss determinano il rilascio di potenziamenti di potere dai boss modificati. Poiché la BossChecklist non è abilitata, tutti i boss modificati lasceranno cadere il normale Power Booster.
 			CannotGainAdditionalPower: Il tuo {0}({1}) non può ottenere ulteriore potere dal {2}({3}) offerto.
 			CantInfusionArmorDifferentTypes: Non è possibile infondere armature di diverso tipo, come elmo e corpo.
 			CongradulationsMaxLevel: Congratulazioni! {1} di {0} ha raggiunto il livello massimo, {2} ({3} xp).
@@ -669,7 +632,6 @@ Mods: {
 			DetectedNonEnchantmentInEnchantmentSlot: Rilevato un oggetto non-incantesimo:{0} sul tuo {1}. È stato restituito al tuo inventario.
 			EnchantmentNoLongerAllowed: "{0} non è più consentito su {1} ed è stato rimosso dal tuo {2}."
 			FailedConvertExcessExperience: Impossibile effettuare CheckConvertExcessExperience(elemento: {0}, elemento consumato: {1})
-			FailedDetermineProgression: Impossibile determinare la progressione di Wall of Flesh e Plantera da BossChecklistData
 			FailedFindBossBag: Impossibile trovare la borsa del boss per il capo:
 			FailedFindItemDropsForGroup: Impossibile trovare oggetti rilasciati per oggetti bottino per il gruppo
 			FailedInfuseItem: Impossibile inserire l'oggetto: {0} con l'oggetto consumato: {1}
@@ -696,7 +658,6 @@ Mods: {
 			ItemTooLowLevel: Il tuo livello {0} è troppo basso per usare così tanti incantesimi.
 			LogInfusionPowerLabels: Mod, Arma, Potenza dell'infusione, Valore Rarità, Rarità, Rarità originale, Valore, ID oggetto, Danno, Tempo di utilizzo, DPS
 			LogInfusionPowerOtherLabels: Rarità, Media, Min, Max
-			MainUpdateCount: Conteggio degli aggiornamenti del gioco principale: {0}
 			MultipleUniqueEnchantments: Sono stati rilevati più incantesimi unici sul tuo {0}. {1} è stato rimosso dal tuo {2}.
 			MurasamaNoInfusion: Murasama non può essere consumato per infusione.
 			NewItemIsAir: newItem era aria.
@@ -727,13 +688,11 @@ Mods: {
 			PreventedWitchShopDuplication: Prevenuto un problema che avrebbe aggiunto un oggetto duplicato all'oggetto del negozio della strega:
 			RemovedEnchantedItemData: Dati EnchantedItem rimossi dall'articolo: {0}, conteggio: {1}, nuovo conteggio: {2}
 			RemovedUnloadedEnchantmentFromItem: Oggetto scaricato rimosso:{0} dal tuo {1}. Informa andro951(WeaponEnchantments).
-			ReportErrorToAndro: Per favore segnalalo ad andro951 (Incantesimi per armi) insieme a una descrizione di ciò che stavi facendo in quel momento.
 			RerollEnchantment: Rilancia Incantesimo
 			ResistsYourAttemptToEmpower: Il {0} ha resistito al tuo tentativo di potenziarlo.
 			SameSetBonusNoEffect: L'oggetto da potenziare ha lo stesso bonus del set dell'oggetto da consumare e non avrà alcun effetto.
 			SlotNumDisabledByConfig: Slot {0} disabilitato dalla configurazione. Rimosso {1} dal tuo {2}.
 			TryInfuseFailed: TryInfuseItem non riuscito, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
-			UnableDetermineNPCDropsBossBag: Impossibile determinare l'NPC che rilascia questa borsa del boss:
 			WeaponInfusionPowersNotSetup: I poteri di infusione delle armi non sono impostati
 			WitchChatText: Che cosa vuoi di più? Sono occupato.
 			WitchEnchantmentRerolText: Immagino che potrei provare a migliorare i tuoi incantesimi, ma senza rimborsi o reclami.
@@ -1637,37 +1596,37 @@ Mods: {
 			}
 		}
 
-		NPCs: {
-			Witch: {
-				TownNPCMood: {
-					// LikeNPC_Princess: I like {NPCName}.
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// Princess_LovesNPC: I like {NPCName}.
-				}
-
-				// DisplayName: Witch
-			}
+		Tiles: {
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 
-		Tiles: {
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+		NPCs: {
+			Witch: {
+				// DisplayName: Witch
+
+				TownNPCMood: {
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
+				}
+			}
 		}
 	}
 }

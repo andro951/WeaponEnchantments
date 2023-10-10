@@ -36,7 +36,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(NPCID.QueenBee)
 		};
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Spider)
+			new(NPCAIStyleID.Spider, 4f)
 		};
 		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Oasis, 0.5f),

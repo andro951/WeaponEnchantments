@@ -23,7 +23,7 @@ using WeaponEnchantments.ModIntegration;
 using WeaponEnchantments.ModLib.KokoLib;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Common.Globals.EnchantedWeaponStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
@@ -176,7 +176,7 @@ namespace WeaponEnchantments.Common.Globals
                     clone = enchantedItem;
                 }
                 else {
-					GameMessageTextID.FailedToCloneItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), itemClone.S(), cloneReforgedItem.S(), resetGlobals.S() }).LogNT_WE(ChatMessagesIDs.CloneFailGetEnchantedItem);// $"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}.".LogNT_WE(ChatMessagesIDs.CloneFailGetEnchantedItem);
+					GameMessageTextID.FailedToCloneItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), itemClone.S(), cloneReforgedItem.S(), resetGlobals.S() }).LogNT(ChatMessagesIDs.CloneFailGetEnchantedItem);
                     return this;
                 }
 
@@ -246,7 +246,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
 
             #endregion
 
@@ -287,7 +287,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\LoadData(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"/\\LoadData(" + item.Name + ")").Log();
 
             #endregion
         }
@@ -328,7 +328,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/NetSend(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"\\/NetSend(" + item.Name + ")").Log();
 
 			#endregion
 
@@ -339,7 +339,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log_WE();
+                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
                 #endregion
             }
@@ -366,7 +366,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\NetSend(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"/\\NetSend(" + item.Name + ")").Log();
 
 			#endregion
 		}
@@ -380,7 +380,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/NetRecieve(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"\\/NetRecieve(" + item.Name + ")").Log();
 
 			#endregion
 
@@ -391,7 +391,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log_WE();
+                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
                 #endregion
             }
@@ -419,7 +419,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log();
 
 			#endregion
 		}
@@ -577,7 +577,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //xp < 0 return
             if (xpInt < 0) {
-				GameMessageTextID.PreventedLoosingExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);//$"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);
+				GameMessageTextID.PreventedLoosingExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT(ChatMessagesIDs.GainXPPreventedLoosingExperience);//$"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);
 
 				return;
             }
@@ -660,7 +660,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"\\/PreReforge({item.S()})").Log_WE();
+			if (LogMethods.debugging) ($"\\/PreReforge({item.S()})").Log();
 
             #endregion
 
@@ -675,10 +675,10 @@ namespace WeaponEnchantments.Common.Globals
                     foreach (Item enchantment in enchantedItem.enchantments.All) {
                         s += enchantment.S();
                     }
-                    s.Log_WE();
+                    s.Log();
                 }
 
-                ($"/\\PreReforge({item.S()})").Log_WE();
+                ($"/\\PreReforge({item.S()})").Log();
             }
 
 			#endregion
@@ -687,7 +687,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/PostReforge({item.S()})").Log_WE();
+            if (LogMethods.debugging) ($"\\/PostReforge({item.S()})").Log();
 
             #endregion
 
@@ -712,7 +712,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\PostReforge({item.S()})").Log_WE();
+            if (LogMethods.debugging) ($"/\\PostReforge({item.S()})").Log();
 
             #endregion
         }
@@ -968,7 +968,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log_WE();
+			if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
 
 			#endregion
 
@@ -989,7 +989,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log_WE();
+			if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
 
 			#endregion
 		}
@@ -1013,7 +1013,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/DamageNPC").Log_WE();
+            if (LogMethods.debugging) ($"\\/DamageNPC").Log();
 
             #endregion
 
@@ -1079,7 +1079,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             if(lowDamagePerHitXPBoost < 1f) {
-				GameMessageTextID.PreventedIssueLooseExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, target.defense, xpDamage, lowDamagePerHitXPBoost }).LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);// ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " + $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" + $"target.defense: {target.defense}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}").LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);
+				GameMessageTextID.PreventedIssueLooseExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, target.defense, xpDamage, lowDamagePerHitXPBoost }).LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);// ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " + $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" + $"target.defense: {target.defense}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}").LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);
                 lowDamagePerHitXPBoost = 1f;
 			}
 
@@ -1088,7 +1088,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Reduction Factor (Life Max)
             int lifeMax = target.RealLifeMax();
-            float reductionFactor = GetReductionFactor(lifeMax);
+            float reductionFactor = androLib.Common.Globals.NPCStaticMethods.GetReductionFactor(lifeMax);
             xp /= reductionFactor;
 
             //XP <= 0 check
@@ -1097,7 +1097,7 @@ namespace WeaponEnchantments.Common.Globals
                 xpInt = 1;
             }
             else if (xpInt < 0) {
-                GameMessageTextID.PreventedIssueLooseExperienceTwo.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, xpDamage, xpInt, lowDamagePerHitXPBoost }).LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);// ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, ").LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
+                GameMessageTextID.PreventedIssueLooseExperienceTwo.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, xpDamage, xpInt, lowDamagePerHitXPBoost }).LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);// ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, ").LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
                 xpInt = 1;
             }
 
@@ -1111,7 +1111,7 @@ namespace WeaponEnchantments.Common.Globals
 			#region Debug
 
             debugBeforeReturn:
-			if (LogMethods.debugging) ($"/\\DamageNPC").Log_WE();
+			if (LogMethods.debugging) ($"/\\DamageNPC").Log();
 
             #endregion
         }
