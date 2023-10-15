@@ -1052,7 +1052,6 @@ namespace WeaponEnchantments.Common
 		}
 	}
 	public static class InfusionProgression {
-		public static int vanillaRecipeCount = -1;//Set by WEMod.Load()
 		private static bool finishedSetup = false;
 		private static bool finishedRecipeSetup = false;
 		public static SortedDictionary<int, InfusionPowerSource> WeaponInfusionPowers { get; private set; } = new();//Not cleared
@@ -1182,8 +1181,8 @@ namespace WeaponEnchantments.Common
 					if (!otherRequiredItemTypes.Contains(createItemType))
 						continue;
 
-					bool modRecipe = recipe.Key >= vanillaRecipeCount;
-					bool otherModRecipe = otherRecipe.Key >= vanillaRecipeCount;
+					bool modRecipe = recipe.Key >= AndroMod.VanillaRecipeCount;
+					bool otherModRecipe = otherRecipe.Key >= AndroMod.VanillaRecipeCount;
 					bool isWeapon = WeaponsList.Contains(createItemType);
 					bool otherIsWeapon = WeaponsList.Contains(otherCreateItemType);
 					bool reverse = isWeapon ? modRecipe ? otherIsWeapon && createItemType <= otherCreateItemType /* && recipeNumbersByCraftedItem[createItemType].Count <= recipeNumbersByCraftedItem[otherCreateItemType].Count */: !otherModRecipe : modRecipe || !otherModRecipe;
@@ -3829,7 +3828,7 @@ namespace WeaponEnchantments.Common
 			if (!createItemTypesAlreadyBeingProcessed.Contains(createItemType) && (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType))) {
 				createItemTypesAlreadyBeingProcessed.Add(createItemType);
 				//IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType);//TODO: troubleshoot, Goes infinite with Calamity.  
-				IEnumerable<int> recipeNumbers = Main.recipe.Select((r, index) => index).Where(index => Main.recipe[index].createItem.type == createItemType && (Main.recipe[index].createItem.type > ItemID.Count || index <= vanillaRecipeCount));
+				IEnumerable<int> recipeNumbers = Main.recipe.Select((r, index) => index).Where(index => Main.recipe[index].createItem.type == createItemType && (Main.recipe[index].createItem.type > ItemID.Count || index <= AndroMod.VanillaRecipeCount));
 				HashSet<HashSet<HashSet<int>>> requiredItemTypeLists = new();
 				foreach (int recipeNum in recipeNumbers) {
 					Recipe recipe = Main.recipe[recipeNum];

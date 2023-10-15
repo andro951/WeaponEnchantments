@@ -59,7 +59,6 @@ namespace WeaponEnchantments
 		public override void Load() {
 			AddAllContent(this);
 
-			InfusionProgression.vanillaRecipeCount = Recipe.numRecipes;
 			hooks.Add(new(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour));
 			//hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
 			//hooks.Add(new(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour));

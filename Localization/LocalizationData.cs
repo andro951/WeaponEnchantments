@@ -28,11 +28,15 @@ using System.Diagnostics.Metrics;
 using static WeaponEnchantments.Common.Configs.ClientConfig;
 using static WeaponEnchantments.Common.Configs.ServerConfig;
 using static WeaponEnchantments.Common.Configs.PresetData;
+using Terraria.ID;
 
 namespace WeaponEnchantments.Localization
 {
 	public class LocalizationData {
 		public static void RegisterSDataPackage() {
+			if (Main.netMode == NetmodeID.Server)
+				return;
+
 			AndroLogModSystem.RegisterModLocalizationSDataPackage(new(ModContent.GetInstance<WEMod>, () => AllData, () => ChangedData, () => RenamedKeys, () => RenamedFullKeys, () => SameAsEnglish));
 		}
 

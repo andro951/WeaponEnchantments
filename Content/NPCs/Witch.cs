@@ -274,6 +274,9 @@ namespace WeaponEnchantments.Content.NPCs
 				return;
 
 			if (item.ModItem is ISoldByNPC soldByNPC && soldByNPC.SellCondition > SellCondition.Always) {
+				if (soldByNPC is SuperiorContainment)
+					return;
+
 				item.value = item.type.CSI().value;
 				for (int i = 0; i < shopInventory.Length; i++) {
 					ref Item shopItem = ref shopInventory[i];
