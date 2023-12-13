@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects.CustomEffects
@@ -24,6 +25,6 @@ namespace WeaponEnchantments.Effects.CustomEffects
         }
 
         public override EnchantmentStat statName => EnchantmentStat.KiRegen;
-        public override string TooltipValue => $"+{Math.Ceiling((EStatModifier.ApplyTo(0) * 60) / 3)}";
+        public override string TooltipValue => $"+{(EStatModifier.ApplyTo(0) / 100f).S(2)}";
     }
 }

@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments
             Effects = new()
             {
                 new MaxKi(@base: EnchantmentStrengthData),
-                new KiRegen(@base: EnchantmentStrengthData / 100 - 1)
+                new KiRegen(@base: EnchantmentStrengthData / 100f)
             };
         }
         public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
