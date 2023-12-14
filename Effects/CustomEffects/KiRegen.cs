@@ -25,6 +25,6 @@ namespace WeaponEnchantments.Effects.CustomEffects
         }
 
         public override EnchantmentStat statName => EnchantmentStat.KiRegen;
-        public override string TooltipValue => $"+{(EStatModifier.ApplyTo(0) / 100f).S(2)}";
+        public override string TooltipValue => $"+{(EStatModifier.Strength * 20f).S(2)}";
     }
 }

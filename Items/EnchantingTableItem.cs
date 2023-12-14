@@ -148,7 +148,6 @@ namespace WeaponEnchantments.Items
 		}
 		public override bool CanRightClick() => !ItemSlot.ShiftInUse;
 		public override void RightClick(Player player) {
-			Item.stack++;
 			WEPlayer wePlayer = player.GetWEPlayer();
 			int x;
 			int y;
@@ -162,6 +161,9 @@ namespace WeaponEnchantments.Items
 			}
 
 			EnchantingTableTile.RightClickEnchantingTable(x, y, enchantingTableTier);
+		}
+		public override bool ConsumeItem(Player player) {
+			return false;
 		}
 	}
 
