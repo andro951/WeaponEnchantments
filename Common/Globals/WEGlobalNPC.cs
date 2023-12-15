@@ -63,6 +63,7 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override void Load() {
             IL_Projectile.Damage += HookDamage;
+            AndroGlobalNPC.GetLootActions += GetWELoot;
         }
         private static void HookDamage(ILContext il) {
             bool debuggingHookDamage = false;
@@ -114,7 +115,7 @@ namespace WeaponEnchantments.Common.Globals
 				}
 			});
 		}
-		public override void GetLoot(ILoot loot, NPC npc, float hp, float value, float total, bool boss, bool bossBag = false) {
+		private void GetWELoot(ILoot loot, NPC npc, float hp, float value, float total, bool boss, bool bossBag = false) {
 			if (total <= 0f)
 				return;
 
