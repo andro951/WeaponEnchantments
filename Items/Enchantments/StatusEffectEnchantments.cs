@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 13;
 		public override float ScalePercent => 0.1f;
 		public override int LowestCraftableTier => 0;
-		public override float CapacityCostMultiplier => 1;
+		public override float CapacityCostMultiplier => CapacityCostUtility;
         public override bool Max1 => true;
 		public abstract short StatusEffect { get; }
 		public virtual Tuple<int, int> CraftingIngredient { get; } = null;
@@ -158,7 +158,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class DaybreakEnchantment : StatusEffectEnchantment
 	{
-		public override float CapacityCostMultiplier => 2;
+		public override float CapacityCostMultiplier => CapacityCostNormal;
 
 		public override short StatusEffect => BuffID.Daybreak;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.FragmentSolar, 6);

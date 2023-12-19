@@ -36,6 +36,7 @@
 	  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\Utility\LogSystem\WeaponEnchantmentsWiki_TXT\" />
     <Folder Include="Effects\CustomBoolEffects\" />
     <Folder Include="ModLib\KokoLib\KokoLibSourceFiles\Emitters\" />
 	<Folder Include="NPCs\" />

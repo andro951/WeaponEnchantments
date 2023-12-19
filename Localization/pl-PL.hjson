@@ -931,6 +931,11 @@ Mods: {
 			LavaFishingEnchantmentEpic.DisplayName: Epickie zaklęcie do połowów lawy
 			LavaFishingEnchantmentLegendary.DisplayName: Legendarne zaklęcie do połowu lawy
 			LavaFishingEnchantmentRare.DisplayName: Zaklęcie łowienia lawy Rzadkie
+			LethalCombinationEnchantmentBasic.DisplayName: Podstawowe zaklęcie Zabójczej Kombinacji
+			LethalCombinationEnchantmentCommon.DisplayName: Zabójcza kombinacja Zaklęć Powszechna
+			LethalCombinationEnchantmentEpic.DisplayName: Epicka Zabójcza Kombinacja Zaklęć
+			LethalCombinationEnchantmentLegendary.DisplayName: Legendarne zaklęcie śmiercionośnej kombinacji
+			LethalCombinationEnchantmentRare.DisplayName: Zaklęcie Zabójczej Kombinacji Rzadkie
 			LifeRegenEnchantmentBasic.DisplayName: Podstawowe zaklęcie regeneracji życia
 			LifeRegenEnchantmentCommon.DisplayName: Zwykłe zaklęcie regeneracji życia
 			LifeRegenEnchantmentEpic.DisplayName: Epicki zaklęcie regeneracji życia
@@ -1347,6 +1352,7 @@ Mods: {
 				KiDamage: Obrażenia Ki
 				KiRegen: Ki Regen
 				LavaFishing: Wędkarstwo lawowe
+				LethalCombination: Zabójcza kombinacja
 				LifeRegen: Regeneracja życia
 				LifeRegeneration: Regeneracja życia
 				LifeSteal: Kradzież życia

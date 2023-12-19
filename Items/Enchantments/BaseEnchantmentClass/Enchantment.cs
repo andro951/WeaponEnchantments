@@ -41,7 +41,7 @@ namespace WeaponEnchantments.Items
 		}
 
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
-			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
+			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.16f, 0.28f, 0.40f }),
 			new EnchantmentStrengths(new float[] { 0.00f, 0.04f, 0.04f, 0.04f, 0.24f }),
 			new EnchantmentStrengths(new float[] { 1.2f, 1.4f, 1.6f, 1.8f, 2f }),
 			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 5f, 10f }),
@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Items
 			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }),
 			new EnchantmentStrengths(new float[] { 0.2f, 0.4f, 0.6f, 0.8f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }),
-			new EnchantmentStrengths(new float[] { 0.12f, 0.16f, 0.20f, 0.25f, 0.32f }),
+			new EnchantmentStrengths(new float[] { 0.12f, 0.16f, 0.20f, 0.26f, 0.32f }),
 			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }),
 			new EnchantmentStrengths(new float[] { 0.8f, 0.6f, 0.4f, 0.2f, 0f }),
@@ -66,7 +66,9 @@ namespace WeaponEnchantments.Items
 			new EnchantmentStrengths(new float[] { 0.8f, 1.6f, 2.4f, 3.2f, 4f }),
 			new EnchantmentStrengths(new float[] { 1.2f, 1.28f, 1.36f, 1.42f, 1.5f }),
 			new EnchantmentStrengths(new float[] { 100f, 150f, 200f, 250f, 300f }),
-			new EnchantmentStrengths(new float[] { 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f })
+			new EnchantmentStrengths(new float[] { 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f }),
+			new EnchantmentStrengths(new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.12f }),
+			new EnchantmentStrengths(new float[] { 12f, 16f, 24f, 32f, 40f })
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly uint defaultBuffDuration = 60;
@@ -90,7 +92,7 @@ namespace WeaponEnchantments.Items
 		/// Sets the EnchantmentStrengths for the enchantment.<br/>
 		/// Example: LifeSteal is StrengthGroup 5.  Tier 1 Lifesteal's Enchantment strength is 0.01f.<br/><br/>
 		/// <list>
-		/// <term>0</term><description>{ 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }</description><br/>
+		/// <term>0</term><description>{ 0.04f, 0.08f, 0.16f, 0.28f, 0.40f }</description><br/>
 		/// <term>1</term><description>{ 0.00f, 0.04f, 0.06f, 0.06f, 0.15f }</description><br/>
 		/// <term>2</term><description>{ 1.2f, 1.4f, 1.6f, 1.8f, 2f }</description><br/>
 		/// <term>3</term><description>{ 1f, 2f, 3f, 5f, 10f }</description><br/>
@@ -102,7 +104,7 @@ namespace WeaponEnchantments.Items
 		/// <term>9</term><description>{ 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }</description><br/>
 		/// <term>10</term><description>{ 0.2f, 0.4f, 0.6f, 0.8f, 1f }</description><br/>
 		/// <term>11</term><description>{ 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }</description><br/>
-		/// <term>12</term><description>{ 0.14f, 0.18f, 0.22f, 0.26f, 0.30f }</description><br/>
+		/// <term>12</term><description>{ 0.12f, 0.16f, 0.20f, 0.26f, 0.32f }</description><br/>
 		/// <term>13</term><description>{ 0.8f, 0.85f, 0.90f, 0.95f, 1f }</description><br/>
 		/// <term>14</term><description>{ 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }</description><br/>
 		/// <term>15</term><description>{ 0.8f, 0.6f, 0.4f, 0.2f, 0f }</description><br/>
@@ -116,6 +118,8 @@ namespace WeaponEnchantments.Items
 		/// <term>23</term><description>{ 1.2f, 1.28f, 1.36f, 1.42f, 1.5f }</description><br/>
 		/// <term>24</term><description>{ 100f, 150f, 200f, 250f, 300f }</description><br/>
 		/// <term>25</term><description>{ 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f }</description><br/>
+		/// <term>26</term><description>{ 0.02f, 0.04f, 0.06f, 0.08f, 0.12f }</description><br/>
+		/// <term>27</term><description>{ 12f, 16f, 24f, 32f, 40f }</description><br/>
 		/// </list>
 		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;
@@ -164,9 +168,9 @@ namespace WeaponEnchantments.Items
 		/// Utility are 1f by default -> 1, 2, 3, 4, 5
 		/// Normal are 2f by defualt -> 2, 4, 6, 8, 10
 		/// Unique and Max1 are 3f by default -> 3, 6, 9, 12, 15
-		/// Note: The null value I chose for this is -13.13f  That value will cause the defaults above to occur.
+		/// Note: The null value I chose for this is == CapacityCostDefault (-13.13f)  That value will cause the defaults above to occur.
 		/// </summary>
-		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
+		public virtual float CapacityCostMultiplier { private set; get; } = CapacityCostDefault;
 		private EItemType itemTypeAppliedOn = EItemType.None;
 		public EItemType ItemTypeAppliedOn {
 			get => itemTypeAppliedOn;
@@ -243,10 +247,29 @@ namespace WeaponEnchantments.Items
 		/// -4 would cause the value of the enchantment to be almost zero.<br/>
 		/// </summary>
 		public virtual int EnchantmentValueTierReduction { protected set; get; } = 0;
+		public const int EssenceMultiplierUtility = 1;
+		public const int EssenceMultiplierNormal = 2;
+		public virtual int EssenceMultiplier => IngredientEnchantments == null ? essenceMultiplier : GetEssenceMultiplierIncludingIngredientEnchantments();
+		private int essenceMultiplier => Utility ? EssenceMultiplierUtility : EssenceMultiplierNormal;
+		public const int BaseEssenceQuantity = 5;
+		public int EssenceQuantity => BaseEssenceQuantity * essenceMultiplier;
+		public int EssenceQuantityWithIngredientEnchantments => BaseEssenceQuantity * EssenceMultiplier;
+
+		private int GetEssenceMultiplierIncludingIngredientEnchantments() {
+			int multiplier = essenceMultiplier;
+			if (IngredientEnchantments != null) {
+				foreach (Item item in IngredientEnchantments.Select(i => new Item(i))) {
+					if (item.ModItem is Enchantment enchantment)
+						multiplier += enchantment.EssenceMultiplier;
+				}
+			}
+
+			return multiplier;
+		}
 
 		/// <summary>
 		/// Default 1<br/>
-		/// Acceptable Range 1 to 5<br/><br/>
+		/// Acceptable Range 0 to 5<br/><br/>
 		/// <list>
 		/// <term>0</term><description>All tiers are craftable.</description><br/>
 		/// <term>1</term><description>Tier 1 and above are craftable.</description><br/>
@@ -256,7 +279,13 @@ namespace WeaponEnchantments.Items
 		/// <term>5</term><description>No tiers are craftable.</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int LowestCraftableTier { protected set; get; } = 1;
+		public virtual int LowestCraftableTier => HasIngredientEnchantments ? 1 : 1;//Separated only in case one of them changes
+
+		/// <summary>
+		/// This list should be the list of tier 0 enchantments that are used in the creation of this enchantment.<br/>
+		/// </summary>
+		public virtual List<int> IngredientEnchantments => null;
+		public bool HasIngredientEnchantments => IngredientEnchantments != null && IngredientEnchantments.Count > 0;
 
 		/// <summary>
 		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
@@ -439,6 +468,14 @@ namespace WeaponEnchantments.Items
 			base.SetStaticDefaults();
 		}
 		private void GetDefaults() {
+			//Check Utility
+			if (GetType().Namespace.GetFolderName() == "Utility")
+				Utility = true;
+
+			//Check Unique
+			if (GetType().Namespace.GetFolderName() == "Unique")
+				Unique = true;
+
 			//Item rarity
 			Item.rare = GetRarityFromTier(EnchantmentTier);
 
@@ -460,9 +497,8 @@ namespace WeaponEnchantments.Items
 
 			//Value - Essence
 			for (int i = 0; i <= EnchantmentTier + EnchantmentValueTierReduction; i++) {
-				int quantity = Utility ? 5 : 10;
 				int value = (int)EnchantmentEssence.values[i];
-				Item.value += value * quantity;
+				Item.value += value * EssenceQuantityWithIngredientEnchantments;
 			}
 
 			//Value - Containment/SuperiorStaibalizers
@@ -477,14 +513,6 @@ namespace WeaponEnchantments.Items
 					Item.value += ContainmentItem.Values[EnchantmentTier];
 					break;
 			}
-
-			//Check Utility
-			if (GetType().Namespace.GetFolderName() == "Utility")
-				Utility = true;
-
-			//Check Unique
-			if (GetType().Namespace.GetFolderName() == "Unique")
-				Unique = true;
 
 			SetEnchantmentStrength();
 
@@ -772,6 +800,28 @@ namespace WeaponEnchantments.Items
 			return defaultBuffDuration * ((uint)EnchantmentTier + 1);
 		}
 		public override void AddRecipes() {
+			bool hasIngredientEnchantments = HasIngredientEnchantments;
+			//Ingredient Enchantment Recipe
+			if (hasIngredientEnchantments) {
+				Recipe ingredientEnchantmentRecipe = CreateRecipe();
+				//Essence
+				ingredientEnchantmentRecipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EnchantmentTier], EssenceQuantity);
+
+				//Ingredient Enchantments
+				foreach (int ingredientEnchantment in IngredientEnchantments) {
+					Item enchantmentItem = new Item(ingredientEnchantment);
+					if (enchantmentItem.ModItem is Enchantment enchantment) {
+						string typeName = enchantment.EnchantmentTypeName;
+						ingredientEnchantmentRecipe.AddIngredient(Mod, typeName + "Enchantment" + tierNames[EnchantmentTier], 1);
+					}
+				}
+
+				//Enchanting Table
+				ingredientEnchantmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[EnchantmentTier] + "EnchantingTable");
+
+				ingredientEnchantmentRecipe.Register();
+			}
+
 			for (int j = LowestCraftableTier; j <= EnchantmentTier; j++) {
 				if (!useAllRecipes && j != EnchantmentTier)
 					continue;
@@ -780,8 +830,7 @@ namespace WeaponEnchantments.Items
 
 				//Essence
 				for (int k = j; k <= EnchantmentTier; k++) {
-					int essenceNumber = Utility ? 5 : 10;
-					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
+					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], EssenceQuantityWithIngredientEnchantments);
 				}
 
 				//Enchantment
@@ -845,17 +894,35 @@ namespace WeaponEnchantments.Items
 			}
 
 			//Basic Essence Recipe
-			Recipe containmentRecipe = CreateRecipe();
+			Recipe basicEssenceRecipe = CreateRecipe();
 
 			//Basic Essence
-			containmentRecipe.createItem = new Item(ModContent.ItemType<EnchantmentEssenceBasic>(), Utility ? 5 : 10);
+			int essenceTier = hasIngredientEnchantments ? EnchantmentTier : 0;
+			ModItem essenceItem = ModContent.Find<ModItem>(WEMod.ModName, "EnchantmentEssence" + tierNames[essenceTier]);
+			basicEssenceRecipe.createItem = new(essenceItem.Type, EssenceQuantity);
 
 			//This enchantment
-			containmentRecipe.AddIngredient(Type);
+			basicEssenceRecipe.AddIngredient(Type);
+
+			//Ingredient Enchantments
+			if (hasIngredientEnchantments) {
+				//Containments from the other enchantments
+				int igredientEnchantmentCount = IngredientEnchantments.Count - 1;
+				int containmentTier = EnchantmentTier < 3 ? EnchantmentTier : 2;
+				basicEssenceRecipe.AddIngredient(Mod, ContainmentItem.sizes[containmentTier] + "Containment", igredientEnchantmentCount);
+
+				//Gems
+				if (EnchantmentTier == 3) {
+					basicEssenceRecipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyCommonGem}", 2 * igredientEnchantmentCount);
+				}
+				if (EnchantmentTier == 4) {
+					basicEssenceRecipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyRareGem}", igredientEnchantmentCount);
+				}
+			}
 
 			//Enchanting Table
-			containmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[0] + "EnchantingTable");
-			containmentRecipe.Register();
+			basicEssenceRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[0] + "EnchantingTable");
+			basicEssenceRecipe.Register();
 		}
 
 		/// <summary>
@@ -869,20 +936,26 @@ namespace WeaponEnchantments.Items
 		/// </summary>
 		/// <param name="recipe"></param>
 		protected virtual void EditTier0Recipies(Recipe recipe) { }
+
+		public const float CapacityCostDefault = -13.13f;
+		public const float CapacityCostNone = 0f;
+		public const float CapacityCostUtility = 1f;
+		public const float CapacityCostNormal = 2f;
+		public const float CapacityCostUnique = 3f;
 		public int GetCapacityCost() {
 			float multiplier;
-			if (CapacityCostMultiplier != -13.13f) {
+			if (CapacityCostMultiplier != CapacityCostDefault) {
 				//multiplier is being manually set by this enchantment
 				multiplier = CapacityCostMultiplier;
 			}
 			else {
-				multiplier = 2f;
+				multiplier = CapacityCostNormal;
 
 				if (Utility)
-					multiplier = 1f;
+					multiplier = CapacityCostUtility;
 
 				if (Unique || Max1)
-					multiplier = 3f;
+					multiplier = CapacityCostUnique;
 			}
 
 			return (int)Math.Round((1f + EnchantmentTier) * multiplier * ConfigCapacityCostMultiplier);

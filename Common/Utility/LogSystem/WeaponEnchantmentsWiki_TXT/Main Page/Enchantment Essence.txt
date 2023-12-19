@@ -1,0 +1,10 @@
+[[|Main Page]]<br/>
+Essence represents solidified experience and are automatically stored in the enchanting table interface when picked up. They can be used to...<br/>
+* [[Enchantments#Crafting and Upgrading Enchantments|Upgrade enchantments]]
+* [[Enchanting Tables#Leveling items up|Infuse it's XP value into items]]
+
+[[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (Tier 0)<br/>
+[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (Tier 1)<br/>
+[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (Tier 2)<br/>
+[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (Tier 3)<br/>
+[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (Tier 4)<br/>

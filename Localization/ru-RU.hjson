@@ -931,6 +931,11 @@ Mods: {
 			LavaFishingEnchantmentEpic.DisplayName: Зачарование "Рыбалка в лаве" (Эпическое)
 			LavaFishingEnchantmentLegendary.DisplayName: Зачарование "Рыбалка в лаве" (Легендарное)
 			LavaFishingEnchantmentRare.DisplayName: Зачарование "Рыбалка в лаве" (Редкое)
+			LethalCombinationEnchantmentBasic.DisplayName: Смертельное комбинация чар Базовый
+			LethalCombinationEnchantmentCommon.DisplayName: Смертельное комбинация чар Общий
+			LethalCombinationEnchantmentEpic.DisplayName: Смертельное комбинация чар Эпический
+			LethalCombinationEnchantmentLegendary.DisplayName: Смертельное комбинация чар Легендарный
+			LethalCombinationEnchantmentRare.DisplayName: Смертельное комбинация чар Редкий
 			LifeRegenEnchantmentBasic.DisplayName: Зачарование Регенерации Жизни Базовое
 			LifeRegenEnchantmentCommon.DisplayName: Чары Регенерации Жизни Обычный
 			LifeRegenEnchantmentEpic.DisplayName: Эпическое зачарование регенерации жизни
@@ -1347,6 +1352,7 @@ Mods: {
 				KiDamage: Ки Урон
 				KiRegen: Ки Реген
 				LavaFishing: Рыбалка в лаве
+				LethalCombination: Смертельная комбинация
 				LifeRegen: Регенерация жизни
 				LifeRegeneration: Восстановление жизни
 				LifeSteal: Похищение жизни

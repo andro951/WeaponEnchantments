@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class CriticalStrikeDamageEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 14;
-		public override float CapacityCostMultiplier => 3;
+		public override float CapacityCostMultiplier => CapacityCostUnique;
 		public override void GetMyStats() {
 			Effects = new() {
 				new CriticalStrikeDamage(additive: EnchantmentStrengthData),

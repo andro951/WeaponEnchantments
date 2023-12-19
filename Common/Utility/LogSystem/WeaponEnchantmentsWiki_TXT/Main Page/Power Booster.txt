@@ -1,0 +1,119 @@
+<div style="float:right">
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+!colspan="2" style="padding: 0px" |Power Booster
+|-
+!colspan="2" style="padding: 0px" |[[File:PowerBooster.png]]
+|-
+!colspan="2" style="padding: 0px" |Statistics
+|-
+| Type
+| [[Power Booster|Power Booster]]
+|-
+| Tooltip
+| <i>'Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.<br/>(Shift left click from your inventory or left click on item in the table with this on your cursor.)<br/>This item will be returned if the boosted item is offered.'</i>
+|-
+| [https://terraria.fandom.com/wiki/Rarity Rarity]
+| <b><span style="color:rgb(255, 200, 150);">Orange</span></b>
+|-
+| Sell
+| <span>10</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original
+|-
+| [https://terraria.fandom.com/wiki/Journey_Mode Research]
+| 1 required
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Bestiary_Boss_Enemy.png]] Obtained From
+! Entity
+! Qty.
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Eye_of_Cthulhu_%28Phase_1%29.gif/revision/latest?cb=20211114181102&format=original [https://terraria.fandom.com/wiki/Eye_of_Cthulhu Eye of Cthulhu]
+| 1
+| (2.32%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0f/Eater_of_Worlds_Head.png/revision/latest?cb=20170420010144&format=original [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds]
+| 1
+| (0.03%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0a/Eater_of_Worlds_Body.png/revision/latest?cb=20170420010209&format=original [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds]
+| 1
+| (0.03%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/92/Eater_of_Worlds_Tail.png/revision/latest?cb=20170420010233&format=original [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds]
+| 1
+| (0.04%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a3/Skeletron_Head.png/revision/latest?cb=20191003231538&format=original [https://terraria.fandom.com/wiki/Skeletron Skeletron]
+| 1
+| (2.67%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/93/King_Slime.gif/revision/latest?cb=20200523113558&format=original [https://terraria.fandom.com/wiki/King_Slime King Slime]
+| 1
+| (1.02%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fd/Wall_of_Flesh_Mouth.png/revision/latest?cb=20170422001243&format=original [https://terraria.fandom.com/wiki/Wall_of_Flesh Wall of Flesh]
+| 1
+| 3.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Retinazer_%28Second_Form%29.png/revision/latest?cb=20170421155457&format=original [https://terraria.fandom.com/wiki/Retinazer Retinazer]
+| 1
+| 6.86%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b9/Spazmatism_%28Second_Form%29.png/revision/latest?cb=20220227045610&format=original [https://terraria.fandom.com/wiki/Spazmatism Spazmatism]
+| 1
+| 7.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Skeletron_Prime.png/revision/latest?cb=20170928200428&format=original [https://terraria.fandom.com/wiki/Skeletron_Prime Skeletron Prime]
+| 1
+| 9.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/The_Destroyer_Head.png/revision/latest?cb=20150708221902&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
+| 1
+| 14.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/20/The_Destroyer_Body.png/revision/latest?cb=20150708221907&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
+| 1
+| 50.96%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b9/The_Destroyer_Tail.png/revision/latest?cb=20150708221909&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
+| 1
+| 54.6%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Queen_Bee.gif/revision/latest?cb=20200523215116&format=original [https://terraria.fandom.com/wiki/Queen_Bee Queen Bee]
+| 1
+| (3.1%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Brain_of_Cthulhu_%28First_Phase%29.gif/revision/latest?cb=20211114173255&format=original [https://terraria.fandom.com/wiki/Brain_of_Cthulhu Brain of Cthulhu]
+| 1
+| (5.18%)<br/>if config enabled
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Martian_Saucer_Core.png/revision/latest?cb=20150701010958&format=original [https://terraria.fandom.com/wiki/Martian_Saucer Martian Saucer]
+| 1
+| 3.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/11/Moon_Lord%27s_Hand.gif/revision/latest?cb=20160712053505&format=original [https://terraria.fandom.com/wiki/Moon_Lord's_Hand Moon Lord's Hand]
+| 1
+| 18.2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ec/Betsy.png/revision/latest?cb=20161117001359&format=original [https://terraria.fandom.com/wiki/Betsy Betsy]
+| 1
+| 35.49%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/79/Queen_Slime.png/revision/latest?cb=20200524022713&format=original [https://terraria.fandom.com/wiki/Queen_Slime Queen Slime]
+| 1
+| 4.17%
+|-
+| [[File:NPC_664.png]] [https://terraria.fandom.com/wiki/The_Torch_God The Torch God]
+| 1
+| 0.04%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Deerclops.png/revision/latest?cb=20211118192944&format=original [https://terraria.fandom.com/wiki/Deerclops Deerclops]
+| 1
+| (2.62%)<br/>if config enabled
+|}
+
+</div>
+[[|Main Page]]<br/>
+<br/>
+A Power Booster is a rare item obtained from defeating bosses.  Prehardmode bosses don't drop power boosters unless the config option is enabled.  It adds 10 levels to an item (These levels do not count towards the level 40 cap or give critical strike chance.).  They can only be used once per item.  To apply a power booster to an item, place the item into the enchanting table then click the power booster onto the item in the table as if you were merging two stacks of the same item.  You can also shift left click the power booster from your inventory.  Power boosters drop from boss bags in Expert/Master mode at the same rates from the table.<br/>

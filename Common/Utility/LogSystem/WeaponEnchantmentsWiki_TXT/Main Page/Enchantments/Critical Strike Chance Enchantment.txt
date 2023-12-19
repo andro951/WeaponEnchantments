@@ -1,0 +1,467 @@
+<div style="float:right">
+{{Infobox enchantment
+| name     = Critical Strike Chance Enchantment
+
+| image1   = [[File:CriticalStrikeChanceEnchantmentBasic.png]]
+| artist1  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip1 = <i>'+4% Critical Strike Chance<br/>Level cost: 2<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
+| buy      = <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>45</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
+| sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image2   = [[File:CriticalStrikeChanceEnchantmentCommon.png]]
+| artist2  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip2 = <i>'+8% Critical Strike Chance<br/>Level cost: 4<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
+| sell2    = <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image3   = [[File:CriticalStrikeChanceEnchantmentRare.png]]
+| artist3  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip3 = <i>'+16% Critical Strike Chance<br/>Level cost: 6<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
+| sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>46</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image4   = [[File:CriticalStrikeChanceEnchantmentEpic.png]]
+| artist4  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip4 = <i>'+28% Critical Strike Chance<br/>Level cost: 8<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
+| sell4    = <span>8</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image5   = [[File:CriticalStrikeChanceEnchantmentLegendary.png]]
+| artist5  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type5    = [[Enchantments|Enchantments]]
+| tooltip5 = <i>'+40% Critical Strike Chance<br/>Level cost: 10<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
+| sell5    = <span>23</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| research = 1 required
+}}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Bestiary_Boss_Enemy.png]] Obtained From
+! Entity
+! Qty.
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a3/Skeletron_Head.png/revision/latest?cb=20191003231538&format=original [https://terraria.fandom.com/wiki/Skeletron Skeletron]
+| 1
+| 50%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Man_Eater.png/revision/latest?cb=20170420020846&format=original [https://terraria.fandom.com/wiki/Man_Eater Man Eater]
+| 1
+| 4.03%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2b/Snatcher.png/revision/latest?cb=20170420104001&format=original [https://terraria.fandom.com/wiki/Snatcher Snatcher]
+| 1
+| 1.92%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/98/Blue_Jellyfish.png/revision/latest?cb=20200803163235&format=original [https://terraria.fandom.com/wiki/Blue_Jellyfish Blue Jellyfish]
+| 1
+| 1.23%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5d/Pink_Jellyfish.png/revision/latest?cb=20200517031622&format=original [https://terraria.fandom.com/wiki/Pink_Jellyfish Pink Jellyfish]
+| 1
+| 2.06%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Antlion.png/revision/latest?cb=20191128180152&format=original [https://terraria.fandom.com/wiki/Antlion Antlion]
+| 1
+| 2.41%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Clinger.png/revision/latest?cb=20170421224440&format=original [https://terraria.fandom.com/wiki/Clinger Clinger]
+| 1
+| 9.51%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b0/Green_Jellyfish.png/revision/latest?cb=20200517031702&format=original [https://terraria.fandom.com/wiki/Green_Jellyfish Green Jellyfish]
+| 1
+| 6.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a6/Angry_Trapper.png/revision/latest?cb=20200808223845&format=original [https://terraria.fandom.com/wiki/Angry_Trapper Angry Trapper]
+| 1
+| 9.46%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Squid.png/revision/latest?cb=20140905021230&format=original [https://terraria.fandom.com/wiki/Squid Squid]
+| 1
+| 1.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7c/Blood_Jelly.png/revision/latest?cb=20200803162612&format=original [https://terraria.fandom.com/wiki/Blood_Jelly Blood Jelly]
+| 1
+| 6.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Fungo_Fish.png/revision/latest?cb=20200521181744&format=original [https://terraria.fandom.com/wiki/Fungo_Fish Fungo Fish]
+| 1
+| 8.15%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Fungi_Bulb.png/revision/latest?cb=20200521175303&format=original [https://terraria.fandom.com/wiki/Fungi_Bulb Fungi Bulb]
+| 1
+| 3.41%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5f/Giant_Fungi_Bulb.png/revision/latest?cb=20200521175310&format=original [https://terraria.fandom.com/wiki/Giant_Fungi_Bulb Giant Fungi Bulb]
+| 1
+| 10.34%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Chest.png/revision/latest?cb=20200516205229&format=original Obtained From
+! Entity
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Chest.png/revision/latest?cb=20200516205229&format=original [https://terraria.fandom.com/wiki/Chest Chest]
+| 3.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Gold_Chest.png/revision/latest?cb=20200516213027&format=original [https://terraria.fandom.com/wiki/Gold_Chest Gold Chest]
+| 7.69%
+|-
+| [[File:Item_626.png]] [https://terraria.fandom.com/wiki/Rich_Mahogany_Chest Rich Mahogany Chest]
+| 50%
+|-
+| [[File:Item_3988.png]] [https://terraria.fandom.com/wiki/Dead_Man's_Chest Dead Man's Chest]
+| 7.69%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Item_2334.png]] Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_2334.png]] [https://terraria.fandom.com/wiki/Wooden_Crate Wooden Crate]
+| 1.17%
+|-
+| [[File:Item_3208.png]] [https://terraria.fandom.com/wiki/Jungle_Crate Jungle Crate]
+| 2.63%
+|-
+| [[File:Item_3979.png]] [https://terraria.fandom.com/wiki/Pearlwood_Crate Pearlwood Crate]
+| 1.76%
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchantments]]<br/>
+<br/>
+
+The Critical Strike Chance Enchantment Basic can appear in the  [[Witch]]'s shop any time for <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>45</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original.<br/>
+=== Effects ===
+{| class="wikitable"
+! Critical Strike Chance
+|-
+| +4%
+|-
+| +8%
+|-
+| +16%
+|-
+| +28%
+|-
+| +40%
+|}
+
+=== Applicability ===
+{| class="wikitable"
+! None
+! Not Allowed
+|-
+| Weapons
+| 100%
+|-
+| Armor
+| 25%
+|-
+| Accessories
+| 25%
+|-
+| Fishing Poles
+| Not Allowed
+|-
+| Tools
+| Not Allowed
+|}
+
+=== Crafting ===
+<div class="tabber-borderless"><tabber>
+Basic=
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentBasic.png]] [[Lethal Combination Enchantment#Basic|Lethal Combination Enchantment Basic]]<br/>[[File:Containment.png]] [[Containment]] (4)<br/>
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:AttackSpeedEnchantmentBasic.png]] [[Attack Speed Enchantment#Basic|Attack Speed Enchantment Basic]]<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:CriticalStrikeDamageEnchantmentBasic.png]] [[Critical Strike Damage Enchantment#Basic|Critical Strike Damage Enchantment Basic]]<br/>[[File:DamageEnchantmentBasic.png]] [[Damage Enchantment#Basic|Damage Enchantment Basic]]<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>
+| [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="5" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>
+|}
+|-|Common=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentCommon.png]] [[Lethal Combination Enchantment#Common|Lethal Combination Enchantment Common]]<br/>[[File:MediumContainment.png]] [[Medium Containment]] (4)<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:AttackSpeedEnchantmentCommon.png]] [[Attack Speed Enchantment#Common|Attack Speed Enchantment Common]]<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:CriticalStrikeDamageEnchantmentCommon.png]] [[Critical Strike Damage Enchantment#Common|Critical Strike Damage Enchantment Common]]<br/>[[File:DamageEnchantmentCommon.png]] [[Damage Enchantment#Common|Damage Enchantment Common]]<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| rowspan="3" | [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>
+|}
+|-|Rare=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentRare.png]] [[Lethal Combination Enchantment#Rare|Lethal Combination Enchantment Rare]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:AttackSpeedEnchantmentRare.png]] [[Attack Speed Enchantment#Rare|Attack Speed Enchantment Rare]]<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:CriticalStrikeDamageEnchantmentRare.png]] [[Critical Strike Damage Enchantment#Rare|Critical Strike Damage Enchantment Rare]]<br/>[[File:DamageEnchantmentRare.png]] [[Damage Enchantment#Rare|Damage Enchantment Rare]]<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Epic=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| rowspan="3" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentEpic.png]] [[Lethal Combination Enchantment#Epic|Lethal Combination Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (8)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:AttackSpeedEnchantmentEpic.png]] [[Attack Speed Enchantment#Epic|Attack Speed Enchantment Epic]]<br/>[[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:CriticalStrikeDamageEnchantmentEpic.png]] [[Critical Strike Damage Enchantment#Epic|Critical Strike Damage Enchantment Epic]]<br/>[[File:DamageEnchantmentEpic.png]] [[Damage Enchantment#Epic|Damage Enchantment Epic]]<br/>[[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Legendary=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| rowspan="4" | [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentLegendary.png]] [[Lethal Combination Enchantment#Legendary|Lethal Combination Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber] (4)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:AttackSpeedEnchantmentLegendary.png]] [[Attack Speed Enchantment#Legendary|Attack Speed Enchantment Legendary]]<br/>[[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:CriticalStrikeDamageEnchantmentLegendary.png]] [[Critical Strike Damage Enchantment#Legendary|Critical Strike Damage Enchantment Legendary]]<br/>[[File:DamageEnchantmentLegendary.png]] [[Damage Enchantment#Legendary|Damage Enchantment Legendary]]<br/>[[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>
+|-
+| [[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+</tabber></div>
+{{Enchantments}}<br/>
+[[Category:Enchantments]]<br/>

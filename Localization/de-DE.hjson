@@ -931,6 +931,11 @@ Mods: {
 			LavaFishingEnchantmentEpic.DisplayName: Epische Lavafischen-Verzauberung
 			LavaFishingEnchantmentLegendary.DisplayName: Lavafischen Verzauberung Legendär
 			LavaFishingEnchantmentRare.DisplayName: Lavafischen Verzauberung Selten
+			LethalCombinationEnchantmentBasic.DisplayName: Tödliche Kombinationsverzauberung Basic
+			LethalCombinationEnchantmentCommon.DisplayName: Tödliche Kombinationsverzauberung, häufig
+			LethalCombinationEnchantmentEpic.DisplayName: Tödliche Kombinationsverzauberung, episch
+			LethalCombinationEnchantmentLegendary.DisplayName: Tödliche Kombinationsverzauberung, legendär
+			LethalCombinationEnchantmentRare.DisplayName: Tödliche Kombinationsverzauberung, selten
 			LifeRegenEnchantmentBasic.DisplayName: Lebensregenerierungs-Verzauberung Basic
 			LifeRegenEnchantmentCommon.DisplayName: Verzauberung der Lebensregeneration
 			LifeRegenEnchantmentEpic.DisplayName: Epische Lebensregenerierungsverzauberung
@@ -1347,6 +1352,7 @@ Mods: {
 				KiDamage: Ki-Schaden
 				KiRegen: Ki Regen
 				LavaFishing: Lavafischen
+				LethalCombination: Tödliche Kombination
 				LifeRegen: Lebensregeneration
 				LifeRegeneration: Lebensregeneration
 				LifeSteal: Lebensraub

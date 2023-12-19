@@ -1231,7 +1231,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
                 else {
-                    item.CheckConvertExcessExperience(consumedItem);
                     int numberEssenceRecieved;
                     int xpCounter = enchantedItem.Experience;
                     for (int tier = EnchantingTableUI.MaxEssenceSlots - 1; tier >= 0; tier--) {

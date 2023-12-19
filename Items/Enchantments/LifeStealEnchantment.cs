@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments {
     public abstract class LifeStealEnchantment : Enchantment {
         public override float ScalePercent => 0.8f;
         public override bool Max1 => true;
-        public override float CapacityCostMultiplier => 2f;
+        public override float CapacityCostMultiplier => CapacityCostNormal;
 		public override int StrengthGroup => 25;
         public override void GetMyStats() {
             Effects = new() {

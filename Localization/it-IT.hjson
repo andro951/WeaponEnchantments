@@ -931,6 +931,11 @@ Mods: {
 			LavaFishingEnchantmentEpic.DisplayName: Incantesimo di pesca alla lava epico
 			LavaFishingEnchantmentLegendary.DisplayName: Incantesimo Pesca di lava Leggendario
 			LavaFishingEnchantmentRare.DisplayName: Incantesimo Pesca alla Lava Raro
+			LethalCombinationEnchantmentBasic.DisplayName: Combinazione Letale Incantesimi Base
+			LethalCombinationEnchantmentCommon.DisplayName: Combinazione letale Incantesimo Comune
+			LethalCombinationEnchantmentEpic.DisplayName: Combinazione letale di incantesimi Epici
+			LethalCombinationEnchantmentLegendary.DisplayName: Combinazione letale Incantesimo Leggendario
+			LethalCombinationEnchantmentRare.DisplayName: Combinazione letale Incantesimo Raro
 			LifeRegenEnchantmentBasic.DisplayName: Vita Regen Incantesimo di base
 			LifeRegenEnchantmentCommon.DisplayName: Vita Regen Incantesimo Comune
 			LifeRegenEnchantmentEpic.DisplayName: Life Regen Incantesimo Epico
@@ -1347,6 +1352,7 @@ Mods: {
 				KiDamage: Ki Danni
 				KiRegen: Ki Rigenerazione
 				LavaFishing: Pesca alla lava
+				LethalCombination: Combinazione letale
 				LifeRegen: Vita rigenerata
 				LifeRegeneration: Rigenerazione della vita
 				LifeSteal: Ruba la vita

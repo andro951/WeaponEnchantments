@@ -682,7 +682,7 @@ Mods: {
 				拾取附魔、精华和其他武器附魔物品会自动将它们发送到附魔台存储区。
 				'''
 			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
-			PreventedIssueLooseExperience: “防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}\\\\\\"
+			PreventedIssueLooseExperience: "防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
 			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
 			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
@@ -931,6 +931,11 @@ Mods: {
 			LavaFishingEnchantmentEpic.DisplayName: 熔岩钓鱼附魔史诗
 			LavaFishingEnchantmentLegendary.DisplayName: 熔岩钓鱼附魔传奇
 			LavaFishingEnchantmentRare.DisplayName: 熔岩钓鱼附魔稀有
+			LethalCombinationEnchantmentBasic.DisplayName: 致命组合附魔基础
+			LethalCombinationEnchantmentCommon.DisplayName: 致命组合结界 普通
+			LethalCombinationEnchantmentEpic.DisplayName: 史诗致命组合结界
+			LethalCombinationEnchantmentLegendary.DisplayName: 传奇致命组合结界
+			LethalCombinationEnchantmentRare.DisplayName: 致命组合结界 稀有
 			LifeRegenEnchantmentBasic.DisplayName: 生命再生附魔基础
 			LifeRegenEnchantmentCommon.DisplayName: 生命再生附魔普通
 			LifeRegenEnchantmentEpic.DisplayName: 生命再生附魔史诗
@@ -1347,6 +1352,7 @@ Mods: {
 				KiDamage: Ki伤害
 				KiRegen: Ki再生
 				LavaFishing: 熔岩钓鱼
+				LethalCombination: 致命组合
 				LifeRegen: 生命再生
 				LifeRegeneration: 生命再生值
 				LifeSteal: 生命窃取

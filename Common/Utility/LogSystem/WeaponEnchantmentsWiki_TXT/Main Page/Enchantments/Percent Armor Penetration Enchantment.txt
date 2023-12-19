@@ -1,0 +1,403 @@
+<div style="float:right">
+{{Infobox enchantment
+| name     = Percent Armor Penetration Enchantment
+
+| image1   = [[File:PercentArmorPenetrationEnchantmentBasic.png]]
+| artist1  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip1 = <i>'+12 Percent Armor Penetration<br/>Level cost: 2<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
+| buy      = <span>15</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>92</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+| sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image2   = [[File:PercentArmorPenetrationEnchantmentCommon.png]]
+| artist2  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip2 = <i>'+16 Percent Armor Penetration<br/>Level cost: 4<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
+| sell2    = <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image3   = [[File:PercentArmorPenetrationEnchantmentRare.png]]
+| artist3  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip3 = <i>'+24 Percent Armor Penetration<br/>Level cost: 6<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
+| sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>46</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image4   = [[File:PercentArmorPenetrationEnchantmentEpic.png]]
+| artist4  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip4 = <i>'+32 Percent Armor Penetration<br/>Level cost: 8<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
+| sell4    = <span>8</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image5   = [[File:PercentArmorPenetrationEnchantmentLegendary.png]]
+| artist5  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type5    = [[Enchantments|Enchantments]]
+| tooltip5 = <i>'+40 Percent Armor Penetration<br/>Level cost: 10<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
+| sell5    = <span>23</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| research = 1 required
+}}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Bestiary_Boss_Enemy.png]] Obtained From
+! Entity
+! Qty.
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fd/Wall_of_Flesh_Mouth.png/revision/latest?cb=20170422001243&format=original [https://terraria.fandom.com/wiki/Wall_of_Flesh Wall of Flesh]
+| 1
+| 50%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Chest.png/revision/latest?cb=20200516205229&format=original Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_328.png]] [https://terraria.fandom.com/wiki/Shadow_Chest Shadow Chest]
+| 10%
+|-
+| [[File:Item_328.png]] [https://terraria.fandom.com/wiki/Shadow_Chest Locked Shadow Chest]
+| 10%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Item_2334.png]] Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_4879.png]] [https://terraria.fandom.com/wiki/Obsidian_Lock_Box Obsidian Lock Box]
+| 10%
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchantments]]<br/>
+<br/>
+
+The Percent Armor Penetration Enchantment Basic can appear in the  [[Witch]]'s shop after  [https://terraria.fandom.com/wiki/Skeleton Skeleton] has been defeated for <span>15</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>92</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original.<br/>
+=== Effects ===
+{| class="wikitable"
+! Percent Armor Penetration
+|-
+| +12
+|-
+| +16
+|-
+| +24
+|-
+| +32
+|-
+| +40
+|}
+
+=== Applicability ===
+{| class="wikitable"
+! None
+! Not Allowed
+|-
+| Weapons
+| 100%
+|-
+| Armor
+| 25%
+|-
+| Accessories
+| 25%
+|-
+| Fishing Poles
+| Not Allowed
+|-
+| Tools
+| Not Allowed
+|}
+
+=== Crafting ===
+<div class="tabber-borderless"><tabber>
+Basic=
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentBasic.png]] [[Lethal Combination Enchantment#Basic|Lethal Combination Enchantment Basic]]<br/>[[File:Containment.png]] [[Containment]] (4)<br/>
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:AttackSpeedEnchantmentBasic.png]] [[Attack Speed Enchantment#Basic|Attack Speed Enchantment Basic]]<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:CriticalStrikeDamageEnchantmentBasic.png]] [[Critical Strike Damage Enchantment#Basic|Critical Strike Damage Enchantment Basic]]<br/>[[File:DamageEnchantmentBasic.png]] [[Damage Enchantment#Basic|Damage Enchantment Basic]]<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>
+| [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="5" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>
+|}
+|-|Common=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentCommon.png]] [[Lethal Combination Enchantment#Common|Lethal Combination Enchantment Common]]<br/>[[File:MediumContainment.png]] [[Medium Containment]] (4)<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:AttackSpeedEnchantmentCommon.png]] [[Attack Speed Enchantment#Common|Attack Speed Enchantment Common]]<br/>[[File:CriticalStrikeChanceEnchantmentCommon.png]] [[Critical Strike Chance Enchantment#Common|Critical Strike Chance Enchantment Common]]<br/>[[File:CriticalStrikeDamageEnchantmentCommon.png]] [[Critical Strike Damage Enchantment#Common|Critical Strike Damage Enchantment Common]]<br/>[[File:DamageEnchantmentCommon.png]] [[Damage Enchantment#Common|Damage Enchantment Common]]<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| rowspan="3" | [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>
+|}
+|-|Rare=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentRare.png]] [[Lethal Combination Enchantment#Rare|Lethal Combination Enchantment Rare]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:AttackSpeedEnchantmentRare.png]] [[Attack Speed Enchantment#Rare|Attack Speed Enchantment Rare]]<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:CriticalStrikeDamageEnchantmentRare.png]] [[Critical Strike Damage Enchantment#Rare|Critical Strike Damage Enchantment Rare]]<br/>[[File:DamageEnchantmentRare.png]] [[Damage Enchantment#Rare|Damage Enchantment Rare]]<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Epic=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| rowspan="3" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentEpic.png]] [[Lethal Combination Enchantment#Epic|Lethal Combination Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (8)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:AttackSpeedEnchantmentEpic.png]] [[Attack Speed Enchantment#Epic|Attack Speed Enchantment Epic]]<br/>[[File:CriticalStrikeChanceEnchantmentEpic.png]] [[Critical Strike Chance Enchantment#Epic|Critical Strike Chance Enchantment Epic]]<br/>[[File:CriticalStrikeDamageEnchantmentEpic.png]] [[Critical Strike Damage Enchantment#Epic|Critical Strike Damage Enchantment Epic]]<br/>[[File:DamageEnchantmentEpic.png]] [[Damage Enchantment#Epic|Damage Enchantment Epic]]<br/>[[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Legendary=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| rowspan="4" | [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LethalCombinationEnchantmentLegendary.png]] [[Lethal Combination Enchantment#Legendary|Lethal Combination Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber] (4)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:AttackSpeedEnchantmentLegendary.png]] [[Attack Speed Enchantment#Legendary|Attack Speed Enchantment Legendary]]<br/>[[File:CriticalStrikeChanceEnchantmentLegendary.png]] [[Critical Strike Chance Enchantment#Legendary|Critical Strike Chance Enchantment Legendary]]<br/>[[File:CriticalStrikeDamageEnchantmentLegendary.png]] [[Critical Strike Damage Enchantment#Legendary|Critical Strike Damage Enchantment Legendary]]<br/>[[File:DamageEnchantmentLegendary.png]] [[Damage Enchantment#Legendary|Damage Enchantment Legendary]]<br/>[[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>
+|-
+| [[File:PercentArmorPenetrationEnchantmentCommon.png]] [[Percent Armor Penetration Enchantment#Common|Percent Armor Penetration Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:PercentArmorPenetrationEnchantmentEpic.png]] [[Percent Armor Penetration Enchantment#Epic|Percent Armor Penetration Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:PercentArmorPenetrationEnchantmentLegendary.png]] [[Percent Armor Penetration Enchantment#Legendary|Percent Armor Penetration Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+</tabber></div>
+{{Enchantments}}<br/>
+[[Category:Enchantments]]<br/>

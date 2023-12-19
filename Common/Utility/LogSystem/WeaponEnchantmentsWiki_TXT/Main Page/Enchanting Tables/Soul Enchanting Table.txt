@@ -1,0 +1,57 @@
+<div style="float:right">
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+!colspan="2" style="padding: 0px" |Soul Enchanting Table
+|-
+!colspan="2" style="padding: 0px" |[[File:SoulEnchantingTable.png]]
+|-
+!colspan="2" style="padding: 0px" |  (art by [https://twitter.com/ZorutanMesuta Zorutan])
+|-
+!colspan="2" style="padding: 0px" |Statistics
+|-
+| Type
+| [[Enchanting Tables|Enchanting Tables]], [https://terraria.fandom.com/wiki/Storage_items Storage], [https://terraria.fandom.com/wiki/Crafting_stations Crafting Station], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+|-
+| Tooltip
+| <i>'Used to apply enchantments to items. (tier 3)<br/>Can be used from your inventory by right clicking.(Shift right click allows you to split the stack.)'</i>
+|-
+| [https://terraria.fandom.com/wiki/Rarity Rarity]
+| <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
+|-
+| Sell
+| <span>63</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+|-
+| [https://terraria.fandom.com/wiki/Journey_Mode Research]
+| 1 required
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchanting Tables]]<br/>
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| rowspan="4" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3d/Soul_of_Light.gif/revision/latest?cb=20171118022839&format=original [https://terraria.fandom.com/wiki/Soul_of_Light Soul of Light]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/02/Soul_of_Night.gif/revision/latest?cb=20171118022841&format=original [https://terraria.fandom.com/wiki/Soul_of_Night Soul of Night]
+| rowspan="4" | By Hand
+|-
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>[[File:Item_193.png]] [https://terraria.fandom.com/wiki/Obsidian_Skull Obsidian Skull]<br/>[[File:Item_174.png]] [https://terraria.fandom.com/wiki/Hellstone Hellstone] (2)<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3d/Soul_of_Light.gif/revision/latest?cb=20171118022839&format=original [https://terraria.fandom.com/wiki/Soul_of_Light Soul of Light]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/02/Soul_of_Night.gif/revision/latest?cb=20171118022841&format=original [https://terraria.fandom.com/wiki/Soul_of_Night Soul of Night]
+|-
+| [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>[[File:Item_193.png]] [https://terraria.fandom.com/wiki/Obsidian_Skull Obsidian Skull]<br/>[[File:Item_174.png]] [https://terraria.fandom.com/wiki/Hellstone Hellstone] (2)<br/>and<br/>[[File:Item_3347.png]] [https://terraria.fandom.com/wiki/Desert_Fossil Desert Fossil] (10)<br/>or<br/>[[File:Item_3380.png]] [https://terraria.fandom.com/wiki/Sturdy_Fossil Sturdy Fossil]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3d/Soul_of_Light.gif/revision/latest?cb=20171118022839&format=original [https://terraria.fandom.com/wiki/Soul_of_Light Soul of Light]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/02/Soul_of_Night.gif/revision/latest?cb=20171118022841&format=original [https://terraria.fandom.com/wiki/Soul_of_Night Soul of Night]
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Torch.png/revision/latest?cb=20200516223044&format=original [https://terraria.fandom.com/wiki/Torch Torch] (4)<br/>[[File:Item_193.png]] [https://terraria.fandom.com/wiki/Obsidian_Skull Obsidian Skull]<br/>[[File:Item_174.png]] [https://terraria.fandom.com/wiki/Hellstone Hellstone] (2)<br/>and<br/>[[File:Item_3347.png]] [https://terraria.fandom.com/wiki/Desert_Fossil Desert Fossil] (10)<br/>or<br/>[[File:Item_3380.png]] [https://terraria.fandom.com/wiki/Sturdy_Fossil Sturdy Fossil]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d5/Any_Work_Bench.gif/revision/latest?cb=20200627022728&format=original [https://terraria.fandom.com/wiki/Work_Bench Workbenches]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3d/Soul_of_Light.gif/revision/latest?cb=20171118022839&format=original [https://terraria.fandom.com/wiki/Soul_of_Light Soul of Light]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/02/Soul_of_Night.gif/revision/latest?cb=20171118022841&format=original [https://terraria.fandom.com/wiki/Soul_of_Night Soul of Night]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]<br/>
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>[[File:Item_1225.png]] [https://terraria.fandom.com/wiki/Hallowed_Bar Hallowed Bar] (2)<br/>
+| By Hand
+|}
+

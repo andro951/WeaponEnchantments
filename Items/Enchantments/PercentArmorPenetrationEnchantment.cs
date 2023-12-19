@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class PercentArmorPenetrationEnchantment : Enchantment
 	{
-		public override int StrengthGroup => 4;
+		public override int StrengthGroup => 27;
 		public override void GetMyStats() {
 			Effects = new() {
 				new PercentArmorPenetration(@base: EnchantmentStrengthData),

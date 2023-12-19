@@ -1,0 +1,2390 @@
+<div style="float:right">
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+!colspan="2" style="padding: 0px" |Enchantment Essence Rare
+|-
+!colspan="2" style="padding: 0px" |[[File:EnchantmentEssenceRare.png]]
+|-
+!colspan="2" style="padding: 0px" |  (art by Kiroto)
+|-
+!colspan="2" style="padding: 0px" |Statistics
+|-
+| Type
+| [[Enchantment Essence|Enchantment Essence]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+|-
+| Tooltip
+| <i>'Rare material for crafting and upgrading enchantments.<br/>Can be converted to 6400 experience in an enchanting table.'</i>
+|-
+| [https://terraria.fandom.com/wiki/Rarity Rarity]
+| <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
+|-
+| Buy
+| <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>28</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original (Always)
+|-
+| Sell
+| <span>3</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>20</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+|-
+| [https://terraria.fandom.com/wiki/Journey_Mode Research]
+| 25 required
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Bestiary_Boss_Enemy.png]] Obtained From
+! Entity
+! Qty.
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Hornet_5.png/revision/latest?cb=20170422125834&format=original [https://terraria.fandom.com/wiki/Hornet Big Hornet Stingy]
+| 1
+| 0.74%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Hornet_5.png/revision/latest/scale-to-width-down/40?cb=20170422125834&format=original [https://terraria.fandom.com/wiki/Hornet Little Hornet Stingy]
+| 1
+| 0.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2a/Spikey_Hornet.png/revision/latest?cb=20170422125808&format=original [https://terraria.fandom.com/wiki/Hornet Big Hornet Spikey]
+| 1
+| 0.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2a/Spikey_Hornet.png/revision/latest/scale-to-width-down/34?cb=20170422125808&format=original [https://terraria.fandom.com/wiki/Hornet Little Hornet Spikey]
+| 1
+| 0.52%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Leafy_Hornet.png/revision/latest?cb=20170422125730&format=original [https://terraria.fandom.com/wiki/Hornet Big Hornet Leafy]
+| 1
+| 0.74%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Leafy_Hornet.png/revision/latest/scale-to-width-down/39?cb=20170422125730&format=original [https://terraria.fandom.com/wiki/Hornet Little Hornet Leafy]
+| 1
+| 0.61%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Honey_Hornet.png/revision/latest?cb=20170422125704&format=original [https://terraria.fandom.com/wiki/Hornet Big Hornet Honey]
+| 1
+| 0.82%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Honey_Hornet.png/revision/latest/scale-to-width-down/34?cb=20170422125704&format=original [https://terraria.fandom.com/wiki/Hornet Little Hornet Honey]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fc/Fatty_Hornet.png/revision/latest?cb=20170422125636&format=original [https://terraria.fandom.com/wiki/Hornet Big Hornet Fatty]
+| 1
+| 1%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fc/Fatty_Hornet.png/revision/latest/scale-to-width-down/36?cb=20170422125636&format=original [https://terraria.fandom.com/wiki/Hornet Little Hornet Fatty]
+| 1
+| 0.66%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Raincoat_Zombie.png/revision/latest?cb=20170805211221&format=original [https://terraria.fandom.com/wiki/Zombie Big Rain Zombie]
+| 1
+| 0.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Raincoat_Zombie.png/revision/latest/scale-to-width-down/31?cb=20170805211221&format=original [https://terraria.fandom.com/wiki/Zombie Small Rain Zombie]
+| 1
+| 0.41%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Big Pantless Skeleton]
+| 1
+| 0.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest/scale-to-width-down/29?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Small Pantless Skeleton]
+| 1
+| 0.49%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Big Misassembled Skeleton]
+| 1
+| 0.71%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Small Misassembled Skeleton]
+| 1
+| 0.54%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Big Headache Skeleton]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest/scale-to-width-down/32?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Small Headache Skeleton]
+| 1
+| 0.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Big Skeleton]
+| 1
+| 0.62%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest/scale-to-width-down/27?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Small Skeleton]
+| 1
+| 0.52%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Female_Zombie.png/revision/latest?cb=20170422121903&format=original [https://terraria.fandom.com/wiki/Zombie Big Female Zombie]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Female_Zombie.png/revision/latest/scale-to-width-down/30?cb=20170422121903&format=original [https://terraria.fandom.com/wiki/Zombie Small Female Zombie]
+| 1
+| 0.31%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9d/Demon_Eye.png/revision/latest?cb=20170420003551&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye 2]
+| 1
+| 0.58%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Purple_Eye.png/revision/latest?cb=20170422122804&format=original [https://terraria.fandom.com/wiki/Demon_Eye Purple Eye 2]
+| 1
+| 0.58%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Green_Eye.png/revision/latest/scale-to-width-down/31?cb=20170422122705&format=original [https://terraria.fandom.com/wiki/Demon_Eye Green Eye 2]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Dilated_Eye.png/revision/latest/scale-to-width-down/32?cb=20170422122641&format=original [https://terraria.fandom.com/wiki/Demon_Eye Dialated Eye 2]
+| 1
+| 0.41%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/29/Sleepy_Eye.png/revision/latest?cb=20170422122738&format=original [https://terraria.fandom.com/wiki/Demon_Eye Sleepy Eye 2]
+| 1
+| 0.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/de/Cataract_Eye.png/revision/latest?cb=20170422122610&format=original [https://terraria.fandom.com/wiki/Demon_Eye Cataract Eye 2]
+| 1
+| 0.62%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Twiggy_Zombie.png/revision/latest?cb=20170422121749&format=original [https://terraria.fandom.com/wiki/Zombie Big Twiggy Zombie]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Twiggy_Zombie.png/revision/latest/scale-to-width-down/31?cb=20170422121749&format=original [https://terraria.fandom.com/wiki/Zombie Small Twiggy Zombie]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a7/Swamp_Zombie.png/revision/latest?cb=20170422121752&format=original [https://terraria.fandom.com/wiki/Zombie Big Swamp Zombie]
+| 1
+| 0.49%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a7/Swamp_Zombie.png/revision/latest/scale-to-width-down/30?cb=20170422121752&format=original [https://terraria.fandom.com/wiki/Zombie Small Swamp Zombie]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/57/Slimed_Zombie.png/revision/latest?cb=20161120175703&format=original [https://terraria.fandom.com/wiki/Zombie Big Slimed Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/57/Slimed_Zombie.png/revision/latest/scale-to-width-down/30?cb=20161120175703&format=original [https://terraria.fandom.com/wiki/Zombie Small Slimed Zombie]
+| 1
+| 0.32%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Pincushion_Zombie.png/revision/latest?cb=20170422122209&format=original [https://terraria.fandom.com/wiki/Zombie Big Pincushion Zombie]
+| 1
+| 0.51%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Pincushion_Zombie.png/revision/latest/scale-to-width-down/32?cb=20170422122209&format=original [https://terraria.fandom.com/wiki/Zombie Small Pincushion Zombie]
+| 1
+| 0.42%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Bald_Zombie.png/revision/latest?cb=20161120175629&format=original [https://terraria.fandom.com/wiki/Zombie Big Bald Zombie]
+| 1
+| 0.42%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Bald_Zombie.png/revision/latest/scale-to-width-down/29?cb=20161120175629&format=original [https://terraria.fandom.com/wiki/Zombie Small Bald Zombie]
+| 1
+| 0.31%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Zombie.png/revision/latest?cb=20171102011214&format=original [https://terraria.fandom.com/wiki/Zombie Big Zombie]
+| 1
+| 0.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Zombie.png/revision/latest/scale-to-width-down/31?cb=20171102011214&format=original [https://terraria.fandom.com/wiki/Zombie Small Zombie]
+| 1
+| 0.36%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Crimslime.png/revision/latest?cb=20150708221108&format=original [https://terraria.fandom.com/wiki/Crimslime Big Crimslime]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Crimslime.png/revision/latest/scale-to-width-down/37?cb=20150708221108&format=original [https://terraria.fandom.com/wiki/Crimslime Little Crimslime]
+| 1
+| 4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3c/Crimera.png/revision/latest?cb=20200731032152&format=original [https://terraria.fandom.com/wiki/Crimera Big Crimera]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3c/Crimera.png/revision/latest/scale-to-width-down/32?cb=20200731032152&format=original [https://terraria.fandom.com/wiki/Crimera Little Crimera]
+| 1
+| 0.42%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Moss_Hornet.png/revision/latest?cb=20170421222615&format=original [https://terraria.fandom.com/wiki/Moss_Hornet Giant Moss Hornet]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Moss_Hornet.png/revision/latest?cb=20170421222615&format=original [https://terraria.fandom.com/wiki/Moss_Hornet Big Moss Hornet]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Moss_Hornet.png/revision/latest/scale-to-width-down/43?cb=20170421222615&format=original [https://terraria.fandom.com/wiki/Moss_Hornet Little Moss Hornet]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Moss_Hornet.png/revision/latest/scale-to-width-down/38?cb=20170421222615&format=original [https://terraria.fandom.com/wiki/Moss_Hornet Tiny Moss Hornet]
+| 1
+| 4.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/72/Hornet.png/revision/latest?cb=20170420020349&format=original [https://terraria.fandom.com/wiki/Hornet Big Stinger]
+| 1
+| 0.9%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/72/Hornet.png/revision/latest/scale-to-width-down/36?cb=20170420020349&format=original [https://terraria.fandom.com/wiki/Hornet Little Stinger]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7f/Armored_Skeleton.png/revision/latest?cb=20170421211538&format=original [https://terraria.fandom.com/wiki/Armored_Skeleton Heavy Skeleton]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Angry_Bones_1.png/revision/latest?cb=20200530060826&format=original [https://terraria.fandom.com/wiki/Angry_Bones Big Boned]
+| 1
+| 0.95%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Angry_Bones_1.png/revision/latest/scale-to-width-down/27?cb=20200530060826&format=original [https://terraria.fandom.com/wiki/Angry_Bones Short Bones]
+| 1
+| 0.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Eater_of_Souls.png/revision/latest?cb=20170420005422&format=original [https://terraria.fandom.com/wiki/Eater_of_Souls Big Eater]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Eater_of_Souls.png/revision/latest/scale-to-width-down/36?cb=20170420005422&format=original [https://terraria.fandom.com/wiki/Eater_of_Souls Little Eater]
+| 1
+| 0.42%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5d/Jungle_Slime.png/revision/latest?cb=20200730134909&format=original [https://terraria.fandom.com/wiki/Jungle_Slime Jungle Slime]
+| 1
+| 1.16%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Yellow_Slime.png/revision/latest?cb=20160925081607&format=original [https://terraria.fandom.com/wiki/Yellow_Slime Yellow Slime]
+| 1
+| 0.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Red_Slime.png/revision/latest?cb=20110828163005&format=original [https://terraria.fandom.com/wiki/Red_Slime Red Slime]
+| 1
+| 0.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/Purple_Slime.png/revision/latest?cb=20160925081604&format=original [https://terraria.fandom.com/wiki/Purple_Slime Purple Slime]
+| 1
+| 0.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Black_Slime.png/revision/latest?cb=20110828163020&format=original [https://terraria.fandom.com/wiki/Black_Slime Black Slime]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6d/Baby_Slime.png/revision/latest?cb=20170121233645&format=original [https://terraria.fandom.com/wiki/Baby_Slime Baby Slime]
+| 1
+| 0.24%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/17/Pinky.png/revision/latest?cb=20111003022635&format=original [https://terraria.fandom.com/wiki/Pinky Pinky]
+| 1
+| 1.85%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/45/Corrupt_Slime.png/revision/latest/scale-to-width-down/40?cb=20171130024032&format=original [https://terraria.fandom.com/wiki/Slimer Slimer 2]
+| 1
+| 1.04%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ee/Slimeling.png/revision/latest?cb=20161002152710&format=original [https://terraria.fandom.com/wiki/Slimeling Slimeling]
+| 1
+| 0.9%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Blue_Slime.png/revision/latest?cb=20110828163020&format=original [https://terraria.fandom.com/wiki/Blue_Slime Blue Slime]
+| 1
+| 0.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9d/Demon_Eye.png/revision/latest?cb=20170420003551&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.52%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Zombie.png/revision/latest?cb=20171102011214&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Eye_of_Cthulhu_%28Phase_1%29.gif/revision/latest?cb=20211114181102&format=original [https://terraria.fandom.com/wiki/Eye_of_Cthulhu Eye of Cthulhu]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Eater_of_Souls.gif/revision/latest?cb=20170420010950&format=original [https://terraria.fandom.com/wiki/Eater_of_Souls Eater of Souls]
+| 1
+| 0.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/25/Devourer_Head.png/revision/latest?cb=20170420005727&format=original [https://terraria.fandom.com/wiki/Devourer Devourer]
+| 1
+| 1.03%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Devourer_Body.png/revision/latest?cb=20170420005751&format=original [https://terraria.fandom.com/wiki/Devourer Devourer]
+| 1
+| 1.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Devourer_Tail.png/revision/latest?cb=20170420005829&format=original [https://terraria.fandom.com/wiki/Devourer Devourer]
+| 1
+| 1.16%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Giant_Worm_Head.png/revision/latest?cb=20170420005945&format=original [https://terraria.fandom.com/wiki/Giant_Worm Giant Worm]
+| 1
+| 0.31%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Giant_Worm_Body.png/revision/latest?cb=20170420010026&format=original [https://terraria.fandom.com/wiki/Giant_Worm Giant Worm]
+| 1
+| 0.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3b/Giant_Worm_Tail.png/revision/latest?cb=20170420010057&format=original [https://terraria.fandom.com/wiki/Giant_Worm Giant Worm]
+| 1
+| 0.35%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Mother_Slime.png/revision/latest?cb=20160925081648&format=original [https://terraria.fandom.com/wiki/Mother_Slime Mother Slime]
+| 1
+| 0.75%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Meteor_Head.png/revision/latest?cb=20170420013145&format=original [https://terraria.fandom.com/wiki/Meteor_Head Meteor Head]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Fire_Imp.png/revision/latest?cb=20170420013443&format=original [https://terraria.fandom.com/wiki/Fire_Imp Fire Imp]
+| 1
+| 1.03%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/61/Goblin_Peon.png/revision/latest?cb=20200518224850&format=original [https://terraria.fandom.com/wiki/Goblin_Peon Goblin Peon]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/09/Goblin_Thief.png/revision/latest?cb=20200518230423&format=original [https://terraria.fandom.com/wiki/Goblin_Thief Goblin Thief]
+| 1
+| 0.84%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b4/Goblin_Warrior.png/revision/latest?cb=20200518230412&format=original [https://terraria.fandom.com/wiki/Goblin_Warrior Goblin Warrior]
+| 1
+| 0.96%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Goblin_Sorcerer.png/revision/latest?cb=20200518230446&format=original [https://terraria.fandom.com/wiki/Goblin_Sorcerer Goblin Sorcerer]
+| 1
+| 0.54%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Angry_Bones_1.png/revision/latest?cb=20200530060826&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
+| 1
+| 0.79%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c1/Dark_Caster.png/revision/latest?cb=20171104013247&format=original [https://terraria.fandom.com/wiki/Dark_Caster Dark Caster]
+| 1
+| 0.52%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/40/Cursed_Skull.png/revision/latest?cb=20200731025412&format=original [https://terraria.fandom.com/wiki/Cursed_Skull Cursed Skull]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a3/Skeletron_Head.png/revision/latest?cb=20191003231538&format=original [https://terraria.fandom.com/wiki/Skeletron Skeletron]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0a/Skeletron_Hand_%28NPC%29.png/revision/latest?cb=20170420014655&format=original [https://terraria.fandom.com/wiki/Skeletron Skeletron]
+| 1
+| 1.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1c/Bone_Serpent_Head.png/revision/latest?cb=20170420015651&format=original [https://terraria.fandom.com/wiki/Bone_Serpent Bone Serpent]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3d/Bone_Serpent_Body.png/revision/latest?cb=20170420015713&format=original [https://terraria.fandom.com/wiki/Bone_Serpent Bone Serpent]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/05/Bone_Serpent_Tail.png/revision/latest?cb=20170420015737&format=original [https://terraria.fandom.com/wiki/Bone_Serpent Bone Serpent]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/72/Hornet.png/revision/latest?cb=20170420020349&format=original [https://terraria.fandom.com/wiki/Hornet Hornet]
+| 1
+| 0.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Man_Eater.png/revision/latest?cb=20170420020846&format=original [https://terraria.fandom.com/wiki/Man_Eater Man Eater]
+| 1
+| 3.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Undead_Miner.png/revision/latest?cb=20170420021204&format=original [https://terraria.fandom.com/wiki/Undead_Miner Undead Miner]
+| 1
+| 0.84%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Tim.png/revision/latest?cb=20171104013044&format=original [https://terraria.fandom.com/wiki/Tim Tim]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/42/Corrupt_Bunny.png/revision/latest?cb=20160929095411&format=original [https://terraria.fandom.com/wiki/Corrupt_Bunny Corrupt Bunny]
+| 1
+| 1.2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Harpy.png/revision/latest?cb=20200603151211&format=original [https://terraria.fandom.com/wiki/Harpy Harpy]
+| 1
+| 1.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0d/Cave_Bat.gif/revision/latest?cb=20211209033748&format=original [https://terraria.fandom.com/wiki/Cave_Bat Cave Bat]
+| 1
+| 0.24%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/93/King_Slime.gif/revision/latest?cb=20200523113558&format=original [https://terraria.fandom.com/wiki/King_Slime King Slime]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Jungle_Bat.png/revision/latest?cb=20161130084556&format=original [https://terraria.fandom.com/wiki/Jungle_Bat Jungle Bat]
+| 1
+| 0.36%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/24/Doctor_Bones.png/revision/latest?cb=20170420102814&format=original [https://terraria.fandom.com/wiki/Doctor_Bones Doctor Bones]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cd/The_Groom.png/revision/latest?cb=20170420102844&format=original [https://terraria.fandom.com/wiki/The_Groom The Groom]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2b/Snatcher.png/revision/latest?cb=20170420104001&format=original [https://terraria.fandom.com/wiki/Snatcher Snatcher]
+| 1
+| 0.74%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6e/Corrupt_Goldfish.png/revision/latest?cb=20161012150337&format=original [https://terraria.fandom.com/wiki/Corrupt_Goldfish Corrupt Goldfish]
+| 1
+| 3.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Piranha.png/revision/latest?cb=20161126013943&format=original [https://terraria.fandom.com/wiki/Piranha Piranha]
+| 1
+| 0.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Lava_Slime.png/revision/latest?cb=20160925082050&format=original [https://terraria.fandom.com/wiki/Lava_Slime Lava Slime]
+| 1
+| 0.59%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/26/Hellbat.png/revision/latest?cb=20161113060925&format=original [https://terraria.fandom.com/wiki/Hellbat Hellbat]
+| 1
+| 0.53%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c7/Vulture_%28flying%29.png/revision/latest?cb=20210725202149&format=original [https://terraria.fandom.com/wiki/Vulture Vulture]
+| 1
+| 0.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Demon.png/revision/latest?cb=20200526231750&format=original [https://terraria.fandom.com/wiki/Demon Demon]
+| 1
+| 2.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/98/Blue_Jellyfish.png/revision/latest?cb=20200803163235&format=original [https://terraria.fandom.com/wiki/Blue_Jellyfish Blue Jellyfish]
+| 1
+| 0.47%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5d/Pink_Jellyfish.png/revision/latest?cb=20200517031622&format=original [https://terraria.fandom.com/wiki/Pink_Jellyfish Pink Jellyfish]
+| 1
+| 0.8%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/14/Shark.png/revision/latest?cb=20170420104945&format=original [https://terraria.fandom.com/wiki/Shark Shark]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Voodoo_Demon.png/revision/latest?cb=20200517031810&format=original [https://terraria.fandom.com/wiki/Voodoo_Demon Voodoo Demon]
+| 1
+| 4.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/63/Crab.png/revision/latest?cb=20170420105630&format=original [https://terraria.fandom.com/wiki/Crab Crab]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Antlion.png/revision/latest?cb=20191128180152&format=original [https://terraria.fandom.com/wiki/Antlion Antlion]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Spike_Ball.png/revision/latest?cb=20200807032629&format=original [https://terraria.fandom.com/wiki/Spike_Ball Spike Ball]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/50/Dungeon_Slime_%28Key%29.png/revision/latest?cb=20210430065342&format=original [https://terraria.fandom.com/wiki/Dungeon_Slime Dungeon Slime]
+| 1
+| 1.2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/65/Blazing_Wheel.png/revision/latest?cb=20170421211040&format=original [https://terraria.fandom.com/wiki/Blazing_Wheel Blazing Wheel]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/Goblin_Scout.png/revision/latest?cb=20200517031944&format=original [https://terraria.fandom.com/wiki/Goblin_Scout Goblin Scout]
+| 1
+| 0.84%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/22/Pixie.png/revision/latest?cb=20170421211325&format=original [https://terraria.fandom.com/wiki/Pixie Pixie]
+| 1
+| 4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7f/Armored_Skeleton.png/revision/latest?cb=20170421211538&format=original [https://terraria.fandom.com/wiki/Armored_Skeleton Armored Skeleton]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Mummy.png/revision/latest?cb=20211207225057&format=original [https://terraria.fandom.com/wiki/Mummy Mummy]
+| 1
+| 3.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f1/Dark_Mummy_%28old%29.png/revision/latest?cb=20210205225723&format=original [https://terraria.fandom.com/wiki/Dark_Mummy Dark Mummy]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2a/Light_Mummy_%28old%29.png/revision/latest?cb=20210205225744&format=original [https://terraria.fandom.com/wiki/Light_Mummy Light Mummy]
+| 1
+| 4.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/45/Corrupt_Slime.png/revision/latest?cb=20171130024032&format=original [https://terraria.fandom.com/wiki/Corrupt_Slime Corrupt Slime]
+| 1
+| 4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7c/Wraith.png/revision/latest?cb=20191128174013&format=original [https://terraria.fandom.com/wiki/Wraith Wraith]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Cursed_Hammer.png/revision/latest?cb=20170420181531&format=original [https://terraria.fandom.com/wiki/Cursed_Hammer Cursed Hammer]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ed/Enchanted_Sword_%28NPC%29.gif/revision/latest?cb=20180309231258&format=original [https://terraria.fandom.com/wiki/Enchanted_Sword Enchanted Sword]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Mimic.png/revision/latest?cb=20170421213035&format=original [https://terraria.fandom.com/wiki/Mimic Mimic]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7e/Unicorn.png/revision/latest?cb=20200821032944&format=original [https://terraria.fandom.com/wiki/Unicorn Unicorn]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Wyvern_Head.png/revision/latest?cb=20170421215825&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 1.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a0/Wyvern_Legs.png/revision/latest?cb=20170421215904&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 1.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/10/Wyvern_Body.png/revision/latest?cb=20170421220400&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/82/Wyvern_Body_2.png/revision/latest?cb=20170421220323&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 1.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/aa/Wyvern_Body_3.png/revision/latest?cb=20170421220433&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 1.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/35/Wyvern_Tail.png/revision/latest?cb=20170421220524&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 1.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/Giant_Bat.png/revision/latest?cb=20191128181401&format=original [https://terraria.fandom.com/wiki/Giant_Bat Giant Bat]
+| 1
+| 2.78%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0e/Corruptor.gif/revision/latest?cb=20211216225509&format=original [https://terraria.fandom.com/wiki/Corruptor Corruptor]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/Digger_Head.png/revision/latest?cb=20170421222702&format=original [https://terraria.fandom.com/wiki/Digger Digger]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/91/Digger_Body.png/revision/latest?cb=20170421222727&format=original [https://terraria.fandom.com/wiki/Digger Digger]
+| 1
+| 4.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/Digger_Tail.png/revision/latest?cb=20170421222751&format=original [https://terraria.fandom.com/wiki/Digger Digger]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c8/World_Feeder_Head.png/revision/latest?cb=20170421223257&format=original [https://terraria.fandom.com/wiki/World_Feeder World Feeder]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e8/World_Feeder_Body.png/revision/latest?cb=20170421223327&format=original [https://terraria.fandom.com/wiki/World_Feeder World Feeder]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a2/World_Feeder_Tail.png/revision/latest?cb=20170421223351&format=original [https://terraria.fandom.com/wiki/World_Feeder World Feeder]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Clinger.png/revision/latest?cb=20170421224440&format=original [https://terraria.fandom.com/wiki/Clinger Clinger]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Angler_Fish.png/revision/latest?cb=20170421222605&format=original [https://terraria.fandom.com/wiki/Angler_Fish Angler Fish]
+| 1
+| 3.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b0/Green_Jellyfish.png/revision/latest?cb=20200517031702&format=original [https://terraria.fandom.com/wiki/Green_Jellyfish Green Jellyfish]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Werewolf.png/revision/latest?cb=20170420210112&format=original [https://terraria.fandom.com/wiki/Werewolf Werewolf]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Clown.png/revision/latest?cb=20170421224900&format=original [https://terraria.fandom.com/wiki/Clown Clown]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Skeleton_Archer.png/revision/latest?cb=20170421225035&format=original [https://terraria.fandom.com/wiki/Skeleton_Archer Skeleton Archer]
+| 1
+| 4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d4/Goblin_Archer.png/revision/latest?cb=20200517032400&format=original [https://terraria.fandom.com/wiki/Goblin_Archer Goblin Archer]
+| 1
+| 0.84%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fd/Wall_of_Flesh_Mouth.png/revision/latest?cb=20170422001243&format=original [https://terraria.fandom.com/wiki/Wall_of_Flesh Wall of Flesh]
+| 1
+| 25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Wall_of_Flesh_Eye.png/revision/latest?cb=20170422001207&format=original [https://terraria.fandom.com/wiki/Wall_of_Flesh Wall of Flesh]
+| 1
+| 3.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/The_Hungry.png/revision/latest?cb=20210728032344&format=original [https://terraria.fandom.com/wiki/The_Hungry The Hungry]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/The_Hungry_II.png/revision/latest?cb=20210728032519&format=original [https://terraria.fandom.com/wiki/The_Hungry The Hungry]
+| 1
+| 3.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8f/Leech_Head.png/revision/latest?cb=20170422001834&format=original [https://terraria.fandom.com/wiki/Leech Leech]
+| 1
+| 2.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/90/Leech_Body.png/revision/latest?cb=20170422001857&format=original [https://terraria.fandom.com/wiki/Leech Leech]
+| 1
+| 2.94%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4b/Leech_Tail.png/revision/latest?cb=20170422001928&format=original [https://terraria.fandom.com/wiki/Leech Leech]
+| 1
+| 3.12%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Chaos_Elemental.png/revision/latest?cb=20170421223414&format=original [https://terraria.fandom.com/wiki/Chaos_Elemental Chaos Elemental]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c6/Slimer.png/revision/latest?cb=20170422002239&format=original [https://terraria.fandom.com/wiki/Slimer Slimer]
+| 1
+| 3.12%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Gastropod.png/revision/latest?cb=20211210033410&format=original [https://terraria.fandom.com/wiki/Gastropod Gastropod]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Retinazer_%28Second_Form%29.png/revision/latest?cb=20170421155457&format=original [https://terraria.fandom.com/wiki/Retinazer Retinazer]
+| 1-2
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b9/Spazmatism_%28Second_Form%29.png/revision/latest?cb=20220227045610&format=original [https://terraria.fandom.com/wiki/Spazmatism Spazmatism]
+| 1-2
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Skeletron_Prime.png/revision/latest?cb=20170928200428&format=original [https://terraria.fandom.com/wiki/Skeletron_Prime Skeletron Prime]
+| 2-3
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5e/Prime_Cannon.png/revision/latest?cb=20170421151706&format=original [https://terraria.fandom.com/wiki/Prime_Cannon Prime Cannon]
+| 1
+| 3.84%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3b/Prime_Saw.png/revision/latest?cb=20170421151701&format=original [https://terraria.fandom.com/wiki/Prime_Saw Prime Saw]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Prime_Vice.png/revision/latest?cb=20170421151703&format=original [https://terraria.fandom.com/wiki/Prime_Vice Prime Vice]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1e/Prime_Laser.png/revision/latest?cb=20170421151658&format=original [https://terraria.fandom.com/wiki/Prime_Laser Prime Laser]
+| 1
+| 3.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Bald_Zombie.png/revision/latest?cb=20161120175629&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Wandering_Eye.png/revision/latest?cb=20161120175931&format=original [https://terraria.fandom.com/wiki/Wandering_Eye Wandering Eye]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/The_Destroyer_Head.png/revision/latest?cb=20150708221902&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
+| 2-3
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2f/Illuminant_Bat.gif/revision/latest?cb=20211115004135&format=original [https://terraria.fandom.com/wiki/Illuminant_Bat Illuminant Bat]
+| 1
+| 4.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/55/Illuminant_Slime.png/revision/latest?cb=20171130024631&format=original [https://terraria.fandom.com/wiki/Illuminant_Slime Illuminant Slime]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Probe.png/revision/latest?cb=20150708201700&format=original [https://terraria.fandom.com/wiki/Probe Probe]
+| 1
+| 11.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/55/Possessed_Armor.png/revision/latest?cb=20140526012145&format=original [https://terraria.fandom.com/wiki/Possessed_Armor Possessed Armor]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Toxic_Sludge.gif/revision/latest?cb=20200808162634&format=original [https://terraria.fandom.com/wiki/Toxic_Sludge Toxic Sludge]
+| 1
+| 3.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Snowman_Gangsta.png/revision/latest?cb=20210620022429&format=original [https://terraria.fandom.com/wiki/Snowman_Gangsta Snowman Gangsta]
+| 1
+| 4.16%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e5/Mister_Stabby.png/revision/latest?cb=20170422003215&format=original [https://terraria.fandom.com/wiki/Mister_Stabby Mister Stabby]
+| 1
+| 4.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/dc/Snow_Balla.png/revision/latest?cb=20170422003414&format=original [https://terraria.fandom.com/wiki/Snow_Balla Snow Balla]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Ice_Slime.png/revision/latest?cb=20170422004036&format=original [https://terraria.fandom.com/wiki/Ice_Slime Ice Slime]
+| 1
+| 0.3%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8f/Ice_Bat.png/revision/latest?cb=20170420001843&format=original [https://terraria.fandom.com/wiki/Ice_Bat Ice Bat]
+| 1
+| 0.58%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Lava_Bat.png/revision/latest?cb=20170420001653&format=original [https://terraria.fandom.com/wiki/Lava_Bat Lava Bat]
+| 1
+| 3.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/44/Giant_Flying_Fox.png/revision/latest?cb=20170421020011&format=original [https://terraria.fandom.com/wiki/Giant_Flying_Fox Giant Flying Fox]
+| 1
+| 4.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/03/Giant_Tortoise.png/revision/latest?cb=20170421020231&format=original [https://terraria.fandom.com/wiki/Giant_Tortoise Giant Tortoise]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f1/Ice_Tortoise.png/revision/latest?cb=20170421020410&format=original [https://terraria.fandom.com/wiki/Ice_Tortoise Ice Tortoise]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c8/Wolf.png/revision/latest?cb=20200517032614&format=original [https://terraria.fandom.com/wiki/Wolf Wolf]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/06/Red_Devil.png/revision/latest?cb=20170422150043&format=original [https://terraria.fandom.com/wiki/Red_Devil Red Devil]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/06/Arapaima.png/revision/latest?cb=20170422005426&format=original [https://terraria.fandom.com/wiki/Arapaima Arapaima]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/89/Vampire_Bat.png/revision/latest?cb=20170421221803&format=original [https://terraria.fandom.com/wiki/Vampire Vampire]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Vampire.png/revision/latest?cb=20170422005918&format=original [https://terraria.fandom.com/wiki/Vampire Vampire]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Frozen_Zombie.png/revision/latest?cb=20170422010132&format=original [https://terraria.fandom.com/wiki/Frozen_Zombie Frozen Zombie]
+| 1
+| 0.47%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Frankenstein.png/revision/latest?cb=20220304235913&format=original [https://terraria.fandom.com/wiki/Frankenstein Frankenstein]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Black_Recluse_%28ground%29.png/revision/latest?cb=20191019095158&format=original [https://terraria.fandom.com/wiki/Black_Recluse Black Recluse]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8c/Wall_Creeper_%28ground%29.png/revision/latest?cb=20210620011544&format=original [https://terraria.fandom.com/wiki/Wall_Creeper Wall Creeper]
+| 1
+| 0.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/89/Wall_Creeper.png/revision/latest?cb=20200804000512&format=original [https://terraria.fandom.com/wiki/Wall_Creeper Wall Creeper]
+| 1
+| 0.83%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fe/Swamp_Thing.png/revision/latest?cb=20191019095727&format=original [https://terraria.fandom.com/wiki/Swamp_Thing Swamp Thing]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/83/Undead_Viking.png/revision/latest?cb=20220305001117&format=original [https://terraria.fandom.com/wiki/Undead_Viking Undead Viking]
+| 1
+| 0.78%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Corrupt_Penguin.png/revision/latest?cb=20200730150902&format=original [https://terraria.fandom.com/wiki/Corrupt_Penguin Corrupt Penguin]
+| 1
+| 1.2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/35/Ice_Elemental.png/revision/latest?cb=20170422120617&format=original [https://terraria.fandom.com/wiki/Ice_Elemental Ice Elemental]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Corruption_Pigron.png/revision/latest?cb=20150714194850&format=original [https://terraria.fandom.com/wiki/Pigron Pigron]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8e/Hallow_Pigron.png/revision/latest?cb=20150714194917&format=original [https://terraria.fandom.com/wiki/Pigron Pigron]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Rune_Wizard.png/revision/latest?cb=20170524102422&format=original [https://terraria.fandom.com/wiki/Rune_Wizard Rune Wizard]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Crimera.gif/revision/latest?cb=20211216224331&format=original [https://terraria.fandom.com/wiki/Crimera Crimera]
+| 1
+| 0.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5e/Herpling.png/revision/latest?cb=20170421162114&format=original [https://terraria.fandom.com/wiki/Herpling Herpling]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a6/Angry_Trapper.png/revision/latest?cb=20200808223845&format=original [https://terraria.fandom.com/wiki/Angry_Trapper Angry Trapper]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Moss_Hornet.png/revision/latest?cb=20170421222615&format=original [https://terraria.fandom.com/wiki/Moss_Hornet Moss Hornet]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Derpling.png/revision/latest?cb=20170421203737&format=original [https://terraria.fandom.com/wiki/Derpling Derpling]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/df/Crimson_Axe.png/revision/latest?cb=20170420181950&format=original [https://terraria.fandom.com/wiki/Crimson_Axe Crimson Axe]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Crimson_Pigron.png/revision/latest?cb=20210210223359&format=original [https://terraria.fandom.com/wiki/Pigron Pigron]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Face_Monster.png/revision/latest?cb=20170421204044&format=original [https://terraria.fandom.com/wiki/Face_Monster Face Monster]
+| 1
+| 0.77%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Floaty_Gross.png/revision/latest?cb=20170422121522&format=original [https://terraria.fandom.com/wiki/Floaty_Gross Floaty Gross]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Crimslime.png/revision/latest?cb=20150708221108&format=original [https://terraria.fandom.com/wiki/Crimslime Crimslime]
+| 1
+| 4.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bc/Spiked_Ice_Slime.png/revision/latest?cb=20170422121847&format=original [https://terraria.fandom.com/wiki/Spiked_Ice_Slime Spiked Ice Slime]
+| 1
+| 0.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cb/Snow_Flinx.png/revision/latest?cb=20170421233536&format=original [https://terraria.fandom.com/wiki/Snow_Flinx Snow Flinx]
+| 1
+| 0.9%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Pincushion_Zombie.png/revision/latest?cb=20170422122209&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.46%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/57/Slimed_Zombie.png/revision/latest?cb=20161120175703&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a7/Swamp_Zombie.png/revision/latest?cb=20170422121752&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Twiggy_Zombie.png/revision/latest?cb=20170422121749&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.41%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/de/Cataract_Eye.png/revision/latest?cb=20170422122610&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/29/Sleepy_Eye.png/revision/latest?cb=20170422122738&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.52%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Dilated_Eye.png/revision/latest?cb=20170422122641&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.45%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Green_Eye.png/revision/latest?cb=20170422122705&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Purple_Eye.png/revision/latest?cb=20170422122804&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.54%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Lost_Girl.png/revision/latest?cb=20170421233129&format=original [https://terraria.fandom.com/wiki/Lost_Girl Lost Girl]
+| 1
+| 2.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Nymph.png/revision/latest?cb=20170421233126&format=original [https://terraria.fandom.com/wiki/Nymph Nymph]
+| 1
+| 2.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Armored_Viking.png/revision/latest?cb=20220305001234&format=original [https://terraria.fandom.com/wiki/Armored_Viking Armored Viking]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ee/Lihzahrd.png/revision/latest?cb=20170422123231&format=original [https://terraria.fandom.com/wiki/Lihzahrd Lihzahrd]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Lihzahrd_%28crawler%29.png/revision/latest?cb=20211222232440&format=original [https://terraria.fandom.com/wiki/Lihzahrd Lihzahrd]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Female_Zombie.png/revision/latest?cb=20170422121903&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.36%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.61%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.59%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fe/Spiked_Jungle_Slime.png/revision/latest?cb=20171130030805&format=original [https://terraria.fandom.com/wiki/Spiked_Jungle_Slime Spiked Jungle Slime]
+| 1
+| 0.94%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/09/Moth.png/revision/latest?cb=20170422123155&format=original [https://terraria.fandom.com/wiki/Moth Moth]
+| 1
+| 11.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4f/Icy_Merman.png/revision/latest?cb=20170421020536&format=original [https://terraria.fandom.com/wiki/Icy_Merman Icy Merman]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/Bee.png/revision/latest?cb=20170422124353&format=original [https://terraria.fandom.com/wiki/Bee Bee]
+| 1
+| 0.45%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Bee_%28Small%29.png/revision/latest?cb=20170422124331&format=original [https://terraria.fandom.com/wiki/Bee Bee]
+| 1
+| 0.21%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b8/Pirate_Deckhand.png/revision/latest?cb=20210625214940&format=original [https://terraria.fandom.com/wiki/Pirate_Deckhand Pirate Deckhand]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e5/Pirate_Corsair.png/revision/latest?cb=20210625214836&format=original [https://terraria.fandom.com/wiki/Pirate_Corsair Pirate Corsair]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Pirate_Deadeye.png/revision/latest?cb=20170421234512&format=original [https://terraria.fandom.com/wiki/Pirate_Deadeye Pirate Deadeye]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Pirate_Crossbower.png/revision/latest?cb=20170421234501&format=original [https://terraria.fandom.com/wiki/Pirate_Crossbower Pirate Crossbower]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Pirate_Captain.png/revision/latest?cb=20210914050020&format=original [https://terraria.fandom.com/wiki/Pirate_Captain Pirate Captain]
+| 1
+| 1.92%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9b/Cochineal_Beetle.png/revision/latest?cb=20200523235211&format=original [https://terraria.fandom.com/wiki/Cochineal_Beetle Cochineal Beetle]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Cyan_Beetle.png/revision/latest?cb=20200523235324&format=original [https://terraria.fandom.com/wiki/Cyan_Beetle Cyan Beetle]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/61/Lac_Beetle.png/revision/latest?cb=20200808224342&format=original [https://terraria.fandom.com/wiki/Lac_Beetle Lac Beetle]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/41/Sea_Snail.png/revision/latest?cb=20171104195216&format=original [https://terraria.fandom.com/wiki/Sea_Snail Sea Snail]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Squid.png/revision/latest?cb=20140905021230&format=original [https://terraria.fandom.com/wiki/Squid Squid]
+| 1
+| 0.42%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Queen_Bee.gif/revision/latest?cb=20200523215116&format=original [https://terraria.fandom.com/wiki/Queen_Bee Queen Bee]
+| 1
+| 25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Raincoat_Zombie.png/revision/latest?cb=20170805211221&format=original [https://terraria.fandom.com/wiki/Raincoat_Zombie Raincoat Zombie]
+| 1
+| 0.46%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bc/Flying_Fish.png/revision/latest?cb=20170305130407&format=original [https://terraria.fandom.com/wiki/Flying_Fish Flying Fish]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Umbrella_Slime.png/revision/latest?cb=20160726020032&format=original [https://terraria.fandom.com/wiki/Umbrella_Slime Umbrella Slime]
+| 1
+| 0.53%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/82/Flying_Snake.png/revision/latest?cb=20161024041552&format=original [https://terraria.fandom.com/wiki/Flying_Snake Flying Snake]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fc/Fatty_Hornet.png/revision/latest?cb=20170422125636&format=original [https://terraria.fandom.com/wiki/Hornet Hornet]
+| 1
+| 0.79%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Honey_Hornet.png/revision/latest?cb=20170422125704&format=original [https://terraria.fandom.com/wiki/Hornet Hornet]
+| 1
+| 0.72%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Leafy_Hornet.png/revision/latest?cb=20170422125730&format=original [https://terraria.fandom.com/wiki/Hornet Hornet]
+| 1
+| 0.68%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2a/Spikey_Hornet.png/revision/latest?cb=20170422125808&format=original [https://terraria.fandom.com/wiki/Hornet Hornet]
+| 1
+| 0.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Hornet_5.png/revision/latest?cb=20170422125834&format=original [https://terraria.fandom.com/wiki/Hornet Hornet]
+| 1
+| 0.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Jungle_Creeper_%28ground%29.png/revision/latest?cb=20201014050951&format=original [https://terraria.fandom.com/wiki/Jungle_Creeper Jungle Creeper]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e9/Jungle_Creeper.png/revision/latest?cb=20201014050936&format=original [https://terraria.fandom.com/wiki/Jungle_Creeper Jungle Creeper]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/26/Black_Recluse.png/revision/latest?cb=20210620010827&format=original [https://terraria.fandom.com/wiki/Black_Recluse Black Recluse]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Blood_Crawler_%28ground%29.png/revision/latest?cb=20200521181748&format=original [https://terraria.fandom.com/wiki/Blood_Crawler Blood Crawler]
+| 1
+| 0.61%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7e/Blood_Crawler.png/revision/latest?cb=20200804000419&format=original [https://terraria.fandom.com/wiki/Blood_Crawler Blood Crawler]
+| 1
+| 0.73%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/69/Blood_Feeder.png/revision/latest?cb=20200521181749&format=original [https://terraria.fandom.com/wiki/Blood_Feeder Blood Feeder]
+| 1
+| 4.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7c/Blood_Jelly.png/revision/latest?cb=20200803162612&format=original [https://terraria.fandom.com/wiki/Blood_Jelly Blood Jelly]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8a/Ice_Golem.png/revision/latest?cb=20200708133205&format=original [https://terraria.fandom.com/wiki/Ice_Golem Ice Golem]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Rainbow_Slime.gif/revision/latest?cb=20210921162633&format=original [https://terraria.fandom.com/wiki/Rainbow_Slime Rainbow Slime]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Golem_Core.png/revision/latest?cb=20200517202317&format=original [https://terraria.fandom.com/wiki/Golem Golem]
+| 1
+| 50%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Left_Golem_Fist.png/revision/latest?cb=20200529235418&format=original [https://terraria.fandom.com/wiki/Golem_Fist Golem Fist]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Right_Golem_Fist.png/revision/latest?cb=20200602093336&format=original [https://terraria.fandom.com/wiki/Golem_Fist Golem Fist]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f9/Free_Golem_Head.png/revision/latest?cb=20200602094652&format=original [https://terraria.fandom.com/wiki/Golem_Head Golem Head]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/db/Angry_Nimbus.png/revision/latest?cb=20171130030045&format=original [https://terraria.fandom.com/wiki/Angry_Nimbus Angry Nimbus]
+| 1
+| 4.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b6/Eyezor.png/revision/latest?cb=20210611165016&format=original [https://terraria.fandom.com/wiki/Eyezor Eyezor]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/16/Parrot.png/revision/latest?cb=20170421215823&format=original [https://terraria.fandom.com/wiki/Parrot Parrot]
+| 1
+| 3.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Reaper.png/revision/latest?cb=20171130031709&format=original [https://terraria.fandom.com/wiki/Reaper Reaper]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/13/Spore_Zombie.png/revision/latest?cb=20200521181815&format=original [https://terraria.fandom.com/wiki/Spore_Zombie Spore Zombie]
+| 1
+| 4.76%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b1/Mushroom_Zombie.png/revision/latest?cb=20200521181747&format=original [https://terraria.fandom.com/wiki/Spore_Zombie Spore Zombie]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Fungo_Fish.png/revision/latest?cb=20200521181744&format=original [https://terraria.fandom.com/wiki/Fungo_Fish Fungo Fish]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f0/Anomura_Fungus.png/revision/latest?cb=20200521181927&format=original [https://terraria.fandom.com/wiki/Anomura_Fungus Anomura Fungus]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Mushi_Ladybug.png/revision/latest?cb=20200521181746&format=original [https://terraria.fandom.com/wiki/Mushi_Ladybug Mushi Ladybug]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Fungi_Bulb.png/revision/latest?cb=20200521175303&format=original [https://terraria.fandom.com/wiki/Fungi_Bulb Fungi Bulb]
+| 1
+| 2.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5f/Giant_Fungi_Bulb.png/revision/latest?cb=20200521175310&format=original [https://terraria.fandom.com/wiki/Giant_Fungi_Bulb Giant Fungi Bulb]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Plantera_%28First_form%29.gif/revision/latest?cb=20200706212844&format=original [https://terraria.fandom.com/wiki/Plantera Plantera]
+| 2-3
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Plantera%27s_Hook.png/revision/latest?cb=20200521175019&format=original [https://terraria.fandom.com/wiki/Plantera's_Hook Plantera's Hook]
+| 1
+| 2.78%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Plantera%27s_Tentacle.png/revision/latest?cb=20200521174809&format=original [https://terraria.fandom.com/wiki/Plantera's_Tentacle Plantera's Tentacle]
+| 1
+| 1.96%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Brain_of_Cthulhu_%28First_Phase%29.gif/revision/latest?cb=20211114173255&format=original [https://terraria.fandom.com/wiki/Brain_of_Cthulhu Brain of Cthulhu]
+| 1
+| 33.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0a/Creeper.png/revision/latest?cb=20200521174446&format=original [https://terraria.fandom.com/wiki/Creeper Creeper]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8e/Ichor_Sticker.png/revision/latest?cb=20200521181745&format=original [https://terraria.fandom.com/wiki/Ichor_Sticker Ichor Sticker]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/74/Rusty_Armored_Bones_1.png/revision/latest?cb=20200811222335&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/54/Rusty_Armored_Bones_2.png/revision/latest?cb=20200811222519&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d8/Rusty_Armored_Bones_3.png/revision/latest?cb=20200811222656&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8b/Rusty_Armored_Bones_4.png/revision/latest?cb=20200811222738&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Blue_Armored_Bones_1.png/revision/latest?cb=20200530060830&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Blue_Armored_Bones_2.png/revision/latest?cb=20200530060831&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/05/Blue_Armored_Bones_3.png/revision/latest?cb=20200530060833&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Blue_Armored_Bones_4.png/revision/latest?cb=20200530060834&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/Hell_Armored_Bones_1.png/revision/latest?cb=20200518132724&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Hell_Armored_Bones_2.png/revision/latest?cb=20200518132721&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Hell_Armored_Bones_3.png/revision/latest?cb=20200518132718&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/05/Hell_Armored_Bones_4.png/revision/latest?cb=20200518132730&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/40/Ragged_Caster_1.png/revision/latest?cb=20220312055614&format=original [https://terraria.fandom.com/wiki/Ragged_Caster Ragged Caster]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fc/Ragged_Caster_2.png/revision/latest?cb=20220312055704&format=original [https://terraria.fandom.com/wiki/Ragged_Caster Ragged Caster]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Necromancer_1.png/revision/latest?cb=20220312053825&format=original [https://terraria.fandom.com/wiki/Necromancer Necromancer]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3a/Necromancer_2.png/revision/latest?cb=20220312053710&format=original [https://terraria.fandom.com/wiki/Necromancer Necromancer]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6e/Diabolist_1.png/revision/latest?cb=20220312060327&format=original [https://terraria.fandom.com/wiki/Diabolist Diabolist]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Diabolist_2.png/revision/latest?cb=20220312060429&format=original [https://terraria.fandom.com/wiki/Diabolist Diabolist]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Bone_Lee.png/revision/latest?cb=20200803161640&format=original [https://terraria.fandom.com/wiki/Bone_Lee Bone Lee]
+| 1
+| 11.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Dungeon_Spirit.png/revision/latest?cb=20171130033849&format=original [https://terraria.fandom.com/wiki/Dungeon_Spirit Dungeon Spirit]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/97/Giant_Cursed_Skull.png/revision/latest?cb=20200521174503&format=original [https://terraria.fandom.com/wiki/Giant_Cursed_Skull Giant Cursed Skull]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Paladin.png/revision/latest?cb=20200521173908&format=original [https://terraria.fandom.com/wiki/Paladin Paladin]
+| 1
+| 2.08%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Skeleton_Sniper.png/revision/latest?cb=20200518190711&format=original [https://terraria.fandom.com/wiki/Skeleton_Sniper Skeleton Sniper]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Skeleton_Commando.png/revision/latest?cb=20200604133711&format=original [https://terraria.fandom.com/wiki/Tactical_Skeleton Tactical Skeleton]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Skeleton_Commando.png/revision/latest?cb=20200604133711&format=original [https://terraria.fandom.com/wiki/Skeleton_Commando Skeleton Commando]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/33/Angry_Bones_2.png/revision/latest?cb=20200530060827&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
+| 1
+| 0.71%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b9/Angry_Bones_3.png/revision/latest?cb=20200530060828&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
+| 1
+| 0.74%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/Angry_Bones_4.png/revision/latest?cb=20200530060829&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
+| 1
+| 1.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Raven_%28flying%29.png/revision/latest?cb=20210914024621&format=original [https://terraria.fandom.com/wiki/Raven Raven]
+| 1
+| 0.32%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a4/Bunny_Slime.png/revision/latest?cb=20151229024026&format=original [https://terraria.fandom.com/wiki/Slime Slime]
+| 1
+| 0.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Hoppin%27_Jack.png/revision/latest?cb=20131025174453&format=original [https://terraria.fandom.com/wiki/Hoppin'_Jack Hoppin' Jack]
+| 1
+| 4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e6/Scarecrow_1.png/revision/latest?cb=20141219002114&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bd/Scarecrow_2.png/revision/latest?cb=20141219002212&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/74/Scarecrow_3.png/revision/latest?cb=20141219002229&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Scarecrow_4.png/revision/latest?cb=20141219002245&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2d/Scarecrow_5.png/revision/latest?cb=20141219002324&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Scarecrow.png/revision/latest?cb=20141219002655&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4b/Scarecrow_7.png/revision/latest?cb=20141219002347&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Scarecrow_8.png/revision/latest?cb=20141219002435&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Scarecrow_9.png/revision/latest?cb=20141219002459&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Scarecrow_10.png/revision/latest?cb=20131025174054&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3d/Headless_Horseman.png/revision/latest?cb=20210625213223&format=original [https://terraria.fandom.com/wiki/Headless_Horseman Headless Horseman]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Ghost_%28enemy%29.png/revision/latest?cb=20131025175525&format=original [https://terraria.fandom.com/wiki/Ghost Ghost]
+| 1
+| 0.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Demon_Eye_Halloween_Variant_1.png/revision/latest?cb=20170422125859&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.68%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Demon_Eye_Halloween_Variant_2.png/revision/latest?cb=20170422125929&format=original [https://terraria.fandom.com/wiki/Demon_Eye Demon Eye]
+| 1
+| 0.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Zombie_Halloween_Variant_1.png/revision/latest?cb=20170422121435&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.41%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/26/Zombie_Halloween_Variant_2.png/revision/latest?cb=20170422121433&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.58%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0c/Zombie_Halloween_Variant_3.png/revision/latest?cb=20170422121437&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.43%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Skeleton_Halloween_Variant_1.png/revision/latest?cb=20171104202519&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.87%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/65/Skeleton_Halloween_Variant_2.png/revision/latest?cb=20200808224709&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.65%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/68/Skeleton_Halloween_Variant_3.png/revision/latest?cb=20171104202707&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/90/Mourning_Wood.gif/revision/latest?cb=20190125130555&format=original [https://terraria.fandom.com/wiki/Mourning_Wood Mourning Wood]
+| 1
+| 2.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/88/Splinterling.png/revision/latest?cb=20171104210227&format=original [https://terraria.fandom.com/wiki/Splinterling Splinterling]
+| 1
+| 11.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d8/Pumpking.png/revision/latest?cb=20210914051940&format=original [https://terraria.fandom.com/wiki/Pumpking Pumpking]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Pumpking_Hand.png/revision/latest?cb=20141218234517&format=original [https://terraria.fandom.com/wiki/Pumpking Pumpking]
+| 1
+| 2.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3e/Hellhound.png/revision/latest?cb=20171213013510&format=original [https://terraria.fandom.com/wiki/Hellhound Hellhound]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bb/Poltergeist.png/revision/latest?cb=20131025170412&format=original [https://terraria.fandom.com/wiki/Poltergeist Poltergeist]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Zombie_Christmas_Variant_1.png/revision/latest?cb=20170422121212&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Zombie_Christmas_Variant_2.png/revision/latest?cb=20170422121209&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/White_Present_Slime.png/revision/latest?cb=20170217233818&format=original [https://terraria.fandom.com/wiki/Slime Slime]
+| 1
+| 0.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Yellow_Present_Slime.png/revision/latest?cb=20170217233853&format=original [https://terraria.fandom.com/wiki/Slime Slime]
+| 1
+| 0.2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Green_Present_Slime.png/revision/latest?cb=20170217233925&format=original [https://terraria.fandom.com/wiki/Slime Slime]
+| 1
+| 0.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bf/Red_Present_Slime.png/revision/latest?cb=20170217234001&format=original [https://terraria.fandom.com/wiki/Slime Slime]
+| 1
+| 0.19%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Zombie_Elf.png/revision/latest?cb=20200702150744&format=original [https://terraria.fandom.com/wiki/Zombie_Elf Zombie Elf]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Zombie_Elf_Beard.png/revision/latest?cb=20200702150736&format=original [https://terraria.fandom.com/wiki/Zombie_Elf Zombie Elf]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e0/Zombie_Elf_Girl.png/revision/latest?cb=20200702150727&format=original [https://terraria.fandom.com/wiki/Zombie_Elf Zombie Elf]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8b/Present_Mimic_Forms.png/revision/latest?cb=20200730152725&format=original [https://terraria.fandom.com/wiki/Present_Mimic Present Mimic]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Gingerbread_Man.png/revision/latest?cb=20200708164201&format=original [https://terraria.fandom.com/wiki/Gingerbread_Man Gingerbread Man]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7d/Yeti.png/revision/latest?cb=20200518194832&format=original [https://terraria.fandom.com/wiki/Yeti Yeti]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Everscream.gif/revision/latest?cb=20200605002358&format=original [https://terraria.fandom.com/wiki/Everscream Everscream]
+| 1
+| 2.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ee/Santa-NK1.png/revision/latest?cb=20131220135050&format=original [https://terraria.fandom.com/wiki/Santa-NK1 Santa-NK1]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/45/Elf_Copter.png/revision/latest?cb=20200518194558&format=original [https://terraria.fandom.com/wiki/Elf_Copter Elf Copter]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/38/Nutcracker.png/revision/latest?cb=20200911122316&format=original [https://terraria.fandom.com/wiki/Nutcracker Nutcracker]
+| 1
+| 11.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ec/Nutcracker_2.png/revision/latest?cb=20200911122308&format=original [https://terraria.fandom.com/wiki/Nutcracker Nutcracker]
+| 1
+| 11.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d3/Elf_Archer.png/revision/latest?cb=20200803161148&format=original [https://terraria.fandom.com/wiki/Elf_Archer Elf Archer]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8f/Krampus.png/revision/latest?cb=20200702145123&format=original [https://terraria.fandom.com/wiki/Krampus Krampus]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Flocko.png/revision/latest?cb=20200518194055&format=original [https://terraria.fandom.com/wiki/Flocko Flocko]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0b/Duke_Fishron.png/revision/latest?cb=20180705150806&format=original [https://terraria.fandom.com/wiki/Duke_Fishron Duke Fishron]
+| 4-5
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ef/Sharkron.png/revision/latest?cb=20140508212606&format=original [https://terraria.fandom.com/wiki/Sharkron Sharkron]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ef/Sharkron.png/revision/latest?cb=20140508212606&format=original [https://terraria.fandom.com/wiki/Sharkron Sharkron]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Chattering_Teeth_Bomb.gif/revision/latest?cb=20210627211221&format=original [https://terraria.fandom.com/wiki/Chattering_Teeth_Bomb Chattering Teeth Bomb]
+| 1
+| 4.55%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/25/Cultist_Archer.png/revision/latest?cb=20150701095329&format=original [https://terraria.fandom.com/wiki/Cultist_Archer Cultist Archer]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/White_Cultist_Archer.png/revision/latest?cb=20150701095459&format=original [https://terraria.fandom.com/wiki/Cultist_Archer Cultist Archer]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/38/Brain_Scrambler.png/revision/latest?cb=20200704161941&format=original [https://terraria.fandom.com/wiki/Brain_Scrambler Brain Scrambler]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Ray_Gunner.png/revision/latest?cb=20150701095421&format=original [https://terraria.fandom.com/wiki/Ray_Gunner Ray Gunner]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Martian_Officer.png/revision/latest?cb=20150701010423&format=original [https://terraria.fandom.com/wiki/Martian_Officer Martian Officer]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Bubble_Shield.png/revision/latest?cb=20150701010521&format=original [https://terraria.fandom.com/wiki/Bubble_Shield Bubble Shield]
+| 1
+| 1.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8e/Gray_Grunt.png/revision/latest?cb=20150701095347&format=original [https://terraria.fandom.com/wiki/Gray_Grunt Gray Grunt]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/15/Martian_Engineer.png/revision/latest?cb=20210914031152&format=original [https://terraria.fandom.com/wiki/Martian_Engineer Martian Engineer]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Tesla_Turret.gif/revision/latest?cb=20211204005336&format=original [https://terraria.fandom.com/wiki/Tesla_Turret Tesla Turret]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Martian_Drone.png/revision/latest?cb=20150701135039&format=original [https://terraria.fandom.com/wiki/Martian_Drone Martian Drone]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/29/Gigazapper.png/revision/latest?cb=20210914030825&format=original [https://terraria.fandom.com/wiki/Gigazapper Gigazapper]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Scutlix_Gunner.png/revision/latest?cb=20150701010937&format=original [https://terraria.fandom.com/wiki/Scutlix_Gunner Scutlix Gunner]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e7/Scutlix_%28creature%29.png/revision/latest?cb=20150701171708&format=original [https://terraria.fandom.com/wiki/Scutlix Scutlix]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6f/Martian_Saucer.png/revision/latest?cb=20150702004716&format=original [https://terraria.fandom.com/wiki/Martian_Saucer Martian Saucer]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4c/Martian_Saucer_Turret.png/revision/latest?cb=20150701095504&format=original [https://terraria.fandom.com/wiki/Martian_Saucer_Turret Martian Saucer Turret]
+| 1
+| 2.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Martian_Saucer_Cannon.png/revision/latest?cb=20150701095409&format=original [https://terraria.fandom.com/wiki/Martian_Saucer_Cannon Martian Saucer Cannon]
+| 1
+| 2.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Martian_Saucer_Core.png/revision/latest?cb=20150701010958&format=original [https://terraria.fandom.com/wiki/Martian_Saucer Martian Saucer]
+| 1
+| 25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/84/Moon_Lord%27s_Head.gif/revision/latest?cb=20160712055422&format=original [https://terraria.fandom.com/wiki/Moon_Lord Moon Lord]
+| 6-7
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/11/Moon_Lord%27s_Hand.gif/revision/latest?cb=20160712053505&format=original [https://terraria.fandom.com/wiki/Moon_Lord's_Hand Moon Lord's Hand]
+| 3-4
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Moon_Lord%27s_Core.gif/revision/latest?cb=20160712055841&format=original [https://terraria.fandom.com/wiki/Moon_Lord's_Core Moon Lord's Core]
+| 7-8
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f8/Martian_Probe.png/revision/latest?cb=20150710011512&format=original [https://terraria.fandom.com/wiki/Martian_Probe Martian Probe]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/True_Eye_of_Cthulhu.png/revision/latest?cb=20150804093912&format=original [https://terraria.fandom.com/wiki/True_Eye_of_Cthulhu True Eye of Cthulhu]
+| 1
+| 4.16%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/16/Moon_Leech_Clot.png/revision/latest?cb=20150701095300&format=original [https://terraria.fandom.com/wiki/Moon_Leech_Clot Moon Leech Clot]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0b/Milkyway_Weaver_%28Head%29.png/revision/latest?cb=20150701095415&format=original [https://terraria.fandom.com/wiki/Milkyway_Weaver Milkyway Weaver]
+| 1
+| 1.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Star_Cell.png/revision/latest?cb=20150701095341&format=original [https://terraria.fandom.com/wiki/Star_Cell Star Cell]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Star_Cell.png/revision/latest?cb=20150701095341&format=original [https://terraria.fandom.com/wiki/Mini_Star_Cell Mini Star Cell]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/95/Flow_Invader.png/revision/latest?cb=20150701141020&format=original [https://terraria.fandom.com/wiki/Flow_Invader Flow Invader]
+| 1
+| 1.81%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4c/Twinkle_Popper.png/revision/latest?cb=20150701095448&format=original [https://terraria.fandom.com/wiki/Twinkle_Popper Twinkle Popper]
+| 1
+| 1.35%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Twinkle.png/revision/latest?cb=20150701095454&format=original [https://terraria.fandom.com/wiki/Twinkle Twinkle]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2b/Stargazer.png/revision/latest?cb=20150701135045&format=original [https://terraria.fandom.com/wiki/Stargazer Stargazer]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/71/Crawltipede_%28Tail%29.png/revision/latest?cb=20150701100755&format=original [https://terraria.fandom.com/wiki/Crawltipede Crawltipede]
+| 1
+| 3.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Drakomire.png/revision/latest?cb=20150701100807&format=original [https://terraria.fandom.com/wiki/Drakomire Drakomire]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/28/Drakomire_Rider.png/revision/latest?cb=20150701100801&format=original [https://terraria.fandom.com/wiki/Drakomire_Rider Drakomire Rider]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/51/Sroller.png/revision/latest?cb=20150701100850&format=original [https://terraria.fandom.com/wiki/Sroller Sroller]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/05/Corite.png/revision/latest?cb=20150701100738&format=original [https://terraria.fandom.com/wiki/Corite Corite]
+| 1
+| 1.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/48/Selenian.png/revision/latest?cb=20150701100845&format=original [https://terraria.fandom.com/wiki/Selenian Selenian]
+| 1
+| 1.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Nebula_Floater.png/revision/latest?cb=20150701135041&format=original [https://terraria.fandom.com/wiki/Nebula_Floater Nebula Floater]
+| 1
+| 2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Brain_Suckler.png/revision/latest?cb=20201017034837&format=original [https://terraria.fandom.com/wiki/Brain_Suckler Brain Suckler]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/86/Evolution_Beast.png/revision/latest?cb=20201017035139&format=original [https://terraria.fandom.com/wiki/Evolution_Beast Evolution Beast]
+| 1
+| 1.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Predictor.png/revision/latest?cb=20150701135043&format=original [https://terraria.fandom.com/wiki/Predictor Predictor]
+| 1
+| 1.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b8/Storm_Diver.png/revision/latest?cb=20150701135046&format=original [https://terraria.fandom.com/wiki/Storm_Diver Storm Diver]
+| 1
+| 1.35%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d8/Alien_Queen.png/revision/latest?cb=20150701100644&format=original [https://terraria.fandom.com/wiki/Alien_Queen Alien Queen]
+| 1
+| 1.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Alien_Hornet.png/revision/latest?cb=20150701100634&format=original [https://terraria.fandom.com/wiki/Alien_Hornet Alien Hornet]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5d/Alien_Larva.png/revision/latest?cb=20150701100639&format=original [https://terraria.fandom.com/wiki/Alien_Larva Alien Larva]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a0/Vortexian.png/revision/latest?cb=20150701100912&format=original [https://terraria.fandom.com/wiki/Vortexian Vortexian]
+| 1
+| 1.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Armed_Zombie.png/revision/latest?cb=20170422131025&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3c/Armed_Frozen_Zombie.png/revision/latest?cb=20170422131256&format=original [https://terraria.fandom.com/wiki/Frozen_Zombie Frozen Zombie]
+| 1
+| 0.47%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e4/Armed_Pincushion_Zombie.png/revision/latest?cb=20170422131048&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.46%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/64/Armed_Slimed_Zombie.png/revision/latest?cb=20170422131112&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.37%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/48/Armed_Swamp_Zombie.png/revision/latest?cb=20170422131135&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Armed_Twiggy_Zombie.png/revision/latest?cb=20170422131200&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.41%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2c/Armed_Female_Zombie.png/revision/latest?cb=20170422131225&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.36%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Mysterious_Tablet.gif/revision/latest?cb=20190228020510&format=original [https://terraria.fandom.com/wiki/Mysterious_Tablet Mysterious Tablet]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3a/Lunatic_Devotee.gif/revision/latest?cb=20150814182852&format=original [https://terraria.fandom.com/wiki/Lunatic_Devotee Lunatic Devotee]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1c/Lunatic_Cultist.gif/revision/latest?cb=20190125125946&format=original [https://terraria.fandom.com/wiki/Lunatic_Cultist Lunatic Cultist]
+| 2-3
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Ancient_Cultist.png/revision/latest?cb=20160318233643&format=original [https://terraria.fandom.com/wiki/Lunatic_Cultist Lunatic Cultist]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.61%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
+| 1
+| 0.59%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Phantasm_Dragon_%28Head%29.png/revision/latest?cb=20150701103037&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d0/Phantasm_Dragon_%28Body1%29.png/revision/latest?cb=20150701103013&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Phantasm_Dragon_%28Body2%29.png/revision/latest?cb=20150701103019&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Phantasm_Dragon_%28Body3%29.png/revision/latest?cb=20150701103024&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4b/Phantasm_Dragon_%28Body4%29.png/revision/latest?cb=20150701103031&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Phantasm_Dragon_%28Tail%29.png/revision/latest?cb=20150709000911&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Butcher.png/revision/latest?cb=20150701102715&format=original [https://terraria.fandom.com/wiki/Butcher Butcher]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/91/Creature_from_the_Deep.png/revision/latest?cb=20150629182153&format=original [https://terraria.fandom.com/wiki/Creature_from_the_Deep Creature from the Deep]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e8/Fritz.png/revision/latest?cb=20150629214920&format=original [https://terraria.fandom.com/wiki/Fritz Fritz]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Nailhead.png/revision/latest?cb=20150701102948&format=original [https://terraria.fandom.com/wiki/Nailhead Nailhead]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/99/Vicious_Bunny.png/revision/latest?cb=20171124231053&format=original [https://terraria.fandom.com/wiki/Vicious_Bunny Vicious Bunny]
+| 1
+| 2.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Vicious_Goldfish.png/revision/latest?cb=20150701102758&format=original [https://terraria.fandom.com/wiki/Vicious_Goldfish Vicious Goldfish]
+| 1
+| 3.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9c/Psycho.png/revision/latest?cb=20210620015106&format=original [https://terraria.fandom.com/wiki/Psycho Psycho]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6e/Deadly_Sphere.png/revision/latest?cb=20211218000054&format=original [https://terraria.fandom.com/wiki/Deadly_Sphere Deadly Sphere]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Dr._Man_Fly.png/revision/latest?cb=20150701102809&format=original [https://terraria.fandom.com/wiki/Dr._Man_Fly Dr. Man Fly]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/The_Possessed.png/revision/latest?cb=20150629184855&format=original [https://terraria.fandom.com/wiki/The_Possessed The Possessed]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Vicious_Penguin.png/revision/latest?cb=20200730170604&format=original [https://terraria.fandom.com/wiki/Vicious_Penguin Vicious Penguin]
+| 1
+| 2.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/24/Goblin_Warlock.png/revision/latest?cb=20200708163902&format=original [https://terraria.fandom.com/wiki/Goblin_Warlock Goblin Warlock]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b1/Shadowflame_Apparition.png/revision/latest?cb=20150701103137&format=original [https://terraria.fandom.com/wiki/Shadowflame_Apparition Shadowflame Apparition]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9c/Corrupt_Mimic2.png/revision/latest?cb=20150723182451&format=original [https://terraria.fandom.com/wiki/Corrupt_Mimic Corrupt Mimic]
+| 1
+| 1.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Crimson_Mimic2.png/revision/latest?cb=20150723182523&format=original [https://terraria.fandom.com/wiki/Crimson_Mimic Crimson Mimic]
+| 1
+| 1.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5e/Hallowed_Mimic2.png/revision/latest?cb=20150723182552&format=original [https://terraria.fandom.com/wiki/Hallowed_Mimic Hallowed Mimic]
+| 1
+| 1.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6b/Jungle_Mimic2.png/revision/latest?cb=20150723182625&format=original [https://terraria.fandom.com/wiki/Jungle_Mimic Jungle Mimic]
+| 1
+| 1.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1a/Mothron.png/revision/latest?cb=20150629182437&format=original [https://terraria.fandom.com/wiki/Mothron Mothron]
+| 1
+| 2.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/14/Mothron_Egg.png/revision/latest?cb=20150701102942&format=original [https://terraria.fandom.com/wiki/Mothron_Egg Mothron Egg]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Baby_Mothron.png/revision/latest?cb=20150701102702&format=original [https://terraria.fandom.com/wiki/Baby_Mothron Baby Mothron]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Medusa.png/revision/latest?cb=20150701102935&format=original [https://terraria.fandom.com/wiki/Medusa Medusa]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6b/Hoplite.png/revision/latest?cb=20171209201110&format=original [https://terraria.fandom.com/wiki/Hoplite Hoplite]
+| 1
+| 0.9%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Granite_Golem.png/revision/latest?cb=20150701102858&format=original [https://terraria.fandom.com/wiki/Granite_Golem Granite Golem]
+| 1
+| 3.03%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/04/Granite_Elemental.gif/revision/latest?cb=20150501004036&format=original [https://terraria.fandom.com/wiki/Granite_Elemental Granite Elemental]
+| 1
+| 3.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/06/Target_Dummy_%28placed%29.gif/revision/latest?cb=20150701180254&format=original [https://terraria.fandom.com/wiki/Target_Dummy Target Dummy]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Blood_Zombie.png/revision/latest?cb=20171104201710&format=original [https://terraria.fandom.com/wiki/Blood_Zombie Blood Zombie]
+| 1
+| 0.73%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/69/Drippler.gif/revision/latest?cb=20200831184238&format=original [https://terraria.fandom.com/wiki/Drippler Drippler]
+| 1
+| 0.74%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/ba/Flying_Dutchman.png/revision/latest/scale-to-width-down/260?cb=20180705152731&format=original [https://terraria.fandom.com/wiki/Flying_Dutchman Flying Dutchman]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/ce/Dutchman_Cannon.png/revision/latest?cb=20150701102833&format=original [https://terraria.fandom.com/wiki/Dutchman_Cannon Dutchman Cannon]
+| 1
+| 2.12%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Crawdad.png/revision/latest?cb=20150701102733&format=original [https://terraria.fandom.com/wiki/Crawdad Crawdad]
+| 1
+| 0.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Crawdad2.png/revision/latest?cb=20150701102739&format=original [https://terraria.fandom.com/wiki/Crawdad Crawdad]
+| 1
+| 0.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/dd/Giant_Shelly.png/revision/latest?cb=20150701102840&format=original [https://terraria.fandom.com/wiki/Giant_Shelly Giant Shelly]
+| 1
+| 0.58%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8d/Giant_Shelly2.png/revision/latest?cb=20150701102846&format=original [https://terraria.fandom.com/wiki/Giant_Shelly Giant Shelly]
+| 1
+| 0.58%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Salamander.png/revision/latest?cb=20150701103048&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Salamander_2.png/revision/latest?cb=20180831035120&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/88/Salamander_3.png/revision/latest?cb=20180831035112&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Salamander_4.png/revision/latest?cb=20180831035103&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8a/Salamander_5.png/revision/latest?cb=20180831035036&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Salamander_6.png/revision/latest?cb=20180831035047&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Salamander_7.png/revision/latest?cb=20180831035142&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e9/Salamander_8.png/revision/latest?cb=20180831035151&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c1/Salamander_9.png/revision/latest?cb=20180831035203&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Giant_Antlion_Charger.png/revision/latest?cb=20191112012549&format=original [https://terraria.fandom.com/wiki/Giant_Antlion_Charger Giant Antlion Charger]
+| 1
+| 1.08%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9c/Giant_Antlion_Swarmer.png/revision/latest?cb=20150701102655&format=original [https://terraria.fandom.com/wiki/Giant_Antlion_Swarmer Giant Antlion Swarmer]
+| 1
+| 0.9%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Dune_Splicer_%28Head%29.png/revision/latest?cb=20150701102822&format=original [https://terraria.fandom.com/wiki/Dune_Splicer Dune Splicer]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ef/Dune_Splicer_%28Body%29.png/revision/latest?cb=20150701102816&format=original [https://terraria.fandom.com/wiki/Dune_Splicer Dune Splicer]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b6/Dune_Splicer_%28Tail%29.png/revision/latest?cb=20150701102828&format=original [https://terraria.fandom.com/wiki/Dune_Splicer Dune Splicer]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8f/Tomb_Crawler_%28Head%29.png/revision/latest?cb=20200530045928&format=original [https://terraria.fandom.com/wiki/Tomb_Crawler Tomb Crawler]
+| 1
+| 0.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0f/Tomb_Crawler_%28Body%29.png/revision/latest?cb=20200530050002&format=original [https://terraria.fandom.com/wiki/Tomb_Crawler Tomb Crawler]
+| 1
+| 0.82%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Tomb_Crawler_%28Tail%29.png/revision/latest?cb=20200530045949&format=original [https://terraria.fandom.com/wiki/Tomb_Crawler Tomb Crawler]
+| 1
+| 0.84%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f2/Drakanian.png/revision/latest?cb=20150701103316&format=original [https://terraria.fandom.com/wiki/Drakanian Drakanian]
+| 1
+| 1.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f1/Martian_Walker.png/revision/latest?cb=20150701103346&format=original [https://terraria.fandom.com/wiki/Martian_Walker Martian Walker]
+| 1
+| 1.61%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e0/Ancient_Vision.png/revision/latest?cb=20150701103258&format=original [https://terraria.fandom.com/wiki/Ancient_Vision Ancient Vision]
+| 1
+| 1.58%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/12/Ancient_Light.png/revision/latest?cb=20150701103252&format=original [https://terraria.fandom.com/wiki/Ancient_Light Ancient Light]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/26/Ancient_Doom.png/revision/latest?cb=20150701103247&format=original [https://terraria.fandom.com/wiki/Ancient_Doom Ancient Doom]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Ghoul.png/revision/latest?cb=20150701103329&format=original [https://terraria.fandom.com/wiki/Ghoul Ghoul]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fa/Vile_Ghoul.png/revision/latest?cb=20150701103435&format=original [https://terraria.fandom.com/wiki/Vile_Ghoul Vile Ghoul]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/89/Tainted_Ghoul.png/revision/latest?cb=20150701103417&format=original [https://terraria.fandom.com/wiki/Tainted_Ghoul Tainted Ghoul]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Dreamer_Ghoul.png/revision/latest?cb=20150701103323&format=original [https://terraria.fandom.com/wiki/Dreamer_Ghoul Dreamer Ghoul]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Lamia.png/revision/latest?cb=20150701103335&format=original [https://terraria.fandom.com/wiki/Lamia Lamia]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e5/Lamia2.png/revision/latest?cb=20150701103341&format=original [https://terraria.fandom.com/wiki/Lamia Lamia]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1e/Sand_Poacher.png/revision/latest?cb=20150701103353&format=original [https://terraria.fandom.com/wiki/Sand_Poacher Sand Poacher]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9d/Sand_Poacher2.png/revision/latest?cb=20150701103358&format=original [https://terraria.fandom.com/wiki/Sand_Poacher Sand Poacher]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b1/Basilisk.png/revision/latest?cb=20150701103303&format=original [https://terraria.fandom.com/wiki/Basilisk Basilisk]
+| 1
+| 5.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/35/Desert_Spirit.png/revision/latest?cb=20150701103311&format=original [https://terraria.fandom.com/wiki/Desert_Spirit Desert Spirit]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/83/Tortured_Soul.png/revision/latest?cb=20150701103428&format=original [https://terraria.fandom.com/wiki/Tortured_Soul Tortured Soul]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/10/Spiked_Slime.png/revision/latest?cb=20150701103411&format=original [https://terraria.fandom.com/wiki/Spiked_Slime Spiked Slime]
+| 1
+| 0.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/The_Bride.png/revision/latest?cb=20210620013648&format=original [https://terraria.fandom.com/wiki/The_Bride The Bride]
+| 1
+| 5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f2/Sand_Slime.png/revision/latest?cb=20160224071115&format=original [https://terraria.fandom.com/wiki/Sand_Slime Sand Slime]
+| 1
+| 0.47%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/aa/Sand_Elemental.png/revision/latest?cb=20160909175739&format=original [https://terraria.fandom.com/wiki/Sand_Elemental Sand Elemental]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/95/Sand_Shark.png/revision/latest?cb=20160909154452&format=original [https://terraria.fandom.com/wiki/Sand_Shark Sand Shark]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7c/Bone_Biter.png/revision/latest?cb=20160909201152&format=original [https://terraria.fandom.com/wiki/Bone_Biter Bone Biter]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Flesh_Reaver.png/revision/latest?cb=20160909201148&format=original [https://terraria.fandom.com/wiki/Flesh_Reaver Flesh Reaver]
+| 1
+| 7.14%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Crystal_Thresher.png/revision/latest?cb=20160909201150&format=original [https://terraria.fandom.com/wiki/Crystal_Thresher Crystal Thresher]
+| 1
+| 7.69%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/40/Angry_Tumbler.png/revision/latest?cb=20190205230614&format=original [https://terraria.fandom.com/wiki/Angry_Tumbler Angry Tumbler]
+| 1
+| 0.52%
+|-
+| [[File:NPC_547.png]] [https://terraria.fandom.com/wiki/??? ???]
+| 1
+| 0.31%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ec/Betsy.png/revision/latest?cb=20161117001359&format=original [https://terraria.fandom.com/wiki/Betsy Betsy]
+| 6-7
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8c/Etherian_Goblin.png/revision/latest?cb=20161116123728&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin Etherian Goblin]
+| 1
+| 0.64%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/42/Etherian_Goblin_2.png/revision/latest?cb=20161116123746&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin Etherian Goblin]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3a/Etherian_Goblin_3.png/revision/latest?cb=20161116123808&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin Etherian Goblin]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/79/Etherian_Goblin_Bomber.png/revision/latest?cb=20161116124106&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin_Bomber Etherian Goblin Bomber]
+| 1
+| 1.08%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Etherian_Goblin_Bomber_2.png/revision/latest?cb=20161116124101&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin_Bomber Etherian Goblin Bomber]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/21/Etherian_Goblin_Bomber_3.png/revision/latest?cb=20161116124109&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin_Bomber Etherian Goblin Bomber]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8b/Etherian_Wyvern.png/revision/latest?cb=20210625221330&format=original [https://terraria.fandom.com/wiki/Etherian_Wyvern Etherian Wyvern]
+| 1
+| 2.85%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Etherian_Wyvern_2.png/revision/latest?cb=20210625221449&format=original [https://terraria.fandom.com/wiki/Etherian_Wyvern Etherian Wyvern]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/14/Etherian_Wyvern_3.png/revision/latest?cb=20210625221540&format=original [https://terraria.fandom.com/wiki/Etherian_Wyvern Etherian Wyvern]
+| 1
+| 1.47%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/06/Etherian_Javelin_Thrower.png/revision/latest?cb=20161116125303&format=original [https://terraria.fandom.com/wiki/Etherian_Javelin_Thrower Etherian Javelin Thrower]
+| 1
+| 2.63%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/55/Etherian_Javelin_Thrower_2.png/revision/latest?cb=20161116125322&format=original [https://terraria.fandom.com/wiki/Etherian_Javelin_Thrower Etherian Javelin Thrower]
+| 1
+| 11.11%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ae/Etherian_Javelin_Thrower_3.png/revision/latest?cb=20161116125327&format=original [https://terraria.fandom.com/wiki/Etherian_Javelin_Thrower Etherian Javelin Thrower]
+| 1
+| 1.35%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/33/Dark_Mage.png/revision/latest?cb=20161116171947&format=original [https://terraria.fandom.com/wiki/Dark_Mage Dark Mage]
+| 1
+| 1.31%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/33/Dark_Mage.png/revision/latest?cb=20161116171947&format=original [https://terraria.fandom.com/wiki/Dark_Mage Dark Mage]
+| 1
+| 2.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Old_One%27s_Skeleton.png/revision/latest?cb=20161116124228&format=original [https://terraria.fandom.com/wiki/Old_One's_Skeleton Old One's Skeleton]
+| 1
+| 0.53%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Old_One%27s_Skeleton.png/revision/latest?cb=20161116124228&format=original [https://terraria.fandom.com/wiki/Old_One's_Skeleton Old One's Skeleton]
+| 1
+| 14.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Wither_Beast.png/revision/latest?cb=20161116124330&format=original [https://terraria.fandom.com/wiki/Wither_Beast Wither Beast]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Wither_Beast.png/revision/latest?cb=20161116124330&format=original [https://terraria.fandom.com/wiki/Wither_Beast Wither Beast]
+| 1
+| 1.51%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Drakin.png/revision/latest?cb=20161116124454&format=original [https://terraria.fandom.com/wiki/Drakin Drakin]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0e/Drakin_2.png/revision/latest?cb=20161116124450&format=original [https://terraria.fandom.com/wiki/Drakin Drakin]
+| 1
+| 1.75%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d2/Kobold.png/revision/latest?cb=20161116125025&format=original [https://terraria.fandom.com/wiki/Kobold Kobold]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d2/Kobold.png/revision/latest?cb=20161116125025&format=original [https://terraria.fandom.com/wiki/Kobold Kobold]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/49/Kobold_Glider.png/revision/latest?cb=20161116123143&format=original [https://terraria.fandom.com/wiki/Kobold_Glider Kobold Glider]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/49/Kobold_Glider.png/revision/latest?cb=20161116123143&format=original [https://terraria.fandom.com/wiki/Kobold_Glider Kobold Glider]
+| 1
+| 1.51%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Ogre.png/revision/latest?cb=20161115192150&format=original [https://terraria.fandom.com/wiki/Ogre Ogre]
+| 1
+| 2.32%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Ogre.png/revision/latest?cb=20161115192150&format=original [https://terraria.fandom.com/wiki/Ogre Ogre]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Etherian_Lightning_Bug.png/revision/latest?cb=20161116123152&format=original [https://terraria.fandom.com/wiki/Etherian_Lightning_Bug Etherian Lightning Bug]
+| 1
+| 1.53%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Antlion_Charger.png/revision/latest?cb=20200517034253&format=original [https://terraria.fandom.com/wiki/Antlion_Charger Antlion Charger]
+| 1
+| 0.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/11/Antlion_Swarmer.png/revision/latest?cb=20200521230735&format=original [https://terraria.fandom.com/wiki/Antlion_Swarmer Antlion Swarmer]
+| 1
+| 0.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c8/Antlion_Larva.png/revision/latest?cb=20200517034039&format=original [https://terraria.fandom.com/wiki/Antlion_Larva Antlion Larva]
+| 1
+| 0.27%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Zombie_Merman.png/revision/latest?cb=20220305001421&format=original [https://terraria.fandom.com/wiki/Zombie_Merman Zombie Merman]
+| 1
+| 6.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Wandering_Eye_Fish.png/revision/latest?cb=20200516195725&format=original [https://terraria.fandom.com/wiki/Wandering_Eye_Fish Wandering Eye Fish]
+| 1
+| 5.56%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f8/Torch_Zombie.png/revision/latest?cb=20200516195725&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Armed_Torch_Zombie.png/revision/latest?cb=20200516195727&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Dreadnautilus.png/revision/latest?cb=20200517123621&format=original [https://terraria.fandom.com/wiki/Dreadnautilus Dreadnautilus]
+| 1
+| 2.08%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a3/Blood_Squid.png/revision/latest?cb=20200516201131&format=original [https://terraria.fandom.com/wiki/Blood_Squid Blood Squid]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Hemogoblin_Shark.png/revision/latest?cb=20200516201155&format=original [https://terraria.fandom.com/wiki/Hemogoblin_Shark Hemogoblin Shark]
+| 1
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Blood_Eel_Head.png/revision/latest?cb=20200516201211&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0e/Blood_Eel_Body.png/revision/latest?cb=20200516201210&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
+| 1
+| 3.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bb/Blood_Eel_Tail.png/revision/latest?cb=20200516201212&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/78/Gnome.png/revision/latest?cb=20200516203041&format=original [https://terraria.fandom.com/wiki/Gnome Gnome]
+| 1
+| 0.46%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e2/Angry_Dandelion.png/revision/latest?cb=20200516192425&format=original [https://terraria.fandom.com/wiki/Angry_Dandelion Angry Dandelion]
+| 1
+| 0.35%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Ice_Mimic.png/revision/latest?cb=20170421213009&format=original [https://terraria.fandom.com/wiki/Ice_Mimic Ice Mimic]
+| 1
+| 9.09%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/28/Blood_Mummy.png/revision/latest?cb=20200516192426&format=original [https://terraria.fandom.com/wiki/Blood_Mummy Blood Mummy]
+| 1
+| 4.34%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/Rock_Golem.png/revision/latest?cb=20200516192425&format=original [https://terraria.fandom.com/wiki/Rock_Golem Rock Golem]
+| 1
+| 1.92%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ab/Maggot_Zombie.png/revision/latest?cb=20200516193041&format=original [https://terraria.fandom.com/wiki/Maggot_Zombie Maggot Zombie]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Spore_Bat.png/revision/latest?cb=20200516193907&format=original [https://terraria.fandom.com/wiki/Spore_Bat Spore Bat]
+| 1
+| 0.24%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b5/Spore_Skeleton.png/revision/latest?cb=20200516193020&format=original [https://terraria.fandom.com/wiki/Spore_Skeleton Spore Skeleton]
+| 1
+| 0.57%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Empress_of_Light.gif/revision/latest?cb=20210501121017&format=original [https://terraria.fandom.com/wiki/Empress_of_Light Empress of Light]
+| 5-6
+| 100%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/79/Queen_Slime.png/revision/latest?cb=20200524022713&format=original [https://terraria.fandom.com/wiki/Queen_Slime Queen Slime]
+| 1
+| 33.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4f/Crystal_Slime.png/revision/latest?cb=20200516194836&format=original [https://terraria.fandom.com/wiki/Crystal_Slime Crystal Slime]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Bouncy_Slime.png/revision/latest?cb=20200516194817&format=original [https://terraria.fandom.com/wiki/Bouncy_Slime Bouncy Slime]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Heavenly_Slime.png/revision/latest?cb=20200712033312&format=original [https://terraria.fandom.com/wiki/Heavenly_Slime Heavenly Slime]
+| 1
+| 6.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Pirate%27s_Curse.png/revision/latest?cb=20200730145829&format=original [https://terraria.fandom.com/wiki/Pirate's_Curse Pirate's Curse]
+| 1
+| 1.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Deerclops.png/revision/latest?cb=20211118192944&format=original [https://terraria.fandom.com/wiki/Deerclops Deerclops]
+| 1
+| 20%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Shimmer_Slime.png/revision/latest?cb=20221028202234&format=original [https://terraria.fandom.com/wiki/Shimmer_Slime Shimmer Slime]
+| 1
+| 0.8%
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchantment Essence]]<br/>
+
+The Enchantment Essence Rare will always appear in the  [[Witch]]'s shop.<br/>
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (4)<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (4)<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (4)<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| <br/><br/>[[File:Containment.png]] [[Containment]]<br/>[[File:EnchantmentRare.png]]  Enchantment Rare
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentBasic.png]]  Enchantment Basic
+| rowspan="5" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| <br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentRare.png]]  Enchantment Rare
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentCommon.png]]  Enchantment Common
+|-
+| <br/><br/><br/><br/><br/>[[File:CursedInfernoEnchantmentRare.png]] [[Cursed Inferno Enchantment#Rare|Cursed Inferno Enchantment Rare]]<br/>or<br/>[[File:DaybreakEnchantmentRare.png]] [[Daybreak Enchantment#Rare|Daybreak Enchantment Rare]]<br/>or<br/>[[File:FrostburnEnchantmentRare.png]] [[Frostburn Enchantment#Rare|Frostburn Enchantment Rare]]<br/>or<br/>[[File:IchorEnchantmentRare.png]] [[Ichor Enchantment#Rare|Ichor Enchantment Rare]]<br/>or<br/>[[File:OnFireEnchantmentRare.png]] [[On Fire Enchantment#Rare|On Fire Enchantment Rare]]<br/>or<br/>[[File:PoisonEnchantmentRare.png]] [[Poison Enchantment#Rare|Poison Enchantment Rare]]<br/>or<br/>[[File:VenomEnchantmentRare.png]] [[Venom Enchantment#Rare|Venom Enchantment Rare]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/19/Cursed_Flame.png/revision/latest?cb=20200516210828&format=original [https://terraria.fandom.com/wiki/Cursed_Flame Cursed Flame] (3)<br/>or<br/>[[File:Item_3458.png]] [https://terraria.fandom.com/wiki/Solar_Fragment Solar Fragment] (6)<br/>or<br/>[[File:Item_664.png]] [https://terraria.fandom.com/wiki/Ice_Block Ice Block] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/47/Ichor.png/revision/latest?cb=20200516214220&format=original [https://terraria.fandom.com/wiki/Ichor Ichor] (3)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/Gel.png/revision/latest?cb=20200519215406&format=original [https://terraria.fandom.com/wiki/Gel Gel] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bc/Dart_Trap.png/revision/latest?cb=20200516211137&format=original [https://terraria.fandom.com/wiki/Dart_Trap Dart Trap]<br/>or<br/>[[File:Item_1339.png]] [https://terraria.fandom.com/wiki/Vial_of_Venom Vial of Venom] (3)
+|-
+| [[File:DamageEnchantmentRare.png]] [[Damage Enchantment#Rare|Damage Enchantment Rare]]<br/>or<br/>[[File:DefenseEnchantmentRare.png]] [[Defense Enchantment#Rare|Defense Enchantment Rare]]<br/>or<br/>[[File:PrideOfTheWeakEnchantmentRare.png]] [[Pride Of The Weak Enchantment#Rare|Pride Of The Weak Enchantment Rare]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+|-
+| [[File:LethalCombinationEnchantmentRare.png]] [[Lethal Combination Enchantment#Rare|Lethal Combination Enchantment Rare]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:AttackSpeedEnchantmentRare.png]] [[Attack Speed Enchantment#Rare|Attack Speed Enchantment Rare]]<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:CriticalStrikeDamageEnchantmentRare.png]] [[Critical Strike Damage Enchantment#Rare|Critical Strike Damage Enchantment Rare]]<br/>[[File:DamageEnchantmentRare.png]] [[Damage Enchantment#Rare|Damage Enchantment Rare]]<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>
+|-
+| <br/><br/><br/>[[File:Containment.png]] [[Containment]]<br/>[[File:EnchantmentEpic.png]]  Enchantment Epic
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentBasic.png]]  Enchantment Basic<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+| rowspan="5" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| <br/><br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEpic.png]]  Enchantment Epic
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentCommon.png]]  Enchantment Common<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+|-
+| <br/><br/><br/><br/><br/><br/>[[File:CursedInfernoEnchantmentEpic.png]] [[Cursed Inferno Enchantment#Epic|Cursed Inferno Enchantment Epic]]<br/>or<br/>[[File:DaybreakEnchantmentEpic.png]] [[Daybreak Enchantment#Epic|Daybreak Enchantment Epic]]<br/>or<br/>[[File:FrostburnEnchantmentEpic.png]] [[Frostburn Enchantment#Epic|Frostburn Enchantment Epic]]<br/>or<br/>[[File:IchorEnchantmentEpic.png]] [[Ichor Enchantment#Epic|Ichor Enchantment Epic]]<br/>or<br/>[[File:OnFireEnchantmentEpic.png]] [[On Fire Enchantment#Epic|On Fire Enchantment Epic]]<br/>or<br/>[[File:PoisonEnchantmentEpic.png]] [[Poison Enchantment#Epic|Poison Enchantment Epic]]<br/>or<br/>[[File:VenomEnchantmentEpic.png]] [[Venom Enchantment#Epic|Venom Enchantment Epic]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/19/Cursed_Flame.png/revision/latest?cb=20200516210828&format=original [https://terraria.fandom.com/wiki/Cursed_Flame Cursed Flame] (3)<br/>or<br/>[[File:Item_3458.png]] [https://terraria.fandom.com/wiki/Solar_Fragment Solar Fragment] (6)<br/>or<br/>[[File:Item_664.png]] [https://terraria.fandom.com/wiki/Ice_Block Ice Block] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/47/Ichor.png/revision/latest?cb=20200516214220&format=original [https://terraria.fandom.com/wiki/Ichor Ichor] (3)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/Gel.png/revision/latest?cb=20200519215406&format=original [https://terraria.fandom.com/wiki/Gel Gel] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bc/Dart_Trap.png/revision/latest?cb=20200516211137&format=original [https://terraria.fandom.com/wiki/Dart_Trap Dart Trap]<br/>or<br/>[[File:Item_1339.png]] [https://terraria.fandom.com/wiki/Vial_of_Venom Vial of Venom] (3)<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+|-
+| [[File:DamageEnchantmentEpic.png]] [[Damage Enchantment#Epic|Damage Enchantment Epic]]<br/>or<br/>[[File:DefenseEnchantmentEpic.png]] [[Defense Enchantment#Epic|Defense Enchantment Epic]]<br/>or<br/>[[File:PrideOfTheWeakEnchantmentEpic.png]] [[Pride Of The Weak Enchantment#Epic|Pride Of The Weak Enchantment Epic]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]
+|-
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (4)<br/>
+|-
+| <br/><br/><br/><br/>[[File:Containment.png]] [[Containment]]<br/>[[File:EnchantmentLegendary.png]]  Enchantment Legendary
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentBasic.png]]  Enchantment Basic<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| rowspan="4" | [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| <br/><br/><br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentLegendary.png]]  Enchantment Legendary
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentCommon.png]]  Enchantment Common<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| <br/><br/><br/><br/><br/><br/><br/>[[File:CursedInfernoEnchantmentLegendary.png]] [[Cursed Inferno Enchantment#Legendary|Cursed Inferno Enchantment Legendary]]<br/>or<br/>[[File:DaybreakEnchantmentLegendary.png]] [[Daybreak Enchantment#Legendary|Daybreak Enchantment Legendary]]<br/>or<br/>[[File:FrostburnEnchantmentLegendary.png]] [[Frostburn Enchantment#Legendary|Frostburn Enchantment Legendary]]<br/>or<br/>[[File:IchorEnchantmentLegendary.png]] [[Ichor Enchantment#Legendary|Ichor Enchantment Legendary]]<br/>or<br/>[[File:OnFireEnchantmentLegendary.png]] [[On Fire Enchantment#Legendary|On Fire Enchantment Legendary]]<br/>or<br/>[[File:PoisonEnchantmentLegendary.png]] [[Poison Enchantment#Legendary|Poison Enchantment Legendary]]<br/>or<br/>[[File:VenomEnchantmentLegendary.png]] [[Venom Enchantment#Legendary|Venom Enchantment Legendary]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/19/Cursed_Flame.png/revision/latest?cb=20200516210828&format=original [https://terraria.fandom.com/wiki/Cursed_Flame Cursed Flame] (3)<br/>or<br/>[[File:Item_3458.png]] [https://terraria.fandom.com/wiki/Solar_Fragment Solar Fragment] (6)<br/>or<br/>[[File:Item_664.png]] [https://terraria.fandom.com/wiki/Ice_Block Ice Block] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/47/Ichor.png/revision/latest?cb=20200516214220&format=original [https://terraria.fandom.com/wiki/Ichor Ichor] (3)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/Gel.png/revision/latest?cb=20200519215406&format=original [https://terraria.fandom.com/wiki/Gel Gel] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bc/Dart_Trap.png/revision/latest?cb=20200516211137&format=original [https://terraria.fandom.com/wiki/Dart_Trap Dart Trap]<br/>or<br/>[[File:Item_1339.png]] [https://terraria.fandom.com/wiki/Vial_of_Venom Vial of Venom] (3)<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:DamageEnchantmentLegendary.png]] [[Damage Enchantment#Legendary|Damage Enchantment Legendary]]<br/>or<br/>[[File:DefenseEnchantmentLegendary.png]] [[Defense Enchantment#Legendary|Defense Enchantment Legendary]]<br/>or<br/>[[File:PrideOfTheWeakEnchantmentLegendary.png]] [[Pride Of The Weak Enchantment#Legendary|Pride Of The Weak Enchantment Legendary]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:AttackSpeedEnchantmentRare.png]] [[Attack Speed Enchantment#Rare|Attack Speed Enchantment Rare]]<br/>[[File:CriticalStrikeChanceEnchantmentRare.png]] [[Critical Strike Chance Enchantment#Rare|Critical Strike Chance Enchantment Rare]]<br/>[[File:CriticalStrikeDamageEnchantmentRare.png]] [[Critical Strike Damage Enchantment#Rare|Critical Strike Damage Enchantment Rare]]<br/>[[File:DamageEnchantmentRare.png]] [[Damage Enchantment#Rare|Damage Enchantment Rare]]<br/>[[File:PercentArmorPenetrationEnchantmentRare.png]] [[Percent Armor Penetration Enchantment#Rare|Percent Armor Penetration Enchantment Rare]]<br/>
+| [[File:LethalCombinationEnchantmentRare.png]] [[Lethal Combination Enchantment#Rare|Lethal Combination Enchantment Rare]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]] (4)<br/>
+| [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+

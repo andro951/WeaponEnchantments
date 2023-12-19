@@ -1,0 +1,63 @@
+<div style="float:right">
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+!colspan="2" style="padding: 0px" |Ultra Power Booster
+|-
+!colspan="2" style="padding: 0px" |[[File:UltraPowerBooster.png]]
+|-
+!colspan="2" style="padding: 0px" |Statistics
+|-
+| Type
+| [[Power Booster|Power Booster]]
+|-
+| Tooltip
+| <i>'Use this while the item you want to boost is in an Enchantment Table to raise its base level by 20.<br/>(Shift left click from your inventory or left click on item in the table with this on your cursor.)<br/>This item will be returned if the boosted item is offered.'</i>
+|-
+| [https://terraria.fandom.com/wiki/Rarity Rarity]
+| <b><span style="color:rgb(255, 150, 150);">LightRed</span></b>
+|-
+| Sell
+| <span>20</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original
+|-
+| [https://terraria.fandom.com/wiki/Journey_Mode Research]
+| 1 required
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Bestiary_Boss_Enemy.png]] Obtained From
+! Entity
+! Qty.
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Golem_Core.png/revision/latest?cb=20200517202317&format=original [https://terraria.fandom.com/wiki/Golem Golem]
+| 1
+| 5.47%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Plantera_%28First_form%29.gif/revision/latest?cb=20200706212844&format=original [https://terraria.fandom.com/wiki/Plantera Plantera]
+| 1
+| 9.87%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0b/Duke_Fishron.png/revision/latest?cb=20180705150806&format=original [https://terraria.fandom.com/wiki/Duke_Fishron Duke Fishron]
+| 1
+| 25.9%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/84/Moon_Lord%27s_Head.gif/revision/latest?cb=20160712055422&format=original [https://terraria.fandom.com/wiki/Moon_Lord Moon Lord]
+| 1
+| 36.85%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Moon_Lord%27s_Core.gif/revision/latest?cb=20160712055841&format=original [https://terraria.fandom.com/wiki/Moon_Lord's_Core Moon Lord's Core]
+| 1
+| 47.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1c/Lunatic_Cultist.gif/revision/latest?cb=20190125125946&format=original [https://terraria.fandom.com/wiki/Lunatic_Cultist Lunatic Cultist]
+| 1
+| 11.98%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Empress_of_Light.gif/revision/latest?cb=20210501121017&format=original [https://terraria.fandom.com/wiki/Empress_of_Light Empress of Light]
+| 1
+| 29.05%
+|}
+
+</div>
+[[|Main Page]]<br/>
+<br/>
+A Power Booster is a rare item obtained from defeating post Plantera bosses (includes Plantera).  It adds 20 levels to an item (These levels do not count towards the level 40 cap or give critical strike chance.).  They can only be used once per item.  To apply an ultra power booster to an item, place the item into the enchanting table then click the ultra power booster onto the item in the table as if you were merging two stacks of the same item.  You can also shift left click the power booster from your inventory.  Ultra Power boosters drop from boss bags in Expert/Master mode at the same rates from the table.<br/>

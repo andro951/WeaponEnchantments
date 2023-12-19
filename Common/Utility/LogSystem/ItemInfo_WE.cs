@@ -59,8 +59,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem {
 				bool createItemCountLarger = recipeData.requiredItem.Count > 1 && createItemCount > recipeData.requiredItem.Count && requiredContainsItem;
 				Enchantment firstRequiredEnchantment = recipeData.requiredItem.All.Select(i => i.ModItem).OfType<Enchantment>().FirstOrDefault(defaultValue: null);
 				IEnumerable<ModItem> createModItems = recipeData.createItem.All.Select(i => i.ModItem);
-				bool downGradeEnchanmtent = firstRequiredEnchantment?.EnchantmentTier > createModItems.OfType<Enchantment>().FirstOrDefault(defaultValue: null)?.EnchantmentTier || firstRequiredEnchantment != null && createModItems.OfType<EnchantmentEssence>().FirstOrDefault(defaultValue: null)?.EssenceTier == 0;
-				bool reverseRecipe = recipeData.IsReverseRecipe(Item.type) || createItemCountLarger || downGradeEnchanmtent;
+				int createdEssenceTier = createModItems.OfType<EnchantmentEssence>().FirstOrDefault(defaultValue: null)?.EssenceTier ?? -1;
+				bool reverseCraftOfCombinationEnchantment = firstRequiredEnchantment?.HasIngredientEnchantments == true && createdEssenceTier == firstRequiredEnchantment.EnchantmentTier;
+				bool downGradeEnchanmtent = firstRequiredEnchantment?.EnchantmentTier > createModItems.OfType<Enchantment>().FirstOrDefault(defaultValue: null)?.EnchantmentTier || firstRequiredEnchantment != null && createdEssenceTier == 0;
+				bool reverseRecipe = recipeData.IsReverseRecipe(Item.type) || createItemCountLarger || downGradeEnchanmtent || reverseCraftOfCombinationEnchantment;
 				if (includeReverse && !reverseRecipe || !includeReverse && reverseRecipe)
 					continue;
 

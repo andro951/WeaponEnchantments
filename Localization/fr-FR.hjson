@@ -931,6 +931,11 @@ Mods: {
 			LavaFishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche à la lave
 			LavaFishingEnchantmentLegendary.DisplayName: Pêche à la lave Enchantement Légendaire
 			LavaFishingEnchantmentRare.DisplayName: Pêche à la lave Enchantement Rare
+			LethalCombinationEnchantmentBasic.DisplayName: Enchantement de combinaison mortelle de Base
+			LethalCombinationEnchantmentCommon.DisplayName: Enchantement de combinaison mortelle Commun
+			LethalCombinationEnchantmentEpic.DisplayName: Enchantement combiné mortel Epique
+			LethalCombinationEnchantmentLegendary.DisplayName: Enchantement de combinaison mortelle Légendaire
+			LethalCombinationEnchantmentRare.DisplayName: Enchantement de combinaison mortelle Rare
 			LifeRegenEnchantmentBasic.DisplayName: Enchantement de régénération de vie de base
 			LifeRegenEnchantmentCommon.DisplayName: Enchantement de régénération de vie
 			LifeRegenEnchantmentEpic.DisplayName: Épopée d'enchantement de régénération de vie
@@ -1347,6 +1352,7 @@ Mods: {
 				KiDamage: Dégâts Ki
 				KiRegen: Ki Régénération
 				LavaFishing: Pêche à la lave
+				LethalCombination: Combinaison mortelle
 				LifeRegen: Régénération de vie
 				LifeRegeneration: Régénération de la vie
 				LifeSteal: Vol de vie

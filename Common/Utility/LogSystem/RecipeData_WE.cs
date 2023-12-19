@@ -19,7 +19,16 @@ namespace WeaponEnchantments.Common.Utility.LogSystem {
 		public RecipeData_WE(Recipe recipe) : base(recipe) {
 
 		}
-		protected override List<Item> GetOtherCraftedItems(Item item, Item consumedItem) => CraftingEnchantments.GetOtherCraftedItems(item, consumedItem).Select(p => new Item(p.Key, p.Value)).ToList();
+		protected override List<Item> GetAllOtherCraftedItems(Item item, List<Item> consumedItems) {
+			SortedDictionary<int, int> dict = new();
+			CraftingEnchantments.GetOtherCraftedItems(dict, item, consumedItems);
+			List<Item> list = new();
+			foreach (KeyValuePair<int, int> key in dict) {
+				list.Add(new Item(key.Key, key.Value));
+			}
+
+			return list;
+		}
 		public override bool TryCondenseRecipe(RecipeData other) {
 			if (createItem.Count == 1 && requiredItem.Count == 1) {
 				if (createItem.All[0].ModItem is EnchantmentEssence && requiredItem.All[0].ModItem is EnchantmentEssence)

@@ -931,6 +931,11 @@ Mods: {
 			LavaFishingEnchantmentEpic.DisplayName: Lava Fishing Enchantment Epic
 			LavaFishingEnchantmentLegendary.DisplayName: Lava Fishing Enchantment Legendary
 			LavaFishingEnchantmentRare.DisplayName: Lava Fishing Enchantment Rare
+			LethalCombinationEnchantmentBasic.DisplayName: Lethal Combination Enchantment Basic
+			LethalCombinationEnchantmentCommon.DisplayName: Lethal Combination Enchantment Common
+			LethalCombinationEnchantmentEpic.DisplayName: Lethal Combination Enchantment Epic
+			LethalCombinationEnchantmentLegendary.DisplayName: Lethal Combination Enchantment Legendary
+			LethalCombinationEnchantmentRare.DisplayName: Lethal Combination Enchantment Rare
 			LifeRegenEnchantmentBasic.DisplayName: Life Regen Enchantment Basic
 			LifeRegenEnchantmentCommon.DisplayName: Life Regen Enchantment Common
 			LifeRegenEnchantmentEpic.DisplayName: Life Regen Enchantment Epic
@@ -1347,6 +1352,7 @@ Mods: {
 				KiDamage: Ki Damage
 				KiRegen: Ki Regen
 				LavaFishing: Lava Fishing
+				LethalCombination: Lethal Combination
 				LifeRegen: Life Regen
 				LifeRegeneration: Life Regeneration
 				LifeSteal: Life Steal

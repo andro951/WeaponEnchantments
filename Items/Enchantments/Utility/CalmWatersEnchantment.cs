@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override int StrengthGroup => 15;
 		public override float ScalePercent => 0f;
 		public override bool Max1 => true;
-		public override float CapacityCostMultiplier => 1;
+		public override float CapacityCostMultiplier => CapacityCostUtility;
 		public override void GetMyStats() {
 			Effects = new() {
 				new EnemyMaxSpawns(multiplicative: EnchantmentStrengthData),

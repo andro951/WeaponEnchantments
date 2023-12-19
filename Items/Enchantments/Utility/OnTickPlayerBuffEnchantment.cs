@@ -15,11 +15,7 @@ namespace WeaponEnchantments.Items.Utility
 	public abstract class OnTickPlayerBuffEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 19;
-		//public override int EnchantmentValueTierReduction => -2;
-		//public override int LowestCraftableTier => 5;
 		protected abstract int buffID { get; }
-		//public override bool Max1 => true;
-		//public override float CapacityCostMultiplier => 1;
 		public override float ScalePercent => 0f;
 		public override SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override void GetMyStats() {

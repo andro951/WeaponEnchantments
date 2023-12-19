@@ -9,7 +9,7 @@ using androLib.Common.Utility;
 namespace WeaponEnchantments.Items.Enchantments {
     public abstract class DamageReductionEnchantment : Enchantment {
         public override float ScalePercent => 0.6f;
-        public override float CapacityCostMultiplier => 3f;
+        public override float CapacityCostMultiplier => CapacityCostUnique;
 		public override int StrengthGroup => 20;
         public override void GetMyStats() {
             Effects = new() {
