@@ -49,6 +49,9 @@ namespace WeaponEnchantments.Items
 
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
+		public override void Load() {
+			AndroMod.PostRightClickActions += PostRightClick;
+		}
 		public override void SetStaticDefaults() {
 			GetDefaults();
 
@@ -148,6 +151,8 @@ namespace WeaponEnchantments.Items
 		}
 		public override bool CanRightClick() => !ItemSlot.ShiftInUse;
 		public override void RightClick(Player player) {
+			justRightClicked = true;
+
 			WEPlayer wePlayer = player.GetWEPlayer();
 			int x;
 			int y;
@@ -162,8 +167,12 @@ namespace WeaponEnchantments.Items
 
 			EnchantingTableTile.RightClickEnchantingTable(x, y, enchantingTableTier);
 		}
+		private static bool justRightClicked = false;
+		private void PostRightClick(Item item, Player player) {
+			justRightClicked = false;
+		}
 		public override bool ConsumeItem(Player player) {
-			return false;
+			return !justRightClicked;
 		}
 	}
 
