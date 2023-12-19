@@ -939,8 +939,19 @@ namespace WeaponEnchantments
                 return;
 
             //Critical strike
-            if ((item.DamageType != DamageClass.Summon && item.DamageType != DamageClass.MagicSummonHybrid) || !WEMod.serverConfig.DisableMinionCrits) {
-                int critChance = (projectile?.CritChance ?? Player.GetWeaponCrit(item)) + (crit ? 100 : 0) + (critOverride == true ? 100 : 0);
+            bool anyBesidesSummon = item.DamageType != DamageClass.Summon && item.DamageType != DamageClass.MagicSummonHybrid;
+			if (anyBesidesSummon || !WEMod.serverConfig.DisableMinionCrits) {
+                bool shouldAddWeaponCritChance = true;
+                int critChance = 0;
+                if (projectile != null) {
+                    critChance += projectile.CritChance;
+                    shouldAddWeaponCritChance = !anyBesidesSummon || projectile.ContinuouslyUpdateDamageStats;
+				}
+
+                if (shouldAddWeaponCritChance)
+					critChance += Player.GetWeaponCrit(item);
+
+                critChance += (crit ? 100 : 0) + (critOverride == true ? 100 : 0);
                 int critLevel = critChance / 100;
                 critChance %= 100;
                 if (Main.rand.Next(0, 100) < critChance)

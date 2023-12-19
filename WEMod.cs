@@ -281,7 +281,7 @@ namespace WeaponEnchantments
 				if (useStandardCritCalcs)
 					return useStandardCritCalcs;
 
-				if (!WEMod.serverConfig.DisableMinionCrits && (item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.SummonMeleeSpeed)) {
+				if (!WEMod.serverConfig.DisableMinionCrits && (item.DamageType == DamageClass.Summon || item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.SummonMeleeSpeed)) {
 					shouldShowCritChance = true;
 				}
 
