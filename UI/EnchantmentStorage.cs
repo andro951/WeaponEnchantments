@@ -92,13 +92,30 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		private static Item[] allOfferableItems = null;
+		private static Item[] autoOfferItems = new Item[0];
 		private static Item[] AllOfferableItems {
 			get {
 				if (allOfferableItems == null) {
 					allOfferableItems = ContentSamples.ItemsByType.Select(p => p.Value).Where(i => i.IsEnchantable()).Select(i => new Item(i.type)).ToArray();
 				}
 
-				return allOfferableItems;
+				if (MasterUIManager.UsingSearchBar(SearchID))
+					return allOfferableItems;
+
+				WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+				if (autoOfferItems.Length != wePlayer.allOfferedItems.Count) {
+					autoOfferItems = ContentSamples.ItemsByType.Select(p => p.Value).Where(i => i.IsEnchantable() && wePlayer.allOfferedItems.Contains(i.type.GetItemIDOrName())).Select(i => new Item(i.type)).ToArray();
+				}
+
+				if (autoOfferItems.Length == 0)
+					return allOfferableItems;
+
+				int emptyspacers = 10;
+				int rowSize = autoOfferItems.Length % 10;
+				if (rowSize > 0)
+					emptyspacers += 10 - rowSize;
+
+				return autoOfferItems.Concat(Enumerable.Repeat<Item>(null, emptyspacers)).Concat(allOfferableItems).ToArray();
 			}
 		}
 		private static DrawnUIData drawnUIData;
@@ -236,9 +253,9 @@ namespace WeaponEnchantments.UI
 					break;
 
 				ref Item item = ref inventory[inventoryIndex];
-				if (!UsingSearchBar || item.Name.ToLower().Contains(MasterUIManager.SearchBarString.ToLower())) {
+				if (!UsingSearchBar || item != null && item.Name.ToLower().Contains(MasterUIManager.SearchBarString.ToLower())) {
 					UIItemSlotData slotData = new(GetUI_ID(WE_UI_ID.EnchantmentStorageItemSlot), itemSlotX, itemSlotY);
-					string modFullName = item.type.GetItemIDOrName();
+					string modFullName = item?.type.GetItemIDOrName();
 					if (managingTrash) {
 						bool isTrash = wePlayer.trashEnchantmentsFullNames.Contains(modFullName);
 						if (slotData.MouseHovering()) {
@@ -264,27 +281,29 @@ namespace WeaponEnchantments.UI
 						}
 					}
 					else if (managingOfferdItems) {
-						bool isOffered = wePlayer.allOfferedItems.Contains(modFullName);
-						if (slotData.MouseHovering()) {
-							ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
-							Main.cursorOverride = isOffered ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
-							if (MasterUIManager.LeftMouseClicked) {
-								if (isOffered) {
-									wePlayer.allOfferedItems.Remove(modFullName);
-								}
-								else {
-									wePlayer.allOfferedItems.Add(modFullName);
-								}
+						if (item != null) {//null fillers are added to inventory to keep the items in the same horizontal slot.
+							bool isOffered = wePlayer.allOfferedItems.Contains(modFullName);
+							if (slotData.MouseHovering()) {
+								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
+								Main.cursorOverride = isOffered ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
+								if (MasterUIManager.LeftMouseClicked) {
+									if (isOffered) {
+										wePlayer.allOfferedItems.Remove(modFullName);
+									}
+									else {
+										wePlayer.allOfferedItems.Add(modFullName);
+									}
 
-								SoundEngine.PlaySound(SoundID.MenuTick);
+									SoundEngine.PlaySound(SoundID.MenuTick);
+								}
 							}
-						}
 
-						if (isOffered) {
-							slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
-						}
-						else {
-							slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
+							if (isOffered) {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+							}
+							else {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
+							}
 						}
 					}
 					else if (quickCrafting) {

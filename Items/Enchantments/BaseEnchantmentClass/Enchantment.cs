@@ -819,6 +819,8 @@ namespace WeaponEnchantments.Items
 				//Enchanting Table
 				ingredientEnchantmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[EnchantmentTier] + "EnchantingTable");
 
+				ingredientEnchantmentRecipe.DisableDecraft();
+
 				ingredientEnchantmentRecipe.Register();
 			}
 
@@ -862,6 +864,9 @@ namespace WeaponEnchantments.Items
 
 				EditRecipe(recipe);
 
+				if (j != 0)
+					recipe.DisableDecraft();
+
 				recipe.Register();
 			}
 
@@ -886,9 +891,10 @@ namespace WeaponEnchantments.Items
 				recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[EnchantmentTier] + "EnchantingTable");
 
 				//Gems
-				if (EnchantmentTier == 3) {
+				if (EnchantmentTier == 3)
 					recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyCommonGem}", 2);
-				}
+
+				recipe.DisableDecraft();
 
 				recipe.Register();
 			}
@@ -922,6 +928,9 @@ namespace WeaponEnchantments.Items
 
 			//Enchanting Table
 			basicEssenceRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[0] + "EnchantingTable");
+
+			basicEssenceRecipe.DisableDecraft();
+
 			basicEssenceRecipe.Register();
 		}
 
