@@ -5,35 +5,35 @@
 | image1   = [[File:LethalCombinationEnchantmentBasic.png]]
 | artist1  =   (art by @level12lobster)
 | type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip1 = <i>'+2% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+6% Mining Speed<br/>-1.9607% NPC Hit Cooldown<br/>+2% Critical Strike Chance<br/>+2.5% Critical Strike Damage<br/>+2% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+2 Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 3<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip1 = <i>'+2% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+6% Mining Speed<br/>-1.9607% NPC Hit Cooldown<br/>+2% Critical Strike Chance<br/>+2.5% Critical Strike Damage<br/>+2% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+2% Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 3<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
 | sell1    = <span>27</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
 
 | image2   = [[File:LethalCombinationEnchantmentCommon.png]]
 | artist2  =   (art by @level12lobster)
 | type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip2 = <i>'+4% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+12% Mining Speed<br/>-3.8461% NPC Hit Cooldown<br/>+4% Critical Strike Chance<br/>+5% Critical Strike Damage<br/>+4% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+4 Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 6<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip2 = <i>'+4% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+12% Mining Speed<br/>-3.8461% NPC Hit Cooldown<br/>+4% Critical Strike Chance<br/>+5% Critical Strike Damage<br/>+4% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+4% Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 6<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
 | sell2    = <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>23</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
 
 | image3   = [[File:LethalCombinationEnchantmentRare.png]]
 | artist3  =   (art by @level12lobster)
 | type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip3 = <i>'+6% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+18% Mining Speed<br/>-5.6603% NPC Hit Cooldown<br/>+6% Critical Strike Chance<br/>+7.5% Critical Strike Damage<br/>+6% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+6 Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 9<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip3 = <i>'+6% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+18% Mining Speed<br/>-5.6603% NPC Hit Cooldown<br/>+6% Critical Strike Chance<br/>+7.5% Critical Strike Damage<br/>+6% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+6% Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 9<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
 | sell3    = <span>7</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>29</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
 
 | image4   = [[File:LethalCombinationEnchantmentEpic.png]]
 | artist4  =   (art by @level12lobster)
 | type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip4 = <i>'+8% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+24% Mining Speed<br/>-7.4074% NPC Hit Cooldown<br/>+8% Critical Strike Chance<br/>+10% Critical Strike Damage<br/>+8% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+8 Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 12<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip4 = <i>'+8% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+24% Mining Speed<br/>-7.4074% NPC Hit Cooldown<br/>+8% Critical Strike Chance<br/>+10% Critical Strike Damage<br/>+8% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+8% Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 12<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
 | sell4    = <span>22</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>65</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
 
 | image5   = [[File:LethalCombinationEnchantmentLegendary.png]]
 | artist5  =   (art by @level12lobster)
 | type5    = [[Enchantments|Enchantments]]
-| tooltip5 = <i>'+12% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+36% Mining Speed<br/>-10.7142% NPC Hit Cooldown<br/>+12% Critical Strike Chance<br/>+15% Critical Strike Damage<br/>+12% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+12 Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 15<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip5 = <i>'+12% Attack Speed (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)<br/>+36% Mining Speed<br/>-10.7142% NPC Hit Cooldown<br/>+12% Critical Strike Chance<br/>+15% Critical Strike Damage<br/>+12% Damage (Applied after defenses. Not visible in weapon tooltip)<br/>+12% Percent Armor Penetration<br/>Auto Reuse: Enabled<br/>Level cost: 15<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
 | sell5    = <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2c/Platinum_Coin.png/revision/latest?cb=20200516220643&format=original <span>40</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>73</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
 
@@ -61,7 +61,7 @@
 | +2%
 | +2.5%
 | +2%
-| +2
+| +2%
 | Enabled
 |-
 | +4%
@@ -70,7 +70,7 @@
 | +4%
 | +5%
 | +4%
-| +4
+| +4%
 | Enabled
 |-
 | +6%
@@ -79,7 +79,7 @@
 | +6%
 | +7.5%
 | +6%
-| +6
+| +6%
 | Enabled
 |-
 | +8%
@@ -88,7 +88,7 @@
 | +8%
 | +10%
 | +8%
-| +8
+| +8%
 | Enabled
 |-
 | +12%
@@ -97,7 +97,7 @@
 | +12%
 | +15%
 | +12%
-| +12
+| +12%
 | Enabled
 |}
 

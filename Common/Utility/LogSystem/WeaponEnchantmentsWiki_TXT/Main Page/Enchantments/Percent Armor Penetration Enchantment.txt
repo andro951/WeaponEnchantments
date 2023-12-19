@@ -5,7 +5,7 @@
 | image1   = [[File:PercentArmorPenetrationEnchantmentBasic.png]]
 | artist1  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
 | type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip1 = <i>'+12 Percent Armor Penetration<br/>Level cost: 2<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip1 = <i>'+12% Percent Armor Penetration<br/>Level cost: 2<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
 | buy      = <span>15</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>92</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 | sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
@@ -13,28 +13,28 @@
 | image2   = [[File:PercentArmorPenetrationEnchantmentCommon.png]]
 | artist2  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
 | type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip2 = <i>'+16 Percent Armor Penetration<br/>Level cost: 4<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip2 = <i>'+16% Percent Armor Penetration<br/>Level cost: 4<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
 | sell2    = <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
 | image3   = [[File:PercentArmorPenetrationEnchantmentRare.png]]
 | artist3  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
 | type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip3 = <i>'+24 Percent Armor Penetration<br/>Level cost: 6<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip3 = <i>'+24% Percent Armor Penetration<br/>Level cost: 6<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
 | sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>46</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
 | image4   = [[File:PercentArmorPenetrationEnchantmentEpic.png]]
 | artist4  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
 | type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip4 = <i>'+32 Percent Armor Penetration<br/>Level cost: 8<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip4 = <i>'+32% Percent Armor Penetration<br/>Level cost: 8<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
 | sell4    = <span>8</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
 | image5   = [[File:PercentArmorPenetrationEnchantmentLegendary.png]]
 | artist5  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
 | type5    = [[Enchantments|Enchantments]]
-| tooltip5 = <i>'+40 Percent Armor Penetration<br/>Level cost: 10<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
+| tooltip5 = <i>'+40% Percent Armor Penetration<br/>Level cost: 10<br/>   *Allowed on Weapons: 100%, Armor: 25% and Accessories: 25%*'</i>
 | rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
 | sell5    = <span>23</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
@@ -83,15 +83,15 @@ The Percent Armor Penetration Enchantment Basic can appear in the  [[Witch]]'s s
 {| class="wikitable"
 ! Percent Armor Penetration
 |-
-| +12
+| +12%
 |-
-| +16
+| +16%
 |-
-| +24
+| +24%
 |-
-| +32
+| +32%
 |-
-| +40
+| +40%
 |}
 
 === Applicability ===

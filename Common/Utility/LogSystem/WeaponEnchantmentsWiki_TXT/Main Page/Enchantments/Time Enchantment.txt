@@ -4,31 +4,31 @@
 
 | image1   = [[File:TimeEnchantmentBasic.png]]
 | type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip1 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>1.2x Day Time Rate<br/>0.833x Day Tile Update Rate<br/>1.2x Night Time Rate<br/>0.833x Night Tile Update Rate<br/>0.833x Night Event Update Rate<br/>0.833x Day Event Update Rate<br/>Level cost: 1<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| tooltip1 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>1.2x Day Time Rate<br/>1.2x Day Tile Update Rate<br/>1.2x Night Time Rate<br/>0.833x Night Tile Update Rate<br/>1.2x Night Event Update Rate<br/>1.2x Day Event Update Rate<br/>Level cost: 1<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
 | rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
 | sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
 | image2   = [[File:TimeEnchantmentCommon.png]]
 | type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip2 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>0.7142x Night Tile Update Rate<br/>0.7142x Day Time Rate<br/>1.4x Night Event Update Rate<br/>1.4x Day Tile Update Rate<br/>1.4x Day Event Update Rate<br/>1.4x Night Time Rate<br/>Level cost: 2<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| tooltip2 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>0.7142x Day Tile Update Rate<br/>0.7142x Day Event Update Rate<br/>1.4x Night Tile Update Rate<br/>1.4x Day Time Rate<br/>0.7142x Night Event Update Rate<br/>0.7142x Night Time Rate<br/>Level cost: 2<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
 | rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
 | sell2    = <span>98</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
 | image3   = [[File:TimeEnchantmentRare.png]]
 | type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip3 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>0.625x Day Time Rate<br/>0.625x Day Tile Update Rate<br/>0.625x Day Event Update Rate<br/>1.6x Night Time Rate<br/>0.625x Night Tile Update Rate<br/>0.625x Night Event Update Rate<br/>Level cost: 3<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| tooltip3 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>1.6x Day Event Update Rate<br/>1.6x Day Tile Update Rate<br/>1.6x Night Time Rate<br/>1.6x Night Tile Update Rate<br/>0.625x Night Event Update Rate<br/>0.625x Day Time Rate<br/>Level cost: 3<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
 | rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
 | sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>28</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
 | image4   = [[File:TimeEnchantmentEpic.png]]
 | type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
-| tooltip4 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>1.8x Night Time Rate<br/>0.56x Night Event Update Rate<br/>0.56x Day Tile Update Rate<br/>0.56x Day Event Update Rate<br/>1.8x Night Tile Update Rate<br/>1.8x Day Time Rate<br/>Level cost: 4<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| tooltip4 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>0.56x Night Event Update Rate<br/>0.56x Day Event Update Rate<br/>1.8x Night Tile Update Rate<br/>0.56x Day Time Rate<br/>0.56x Day Tile Update Rate<br/>0.56x Night Time Rate<br/>Level cost: 4<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
 | rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
 | sell4    = <span>6</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>56</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
 | image5   = [[File:TimeEnchantmentLegendary.png]]
 | type5    = [[Enchantments|Enchantments]]
-| tooltip5 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>2x Day Time Rate<br/>2x Night Event Update Rate<br/>0.5x Night Time Rate<br/>2x Night Tile Update Rate<br/>0.5x Day Tile Update Rate<br/>2x Day Event Update Rate<br/>Level cost: 5<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| tooltip5 = <i>'Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate<br/>2x Night Event Update Rate<br/>0.5x Day Tile Update Rate<br/>0.5x Night Time Rate<br/>0.5x Night Tile Update Rate<br/>0.5x Day Time Rate<br/>2x Day Event Update Rate<br/>Level cost: 5<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
 | rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
 | sell5    = <span>12</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
 
@@ -101,37 +101,37 @@
 ! Day Event Update Rate
 |-
 | 1.2x
-| 0.833x
+| 1.2x
 | 1.2x
 | 0.833x
-| 0.833x
-| 0.833x
+| 1.2x
+| 1.2x
 |-
-| 0.7142x
-| 1.4x
 | 1.4x
 | 0.7142x
+| 0.7142x
 | 1.4x
-| 1.4x
+| 0.7142x
+| 0.7142x
 |-
-| 0.625x
 | 0.625x
 | 1.6x
+| 1.6x
+| 1.6x
 | 0.625x
-| 0.625x
-| 0.625x
+| 1.6x
 |-
-| 1.8x
 | 0.56x
-| 1.8x
+| 0.56x
+| 0.56x
 | 1.8x
 | 0.56x
 | 0.56x
 |-
-| 2x
 | 0.5x
 | 0.5x
-| 2x
+| 0.5x
+| 0.5x
 | 2x
 | 2x
 |}
