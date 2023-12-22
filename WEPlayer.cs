@@ -324,8 +324,8 @@ namespace WeaponEnchantments
             //Transfer old ore bag settings to AndroLib
 			if (!transferedToAndroLib) {
 				if (VacuumOreBag.VacuumOreBag.androLibEnabled) {
-					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetUIPosition", OreBag.BagStorageID, oreBagUILeft, oreBagUITop);
-					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetShouldVacuum", OreBag.BagStorageID, vacuumItemsIntoOreBag);
+					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetUIPosition", OreBag.Instance.BagStorageID, oreBagUILeft, oreBagUITop);
+					VacuumOreBag.VacuumOreBag.AndroLib.Call("SetShouldVacuum", OreBag.Instance.BagStorageID, vacuumItemsIntoOreBag);
 				}
 
 				transferedToAndroLib = true;
