@@ -50,9 +50,8 @@ namespace WeaponEnchantments.Common.Globals
 
 			return true;
 		}
-		public static void KillTile(Item bestPickaxe, ushort tileType, int dropItem, int dropItemStack, int secondaryItem, int secondaryItemStack) {
-			if (!bestPickaxe.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-				return;
+		public static void KillTile(Tile tile, int dropItem, int dropItemStack, int secondaryItem, int secondaryItemStack) {
+			ushort tileType = tile.TileType;
 
 			int xp = 0;
 			if (Main.tileAxe[tileType]) {
@@ -91,7 +90,12 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
 			//Gain xp
-			enchantedItem.GainXP(bestPickaxe, xp);
+			Item heldItem = Main.LocalPlayer.HeldItem;
+			if (!heldItem.NullOrAir() && (Main.tileAxe[tileType] && heldItem.axe > 0 || Main.tileHammer[tileType] && heldItem.hammer > 0 || heldItem.pick > 0)) {
+				if (heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
+					enchantedItem.GainXP(Main.LocalPlayer.HeldItem, xp);
+			}
+
 			WEPlayer.LocalWEPlayer.Player.AllArmorGainXp(xp);
 		}
 		private static int GetTileStrengthXP(int tileType) {

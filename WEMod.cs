@@ -118,16 +118,15 @@ namespace WeaponEnchantments
 
 		#region Kill tile
 
-		public static Item bestPickaxe = new();
 		private static bool justBrokeBlock = false;
 		private void On_WorldGen_KillTile_DropItems(On_WorldGen.orig_KillTile_DropItems orig, int x, int y, Tile tileCache, bool includeLargeObjectDrops, bool includeAllModdedLargeObjectDrops) {
-			justBrokeBlock = true;
-			orig(x, y, tileCache, includeLargeObjectDrops, includeAllModdedLargeObjectDrops);
-		}
-		private int On_HitTile_AddDamage(On_HitTile.orig_AddDamage orig, HitTile self, int tileId, int damageAmount, bool updateAmount) {
-			bestPickaxe = Main.LocalPlayer.GetBestPickaxe();
+			if (Main.netMode != NetmodeID.Server) {
+				Tile tileTarget = Main.tile[Player.tileTargetX, Player.tileTargetY];
+				if (tileCache == tileTarget)
+					justBrokeBlock = true;
+			}
 
-			return orig(self, tileId, damageAmount, updateAmount);
+			orig(x, y, tileCache, includeLargeObjectDrops, includeAllModdedLargeObjectDrops);
 		}
 		private void On_WorldGen_KillTile_GetItemDrops(On_WorldGen.orig_KillTile_GetItemDrops orig, int x, int y, Tile tileCache, out int dropItem, out int dropItemStack, out int secondaryItem, out int secondaryItemStack, bool includeLargeObjectDrops) {
 			orig(x, y, tileCache, out dropItem, out dropItemStack, out secondaryItem, out secondaryItemStack, includeLargeObjectDrops);
@@ -137,8 +136,7 @@ namespace WeaponEnchantments
 
 			justBrokeBlock = false;
 			
-			if (bestPickaxe != null)
-				WEGlobalTile.KillTile(bestPickaxe, tileCache.TileType, dropItem, dropItemStack, secondaryItem, secondaryItemStack);
+			WEGlobalTile.KillTile(tileCache, dropItem, dropItemStack, secondaryItem, secondaryItemStack);
 		}
 
 		#endregion
