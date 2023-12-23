@@ -72,7 +72,6 @@ namespace WeaponEnchantments
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
 			On_Item.GetShimmered += On_Item_GetShimmered;
 			On_WorldGen.KillTile_GetItemDrops += On_WorldGen_KillTile_GetItemDrops;
-			On_HitTile.AddDamage += On_HitTile_AddDamage;
 			On_WorldGen.KillTile_DropItems += On_WorldGen_KillTile_DropItems;
 			On_Recipe.FindRecipes += EnchantmentStorage.FindRecipes;
 			
