@@ -75,10 +75,10 @@ namespace WeaponEnchantments.Localization
 								{ $"{typeof(BuffEffect).Name}{(int)BuffStyle.OnHitAreaEnemyDebuff}", "Passively inflicts {0} to nearby enemies on hit" },
 								{ typeof(DamageAfterDefenses).Name, "Damage (Applied after defenses. Not visible in weapon tooltip)" },
 								{ typeof(DamageClassSwap).Name, "Convert damage type to {0}"},
-								{ $"{typeof(VanillaDash).Name}{(int)DashID.NinjaTabiDash}", $"{DashID.NinjaTabiDash}".AddSpaces() },
-								{ $"{typeof(VanillaDash).Name}{(int)DashID.EyeOfCthulhuShieldDash}", $"{DashID.EyeOfCthulhuShieldDash}".AddSpaces() },
-								{ $"{typeof(VanillaDash).Name}{(int)DashID.SolarDash}", $"{DashID.SolarDash}".AddSpaces() },
-								{ $"{typeof(VanillaDash).Name}{(int)DashID.CrystalNinjaDash}", $"{DashID.CrystalNinjaDash}".AddSpaces() }
+								{ $"{typeof(VanillaDash).Name}{(int)DashID_WE.NinjaTabiDash}", $"{DashID_WE.NinjaTabiDash}".AddSpaces() },
+								{ $"{typeof(VanillaDash).Name}{(int)DashID_WE.EyeOfCthulhuShieldDash}", $"{DashID_WE.EyeOfCthulhuShieldDash}".AddSpaces() },
+								{ $"{typeof(VanillaDash).Name}{(int)DashID_WE.SolarDash}", $"{DashID_WE.SolarDash}".AddSpaces() },
+								{ $"{typeof(VanillaDash).Name}{(int)DashID_WE.CrystalNinjaDash}", $"{DashID_WE.CrystalNinjaDash}".AddSpaces() }
 							}) },
 							{ L_ID2.EnchantmentEffects.ToString(), new(
 								values: new(){
