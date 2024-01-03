@@ -122,10 +122,10 @@ All of the essence you pick up are stored here. Right clicking the enchanting ta
     > All you have to do is place an enchantment in an enchantment slot.  There is no cost or confirm button.
 * Convert essence to item experience.
     > The Level up button will consume lower tiers of essence first if possible.  These slots can be favorited (same as vanilla favoriting) to prevent them being consumed unless there is not enough essence to level up without them.
-* Offer items (Destroyes the item in exchange for essence and ores - configurable).
-    > The value of essence and ores recieved is slightly more than the item's base sell price. (config default is half ore, half essence)
+* Offer items (Destroys the item in exchange for essence and ores - configurable).
+    > The value of essence and ores received is slightly more than the item's base sell price. (config default is half ore, half essence)
     > Also returns all enchantments and power boosters applied to the weapon and converts experience on the item to essence.
-* Syphon excess xp from an item past the max level, 40, converting it to essence.
+* Siphon all modifications and experience from an item at the cost of some experience.
 * Infuse items (Discussed in it's own section)
 
 There are 5 tiers of enchanting tables
@@ -180,11 +180,11 @@ If you have an item that is currently useless to you, you offer it.
 5. Items spawned into your inventory.
     > Config option available to offer all of the same item from your inventory. (Ignores enchanted items)
 
-### Syphoning an item
-If you have a level 40 item (maximum level) and you want to extract leftover experience from it, you syphon it.
-1. Place the item you wish to syphon on the *Item* slot.
-2. Click the syphon button.
-3. Essence spawned to the enchanting table. (Or your inventory if the table is full.)
+### Siphoning an item
+Siphoning an item removes all of the enchantments, power boosters, infused item, and experience from an item and converts the experience to essence at the cost of a portion of the experience.
+1. Place the item you want to siphon on the item slot.
+2. Press the siphon button.
+3. All enchantments, power boosters, and essence are sent to the enchantment storage.  The infused item is 
 
 ### Infusion:
 #### Weapon Infusion - 

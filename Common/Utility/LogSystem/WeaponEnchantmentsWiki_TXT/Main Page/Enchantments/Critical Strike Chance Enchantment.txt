@@ -53,55 +53,55 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Man_Eater.png/revision/latest?cb=20170420020846&format=original [https://terraria.fandom.com/wiki/Man_Eater Man Eater]
 | 1
-| 4.03%
+| 8.95%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2b/Snatcher.png/revision/latest?cb=20170420104001&format=original [https://terraria.fandom.com/wiki/Snatcher Snatcher]
 | 1
-| 1.92%
+| 4.82%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/98/Blue_Jellyfish.png/revision/latest?cb=20200803163235&format=original [https://terraria.fandom.com/wiki/Blue_Jellyfish Blue Jellyfish]
 | 1
-| 1.23%
+| 3.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5d/Pink_Jellyfish.png/revision/latest?cb=20200517031622&format=original [https://terraria.fandom.com/wiki/Pink_Jellyfish Pink Jellyfish]
 | 1
-| 2.06%
+| 4.99%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Antlion.png/revision/latest?cb=20191128180152&format=original [https://terraria.fandom.com/wiki/Antlion Antlion]
 | 1
-| 2.41%
+| 6.31%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Clinger.png/revision/latest?cb=20170421224440&format=original [https://terraria.fandom.com/wiki/Clinger Clinger]
 | 1
-| 9.51%
+| 14.49%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b0/Green_Jellyfish.png/revision/latest?cb=20200517031702&format=original [https://terraria.fandom.com/wiki/Green_Jellyfish Green Jellyfish]
 | 1
-| 6.7%
+| 12.93%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a6/Angry_Trapper.png/revision/latest?cb=20200808223845&format=original [https://terraria.fandom.com/wiki/Angry_Trapper Angry Trapper]
 | 1
-| 9.46%
+| 14.68%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Squid.png/revision/latest?cb=20140905021230&format=original [https://terraria.fandom.com/wiki/Squid Squid]
 | 1
-| 1.11%
+| 2.84%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7c/Blood_Jelly.png/revision/latest?cb=20200803162612&format=original [https://terraria.fandom.com/wiki/Blood_Jelly Blood Jelly]
 | 1
-| 6.88%
+| 13.08%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Fungo_Fish.png/revision/latest?cb=20200521181744&format=original [https://terraria.fandom.com/wiki/Fungo_Fish Fungo Fish]
 | 1
-| 8.15%
+| 15.44%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Fungi_Bulb.png/revision/latest?cb=20200521175303&format=original [https://terraria.fandom.com/wiki/Fungi_Bulb Fungi Bulb]
 | 1
-| 3.41%
+| 7.91%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5f/Giant_Fungi_Bulb.png/revision/latest?cb=20200521175310&format=original [https://terraria.fandom.com/wiki/Giant_Fungi_Bulb Giant Fungi Bulb]
 | 1
-| 10.34%
+| 16.58%
 |}
 
 {| class="mw-collapsible wikitable" style="max-width:400px;"

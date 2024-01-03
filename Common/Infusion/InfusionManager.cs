@@ -136,7 +136,7 @@ namespace WeaponEnchantments.Common
                             Item clone = item.Clone();
 							float rarity = GetAdjustedItemRarity(clone);
 							float valueRarity = GetValueRarity(clone, rarity);
-							int infusionPower = -1;
+							int infusionPower = EnchantedWeapon.DefaultInfusionPower;
                             if (clone.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon))
 								infusionPower = enchantedWeapon.GetInfusionPower(ref clone);
 
@@ -148,7 +148,7 @@ namespace WeaponEnchantments.Common
                                 if (infusionPowers[infusionPower].ContainsKey(clone.Name)) {
                                     ItemDetails currentItemDetails = infusionPowers[infusionPower][clone.Name];
                                     Item currentItem = currentItemDetails.Item;
-									int currentInfusionPower = -1;
+									int currentInfusionPower = EnchantedWeapon.DefaultInfusionPower;
 									if (currentItem.TryGetEnchantedWeapon(out EnchantedWeapon currentEnchantedWeapon))
 										infusionPower = currentEnchantedWeapon.GetInfusionPower(ref currentItem);
 
@@ -332,7 +332,7 @@ namespace WeaponEnchantments.Common
 		}
         public static int ReverseEngInfusionPowerFromMultiplierForPrideOfTheWeak(Item item) {
             if (!item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon))
-                return -1;
+                return EnchantedWeapon.DefaultInfusionPower;
 
             int infusionPower = enchantedWeapon.GetInfusionPower(ref item);
             float baseInfusionPowerMult = item.GetWeaponMultiplier(infusionPower);
@@ -343,7 +343,7 @@ namespace WeaponEnchantments.Common
 		}
 		public static int GetWeaponInfusionPower(this Item item, bool includeNonFinalizedInfusion = false) {
             if (!item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
-                return -1;
+                return EnchantedWeapon.DefaultInfusionPower;
 
 			if (enchantedWeapon.infusedItemName != "" && includeNonFinalizedInfusion && TryFindItem(enchantedWeapon.infusedItemName, out Item infusedItem)) {
 				return GetBaseInfusionPower(infusedItem);
@@ -397,8 +397,8 @@ namespace WeaponEnchantments.Common
             float damageMultiplier;
             string consumedItemName;
             int infusedArmorSlot;
-            int consumedItemInfusionPower = consumedEnchantedItem is EnchantedWeapon consumedEnchantedWeapon ? consumedEnchantedWeapon.GetInfusionPower(ref consumedItem) : -1;
-			if (enchantedItem is EnchantedWeapon enchantedWeapon && (consumedItemInfusionPower > -1 || consumedItem.IsAir)) {
+            int consumedItemInfusionPower = consumedEnchantedItem is EnchantedWeapon consumedEnchantedWeapon ? consumedEnchantedWeapon.GetInfusionPower(ref consumedItem) : EnchantedWeapon.DefaultInfusionPower;
+			if (enchantedItem is EnchantedWeapon enchantedWeapon && (consumedItemInfusionPower > EnchantedWeapon.DefaultInfusionPower || consumedItem.IsAir)) {
                 //Weapon
                 int weaponInfusionPower = enchantedWeapon.GetInfusionPower(ref item);
                 if (weaponInfusionPower < consumedItemInfusionPower || WEMod.clientConfig.AllowInfusingToLowerPower || reset) {
@@ -501,7 +501,7 @@ namespace WeaponEnchantments.Common
         public static void GetGlotalItemStats(this Item item, Item infusedItem, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
 			if (item.IsWeaponItem()) {
                 damageMultiplier = GetWeaponMultiplier(item, infusedItem, out infusedPower);
-                infusedArmorSlot = -1;
+                infusedArmorSlot = EnchantedArmor.DefaultInfusionArmorSlot;
             }
 			else {
                 damageMultiplier = 1f;
@@ -535,14 +535,13 @@ namespace WeaponEnchantments.Common
         public static bool TryGetInfusionStats(this EnchantedItem enchantedItem, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot, out Item infusedItem) {
             infusedPower = 0;
             damageMultiplier = 1f;
-            infusedArmorSlot = -1;
+            infusedArmorSlot = EnchantedArmor.DefaultInfusionArmorSlot;
             infusedItem = null;
 
             if (infusedItemName != "") {
                 if (TryFindItem(infusedItemName, out infusedItem)) {
                     GetGlotalItemStats(enchantedItem.Item, infusedItem, out infusedPower, out damageMultiplier, out infusedArmorSlot);
                     if (enchantedItem is EnchantedWeapon enchantedWeapon) {
-                        //item.UpdateInfusionDamage(damageMultiplier, false);
                         enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
                     }
                     else if (enchantedItem is EnchantedArmor enchantedArmor2) {
@@ -567,70 +566,66 @@ namespace WeaponEnchantments.Common
             item.headSlot = sampleItem.headSlot;
             item.bodySlot = sampleItem.bodySlot;
             item.legSlot = sampleItem.legSlot;
-            if (infusedArmorSlot != -1) {
-                if (item.headSlot != -1) {
+            if (infusedArmorSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
+                if (item.headSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                     item.headSlot = infusedArmorSlot;
                 }
-                else if (item.bodySlot != -1) {
+                else if (item.bodySlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                     item.bodySlot = infusedArmorSlot;
                 }
-                else if (item.legSlot != -1) {
+                else if (item.legSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                     item.legSlot = infusedArmorSlot;
                 }
             }
 		}
         public static int GetInfusionArmorSlot(this Item item, bool checkBase = false, bool getCurrent = false) {
-            if (!getCurrent && item.TryGetEnchantedArmor(out EnchantedArmor enchantedItem) && enchantedItem.infusedArmorSlot != -1) {
+            if (!getCurrent && item.TryGetEnchantedArmor(out EnchantedArmor enchantedItem) && enchantedItem.infusedArmorSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                 return enchantedItem.infusedArmorSlot;
             }
-			else
-            {
+			else {
                 if (checkBase) {
                     return ContentSamples.ItemsByType[item.type].GetInfusionArmorSlot();
                 }
-                else
-                {
-                    if (item.headSlot != -1) {
+                else {
+                    if (item.headSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                         return item.headSlot;
                     }
-                    else if (item.bodySlot != -1) {
+                    else if (item.bodySlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                         return item.bodySlot;
                     }
-                    else if (item.legSlot != -1) {
+                    else if (item.legSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                         return item.legSlot;
                     }
 					else {
-                        return -1;
+                        return EnchantedArmor.DefaultInfusionArmorSlot;
                     }
                 }
             }
         }
         public static int GetSlotIndex(this Item item) {
             Item SampleItem = ContentSamples.ItemsByType[(item.type)];
-            if (SampleItem.headSlot != -1) {
+            if (SampleItem.headSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                 return 0;
             }
-            else if (SampleItem.bodySlot != -1) {
+            else if (SampleItem.bodySlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                 return 1;
             }
-            else if (SampleItem.legSlot != -1) {
+            else if (SampleItem.legSlot != EnchantedArmor.DefaultInfusionArmorSlot) {
                 return 2;
             }
 			else {
-                return -1;
+                return EnchantedArmor.DefaultInfusionArmorSlot;
             }
         }
     }
 
     public static class InfusionStaticClasses {
-        public static bool InfusionAllowed(this Item item, out bool configAllowed) {
+        public static bool InfusionAllowed(this Item item) {
             bool weapon = item.IsWeaponItem();
             bool armor = item.IsArmorItem();
             bool WeaponAndWeaponInfusionAllowed = weapon && WEMod.serverConfig.InfusionDamageMultiplier > 1000;
 			bool ArmorAndArmorInfusionAllowed = armor && !WEMod.serverConfig.DisableArmorInfusion;
-			configAllowed = WeaponAndWeaponInfusionAllowed || ArmorAndArmorInfusionAllowed;
-
-			return weapon || armor;
+			return WeaponAndWeaponInfusionAllowed || ArmorAndArmorInfusionAllowed;
 		}
 	}
 }

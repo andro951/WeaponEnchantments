@@ -35,179 +35,263 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/17/Pinky.png/revision/latest?cb=20111003022635&format=original [https://terraria.fandom.com/wiki/Pinky Pinky]
 | 1
-| 0.22%
+| 0.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0a/Skeletron_Hand_%28NPC%29.png/revision/latest?cb=20170420014655&format=original [https://terraria.fandom.com/wiki/Skeletron Skeletron]
 | 1
-| 0.15%
+| 0.25%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Tim.png/revision/latest?cb=20171104013044&format=original [https://terraria.fandom.com/wiki/Tim Tim]
+| 1
+| 0.2%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a4/Dungeon_Guardian.png/revision/latest?cb=20150227080514&format=original [https://terraria.fandom.com/wiki/Dungeon_Guardian Dungeon Guardian]
 | 1
-| 5.56%
+| 16.67%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Spike_Ball.png/revision/latest?cb=20200807032629&format=original [https://terraria.fandom.com/wiki/Spike_Ball Spike Ball]
+| 1
+| 0.17%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Mimic.png/revision/latest?cb=20170421213035&format=original [https://terraria.fandom.com/wiki/Mimic Mimic]
 | 1
-| 1.12%
+| 3.7%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Wyvern_Head.png/revision/latest?cb=20170421215825&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
 | 1
-| 0.15%
+| 0.34%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a0/Wyvern_Legs.png/revision/latest?cb=20170421215904&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
 | 1
-| 0.15%
+| 0.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/10/Wyvern_Body.png/revision/latest?cb=20170421220400&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 0.31%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/82/Wyvern_Body_2.png/revision/latest?cb=20170421220323&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
 | 1
-| 0.15%
+| 0.38%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/aa/Wyvern_Body_3.png/revision/latest?cb=20170421220433&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
 | 1
-| 0.15%
+| 0.38%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/35/Wyvern_Tail.png/revision/latest?cb=20170421220524&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
 | 1
-| 0.15%
+| 0.38%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Clown.png/revision/latest?cb=20170421224900&format=original [https://terraria.fandom.com/wiki/Clown Clown]
+| 1
+| 0.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Wall_of_Flesh_Eye.png/revision/latest?cb=20170422001207&format=original [https://terraria.fandom.com/wiki/Wall_of_Flesh Wall of Flesh]
 | 1
-| 0.4%
+| 0.94%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/The_Hungry.png/revision/latest?cb=20210728032344&format=original [https://terraria.fandom.com/wiki/The_Hungry The Hungry]
+| 1
+| 0.16%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5e/Prime_Cannon.png/revision/latest?cb=20170421151706&format=original [https://terraria.fandom.com/wiki/Prime_Cannon Prime Cannon]
 | 1
-| 0.48%
+| 0.91%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3b/Prime_Saw.png/revision/latest?cb=20170421151701&format=original [https://terraria.fandom.com/wiki/Prime_Saw Prime Saw]
 | 1
-| 0.76%
+| 3.7%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Prime_Vice.png/revision/latest?cb=20170421151703&format=original [https://terraria.fandom.com/wiki/Prime_Vice Prime Vice]
 | 1
-| 0.72%
+| 3.57%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1e/Prime_Laser.png/revision/latest?cb=20170421151658&format=original [https://terraria.fandom.com/wiki/Prime_Laser Prime Laser]
 | 1
-| 0.39%
+| 0.75%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/20/The_Destroyer_Body.png/revision/latest?cb=20150708221907&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
 | 1
-| 16.67%
+| 33.33%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b9/The_Destroyer_Tail.png/revision/latest?cb=20150708221909&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
 | 1
-| 16.67%
+| 33.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Probe.png/revision/latest?cb=20150708201700&format=original [https://terraria.fandom.com/wiki/Probe Probe]
+| 1
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Lost_Girl.png/revision/latest?cb=20170421233129&format=original [https://terraria.fandom.com/wiki/Lost_Girl Lost Girl]
 | 1
-| 0.32%
+| 0.5%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Nymph.png/revision/latest?cb=20170421233126&format=original [https://terraria.fandom.com/wiki/Nymph Nymph]
 | 1
-| 0.32%
+| 0.5%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Pirate_Captain.png/revision/latest?cb=20210914050020&format=original [https://terraria.fandom.com/wiki/Pirate_Captain Pirate Captain]
 | 1
-| 0.23%
+| 0.48%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8a/Ice_Golem.png/revision/latest?cb=20200708133205&format=original [https://terraria.fandom.com/wiki/Ice_Golem Ice Golem]
+| 1
+| 0.35%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Golem_Head.png/revision/latest?cb=20200602093043&format=original [https://terraria.fandom.com/wiki/Golem_Head Golem Head]
 | 1
-| 3.57%
+| 6.67%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Left_Golem_Fist.png/revision/latest?cb=20200529235418&format=original [https://terraria.fandom.com/wiki/Golem_Fist Golem Fist]
 | 1
-| 0.63%
+| 1.22%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Right_Golem_Fist.png/revision/latest?cb=20200602093336&format=original [https://terraria.fandom.com/wiki/Golem_Fist Golem Fist]
 | 1
-| 0.63%
+| 1.22%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f9/Free_Golem_Head.png/revision/latest?cb=20200602094652&format=original [https://terraria.fandom.com/wiki/Golem_Head Golem Head]
 | 1
-| 1.07%
+| 5.26%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Plantera%27s_Hook.png/revision/latest?cb=20200521175019&format=original [https://terraria.fandom.com/wiki/Plantera's_Hook Plantera's Hook]
 | 1
-| 0.34%
+| 0.93%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Plantera%27s_Tentacle.png/revision/latest?cb=20200521174809&format=original [https://terraria.fandom.com/wiki/Plantera's_Tentacle Plantera's Tentacle]
 | 1
-| 0.23%
+| 0.3%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Paladin.png/revision/latest?cb=20200521173908&format=original [https://terraria.fandom.com/wiki/Paladin Paladin]
+| 1
+| 0.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3d/Headless_Horseman.png/revision/latest?cb=20210625213223&format=original [https://terraria.fandom.com/wiki/Headless_Horseman Headless Horseman]
 | 1
 | 0.25%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/90/Mourning_Wood.gif/revision/latest?cb=20190125130555&format=original [https://terraria.fandom.com/wiki/Mourning_Wood Mourning Wood]
 | 1
-| 0.33%
+| 0.57%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d8/Pumpking.png/revision/latest?cb=20210914051940&format=original [https://terraria.fandom.com/wiki/Pumpking Pumpking]
 | 1
-| 1.04%
+| 4.76%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Pumpking_Hand.png/revision/latest?cb=20141218234517&format=original [https://terraria.fandom.com/wiki/Pumpking Pumpking]
 | 1
-| 0.3%
+| 0.88%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bb/Poltergeist.png/revision/latest?cb=20131025170412&format=original [https://terraria.fandom.com/wiki/Poltergeist Poltergeist]
+| 1
+| 0.16%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7d/Yeti.png/revision/latest?cb=20200518194832&format=original [https://terraria.fandom.com/wiki/Yeti Yeti]
+| 1
+| 0.23%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Everscream.gif/revision/latest?cb=20200605002358&format=original [https://terraria.fandom.com/wiki/Everscream Everscream]
 | 1
-| 0.32%
+| 0.56%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Ice_Queen.png/revision/latest?cb=20171213014122&format=original [https://terraria.fandom.com/wiki/Ice_Queen Ice Queen]
 | 1
-| 3.22%
+| 5.88%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ee/Santa-NK1.png/revision/latest?cb=20131220135050&format=original [https://terraria.fandom.com/wiki/Santa-NK1 Santa-NK1]
 | 1
-| 0.54%
+| 0.91%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8f/Krampus.png/revision/latest?cb=20200702145123&format=original [https://terraria.fandom.com/wiki/Krampus Krampus]
+| 1
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Bubble_Shield.png/revision/latest?cb=20150701010521&format=original [https://terraria.fandom.com/wiki/Bubble_Shield Bubble Shield]
 | 1
 | 0.2%
 |-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6f/Martian_Saucer.png/revision/latest?cb=20150702004716&format=original [https://terraria.fandom.com/wiki/Martian_Saucer Martian Saucer]
+| 1
+| 0.17%
+|-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4c/Martian_Saucer_Turret.png/revision/latest?cb=20150701095504&format=original [https://terraria.fandom.com/wiki/Martian_Saucer_Turret Martian Saucer Turret]
 | 1
-| 0.32%
+| 0.98%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Martian_Saucer_Cannon.png/revision/latest?cb=20150701095409&format=original [https://terraria.fandom.com/wiki/Martian_Saucer_Cannon Martian Saucer Cannon]
 | 1
-| 0.29%
+| 0.68%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/84/Moon_Lord%27s_Head.gif/revision/latest?cb=20160712055422&format=original [https://terraria.fandom.com/wiki/Moon_Lord Moon Lord]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Moon_Lord%27s_Core.gif/revision/latest?cb=20160712055841&format=original [https://terraria.fandom.com/wiki/Moon_Lord's_Core Moon Lord's Core]
+| 1
+| 12.5%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f8/Martian_Probe.png/revision/latest?cb=20150710011512&format=original [https://terraria.fandom.com/wiki/Martian_Probe Martian Probe]
+| 1
+| 0.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0b/Milkyway_Weaver_%28Head%29.png/revision/latest?cb=20150701095415&format=original [https://terraria.fandom.com/wiki/Milkyway_Weaver Milkyway Weaver]
+| 1
+| 0.28%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Star_Cell.png/revision/latest?cb=20150701095341&format=original [https://terraria.fandom.com/wiki/Star_Cell Star Cell]
 | 1
 | 0.2%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/95/Flow_Invader.png/revision/latest?cb=20150701141020&format=original [https://terraria.fandom.com/wiki/Flow_Invader Flow Invader]
 | 1
-| 0.22%
+| 0.32%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4c/Twinkle_Popper.png/revision/latest?cb=20150701095448&format=original [https://terraria.fandom.com/wiki/Twinkle_Popper Twinkle Popper]
 | 1
-| 0.16%
+| 0.21%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2b/Stargazer.png/revision/latest?cb=20150701135045&format=original [https://terraria.fandom.com/wiki/Stargazer Stargazer]
+| 1
+| 0.21%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/61/Crawltipede_%28Head%29.png/revision/latest?cb=20150701100750&format=original [https://terraria.fandom.com/wiki/Crawltipede Crawltipede]
 | 1
-| 33.33%
+| 100%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b8/Crawltipede_%28Body%29.png/revision/latest?cb=20150701100745&format=original [https://terraria.fandom.com/wiki/Crawltipede Crawltipede]
 | 1
-| 33.33%
+| 100%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/71/Crawltipede_%28Tail%29.png/revision/latest?cb=20150701100755&format=original [https://terraria.fandom.com/wiki/Crawltipede Crawltipede]
 | 1
-| 0.43%
+| 3.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Drakomire.png/revision/latest?cb=20150701100807&format=original [https://terraria.fandom.com/wiki/Drakomire Drakomire]
+| 1
+| 0.2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/28/Drakomire_Rider.png/revision/latest?cb=20150701100801&format=original [https://terraria.fandom.com/wiki/Drakomire_Rider Drakomire Rider]
+| 1
+| 0.2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/51/Sroller.png/revision/latest?cb=20150701100850&format=original [https://terraria.fandom.com/wiki/Sroller Sroller]
+| 1
+| 0.19%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/05/Corite.png/revision/latest?cb=20150701100738&format=original [https://terraria.fandom.com/wiki/Corite Corite]
 | 1
-| 0.17%
+| 0.26%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/48/Selenian.png/revision/latest?cb=20150701100845&format=original [https://terraria.fandom.com/wiki/Selenian Selenian]
 | 1
-| 0.15%
+| 0.21%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Nebula_Floater.png/revision/latest?cb=20150701135041&format=original [https://terraria.fandom.com/wiki/Nebula_Floater Nebula Floater]
 | 1
-| 0.24%
+| 0.31%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Brain_Suckler.png/revision/latest?cb=20201017034837&format=original [https://terraria.fandom.com/wiki/Brain_Suckler Brain Suckler]
+| 1
+| 0.2%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8d/Vortex_Pillar.png/revision/latest?cb=20150701100906&format=original [https://terraria.fandom.com/wiki/Vortex_Pillar Vortex Pillar]
 | 1
@@ -215,23 +299,27 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/86/Evolution_Beast.png/revision/latest?cb=20201017035139&format=original [https://terraria.fandom.com/wiki/Evolution_Beast Evolution Beast]
 | 1
-| 0.16%
+| 0.21%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Predictor.png/revision/latest?cb=20150701135043&format=original [https://terraria.fandom.com/wiki/Predictor Predictor]
 | 1
-| 0.15%
+| 0.21%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b8/Storm_Diver.png/revision/latest?cb=20150701135046&format=original [https://terraria.fandom.com/wiki/Storm_Diver Storm Diver]
 | 1
-| 0.16%
+| 0.21%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d8/Alien_Queen.png/revision/latest?cb=20150701100644&format=original [https://terraria.fandom.com/wiki/Alien_Queen Alien Queen]
 | 1
-| 0.17%
+| 0.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Alien_Hornet.png/revision/latest?cb=20150701100634&format=original [https://terraria.fandom.com/wiki/Alien_Hornet Alien Hornet]
+| 1
+| 0.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a0/Vortexian.png/revision/latest?cb=20150701100912&format=original [https://terraria.fandom.com/wiki/Vortexian Vortexian]
 | 1
-| 0.15%
+| 0.21%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Ancient_Cultist.png/revision/latest?cb=20160318233643&format=original [https://terraria.fandom.com/wiki/Lunatic_Cultist Lunatic Cultist]
 | 1
@@ -239,51 +327,59 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Phantasm_Dragon_%28Head%29.png/revision/latest?cb=20150701103037&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
 | 1
-| 0.59%
+| 1.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d0/Phantasm_Dragon_%28Body1%29.png/revision/latest?cb=20150701103013&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
 | 1
-| 0.76%
+| 3.7%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Phantasm_Dragon_%28Body2%29.png/revision/latest?cb=20150701103019&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
 | 1
-| 0.76%
+| 3.7%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Phantasm_Dragon_%28Body3%29.png/revision/latest?cb=20150701103024&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
 | 1
-| 0.76%
+| 3.7%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4b/Phantasm_Dragon_%28Body4%29.png/revision/latest?cb=20150701103031&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
 | 1
-| 0.76%
+| 3.7%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Phantasm_Dragon_%28Tail%29.png/revision/latest?cb=20150709000911&format=original [https://terraria.fandom.com/wiki/Phantasm_Dragon Phantasm Dragon]
 | 1
-| 0.76%
+| 3.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Nailhead.png/revision/latest?cb=20150701102948&format=original [https://terraria.fandom.com/wiki/Nailhead Nailhead]
+| 1
+| 0.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9c/Corrupt_Mimic2.png/revision/latest?cb=20150723182451&format=original [https://terraria.fandom.com/wiki/Corrupt_Mimic Corrupt Mimic]
 | 1
-| 0.16%
+| 0.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Crimson_Mimic2.png/revision/latest?cb=20150723182523&format=original [https://terraria.fandom.com/wiki/Crimson_Mimic Crimson Mimic]
 | 1
-| 0.16%
+| 0.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5e/Hallowed_Mimic2.png/revision/latest?cb=20150723182552&format=original [https://terraria.fandom.com/wiki/Hallowed_Mimic Hallowed Mimic]
 | 1
-| 0.16%
+| 0.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6b/Jungle_Mimic2.png/revision/latest?cb=20150723182625&format=original [https://terraria.fandom.com/wiki/Jungle_Mimic Jungle Mimic]
 | 1
-| 0.16%
+| 0.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1a/Mothron.png/revision/latest?cb=20150629182437&format=original [https://terraria.fandom.com/wiki/Mothron Mothron]
 | 1
-| 0.3%
+| 0.83%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Baby_Mothron.png/revision/latest?cb=20150701102702&format=original [https://terraria.fandom.com/wiki/Baby_Mothron Baby Mothron]
+| 1
+| 0.19%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/ce/Dutchman_Cannon.png/revision/latest?cb=20150701102833&format=original [https://terraria.fandom.com/wiki/Dutchman_Cannon Dutchman Cannon]
 | 1
-| 0.26%
+| 0.39%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Stardust_Pillar.png/revision/latest?cb=20180125013518&format=original [https://terraria.fandom.com/wiki/Stardust_Pillar Stardust Pillar]
 | 1
@@ -299,83 +395,139 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f2/Drakanian.png/revision/latest?cb=20150701103316&format=original [https://terraria.fandom.com/wiki/Drakanian Drakanian]
 | 1
-| 0.16%
+| 0.22%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f1/Martian_Walker.png/revision/latest?cb=20150701103346&format=original [https://terraria.fandom.com/wiki/Martian_Walker Martian Walker]
 | 1
-| 0.19%
+| 0.37%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e0/Ancient_Vision.png/revision/latest?cb=20150701103258&format=original [https://terraria.fandom.com/wiki/Ancient_Vision Ancient Vision]
+| 1
+| 0.32%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/12/Ancient_Light.png/revision/latest?cb=20150701103252&format=original [https://terraria.fandom.com/wiki/Ancient_Light Ancient Light]
+| 1
+| 0.19%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/26/Ancient_Doom.png/revision/latest?cb=20150701103247&format=original [https://terraria.fandom.com/wiki/Ancient_Doom Ancient Doom]
+| 1
+| 0.17%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/83/Tortured_Soul.png/revision/latest?cb=20150701103428&format=original [https://terraria.fandom.com/wiki/Tortured_Soul Tortured Soul]
+| 1
+| 0.16%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/aa/Sand_Elemental.png/revision/latest?cb=20160909175739&format=original [https://terraria.fandom.com/wiki/Sand_Elemental Sand Elemental]
+| 1
+| 0.4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ec/Betsy.png/revision/latest?cb=20161117001359&format=original [https://terraria.fandom.com/wiki/Betsy Betsy]
+| 1
+| 8.33%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3a/Etherian_Goblin_3.png/revision/latest?cb=20161116123808&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin Etherian Goblin]
+| 1
+| 0.18%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/2/21/Etherian_Goblin_Bomber_3.png/revision/latest?cb=20161116124109&format=original [https://terraria.fandom.com/wiki/Etherian_Goblin_Bomber Etherian Goblin Bomber]
 | 1
 | 0.19%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/14/Etherian_Wyvern_3.png/revision/latest?cb=20210625221540&format=original [https://terraria.fandom.com/wiki/Etherian_Wyvern Etherian Wyvern]
 | 1
-| 0.18%
+| 0.25%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ae/Etherian_Javelin_Thrower_3.png/revision/latest?cb=20161116125327&format=original [https://terraria.fandom.com/wiki/Etherian_Javelin_Thrower Etherian Javelin Thrower]
 | 1
-| 0.16%
+| 0.2%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/33/Dark_Mage.png/revision/latest?cb=20161116171947&format=original [https://terraria.fandom.com/wiki/Dark_Mage Dark Mage]
-| 1
-| 0.16%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/33/Dark_Mage.png/revision/latest?cb=20161116171947&format=original [https://terraria.fandom.com/wiki/Dark_Mage Dark Mage]
-| 1
-| 0.29%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Wither_Beast.png/revision/latest?cb=20161116124330&format=original [https://terraria.fandom.com/wiki/Wither_Beast Wither Beast]
-| 1
-| 0.18%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0e/Drakin_2.png/revision/latest?cb=20161116124450&format=original [https://terraria.fandom.com/wiki/Drakin Drakin]
-| 1
-| 0.21%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/49/Kobold_Glider.png/revision/latest?cb=20161116123143&format=original [https://terraria.fandom.com/wiki/Kobold_Glider Kobold Glider]
-| 1
-| 0.18%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Ogre.png/revision/latest?cb=20161115192150&format=original [https://terraria.fandom.com/wiki/Ogre Ogre]
-| 1
-| 0.28%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Ogre.png/revision/latest?cb=20161115192150&format=original [https://terraria.fandom.com/wiki/Ogre Ogre]
-| 1
-| 0.8%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Etherian_Lightning_Bug.png/revision/latest?cb=20161116123152&format=original [https://terraria.fandom.com/wiki/Etherian_Lightning_Bug Etherian Lightning Bug]
-| 1
-| 0.18%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Dreadnautilus.png/revision/latest?cb=20200517123621&format=original [https://terraria.fandom.com/wiki/Dreadnautilus Dreadnautilus]
-| 1
-| 0.25%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0e/Blood_Eel_Body.png/revision/latest?cb=20200516201210&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
-| 1
-| 0.45%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bb/Blood_Eel_Tail.png/revision/latest?cb=20200516201212&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
-| 1
-| 0.52%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Ice_Mimic.png/revision/latest?cb=20170421213009&format=original [https://terraria.fandom.com/wiki/Ice_Mimic Ice Mimic]
-| 1
-| 1.12%
-|-
-| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/Rock_Golem.png/revision/latest?cb=20200516192425&format=original [https://terraria.fandom.com/wiki/Rock_Golem Rock Golem]
 | 1
 | 0.23%
 |-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/3/33/Dark_Mage.png/revision/latest?cb=20161116171947&format=original [https://terraria.fandom.com/wiki/Dark_Mage Dark Mage]
+| 1
+| 0.74%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Old_One%27s_Skeleton.png/revision/latest?cb=20161116124228&format=original [https://terraria.fandom.com/wiki/Old_One's_Skeleton Old One's Skeleton]
+| 1
+| 0.16%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Wither_Beast.png/revision/latest?cb=20161116124330&format=original [https://terraria.fandom.com/wiki/Wither_Beast Wither Beast]
+| 1
+| 0.17%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Wither_Beast.png/revision/latest?cb=20161116124330&format=original [https://terraria.fandom.com/wiki/Wither_Beast Wither Beast]
+| 1
+| 0.22%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Drakin.png/revision/latest?cb=20161116124454&format=original [https://terraria.fandom.com/wiki/Drakin Drakin]
+| 1
+| 0.19%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0e/Drakin_2.png/revision/latest?cb=20161116124450&format=original [https://terraria.fandom.com/wiki/Drakin Drakin]
+| 1
+| 0.47%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d2/Kobold.png/revision/latest?cb=20161116125025&format=original [https://terraria.fandom.com/wiki/Kobold Kobold]
+| 1
+| 0.19%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/4/49/Kobold_Glider.png/revision/latest?cb=20161116123143&format=original [https://terraria.fandom.com/wiki/Kobold_Glider Kobold Glider]
+| 1
+| 0.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Ogre.png/revision/latest?cb=20161115192150&format=original [https://terraria.fandom.com/wiki/Ogre Ogre]
+| 1
+| 0.73%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Ogre.png/revision/latest?cb=20161115192150&format=original [https://terraria.fandom.com/wiki/Ogre Ogre]
+| 1
+| 5.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Etherian_Lightning_Bug.png/revision/latest?cb=20161116123152&format=original [https://terraria.fandom.com/wiki/Etherian_Lightning_Bug Etherian Lightning Bug]
+| 1
+| 0.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Dreadnautilus.png/revision/latest?cb=20200517123621&format=original [https://terraria.fandom.com/wiki/Dreadnautilus Dreadnautilus]
+| 1
+| 0.73%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Hemogoblin_Shark.png/revision/latest?cb=20200516201155&format=original [https://terraria.fandom.com/wiki/Hemogoblin_Shark Hemogoblin Shark]
+| 1
+| 0.35%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Blood_Eel_Head.png/revision/latest?cb=20200516201211&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
+| 1
+| 0.36%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0e/Blood_Eel_Body.png/revision/latest?cb=20200516201210&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
+| 1
+| 3.44%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bb/Blood_Eel_Tail.png/revision/latest?cb=20200516201212&format=original [https://terraria.fandom.com/wiki/Blood_Eel Blood Eel]
+| 1
+| 4%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Ice_Mimic.png/revision/latest?cb=20170421213009&format=original [https://terraria.fandom.com/wiki/Ice_Mimic Ice Mimic]
+| 1
+| 3.7%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/Rock_Golem.png/revision/latest?cb=20200516192425&format=original [https://terraria.fandom.com/wiki/Rock_Golem Rock Golem]
+| 1
+| 0.26%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Empress_of_Light.gif/revision/latest?cb=20210501121017&format=original [https://terraria.fandom.com/wiki/Empress_of_Light Empress of Light]
+| 1
+| 6.67%
+|-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Pirate%27s_Curse.png/revision/latest?cb=20200730145829&format=original [https://terraria.fandom.com/wiki/Pirate's_Curse Pirate's Curse]
 | 1
-| 0.15%
+| 0.24%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f9/Golden_Slime.png/revision/latest?cb=20210516134412&format=original [https://terraria.fandom.com/wiki/Golden_Slime Golden Slime]
 | 1
-| 7.14%
+| 11.11%
 |}
 
 </div>

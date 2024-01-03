@@ -55,7 +55,7 @@ namespace WeaponEnchantments.UI
 		public static float[] LevelsPerButtonScale = Enumerable.Repeat(buttonScaleMinimum, LevelsPerLevelUp.Length).ToArray();
 		private static bool itemBeingEnchantedIsFavorited = false;
 		private static string descriptionBlock = null;
-		private static bool DisplayDescriptionBlock => MasterUIManager.HoverTime >= 60;
+		private static bool DisplayDescriptionBlock => MasterUIManager.HoverTime >= 15;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.usingEnchantingTable) {
@@ -106,10 +106,8 @@ namespace WeaponEnchantments.UI
 					wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
 				}
 
-				if (!wePlayer.infusionConsumeItem.IsAir && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
-					if (infusionAllowed)
-						wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
-				}
+				if (!wePlayer.infusionConsumeItem.IsAir && itemBeingEnchanted.InfusionAllowed())
+					wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
 			}
 
 			//Prevent Trash can and other mouse overides when using enchanting table
@@ -131,15 +129,28 @@ namespace WeaponEnchantments.UI
 				TextData loadoutsTextData2 = new(loadouts2);
 
 				//Loadouts Button Data 2/2
-				UIButtonData loadoutsData2 = new(GetUI_ID(WE_UI_ID.EnchantingTableLoadoutsButton), wePlayer.enchantingTableUILeft + PanelBorder, wePlayer.enchantingTableUITop + PanelBorder, loadoutsTextData2, mouseColor, ButtonBorderX, ButtonBorderY, BackGroundColor, HoverColor);
+				int loadoutsTop2 = wePlayer.enchantingTableUITop + PanelBorder;
+				UIButtonData loadoutsData2 = new(GetUI_ID(WE_UI_ID.EnchantingTableLoadoutsButton), wePlayer.enchantingTableUILeft + PanelBorder, loadoutsTop2, loadoutsTextData2, mouseColor, ButtonBorderX, ButtonBorderY, BackGroundColor, HoverColor);
+
+				//Description Block
+				TextData loadoutsDescriptionBlockTextData = new(descriptionBlock);
+				int loadoutsDescriptionBlockLoadoutsTop = loadoutsTop2 - (descriptionBlock != null ? loadoutsDescriptionBlockTextData.Height + Spacing : 0);
+				int loadoutsDescriptionBlockTop = loadoutsTop2 - (descriptionBlock != null ? loadoutsDescriptionBlockTextData.Height + Spacing : 0);
+				UITextData loadoutsDescriptionBlockData = new(WE_UI_ID.None, wePlayer.enchantingTableUILeft + PanelBorder, loadoutsDescriptionBlockTop, loadoutsDescriptionBlockTextData, mouseColor);
 
 				//Panel Data
-				Point panelTopLeft2 = new(wePlayer.enchantingTableUILeft, wePlayer.enchantingTableUITop);
-				Point panelBottomRight2 = new((int)loadoutsData2.BottomRight.X + PanelBorder, (int)loadoutsData2.BottomRight.Y + PanelBorder);
+				Point panelTopLeft2 = new(wePlayer.enchantingTableUILeft, wePlayer.enchantingTableUITop - (descriptionBlock != null ? loadoutsDescriptionBlockTextData.Height + Spacing : 0));
+				Point panelBottomRight2 = new((descriptionBlock != null ? Math.Max((int)loadoutsData2.BottomRight.X + PanelBorder, wePlayer.enchantingTableUILeft + 2 * PanelBorder + loadoutsDescriptionBlockTextData.Width) : (int)loadoutsData2.BottomRight.X + PanelBorder), (int)loadoutsData2.BottomRight.Y + PanelBorder);
 				UIPanelData panel2 = new(GetUI_ID(WE_UI_ID.EnchantingTable), panelTopLeft2, panelBottomRight2, BackGroundColor);
 
 				//Panel Draw
 				panel2.Draw(spriteBatch);
+
+				//Description Block Draw
+				if (descriptionBlock != null) {
+					loadoutsDescriptionBlockData.Draw(spriteBatch);
+					descriptionBlock = null;
+				}
 
 				//Loadouts Button Draw
 				loadoutsData2.Draw(spriteBatch);
@@ -155,6 +166,10 @@ namespace WeaponEnchantments.UI
 						}
 
 						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+
+					if (DisplayDescriptionBlock) {
+						SetDescriptionBlock(TableTextID.LoadoutDescription.ToString().Lang_WE(L_ID1.TableText));
 					}
 				}
 
@@ -279,15 +294,15 @@ namespace WeaponEnchantments.UI
 			TextData storageTextData = new(storage);
 			int largestWidthOfRightSideButtons = storageTextData.Width;
 
-			//Syphon Button Data 1/2
-			int syphonTop = storageButtonTop + storageTextData.Height + Spacing + ButtonBorderY * 2;
-			string syphon = TableTextID.Syphon.ToString().Lang_WE(L_ID1.TableText);
-			TextData syphonTextData = new(syphon);
-			if (syphonTextData.Width > largestWidthOfRightSideButtons)
-				largestWidthOfRightSideButtons = syphonTextData.Width;
+			//Siphon Button Data 1/2
+			int siphonTop = storageButtonTop + storageTextData.Height + Spacing + ButtonBorderY * 2;
+			string siphon = TableTextID.Siphon.ToString().Lang_WE(L_ID1.TableText);
+			TextData siphonTextData = new(siphon);
+			if (siphonTextData.Width > largestWidthOfRightSideButtons)
+				largestWidthOfRightSideButtons = siphonTextData.Width;
 
 			//Infusion Button Data 1/2
-			int infusionButtonTop = syphonTop + syphonTextData.Height + Spacing + ButtonBorderY * 2;
+			int infusionButtonTop = siphonTop + siphonTextData.Height + Spacing + ButtonBorderY * 2;
 			string infusion;
 			if (!wePlayer.infusionConsumeItem.IsAir) {
 				if (wePlayer.enchantingTableItem.IsAir) {
@@ -345,8 +360,8 @@ namespace WeaponEnchantments.UI
 			//Storage Button Data 2/2
 			UIButtonData storageData = new(GetUI_ID(WE_UI_ID.EnchantingTableStorageButton), rightButtonsLeft, storageButtonTop, storageTextData, mouseColor, (rightPanelButtonsWidth - storageTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
 
-			//Syphon Button Data 2/2
-			UIButtonData syphonData = new(GetUI_ID(WE_UI_ID.EnchantingTableSyphon), rightButtonsLeft, syphonTop, syphonTextData, mouseColor, (rightPanelButtonsWidth - syphonTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
+			//Siphon Button Data 2/2
+			UIButtonData siphonData = new(GetUI_ID(WE_UI_ID.EnchantingTableSiphon), rightButtonsLeft, siphonTop, siphonTextData, mouseColor, (rightPanelButtonsWidth - siphonTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
 
 			//Infusion Button Data 2/2
 			UIButtonData infusionData = new(GetUI_ID(WE_UI_ID.EnchantingTableInfusion), rightButtonsLeft, infusionButtonTop, infusionTextData, mouseColor, (rightPanelButtonsWidth - infusionTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
@@ -432,8 +447,8 @@ namespace WeaponEnchantments.UI
 			//Storage Button Draw
 			storageData.Draw(spriteBatch);
 
-			//Syphon Button Draw
-			syphonData.Draw(spriteBatch);
+			//Siphon Button Draw
+			siphonData.Draw(spriteBatch);
 
 			//Infusion Button Draw
 			infusionData.Draw(spriteBatch);
@@ -602,7 +617,7 @@ namespace WeaponEnchantments.UI
 					}
 
 					if (display && DisplayDescriptionBlock)
-						SetDescriptionBlock(TableTextID.weapon0.ToString().Lang_WE(L_ID1.TableText));
+						SetGenericDescriptionBlock(TableTextID.weapon0.ToString().Lang_WE(L_ID1.TableText));
 
 					if (normalClickInteractions)
 						enchantingItemSlotData.ClickInteractions(ref wePlayer.enchantingTableItem);
@@ -613,6 +628,11 @@ namespace WeaponEnchantments.UI
 					if (MasterUIManager.LeftMouseClicked) {
 						LootAll();
 						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+
+					if (DisplayDescriptionBlock) {
+						string itemName = wePlayer.enchantingTableItem.IsAir ? TableTextID.Item.ToString().Lang_WE(L_ID1.TableText) : wePlayer.enchantingTableItem.Name;
+						SetDescriptionBlock(TableTextID.LootAllDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { itemName }));
 					}
 				}
 
@@ -625,6 +645,11 @@ namespace WeaponEnchantments.UI
 							SoundEngine.PlaySound(SoundID.MenuOpen);
 						}
 					}
+
+					if (DisplayDescriptionBlock) {
+						string itemName = wePlayer.enchantingTableItem.IsAir ? TableTextID.Item.ToString().Lang_WE(L_ID1.TableText) : wePlayer.enchantingTableItem.Name;
+						SetDescriptionBlock(TableTextID.OfferDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { itemName }));
+					}
 				}
 
 				//XP buttons Hover
@@ -633,6 +658,13 @@ namespace WeaponEnchantments.UI
 						if (MasterUIManager.LeftMouseClicked) {
 							ConvertEssenceToXP(i);
 							SoundEngine.PlaySound(SoundID.MenuTick);
+						}
+
+						if (DisplayDescriptionBlock) {
+							string essenceName = EnchantmentEssence.IDs[i].CSI().Name;
+							float xpPerEssence = EnchantmentEssence.xpPerEssence[i];
+							string itemName = wePlayer.enchantingTableItem.IsAir ? TableTextID.Item.ToString().Lang_WE(L_ID1.TableText) : wePlayer.enchantingTableItem.Name;
+							SetDescriptionBlock(TableTextID.XPButtonDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { essenceName, xpPerEssence, itemName }));
 						}
 					}
 				}
@@ -692,7 +724,7 @@ namespace WeaponEnchantments.UI
 						}
 
 						if (display && DisplayDescriptionBlock)
-							SetDescriptionBlock(TableTextID.essence0.ToString().Lang_WE(L_ID1.TableText, new object[] { EnchantmentEssence.IDs[i].CSI().Name }));
+							SetGenericDescriptionBlock(TableTextID.essence0.ToString().Lang_WE(L_ID1.TableText, new object[] { EnchantmentEssence.IDs[i].CSI().Name }));
 
 						if (normalClickInteractions)
 							essenceSlot.ClickInteractions(ref item);
@@ -714,13 +746,23 @@ namespace WeaponEnchantments.UI
 							SoundEngine.PlaySound(SoundID.MenuClose);
 						}
 					}
+
+					if (DisplayDescriptionBlock) {
+						SetDescriptionBlock(TableTextID.StorageDescription.ToString().Lang_WE(L_ID1.TableText));
+					}
 				}
 
-				//Syphon Hover
-				if (syphonData.MouseHovering()) {
+				//Siphon Hover
+				if (siphonData.MouseHovering()) {
 					if (MasterUIManager.LeftMouseClicked) {
-						Syphon();
+						Siphon(ref wePlayer.enchantingTableItem);
 						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+
+					if (DisplayDescriptionBlock) {
+						int siphonXPCost = !wePlayer.enchantingTableItem.NullOrAir() && enchantedItem != null ? GetSiphonXPCost(wePlayer.enchantingTableItem, enchantedItem, out _) : 0;
+						string itemName = wePlayer.enchantingTableItem.IsAir ? TableTextID.Item.ToString().Lang_WE(L_ID1.TableText) : wePlayer.enchantingTableItem.Name;
+						SetDescriptionBlock(TableTextID.SiphonDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { siphonXPCost, itemName }));
 					}
 				}
 
@@ -728,7 +770,39 @@ namespace WeaponEnchantments.UI
 				if (infusionData.MouseHovering()) {
 					if (MasterUIManager.LeftMouseClicked) {
 						Infusion();
+						MasterUIManager.HoverTime = 0;
 						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+
+					if (DisplayDescriptionBlock) {
+						if (!wePlayer.infusionConsumeItem.IsAir) {
+							string infusiedItemName = wePlayer.infusionConsumeItem.Name;
+							if (wePlayer.enchantingTableItem.IsAir) {
+								//Cancel
+								SetDescriptionBlock(TableTextID.InfusionCancelDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { infusiedItemName }));
+							}
+							else {
+								//Finalize
+								if (CanDoInfusion(out string errorMessage)) {
+									string itemName = wePlayer.enchantingTableItem.Name;
+									string consumeItemName = wePlayer.infusionConsumeItem.Name;
+									if (wePlayer.enchantingTableItem.TryGetEnchantedWeapon(out _)) {
+										SetDescriptionBlock(TableTextID.InfusionFinalizeDescriptionWeapon.ToString().Lang_WE(L_ID1.TableText, new object[] { consumeItemName, itemName }));
+									}
+									else if (wePlayer.enchantingTableItem.TryGetEnchantedArmor(out _)) {
+										SetDescriptionBlock(TableTextID.InfusionFinalizeDescriptionArmor.ToString().Lang_WE(L_ID1.TableText, new object[] { consumeItemName, itemName }));
+									}
+								}
+								else {
+									SetDescriptionBlock(errorMessage);
+								}
+							}
+						}
+						else {
+							//Infusion
+							string infusionDamageMultiplierPercent = (ConfigValues.InfusionDamageMultiplier - 1f).PercentString();
+							SetDescriptionBlock(TableTextID.InfusionDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { infusionDamageMultiplierPercent, ConfigValues.InfusionDamageMultiplier }));
+						}
 					}
 				}
 
@@ -737,6 +811,20 @@ namespace WeaponEnchantments.UI
 					if (MasterUIManager.LeftMouseClicked) {
 						LevelUp();
 						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+
+					if (DisplayDescriptionBlock) {
+						string itemName = wePlayer.enchantingTableItem.IsAir ? TableTextID.Item.ToString().Lang_WE(L_ID1.TableText) : wePlayer.enchantingTableItem.Name;
+						int currentLevel = 0;
+						int currentXP = 0;
+						if (enchantedItem != null) {
+							currentLevel = enchantedItem.levelBeforeBooster;
+							currentXP = enchantedItem.Experience;
+						}
+
+						CalculateXPAvailable(out int xpAvailable, out int nonFavoriteXpAvailable);
+						CalculateXPRequired(currentLevel, currentXP, out int targetLevelXPIndex, out int xpNeeded);
+						SetDescriptionBlock(TableTextID.LevelUpDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { itemName, currentLevel, currentLevel + wePlayer.levelsPerLevelUp, xpNeeded, xpAvailable }));
 					}
 				}
 
@@ -751,6 +839,10 @@ namespace WeaponEnchantments.UI
 						LevelsPerButtonScale[i] += 0.05f;
 						if (LevelsPerButtonScale[i] > buttonScaleMaximum)
 							LevelsPerButtonScale[i] = buttonScaleMaximum;
+
+						if (DisplayDescriptionBlock) {
+							SetDescriptionBlock(TableTextID.LevelUpNumberDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { LevelsPerLevelUp[i] }));
+						}
 					}
 					else {
 						LevelsPerButtonScale[i] -= 0.05f;
@@ -770,6 +862,10 @@ namespace WeaponEnchantments.UI
 						}
 
 						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+
+					if (DisplayDescriptionBlock) {
+						SetDescriptionBlock(TableTextID.LoadoutDescription.ToString().Lang_WE(L_ID1.TableText));
 					}
 				}
 
@@ -1026,8 +1122,7 @@ namespace WeaponEnchantments.UI
 		#endregion
 
 		#region UI Methods
-
-		private static void SetDescriptionBlock(string firstLine, string lastLine = null) {
+		private static void SetGenericDescriptionBlock(string firstLine, string lastLine = null) {
 			List<string> lines = new() { firstLine };
 			for (int j = 1; j <= 3; j++) {
 				lines.Add($"general{j}".Lang_WE(L_ID1.TableText));
@@ -1038,6 +1133,9 @@ namespace WeaponEnchantments.UI
 
 			lines.PadStrings();
 			descriptionBlock = lines.JoinList("\n");
+		}
+		private static void SetDescriptionBlock(string text) {
+			descriptionBlock = text;
 		}
 		public static void HandleEnchantmentSlot(UIItemSlotData enchantmentSlot, WEPlayer wePlayer, int slotNum) {
 			Item item = wePlayer.enchantingTableEnchantments[slotNum];
@@ -1118,16 +1216,15 @@ namespace WeaponEnchantments.UI
 
 			if (display && DisplayDescriptionBlock) {
 				if (isUtilitySlot) {
-					SetDescriptionBlock(TableTextID.utility0.ToString().Lang_WE(L_ID1.TableText));
+					SetGenericDescriptionBlock(TableTextID.utility0.ToString().Lang_WE(L_ID1.TableText));
 				}
 				else {
-					SetDescriptionBlock(TableTextID.enchantment0.ToString().Lang_WE(L_ID1.TableText), TableTextID.enchantment4.ToString().Lang_WE(L_ID1.TableText, new object[] { EnchantingTableItem.IDs[slotNum].CSI().Name }));
+					SetGenericDescriptionBlock(TableTextID.enchantment0.ToString().Lang_WE(L_ID1.TableText), TableTextID.enchantment4.ToString().Lang_WE(L_ID1.TableText, new object[] { EnchantingTableItem.IDs[slotNum].CSI().Name }));
 				}
 			}
 
 			if (normalClickInteractions) {
 				UIManager.ItemSlotClickInteractions(wePlayer.enchantingTableEnchantments, slotNum, MasterUIManager.ItemSlotInteractContext);
-				//enchantmentSlot.ClickInteractions(wePlayer.enchantingTableEnchantments, slotNum);
 			}
 		}
 
@@ -1385,37 +1482,71 @@ namespace WeaponEnchantments.UI
 
 			return remainingStack;
 		}
-		private static void Syphon() {
-			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			Item item = wePlayer.enchantingTableItem;
-
+		public static void Siphon(ref Item item, bool force = false) {
 			if (item.IsAir)
 				return;
 
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return;
 
-			int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_Level - 1];
 			int smallestXpPerEssence = (int)EnchantmentEssence.xpPerEssence[0];
-			int minimumXPToSyphon = maxLevelXP + smallestXpPerEssence;
-			if (enchantedItem.Experience < minimumXPToSyphon) {
-				Main.NewText(GameMessageTextID.OnlySyphonMaxLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { minimumXPToSyphon }));// $"You can only Syphon an item if it is max level and over {minimumXPToSyphon} experience.");
+			int xpCost = GetSiphonXPCost(item, enchantedItem, out bool useOldSystem);
+			if (useOldSystem && !force) {
+				//Original System
+				int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_Level - 1];
+				int  minimumXPToSiphon = maxLevelXP + smallestXpPerEssence;
+				if (enchantedItem.Experience < minimumXPToSiphon) {
+					Main.NewText(GameMessageTextID.MinSiphonXP.ToString().Lang_WE(L_ID1.GameMessages, new object[] { minimumXPToSiphon }));
+				}
+				else {
+					int xp = enchantedItem.Experience - maxLevelXP;
+					enchantedItem.Experience -= ConvertXPToEssence(xp, item: item);
+				}
 			}
 			else {
-				int xp = enchantedItem.Experience - maxLevelXP;
-				enchantedItem.Experience -= ConvertXPToEssence(xp, item: item);
+				int minimumXPToSiphon = xpCost + smallestXpPerEssence;
+				if (!force && enchantedItem.Experience < minimumXPToSiphon) {
+					Main.NewText(GameMessageTextID.MinSiphonXP.ToString().Lang_WE(L_ID1.GameMessages, new object[] { minimumXPToSiphon }));
+				}
+				else {
+					if (force) {
+						if (enchantedItem.Experience - xpCost < 0) {
+							enchantedItem.Experience = 0;
+						}
+						else {
+							enchantedItem.Experience -= xpCost;
+						}
+					}
+					else {
+						enchantedItem.Experience -= xpCost;
+					}
+					
+					ReturnAllModifications(ref item, true);
+				}
 			}
 		}
-		private static void Infusion() {
+		private static int GetSiphonXPCost(Item item, EnchantedItem enchantedItem, out bool useOldSystem) {
+			useOldSystem = ConfigValues.SiphonExperienceCost > 0.991f;
+			if (useOldSystem)
+				return 0;
+
+			int xpCost = (int)((float)item.value * 4f / EnchantmentEssence.valuePerXP);
+			int configCost = (int)(ConfigValues.SiphonExperienceCost * enchantedItem.Experience);
+			if (configCost < xpCost)
+				xpCost = configCost;
+
+			return xpCost;
+		}
+		private static bool CanDoInfusion(out string errorMessage, bool allowLogErrors = false) {
+			errorMessage = "";
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			Item tableItem = wePlayer.enchantingTableItem;
 			if (tableItem.IsEnchantable()) {
-				tableItem.InfusionAllowed(out bool infusionAllowed);
-				if (!infusionAllowed)
-					return;
+				if (!tableItem.InfusionAllowed())
+					return false;
 
-				if (wePlayer.infusionConsumeItem == null) {
-					GameMessageTextID.InfusionConsumeItemWasNull.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError);// $"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+				if (allowLogErrors && wePlayer.infusionConsumeItem == null) {
+					GameMessageTextID.InfusionConsumeItemWasNull.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
 				}
 
 				if (wePlayer.infusionConsumeItem.IsAir) {
@@ -1424,7 +1555,7 @@ namespace WeaponEnchantments.UI
 					//Prevent specific items from being consumed for infusion.
 					switch (tableItem.ModFullName()) {
 						case "CalamityMod/Murasama":
-							Main.NewText(GameMessageTextID.MurasamaNoInfusion.ToString().Lang_WE(L_ID1.GameMessages));// "Murasama cannot be consumed for infusion until a check for the Yharon, Dragon of Rebirth being defeated can be added.");
+							errorMessage = GameMessageTextID.MurasamaNoInfusion.ToString().Lang_WE(L_ID1.GameMessages);
 							break;
 						default:
 							canConsume = true;
@@ -1432,21 +1563,19 @@ namespace WeaponEnchantments.UI
 					}
 
 					if (!canConsume)
-						return;
+						return false;
 
 					//Store item for infusion
 					if (tableItem.stack > 1) {
-						wePlayer.enchantingTableItem.stack -= 1;
-						wePlayer.infusionConsumeItem = new Item(tableItem.type);
+						return true;
 					}
 					else {
 						if (wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
-							Main.NewText(GameMessageTextID.FavoritedItemsCantBeConsumedForInfusion.ToString().Lang_WE(L_ID1.GameMessages));//"Favorited items cannot be consumed for infusion.");
-							return;
+							errorMessage = GameMessageTextID.FavoritedItemsCantBeConsumedForInfusion.ToString().Lang_WE(L_ID1.GameMessages);
+							return false;
 						}
 
-						wePlayer.infusionConsumeItem = tableItem.Clone();
-						wePlayer.enchantingTableItem = new Item();
+						return true;
 					}
 				}
 				else {
@@ -1455,19 +1584,71 @@ namespace WeaponEnchantments.UI
 					//Prevent specific items from being upgraded with infusion.
 					if (tableItem.ModFullName().Contains("PrimaryZenith")) {
 						canInfuse = false;
-						Main.NewText(GameMessageTextID.ResistsYourAttemptToEmpower.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.Name }));//$"The {tableItem.Name} resisted your attempt to empower it.");
+						errorMessage = GameMessageTextID.ResistsYourAttemptToEmpower.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.Name });
 					}
 
 					if (!canInfuse)
-						return;
+						return false;
 
+					//Check armor slots match if armor
+					if (tableItem.IsArmorItem() && wePlayer.infusionConsumeItem.IsArmorItem()) {
+						int tableItemSlotIndex = tableItem.GetSlotIndex();
+						int consumeItemSlotIndex = wePlayer.infusionConsumeItem.GetSlotIndex();
+						if (tableItemSlotIndex != consumeItemSlotIndex) {
+							errorMessage = GameMessageTextID.CantInfusionArmorDifferentTypes.ToString().Lang_WE(L_ID1.GameMessages);
+							return false;
+						}
+					}
+
+					if (!(tableItem.IsWeaponItem() && wePlayer.infusionConsumeItem.IsWeaponItem() || tableItem.IsArmorItem() && wePlayer.infusionConsumeItem.IsArmorItem())) {
+						errorMessage = GameMessageTextID.InfusionOnlyPossibleSameType.ToString().Lang_WE(L_ID1.GameMessages);
+						return false;
+					}
+
+					//Infuse (Finalize)
+					return true;
+				}
+			}
+			else if (!wePlayer.infusionConsumeItem.IsAir) {
+				return true;
+			}
+			else if (!tableItem.IsAir) {
+				if (allowLogErrors)
+					GameMessageTextID.NotEnchantableAndNotAirInfusionItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
+
+				return false;
+			}
+
+			return false;
+		}
+		private static void Infusion() {
+			if (!CanDoInfusion(out string errorMessage, true)) {
+				Main.NewText(errorMessage);
+				return;
+			}
+
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			Item tableItem = wePlayer.enchantingTableItem;
+			if (tableItem.IsEnchantable()) {
+				if (wePlayer.infusionConsumeItem.IsAir) {
+					//Store item for infusion
+					if (tableItem.stack > 1) {
+						wePlayer.enchantingTableItem.stack -= 1;
+						wePlayer.infusionConsumeItem = new Item(tableItem.type);
+					}
+					else {
+						wePlayer.infusionConsumeItem = tableItem.Clone();
+						wePlayer.enchantingTableItem = new Item();
+					}
+				}
+				else {
 					//Infuse (Finalize)
 					if (wePlayer.enchantingTableItem.TryInfuseItem(wePlayer.infusionConsumeItem, false, true)) {
 						OfferItem(ref wePlayer.infusionConsumeItem, true, true, false);
 						wePlayer.infusionConsumeItem = new();
 					}
 					else {
-						GameMessageTextID.TryInfuseFailed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError);//$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
+						GameMessageTextID.TryInfuseFailed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
 					}
 				}
 			}
@@ -1476,22 +1657,12 @@ namespace WeaponEnchantments.UI
 				wePlayer.enchantingTableItem = wePlayer.infusionConsumeItem.Clone();
 				wePlayer.infusionConsumeItem = new();
 			}
-			else if (!tableItem.IsAir) {
-				GameMessageTextID.NotEnchantableAndNotAirInfusionItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { tableItem.S(), (tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : ""), wePlayer.infusionConsumeItem.S(), (wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "") }).LogNT(ChatMessagesIDs.AlwaysShowInfusionError); //$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT_WE(ChatMessagesIDs.AlwaysShowInfusionError);
-			}
 		}
-		private static void LevelUp() {
+		private static void CalculateXPAvailable(out int xpAvailable, out int nonFavoriteXpAvailable) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			Item item = wePlayer.enchantingTableItem;
-			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-				return;
 
-			int xpAvailable = 0;
-			int nonFavoriteXpAvailable = 0;
-			if (enchantedItem.levelBeforeBooster == EnchantedItem.MAX_Level) {
-				Main.NewText(GameMessageTextID.AlreadyMaxLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.Name }));// "Your " + item.Name + " is already max level.");
-				return;
-			}
+			xpAvailable = 0;
+			nonFavoriteXpAvailable = 0;
 
 			//xpAvailable
 			for (int i = EnchantingTableUI.MaxEnchantmentSlots - 1; i >= 0; i--) {
@@ -1500,14 +1671,35 @@ namespace WeaponEnchantments.UI
 				if (!wePlayer.enchantingTableEssence[i].favorited)
 					nonFavoriteXpAvailable.AddCheckOverflow(xpToAdd);
 			}
+		}
+		private static void CalculateXPRequired(EnchantedItem enchantedItem, out int targetLevelXPIndex, out int xpNeeded) {
+			CalculateXPRequired(enchantedItem.levelBeforeBooster, enchantedItem.Experience, out targetLevelXPIndex, out xpNeeded);
+		}
+		private static void CalculateXPRequired(int currentLevel, int currentExperience, out int targetLevelXPIndex, out int xpNeeded) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 
 			//xpNeeded
-			int targetLevelXPIndex = enchantedItem.levelBeforeBooster + wePlayer.levelsPerLevelUp - 1;
+			targetLevelXPIndex = currentLevel + wePlayer.levelsPerLevelUp - 1;
 			targetLevelXPIndex.Clamp(max: EnchantedItem.MAX_Level - 1);
-			int xpNeeded = WEModSystem.levelXps[targetLevelXPIndex] - enchantedItem.Experience;
+			xpNeeded = WEModSystem.levelXps[targetLevelXPIndex] - currentExperience;
+		}
+		private static void LevelUp() {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			Item item = wePlayer.enchantingTableItem;
+			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
+				return;
+
+			if (enchantedItem.levelBeforeBooster == EnchantedItem.MAX_Level) {
+				Main.NewText(GameMessageTextID.AlreadyMaxLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.Name }));
+				return;
+			}
+
+			CalculateXPAvailable(out int xpAvailable, out int nonFavoriteXpAvailable);
+			CalculateXPRequired(enchantedItem, out int targetLevelXPIndex, out int xpNeeded);
 			bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
+
 			if (xpAvailable < xpNeeded) {
-				Main.NewText(GameMessageTextID.NotEnoughEssence.ToString().Lang_WE(L_ID1.GameMessages, new object[] { xpNeeded, targetLevelXPIndex + 1, xpAvailable }));//"Not Enough Essence. You need " + xpNeeded + " experience for level " + (targetLevelXPIndex + 1).ToString() + " you only have " + xpAvailable + " available.");
+				Main.NewText(GameMessageTextID.NotEnoughEssence.ToString().Lang_WE(L_ID1.GameMessages, new object[] { xpNeeded, targetLevelXPIndex + 1, xpAvailable }));
 				return;
 			}
 
@@ -1701,20 +1893,22 @@ namespace WeaponEnchantments.UI
 			LootAllEnchantments(ref item, true);
 
 			//Power Booster
-			if (enchantedItem.PowerBoosterInstalled)
+			if (enchantedItem.PowerBoosterInstalled) {
 				StorageManager.GiveNewItemToPlayer(ModContent.ItemType<PowerBooster>(), Main.LocalPlayer);
-				//Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
+				enchantedItem.PowerBoosterInstalled = false;
+			}
 
 			//Ultra Power Booster
-			if (enchantedItem.UltraPowerBoosterInstalled)
+			if (enchantedItem.UltraPowerBoosterInstalled) {
 				StorageManager.GiveNewItemToPlayer(ModContent.ItemType<UltraPowerBooster>(), Main.LocalPlayer);
-				//Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
-
-			int xp = enchantedItem.Experience;
+				enchantedItem.UltraPowerBoosterInstalled = false;
+			}
 
 			//Xp -> Essence
-			ConvertXPToEssence(xp, true, item);
+			int xp = enchantedItem.Experience;
+			enchantedItem.Experience -= ConvertXPToEssence(xp, true, item);
 
+			//Infused Item
 			if (shouldGiveBackInfusiedItem && enchantedItem.infusedItemName != "") {
 				if (InfusionManager.TryFindItem(enchantedItem.infusedItemName, out Item foundItem)) {
 					StorageManager.TryReturnItemToPlayer(ref foundItem, Main.LocalPlayer, true);
@@ -1722,6 +1916,8 @@ namespace WeaponEnchantments.UI
 				else {
 					Main.LocalPlayer.SpawnCoins(enchantedItem.InfusionValueAdded / 5);
 				}
+
+				enchantedItem.ResetInfusion();
 			}
 		}
 		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true, bool returnInfusedItem = true) {
@@ -1794,7 +1990,7 @@ namespace WeaponEnchantments.UI
 
 				//Essence
 				if (essenceValue > 0)
-					ConvertXPToEssence(essenceValue, true, item);
+					ConvertXPToEssence(essenceValue, true);
 			}
 
 			item.TurnToAir();

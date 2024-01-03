@@ -25,7 +25,8 @@ namespace WeaponEnchantments.Common.Globals
 	{
 		#region Infusion
 
-		public int infusedArmorSlot = -1;
+		public const int DefaultInfusionArmorSlot = -1;
+		public int infusedArmorSlot = DefaultInfusionArmorSlot;
 		public Item infusedItem;
 
 		#endregion
@@ -66,7 +67,7 @@ namespace WeaponEnchantments.Common.Globals
 			//Fix for swapping an equipped armor/accessory with one in the enchanting table.
 			if (player.GetWEPlayer().enchantingTableItem.TryGetEnchantedItem()) {
 				if (item.GetInfusionArmorSlot() != infusedArmorSlot) {
-					infusedArmorSlot = -1;
+					infusedArmorSlot = DefaultInfusionArmorSlot;
 					item.TryInfuseItem(new Item(), true);
 				}
 			}
@@ -77,6 +78,11 @@ namespace WeaponEnchantments.Common.Globals
 			return 
 				$"*{$"{EnchantmentGeneralTooltipsID.NewSetBonusID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
 				$"{$"{EnchantmentGeneralTooltipsID.NewInfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
+		}
+		public override void ResetInfusion() {
+			base.ResetInfusion();
+			infusedArmorSlot = DefaultInfusionArmorSlot;
+			infusedItem = null;
 		}
 	}
 }

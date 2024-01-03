@@ -53,11 +53,11 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Giant_Antlion_Charger.png/revision/latest?cb=20191112012549&format=original [https://terraria.fandom.com/wiki/Giant_Antlion_Charger Giant Antlion Charger]
 | 1
-| 6.96%
+| 15.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Antlion_Charger.png/revision/latest?cb=20200517034253&format=original [https://terraria.fandom.com/wiki/Antlion_Charger Antlion Charger]
 | 1
-| 4.59%
+| 10.96%
 |}
 
 {| class="mw-collapsible wikitable" style="max-width:400px;"

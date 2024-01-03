@@ -825,7 +825,7 @@ namespace WeaponEnchantments
 		}
 		public override void PostSellItem(NPC vendor, Item[] shopInventory, Item item) {
 			if (item.TryGetEnchantedItemSearchAll(out _))
-				EnchantingTableUI.ReturnAllModifications(ref item);
+				EnchantingTableUI.Siphon(ref item, true);
 
             Witch.OnSellItem(item);
 		}

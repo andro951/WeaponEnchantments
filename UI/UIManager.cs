@@ -169,7 +169,7 @@ namespace WeaponEnchantments.UI
 		public const int EnchantingTable = 0;
 		public const int EnchantingTableLootAll = 1;
 		public const int EnchantingTableOfferButton = 2;
-		public const int EnchantingTableSyphon = 3;
+		public const int EnchantingTableSiphon = 3;
 		public const int EnchantingTableInfusion = 4;
 		public const int EnchantingTableLevelUp = 5;
 		public const int EnchantingTableItemSlot = 6;

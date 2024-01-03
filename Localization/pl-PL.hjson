@@ -571,6 +571,17 @@ Mods: {
 					Label: Usuń ograniczenia dotyczące zaklęć (używaj na własne ryzyko!)
 					Tooltip: Usuwa takie rzeczy jak Unikalne, Maks. 1 i zaklęcia specyficzne dla broni lub typu przedmiotu.
 				}
+
+				SiphonExperiencePercentCost: {
+					Label: Koszt doświadczenia w % kosztu syfonu
+					Tooltip:
+						'''
+						Wysysanie przedmiotów zwraca jedynie część doświadczenia w postaci esencji. Ta opcja to %, który zostaje Utracony, więc 1000 PD przy koszcie 20% da tylko 800.
+						Jeśli wartość kosztu doświadczenia byłaby większa niż 4-krotność wartości zaklętego przedmiotu, ta wartość będzie kosztem, aby zapobiec sytuacjom takim jak utrata 20 platynowych punktów doświadczenia, aby uratować drewniany miecz o maksymalnym poziomie.
+						Zamiast tego oferowanie przedmiotów zwraca 100% doświadczenia. Ustaw na 0%, aby nie mieć kosztów i zwrócić 100% doświadczenia. Ustaw na 100%, aby używać oryginalnego systemu syfonu.
+						Oryginalny system Syfon pozwala na wyssanie przedmiotu o maksymalnym poziomie i usuwa jedynie nadmiar doświadczenia powyżej maksymalnego poziomu. bez żadnych kosztów.
+						'''
+				}
 			}
 		}
 
@@ -658,6 +669,7 @@ Mods: {
 			ItemTooLowLevel: „Twój poziom {0} jest zbyt niski, aby móc używać tak wielu zaklęć.”
 			LogInfusionPowerLabels: Mod, broń, moc infuzji, wartość rzadkości, rzadkość, oryginalna rzadkość, wartość, identyfikator przedmiotu, obrażenia, czas użytkowania, DPS
 			LogInfusionPowerOtherLabels: Rzadkość, średnia, minimalna, maksymalna
+			MinSiphonXP: „Możesz wyssać przedmiot tylko wtedy, gdy ma on co najmniej {0} doświadczenia.”
 			MultipleUniqueEnchantments: „Wykryto wiele unikalnych zaklęć na twoim {0}. {1} zostało usunięte z twojego {2}.”
 			MurasamaNoInfusion: Murasamy nie można spożywać do naparu.
 			NewItemIsAir: nowośćPrzedmiotem było powietrze.
@@ -674,7 +686,6 @@ Mods: {
 			NowLimitedToOne: „{0} Zaklęcia są teraz ograniczone do 1 na przedmiot. {1} zostało usunięte z twojego {2}.”
 			NPCInProgressionGroupNotInDropList: Wykryto NPC w grupie Postępu, którego nie ma w NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Wykryto NPC w grupie Postępu, który nie ma unikalnej broni ani składników.
-			OnlySyphonMaxLevel: „Możesz wyssać przedmiot tylko wtedy, gdy ma on maksymalny poziom i ponad {0} doświadczenia.”
 			OpenEnchantingTableFirstTime:
 				'''
 				Czujesz, jak wszystkie Twoje Zaklęcia i Esencja zostają wciągnięte na Stół Zaklinający.
@@ -1248,18 +1259,99 @@ Mods: {
 			general2: Używanie zaklęć broni na zbroi lub akcesoriach
 			general3: zapewnia zmniejszone premie i odwrotnie.
 			Infusion: Napar
+			InfusionCancelDescription: „Odłóż przechowywany {0} do miejsca na przedmiot.”
+			InfusionDescription:
+				'''
+				Umożliwia wzmocnienie broni lub zbroi poprzez poświęcenie innej broni lub zbroi.
+				Broń: Napełnienie broni zwiększa jej obrażenia o {0} na każde 100 dodanych mocy infuzji.
+				(nowe obrażenia = obrażenia podstawowe * {1}^((nowa moc infuzji - podstawowa moc infuzji)/100) )
+				-Umieść silniejszą broń, którą chcesz poświęcić, w gnieździe przedmiotu, a następnie naciśnij Infuzję.
+				-Następnie umieść słabszą broń, którą chcesz ulepszyć, w gnieździe przedmiotu, a następnie naciśnij przycisk Finalizuj.
+				Pancerz: Napełnianie pancerza przenosi premię zestawu z poświęconego przedmiotu, zastępując premię zestawu napełnionego przedmiotu.
+				Przykład zastosowania: Bonus zestawu zbroi kaktusowej podoba Ci się bardziej niż twój obecny pancerz.
+				Poświęć każdy element kaktusowej zbroi na każdy element swojej aktualnej zbroi, aby przenieść premię za zestaw.
+				Każdy element zbroi ma swój własny identyfikator bonusu zestawu, więc możesz mieć częściowe zestawy, takie jak złoty hełm z natchnionym hełmem kaktusa,
+				nogi kaktusa, skrzynia kaktusa, dające efekt zestawu zbroi kaktusa.
+				-Umieść element zbroi, który chcesz poświęcić, w miejscu na przedmiot (ustawiony bonus zostanie przeniesiony), a następnie naciśnij Infuzję.
+				-Umieść element zbroi, który chcesz zmodyfikować, w miejscu na przedmiot (ustawiony bonus zostanie zastąpiony), a następnie naciśnij przycisk Finalizuj.
+				(Zaklęcia, doświadczenie i wzmocnienia mocy z poświęconego przedmiotu zostaną ci zwrócone tak, jakby były oferowane.)
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Zakończ, aby poświęcić swoje {0}, aby zastąpić ustalony bonus
+				na Twoim {1} z ustawionym bonusem na Twoim {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Zakończ, aby poświęcić swoje {0}
+				zwiększ obrażenia swojego {1}.
+				'''
 			Item: Przedmiot
 			LevelUp: Podnieść do właściwego poziomu
+			LevelUpDescription:
+				'''
+				Awansuj swoje {0} z poziomu {1} do poziomu {2}.
+				Kosztuje {3} doświadczenia. Dostępne doświadczenie: {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Ustaw, z iloma poziomami zostaną dodane
+				przycisk Poziom wyżej do {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Otwórz lub zamknij menu Zestawy zaklęć.
+				Zestawy zaklęć nie przechowują przedmiotów.
+				Po prostu zapisują rodzaj i poziom zaklęcia.
+				Tworząc Zestaw Zaklęć, możesz szybko zapełnić miejsca
+				Przesuń lewy przycisk myszy, klikając zaklęcia ze swojego magazynu, aby wypełnić następne miejsce
+				(Następny slot do zapełnienia ma złote tło, gdy przytrzymany jest Shift).
+				Możesz także przytrzymać zaklęcie w myszy i zamiast tego kliknąć je na gnieździe.
+				Kliknięcie myszką na gniazdo bez zaklęcia spowoduje jego wyczyszczenie.
+
+				Dodaj – dodaje nowy ładunek (maks. 15).
+				Dodaj z wyposażonych zaklęć — utwórz zestaw, kopiując wyposażone zaklęcia
+				Nr wyposażenia — kliknięcie przycisku Wyposażenie powoduje wybranie tego wyposażenia, dzięki czemu można je zobaczyć lub edytować.
+				All – All zastępuje wszystkie zaklęcia na trzymanym przedmiocie, zbroi i akcesoriach
+				zaklęcia z wyposażenia. Jeśli którykolwiek element nie jest wystarczająco wysoki
+				aby wspierać zaklęcia dla tego miejsca, wyposażenie nie zostanie załadowane.
+				Trzymany przedmiot/zbroja/akcesoria – te przyciski pełnią tę samą funkcję, co przycisk Wszystkie, ale
+				załaduj tylko określone zaklęcia dla wybranej kategorii.
+				'''
 			Loadouts: Załadunki
 			LootAll: Łup wszystko
+			LootAllDescription:
+				'''
+				Usuń wszystkie zaklęcia ze swojego {0}, wysyłając je do
+				Magazyn Zaklęć i przywróć {0} do swojego ekwipunku.
+				'''
 			No: Nie
 			Offer: Oferta
+			OfferDescription:
+				'''
+				Zaoferuj swój {0}, NISZCZĄC go w zamian za rudy/esencję.
+				Procent rud/esencji można dostosować w ustawieniach konfiguracyjnych.
+				'''
+			Siphon: Syfon
+			SiphonDescription:
+				'''
+				Zużyj {0} doświadczenia ze swojego {1}, aby usunąć wszystko
+				zaklęcia, wzmacniacze mocy, natchnione przedmioty i
+				pozostałe doświadczenie bez niszczenia {1}.
+				Oferowanie przedmiotów zwraca całą esencję, więc jest to a
+				lepsza opcja, chyba że musisz zachować swój {1}.
+				'''
 			Storage: Składowanie
-			Syphon: Syfon
+			StorageDescription: Otwórz lub zamknij Magazyn Zaklęć.
 			ToggleAutoTrashOfferedItems: Przełącz elementy oferowane do automatycznego kosza
 			utility0: Tylko zaklęcia użytkowe mogą tu trafić.
 			weapon0: Umieść tutaj broń, element zbroi lub akcesorium.
 			xp: xp
+			XPButtonDescription:
+				'''
+				Zużyj jednego {0}
+				aby dodać doświadczenie {1} do swojego {2}.
+				'''
 			Yes: TAk
 		}
 

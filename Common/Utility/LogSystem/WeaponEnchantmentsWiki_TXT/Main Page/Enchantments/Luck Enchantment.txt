@@ -44,59 +44,59 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/17/Pinky.png/revision/latest?cb=20111003022635&format=original [https://terraria.fandom.com/wiki/Pinky Pinky]
 | 1
-| 9.34%
+| 16.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/25/Devourer_Head.png/revision/latest?cb=20170420005727&format=original [https://terraria.fandom.com/wiki/Devourer Devourer]
 | 1
-| 0.06%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Giant_Worm_Head.png/revision/latest?cb=20170420005945&format=original [https://terraria.fandom.com/wiki/Giant_Worm Giant Worm]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Fire_Imp.png/revision/latest?cb=20170420013443&format=original [https://terraria.fandom.com/wiki/Fire_Imp Fire Imp]
 | 1
-| 0.06%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1c/Bone_Serpent_Head.png/revision/latest?cb=20170420015651&format=original [https://terraria.fandom.com/wiki/Bone_Serpent Bone Serpent]
 | 1
-| 0.24%
+| 0.4%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Undead_Miner.png/revision/latest?cb=20170420021204&format=original [https://terraria.fandom.com/wiki/Undead_Miner Undead Miner]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Tim.png/revision/latest?cb=20171104013044&format=original [https://terraria.fandom.com/wiki/Tim Tim]
 | 1
-| 4.38%
+| 7.82%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/24/Doctor_Bones.png/revision/latest?cb=20170420102814&format=original [https://terraria.fandom.com/wiki/Doctor_Bones Doctor Bones]
 | 1
-| 0.42%
+| 0.6%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cd/The_Groom.png/revision/latest?cb=20170420102844&format=original [https://terraria.fandom.com/wiki/The_Groom The Groom]
 | 1
-| 0.3%
+| 0.57%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Voodoo_Demon.png/revision/latest?cb=20200517031810&format=original [https://terraria.fandom.com/wiki/Voodoo_Demon Voodoo Demon]
 | 1
-| 0.14%
+| 0.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/50/Dungeon_Slime_%28Key%29.png/revision/latest?cb=20210430065342&format=original [https://terraria.fandom.com/wiki/Dungeon_Slime Dungeon Slime]
 | 1
-| 0.15%
+| 0.32%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/Goblin_Scout.png/revision/latest?cb=20200517031944&format=original [https://terraria.fandom.com/wiki/Goblin_Scout Goblin Scout]
 | 1
-| 0.1%
+| 0.25%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Cursed_Hammer.png/revision/latest?cb=20170420181531&format=original [https://terraria.fandom.com/wiki/Cursed_Hammer Cursed Hammer]
 | 1
-| 0.15%
+| 0.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ed/Enchanted_Sword_%28NPC%29.gif/revision/latest?cb=20180309231258&format=original [https://terraria.fandom.com/wiki/Enchanted_Sword Enchanted Sword]
 | 1
-| 0.15%
+| 0.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Mimic.png/revision/latest?cb=20170421213035&format=original [https://terraria.fandom.com/wiki/Mimic Mimic]
 | 1
@@ -104,35 +104,35 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Clown.png/revision/latest?cb=20170421224900&format=original [https://terraria.fandom.com/wiki/Clown Clown]
 | 1
-| 0.52%
+| 0.53%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Chaos_Elemental.png/revision/latest?cb=20170421223414&format=original [https://terraria.fandom.com/wiki/Chaos_Elemental Chaos Elemental]
 | 1
-| 0.18%
+| 0.27%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Corruption_Pigron.png/revision/latest?cb=20150714194850&format=original [https://terraria.fandom.com/wiki/Pigron Pigron]
 | 1
-| 0.22%
+| 0.39%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8e/Hallow_Pigron.png/revision/latest?cb=20150714194917&format=original [https://terraria.fandom.com/wiki/Pigron Pigron]
 | 1
-| 0.22%
+| 0.39%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Rune_Wizard.png/revision/latest?cb=20170524102422&format=original [https://terraria.fandom.com/wiki/Rune_Wizard Rune Wizard]
 | 1
-| 0.38%
+| 0.44%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/df/Crimson_Axe.png/revision/latest?cb=20170420181950&format=original [https://terraria.fandom.com/wiki/Crimson_Axe Crimson Axe]
 | 1
-| 0.15%
+| 0.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Crimson_Pigron.png/revision/latest?cb=20210210223359&format=original [https://terraria.fandom.com/wiki/Pigron Pigron]
 | 1
-| 0.22%
+| 0.39%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Nymph.png/revision/latest?cb=20170421233126&format=original [https://terraria.fandom.com/wiki/Nymph Nymph]
 | 1
-| 12.9%
+| 18.83%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/09/Moth.png/revision/latest?cb=20170422123155&format=original [https://terraria.fandom.com/wiki/Moth Moth]
 | 1
@@ -140,55 +140,55 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9b/Cochineal_Beetle.png/revision/latest?cb=20200523235211&format=original [https://terraria.fandom.com/wiki/Cochineal_Beetle Cochineal Beetle]
 | 1
-| 0.02%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Cyan_Beetle.png/revision/latest?cb=20200523235324&format=original [https://terraria.fandom.com/wiki/Cyan_Beetle Cyan Beetle]
 | 1
-| 0.02%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/61/Lac_Beetle.png/revision/latest?cb=20200808224342&format=original [https://terraria.fandom.com/wiki/Lac_Beetle Lac Beetle]
 | 1
-| 0.02%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Squid.png/revision/latest?cb=20140905021230&format=original [https://terraria.fandom.com/wiki/Squid Squid]
 | 1
-| 0.02%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8a/Ice_Golem.png/revision/latest?cb=20200708133205&format=original [https://terraria.fandom.com/wiki/Ice_Golem Ice Golem]
 | 1
-| 0.59%
+| 0.92%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Rainbow_Slime.gif/revision/latest?cb=20210921162633&format=original [https://terraria.fandom.com/wiki/Rainbow_Slime Rainbow Slime]
 | 1
-| 2.54%
+| 3.49%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b6/Eyezor.png/revision/latest?cb=20210611165016&format=original [https://terraria.fandom.com/wiki/Eyezor Eyezor]
 | 1
-| 0.18%
+| 0.17%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Bone_Lee.png/revision/latest?cb=20200803161640&format=original [https://terraria.fandom.com/wiki/Bone_Lee Bone Lee]
 | 1
-| 0.28%
+| 0.26%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Paladin.png/revision/latest?cb=20200521173908&format=original [https://terraria.fandom.com/wiki/Paladin Paladin]
 | 1
-| 0.5%
+| 0.67%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Skeleton_Sniper.png/revision/latest?cb=20200518190711&format=original [https://terraria.fandom.com/wiki/Skeleton_Sniper Skeleton Sniper]
 | 1
-| 0.22%
+| 0.29%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Skeleton_Commando.png/revision/latest?cb=20200604133711&format=original [https://terraria.fandom.com/wiki/Tactical_Skeleton Tactical Skeleton]
 | 1
-| 0.22%
+| 0.29%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Skeleton_Commando.png/revision/latest?cb=20200604133711&format=original [https://terraria.fandom.com/wiki/Skeleton_Commando Skeleton Commando]
 | 1
-| 0.22%
+| 0.29%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Ghost_%28enemy%29.png/revision/latest?cb=20131025175525&format=original [https://terraria.fandom.com/wiki/Ghost Ghost]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8b/Present_Mimic_Forms.png/revision/latest?cb=20200730152725&format=original [https://terraria.fandom.com/wiki/Present_Mimic Present Mimic]
 | 1
@@ -196,15 +196,15 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Nailhead.png/revision/latest?cb=20150701102948&format=original [https://terraria.fandom.com/wiki/Nailhead Nailhead]
 | 1
-| 0.11%
+| 0.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9c/Psycho.png/revision/latest?cb=20210620015106&format=original [https://terraria.fandom.com/wiki/Psycho Psycho]
 | 1
-| 0.13%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Dr._Man_Fly.png/revision/latest?cb=20150701102809&format=original [https://terraria.fandom.com/wiki/Dr._Man_Fly Dr. Man Fly]
 | 1
-| 0.12%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9c/Corrupt_Mimic2.png/revision/latest?cb=20150723182451&format=original [https://terraria.fandom.com/wiki/Corrupt_Mimic Corrupt Mimic]
 | 1
@@ -224,71 +224,71 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1a/Mothron.png/revision/latest?cb=20150629182437&format=original [https://terraria.fandom.com/wiki/Mothron Mothron]
 | 1
-| 0.06%
+| 0.08%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Medusa.png/revision/latest?cb=20150701102935&format=original [https://terraria.fandom.com/wiki/Medusa Medusa]
 | 1
-| 0.19%
+| 0.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6b/Hoplite.png/revision/latest?cb=20171209201110&format=original [https://terraria.fandom.com/wiki/Hoplite Hoplite]
 | 1
-| 0.05%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Salamander.png/revision/latest?cb=20150701103048&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Salamander_2.png/revision/latest?cb=20180831035120&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/88/Salamander_3.png/revision/latest?cb=20180831035112&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Salamander_4.png/revision/latest?cb=20180831035103&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8a/Salamander_5.png/revision/latest?cb=20180831035036&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Salamander_6.png/revision/latest?cb=20180831035047&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Salamander_7.png/revision/latest?cb=20180831035142&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e9/Salamander_8.png/revision/latest?cb=20180831035151&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c1/Salamander_9.png/revision/latest?cb=20180831035203&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.04%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Lamia.png/revision/latest?cb=20150701103335&format=original [https://terraria.fandom.com/wiki/Lamia Lamia]
 | 1
-| 0.18%
+| 0.26%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e5/Lamia2.png/revision/latest?cb=20150701103341&format=original [https://terraria.fandom.com/wiki/Lamia Lamia]
 | 1
-| 0.18%
+| 0.26%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/The_Bride.png/revision/latest?cb=20210620013648&format=original [https://terraria.fandom.com/wiki/The_Bride The Bride]
 | 1
-| 0.3%
+| 0.57%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/aa/Sand_Elemental.png/revision/latest?cb=20160909175739&format=original [https://terraria.fandom.com/wiki/Sand_Elemental Sand Elemental]
 | 1
-| 0.63%
+| 0.93%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e2/Angry_Dandelion.png/revision/latest?cb=20200516192425&format=original [https://terraria.fandom.com/wiki/Angry_Dandelion Angry Dandelion]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Ice_Mimic.png/revision/latest?cb=20170421213009&format=original [https://terraria.fandom.com/wiki/Ice_Mimic Ice Mimic]
 | 1
@@ -296,7 +296,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/Rock_Golem.png/revision/latest?cb=20200516192425&format=original [https://terraria.fandom.com/wiki/Rock_Golem Rock Golem]
 | 1
-| 0.82%
+| 0.71%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f9/Golden_Slime.png/revision/latest?cb=20210516134412&format=original [https://terraria.fandom.com/wiki/Golden_Slime Golden Slime]
 | 1

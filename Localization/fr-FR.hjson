@@ -571,6 +571,17 @@ Mods: {
 					Label: Supprimez les restrictions d'enchantement (à utiliser à vos propres risques !)
 					Tooltip: Supprime des éléments tels que Unique, Max 1 et les enchantements spécifiques aux armes ou aux types d'objets.
 				}
+
+				SiphonExperiencePercentCost: {
+					Label: Expérience de siphon % coût
+					Tooltip:
+						'''
+						Siphonner des objets ne renvoie qu’une partie de l’expérience sous forme d’essence. Cette option correspond au% PERDU, donc 1000 XP avec un coût de 20% ne rapporteront que 800.
+						Si la valeur du coût d'expérience est supérieure à 4 fois la valeur de l'objet enchanté, cette valeur sera plutôt le coût pour éviter des situations telles que la perte de 20 platines d'expérience pour sauver une épée en bois de niveau maximum.
+						Offrir des objets renvoie à la place 100 % de l’expérience. Réglé sur 0 % pour n'avoir aucun coût et renvoyer 100 % d'expérience. Réglez à 100 % pour utiliser le système Siphon d'origine.
+						Le système Siphon d'origine vous permet uniquement de siphonner un objet de niveau maximum et ne supprime que l'excès d'expérience au-delà du niveau maximum. sans frais.
+						'''
+				}
 			}
 		}
 
@@ -658,6 +669,7 @@ Mods: {
 			ItemTooLowLevel: Votre niveau {0} est trop bas pour utiliser autant d'enchantements.
 			LogInfusionPowerLabels: Mod, arme, puissance d'infusion, rareté de la valeur, rareté, rareté d'origine, valeur, ID d'article, dégâts, temps d'utilisation, DPS
 			LogInfusionPowerOtherLabels: Rareté, Moyenne, Min, Max
+			MinSiphonXP: Vous ne pouvez siphonner un objet que s'il possède au moins {0} d'expérience.
 			MultipleUniqueEnchantments: Plusieurs enchantements uniques ont été détectés sur votre {0}. {1} a été supprimé de votre {2}.
 			MurasamaNoInfusion: Murasama ne peut pas être consommé en infusion.
 			NewItemIsAir: newItem était air.
@@ -674,7 +686,6 @@ Mods: {
 			NowLimitedToOne: "{0} Les enchantements sont désormais limités à 1 par objet. {1} a été supprimé de votre {2}."
 			NPCInProgressionGroupNotInDropList: Détection d'un PNJ dans un groupe de progression qui n'est pas dans NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Détection d'un PNJ dans un groupe de progression qui n'a pas d'armes ou d'ingrédients uniques.
-			OnlySyphonMaxLevel: Vous ne pouvez siphonner un objet que s'il est au niveau maximum et supérieur à {0} d'expérience.
 			OpenEnchantingTableFirstTime:
 				'''
 				Vous sentez que tous vos enchantements et votre essence sont attirés vers la table d'enchantement.
@@ -1248,18 +1259,99 @@ Mods: {
 			general2: Utiliser des enchantements d'armes sur des armures ou des accessoires
 			general3: offre des bonus diminués et vice versa.
 			Infusion: Infusion
+			InfusionCancelDescription: Remettez votre {0} stocké dans l'emplacement d'objet.
+			InfusionDescription:
+				'''
+				Vous permet de renforcer des armes ou des armures en sacrifiant d'autres armes ou armures.
+				Armes : infuser une arme augmente ses statistiques de dégâts de {0} pour chaque tranche de 100 puissances d'infusion ajoutées.
+				(nouveaux dégâts = dégâts de base * {1}^((nouveau pouvoir d'infusion - pouvoir d'infusion de base)/100) )
+				-Placez l'arme la plus puissante que vous souhaitez sacrifier dans l'emplacement d'objet, puis appuyez sur Infusion.
+				-Ensuite, placez l'arme la plus faible que vous souhaitez améliorer dans l'emplacement d'objet, puis appuyez sur Finaliser.
+				Armure : Infuser une armure transfère le bonus d'ensemble de l'objet sacrifié, remplaçant le bonus d'ensemble de l'objet infusé.
+				Cas d'utilisation : Vous aimez plus le bonus de l'ensemble d'armure de cactus que votre armure actuelle.
+				Sacrifiez chaque pièce de l'armure de cactus sur chaque pièce de votre armure actuelle pour transférer le bonus d'ensemble.
+				Chaque pièce d'armure a son propre identifiant de bonus d'ensemble, vous pouvez donc avoir des ensembles partiels tels qu'un casque en or avec un casque de cactus infusé,
+				jambes de cactus, poitrine de cactus, donnant à l'effet d'armure de cactus.
+				-Placez l'objet d'armure que vous souhaitez sacrifier dans l'emplacement Objet (son bonus d'ensemble sera transféré), puis appuyez sur Infusion.
+				-Placez l'objet d'armure que vous souhaitez modifier dans l'emplacement Objet (son bonus d'ensemble sera remplacé), puis appuyez sur Finaliser.
+				(Les enchantements, l'expérience et les boosters de puissance de l'objet sacrifié vous seront rendus comme s'ils étaient offerts.)
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Finalisez pour sacrifier vos {0} pour remplacer le bonus d'ensemble
+				sur votre {1} avec le bonus défini de votre {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Finalisez pour sacrifier votre {0} à
+				augmentez les dégâts de votre {1}.
+				'''
 			Item: Article
 			LevelUp: Niveau supérieur
+			LevelUpDescription:
+				'''
+				Améliorez votre {0} du niveau {1} au niveau {2}.
+				Coûte {3} d'expérience. Expérience disponible : {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Définissez le nombre de niveaux qui seront ajoutés avec
+				le bouton Niveau supérieur sur {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Ouvrez ou fermez le menu Équipements d'enchantement.
+				Les chargements d'enchantement ne stockent pas d'objets.
+				Ils sauvegardent simplement le type et le niveau d'enchantement.
+				Lors de la création d'un équipement d'enchantement, vous pouvez rapidement remplir les emplacements en
+				déplacez les enchantements en cliquant avec le bouton gauche de votre stockage pour remplir l'emplacement suivant
+				(L'emplacement suivant à remplir a un fond doré lorsque Shift est maintenu).
+				Vous pouvez également conserver un enchantement avec votre souris et cliquer dessus sur un emplacement à la place.
+				Cliquer sur un emplacement sans enchantement avec votre souris effacera l'emplacement.
+
+				Ajouter - Ajoute un nouveau chargement (Max de 15).
+				Ajouter à partir des enchantements équipés - Créez un chargement en copiant vos enchantements équipés
+				Loadout # - Cliquer sur le bouton Loadout sélectionne ce chargement afin que vous puissiez le voir ou le modifier.
+				Tout - Tout remplace tous les enchantements de votre objet, armure et accessoires détenus par
+				les enchantements du chargement. Si un élément n'est pas d'un niveau assez élevé
+				pour prendre en charge les enchantements pour son emplacement, le chargement ne pourra pas se charger.
+				Objet/Armure/Accessoires détenus - Ces boutons ont la même fonction que le bouton Tous, mais
+				chargez uniquement les enchantements spécifiques à la catégorie sélectionnée.
+				'''
 			Loadouts: Chargements
 			LootAll: Tout piller
+			LootAllDescription:
+				'''
+				Supprimez tous les enchantements de votre {0} et envoyez-les au
+				Stockage d'enchantement et remettez votre {0} dans votre inventaire.
+				'''
 			No: Non
 			Offer: Offrir
+			OfferDescription:
+				'''
+				Offrez votre {0} et DÉTRUISEZ-le en échange de minerais/essence.
+				Le pourcentage de minerais/essence peut être ajusté dans les paramètres de configuration.
+				'''
+			Siphon: Siphon
+			SiphonDescription:
+				'''
+				Consommez {0} d'expérience depuis votre {1} pour tout supprimer
+				enchantements, boosters de puissance, objets infusés et
+				expérience restante sans détruire votre {1}.
+				Offrir des objets rend toute l'essence, c'est donc un
+				meilleure option, sauf si vous devez conserver votre {1}.
+				'''
 			Storage: Stockage
-			Syphon: Siphon
+			StorageDescription: Ouvrez ou fermez le stockage d'enchantement.
 			ToggleAutoTrashOfferedItems: Basculer les éléments proposés dans la corbeille automatique
 			utility0: Seuls les enchantements utilitaires peuvent aller ici.
 			weapon0: Placez une arme, une pièce d'armure ou un accessoire ici.
 			xp: XP
+			XPButtonDescription:
+				'''
+				Consommez-en un {0}
+				pour ajouter l'expérience {1} à votre {2}.
+				'''
 			Yes: Oui
 		}
 

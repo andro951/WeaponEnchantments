@@ -571,6 +571,17 @@ Mods: {
 					Label: Verzauberungsbeschränkungen entfernen (Nutzung auf eigene Gefahr!)
 					Tooltip: Entfernt Dinge wie Einzigartig, Max 1 und waffen- oder gegenstandstypspezifische Verzauberungen.
 				}
+
+				SiphonExperiencePercentCost: {
+					Label: Siphon-Erfahrung % Kosten
+					Tooltip:
+						'''
+						Das Absaugen von Gegenständen gibt nur einen Teil der Erfahrung als Essenz zurück. Diese Option ist der Prozentsatz, der VERLOREN geht, sodass 1000 XP bei 20 % Kosten nur 800 zurückgeben.
+						Wenn der Wert der Erfahrungskosten mehr als das Vierfache des Wertes des verzauberten Gegenstands betragen würde, wird stattdessen dieser Wert als Kosten verwendet, um Situationen wie den Verlust von Erfahrung im Wert von 20 Platin zu verhindern, um ein Holzschwert der höchsten Stufe zu retten.
+						Das Anbieten von Gegenständen gibt stattdessen 100 % der Erfahrung zurück. Auf 0 % gesetzt, um keine Kosten zu verursachen und 100 % der Erfahrung zurückzugeben. Auf 100 % einstellen, um das ursprüngliche Siphon-System zu verwenden.
+						Mit dem ursprünglichen Siphon-System können Sie nur einen Gegenstand absaugen, der die maximale Stufe erreicht hat, und entfernen nur überschüssige Erfahrung, die über die maximale Stufe hinausgeht. ohne Kosten.
+						'''
+				}
 			}
 		}
 
@@ -658,6 +669,7 @@ Mods: {
 			ItemTooLowLevel: „Deine {0}-Stufe ist zu niedrig, um so viele Verzauberungen zu nutzen.“
 			LogInfusionPowerLabels: Mod, Waffe, Infusionskraft, Wertseltenheit, Seltenheit, Originalseltenheit, Wert, Gegenstands-ID, Schaden, Nutzungsdauer, DPS
 			LogInfusionPowerOtherLabels: Seltenheit, Durchschnitt, Min., Max
+			MinSiphonXP: „Du kannst einen Gegenstand nur absaugen, wenn er mindestens {0} Erfahrung hat.“
 			MultipleUniqueEnchantments: „Auf Ihrem {0} wurden mehrere einzigartige Verzauberungen entdeckt. {1} wurde aus Ihrem {2} entfernt.“
 			MurasamaNoInfusion: Murasama kann nicht als Aufguss eingenommen werden.
 			NewItemIsAir: newItem war Luft.
@@ -674,7 +686,6 @@ Mods: {
 			NowLimitedToOne: „{0} Verzauberungen sind jetzt auf 1 pro Gegenstand begrenzt. {1} wurde von deinem {2} entfernt.“
 			NPCInProgressionGroupNotInDropList: Es wurde ein NPC in einer Fortschrittsgruppe erkannt, der nicht in NPCsThatDropWeaponsOrIngredients enthalten ist.
 			NPCInProgressionGroupNoUniqueEnchantments: Es wurde ein NPC in einer Fortschrittsgruppe entdeckt, der keine einzigartigen Waffen oder Zutaten hat.
-			OnlySyphonMaxLevel: „Du kannst einen Gegenstand nur absaugen, wenn er die maximale Stufe und mehr als {0} Erfahrung hat.“
 			OpenEnchantingTableFirstTime:
 				'''
 				Sie spüren, wie alle Ihre Verzauberungen und Essenzen in den Verzauberungstisch gezogen werden.
@@ -1248,18 +1259,99 @@ Mods: {
 			general2: Verwenden von Waffenverzauberungen auf Rüstungen oder Zubehör
 			general3: bietet verminderte Boni und umgekehrt.
 			Infusion: Infusion
+			InfusionCancelDescription: „Legen Sie Ihre gespeicherten {0} in den Item-Slot zurück.“
+			InfusionDescription:
+				'''
+				Ermöglicht es Ihnen, Waffen oder Rüstungen zu stärken, indem Sie andere Waffen oder Rüstungen opfern.
+				Waffen: Das Infundieren einer Waffe erhöht ihren Schadenswert um {0} pro 100 hinzugefügte Infusionskraft.
+				(neuer Schaden = Grundschaden * {1}^((neue Infusionskraft – Basis-Infusionskraft)/100) )
+				- Platzieren Sie die stärkere Waffe, die Sie opfern möchten, im Gegenstandsplatz und drücken Sie dann „Infusion“.
+				- Platzieren Sie als Nächstes die schwächere Waffe, die Sie aufrüsten möchten, im Item-Slot und drücken Sie dann auf „Finalisieren“.
+				Rüstung: Durch das Infundieren einer Rüstung wird der Setbonus des geopferten Gegenstands übertragen und der Setbonus des infundierten Gegenstands ersetzt.
+				Anwendungsfall: Dir gefällt der Kaktus-Rüstungsset-Bonus mehr als deine aktuelle Rüstung.
+				Opfere jedes Teil der Kaktusrüstung auf jedes Teil deiner aktuellen Rüstung, um den Setbonus zu übertragen.
+				Jedes Rüstungsteil hat seine eigene Set-Bonus-ID, sodass Sie Teilsets haben können, wie z. B. einen Goldhelm mit einem angereicherten Kaktushelm,
+				Kaktusbeine, Kaktusbrust, die dem Kaktusrüstungsset-Effekt verleihen.
+				-Platzieren Sie den Rüstungsgegenstand, den Sie opfern möchten, in den Gegenstandsplatz (der festgelegte Bonus wird übertragen) und drücken Sie dann „Infusion“.
+				-Platzieren Sie den Rüstungsgegenstand, den Sie ändern möchten, im Gegenstandsplatz (sein Setbonus wird ersetzt) und drücken Sie dann auf „Abschließen“.
+				(Verzauberungen, Erfahrung und Kraftbooster des geopferten Gegenstands werden Ihnen zurückgegeben, als ob er angeboten worden wäre.)
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Schließe ab, deine {0} zu opfern, um den Setbonus zu ersetzen
+				auf Ihr {1} mit dem Setbonus Ihres {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Schließen Sie ab, um Ihr {0} zu opfern
+				Erhöhe den Schaden deines {1}.
+				'''
 			Item: Artikel
 			LevelUp: Aufleveln
+			LevelUpDescription:
+				'''
+				Steigern Sie Ihr {0} von Level {1} auf Level {2}.
+				Kostet {3} Erfahrung. Verfügbare Erfahrung: {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Legen Sie fest, mit wie vielen Ebenen hinzugefügt werden soll
+				die Level-Up-Schaltfläche auf {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Öffnen oder schließen Sie das Menü „Verzauberungs-Loadouts“.
+				Verzauberungs-Loadouts speichern keine Gegenstände.
+				Sie speichern lediglich die Art und Stufe der Verzauberung.
+				Wenn Sie ein Verzauberungs-Loadout erstellen, können Sie die Slots schnell füllen
+				Klicken Sie mit der linken Maustaste auf Verzauberungen aus Ihrem Speicher, um den nächsten Platz zu füllen
+				(Der nächste zu füllende Slot hat einen goldenen Hintergrund, wenn die Umschalttaste gedrückt gehalten wird.)
+				Sie können eine Verzauberung auch mit der Maus halten und stattdessen auf einen Slot klicken.
+				Wenn Sie mit der Maus auf einen Slot ohne Verzauberung klicken, wird der Slot gelöscht.
+
+				Hinzufügen – Fügt ein neues Loadout hinzu (maximal 15).
+				Aus ausgerüsteten Verzauberungen hinzufügen – Erstellen Sie eine Ausrüstung, indem Sie Ihre ausgerüsteten Verzauberungen kopieren
+				Loadout # – Durch Klicken auf die Schaltfläche „Loadout“ wird das Loadout ausgewählt, sodass Sie es sehen oder bearbeiten können.
+				Alle – „Alle“ ersetzt alle Verzauberungen Ihres gehaltenen Gegenstands, Ihrer Rüstung und Ihres Zubehörs durch
+				die Verzauberungen aus dem Loadout. Wenn ein Gegenstand nicht hoch genug ist
+				Um die Verzauberungen für seinen Slot zu unterstützen, kann das Loadout nicht geladen werden.
+				Gehaltener Gegenstand/Rüstung/Zubehör – Diese Schaltflächen haben dasselbe wie die Schaltfläche „Alle“, jedoch
+				Laden Sie nur die spezifischen Verzauberungen für die ausgewählte Kategorie.
+				'''
 			Loadouts: Ladungen
 			LootAll: Alles plündern
+			LootAllDescription:
+				'''
+				Entferne alle Verzauberungen von deinem {0} und sende sie an den
+				Verzauberungslager und lege deine {0} in dein Inventar zurück.
+				'''
 			No: Nein
 			Offer: Angebot
+			OfferDescription:
+				'''
+				Biete dein {0} an und ZERSTÖRE es im Tausch gegen Erze/Essenz.
+				Der Prozentsatz an Erzen/Essenz kann in den Konfigurationseinstellungen angepasst werden.
+				'''
+			Siphon: Siphon
+			SiphonDescription:
+				'''
+				Verbrauchen Sie {0} Erfahrung von Ihrem {1}, um alle zu entfernen
+				Verzauberungen, Kraftverstärker, infundierte Gegenstände und
+				verbleibende Erfahrung, ohne dein {1} zu zerstören.
+				Das Anbieten von Gegenständen gibt die gesamte Essenz zurück, also ist es ein
+				bessere Option, es sei denn, Sie müssen Ihr {1} behalten.
+				'''
 			Storage: Lagerung
-			Syphon: Siphon
+			StorageDescription: Öffne oder schließe das Verzauberungslager.
 			ToggleAutoTrashOfferedItems: Schalten Sie die Option „Automatisch in den Papierkorb“ der angebotenen Artikel um
 			utility0: Hier können nur nützliche Verzauberungen verwendet werden.
 			weapon0: Platziere hier eine Waffe, ein Rüstungsteil oder ein Accessoire.
 			xp: XP
+			XPButtonDescription:
+				'''
+				Verbrauchen Sie einen {0}
+				um {1} Erfahrung zu Ihrem {2} hinzuzufügen.
+				'''
 			Yes: Ja
 		}
 

@@ -57,11 +57,11 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/The_Hungry.png/revision/latest?cb=20210728032344&format=original [https://terraria.fandom.com/wiki/The_Hungry The Hungry]
 | 1
-| 3.77%
+| 6.32%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0a/Creeper.png/revision/latest?cb=20200521174446&format=original [https://terraria.fandom.com/wiki/Creeper Creeper]
 | 1
-| 1.78%
+| 3.29%
 |}
 
 {| class="mw-collapsible wikitable" style="max-width:400px;"

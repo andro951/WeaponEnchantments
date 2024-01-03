@@ -571,6 +571,17 @@ Mods: {
 					Label: Remove enchantment restrictions (Use at your own risk!)
 					Tooltip: Removes things like Unique, Max 1 and weapon or item type specific enchantments.
 				}
+
+				SiphonExperiencePercentCost: {
+					Label: Siphon Experience % Cost
+					Tooltip:
+						'''
+						Siphoning items only returns a portion of the experience as essence.  This option is the % that is LOST, so 1000 xp with a 20% cost will only return 800.
+						If the value of the experience cost would be greater than 4 times the value of the enchanted item, that value will be the cost instead to prevent situations like loosing 20 platinum worth of experience to save a max level wood sword.
+						Offering items returns 100% of the experience instead.  Set to 0% to have no cost, returning 100% of experience.  Set to 100% to use the original Siphon system.
+						The original Siphon system only allows you to Siphon an item that is max level, and only removes excess experience past max level. with no cost.
+						'''
+				}
 			}
 		}
 
@@ -658,6 +669,7 @@ Mods: {
 			ItemTooLowLevel: Your {0} level is too low to use that many enchantments.
 			LogInfusionPowerLabels: Mod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS
 			LogInfusionPowerOtherLabels: Rarity, Average, Min, Max
+			MinSiphonXP: You can only Siphon an item if it has at least {0} experience.
 			MultipleUniqueEnchantments: Detected multiple unique enchantments on your {0}.  {1} has been removed from your {2}.
 			MurasamaNoInfusion: Murasama cannot be consumed for infusion.
 			NewItemIsAir: newItem was air.
@@ -674,7 +686,6 @@ Mods: {
 			NowLimitedToOne: "{0} Enchantments are now limited to 1 per item.  {1} has been removed from your {2}."
 			NPCInProgressionGroupNotInDropList: Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Detected an npc in a Progression group that has no unique weapons or ingredients.
-			OnlySyphonMaxLevel: You can only Syphon an item if it is max level and over {0} experience.
 			OpenEnchantingTableFirstTime:
 				'''
 				You feel all of your Enchantments and Essence get pulled into the Enchanting Table.
@@ -1248,18 +1259,99 @@ Mods: {
 			general2: Using weapon Enchantments on armor or accessories
 			general3: provides diminished bonuses and vice versa.
 			Infusion: Infusion
+			InfusionCancelDescription: Return your stored {0} to the Item slot.
+			InfusionDescription:
+				'''
+				Allows you to empower weapons or armor by sacrificing other weapons or armor.
+				Weapons: Infusing a weapon increases its damage stat by {0} for every 100 infusion power added.
+				(new damage = base damage * {1}^((new infusion power - base infusion power)/100) )
+				-Place the stronger weapon you want to sacrifice into the Item slot, then press Infusion.
+				-Next, place the weaker weapon you want to upgrade into the Item slot, then press Finalize.
+				Armor: Infusing armor transfers the set bonus from the sacrificed item, replacing the set bonus of the infused item.
+				Use case: You like the cactus armor set bonus more than your current armor.
+				Sacrifice each piece of the cactus armor onto each piece of your current armor to transfer the set bonus.
+				Each piece of armor has its own set bonus id, so you can have partial sets such as a gold helm with infused cactus helm,
+				cactus legs, cactus chest, giving the cactus armor set effect.
+				-Place the armor item you want to sacrifice into the Item slot (its set bonus will be transfered), then press Infusion.
+				-Place the armor item you want to modify into the Item slot (its set bonus will be replaced), then press Finalize.
+				(Enchantments, Experience, and Power boosters from the sacrificed item will be returned to you as if it were Offered.)
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Finalize to sacrifice your {0} to replace the set bonus
+				on your {1} with the set bonus of your {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Finalize to sacrifice your {0} to
+				increase the damage of your {1}.
+				'''
 			Item: Item
 			LevelUp: Level Up
+			LevelUpDescription:
+				'''
+				Level up your {0} from level {1} to level {2}.
+				Costs {3} experience.  Experience available: {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Set how many levels will be added with
+				the Level Up button to {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Open or Close the Enchantment Loadouts menu.
+				Enchantment loadouts don't store items.
+				They just save the type and tier of enchantment.
+				When creating an Enchantment Loadout, you can quickly fill the slots by
+				shift left clicking enchantments from your storage to fill the next slot
+				(The next slot to fill has a gold background when shift is held).
+				You can also hold an enchantment in your mouse and click it on a slot instead.
+				Clicking on a slot with no enchantment in your mouse will clear the slot.
+
+				Add - Adds a new loadout (Max of 15).
+				Add From Equipped Enchantments - Create a loadout by copying your equipped enchantments
+				Loadout # - Clicking the Loadout button selects that loadout so you can see or edit it.
+				All - All replaces all enchantments on your held item, armor and accessories with
+				the enchantments from the loadout.  If any item isn't high enough level
+				to support the enchantments for it's slot, the loadout will fail to load.
+				Held Item/Armor/Accessories - These buttons to the same thing as the All button, but
+				only load the specific enchantments for the selected category.
+				'''
 			Loadouts: Loadouts
 			LootAll: Loot All
+			LootAllDescription:
+				'''
+				Remove all enchantments from your {0}, sending them to the 
+				Enchantment Storage, and return your {0} to your inventory.
+				'''
 			No: No
 			Offer: Offer
+			OfferDescription:
+				'''
+				Offer your {0}, DESTROYING it in exchange for ores/essence.
+				Percentage of ores/essence can be adjusted in the config settings.
+				'''
+			Siphon: Siphon
+			SiphonDescription:
+				'''
+				Consume {0} experience from your {1} to remove all
+				enchantments, power boosters, infused item and
+				remaining experience without destroying your {1}.
+				Offering items returns all essence, so it is a
+				better option unless you need to keep your {1}.
+				'''
 			Storage: Storage
-			Syphon: Syphon
+			StorageDescription: Open or close the Enchantment Storage.
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			utility0: Only utility Enchantments can go here.
 			weapon0: Place a weapon, piece of armor or accessory here.
 			xp: xp
+			XPButtonDescription:
+				'''
+				Consume one {0}
+				to add {1} experience to your {2}.
+				'''
 			Yes: Yes
 		}
 

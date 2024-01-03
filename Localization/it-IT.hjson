@@ -571,6 +571,17 @@ Mods: {
 					Label: Rimuovi le restrizioni sugli incantesimi (usalo a tuo rischio!)
 					Tooltip: Rimuove cose come Incantesimi unici, Max 1 e specifici per armi o tipi di oggetti.
 				}
+
+				SiphonExperiencePercentCost: {
+					Label: Costo % esperienza sifone
+					Tooltip:
+						'''
+						Il prelievo di oggetti restituisce solo una parte dell'esperienza come essenza. Questa opzione è la% persa, quindi 1000 XP con un costo del 20% restituiranno solo 800.
+						Se il valore del costo in esperienza fosse maggiore di 4 volte il valore dell'oggetto incantato, quel valore sarà invece il costo per prevenire situazioni come perdere 20 punti di platino in esperienza per salvare una spada di legno di livello massimo.
+						L'offerta di oggetti restituisce invece il 100% dell'esperienza. Impostalo su 0% per non avere alcun costo, restituendo il 100% dell'esperienza. Impostare al 100% per utilizzare il sistema Syphon originale.
+						Il sistema Sifone originale ti consente solo di Sifonare un oggetto di livello massimo e rimuove solo l'esperienza in eccesso oltre il livello massimo. senza alcun costo.
+						'''
+				}
 			}
 		}
 
@@ -658,6 +669,7 @@ Mods: {
 			ItemTooLowLevel: Il tuo livello {0} è troppo basso per usare così tanti incantesimi.
 			LogInfusionPowerLabels: Mod, Arma, Potenza dell'infusione, Valore Rarità, Rarità, Rarità originale, Valore, ID oggetto, Danno, Tempo di utilizzo, DPS
 			LogInfusionPowerOtherLabels: Rarità, Media, Min, Max
+			MinSiphonXP: Puoi prelevare un oggetto solo se ha almeno {0} esperienza.
 			MultipleUniqueEnchantments: Sono stati rilevati più incantesimi unici sul tuo {0}. {1} è stato rimosso dal tuo {2}.
 			MurasamaNoInfusion: Murasama non può essere consumato per infusione.
 			NewItemIsAir: newItem era aria.
@@ -674,7 +686,6 @@ Mods: {
 			NowLimitedToOne: "{0} Incantesimi ora sono limitati a 1 per oggetto. {1} è stato rimosso dal tuo {2}."
 			NPCInProgressionGroupNotInDropList: Rilevato un NPC in un gruppo di progressione che non è in NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Rilevato un NPC in un gruppo di progressione che non ha armi o ingredienti unici.
-			OnlySyphonMaxLevel: Puoi prelevare un oggetto solo se è al livello massimo e ha più di {0} esperienza.
 			OpenEnchantingTableFirstTime:
 				'''
 				Senti che tutti i tuoi incantesimi e le tue essenze vengono trascinati nella tabella degli incantesimi.
@@ -1248,18 +1259,99 @@ Mods: {
 			general2: Usare incantesimi per armi su armature o accessori
 			general3: fornisce bonus ridotti e viceversa.
 			Infusion: Infusione
+			InfusionCancelDescription: Riporta i tuoi {0} immagazzinati nello slot oggetto.
+			InfusionDescription:
+				'''
+				Ti consente di potenziare armi o armature sacrificando altre armi o armature.
+				Armi: Infondere un'arma aumenta la sua statistica di danno di {0} per ogni 100 poteri di infusione aggiunti.
+				(nuovo danno = danno base * {1}^((nuovo potere di infusione - potere di infusione base)/100) )
+				-Posiziona l'arma più potente che vuoi sacrificare nello slot oggetto, quindi premi Infusione.
+				-Successivamente, posiziona l'arma più debole che desideri potenziare nello slot oggetto, quindi premi Finalizza.
+				Armatura: Infondere l'armatura trasferisce il bonus del set dall'oggetto sacrificato, sostituendo il bonus del set dell'oggetto infuso.
+				Caso d'uso: ti piace il bonus del set di armatura del cactus più della tua armatura attuale.
+				Sacrifica ogni pezzo dell'armatura del cactus su ogni pezzo della tua attuale armatura per trasferire il bonus del set.
+				Ogni pezzo di armatura ha il proprio ID bonus set, quindi puoi avere set parziali come un elmo d'oro con elmo di cactus infuso,
+				gambe di cactus, petto di cactus, che danno l'effetto del set di armature di cactus.
+				-Posiziona l'oggetto dell'armatura che vuoi sacrificare nello slot dell'oggetto (il suo bonus impostato verrà trasferito), quindi premi Infusione.
+				-Posiziona l'oggetto dell'armatura che desideri modificare nello slot dell'oggetto (il suo bonus impostato verrà sostituito), quindi premi Finalizza.
+				(Gli incantesimi, l'esperienza e i potenziamenti di potere dell'oggetto sacrificato ti verranno restituiti come se fosse stato offerto.)
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Finalizza a sacrificare i tuoi {0} per sostituire il bonus del set
+				sul tuo {1} con il bonus impostato del tuo {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Finalizza a sacrificare il tuo {0} a
+				aumenta il danno del tuo {1}.
+				'''
 			Item: Elemento
 			LevelUp: Sali di livello
+			LevelUpDescription:
+				'''
+				Aumenta di livello il tuo {0} dal livello {1} al livello {2}.
+				Costa {3} esperienza. Esperienza disponibile: {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Imposta il numero di livelli con cui verranno aggiunti
+				il pulsante Sali di livello su {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Apri o chiudi il menu Caricamenti incantesimi.
+				I caricamenti di incantesimi non memorizzano oggetti.
+				Salvano semplicemente il tipo e il livello dell'incantesimo.
+				Quando crei una dotazione di incantesimi, puoi riempire rapidamente gli slot
+				sposta gli incantesimi facendo clic con il pulsante sinistro del mouse dal tuo spazio di archiviazione per riempire lo slot successivo
+				(Lo slot successivo da riempire ha uno sfondo dorato quando si tiene il turno).
+				Puoi anche tenere un incantesimo nel mouse e fare clic su di esso su uno slot.
+				Facendo clic su uno slot senza incantesimo con il mouse lo slot verrà cancellato.
+
+				Aggiungi: aggiunge un nuovo equipaggiamento (massimo 15).
+				Aggiungi dagli incantesimi equipaggiati: crea un equipaggiamento copiando gli incantesimi equipaggiati
+				Loadout #: facendo clic sul pulsante Loadout si seleziona il loadout in modo da poterlo vedere o modificare.
+				Tutto: tutto sostituisce tutti gli incantesimi sull'oggetto, sull'armatura e sugli accessori tenuti con
+				gli incantesimi dal loadout. Se qualche elemento non è di livello sufficientemente alto
+				per supportare gli incantesimi per il suo slot, il caricamento non verrà eseguito.
+				Oggetti/Armature/Accessori tenuti - Questi pulsanti hanno la stessa funzione del pulsante Tutti, ma
+				carica solo gli incantesimi specifici per la categoria selezionata.
+				'''
 			Loadouts: Caricamenti
 			LootAll: Saccheggia tutto
+			LootAllDescription:
+				'''
+				Rimuovi tutti gli incantesimi dal tuo {0}, inviandoli a
+				Deposito degli incantesimi e riporta i tuoi {0} nel tuo inventario.
+				'''
 			No: No
 			Offer: Offerta
+			OfferDescription:
+				'''
+				Offri il tuo {0}, DISTRUGGENDOLO in cambio di minerali/essenza.
+				La percentuale di minerali/essenza può essere regolata nelle impostazioni di configurazione.
+				'''
+			Siphon: Sifone
+			SiphonDescription:
+				'''
+				Consuma {0} esperienza dal tuo {1} per rimuovere tutto
+				incantesimi, potenziatori di potere, oggetti infusi e
+				esperienza rimanente senza distruggere il tuo {1}.
+				Offrire oggetti restituisce tutta l'essenza, quindi è a
+				opzione migliore a meno che tu non abbia bisogno di mantenere il tuo {1}.
+				'''
 			Storage: Magazzinaggio
-			Syphon: Sifone
+			StorageDescription: Apri o chiudi il Deposito degli Incantesimi.
 			ToggleAutoTrashOfferedItems: Attiva / disattiva il cestino automatico degli articoli offerti
 			utility0: Solo gli incantesimi di utilità possono andare qui.
 			weapon0: Metti qui un'arma, un pezzo di armatura o un accessorio.
 			xp: xp
+			XPButtonDescription:
+				'''
+				Consuma uno {0}
+				per aggiungere {1} esperienza al tuo {2}.
+				'''
 			Yes: sì
 		}
 

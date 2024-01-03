@@ -822,6 +822,10 @@ namespace WeaponEnchantments.Common.Globals
 		public override void OnResearched(Item item, bool fullyResearched) {
 			EnchantingTableUI.ReturnAllModifications(ref item);
 		}
+        public virtual void ResetInfusion() {
+            infusedItemName = "";
+			InfusionValueAdded = 0;
+		}
 	}
 	public class EnchantmentsArray
 	{
@@ -983,7 +987,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (enchantedItem is EnchantedArmor enchantedArmor) {
 				int infusedArmorSlot = enchantedArmor.infusedArmorSlot;
 				int armorSlot = item.GetInfusionArmorSlot(false, true);
-				if (infusedArmorSlot != -1 && armorSlot != infusedArmorSlot)
+				if (infusedArmorSlot != EnchantedArmor.DefaultInfusionArmorSlot && armorSlot != infusedArmorSlot)
 					item.UpdateArmorSlot(enchantedArmor.infusedArmorSlot);
 			}
 

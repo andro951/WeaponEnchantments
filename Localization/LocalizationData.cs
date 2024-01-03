@@ -290,6 +290,65 @@ namespace WeaponEnchantments.Localization
 								{ $"{TableTextID.enchantment4}", "Requires {0} or Better to use this slot." },
 								{ $"{TableTextID.utility0}", "Only utility Enchantments can go here." },
 								{ $"{TableTextID.essence0}", "Place {0} here." },
+								{ $"{TableTextID.LootAllDescription}", "Remove all enchantments from your {0}, sending them to the \n" +
+									"Enchantment Storage, and return your {0} to your inventory." },
+								{ $"{TableTextID.OfferDescription}", "Offer your {0}, DESTROYING it in exchange for ores/essence.\n" +
+									"Percentage of ores/essence can be adjusted in the config settings." },
+								{ $"{TableTextID.StorageDescription}", "Open or close the Enchantment Storage." },
+								{ $"{TableTextID.SiphonDescription}", 
+									"Consume {0} experience from your {1} to remove all\n" +
+									"enchantments, power boosters, infused item and\n" +
+									"remaining experience without destroying your {1}.\n" +
+									"Offering items returns all essence, so it is a\n" +
+									"better option unless you need to keep your {1}." },
+								{ $"{TableTextID.InfusionDescription}", 
+									"Allows you to empower weapons or armor by sacrificing other weapons or armor.\n" +
+									"Weapons: Infusing a weapon increases its damage stat by {0} for every 100 infusion power added.\n" +
+									"(new damage = base damage * {1}^((new infusion power - base infusion power)/100) )\n" +
+									"-Place the stronger weapon you want to sacrifice into the Item slot, then press Infusion.\n" +
+									"-Next, place the weaker weapon you want to upgrade into the Item slot, then press Finalize.\n" +
+									"Armor: Infusing armor transfers the set bonus from the sacrificed item, replacing the set bonus of the infused item.\n" +
+									"Use case: You like the cactus armor set bonus more than your current armor.\n" +
+									"Sacrifice each piece of the cactus armor onto each piece of your current armor to transfer the set bonus.\n" +
+									"Each piece of armor has its own set bonus id, so you can have partial sets such as a gold helm with infused cactus helm,\n" +
+									"cactus legs, cactus chest, giving the cactus armor set effect.\n" +
+									"-Place the armor item you want to sacrifice into the Item slot (its set bonus will be transfered), then press Infusion.\n" +
+									"-Place the armor item you want to modify into the Item slot (its set bonus will be replaced), then press Finalize.\n" +
+									"(Enchantments, Experience, and Power boosters from the sacrificed item will be returned to you as if it were Offered.)" },
+								{ $"{TableTextID.InfusionFinalizeDescriptionWeapon}", 
+									"Finalize to sacrifice your {0} to\n" +
+									"increase the damage of your {1}." },
+								{ $"{TableTextID.InfusionFinalizeDescriptionArmor}", 
+									"Finalize to sacrifice your {0} to replace the set bonus\n" +
+									"on your {1} with the set bonus of your {0}." },
+								{ $"{TableTextID.InfusionCancelDescription}", "Return your stored {0} to the Item slot." },
+								{ $"{TableTextID.LevelUpDescription}", 
+									"Level up your {0} from level {1} to level {2}.\n" +
+									"Costs {3} experience.  Experience available: {4}" },
+								{ $"{TableTextID.XPButtonDescription}", 
+									"Consume one {0}\n" +
+									"to add {1} experience to your {2}." },
+								{ $"{TableTextID.LoadoutDescription}", 
+									"Open or Close the Enchantment Loadouts menu.\n" +
+									$"Enchantment loadouts don't store items.\n" +
+									$"They just save the type and tier of enchantment.\n" +
+									$"When creating an Enchantment Loadout, you can quickly fill the slots by\n" +
+									$"shift left clicking enchantments from your storage to fill the next slot\n" +
+									$"(The next slot to fill has a gold background when shift is held).\n" +
+									$"You can also hold an enchantment in your mouse and click it on a slot instead.\n" +
+									$"Clicking on a slot with no enchantment in your mouse will clear the slot.\n" +
+									$"\n" +
+									$"Add - Adds a new loadout (Max of 15).\n" +
+									$"Add From Equipped Enchantments - Create a loadout by copying your equipped enchantments\n" +
+									$"Loadout # - Clicking the Loadout button selects that loadout so you can see or edit it.\n" +
+									$"All - All replaces all enchantments on your held item, armor and accessories with\n" +
+									$"the enchantments from the loadout.  If any item isn't high enough level\n" +
+									$"to support the enchantments for it's slot, the loadout will fail to load.\n" +
+									$"Held Item/Armor/Accessories - These buttons to the same thing as the All button, but\n" +
+									$"only load the specific enchantments for the selected category." },
+								{ $"{TableTextID.LevelUpNumberDescription}", 
+									"Set how many levels will be added with\n" +
+									"the Level Up button to {0}." }
 						}) },
 						{ L_ID1.EnchantmentStorageText.ToString(), new(
 							values: new() {
@@ -330,7 +389,7 @@ namespace WeaponEnchantments.Localization
 								{ GameMessageTextID.ItemRemovedRecieveCoins.ToString(), "{0} has been removed from Weapon Enchantments.  You have received Coins equal to its sell price." },
 								{ GameMessageTextID.ItemRemovedRelacedWithItem.ToString(), "{0} has been removed from Weapon Enchantments.  It has been replaced with {1}" },
 								{ GameMessageTextID.NewItemIsAir.ToString(), "newItem was air." },
-								{ GameMessageTextID.OnlySyphonMaxLevel.ToString(), "You can only Syphon an item if it is max level and over {0} experience." },
+								{ GameMessageTextID.MinSiphonXP.ToString(), "You can only Siphon an item if it has at least {0} experience." },
 								{ GameMessageTextID.InfusionConsumeItemWasNull.ToString(), "wePlayer.infusionConsumeItem was null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}" },
 								{ GameMessageTextID.MurasamaNoInfusion.ToString(), "Murasama cannot be consumed for infusion." },
 								{ GameMessageTextID.FavoritedItemsCantBeConsumedForInfusion.ToString(), "Favorited items cannot be consumed for infusion." },
@@ -532,6 +591,13 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Label.ToString(), "Reduce Offer Efficiency By Base Infusion Power" },
 									{ L_ID3.Tooltip.ToString(), "When offering items, you receive essence equivalent to the experience on the item.\n" +
 														"Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above)." }
+								}) },
+								{ nameof(ServerConfig.SiphonExperiencePercentCost), new(dict: new() {
+									{ L_ID3.Label.ToString(), "Siphon Experience % Cost" },
+									{ L_ID3.Tooltip.ToString(), "Siphoning items only returns a portion of the experience as essence.  This option is the % that is LOST, so 1000 xp with a 20% cost will only return 800.\n" +
+														"If the value of the experience cost would be greater than 4 times the value of the enchanted item, that value will be the cost instead to prevent situations like loosing 20 platinum worth of experience to save a max level wood sword.\n" +
+														"Offering items returns 100% of the experience instead.  Set to 0% to have no cost, returning 100% of experience.  Set to 100% to use the original Siphon system.\n" +
+														"The original Siphon system only allows you to Siphon an item that is max level, and only removes excess experience past max level. with no cost." }
 								}) },
 								{ nameof(ServerConfig.DisableMinionCrits), new(dict: new() {
 									{ L_ID3.Label.ToString(), "Disable Minion Critical hits" },

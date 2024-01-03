@@ -35,47 +35,47 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Eye_of_Cthulhu_%28Phase_1%29.gif/revision/latest?cb=20211114181102&format=original [https://terraria.fandom.com/wiki/Eye_of_Cthulhu Eye of Cthulhu]
 | 1
-| 5.88%
+| 9.09%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0f/Eater_of_Worlds_Head.png/revision/latest?cb=20170420010144&format=original [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds]
 | 1
-| 0.09%
+| 0.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0a/Eater_of_Worlds_Body.png/revision/latest?cb=20170420010209&format=original [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds]
 | 1
-| 0.09%
+| 0.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/92/Eater_of_Worlds_Tail.png/revision/latest?cb=20170420010233&format=original [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds]
 | 1
-| 0.1%
+| 0.19%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a3/Skeletron_Head.png/revision/latest?cb=20191003231538&format=original [https://terraria.fandom.com/wiki/Skeletron Skeletron]
 | 1
-| 7.14%
+| 14.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/93/King_Slime.gif/revision/latest?cb=20200523113558&format=original [https://terraria.fandom.com/wiki/King_Slime King Slime]
 | 1
-| 2.63%
+| 3.57%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fd/Wall_of_Flesh_Mouth.png/revision/latest?cb=20170422001243&format=original [https://terraria.fandom.com/wiki/Wall_of_Flesh Wall of Flesh]
 | 1
-| 10%
+| 25%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Retinazer_%28Second_Form%29.png/revision/latest?cb=20170421155457&format=original [https://terraria.fandom.com/wiki/Retinazer Retinazer]
 | 1
-| 20%
+| 50%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b9/Spazmatism_%28Second_Form%29.png/revision/latest?cb=20220227045610&format=original [https://terraria.fandom.com/wiki/Spazmatism Spazmatism]
 | 1
-| 20%
+| 50%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Skeletron_Prime.png/revision/latest?cb=20170928200428&format=original [https://terraria.fandom.com/wiki/Skeletron_Prime Skeletron Prime]
 | 1
-| 25%
+| 100%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/The_Destroyer_Head.png/revision/latest?cb=20150708221902&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
 | 1
-| 50%
+| 100%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/20/The_Destroyer_Body.png/revision/latest?cb=20150708221907&format=original [https://terraria.fandom.com/wiki/The_Destroyer The Destroyer]
 | 1
@@ -87,19 +87,19 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Queen_Bee.gif/revision/latest?cb=20200523215116&format=original [https://terraria.fandom.com/wiki/Queen_Bee Queen Bee]
 | 1
-| 8.33%
+| 12.5%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Golem_Core.png/revision/latest?cb=20200517202317&format=original [https://terraria.fandom.com/wiki/Golem Golem]
 | 1
-| 14.28%
+| 33.33%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Plantera_%28First_form%29.gif/revision/latest?cb=20200706212844&format=original [https://terraria.fandom.com/wiki/Plantera Plantera]
 | 1
-| 25%
+| 100%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/18/Brain_of_Cthulhu_%28First_Phase%29.gif/revision/latest?cb=20211114173255&format=original [https://terraria.fandom.com/wiki/Brain_of_Cthulhu Brain of Cthulhu]
 | 1
-| 14.28%
+| 20%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0b/Duke_Fishron.png/revision/latest?cb=20180705150806&format=original [https://terraria.fandom.com/wiki/Duke_Fishron Duke Fishron]
 | 1
@@ -107,7 +107,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Martian_Saucer_Core.png/revision/latest?cb=20150701010958&format=original [https://terraria.fandom.com/wiki/Martian_Saucer Martian Saucer]
 | 1
-| 10%
+| 33.33%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/84/Moon_Lord%27s_Head.gif/revision/latest?cb=20160712055422&format=original [https://terraria.fandom.com/wiki/Moon_Lord Moon Lord]
 | 1
@@ -115,7 +115,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/11/Moon_Lord%27s_Hand.gif/revision/latest?cb=20160712053505&format=original [https://terraria.fandom.com/wiki/Moon_Lord's_Hand Moon Lord's Hand]
 | 1
-| 50%
+| 100%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Moon_Lord%27s_Core.gif/revision/latest?cb=20160712055841&format=original [https://terraria.fandom.com/wiki/Moon_Lord's_Core Moon Lord's Core]
 | 1
@@ -123,7 +123,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1c/Lunatic_Cultist.gif/revision/latest?cb=20190125125946&format=original [https://terraria.fandom.com/wiki/Lunatic_Cultist Lunatic Cultist]
 | 1
-| 33.33%
+| 100%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ec/Betsy.png/revision/latest?cb=20161117001359&format=original [https://terraria.fandom.com/wiki/Betsy Betsy]
 | 1
@@ -135,7 +135,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/79/Queen_Slime.png/revision/latest?cb=20200524022713&format=original [https://terraria.fandom.com/wiki/Queen_Slime Queen Slime]
 | 1
-| 11.11%
+| 25%
 |-
 | [[File:NPC_664.png]] [https://terraria.fandom.com/wiki/The_Torch_God The Torch God]
 | 1
@@ -143,7 +143,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Deerclops.png/revision/latest?cb=20211118192944&format=original [https://terraria.fandom.com/wiki/Deerclops Deerclops]
 | 1
-| 6.67%
+| 16.67%
 |}
 
 </div>

@@ -49,8 +49,9 @@ namespace WeaponEnchantments.Common.Globals
 
 		#region Infusion
 
+        public const int DefaultInfusionPower = -1;
         public int GetInfusionPower(ref Item item) {
-            if (infusionPower == -1)
+            if (infusionPower == DefaultInfusionPower)
                 infusionPower = item.GetWeaponInfusionPowerSearchIfNeeded(infusedItemName);
 
             return infusionPower;
@@ -58,7 +59,7 @@ namespace WeaponEnchantments.Common.Globals
         public void SetInfusionPower(int newValue) {
 			infusionPower = newValue;
 		}
-		private int infusionPower = -1;
+		private int infusionPower = DefaultInfusionPower;
 		public float infusionDamageMultiplier = 1f;
 
         #endregion
@@ -92,9 +93,6 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => lateInstantiation && entity.IsWeaponItem();
         public override EItemType ItemType => EItemType.Weapons;
-        public override void HoldItem(Item item, Player player) {
-
-        }
         public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedWeapon clone = (EnchantedWeapon)base.Clone(item, itemClone);
 
@@ -418,6 +416,11 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public float GetPerLevelBonus() => levelBeforeBooster * GlobalStrengthMultiplier / 100f;
+		public override void ResetInfusion() {
+			base.ResetInfusion();
+            infusionDamageMultiplier = 1f;
+            SetInfusionPower(DefaultInfusionPower);
+		}
 	}
 
     public static class EnchantedWeaponStaticMethods

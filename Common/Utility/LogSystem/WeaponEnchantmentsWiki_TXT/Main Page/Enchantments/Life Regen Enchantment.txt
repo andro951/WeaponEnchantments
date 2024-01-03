@@ -49,511 +49,511 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Raincoat_Zombie.png/revision/latest?cb=20170805211221&format=original [https://terraria.fandom.com/wiki/Zombie Big Rain Zombie]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Raincoat_Zombie.png/revision/latest/scale-to-width-down/31?cb=20170805211221&format=original [https://terraria.fandom.com/wiki/Zombie Small Rain Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Big Pantless Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest/scale-to-width-down/29?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Small Pantless Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Big Misassembled Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Small Misassembled Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Big Headache Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest/scale-to-width-down/32?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Small Headache Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Big Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest/scale-to-width-down/27?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Small Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Female_Zombie.png/revision/latest?cb=20170422121903&format=original [https://terraria.fandom.com/wiki/Zombie Big Female Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Female_Zombie.png/revision/latest/scale-to-width-down/30?cb=20170422121903&format=original [https://terraria.fandom.com/wiki/Zombie Small Female Zombie]
 | 1
-| 0.01%
+| 0.02%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Twiggy_Zombie.png/revision/latest?cb=20170422121749&format=original [https://terraria.fandom.com/wiki/Zombie Big Twiggy Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Twiggy_Zombie.png/revision/latest/scale-to-width-down/31?cb=20170422121749&format=original [https://terraria.fandom.com/wiki/Zombie Small Twiggy Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a7/Swamp_Zombie.png/revision/latest?cb=20170422121752&format=original [https://terraria.fandom.com/wiki/Zombie Big Swamp Zombie]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a7/Swamp_Zombie.png/revision/latest/scale-to-width-down/30?cb=20170422121752&format=original [https://terraria.fandom.com/wiki/Zombie Small Swamp Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/57/Slimed_Zombie.png/revision/latest?cb=20161120175703&format=original [https://terraria.fandom.com/wiki/Zombie Big Slimed Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/57/Slimed_Zombie.png/revision/latest/scale-to-width-down/30?cb=20161120175703&format=original [https://terraria.fandom.com/wiki/Zombie Small Slimed Zombie]
 | 1
-| 0.01%
+| 0.02%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Pincushion_Zombie.png/revision/latest?cb=20170422122209&format=original [https://terraria.fandom.com/wiki/Zombie Big Pincushion Zombie]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Pincushion_Zombie.png/revision/latest/scale-to-width-down/32?cb=20170422122209&format=original [https://terraria.fandom.com/wiki/Zombie Small Pincushion Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Bald_Zombie.png/revision/latest?cb=20161120175629&format=original [https://terraria.fandom.com/wiki/Zombie Big Bald Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Bald_Zombie.png/revision/latest/scale-to-width-down/29?cb=20161120175629&format=original [https://terraria.fandom.com/wiki/Zombie Small Bald Zombie]
 | 1
-| 0.01%
+| 0.02%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Zombie.png/revision/latest?cb=20171102011214&format=original [https://terraria.fandom.com/wiki/Zombie Big Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Zombie.png/revision/latest/scale-to-width-down/31?cb=20171102011214&format=original [https://terraria.fandom.com/wiki/Zombie Small Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7f/Armored_Skeleton.png/revision/latest?cb=20170421211538&format=original [https://terraria.fandom.com/wiki/Armored_Skeleton Heavy Skeleton]
 | 1
-| 0.09%
+| 0.1%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Angry_Bones_1.png/revision/latest?cb=20200530060826&format=original [https://terraria.fandom.com/wiki/Angry_Bones Big Boned]
 | 1
-| 0.03%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Angry_Bones_1.png/revision/latest/scale-to-width-down/27?cb=20200530060826&format=original [https://terraria.fandom.com/wiki/Angry_Bones Short Bones]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Zombie.png/revision/latest?cb=20171102011214&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/61/Goblin_Peon.png/revision/latest?cb=20200518224850&format=original [https://terraria.fandom.com/wiki/Goblin_Peon Goblin Peon]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/09/Goblin_Thief.png/revision/latest?cb=20200518230423&format=original [https://terraria.fandom.com/wiki/Goblin_Thief Goblin Thief]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b4/Goblin_Warrior.png/revision/latest?cb=20200518230412&format=original [https://terraria.fandom.com/wiki/Goblin_Warrior Goblin Warrior]
 | 1
-| 0.03%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Angry_Bones_1.png/revision/latest?cb=20200530060826&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Undead_Miner.png/revision/latest?cb=20170420021204&format=original [https://terraria.fandom.com/wiki/Undead_Miner Undead Miner]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/42/Corrupt_Bunny.png/revision/latest?cb=20160929095411&format=original [https://terraria.fandom.com/wiki/Corrupt_Bunny Corrupt Bunny]
 | 1
-| 0.03%
+| 0.08%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/24/Doctor_Bones.png/revision/latest?cb=20170420102814&format=original [https://terraria.fandom.com/wiki/Doctor_Bones Doctor Bones]
 | 1
-| 0.1%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cd/The_Groom.png/revision/latest?cb=20170420102844&format=original [https://terraria.fandom.com/wiki/The_Groom The Groom]
 | 1
-| 0.07%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/63/Crab.png/revision/latest?cb=20170420105630&format=original [https://terraria.fandom.com/wiki/Crab Crab]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/Goblin_Scout.png/revision/latest?cb=20200517031944&format=original [https://terraria.fandom.com/wiki/Goblin_Scout Goblin Scout]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7f/Armored_Skeleton.png/revision/latest?cb=20170421211538&format=original [https://terraria.fandom.com/wiki/Armored_Skeleton Armored Skeleton]
 | 1
-| 0.07%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Mummy.png/revision/latest?cb=20211207225057&format=original [https://terraria.fandom.com/wiki/Mummy Mummy]
 | 1
-| 0.05%
+| 0.11%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f1/Dark_Mummy_%28old%29.png/revision/latest?cb=20210205225723&format=original [https://terraria.fandom.com/wiki/Dark_Mummy Dark Mummy]
 | 1
-| 0.06%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2a/Light_Mummy_%28old%29.png/revision/latest?cb=20210205225744&format=original [https://terraria.fandom.com/wiki/Light_Mummy Light Mummy]
 | 1
-| 0.07%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f5/Werewolf.png/revision/latest?cb=20170420210112&format=original [https://terraria.fandom.com/wiki/Werewolf Werewolf]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Clown.png/revision/latest?cb=20170421224900&format=original [https://terraria.fandom.com/wiki/Clown Clown]
 | 1
-| 0.26%
+| 0.27%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Skeleton_Archer.png/revision/latest?cb=20170421225035&format=original [https://terraria.fandom.com/wiki/Skeleton_Archer Skeleton Archer]
 | 1
-| 0.06%
+| 0.11%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d4/Goblin_Archer.png/revision/latest?cb=20200517032400&format=original [https://terraria.fandom.com/wiki/Goblin_Archer Goblin Archer]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Chaos_Elemental.png/revision/latest?cb=20170421223414&format=original [https://terraria.fandom.com/wiki/Chaos_Elemental Chaos Elemental]
 | 1
-| 0.09%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Bald_Zombie.png/revision/latest?cb=20161120175629&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/55/Possessed_Armor.png/revision/latest?cb=20140526012145&format=original [https://terraria.fandom.com/wiki/Possessed_Armor Possessed Armor]
 | 1
-| 0.07%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Vampire.png/revision/latest?cb=20170422005918&format=original [https://terraria.fandom.com/wiki/Vampire Vampire]
 | 1
-| 0.19%
+| 0.2%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Frozen_Zombie.png/revision/latest?cb=20170422010132&format=original [https://terraria.fandom.com/wiki/Frozen_Zombie Frozen Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Frankenstein.png/revision/latest?cb=20220304235913&format=original [https://terraria.fandom.com/wiki/Frankenstein Frankenstein]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Black_Recluse_%28ground%29.png/revision/latest?cb=20191019095158&format=original [https://terraria.fandom.com/wiki/Black_Recluse Black Recluse]
 | 1
-| 0.09%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8c/Wall_Creeper_%28ground%29.png/revision/latest?cb=20210620011544&format=original [https://terraria.fandom.com/wiki/Wall_Creeper Wall Creeper]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fe/Swamp_Thing.png/revision/latest?cb=20191019095727&format=original [https://terraria.fandom.com/wiki/Swamp_Thing Swamp Thing]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/83/Undead_Viking.png/revision/latest?cb=20220305001117&format=original [https://terraria.fandom.com/wiki/Undead_Viking Undead Viking]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Corrupt_Penguin.png/revision/latest?cb=20200730150902&format=original [https://terraria.fandom.com/wiki/Corrupt_Penguin Corrupt Penguin]
 | 1
-| 0.03%
+| 0.08%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Face_Monster.png/revision/latest?cb=20170421204044&format=original [https://terraria.fandom.com/wiki/Face_Monster Face Monster]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cb/Snow_Flinx.png/revision/latest?cb=20170421233536&format=original [https://terraria.fandom.com/wiki/Snow_Flinx Snow Flinx]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Pincushion_Zombie.png/revision/latest?cb=20170422122209&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/57/Slimed_Zombie.png/revision/latest?cb=20161120175703&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a7/Swamp_Zombie.png/revision/latest?cb=20170422121752&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Twiggy_Zombie.png/revision/latest?cb=20170422121749&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Nymph.png/revision/latest?cb=20170421233126&format=original [https://terraria.fandom.com/wiki/Nymph Nymph]
 | 1
-| 0.64%
+| 0.94%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Armored_Viking.png/revision/latest?cb=20220305001234&format=original [https://terraria.fandom.com/wiki/Armored_Viking Armored Viking]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ee/Lihzahrd.png/revision/latest?cb=20170422123231&format=original [https://terraria.fandom.com/wiki/Lihzahrd Lihzahrd]
 | 1
-| 0.09%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Lihzahrd_%28crawler%29.png/revision/latest?cb=20211222232440&format=original [https://terraria.fandom.com/wiki/Lihzahrd Lihzahrd]
 | 1
-| 0.09%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Female_Zombie.png/revision/latest?cb=20170422121903&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.02%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4f/Icy_Merman.png/revision/latest?cb=20170421020536&format=original [https://terraria.fandom.com/wiki/Icy_Merman Icy Merman]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b8/Pirate_Deckhand.png/revision/latest?cb=20210625214940&format=original [https://terraria.fandom.com/wiki/Pirate_Deckhand Pirate Deckhand]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e5/Pirate_Corsair.png/revision/latest?cb=20210625214836&format=original [https://terraria.fandom.com/wiki/Pirate_Corsair Pirate Corsair]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Pirate_Deadeye.png/revision/latest?cb=20170421234512&format=original [https://terraria.fandom.com/wiki/Pirate_Deadeye Pirate Deadeye]
 | 1
-| 0.08%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Pirate_Crossbower.png/revision/latest?cb=20170421234501&format=original [https://terraria.fandom.com/wiki/Pirate_Crossbower Pirate Crossbower]
 | 1
-| 0.11%
+| 0.16%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Pirate_Captain.png/revision/latest?cb=20210914050020&format=original [https://terraria.fandom.com/wiki/Pirate_Captain Pirate Captain]
 | 1
-| 0.32%
+| 0.39%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9b/Cochineal_Beetle.png/revision/latest?cb=20200523235211&format=original [https://terraria.fandom.com/wiki/Cochineal_Beetle Cochineal Beetle]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Cyan_Beetle.png/revision/latest?cb=20200523235324&format=original [https://terraria.fandom.com/wiki/Cyan_Beetle Cyan Beetle]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/61/Lac_Beetle.png/revision/latest?cb=20200808224342&format=original [https://terraria.fandom.com/wiki/Lac_Beetle Lac Beetle]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/41/Sea_Snail.png/revision/latest?cb=20171104195216&format=original [https://terraria.fandom.com/wiki/Sea_Snail Sea Snail]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Raincoat_Zombie.png/revision/latest?cb=20170805211221&format=original [https://terraria.fandom.com/wiki/Raincoat_Zombie Raincoat Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Jungle_Creeper_%28ground%29.png/revision/latest?cb=20201014050951&format=original [https://terraria.fandom.com/wiki/Jungle_Creeper Jungle Creeper]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Blood_Crawler_%28ground%29.png/revision/latest?cb=20200521181748&format=original [https://terraria.fandom.com/wiki/Blood_Crawler Blood Crawler]
 | 1
-| 0.02%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8a/Ice_Golem.png/revision/latest?cb=20200708133205&format=original [https://terraria.fandom.com/wiki/Ice_Golem Ice Golem]
 | 1
-| 0.15%
+| 0.23%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b6/Eyezor.png/revision/latest?cb=20210611165016&format=original [https://terraria.fandom.com/wiki/Eyezor Eyezor]
 | 1
-| 0.18%
+| 0.17%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/13/Spore_Zombie.png/revision/latest?cb=20200521181815&format=original [https://terraria.fandom.com/wiki/Spore_Zombie Spore Zombie]
 | 1
-| 0.07%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b1/Mushroom_Zombie.png/revision/latest?cb=20200521181747&format=original [https://terraria.fandom.com/wiki/Spore_Zombie Spore Zombie]
 | 1
-| 0.08%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f0/Anomura_Fungus.png/revision/latest?cb=20200521181927&format=original [https://terraria.fandom.com/wiki/Anomura_Fungus Anomura Fungus]
 | 1
-| 0.09%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Mushi_Ladybug.png/revision/latest?cb=20200521181746&format=original [https://terraria.fandom.com/wiki/Mushi_Ladybug Mushi Ladybug]
 | 1
-| 0.09%
+| 0.16%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/74/Rusty_Armored_Bones_1.png/revision/latest?cb=20200811222335&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
 | 1
-| 0.11%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/54/Rusty_Armored_Bones_2.png/revision/latest?cb=20200811222519&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
 | 1
-| 0.11%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d8/Rusty_Armored_Bones_3.png/revision/latest?cb=20200811222656&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
 | 1
-| 0.12%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8b/Rusty_Armored_Bones_4.png/revision/latest?cb=20200811222738&format=original [https://terraria.fandom.com/wiki/Rusty_Armored_Bones Rusty Armored Bones]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Blue_Armored_Bones_1.png/revision/latest?cb=20200530060830&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
 | 1
-| 0.11%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9f/Blue_Armored_Bones_2.png/revision/latest?cb=20200530060831&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/05/Blue_Armored_Bones_3.png/revision/latest?cb=20200530060833&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
 | 1
-| 0.11%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Blue_Armored_Bones_4.png/revision/latest?cb=20200530060834&format=original [https://terraria.fandom.com/wiki/Blue_Armored_Bones Blue Armored Bones]
 | 1
-| 0.11%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/Hell_Armored_Bones_1.png/revision/latest?cb=20200518132724&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Hell_Armored_Bones_2.png/revision/latest?cb=20200518132721&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
 | 1
-| 0.11%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Hell_Armored_Bones_3.png/revision/latest?cb=20200518132718&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
 | 1
-| 0.11%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/05/Hell_Armored_Bones_4.png/revision/latest?cb=20200518132730&format=original [https://terraria.fandom.com/wiki/Hell_Armored_Bones Hell Armored Bones]
 | 1
-| 0.11%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Bone_Lee.png/revision/latest?cb=20200803161640&format=original [https://terraria.fandom.com/wiki/Bone_Lee Bone Lee]
 | 1
-| 0.14%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Paladin.png/revision/latest?cb=20200521173908&format=original [https://terraria.fandom.com/wiki/Paladin Paladin]
 | 1
-| 0.25%
+| 0.33%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Skeleton_Sniper.png/revision/latest?cb=20200518190711&format=original [https://terraria.fandom.com/wiki/Skeleton_Sniper Skeleton Sniper]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Skeleton_Commando.png/revision/latest?cb=20200604133711&format=original [https://terraria.fandom.com/wiki/Tactical_Skeleton Tactical Skeleton]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Skeleton_Commando.png/revision/latest?cb=20200604133711&format=original [https://terraria.fandom.com/wiki/Skeleton_Commando Skeleton Commando]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/33/Angry_Bones_2.png/revision/latest?cb=20200530060827&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b9/Angry_Bones_3.png/revision/latest?cb=20200530060828&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/Angry_Bones_4.png/revision/latest?cb=20200530060829&format=original [https://terraria.fandom.com/wiki/Angry_Bones Angry Bones]
 | 1
-| 0.03%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e6/Scarecrow_1.png/revision/latest?cb=20141219002114&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bd/Scarecrow_2.png/revision/latest?cb=20141219002212&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.1%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/74/Scarecrow_3.png/revision/latest?cb=20141219002229&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Scarecrow_4.png/revision/latest?cb=20141219002245&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2d/Scarecrow_5.png/revision/latest?cb=20141219002324&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Scarecrow.png/revision/latest?cb=20141219002655&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4b/Scarecrow_7.png/revision/latest?cb=20141219002347&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.1%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Scarecrow_8.png/revision/latest?cb=20141219002435&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Scarecrow_9.png/revision/latest?cb=20141219002459&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Scarecrow_10.png/revision/latest?cb=20131025174054&format=original [https://terraria.fandom.com/wiki/Scarecrow Scarecrow]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Zombie_Halloween_Variant_1.png/revision/latest?cb=20170422121435&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/26/Zombie_Halloween_Variant_2.png/revision/latest?cb=20170422121433&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0c/Zombie_Halloween_Variant_3.png/revision/latest?cb=20170422121437&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Skeleton_Halloween_Variant_1.png/revision/latest?cb=20171104202519&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/65/Skeleton_Halloween_Variant_2.png/revision/latest?cb=20200808224709&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/68/Skeleton_Halloween_Variant_3.png/revision/latest?cb=20171104202707&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/88/Splinterling.png/revision/latest?cb=20171104210227&format=original [https://terraria.fandom.com/wiki/Splinterling Splinterling]
 | 1
@@ -561,35 +561,35 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Zombie_Christmas_Variant_1.png/revision/latest?cb=20170422121212&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Zombie_Christmas_Variant_2.png/revision/latest?cb=20170422121209&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Zombie_Elf.png/revision/latest?cb=20200702150744&format=original [https://terraria.fandom.com/wiki/Zombie_Elf Zombie Elf]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Zombie_Elf_Beard.png/revision/latest?cb=20200702150736&format=original [https://terraria.fandom.com/wiki/Zombie_Elf Zombie Elf]
 | 1
-| 0.12%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e0/Zombie_Elf_Girl.png/revision/latest?cb=20200702150727&format=original [https://terraria.fandom.com/wiki/Zombie_Elf Zombie Elf]
 | 1
-| 0.1%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Gingerbread_Man.png/revision/latest?cb=20200708164201&format=original [https://terraria.fandom.com/wiki/Gingerbread_Man Gingerbread Man]
 | 1
-| 0.13%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7d/Yeti.png/revision/latest?cb=20200518194832&format=original [https://terraria.fandom.com/wiki/Yeti Yeti]
 | 1
-| 0.11%
+| 0.17%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/38/Nutcracker.png/revision/latest?cb=20200911122316&format=original [https://terraria.fandom.com/wiki/Nutcracker Nutcracker]
 | 1
-| 0.13%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ec/Nutcracker_2.png/revision/latest?cb=20200911122308&format=original [https://terraria.fandom.com/wiki/Nutcracker Nutcracker]
 | 1
@@ -597,167 +597,167 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d3/Elf_Archer.png/revision/latest?cb=20200803161148&format=original [https://terraria.fandom.com/wiki/Elf_Archer Elf Archer]
 | 1
-| 0.12%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8f/Krampus.png/revision/latest?cb=20200702145123&format=original [https://terraria.fandom.com/wiki/Krampus Krampus]
 | 1
-| 0.12%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/25/Cultist_Archer.png/revision/latest?cb=20150701095329&format=original [https://terraria.fandom.com/wiki/Cultist_Archer Cultist Archer]
 | 1
-| 0.08%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/White_Cultist_Archer.png/revision/latest?cb=20150701095459&format=original [https://terraria.fandom.com/wiki/Cultist_Archer Cultist Archer]
 | 1
-| 0.08%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/38/Brain_Scrambler.png/revision/latest?cb=20200704161941&format=original [https://terraria.fandom.com/wiki/Brain_Scrambler Brain Scrambler]
 | 1
-| 0.09%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d7/Ray_Gunner.png/revision/latest?cb=20150701095421&format=original [https://terraria.fandom.com/wiki/Ray_Gunner Ray Gunner]
 | 1
-| 0.09%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Martian_Officer.png/revision/latest?cb=20150701010423&format=original [https://terraria.fandom.com/wiki/Martian_Officer Martian Officer]
 | 1
-| 0.1%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8e/Gray_Grunt.png/revision/latest?cb=20150701095347&format=original [https://terraria.fandom.com/wiki/Gray_Grunt Gray Grunt]
 | 1
-| 0.11%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/15/Martian_Engineer.png/revision/latest?cb=20210914031152&format=original [https://terraria.fandom.com/wiki/Martian_Engineer Martian Engineer]
 | 1
-| 0.11%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/29/Gigazapper.png/revision/latest?cb=20210914030825&format=original [https://terraria.fandom.com/wiki/Gigazapper Gigazapper]
 | 1
-| 0.12%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e7/Scutlix_%28creature%29.png/revision/latest?cb=20150701171708&format=original [https://terraria.fandom.com/wiki/Scutlix Scutlix]
 | 1
-| 0.11%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4c/Twinkle_Popper.png/revision/latest?cb=20150701095448&format=original [https://terraria.fandom.com/wiki/Twinkle_Popper Twinkle Popper]
 | 1
-| 0.29%
+| 0.3%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2b/Stargazer.png/revision/latest?cb=20150701135045&format=original [https://terraria.fandom.com/wiki/Stargazer Stargazer]
 | 1
-| 0.28%
+| 0.31%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Drakomire.png/revision/latest?cb=20150701100807&format=original [https://terraria.fandom.com/wiki/Drakomire Drakomire]
 | 1
-| 0.27%
+| 0.3%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/48/Selenian.png/revision/latest?cb=20150701100845&format=original [https://terraria.fandom.com/wiki/Selenian Selenian]
 | 1
-| 0.28%
+| 0.31%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Predictor.png/revision/latest?cb=20150701135043&format=original [https://terraria.fandom.com/wiki/Predictor Predictor]
 | 1
-| 0.28%
+| 0.32%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b8/Storm_Diver.png/revision/latest?cb=20150701135046&format=original [https://terraria.fandom.com/wiki/Storm_Diver Storm Diver]
 | 1
-| 0.29%
+| 0.3%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d8/Alien_Queen.png/revision/latest?cb=20150701100644&format=original [https://terraria.fandom.com/wiki/Alien_Queen Alien Queen]
 | 1
-| 0.3%
+| 0.28%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4d/Alien_Hornet.png/revision/latest?cb=20150701100634&format=original [https://terraria.fandom.com/wiki/Alien_Hornet Alien Hornet]
 | 1
-| 0.22%
+| 0.31%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5d/Alien_Larva.png/revision/latest?cb=20150701100639&format=original [https://terraria.fandom.com/wiki/Alien_Larva Alien Larva]
 | 1
-| 0.11%
+| 0.23%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a0/Vortexian.png/revision/latest?cb=20150701100912&format=original [https://terraria.fandom.com/wiki/Vortexian Vortexian]
 | 1
-| 0.29%
+| 0.32%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Armed_Zombie.png/revision/latest?cb=20170422131025&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3c/Armed_Frozen_Zombie.png/revision/latest?cb=20170422131256&format=original [https://terraria.fandom.com/wiki/Frozen_Zombie Frozen Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e4/Armed_Pincushion_Zombie.png/revision/latest?cb=20170422131048&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/64/Armed_Slimed_Zombie.png/revision/latest?cb=20170422131112&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/48/Armed_Swamp_Zombie.png/revision/latest?cb=20170422131135&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Armed_Twiggy_Zombie.png/revision/latest?cb=20170422131200&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2c/Armed_Female_Zombie.png/revision/latest?cb=20170422131225&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.02%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original [https://terraria.fandom.com/wiki/Skeleton Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Butcher.png/revision/latest?cb=20150701102715&format=original [https://terraria.fandom.com/wiki/Butcher Butcher]
 | 1
-| 0.12%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/91/Creature_from_the_Deep.png/revision/latest?cb=20150629182153&format=original [https://terraria.fandom.com/wiki/Creature_from_the_Deep Creature from the Deep]
 | 1
-| 0.1%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e8/Fritz.png/revision/latest?cb=20150629214920&format=original [https://terraria.fandom.com/wiki/Fritz Fritz]
 | 1
-| 0.07%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/73/Nailhead.png/revision/latest?cb=20150701102948&format=original [https://terraria.fandom.com/wiki/Nailhead Nailhead]
 | 1
-| 0.11%
+| 0.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/99/Vicious_Bunny.png/revision/latest?cb=20171124231053&format=original [https://terraria.fandom.com/wiki/Vicious_Bunny Vicious Bunny]
 | 1
-| 0.04%
+| 0.09%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9c/Psycho.png/revision/latest?cb=20210620015106&format=original [https://terraria.fandom.com/wiki/Psycho Psycho]
 | 1
-| 0.13%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Dr._Man_Fly.png/revision/latest?cb=20150701102809&format=original [https://terraria.fandom.com/wiki/Dr._Man_Fly Dr. Man Fly]
 | 1
-| 0.12%
+| 0.15%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/The_Possessed.png/revision/latest?cb=20150629184855&format=original [https://terraria.fandom.com/wiki/The_Possessed The Possessed]
 | 1
-| 0.12%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Vicious_Penguin.png/revision/latest?cb=20200730170604&format=original [https://terraria.fandom.com/wiki/Vicious_Penguin Vicious Penguin]
 | 1
-| 0.04%
+| 0.09%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/24/Goblin_Warlock.png/revision/latest?cb=20200708163902&format=original [https://terraria.fandom.com/wiki/Goblin_Warlock Goblin Warlock]
 | 1
@@ -765,67 +765,67 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Medusa.png/revision/latest?cb=20150701102935&format=original [https://terraria.fandom.com/wiki/Medusa Medusa]
 | 1
-| 0.09%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6b/Hoplite.png/revision/latest?cb=20171209201110&format=original [https://terraria.fandom.com/wiki/Hoplite Hoplite]
 | 1
-| 0.02%
+| 0.06%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Granite_Golem.png/revision/latest?cb=20150701102858&format=original [https://terraria.fandom.com/wiki/Granite_Golem Granite Golem]
 | 1
-| 0.04%
+| 0.09%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Blood_Zombie.png/revision/latest?cb=20171104201710&format=original [https://terraria.fandom.com/wiki/Blood_Zombie Blood Zombie]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Crawdad.png/revision/latest?cb=20150701102733&format=original [https://terraria.fandom.com/wiki/Crawdad Crawdad]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Crawdad2.png/revision/latest?cb=20150701102739&format=original [https://terraria.fandom.com/wiki/Crawdad Crawdad]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Salamander.png/revision/latest?cb=20150701103048&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/00/Salamander_2.png/revision/latest?cb=20180831035120&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/88/Salamander_3.png/revision/latest?cb=20180831035112&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fb/Salamander_4.png/revision/latest?cb=20180831035103&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/8a/Salamander_5.png/revision/latest?cb=20180831035036&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Salamander_6.png/revision/latest?cb=20180831035047&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Salamander_7.png/revision/latest?cb=20180831035142&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e9/Salamander_8.png/revision/latest?cb=20180831035151&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c1/Salamander_9.png/revision/latest?cb=20180831035203&format=original [https://terraria.fandom.com/wiki/Salamander Salamander]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Giant_Antlion_Charger.png/revision/latest?cb=20191112012549&format=original [https://terraria.fandom.com/wiki/Giant_Antlion_Charger Giant Antlion Charger]
 | 1
-| 0.03%
+| 0.07%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f2/Drakanian.png/revision/latest?cb=20150701103316&format=original [https://terraria.fandom.com/wiki/Drakanian Drakanian]
 | 1
@@ -833,87 +833,87 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f1/Martian_Walker.png/revision/latest?cb=20150701103346&format=original [https://terraria.fandom.com/wiki/Martian_Walker Martian Walker]
 | 1
-| 0.29%
+| 0.35%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e3/Ghoul.png/revision/latest?cb=20150701103329&format=original [https://terraria.fandom.com/wiki/Ghoul Ghoul]
 | 1
-| 0.06%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fa/Vile_Ghoul.png/revision/latest?cb=20150701103435&format=original [https://terraria.fandom.com/wiki/Vile_Ghoul Vile Ghoul]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/89/Tainted_Ghoul.png/revision/latest?cb=20150701103417&format=original [https://terraria.fandom.com/wiki/Tainted_Ghoul Tainted Ghoul]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Dreamer_Ghoul.png/revision/latest?cb=20150701103323&format=original [https://terraria.fandom.com/wiki/Dreamer_Ghoul Dreamer Ghoul]
 | 1
-| 0.09%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Lamia.png/revision/latest?cb=20150701103335&format=original [https://terraria.fandom.com/wiki/Lamia Lamia]
 | 1
-| 0.09%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e5/Lamia2.png/revision/latest?cb=20150701103341&format=original [https://terraria.fandom.com/wiki/Lamia Lamia]
 | 1
-| 0.09%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1e/Sand_Poacher.png/revision/latest?cb=20150701103353&format=original [https://terraria.fandom.com/wiki/Sand_Poacher Sand Poacher]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b1/Basilisk.png/revision/latest?cb=20150701103303&format=original [https://terraria.fandom.com/wiki/Basilisk Basilisk]
 | 1
-| 0.08%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/83/Tortured_Soul.png/revision/latest?cb=20150701103428&format=original [https://terraria.fandom.com/wiki/Tortured_Soul Tortured Soul]
 | 1
-| 0.19%
+| 0.29%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/The_Bride.png/revision/latest?cb=20210620013648&format=original [https://terraria.fandom.com/wiki/The_Bride The Bride]
 | 1
-| 0.07%
+| 0.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Antlion_Charger.png/revision/latest?cb=20200517034253&format=original [https://terraria.fandom.com/wiki/Antlion_Charger Antlion Charger]
 | 1
-| 0.02%
+| 0.05%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c8/Antlion_Larva.png/revision/latest?cb=20200517034039&format=original [https://terraria.fandom.com/wiki/Antlion_Larva Antlion Larva]
 | 1
-| 0%
+| 0.02%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Zombie_Merman.png/revision/latest?cb=20220305001421&format=original [https://terraria.fandom.com/wiki/Zombie_Merman Zombie Merman]
 | 1
-| 0.09%
+| 0.13%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f8/Torch_Zombie.png/revision/latest?cb=20200516195725&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Armed_Torch_Zombie.png/revision/latest?cb=20200516195727&format=original [https://terraria.fandom.com/wiki/Zombie Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/78/Gnome.png/revision/latest?cb=20200516203041&format=original [https://terraria.fandom.com/wiki/Gnome Gnome]
 | 1
-| 0.01%
+| 0.04%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/28/Blood_Mummy.png/revision/latest?cb=20200516192426&format=original [https://terraria.fandom.com/wiki/Blood_Mummy Blood Mummy]
 | 1
-| 0.06%
+| 0.12%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/Rock_Golem.png/revision/latest?cb=20200516192425&format=original [https://terraria.fandom.com/wiki/Rock_Golem Rock Golem]
 | 1
-| 0.41%
+| 0.35%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ab/Maggot_Zombie.png/revision/latest?cb=20200516193041&format=original [https://terraria.fandom.com/wiki/Maggot_Zombie Maggot Zombie]
 | 1
-| 0.01%
+| 0.03%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b5/Spore_Skeleton.png/revision/latest?cb=20200516193020&format=original [https://terraria.fandom.com/wiki/Spore_Skeleton Spore Skeleton]
 | 1
-| 0.01%
+| 0.04%
 |}
 
 {| class="mw-collapsible wikitable" style="max-width:400px;"

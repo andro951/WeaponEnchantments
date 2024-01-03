@@ -49,143 +49,143 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Crimslime.png/revision/latest?cb=20150708221108&format=original [https://terraria.fandom.com/wiki/Crimslime Big Crimslime]
 | 1
-| 1.57%
+| 2.63%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Crimslime.png/revision/latest/scale-to-width-down/37?cb=20150708221108&format=original [https://terraria.fandom.com/wiki/Crimslime Little Crimslime]
 | 1
-| 1.25%
+| 2.35%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5d/Jungle_Slime.png/revision/latest?cb=20200730134909&format=original [https://terraria.fandom.com/wiki/Jungle_Slime Jungle Slime]
 | 1
-| 0.75%
+| 1.67%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Yellow_Slime.png/revision/latest?cb=20160925081607&format=original [https://terraria.fandom.com/wiki/Yellow_Slime Yellow Slime]
 | 1
-| 0.24%
+| 0.62%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Red_Slime.png/revision/latest?cb=20110828163005&format=original [https://terraria.fandom.com/wiki/Red_Slime Red Slime]
 | 1
-| 0.18%
+| 0.47%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/27/Purple_Slime.png/revision/latest?cb=20160925081604&format=original [https://terraria.fandom.com/wiki/Purple_Slime Purple Slime]
 | 1
-| 0.21%
+| 0.55%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Black_Slime.png/revision/latest?cb=20110828163020&format=original [https://terraria.fandom.com/wiki/Black_Slime Black Slime]
 | 1
-| 0.24%
+| 0.61%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6d/Baby_Slime.png/revision/latest?cb=20170121233645&format=original [https://terraria.fandom.com/wiki/Baby_Slime Baby Slime]
 | 1
-| 0.16%
+| 0.42%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/17/Pinky.png/revision/latest?cb=20111003022635&format=original [https://terraria.fandom.com/wiki/Pinky Pinky]
 | 1
-| 9.34%
+| 16.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Green_Slime.png/revision/latest?cb=20141106201737&format=original [https://terraria.fandom.com/wiki/Green_Slime Green Slime]
 | 1
-| 0.07%
+| 0.19%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/45/Corrupt_Slime.png/revision/latest/scale-to-width-down/40?cb=20171130024032&format=original [https://terraria.fandom.com/wiki/Slimer Slimer 2]
 | 1
-| 0.66%
+| 1.43%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ee/Slimeling.png/revision/latest?cb=20161002152710&format=original [https://terraria.fandom.com/wiki/Slimeling Slimeling]
 | 1
-| 0.58%
+| 1.29%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Blue_Slime.png/revision/latest?cb=20110828163020&format=original [https://terraria.fandom.com/wiki/Blue_Slime Blue Slime]
 | 1
-| 0.14%
+| 0.38%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Mother_Slime.png/revision/latest?cb=20160925081648&format=original [https://terraria.fandom.com/wiki/Mother_Slime Mother Slime]
 | 1
-| 0.48%
+| 1.14%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Lava_Slime.png/revision/latest?cb=20160925082050&format=original [https://terraria.fandom.com/wiki/Lava_Slime Lava Slime]
 | 1
-| 0.38%
+| 0.95%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/50/Dungeon_Slime_%28Key%29.png/revision/latest?cb=20210430065342&format=original [https://terraria.fandom.com/wiki/Dungeon_Slime Dungeon Slime]
 | 1
-| 0.77%
+| 1.64%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/45/Corrupt_Slime.png/revision/latest?cb=20171130024032&format=original [https://terraria.fandom.com/wiki/Corrupt_Slime Corrupt Slime]
 | 1
-| 1.24%
+| 2.35%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/55/Illuminant_Slime.png/revision/latest?cb=20171130024631&format=original [https://terraria.fandom.com/wiki/Illuminant_Slime Illuminant Slime]
 | 1
-| 1.36%
+| 2.44%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Toxic_Sludge.gif/revision/latest?cb=20200808162634&format=original [https://terraria.fandom.com/wiki/Toxic_Sludge Toxic Sludge]
 | 1
-| 1.11%
+| 2.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Ice_Slime.png/revision/latest?cb=20170422004036&format=original [https://terraria.fandom.com/wiki/Ice_Slime Ice Slime]
 | 1
-| 0.19%
+| 0.51%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Crimslime.png/revision/latest?cb=20150708221108&format=original [https://terraria.fandom.com/wiki/Crimslime Crimslime]
 | 1
-| 1.43%
+| 2.52%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bc/Spiked_Ice_Slime.png/revision/latest?cb=20170422121847&format=original [https://terraria.fandom.com/wiki/Spiked_Ice_Slime Spiked Ice Slime]
 | 1
-| 0.49%
+| 1.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fe/Spiked_Jungle_Slime.png/revision/latest?cb=20171130030805&format=original [https://terraria.fandom.com/wiki/Spiked_Jungle_Slime Spiked Jungle Slime]
 | 1
-| 0.61%
+| 1.41%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Umbrella_Slime.png/revision/latest?cb=20160726020032&format=original [https://terraria.fandom.com/wiki/Umbrella_Slime Umbrella Slime]
 | 1
-| 0.35%
+| 0.86%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/87/Rainbow_Slime.gif/revision/latest?cb=20210921162633&format=original [https://terraria.fandom.com/wiki/Rainbow_Slime Rainbow Slime]
 | 1
-| 2.54%
+| 3.49%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a4/Bunny_Slime.png/revision/latest?cb=20151229024026&format=original [https://terraria.fandom.com/wiki/Slime Slime]
 | 1
-| 0.14%
+| 0.38%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Hoppin%27_Jack.png/revision/latest?cb=20131025174453&format=original [https://terraria.fandom.com/wiki/Hoppin'_Jack Hoppin' Jack]
 | 1
-| 1.23%
+| 2.32%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/White_Present_Slime.png/revision/latest?cb=20170217233818&format=original [https://terraria.fandom.com/wiki/Slime Slime]
 | 1
-| 0.14%
+| 0.38%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Yellow_Present_Slime.png/revision/latest?cb=20170217233853&format=original [https://terraria.fandom.com/wiki/Slime Slime]
 | 1
-| 0.13%
+| 0.36%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Green_Present_Slime.png/revision/latest?cb=20170217233925&format=original [https://terraria.fandom.com/wiki/Slime Slime]
 | 1
-| 0.16%
+| 0.44%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bf/Red_Present_Slime.png/revision/latest?cb=20170217234001&format=original [https://terraria.fandom.com/wiki/Slime Slime]
 | 1
-| 0.12%
+| 0.34%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/1/10/Spiked_Slime.png/revision/latest?cb=20150701103411&format=original [https://terraria.fandom.com/wiki/Spiked_Slime Spiked Slime]
 | 1
-| 0.29%
+| 0.73%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f2/Sand_Slime.png/revision/latest?cb=20160224071115&format=original [https://terraria.fandom.com/wiki/Sand_Slime Sand Slime]
 | 1
-| 0.3%
+| 0.77%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4f/Crystal_Slime.png/revision/latest?cb=20200516194836&format=original [https://terraria.fandom.com/wiki/Crystal_Slime Crystal Slime]
 | 1
-| 2.66%
+| 3.99%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5a/Bouncy_Slime.png/revision/latest?cb=20200516194817&format=original [https://terraria.fandom.com/wiki/Bouncy_Slime Bouncy Slime]
 | 1
-| 2.66%
+| 3.99%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f9/Golden_Slime.png/revision/latest?cb=20210516134412&format=original [https://terraria.fandom.com/wiki/Golden_Slime Golden Slime]
 | 1
@@ -193,7 +193,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Shimmer_Slime.png/revision/latest?cb=20221028202234&format=original [https://terraria.fandom.com/wiki/Shimmer_Slime Shimmer Slime]
 | 1
-| 0.52%
+| 1.22%
 |}
 
 </div>

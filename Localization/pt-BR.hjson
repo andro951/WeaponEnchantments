@@ -571,6 +571,17 @@ Mods: {
 					Label: Remova as restrições de encantamento (use por sua conta e risco!)
 					Tooltip: Remove coisas como Unique, Max 1 e encantamentos específicos de armas ou tipos de itens.
 				}
+
+				SiphonExperiencePercentCost: {
+					Label: Experiência com Sifão % Custo
+					Tooltip:
+						'''
+						Sifonar itens retorna apenas uma parte da experiência como essência. Esta opção é a % que é PERDIDA, então 1000 XP com custo de 20% retornarão apenas 800.
+						Se o valor do custo de experiência for maior que 4 vezes o valor do item encantado, esse valor será o custo para evitar situações como perder 20 platina em experiência para salvar uma espada de madeira de nível máximo.
+						Oferecer itens retorna 100% da experiência. Defina como 0% para não ter custo, retornando 100% de experiência. Defina como 100% para usar o sistema Sifão original.
+						O sistema Sifão original permite apenas drenar um item de nível máximo e apenas remove o excesso de experiência após o nível máximo. sem nenhum custo.
+						'''
+				}
 			}
 		}
 
@@ -658,6 +669,7 @@ Mods: {
 			ItemTooLowLevel: Seu nível {0} é muito baixo para usar tantos encantamentos.
 			LogInfusionPowerLabels: Mod, Arma, Poder de Infusão, Valor Raridade, Raridade, Raridade Original, Valor, ID do Item, Dano, Tempo de Uso, DPS
 			LogInfusionPowerOtherLabels: Raridade, Média, Mínimo, Máx.
+			MinSiphonXP: Você só pode drenar um item se ele tiver pelo menos {0} experiência.
 			MultipleUniqueEnchantments: Detectados vários encantamentos exclusivos em seu {0}. {1} foi removido de seu {2}.
 			MurasamaNoInfusion: Murasama não pode ser consumido para infusão.
 			NewItemIsAir: newItem estava no ar.
@@ -674,7 +686,6 @@ Mods: {
 			NowLimitedToOne: "{0} Encantamentos agora estão limitados a 1 por item. {1} foi removido de seu {2}."
 			NPCInProgressionGroupNotInDropList: Detectado um NPC em um grupo de Progressão que não está em NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Detectado um NPC em um grupo de Progressão que não possui armas ou ingredientes exclusivos.
-			OnlySyphonMaxLevel: Você só pode drenar um item se ele estiver no nível máximo e tiver mais de {0} experiência.
 			OpenEnchantingTableFirstTime:
 				'''
 				Você sente que todos os seus Encantamentos e Essências são puxados para a Mesa de Encantamento.
@@ -1248,18 +1259,99 @@ Mods: {
 			general2: Usando encantamentos de armas em armaduras ou acessórios
 			general3: fornece bônus reduzidos e vice-versa.
 			Infusion: Infusão
+			InfusionCancelDescription: Retorne seu {0} armazenado para o slot de item.
+			InfusionDescription:
+				'''
+				Permite que você fortaleça armas ou armaduras sacrificando outras armas ou armaduras.
+				Armas: Infundir uma arma aumenta seu atributo de dano em {0} para cada 100 de poder de infusão adicionados.
+				(novo dano = dano base * {1}^((novo poder de infusão - poder de infusão base)/100) )
+				-Coloque a arma mais forte que você deseja sacrificar no slot de item e pressione Infusão.
+				-Em seguida, coloque a arma mais fraca que você deseja atualizar no slot de item e pressione Finalizar.
+				Armadura: Infundir armadura transfere o bônus de conjunto do item sacrificado, substituindo o bônus de conjunto do item infundido.
+				Caso de uso: você gosta mais do bônus do conjunto de armadura de cacto do que de sua armadura atual.
+				Sacrifique cada peça da armadura do cacto em cada peça da sua armadura atual para transferir o bônus definido.
+				Cada peça de armadura tem seu próprio ID de bônus de conjunto, então você pode ter conjuntos parciais, como um elmo dourado com elmo de cacto infundido,
+				pernas de cacto, peito de cacto, dando o efeito de conjunto de armadura de cacto.
+				-Coloque o item de armadura que deseja sacrificar no slot de item (seu bônus definido será transferido) e pressione Infusão.
+				-Coloque o item de armadura que deseja modificar no slot de item (seu bônus definido será substituído) e pressione Finalizar.
+				(Encantamentos, experiência e reforços de poder do item sacrificado serão devolvidos a você como se tivessem sido oferecidos.)
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Finalize para sacrificar seu {0} para substituir o bônus definido
+				em seu {1} com o bônus definido em seu {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Finalize para sacrificar seu {0} para
+				aumente o dano do seu {1}.
+				'''
 			Item: Item
 			LevelUp: Subir de nível
+			LevelUpDescription:
+				'''
+				Aumente o nível do seu {0} do nível {1} para o nível {2}.
+				Custa {3} experiência. Experiência disponível: {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Defina quantos níveis serão adicionados com
+				o botão Subir de nível para {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Abra ou feche o menu de carregamentos de encantamento.
+				Os carregamentos de encantamento não armazenam itens.
+				Eles apenas salvam o tipo e o nível de encantamento.
+				Ao criar um Enchantment Loadout, você pode preencher rapidamente os slots
+				mude os encantamentos clicando com o botão esquerdo do seu armazenamento para preencher o próximo slot
+				(O próximo espaço a ser preenchido tem um fundo dourado quando a tecla shift é mantida).
+				Você também pode segurar um encantamento no mouse e clicar nele em um slot.
+				Clicar em um slot sem encantamento no mouse limpará o slot.
+
+				Adicionar - Adiciona um novo carregamento (máximo de 15).
+				Adicionar de encantamentos equipados - Crie um carregamento copiando seus encantamentos equipados
+				Loadout # - Clicar no botão Loadout seleciona esse loadout para que você possa vê-lo ou editá-lo.
+				Todos - Todos substitui todos os encantamentos do seu item, armadura e acessórios por
+				os encantamentos do carregamento. Se algum item não for de nível alto o suficiente
+				para suportar os encantamentos de seu slot, o carregamento não será carregado.
+				Item/Armadura/Acessórios Retidos - Esses botões são iguais ao botão Todos, mas
+				carregue apenas os encantamentos específicos para a categoria selecionada.
+				'''
 			Loadouts: Carregamentos
 			LootAll: Saquear tudo
+			LootAllDescription:
+				'''
+				Remova todos os encantamentos do seu {0}, enviando-os para o
+				Armazenamento de Encantamento e devolva seu {0} ao seu inventário.
+				'''
 			No: Não
 			Offer: Oferta
+			OfferDescription:
+				'''
+				Ofereça seu {0}, DESTRUINDO-O em troca de minérios/essência.
+				A porcentagem de minérios/essência pode ser ajustada nas configurações.
+				'''
+			Siphon: Sifão
+			SiphonDescription:
+				'''
+				Consumir {0} experiência do seu {1} para remover todos
+				encantamentos, impulsionadores de poder, item infundido e
+				experiência restante sem destruir seu {1}.
+				Oferecer itens devolve toda a essência, por isso é uma
+				melhor opção, a menos que você precise manter seu {1}.
+				'''
 			Storage: Armazenar
-			Syphon: Sifão
+			StorageDescription: Abra ou feche o Armazenamento de Encantamento.
 			ToggleAutoTrashOfferedItems: Alternar lixo automático para itens oferecidos
 			utility0: Apenas encantamentos utilitários podem ir aqui.
 			weapon0: Coloque uma arma, peça de armadura ou acessório aqui.
 			xp: exp
+			XPButtonDescription:
+				'''
+				Consumir um {0}
+				para adicionar {1} experiência ao seu {2}.
+				'''
 			Yes: Sim
 		}
 

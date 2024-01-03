@@ -181,6 +181,11 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(false)]
 		public bool ReduceOfferEfficiencyByBaseInfusionPower;
 
+		[JsonIgnore]
+		public const int DefaultSiphonCost = 20;
+		[DefaultValue(DefaultSiphonCost)]
+		public int SiphonExperiencePercentCost;
+
 		//General Game Changes
 		[JsonIgnore]
 		public const string GeneralGameChangesKey = "GeneralGameChanges";

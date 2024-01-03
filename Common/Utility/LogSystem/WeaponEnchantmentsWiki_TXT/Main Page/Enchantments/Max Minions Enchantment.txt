@@ -49,7 +49,7 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/8/89/Wall_Creeper.png/revision/latest?cb=20200804000512&format=original [https://terraria.fandom.com/wiki/Wall_Creeper Wall Creeper]
 | 1
-| 2.16%
+| 5.18%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/6/60/Queen_Bee.gif/revision/latest?cb=20200523215116&format=original [https://terraria.fandom.com/wiki/Queen_Bee Queen Bee]
 | 1
@@ -57,19 +57,19 @@
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e9/Jungle_Creeper.png/revision/latest?cb=20201014050936&format=original [https://terraria.fandom.com/wiki/Jungle_Creeper Jungle Creeper]
 | 1
-| 9.8%
+| 13.76%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/2/26/Black_Recluse.png/revision/latest?cb=20210620010827&format=original [https://terraria.fandom.com/wiki/Black_Recluse Black Recluse]
 | 1
-| 8.79%
+| 12.43%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7e/Blood_Crawler.png/revision/latest?cb=20200804000419&format=original [https://terraria.fandom.com/wiki/Blood_Crawler Blood Crawler]
 | 1
-| 1.88%
+| 4.63%
 |-
 | https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9d/Sand_Poacher2.png/revision/latest?cb=20150701103358&format=original [https://terraria.fandom.com/wiki/Sand_Poacher Sand Poacher]
 | 1
-| 8.27%
+| 12.85%
 |}
 
 {| class="mw-collapsible wikitable" style="max-width:400px;"

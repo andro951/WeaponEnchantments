@@ -216,7 +216,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem {
 				$"inventory, but it won't count for crafting enchantments.<br/>\n" +
 				$"In an enchanting table you can {"Crafting and Upgrading Enchantments".ToSectionLink("create and upgrade", "Enchantments")} enchantments via crafting, " +
 				$"{"Enchanting items".ToSectionLink("apply and remove")} enchantments, {"Leveling items up".ToSectionLink("convert essence to item experience")}, " +
-				$"{"Offer".ToSectionLink("offer")} items, {"Syphon".ToSectionLink("syphon")} items, {"Infusion".ToSectionLink("infuse")} items, " +
+				$"{"Offer".ToSectionLink("offer")} items, {"Siphon".ToSectionLink("siphon")} items, {"Infusion".ToSectionLink("infuse")} items, " +
 				$"{"Enchantment Storage".ToSectionLink("store items")}, and {"Enchantment Loadouts".ToSectionLink("manage/apply enchantment loadouts")}." +
 				$"");
 			EnchantingTable.AddSubHeading("Leveling items up");
@@ -260,29 +260,30 @@ namespace WeaponEnchantments.Common.Utility.LogSystem {
 				$"# When offering an item, all of the same item will be offered from your inventory.\n" +
 				$"# When offering an item, ALL items of ANY type from chests directly touching the enchanting table will be offered.  Be careful with your storage.");
 
-			EnchantingTable.AddSubHeading("Syphon " + "SyphonButton".ToPNG());
-			EnchantingTable.AddParagraph($"If you have a max level item (level 40), you can convert any excess experience on the item past level 40 " +
-				$"(past 100M experience) into essence.\n" +
-				$"# Place the max level item into the item slot.\n" +
-				$"# Click syphon.\n" +
-				$"# Essence will be deposited into the enchanting table interface.");
+			EnchantingTable.AddSubHeading("Siphon " + "SiphonButton".ToPNG());
+			EnchantingTable.AddParagraph($"Siphoning an item removes all modifications to that item.\n" +
+				$"Siphoning is different from Offering because Siphoning prevents the item from being destroyed.\n" +
+				$"However, as a cost for saving the item, {ServerConfig.DefaultSiphonCost}% (configurable) of the experience is lost.  " +
+				$"(This is reduced to 4x the value of the item as essence value if the number is lower to prevent spending massive amounts of essence to save a low value item.)\n" +
+				$"# Place the item into the item slot.\n" +
+				$"# Click siphon.\n" +
+				$"# Essence, Enchantments and Power Boosters will be deposited into the enchanting table interface, and the infused item will be returned to you.");
 
 			EnchantingTable.AddSubHeading("Infusion " + "InfusionButton".ToPNG());
 			EnchantingTable.AddParagraph($"Allows you to consume a weapon to enhance the power of a lower tier weapon to about the same power as the " +
 				$"consumed weapon or transfers the set bonus from a piece of armor to another.  Any experience/enchantments/power booster on a consumed item will be returned just like {"Offer".ToSectionLink("offer")}.");
 
 			EnchantingTable.AddSubHeading("Weapon Infusion", 2);
-			EnchantingTable.AddParagraph($"Allows you to consume high rarity items to upgrade the damage of low rarity weapons.  \n" +
+			EnchantingTable.AddParagraph($"Allows you to consume a more powerful weapon to upgrade the damage of a lower power weapon.  \n" +
 				$"Example, if you like Veilthorn more than your newer/stronger weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.  \n" +
-				$"The damage bonus is based on the difference in rarity and value between the 2 items. Terraria has 10 rarities of vanilla weapons, so I based the system off of those.  \n" +
-				$"(modded items can be rarity 11 which will cause their Infusion Power to be the same as the max value rarity 10 items (1100).  \n" +
-				$"Infusion Power - A weapon stat that is determined by an item's rarity and value. 100 Infusion Power per rarity (rarity x100).  \n" +
-				$"Additionally, the item's rarity will give up to 100 extra infusion power based on the value of the item compared to the average value of items in that rarity.  \n" +
-				$"(Example: items of rarity 0 have an average value of about 3000 copper (30 silver). The lowest value item is worth 100 copper.  \n" +
-				$"This 100 copper item would have an infusion power of 0. A rarity 0 item worth the average value (~30 silver) would have an infusion power of 50.  \n" +
-				$"The max value rarity 0 item would have 100 infusion power. The min, max and average values are calculated based only on vanilla items.  \n" +
-				$"Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation.  \n" +
-				$"Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value of rarity 10 weapons.  \n" +
+				$"The damage bonus is based on the difference in infusion powers of the two weapons.\n" +
+				$"Infusion Power - A weapon stat that is determined by looking at how the weapon is obtained such as crafting or enemy/chest drops.\n" +
+				$"I manually set the infusion power of every gathered crafting material, every boss/enemy that drops a weapon/crafting material, and manually set any remaining ones." +
+				$"The basis I use for determining the infusion power is when a weapon is available during progression.\n" +
+				$"For instance, all weapons that are either dropped by Skeletron will have the same infusion power, and all weapon from the dungeon will be slightly higher than those dropped by Skeletron.\n" +
+				$"This is not a perfect way to determine the power of a weapon.  If a weapon is relatively powerful compared to when you can get it, the weapon will be more powerful than others when infused." +
+				$"Currently, the highest Infusion Power possible for vanilla weapons is from Zenith (1105).  Modded weapons can be up to a max of 1350 infusion power.\n" +
+				$"\n" +
 				$"Weapon infusion steps:\n" +
 				$"# Place the higher Infusion Power item into the enchanting table (this item will be destroyed)\n" +
 				$"# Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)\n" +
@@ -328,16 +329,17 @@ namespace WeaponEnchantments.Common.Utility.LogSystem {
 
 			EnchantingTable.AddSubHeading("Enchantment Loadouts", 2);
 
-			EnchantingTable.AddParagraph($"Enchantment loadouts don't store items.");
 			EnchantingTable.AddPNG("EnchantmentLoadoutUI");
-			EnchantingTable.AddParagraph($"They just save the type and tier of enchantment.  When creating an Enchantment Loadout, you can " +
-				$"quickly fill the slots by shift lift clicking enchantments from your storage to fill the next slot (The next slot to fill has a gold background when shift is held).  " +
+			EnchantingTable.AddParagraph($"Enchantment loadouts don't store items.<br/>\n" +
+				$"They just save the type and tier of enchantment.  When creating an Enchantment Loadout, you can " +
+				$"quickly fill the slots by shift left clicking enchantments from your storage to fill the next slot (The next slot to fill has a gold background when shift is held).  " +
 				$"You can also hold an enchantment in your mouse and click it on a slot instead.  Clicking on a slot with no enchantment in your mouse will clear the slot.<br/>\n" +
+				$"Add - Adds a new loadout (Max of 15).<br/>\n" +
+				$"Add From Equipped Enchantments - Create a loadout by copying your equipped enchantments<br/>\n" +
 				$"Loadout # - Clicking the Loadout button selects that loadout so you can see or edit it.<br/>\n" +
 				$"All - All replaces all enchantments on your held item, armor and accessories with the enchantments from the loadout.  If any item isn't high enough level " +
 				$"to support the enchantments for it's slot, the loadout will fail to load.<br/>\n" +
-				$"Held Item/Armor/Accessories - These buttons to the same thing as the All button, but only load the specific enchantments for the selected category.<br/>\n" +
-				$"Add - Adds a new loadout (Max of 15).");
+				$"Held Item/Armor/Accessories - These buttons to the same thing as the All button, but only load the specific enchantments for the selected category.<br/>");
 
 			EnchantingTable.AddSubHeading("Efficiently Upgrading your enchantment loadout", 2);
 			EnchantingTable.AddParagraph($"* Load a blank loadout to return all enchantments to the storage.\n" +

@@ -571,6 +571,17 @@ Mods: {
 					Label: Elimina las restricciones de encantamiento (¡Úsalo bajo tu propia responsabilidad!)
 					Tooltip: Elimina cosas como Unique, Max 1 y encantamientos específicos de tipo de arma o elemento.
 				}
+
+				SiphonExperiencePercentCost: {
+					Label: Experiencia Sifón % Costo
+					Tooltip:
+						'''
+						Extraer elementos solo devuelve una parte de la experiencia como esencia. Esta opción es el % que se PERDE, por lo que 1000 xp con un coste del 20% solo devolverán 800.
+						Si el valor del costo de experiencia fuera mayor que 4 veces el valor del objeto encantado, ese valor será el costo para evitar situaciones como perder 20 platinos de experiencia para guardar una espada de madera de nivel máximo.
+						En cambio, ofrecer artículos devuelve el 100% de la experiencia. Establézcalo en 0% para que no tenga costo y devuelva el 100% de la experiencia. Configúrelo al 100% para usar el sistema Siphon original.
+						El sistema Syphon original solo te permite extraer un elemento de nivel máximo y solo elimina el exceso de experiencia más allá del nivel máximo. sin costo alguno.
+						'''
+				}
 			}
 		}
 
@@ -658,6 +669,7 @@ Mods: {
 			ItemTooLowLevel: Tu nivel {0} es demasiado bajo para usar tantos encantamientos.
 			LogInfusionPowerLabels: Mod, Arma, Poder de infusión, Valor Rareza, Rareza, Rareza original, Valor, ID de artículo, Daño, Tiempo de uso, DPS
 			LogInfusionPowerOtherLabels: Rareza, Promedio, Mín., Máx.
+			MinSiphonXP: Solo puedes extraer un objeto si tiene al menos {0} experiencia.
 			MultipleUniqueEnchantments: Se detectaron múltiples encantamientos únicos en tu {0}. {1} ha sido eliminado de tu {2}.
 			MurasamaNoInfusion: Murasama no se puede consumir en infusión.
 			NewItemIsAir: newItem era aire.
@@ -674,7 +686,6 @@ Mods: {
 			NowLimitedToOne: "{0} Los encantamientos ahora están limitados a 1 por artículo. {1} se ha eliminado de tu {2}."
 			NPCInProgressionGroupNotInDropList: Se detectó un npc en un grupo de Progresión que no está en NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Se detectó un npc en un grupo de progresión que no tiene armas ni ingredientes únicos.
-			OnlySyphonMaxLevel: Solo puedes extraer un objeto si tiene el nivel máximo y más de {0} experiencia.
 			OpenEnchantingTableFirstTime:
 				'''
 				Sientes que todos tus encantamientos y esencias son arrastrados a la mesa de encantamientos.
@@ -1248,18 +1259,99 @@ Mods: {
 			general2: Usar encantamientos de armas en armaduras o accesorios
 			general3: Proporciona bonos disminuidos y viceversa.
 			Infusion: Infusión
+			InfusionCancelDescription: Devuelve tu {0} almacenado al espacio de artículos.
+			InfusionDescription:
+				'''
+				Te permite potenciar armas o armaduras sacrificando otras armas o armaduras.
+				Armas: Infundir un arma aumenta su estadística de daño en {0} por cada 100 de poder de infusión agregado.
+				(nuevo daño = daño base * {1}^((nuevo poder de infusión - poder de infusión base)/100))
+				-Coloca el arma más fuerte que quieras sacrificar en la ranura de Objeto, luego presiona Infusión.
+				-A continuación, coloca el arma más débil que deseas actualizar en la ranura del artículo y luego presiona Finalizar.
+				Armadura: La infusión de armadura transfiere la bonificación de conjunto del objeto sacrificado, reemplazando la bonificación de conjunto del objeto infundido.
+				Caso de uso: Te gusta más la bonificación del conjunto de armadura de cactus que tu armadura actual.
+				Sacrifica cada pieza de la armadura de cactus en cada pieza de tu armadura actual para transferir la bonificación del conjunto.
+				Cada pieza de armadura tiene su propia identificación de bonificación de conjunto, por lo que puedes tener conjuntos parciales, como un yelmo dorado con un yelmo de cactus infundido,
+				patas de cactus, cofre de cactus, dando el efecto de conjunto de armadura de cactus.
+				-Coloca el elemento de armadura que deseas sacrificar en la ranura para elementos (se transferirá su bonificación de conjunto), luego presiona Infusión.
+				-Coloca el elemento de armadura que deseas modificar en la ranura para elementos (se reemplazará su bonificación de conjunto), luego presiona Finalizar.
+				(Los encantamientos, la experiencia y los potenciadores de poder del objeto sacrificado te serán devueltos como si estuvieran ofrecidos).
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Finaliza sacrificando tu {0} para reemplazar el bono establecido
+				en tu {1} con el bono establecido de tu {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Finaliza sacrificando tu {0} para
+				aumenta el daño de tu {1}.
+				'''
 			Item: Artículo
 			LevelUp: Subir nivel
+			LevelUpDescription:
+				'''
+				Sube de nivel tu {0} del nivel {1} al nivel {2}.
+				Cuesta {3} experiencia. Experiencia disponible: {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Establece cuántos niveles se agregarán con
+				el botón Subir nivel a {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Abre o cierra el menú Equipamiento de encantamientos.
+				Las cargas de encantamientos no almacenan elementos.
+				Simplemente guardan el tipo y nivel de encantamiento.
+				Al crear un equipamiento de encantamiento, puedes llenar rápidamente los espacios
+				cambia los encantamientos al hacer clic izquierdo desde tu almacenamiento para llenar el siguiente espacio
+				(El siguiente espacio a llenar tiene un fondo dorado cuando se mantiene el turno).
+				También puedes mantener un encantamiento en el mouse y hacer clic en él en una ranura.
+				Al hacer clic en una ranura sin encantamiento con el mouse, se borrará la ranura.
+
+				Agregar: agrega una nueva carga (máximo de 15).
+				Agregar desde encantamientos equipados: crea un equipamiento copiando tus encantamientos equipados.
+				Equipamiento n.°: al hacer clic en el botón Equipamiento, se selecciona ese equipamiento para que puedas verlo o editarlo.
+				Todo: Todo reemplaza todos los encantamientos de tu objeto, armadura y accesorios con
+				los encantamientos del equipamiento. Si algún elemento no tiene un nivel lo suficientemente alto
+				para admitir los encantamientos de su ranura, el equipamiento no se cargará.
+				Objeto retenido/Armadura/Accesorios: estos botones son lo mismo que el botón Todo, pero
+				Solo carga los encantamientos específicos para la categoría seleccionada.
+				'''
 			Loadouts: Cargas
 			LootAll: Saquear todos
+			LootAllDescription:
+				'''
+				Elimina todos los encantamientos de tu {0}, enviándolos al
+				Almacenamiento de encantamientos y devuelve tu {0} a tu inventario.
+				'''
 			No: No
 			Offer: Ofrecer
+			OfferDescription:
+				'''
+				Ofrece tu {0}, DESTRUYENDOLO a cambio de minerales/esencia.
+				El porcentaje de minerales/esencia se puede ajustar en la configuración.
+				'''
+			Siphon: Drenar
+			SiphonDescription:
+				'''
+				Consume {0} experiencia de tu {1} para eliminar todo
+				encantamientos, potenciadores de poder, objetos infundidos y
+				experiencia restante sin destruir tu {1}.
+				Ofrecer artículos devuelve toda la esencia, por lo que es una
+				mejor opción a menos que necesite conservar su {1}.
+				'''
 			Storage: Almacenamiento
-			Syphon: Drenar
+			StorageDescription: Abre o cierra el Almacenamiento de encantamientos.
 			ToggleAutoTrashOfferedItems: Toggle Papelera automática Elementos ofrecidos
 			utility0: Solo los encantamientos de utilidad pueden ir aquí.
 			weapon0: Coloca aquí un arma, pieza de armadura o accesorio.
 			xp: XP
+			XPButtonDescription:
+				'''
+				Consume uno {0}
+				para agregar {1} experiencia a tu {2}.
+				'''
 			Yes: Sí
 		}
 

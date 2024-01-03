@@ -64,5 +64,6 @@ namespace WeaponEnchantments.Common.Configs
 			serverConfig.EnchantmentSlotsOnTools
 		};
 		public static float MinionLifeStealMultiplier => serverConfig.MinionLifeStealMultiplier / 100f;
+		public static float SiphonExperienceCost => serverConfig.SiphonExperiencePercentCost / 100f;
 	}
 }

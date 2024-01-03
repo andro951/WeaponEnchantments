@@ -165,7 +165,7 @@ namespace WeaponEnchantments.Common.Utility {
 		Yes,
 		No,
 		LootAll,
-		Syphon,
+		Siphon,
 		LevelUp,
 		xp,
 		Offer,
@@ -188,7 +188,19 @@ namespace WeaponEnchantments.Common.Utility {
 		utility0,
 		essence0,
 		Loadouts,
-		ToggleAutoTrashOfferedItems
+		ToggleAutoTrashOfferedItems,
+		LootAllDescription,
+		OfferDescription,
+		StorageDescription,
+		SiphonDescription,
+		InfusionDescription,
+		InfusionFinalizeDescriptionWeapon,
+		InfusionFinalizeDescriptionArmor,
+		InfusionCancelDescription,
+		LevelUpDescription,
+		XPButtonDescription,
+		LoadoutDescription,
+		LevelUpNumberDescription
 	}
 	public enum EnchantmentStorageTextID {
 		//LootAll,
@@ -251,7 +263,7 @@ namespace WeaponEnchantments.Common.Utility {
 		ItemRemovedRelacedWithItem,
 		MainUpdateCount,
 		NewItemIsAir,
-		OnlySyphonMaxLevel,
+		MinSiphonXP,
 		InfusionConsumeItemWasNull,
 		MurasamaNoInfusion,
 		FavoritedItemsCantBeConsumedForInfusion,
