@@ -1,4 +1,5 @@
-﻿using System;
+﻿using androLib.Common.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool InstancePerEntity => true;
 
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-			return IsTool(entity);
+			return entity.IsTool();
 		}
 		public override EItemType ItemType => EItemType.Tools;
 	}

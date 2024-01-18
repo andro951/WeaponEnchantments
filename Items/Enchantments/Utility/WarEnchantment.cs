@@ -4,6 +4,9 @@ using Terraria.ID;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Items;
+using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -26,28 +29,33 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			};
 		}
 
-		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {GetLocalizationTypeName()}";
+		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class WarEnchantmentBasic : WarEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
-		public override List<WeightedPair> NpcDropTypes => new() {
-			new(NPCID.PirateShip),
-			new(NPCID.PirateCaptain)
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.PirateShip, chance: 0.5f),
+			new(NPCID.PirateCaptain, chance: 0.25f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Shadow, 0.8f },
-			{ ChestID.Shadow_Locked, 0.8f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Shadow),
+			new(ChestID.Shadow_Locked)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
-			new(CrateID.Obsidian_LockBox, 0.4f)
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Obsidian_LockBox, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class WarEnchantmentCommon : WarEnchantment { }
+	[Autoload(false)]
 	public class WarEnchantmentRare : WarEnchantment { }
+	[Autoload(false)]
 	public class WarEnchantmentEpic : WarEnchantment { }
+	[Autoload(false)]
 	public class WarEnchantmentLegendary : WarEnchantment { }
 }

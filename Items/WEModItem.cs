@@ -4,34 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.Creative;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
+using androLib.Common.Utility;
+using androLib.Items;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class WEModItem : ModItem
+	public abstract class WEModItem : AndroModItem
 	{
+		public virtual bool CanBeStoredInEnchantmentStroage => false;
 		public virtual DropRestrictionsID DropRestrictionsID => DropRestrictionsID.None;
-		public abstract List<WikiTypeID> WikiItemTypes { get; }
-		public abstract string Artist { get; }
-		public virtual string ArtModifiedBy => null;
-		public abstract string Designer { get; }
-		public virtual bool ConfigOnlyDrop => false;
-		public virtual string WikiDescription => null;
-		public virtual bool DynamicTooltip => false;
-		public virtual string LocalizationTooltip { protected set; get; }
-		protected string localizationTooltip;
 		public abstract int CreativeItemSacrifice { get; }
-
+		protected override Action<ModItem, string, string> AddLocalizationTooltipFunc => WeaponEnchantments.Localization.LocalizationDataStaticMethods.AddLocalizationTooltip;
 		public override void SetStaticDefaults() {
-			if (!WEMod.serverConfig.DisableResearch && CreativeItemSacrifice > -1)
+			if (!WEMod.serverConfig.DisableResearch && CreativeItemSacrifice > -1) {
 				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = CreativeItemSacrifice;
+			}
+			else {
+				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = -1;
+			}
 
-			if (!DynamicTooltip)
-				this.AddLocalizationTooltip(LocalizationTooltip);
-
-			LogModSystem.UpdateContributorsList(this);
+			LogModSystem.UpdateContributorsList(this);//TODO: move to androLib
+			base.SetStaticDefaults();
 		}
 	}
 }

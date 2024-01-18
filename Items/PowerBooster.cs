@@ -7,10 +7,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
-    public class PowerBooster : WEModItem
+	[Autoload(false)]
+	public class PowerBooster : WEModItem
     {
         public static int ID;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
@@ -18,6 +20,7 @@ namespace WeaponEnchantments.Items
         public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.PowerBooster };
         public override bool ConfigOnlyDrop => true;
         public override int CreativeItemSacrifice => 1;
+		public override bool CanBeStoredInEnchantmentStroage => true;
 		public override string LocalizationTooltip => 
             "Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.\n" +
 			"(Shift left click from your inventory or left click on item in the table with this on your cursor.)\n" +

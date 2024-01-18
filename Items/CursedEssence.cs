@@ -10,7 +10,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
@@ -46,18 +47,13 @@ namespace WeaponEnchantments.Items
 		}
 
 		public override void AddRecipes() {
-			for (int i = 0; i < tierNames.Length; i++) {
-                if (!ConfigValues.useAllRecipes && i != tierNames.Length - 1)
-                    continue;
-
-                Recipe recipe = CreateRecipe();
-                recipe.createItem = new(ModContent.ItemType<EnchantmentEssenceEpic>());
-                recipe.AddIngredient(Type);
-                int num = !ConfigValues.useAllRecipes ? 20 / (tierNames.Length - 1) : 20 / (i + 1);
-                recipe.AddIngredient(ItemID.PurificationPowder, num);
-                recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
-                recipe.Register();
-			}
+			Recipe recipe = CreateRecipe();
+			recipe.createItem = new(ModContent.ItemType<EnchantmentEssenceEpic>());
+			recipe.AddIngredient(Type);
+			int num = 20;
+			recipe.AddIngredient(ItemID.PurificationPowder, num);
+			recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[3] + "EnchantingTable");
+			recipe.Register();
 		}
 		public override void UpdateInventory(Player player) {
             player.GetWEPlayer().cursedEssenceCount += Item.stack;

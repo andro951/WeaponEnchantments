@@ -4,6 +4,9 @@ using Terraria.ID;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -29,27 +32,32 @@ namespace WeaponEnchantments.Items.Enchantments
 			};
 		}
 
-		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {GetLocalizationTypeName()}";
+		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class AllForOneEnchantmentBasic : AllForOneEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
-		public override List<WeightedPair> NpcDropTypes => new() {
-			new(NPCID.Mothron)
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.Mothron, chance: 0.1f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold_Locked, 1f },
-			{ ChestID.Lihzahrd, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold_Locked),
+			new(ChestID.Lihzahrd)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
-			new(CrateID.Golden_LockBox, 0.45f)
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Golden_LockBox, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class AllForOneEnchantmentCommon : AllForOneEnchantment { }
+	[Autoload(false)]
 	public class AllForOneEnchantmentRare : AllForOneEnchantment { }
+	[Autoload(false)]
 	public class AllForOneEnchantmentEpic : AllForOneEnchantment { }
+	[Autoload(false)]
 	public class AllForOneEnchantmentLegendary : AllForOneEnchantment { }
 }

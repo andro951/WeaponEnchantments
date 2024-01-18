@@ -2,6 +2,9 @@
 using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Items;
+using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -27,21 +30,26 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentBasic : MovementSpeedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.EyeofCthulhu),
-			new(NPCID.GiantWalkingAntlion),
-			new(NPCID.WalkingAntlion)
+			new(NPCID.GiantWalkingAntlion, 10f),
+			new(NPCID.WalkingAntlion, 10f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
-			new(CrateID.Oasis),
-			new(CrateID.Mirage_OasisHard)
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Oasis, 0.5f),
+			new(CrateID.Mirage_OasisHard, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentCommon : MovementSpeedEnchantment { }
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentRare : MovementSpeedEnchantment { }
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentEpic : MovementSpeedEnchantment { }
+	[Autoload(false)]
 	public class MovementSpeedEnchantmentLegendary : MovementSpeedEnchantment { }
 }

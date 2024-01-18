@@ -1,6 +1,10 @@
-﻿using System;
+﻿using androLib;
+using androLib.Common.Utility;
+using KokoLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
@@ -10,13 +14,13 @@ using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.ModLib.KokoLib;
 using static Terraria.Player;
 
 namespace WeaponEnchantments.Common.Globals
 {
 	public class QuestFish : GlobalItem
 	{
-		public bool automaticTurnIn = false;
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
 			return Main.anglerQuestItemNetIDs.ToList().Contains(entity.type);
@@ -26,7 +30,7 @@ namespace WeaponEnchantments.Common.Globals
 			int questFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
 			if (questFish == type) {
 				Player player = Main.LocalPlayer;
-				if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.QuestFishChance, out float notUsed)) {
+				if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.QuestFishChance, out float _)) {
 					stack = 0;
 
 					NPC angler = new();
@@ -43,27 +47,38 @@ namespace WeaponEnchantments.Common.Globals
 					Main.LocalPlayer.anglerQuestsFinished++;
 
 					if (foundAngler) {
-						Main.LocalPlayer.GetAnglerReward(angler);
+						Main.LocalPlayer.GetAnglerReward(angler, type);
 					}
 					else {
-						$"Failed to locate the Angler.  You will still recieve rewards".LogNT(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
+						GameMessageTextID.FailedToLocateAngler.ToString().Lang_WE(L_ID1.GameMessages).LogNT(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);// $"Failed to locate the Angler.  You will still receive rewards".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToLocateAngler);
 						GetAnglerLoot();
 					}
 
 					Main.anglerQuestFinished = true;
-					if (Main.netMode == 1)
-						NetMessage.SendData(75);
-					else
+					if (Main.netMode == NetmodeID.MultiplayerClient) {
+						NetMessage.SendData(MessageID.AnglerQuestFinished);
+					}
+					else {
 						Main.anglerWhoFinishedToday.Add(player.name);
+					}
 
 					AchievementsHelper.HandleAnglerService();
 
-					Main.AnglerQuestSwap();
-					int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
-					Main.NewText($"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.\n" +
-						$"{Lang.AnglerQuestChat(false)}");
+					if (Main.netMode == NetmodeID.MultiplayerClient) {
+						Net<INetMethods>.Proxy.NetAnglerQuestSwap();
+					}
+					else {
+						Main.AnglerQuestSwap();
+						PrintAnglerQuest();
+					}
 				}
 			}
+		}
+
+		public static void PrintAnglerQuest() {
+			int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
+			Main.NewText($"{GameMessageTextID.FishingQuestTurnedIn.ToString().Lang_WE(L_ID1.GameMessages, new object[] { ContentSamples.ItemsByType[newQuestFish].Name, Main.LocalPlayer.anglerQuestsFinished })}\n" +//$"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.  Quests finished: {Main.LocalPlayer.anglerQuestsFinished}\n" +
+				$"{Lang.AnglerQuestChat(false)}");
 		}
 
 		private void GetAnglerLoot() {
@@ -82,16 +97,19 @@ namespace WeaponEnchantments.Common.Globals
 
 			PlayerLoader.AnglerQuestReward(player, num2, rewardItems);
 
-			foreach (Item rewardItem in rewardItems) {
+			for (int i = 0; i < rewardItems.Count; i++) {
+				Item rewardItem = rewardItems[i];
 				rewardItem.position = player.Center;
 
-				Item getItem = player.GetItem(player.whoAmI, rewardItem, GetItemSettings.NPCEntityToPlayerInventorySettings);
+				if (!StorageManager.TryReturnItemToPlayer(ref rewardItem, player, true)) {
+					Item getItem = player.GetItem(player.whoAmI, rewardItem, GetItemSettings.NPCEntityToPlayerInventorySettings);
 
-				if (getItem.stack > 0) {
-					int number = Item.NewItem(player.GetSource_Loot("Angler Quest Rewards (Weapon Enchantments)") , (int)player.position.X, (int)player.position.Y, player.width, player.height, getItem.type, getItem.stack, noBroadcast: false, 0, noGrabDelay: true);
+					if (getItem.stack > 0) {
+						int number = Item.NewItem(player.GetSource_Loot("Angler Quest Rewards (Weapon Enchantments)"), (int)player.position.X, (int)player.position.Y, player.width, player.height, getItem.type, getItem.stack, noBroadcast: false, 0, noGrabDelay: true);
 
-					if (Main.netMode == 1)
-						NetMessage.SendData(21, -1, -1, null, number, 1f);
+						if (Main.netMode == 1)
+							NetMessage.SendData(21, -1, -1, null, number, 1f);
+					}
 				}
 			}
 		}
@@ -101,19 +119,19 @@ namespace WeaponEnchantments.Common.Globals
 			item.type = 0;
 			switch (questsDone) {
 				case 5:
-					item.SetDefaults(2428);
+					item.SetDefaults(ItemID.FuzzyCarrot);
 					break;
 				case 10:
-					item.SetDefaults(2367);
+					item.SetDefaults(ItemID.AnglerHat);
 					break;
 				case 15:
-					item.SetDefaults(2368);
+					item.SetDefaults(ItemID.AnglerVest);
 					break;
 				case 20:
-					item.SetDefaults(2369);
+					item.SetDefaults(ItemID.AnglerPants);
 					break;
 				case 30:
-					item.SetDefaults(2294);
+					item.SetDefaults(ItemID.GoldenFishingRod);
 					break;
 				default: {
 					List<int> itemIdsOfAccsWeWant = new List<int> {

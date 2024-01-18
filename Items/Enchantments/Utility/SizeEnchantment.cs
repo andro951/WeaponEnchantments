@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using androLib.Common.Utility;
+using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -21,23 +23,31 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class SizeEnchantmentBasic : SizeEnchantment
 	{
-		public override List<WeightedPair> NpcAIDrops => new() {
-			new(NPCAIStyleID.DemonEye)
+		public override List<DropData> NpcAIDrops => new() {
+			new(NPCAIStyleID.DemonEye, 4f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Chest_Normal, 1f },
-			{ ChestID.LivingWood, 1f }
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCAIStyleID.EyeOfCthulhu)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f)
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+			new(ChestID.LivingWood)
+		};
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f)
 		};
 	}
+	[Autoload(false)]
 	public class SizeEnchantmentCommon : SizeEnchantment { }
+	[Autoload(false)]
 	public class SizeEnchantmentRare : SizeEnchantment { }
+	[Autoload(false)]
 	public class SizeEnchantmentEpic : SizeEnchantment { }
+	[Autoload(false)]
 	public class SizeEnchantmentLegendary : SizeEnchantment { }
 
 }

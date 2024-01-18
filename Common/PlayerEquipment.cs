@@ -12,6 +12,8 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Common.Globals.EnchantedWeapon;
 using static WeaponEnchantments.WEPlayer;
+using static WeaponEnchantments.Common.Configs.ConfigValues;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common {
     public class PlayerEquipment {
@@ -24,22 +26,27 @@ namespace WeaponEnchantments.Common {
         public Item InfusedHead;
         public Item InfusedBody;
         public Item InfusedLegs;
-        private Item[] Accesories;
+        private Item[] Accessories;
         WEPlayer wePlayer;
 
         public PlayerEquipment(Player player) {
-            heldItem[0] = player.HeldItem;
+            heldItem[0] = player.HeldItem ?? new();
 
             wePlayer = player.GetWEPlayer();
             ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
             AccessorySlotLoader loader = LoaderManager.Get<AccessorySlotLoader>();
 
-            int moddedSlotCount = alp.SlotCount;
+            List<Item> modAccessories = new();
+            for (int i = 0; i < alp.SlotCount; i++) {
+				var slot = loader.Get(i, player);
+				if (loader.ModdedIsItemSlotUnlockedAndUsable(i, player) /*&& slot.IsEnabled()*/)
+                    modAccessories.Add(slot.FunctionalItem ?? new());
+            }
 
-            Accesories = new Item[vanillaAccesorySlots + moddedSlotCount]; 
+            Accessories = new Item[vanillaAccesorySlots + modAccessories.Count];
 
-            for(int i = 0; i < vanillaArmorSlots; i++) {        // Set all (vanilla) armor slots
-                Armor[i] = player.armor[i];
+            for(int i = 0; i < vanillaArmorSlots; i++) {
+                Armor[i] = player.armor[i] ?? new();
 
                 if (Armor[i].TryGetEnchantedItem(out EnchantedArmor enchantedArmor)) {
                     if (enchantedArmor.infusedItem == null)
@@ -59,15 +66,15 @@ namespace WeaponEnchantments.Common {
 				}
             }
 
-            for (int i = 0; i < vanillaAccesorySlots; i++) {    // Set all vanilla accesory slots
-                Accesories[i] = player.armor[i + 3];
+            for (int i = 0; i < vanillaAccesorySlots; i++) {
+                Item item = player.armor[i + 3];
+                Accessories[i] = player.armor[i + 3] ?? new();
             }
 
-            for (int i = 0; i < moddedSlotCount; i++) {         // Set all modded accesory slots (cheatsheet does what it wants)
-                var slot = loader.Get(i, player);
-                if (slot.IsEnabled() && !slot.IsEmpty)
-                    Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem;
-            }
+            for (int i = 0; i < modAccessories.Count; i++) {
+                Item item = modAccessories[i];
+                Accessories[i + vanillaAccesorySlots] = modAccessories[i];
+			}
         }
 
         public static bool operator ==(PlayerEquipment pe, PlayerEquipment other) {
@@ -87,6 +94,17 @@ namespace WeaponEnchantments.Common {
         public void UpdateEnchantedEquipItemEffects(IEnumerable<EnchantedEquipItem> enchantedItems) {
             List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
 
+            //Damage Reduction Per level
+            if (!WEMod.serverConfig.DamageReductionPerLevelDisabled) {
+                float armorMultiplier = ArmorDamageReductionPerLevel;
+                float accessoryMultiplier = AccessoryDamageReductionPerLevel;
+                foreach(EnchantedEquipItem enchantedItem in enchantedItems) {
+                    float damageReduction = enchantedItem.GetPerLevelDamageReduction(armorMultiplier, accessoryMultiplier);
+					if (damageReduction > 0f)
+						enchantmentEffects.Add(new DamageReduction(@base: new DifficultyStrength(damageReduction)));
+                }
+            }
+
             // Get all non null enchanted items
             foreach (EnchantedEquipItem enchantedItem in enchantedItems) {
                 // For each enchanted item, get its enchantments
@@ -98,19 +116,39 @@ namespace WeaponEnchantments.Common {
         }
         public void UpdateEnchantedHeldItemEffects(EnchantedHeldItem enchantedHeldItem) {
             List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
-            GetEnchantmentEffects(enchantedHeldItem, enchantmentEffects);
+            if (!WEMod.serverConfig.CritPerLevelDisabled && enchantedHeldItem is EnchantedWeapon enchantedWeapon) {
+                float bonus = enchantedWeapon.GetPerLevelBonus();
+                if (bonus > 0f) {
+					if (enchantedHeldItem.Item.pick > 0 || enchantedHeldItem.Item.hammer > 0 || enchantedHeldItem.Item.axe > 0) {
+						enchantmentEffects.Add(new MiningSpeed(@base: new DifficultyStrength(bonus)));
+					}
+                    else if (enchantedHeldItem.Item.IsFishingPole()) {
+						enchantmentEffects.Add(new FishingPower(@base: new DifficultyStrength(bonus * 100)));
+					}
+					else if (WEMod.serverConfig.DamagePerLevelInstead) {
+                        enchantmentEffects.Add(new DamageAfterDefenses(multiplicative: new DifficultyStrength(1f + bonus)));
+				    }
+					else {
+                        enchantmentEffects.Add(new CriticalStrikeChance(@base: new DifficultyStrength(bonus)));
+					}
+				}
+            }
+
+			GetEnchantmentEffects(enchantedHeldItem, enchantmentEffects);
+            List<IAddDynamicEffects> addDynamicEffects = enchantmentEffects.OfType<IAddDynamicEffects>().ToList();
+			foreach (IAddDynamicEffects effect in addDynamicEffects) {
+                effect.AddDynamicEffects(enchantmentEffects, enchantedHeldItem);
+            }
+
             enchantedHeldItem.EnchantmentEffects = enchantmentEffects;
             SortEnchantmentEffects(enchantedHeldItem);
         }
 
         public void GetEnchantmentEffects(EnchantedItem enchantedItem, List<EnchantmentEffect> effects) {
-            IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.Select(e => e.ModItem).OfType<Enchantment>();
+            IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.All.Select(e => e.ModItem).OfType<Enchantment>();
             // For each enchantment get its effects
             foreach (Enchantment enchantment in enchantments) {
                 foreach (EnchantmentEffect enchantmentEffect in enchantment.Effects) {
-                    if (enchantmentEffect is BoolEffect boolEffect && boolEffect.StrengthData != null && boolEffect.MinimumStrength > boolEffect.StrengthData.Value)
-                        continue;
-
                     effects.Add(enchantmentEffect);
                 }
             }
@@ -162,16 +200,17 @@ namespace WeaponEnchantments.Common {
 		    return result;
 	    }
         public void CombineDictionaries() {
-			if (!HeldItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+			if (!HeldItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
 				enchantedHeldItem = new EnchantedWeapon();
 
 			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedHeldItem.VanillaStats, true);
             wePlayer.CombinedOnTickBuffs = CombineBuffEffectDictionaries(wePlayer.OnTickBuffs, enchantedHeldItem.OnTickBuffs);
             wePlayer.CombinedBoolEffects = CombineBoolEffectDictionaries(wePlayer.CombinedBoolEffects, enchantedHeldItem.BoolEffects);
+            wePlayer.CombinedPassiveEffects = CombinePassiveEffectDictionaries(wePlayer.PassiveEffects, enchantedHeldItem.PassiveEffects);
         }
         public void CombineOnHitDictionaries(Item item = null) {
             item ??= heldItem[0];
-            if (!item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (!item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 enchantedHeldItem = new EnchantedWeapon();
 
             wePlayer.CombinedModifyShootStatEffects = wePlayer.ModifyShootStatEffects.Concat(enchantedHeldItem.ModifyShootStatEffects).ToList();
@@ -210,19 +249,22 @@ namespace WeaponEnchantments.Common {
 
             return result;
         }
-        public IEnumerable<Item> GetAllArmor() {
-            Item[] items = new Item[Armor.Length + Accesories.Length];
-            Armor.CopyTo(items, 0);
-            Accesories.CopyTo(items, Armor.Length);
+        private List<IPassiveEffect> CombinePassiveEffectDictionaries(List<IPassiveEffect> playerList, List<IPassiveEffect> heldItemList) {
+			List<IPassiveEffect> result = new List<IPassiveEffect>(playerList);
+            foreach (IPassiveEffect passiveEffect in heldItemList) {
+                result.Add(passiveEffect);
+            }
 
-            return items;
-        }
+            return result;
+		}
+
+		public IEnumerable<Item> GetAllArmor() => Armor.Concat(Accessories);
 
         private IEnumerable<Item> GetAllItems() {
-            Item[] items = new Item[1 + Armor.Length + Accesories.Length];
+            Item[] items = new Item[1 + Armor.Length + Accessories.Length];
             items[0] = heldItem[0];
             Armor.CopyTo(items, 1);
-            Accesories.CopyTo(items, 1 + Armor.Length);
+            Accessories.CopyTo(items, 1 + Armor.Length);
 
             return items;
         }
@@ -236,10 +278,13 @@ namespace WeaponEnchantments.Common {
         }
 
         private EnchantedHeldItem GetEnchantedHeldItem(Item item) {
-            if (item != null && item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (item != null && item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 return enchantedHeldItem;
 
-            if (HeldItem.TryGetEnchantedItem(out enchantedHeldItem))
+            if (Main.mouseItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
+                return enchantedHeldItem;
+
+			if (HeldItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
                 return enchantedHeldItem;
 
             return null;
@@ -248,7 +293,23 @@ namespace WeaponEnchantments.Common {
         //public IEnumerable<EnchantmentEffect> GetAllEnchantmentEffects() {
         //    return ExtractEnchantmentEffects(GetEnchantedItems());
         //}
+        public void CheckRemoveEnchantments() {
+            Player player = wePlayer.Player;
+			if (!HeldItem.NullOrAir())
+				HeldItem.CheckRemoveEnchantments(player);
 
+			for (int i = 0; i < Armor.Length; i++) {
+				ref Item item = ref Armor[i];
+				if (!item.NullOrAir())
+					item.CheckRemoveEnchantments(player);
+			}
+
+			for (int i = 0; i < Accessories.Length; i++) {
+				ref Item item = ref Accessories[i];
+				if (!item.NullOrAir())
+					item.CheckRemoveEnchantments(player);
+			}
+		}
         public void UpdateArmorEnchantmentEffects() {
             UpdateEnchantedEquipItemEffects(GetEnchantedEquipItems());
         }
@@ -276,7 +337,7 @@ namespace WeaponEnchantments.Common {
                 return false;
 
             for (int i = 0; i < count; i++) {
-                    Item ci = myItems.ElementAt(i);
+                Item ci = myItems.ElementAt(i);
                 Item ci2 = otherItems.ElementAt(i);
                 if (ci.NullOrAir() && ci2.NullOrAir())
                     continue;
@@ -288,4 +349,29 @@ namespace WeaponEnchantments.Common {
             return true;
         }
     }
+
+    public static class PlayerEquipmentStaticMethods {
+		public static void AllArmorGainXp(this Player player, int xp) {
+			IEnumerable<Item> allArmor = player.GetWEPlayer().Equipment.GetAllArmor();
+			foreach (Item armor in allArmor) {
+				//Gain xp on each armor
+				if (!armor.vanity && armor.TryGetEnchantedItemSearchAll(out EnchantedItem aGlobal)) {
+					float reductionFactor;
+					if (armor.IsArmorItem()) {
+						reductionFactor = 2f;
+					}
+					else {
+						reductionFactor = 4f;
+					}
+
+					int xpInt = (int)Math.Round(xp / reductionFactor);
+
+					if (xpInt <= 0)
+						xpInt = 1;
+
+					aGlobal.GainXP(armor, xpInt);
+				}
+			}
+		}
+	}
 }

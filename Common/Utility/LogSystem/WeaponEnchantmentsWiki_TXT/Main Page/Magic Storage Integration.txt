@@ -1,0 +1,15 @@
+[[|Main Page]]<br/>
+Weapon Enchantments is fully integrated to Magic Storage as of Magic Storage version 0.5.7.7<br/>
+=== Don'ts: ===
+Don't put an enchanting table into the Crafting Interface crafting station slot.  This is accomplished with the Storage Configuration Interface.<br/>
+[[File:Crafting_Stations.png]]<br/>
+Don't put essence into the Magic Storage system.  Leave it in the Enchanting table.<br/>
+[[File:Essence in Magic Storage.png]]<br/>
+=== Storage Configuration Interface: ===
+The Storage Configuration Interface from magic storage is used by Weapon Enchantments for 2 things.<br/>
+Allow crafting in with the Crafting Interface to use Essence from in the Enchanting table as materials for crafting.<br/>
+Acts as the highest tier of enchanting table you have used for the purpose of crafting.<br/>
+[[File:Environment Module.png]]<br/>
+=== Toggle On/Off ===
+You can toggle these features to hide all of the enchanting related recipes if desired.  (I recommend leaving them on)<br/>
+[[File:Environment Module Toggle.png]]<br/>

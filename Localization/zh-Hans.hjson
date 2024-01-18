@@ -1,324 +1,590 @@
-#Contributed by  1090549930 Kiritan-Github, @An unilolusiality
+#
 Mods: {
 	WeaponEnchantments: {
-		ItemName: {
-			AllForOneEnchantmentBasic: 万众一心附魔基元
-			AllForOneEnchantmentCommon: 万众一心附魔普通
-			AllForOneEnchantmentEpic: 万众一心附魔史诗
-			AllForOneEnchantmentLegendary: 万众一心附魔传奇
-			AllForOneEnchantmentRare: 万众一心附魔稀有
-			AmmoCostEnchantmentBasic: 弹药消耗附魔基元
-			AmmoCostEnchantmentCommon: 弹药消耗附魔普通
-			AmmoCostEnchantmentEpic: 弹药消耗附魔史诗
-			AmmoCostEnchantmentLegendary: 弹药消耗附魔传奇
-			AmmoCostEnchantmentRare: 弹药消耗附魔稀有
-			ArmorPenetrationEnchantmentBasic: 护甲穿透附魔基元
-			ArmorPenetrationEnchantmentCommon: 护甲穿透附魔普通
-			ArmorPenetrationEnchantmentEpic: 护甲穿透附魔史诗
-			ArmorPenetrationEnchantmentLegendary: 护甲穿透附魔传奇
-			ArmorPenetrationEnchantmentRare: 护甲穿透附魔稀有
-			AttackSpeedEnchantmentBasic: 攻速附魔基元
-			AttackSpeedEnchantmentCommon: 攻速附魔普通
-			AttackSpeedEnchantmentEpic: 攻速附魔史诗
-			AttackSpeedEnchantmentLegendary: 攻速附魔传奇
-			AttackSpeedEnchantmentRare: 攻速附魔稀有
-			BerserkersRageEnchantmentBasic: 狂暴者之怒附魔基元
-			BerserkersRageEnchantmentCommon: 狂暴者之怒附魔普通
-			BerserkersRageEnchantmentEpic: 狂暴者之怒附魔史诗
-			BerserkersRageEnchantmentLegendary: 狂暴者之怒附魔传奇
-			BerserkersRageEnchantmentRare: 狂暴者之怒附魔稀有
-			CalmWatersEnchantmentBasic: 风平浪静附魔基元
-			CalmWatersEnchantmentCommon: 风平浪静附魔普通
-			CalmWatersEnchantmentEpic: 风平浪静附魔史诗
-			CalmWatersEnchantmentLegendary: 风平浪静附魔传奇
-			CalmWatersEnchantmentRare: 风平浪静附魔稀有
-			ChaoticFishingEnchantmentBasic: 混沌渔力附魔基元
-			ChaoticFishingEnchantmentCommon: 混沌渔力附魔普通
-			ChaoticFishingEnchantmentEpic: 混沌渔力附魔史诗
-			ChaoticFishingEnchantmentLegendary: 混沌渔力附魔传奇
-			ChaoticFishingEnchantmentRare: 混沌渔力附魔稀有
-			ColdSteelEnchantmentBasic: 冰冷之钢附魔基元
-			ColdSteelEnchantmentCommon: 冰冷之钢附魔普通
-			ColdSteelEnchantmentEpic: 冰冷之钢附魔史诗
-			ColdSteelEnchantmentLegendary: 冰冷之钢附魔传奇
-			ColdSteelEnchantmentRare: 冰冷之钢附魔稀有
-			CrateChanceEnchantmentBasic: 板条箱附魔基元
-			CrateChanceEnchantmentCommon: 板条箱附魔普通
-			CrateChanceEnchantmentEpic: 板条箱附魔史诗
-			CrateChanceEnchantmentLegendary: 板条箱附魔传奇
-			CrateChanceEnchantmentRare: 板条箱附魔稀有
-			CrateEnchantmentBasic: 宝匣药水附魔基元
-			CrateEnchantmentCommon: 宝匣药水附魔普通
-			CrateEnchantmentEpic: 宝匣药水附魔史诗
-			CrateEnchantmentLegendary: 宝匣药水附魔传奇
-			CrateEnchantmentRare: 宝匣药水附魔稀有
-			CriticalStrikeChanceEnchantmentBasic: 暴击率附魔基元
-			CriticalStrikeChanceEnchantmentCommon: 暴击率附魔普通
-			CriticalStrikeChanceEnchantmentEpic: 暴击率附魔史诗
-			CriticalStrikeChanceEnchantmentLegendary: 暴击率附魔传奇
-			CriticalStrikeChanceEnchantmentRare: 暴击率附魔稀有
-			CriticalStrikeDamageEnchantmentBasic: 暴击伤害附魔基元
-			CriticalStrikeDamageEnchantmentCommon: 暴击伤害附魔普通
-			CriticalStrikeDamageEnchantmentEpic: 暴击伤害附魔史诗
-			CriticalStrikeDamageEnchantmentLegendary: 暴击伤害附魔传奇
-			CriticalStrikeDamageEnchantmentRare: 暴击伤害附魔稀有
-			CursedInfernoEnchantmentBasic: 诅咒之焰附魔基元
-			CursedInfernoEnchantmentCommon: 诅咒之焰附魔普通
-			CursedInfernoEnchantmentEpic: 诅咒之焰附魔史诗
-			CursedInfernoEnchantmentLegendary: 诅咒之焰附魔传奇
-			CursedInfernoEnchantmentRare: 诅咒之焰附魔稀有
-			DamageEnchantmentBasic: 伤害附魔基元
-			DamageEnchantmentCommon: 伤害附魔普通
-			DamageEnchantmentEpic: 伤害附魔史诗
-			DamageEnchantmentLegendary: 伤害附魔传奇
-			DamageEnchantmentRare: 伤害附魔稀有
-			DamageReductionEnchantmentBasic: 伤害减免附魔基元
-			DamageReductionEnchantmentCommon: 伤害减免附魔普通
-			DamageReductionEnchantmentEpic: 伤害减免附魔史诗
-			DamageReductionEnchantmentLegendary: 伤害减免附魔传奇
-			DamageReductionEnchantmentRare: 伤害减免附魔稀有
-			DangerSenseEnchantmentBasic: 危险感知附魔基元
-			DangerSenseEnchantmentCommon: 危险感知附魔普通
-			DangerSenseEnchantmentEpic: 危险感知附魔史诗
-			DangerSenseEnchantmentLegendary: 危险感知附魔传奇
-			DangerSenseEnchantmentRare: 危险感知附魔稀有
-			DaybreakEnchantmentBasic: 破晓附魔基元
-			DaybreakEnchantmentCommon: 破晓附魔普通
-			DaybreakEnchantmentEpic: 破晓附魔史诗
-			DaybreakEnchantmentLegendary: 破晓附魔传奇
-			DaybreakEnchantmentRare: 破晓附魔稀有
-			DefenseEnchantmentBasic: 防御附魔基元
-			DefenseEnchantmentCommon: 防御附魔普通
-			DefenseEnchantmentEpic: 防御附魔史诗
-			DefenseEnchantmentLegendary: 防御附魔传奇
-			DefenseEnchantmentRare: 防御附魔稀有
-			ExtraFishingLineEnchantmentBasic: 额外钓鱼线附魔基元
-			ExtraFishingLineEnchantmentCommon: 额外钓鱼线附魔普通
-			ExtraFishingLineEnchantmentEpic: 额外钓鱼线附魔史诗
-			ExtraFishingLineEnchantmentLegendary: 额外钓鱼线附魔传奇
-			ExtraFishingLineEnchantmentRare: 额外钓鱼线附魔稀有
-			FishingEnchantmentBasic: 钓鱼药水附魔基元
-			FishingEnchantmentCommon: 钓鱼药水附魔普通
-			FishingEnchantmentEpic: 钓鱼药水附魔史诗
-			FishingEnchantmentLegendary: 钓鱼药水附魔传奇
-			FishingEnchantmentRare: 钓鱼药水附魔稀有
-			FishingPowerEnchantmentBasic: 渔力附魔基元
-			FishingPowerEnchantmentCommon: 渔力附魔普通
-			FishingPowerEnchantmentEpic: 渔力附魔史诗
-			FishingPowerEnchantmentLegendary: 渔力附魔传奇
-			FishingPowerEnchantmentRare: 渔力附魔稀有
-			FrostburnEnchantmentBasic: 霜冻附魔基元
-			FrostburnEnchantmentCommon: 霜冻附魔普通
-			FrostburnEnchantmentEpic: 霜冻附魔史诗
-			FrostburnEnchantmentLegendary: 霜冻附魔传奇
-			FrostburnEnchantmentRare: 霜冻附魔稀有
-			GodSlayerEnchantmentBasic: 弑神者附魔基元
-			GodSlayerEnchantmentCommon: 弑神者附魔普通
-			GodSlayerEnchantmentEpic: 弑神者附魔史诗
-			GodSlayerEnchantmentLegendary: 弑神者附魔传奇
-			GodSlayerEnchantmentRare: 弑神者附魔稀有
-			HellsWrathEnchantmentBasic: 地狱之怒附魔基元
-			HellsWrathEnchantmentCommon: 地狱之怒附魔普通
-			HellsWrathEnchantmentEpic: 地狱之怒附魔史诗
-			HellsWrathEnchantmentLegendary: 地狱之怒附魔传奇
-			HellsWrathEnchantmentRare: 地狱之怒附魔稀有
-			HunterEnchantmentBasic: 猎人药水附魔基元
-			HunterEnchantmentCommon: 猎人药水附魔普通
-			HunterEnchantmentEpic: 猎人药水附魔史诗
-			HunterEnchantmentLegendary: 猎人药水附魔传奇
-			HunterEnchantmentRare: 猎人药水附魔稀有
-			IchorEnchantmentBasic: 灵液附魔基元
-			IchorEnchantmentCommon: 灵液附魔普通
-			IchorEnchantmentEpic: 灵液附魔史诗
-			IchorEnchantmentLegendary: 灵液附魔传奇
-			IchorEnchantmentRare: 灵液附魔稀有
-			JuicedEnchantmentBasic: 兴奋附魔基元
-			JuicedEnchantmentCommon: 兴奋附魔普通
-			JuicedEnchantmentEpic: 兴奋附魔史诗
-			JuicedEnchantmentLegendary: 兴奋附魔传奇
-			JuicedEnchantmentRare: 兴奋附魔稀有
-			JunglesFuryEnchantmentBasic: 丛林之怒附魔基元
-			JunglesFuryEnchantmentCommon: 丛林之怒附魔普通
-			JunglesFuryEnchantmentEpic: 丛林之怒附魔史诗
-			JunglesFuryEnchantmentLegendary: 丛林之怒附魔传奇
-			JunglesFuryEnchantmentRare: 丛林之怒附魔稀有
-			KiClassSwapEnchantmentBasic: Ki类型伤害转换附魔基元
-			KiClassSwapEnchantmentCommon: Ki类型伤害转换附魔普通
-			KiClassSwapEnchantmentEpic: Ki类型伤害转换附魔史诗
-			KiClassSwapEnchantmentLegendary: Ki类型伤害转换附魔传奇
-			KiClassSwapEnchantmentRare: Ki类型伤害转换附魔稀有
-			KiEnchantmentBasic: Ki附魔基元
-			KiEnchantmentCommon: Ki附魔普通
-			KiEnchantmentEpic: Ki附魔史诗
-			KiEnchantmentLegendary: Ki附魔传奇
-			KiEnchantmentRare: Ki附魔稀有
-			LavaFishingEnchantmentBasic: 熔岩钓鱼附魔基元
-			LavaFishingEnchantmentCommon: 熔岩钓鱼附魔普通
-			LavaFishingEnchantmentEpic: 熔岩钓鱼附魔史诗
-			LavaFishingEnchantmentLegendary: 熔岩钓鱼附魔传奇
-			LavaFishingEnchantmentRare: 熔岩钓鱼附魔稀有
-			LifeRegenEnchantmentBasic: 生命再生附魔基础
-			LifeRegenEnchantmentCommon: 生命再生附魔普通
-			LifeRegenEnchantmentEpic: 生命再生附魔史诗
-			LifeRegenEnchantmentLegendary: 生命再生附魔传奇
-			LifeRegenEnchantmentRare: 生命再生附魔稀有
-			LifeStealEnchantmentBasic: 生命窃取附魔基元
-			LifeStealEnchantmentCommon: 生命窃取附魔普通
-			LifeStealEnchantmentEpic: 生命窃取附魔史诗
-			LifeStealEnchantmentLegendary: 生命窃取附魔传奇
-			LifeStealEnchantmentRare: 生命窃取附魔稀有
-			LuckEnchantmentBasic: 幸运附魔基元
-			LuckEnchantmentCommon: 幸运附魔普通
-			LuckEnchantmentEpic: 幸运附魔史诗
-			LuckEnchantmentLegendary: 幸运附魔传奇
-			LuckEnchantmentRare: 幸运附魔稀有
-			MagicClassSwapEnchantmentBasic: 魔法类型伤害转换附魔基元
-			MagicClassSwapEnchantmentCommon: 魔法类型伤害转换附魔普通
-			MagicClassSwapEnchantmentEpic: 魔法类型伤害转换附魔史诗
-			MagicClassSwapEnchantmentLegendary: 魔法类型伤害转换附魔传奇
-			MagicClassSwapEnchantmentRare: 魔法类型伤害转换附魔稀有
-			MaxMinionsEnchantmentBasic: 最大仆从附魔基元
-			MaxMinionsEnchantmentCommon: 最大仆从附魔普通
-			MaxMinionsEnchantmentEpic: 最大仆从附魔史诗
-			MaxMinionsEnchantmentLegendary: 最大仆从附魔传奇
-			MaxMinionsEnchantmentRare: 最大仆从附魔稀有
-			MeleeClassSwapEnchantmentBasic: 近战类型伤害转换附魔基元
-			MeleeClassSwapEnchantmentCommon: 近战类型伤害转换附魔普通
-			MeleeClassSwapEnchantmentEpic: 近战类型伤害转换附魔史诗
-			MeleeClassSwapEnchantmentLegendary: 近战类型伤害转换附魔传奇
-			MeleeClassSwapEnchantmentRare: 近战类型伤害转换附魔稀有
-			MobilityControlEnchantmentBasic: 移动控制附魔基元
-			MobilityControlEnchantmentCommon: 移动控制附魔普通
-			MobilityControlEnchantmentEpic: 移动控制附魔史诗
-			MobilityControlEnchantmentLegendary: 移动控制附魔传奇
-			MobilityControlEnchantmentRare: 移动控制附魔稀有
-			MoonlightEnchantmentBasic: 月光附魔基元
-			MoonlightEnchantmentCommon: 月光附魔普通
-			MoonlightEnchantmentEpic: 月光附魔史诗
-			MoonlightEnchantmentLegendary: 月光附魔传奇
-			MoonlightEnchantmentRare: 月光附魔稀有
-			MovementSpeedEnchantmentBasic: 移速附魔基元
-			MovementSpeedEnchantmentCommon: 移速附魔普通
-			MovementSpeedEnchantmentEpic: 移速附魔史诗
-			MovementSpeedEnchantmentLegendary: 移速附魔传奇
-			MovementSpeedEnchantmentRare: 移速附魔稀有
-			MultishotEnchantmentBasic: 多发附魔基元
-			MultishotEnchantmentCommon: 多发附魔普通
-			MultishotEnchantmentEpic: 多发附魔史诗
-			MultishotEnchantmentLegendary: 多发附魔传奇
-			MultishotEnchantmentRare: 多发附魔稀有
-			NpcContactAnglerEnchantmentBasic: 钓鱼者附魔基元
-			NpcContactAnglerEnchantmentCommon: 钓鱼者附魔普通
-			NpcContactAnglerEnchantmentEpic: 钓鱼者附魔史诗
-			NpcContactAnglerEnchantmentLegendary: 钓鱼者附魔传奇
-			NpcContactAnglerEnchantmentRare: 钓鱼者附魔稀有
-			ObsidianSkinEnchantmentBasic: 黑曜石皮肤药水附魔基元
-			ObsidianSkinEnchantmentCommon: 黑曜石皮肤药水附魔普通
-			ObsidianSkinEnchantmentEpic: 黑曜石皮肤药水附魔史诗
-			ObsidianSkinEnchantmentLegendary: 黑曜石皮肤药水附魔传奇
-			ObsidianSkinEnchantmentRare: 黑曜石皮肤药水附魔稀有
-			OneForAllEnchantmentBasic: 连锁附魔基元
-			OneForAllEnchantmentCommon: 连锁附魔普通
-			OneForAllEnchantmentEpic: 连锁附魔史诗
-			OneForAllEnchantmentLegendary: 连锁附魔传奇
-			OneForAllEnchantmentRare: 连锁附魔稀有
-			OnFireEnchantmentBasic: 火焰附加附魔基元
-			OnFireEnchantmentCommon: 火焰附加附魔普通
-			OnFireEnchantmentEpic: 火焰附加附魔史诗
-			OnFireEnchantmentLegendary: 火焰附加附魔传奇
-			OnFireEnchantmentRare: 火焰附加附魔稀有
-			PeaceEnchantmentBasic: 和平附魔基元
-			PeaceEnchantmentCommon: 和平附魔普通
-			PeaceEnchantmentEpic: 和平附魔史诗
-			PeaceEnchantmentLegendary: 和平附魔传奇
-			PeaceEnchantmentRare: 和平附魔稀有
-			PennyPinchingEnchantmentBasic: 锱铢必较附魔基元
-			PennyPinchingEnchantmentCommon: 锱铢必较附魔普通
-			PennyPinchingEnchantmentEpic: 锱铢必较附魔史诗
-			PennyPinchingEnchantmentLegendary: 锱铢必较附魔传奇
-			PennyPinchingEnchantmentRare: 锱铢必较附魔稀有
-			ProjectileVelocityEnchantmentBasic: 射速附魔基元
-			ProjectileVelocityEnchantmentCommon: 射速附魔普通
-			ProjectileVelocityEnchantmentEpic: 射速附魔史诗
-			ProjectileVelocityEnchantmentLegendary: 射速附魔传奇
-			ProjectileVelocityEnchantmentRare: 射速附魔稀有
-			RangedClassSwapEnchantmentBasic: 远程类型伤害转换附魔基元
-			RangedClassSwapEnchantmentCommon: 远程类型伤害转换附魔普通
-			RangedClassSwapEnchantmentEpic: 远程类型伤害转换附魔史诗
-			RangedClassSwapEnchantmentLegendary: 远程类型伤害转换附魔传奇
-			RangedClassSwapEnchantmentRare: 远程类型伤害转换附魔稀有
-			ReducedManaUsageEnchantmentBasic: 魔力消耗附魔基元
-			ReducedManaUsageEnchantmentCommon: 魔力消耗附魔普通
-			ReducedManaUsageEnchantmentEpic: 魔力消耗附魔史诗
-			ReducedManaUsageEnchantmentLegendary: 魔力消耗附魔传奇
-			ReducedManaUsageEnchantmentRare: 魔力消耗附魔稀有
-			RogueClassSwapEnchantmentBasic: 盗贼类型伤害转换附魔基元
-			RogueClassSwapEnchantmentCommon: 盗贼类型伤害转换附魔普通
-			RogueClassSwapEnchantmentEpic: 盗贼类型伤害转换附魔史诗
-			RogueClassSwapEnchantmentLegendary: 盗贼类型伤害转换附魔传奇
-			RogueClassSwapEnchantmentRare: 盗贼类型伤害转换附魔稀有
-			SizeEnchantmentBasic: 大小附魔基元
-			SizeEnchantmentCommon: 大小附魔普通
-			SizeEnchantmentEpic: 大小附魔史诗
-			SizeEnchantmentLegendary: 大小附魔传奇
-			SizeEnchantmentRare: 大小附魔稀有
-			SolarDashEnchantmentBasic: 太阳能冲刺附魔基元
-			SolarDashEnchantmentCommon: 太阳能冲刺附魔普通
-			SolarDashEnchantmentEpic: 太阳能冲刺附魔史诗
-			SolarDashEnchantmentLegendary: 太阳能冲刺附魔传奇
-			SolarDashEnchantmentRare: 太阳能冲刺附魔稀有
-			SonarEnchantmentBasic: 声纳药水附魔基元
-			SonarEnchantmentCommon: 声纳药水附魔普通
-			SonarEnchantmentEpic: 声纳药水附魔史诗
-			SonarEnchantmentLegendary: 声纳药水附魔传奇
-			SonarEnchantmentRare: 声纳药水附魔稀有
-			SpelunkerEnchantmentBasic: 洞穴探险者附魔基元
-			SpelunkerEnchantmentCommon: 洞穴探险者附魔普通
-			SpelunkerEnchantmentEpic: 洞穴探险者附魔史诗
-			SpelunkerEnchantmentLegendary: 洞穴探险者附魔传奇
-			SpelunkerEnchantmentRare: 洞穴探险者附魔稀有
-			VenomEnchantmentBasic: 毒液附魔基元
-			VenomEnchantmentCommon: 毒液附魔普通
-			VenomEnchantmentEpic: 毒液附魔史诗
-			VenomEnchantmentLegendary: 毒液附魔传奇
-			VenomEnchantmentRare: 毒液附魔稀有
-			WarEnchantmentBasic: 战争药水附魔基元
-			WarEnchantmentCommon: 战争药水附魔普通
-			WarEnchantmentEpic: 战争药水附魔史诗
-			WarEnchantmentLegendary: 战争药水附魔传奇
-			WarEnchantmentRare: 战争药水附魔稀有
-			WhipClassSwapEnchantmentBasic: 鞭类型伤害转换附魔基元
-			WhipClassSwapEnchantmentCommon: 鞭类型伤害转换附魔普通
-			WhipClassSwapEnchantmentEpic: 鞭类型伤害转换附魔史诗
-			WhipClassSwapEnchantmentLegendary: 鞭类型伤害转换附魔传奇
-			WhipClassSwapEnchantmentRare: 鞭类型伤害转换附魔稀有
-			WorldAblazeEnchantmentBasic: 焚世附魔基元
-			WorldAblazeEnchantmentCommon: 焚世附魔普通
-			WorldAblazeEnchantmentEpic: 焚世附魔史诗
-			WorldAblazeEnchantmentLegendary: 焚世附魔传奇
-			WorldAblazeEnchantmentRare: 焚世附魔稀有
-			Containment: 容器
-			DustyEnchantingTable: 尘封附魔台
-			EnchantmentEssenceBasic: 基础附魔精华
-			EnchantmentEssenceCommon: 普通附魔精华
-			EnchantmentEssenceEpic: 史诗附魔精华
-			EnchantmentEssenceLegendary: 传奇附魔精华
-			EnchantmentEssenceRare: 稀有附魔精华
-			HellishEnchantingTable: 地狱附魔台
-			MediumContainment: 中级容器
-			PowerBooster: 能量强化器
-			SoulEnchantingTable: 灵魂附魔台
-			SuperiorContainment: 高级容器
-			UltimateEnchantingTable: 终极附魔台
-			UltraPowerBooster: 终极能量强化器
-			WoodEnchantingTable: 木质附魔台
+		Bestiary.Witch: 女巫是一位丑陋而邪恶的女士，从事更多邪恶的事情。她买卖可疑的材料，用于改进具有神秘效果的设备。
+		Buffs.Amaterasu.DisplayName: 天照
+
+		Configs: {
+			AccessoryDRValues: “配件 {0}%（40 时为 {1}%）”
+			ArmorDRValues: “护甲值 {0}%（40 时为 {1}%）”
+			Automatic: 自动的
+			Custom: 风俗
+			Enchantment: 魅力
+			NoneSelected: 未选择
+
+			ArmorDamageReduction: {
+				Tooltip: 允许您修改盔甲和配件在升级时获得的伤害减免。
+
+				AccessoryDamageReductionPerLevel: {
+					Label: 每级配件 DR (100000 = 1%)
+					Tooltip: 250000 (2.5%) 是最大值，在 40 级时伤害减少 100%。
+				}
+
+				ArmorDamageReductionPerLevel: {
+					Label: 每级护甲 DR (100000 = 1%)
+					Tooltip: 250000 (2.5%) 是最大值，在 40 级时伤害减少 100%。
+				}
+			}
+
+			ClientConfig: {
+				DisplayName: 客户端配置
+				DisplaySettings: 显示设置
+				ErrorMessages: 错误信息
+				LoggingInformation: 记录信息
+				ModTestingTools: 模组测试工具
+
+				AllowCraftingIntoLowerTier: {
+					Label: 允许将结界制作成较低层的结界。
+					Tooltip: 当将结界制作成较低等级的结界时，您将收到所有成分，包括收容物、精华和宝石。
+				}
+
+				AllowInfusingToLowerPower: {
+					Label: 允许输注物品以降低输注能力
+					Tooltip: 警告：这将允许你消耗弱武器来降级强武器。
+				}
+
+				AllowShiftClickMoveFavoritedItems: {
+					Label: 允许按住 Shift 键单击将收藏的项目移动到附魔表中。
+					Tooltip: 如果未启用，则必须取消收藏项目或通过使用鼠标移动来手动移动项目。
+				}
+
+				AlwaysDisplayAccessoryLevelUpMessages: {
+					Label: 始终显示配件升级消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示配件升级消息。
+				}
+
+				AlwaysDisplayArmorLevelUpMessages: {
+					Label: 始终显示护甲等级提升消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示护甲等级提升消息。
+				}
+
+				AlwaysDisplayInfusionPower: {
+					Label: 始终显示输液功率
+					Tooltip: 启用始终显示物品的灌注能量，而不是仅在附魔台打开时显示。
+				}
+
+				AlwaysDisplayToolLevelUpMessages: {
+					Label: 始终显示工具升级消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示工具升级消息。
+				}
+
+				AlwaysDisplayWeaponLevelUpMessages: {
+					Label: 始终显示武器升级消息
+					Tooltip: 如果此选项关闭，则仅在使用附魔台时显示武器升级消息。
+				}
+
+				DisplayDamageTooltipSeperatly: {
+					Label: 在单独的工具提示中显示结界造成的大致伤害。
+					Tooltip:
+						'''
+						伤害附魔是在敌方护甲减少伤害后计算的，而不是直接改变物品的伤害。
+						如果关闭此选项，工具提示伤害将显示对零装甲目标的伤害。
+						启用显示单独的工具提示，而不是更新正常伤害值。 这显示了对 0 护甲敌人的伤害。
+						'''
+				}
+
+				EnableSwappingWeapons: {
+					Label: 使用数字键启用交换武器（武器按输注能力排序）
+					Tooltip:
+						'''
+						使用 num1 和 num3 在所有武器之间交换。 使用 num4 和 num6 仅在改装武器之间进行交换。
+						不会取代附魔或改装的武器。
+						'''
+				}
+
+				LogDummyDPS: {
+					Label: 启用目标虚拟 Dps 计算和记录
+					Tooltip:
+						'''
+						追踪所有来源对目标造成的伤害并对其进行跟踪。 按 num0 开始，然后再按一次停止。
+						按 num8 将所有存储的 dps 值打印到 client.log\nclient.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						按 num0 开始新测试会重置所持有物品之前的 dps 数据，以便重新进行测试。
+						'''
+				}
+
+				OfferAll: {
+					Label: 提供所有相同的项目。
+					Tooltip:
+						'''
+						在您的库存中搜索所有已提供的相同类型的物品，如果它们的经验为 0 并且未安装动力增强器，也提供它们。
+						还提供接触迷人桌子的箱子中的所有物品。
+						'''
+				}
+
+				PrintEnchantmentTooltips: {
+					Label: 记录附魔工具提示列表
+					Tooltip:
+						'''
+						当您进入世界时，该列表将打印到 client.log 中。
+						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				PrintWeaponInfusionPowers: {
+					Label: 记录所有武器注入能力
+					Tooltip:
+						'''
+						当您进入世界时，该信息将打印到 client.log 中。
+						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				teleportEssence: {
+					Label: 自动发送精华到UI
+					Tooltip:
+						'''
+						自动将精华从您的库存发送到 UI 精华槽。
+						（在 UI 打开时禁用。）
+						'''
+				}
+
+				UsePointsAsTooltip: {
+					Label: “点”而不是“结界容量”
+					Tooltip: 工具提示将显示可用点数而不是可用附魔容量
+				}
+			}
+
+			Pair: {
+				Tooltip: 允许您为特定的结界分配强度。
+
+				itemDefinition: {
+					Label: 魅力
+					Tooltip:
+						'''
+						仅选择附魔物品。
+						如果选择任何其他项目，可能会导致错误。
+						'''
+				}
+
+				Strength: {
+					Label: 强度（1000 = 1, 10 = 1%）
+					Tooltip:
+						'''
+						调整该值时要小心。
+						强度是所使用的精确值。
+						示例 40% 伤害魔咒为 0.4
+						10防御为10
+						'''
+				}
+			}
+
+			PresetData: {
+				Tooltip: 预设使您可以轻松地一次影响所有结界。
+
+				AutomaticallyMatchPreseTtoWorldDifficulty: {
+					Label: 自动匹配预设的世界难度
+					Tooltip: 必须关闭才能编辑其他选项。
+				}
+
+				BasicEnchantmentStrengthMultiplier: {
+					Label: 基本的
+					Tooltip: 影响所有基本结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				CommonEnchantmentStrengthMultiplier: {
+					Label: 常见的
+					Tooltip: 影响所有普通结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				EpicEnchantmentStrengthMultiplier: {
+					Label: 史诗
+					Tooltip: 影响所有史诗结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				GlobalEnchantmentStrengthMultiplier: {
+					Label: 全局附魔强度乘数 (%)
+					Tooltip:
+						'''
+						根据推荐的附魔变化调整所有附魔强度。
+						使用与预设相同的计算，但允许您选择不同的数字。
+						预设值为； 旅程：250，普通：100，专家：50，大师：25（覆盖预设）
+						'''
+				}
+
+				LegendaryEnchantmentStrengthMultiplier: {
+					Label: 传奇的
+					Tooltip: 影响所有传奇结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+
+				Preset: {
+					Label: 预设
+					Tooltip:
+						'''
+						旅程、普通、专家、大师、自动、自定义
+						（这里不能选择自定义。它是在调整全局强度乘数时自动设置的。）
+						'''
+				}
+
+				RareEnchantmentStrengthMultiplier: {
+					Label: 稀有的
+					Tooltip: 影响所有稀有结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
+				}
+			}
+
+			ServerConfig: {
+				DisplayName: 服务器配置
+				EnchantingTableOptions: 迷人的桌子选项
+				EnchantmentDropRates(%): 附魔掉落率(%)
+				EnchantmentSettings: 附魔设置
+				EssenceandExperience: 本质与经验
+				GeneralGameChanges: 一般游戏变更
+				IndividualEnchantmentStrengths: 个人附魔优势
+				Multipliers: 乘数
+				OtherDropRates: 其他掉落率
+				Presets: 预设
+				RandomExtraStuff: 随机额外的东西
+				RarityEnchantmentStrengthMultipliers: 稀有度附魔强度乘数
+				ServerConfig: 服务器配置
+
+				AffectOnVanillaLifeStealLimmit: {
+					Label: 生命偷取附魔限制（对原版生命偷取限制的影响）（%）
+					Tooltip:
+						'''
+						使用高于 100% 的值可以更多地限制吸血，使用低于 100% 的值可以减少限制。 0 表示没有限制。
+						原版泰拉瑞亚使用吸血限制系统：在下面的示例中，使用的值为普通模式（括号内为专家/大师模式值）
+						它有一个 80(70) 的池子，可供你从中吸取生命。 通过吸血获得生命会减少这个池子。
+						池每秒恢复 36(30) 点。 如果池值为负，你就无法通过吸血获得生命。
+						此配置值会更改您从吸血结界中恢复的生命对该限制的影响程度。
+						示例：200% 你通过吸血获得 200 点生命。 200 * 200% = 400。80(70) 池 - 400 治愈 = -320(-330) 池。
+						池子需要 320/36(330/30) 秒 -> 8.9(11) 秒才能再次变为正值，这样你就可以再次从吸血中获得生命。
+						注意：机制对你一次可以获得的收益没有上限。 您获得的越多，恢复所需的时间就越长。
+						'''
+				}
+
+				AllowCriticalChancePast100: {
+					Label: 暴击率有效率超过 100%
+					Tooltip:
+						'''
+						原版泰拉瑞亚将暴击率上限限制为 100%。 默认情况下，武器附魔在 100% 后计算额外暴击。
+						120%暴击几率是100%伤害加倍，然后20%几率暴击增加伤害。 有关详细信息，请参阅下一个配置选项。
+						'''
+				}
+
+				AllowHighTierOres: {
+					Label: 从提供的物品中接收最高可达叶绿的矿石。
+					Tooltip:
+						'''
+						禁用此选项只允许您接收铁、银、金（或基于世界生成的等价物）。
+						（仅在困难模式下有效。叶绿只能在杀死机械 Boss 后使用。）
+						'''
+				}
+
+				AlwaysOverrideDamageType: {
+					Label: 伤害类型转换结界总是会被覆盖。
+					Tooltip:
+						'''
+						一些模组（例如《星辰之上》）会更改武器伤害类型。 如果启用此选项，则更改伤害类型的结界将始终更改武器的伤害类型。
+						如果未选择，则仅当武器当前为原始伤害类型时才会更改伤害类型。
+						'''
+				}
+
+				AmaterasuSelfGrowthPerTick: {
+					Label: 天照每刻自我增长
+					Tooltip: 影响天照伤害自然上升的速度（不是再次被世界炽热武器击中时。）
+				}
+
+				ArmorDamageReductions: {
+					Label: 装甲和配件伤害减免
+					Tooltip: 用于修改盔甲和配饰在升级时获得的护甲减少量。
+				}
+
+				AttackSpeedEnchantmentAutoReuseSetpoint: {
+					Label: 启用速度附魔自动重用 (%)
+					Tooltip:
+						'''
+						速度附魔将开始提供自动重用统计数据的强度。
+						将所有速度附魔设置为 0 以自动重用。 设置为 10000 以防止任何获得自动重用（除非你的力量乘数很大）
+						'''
+				}
+
+				AutoReuseDisabledOnMagicMissile: {
+					Label: 魔法导弹类型武器禁用自动重复使用
+					Tooltip: 魔法导弹等武器的自动重复使用允许您连续射击射弹以无限叠加伤害。
+				}
+
+				BossEnchantmentDropChance: {
+					Label: Boss附魔掉落率(%)
+					Tooltip:
+						'''
+						调整 Boss 附魔的掉落率。
+						（默认为 50%）
+						'''
+				}
+
+				BossEssenceMultiplier: {
+					Label: Boss精华倍率(%)
+					Tooltip: 修改从boss处获得的精华数量。
+				}
+
+				BossExperienceMultiplier: {
+					Label: Boss经验倍数(%)
+					Tooltip: 修改从老板那里获得的经验量。
+				}
+
+				BuffDuration: {
+					Label: 增益冷却时间（秒）
+					Tooltip: 影响增益效果的冷却时间和持续时间。
+				}
+
+				CalculateDamageReductionBeforeDefense: {
+					Label: 在玩家防御之前计算伤害减少
+					Tooltip:
+						'''
+						默认情况下，伤害减免是在玩家防御后应用的。 选择此选项之前应用。
+						之前会让你受到更少的伤害。
+						'''
+				}
+
+				ChestSpawnChance: {
+					Label: 宝箱附魔生成几率(%)
+					Tooltip: 调整在宝箱中找到结界的几率。 可以超过100%。 不影响生物群系宝箱。（它们始终是 100%）
+				}
+
+				ConfigCapacityCostMultiplier: {
+					Label: 附魔能力成本乘数(%)
+					Tooltip: 影响应用于物品的附魔成本。 实用的基值为 1/2/3/4/5，普通的基值为 2/4/6/8/10，唯一的基值为 3/6/9/12/15。
+				}
+
+				CrateDropChance: {
+					Label: 宝箱附魔掉落几率倍数(%)
+					Tooltip: 调整在钓鱼箱中找到结界的几率。
+				}
+
+				CritPerLevelDisabled: {
+					Label: 每级禁用武器暴击率
+					Tooltip: 武器获得的致命一击几率等于其等级 * 全局附魔强度乘数。
+				}
+
+				DamagePerLevelInstead: {
+					Label: 每级造成伤害而不是暴击率
+					Tooltip: 武器按等级获得伤害，而不是等于其等级的致命一击几率*全局附魔强度乘数
+				}
+
+				DamageReductionPerLevelDisabled: {
+					Label: 禁用每级的护甲和配件伤害减免
+					Tooltip: 盔甲和配饰获得的伤害减免等于其等级*以下世界难度的适当设定值。
+				}
+
+				DCUStart: {
+					Label: 从钻头密封装置开始
+					Tooltip:
+						'''
+						所有玩家第一次生成时都会获得一个钻头遏制装置。
+						当您想要更快地玩游戏时，这只是为了好玩。
+						'''
+				}
+
+				DisableArmorInfusion: {
+					Label: 禁用护甲注入
+					Tooltip: 这将阻止你注入盔甲物品并忽略注入的套装奖励。
+				}
+
+				DisableMinionCrits: {
+					Label: 禁用小兵暴击
+					Tooltip:
+						'''
+						在原版中，小兵不受武器暴击率的影响。
+						武器附魔根据武器暴击几率为小兵提供暴击几率。
+						此选项禁用暴击（原版机制）
+						'''
+				}
+
+				DisableResearch: {
+					Label: 禁用研究武器附魔物品的能力。
+					Tooltip: 启用后，所有精华和结界将无法研究，从而防止它们在旅程模式中被复制。
+				}
+
+				EnchantmentDropChance: {
+					Label: 非Boss附魔掉落率(%)
+					Tooltip:
+						'''
+						调整非头目敌人的结界掉落率。
+						（默认为 100%）
+						'''
+				}
+
+				EnchantmentSlotsOnAccessories: {
+					Label: 配件上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EnchantmentSlotsOnArmor: {
+					Label: 盔甲上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EnchantmentSlotsOnFishingPoles: {
+					Label: 钓鱼竿上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EnchantmentSlotsOnTools: {
+					Label: 工具上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						环境改造枪是迄今为止唯一的工具。
+						'''
+				}
+
+				EnchantmentSlotsOnWeapons: {
+					Label: 武器上的附魔槽
+					Tooltip:
+						'''
+						第一个插槽是普通插槽。
+						第二个插槽是实用插槽。
+						第3-5个是普通插槽。
+						'''
+				}
+
+				EssenceGrabRange: {
+					Label: 精华抓取范围倍增器
+					Tooltip: 影响精华开始向玩家移动时距离玩家的距离。
+				}
+
+				EssenceMultiplier: {
+					Label: 非Boss精华倍率(%)
+					Tooltip: 修改从非boss敌人处获得的精华量。
+				}
+
+				ExperienceMultiplier: {
+					Label: 非Boss经验倍数(%)
+					Tooltip: 修改从非头目敌人那里获得的经验量。
+				}
+
+				GatheringExperienceMultiplier: {
+					Label: 积累经验倍数(%)
+					Tooltip: 修改采矿/砍伐/钓鱼获得的经验值
+				}
+
+				individualStrengths: {
+					Label: 个人优势
+					Tooltip:
+						'''
+						按值修改个人附魔强度
+						（不是百分比！）
+						（覆盖所有其他选项）
+						'''
+				}
+
+				individualStrengthsEnabled: {
+					Label: 发挥个人优势
+					Tooltip: 启用此功能将导致下面选择的个人强度值覆盖所有其他设置。
+				}
+
+				InfusionDamageMultiplier: {
+					Label: 灌注伤害倍数（除以 1000，1 -> 0.001）
+					Tooltip:
+						'''
+						改变输注的伤害倍数。 伤害倍数 = 注入伤害倍数^((注入功率 - 基础注入功率) / 100)
+						示例：铁阔剑，伤害 = 10，BaseInfusionPower = 31 注入 Meowmere，注入功率 1100。
+						铁阔剑伤害 = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 伤害。
+						将此乘数设置为 1000 将阻止您注入武器，并且不会为已注入的武器提供任何伤害加成。
+						'''
+				}
+
+				MinionLifeStealMultiplier: {
+					Label: 小兵生命窃取倍数 (%)
+					Tooltip: 允许你减少小兵通过吸血附魔获得的治疗量。
+				}
+
+				MultiplicativeCriticalHits: {
+					Label: 乘数暴击超过第一个。
+					Tooltip:
+						'''
+						武器附魔利用暴击率超过 100% 来让你再次暴击。
+						默认情况下，这是一个附加奖励：第一次暴击 200% 伤害，第二次 300% 伤害，第三次 400% 伤害......
+						启用此功能会使它们相乘：第一个暴击 200% 伤害，第二个暴击 400% 伤害，第三个暴击 800% 伤害......
+						'''
+				}
+
+				PercentOfferEssence: {
+					Label: 提供的物品价值转换为精华的百分比。
+					Tooltip: 所有精华为 100%，所有矿石为 0%。 精华和矿石的售价将是相等的。
+				}
+
+				presetData: {
+					Label: 预设和乘数
+					Tooltip: 预设和乘数可让您同时影响所有结界。
+				}
+
+				PreventPowerBoosterFromPreHardMode: {
+					Label: 防止困难模式前的 Boss 掉落强力助推器。
+					Tooltip: 不包括肉墙。
+				}
+
+				PrintWikiInfo: {
+					Label: 记录所有维基信息
+					Tooltip:
+						'''
+						当您进入世界时，该信息将打印到 client.log 中。
+						client.log 默认位置为 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				ReduceOfferEfficiencyByBaseInfusionPower: {
+					Label: 通过基础输液功率降低报价效率
+					Tooltip:
+						'''
+						提供物品时，您会收到相当于物品经验的精华。
+						启用此选项将使武器在输注功率为 0 时效率为 100%，在输注功率为 1100（及以上）时效率为 80%。
+						'''
+				}
+
+				ReduceOfferEfficiencyByTableTier: {
+					Label: 按表层降低报价效率
+					Tooltip:
+						'''
+						提供物品时，您会收到相当于物品经验的精华。
+						启用此选项将使木桌的效率达到 60%。
+						每张桌子获得 10% 的效率。 100% 使用 Ultimate 表。
+						'''
+				}
+
+				ReduceRecipesToMinimum: {
+					Label: 将食谱减少到最少。
+					Tooltip:
+						'''
+						删除所有在层之间跳转的食谱，以减少查看食谱时的混乱。
+						还使所有精华配方为 4 比 1，而不是通过附魔表层进行缩放。
+						'''
+				}
+
+				RemoveEnchantmentRestrictions: {
+					Label: 删除结界限制（使用风险自负！）
+					Tooltip: 删除诸如“Unique”、“Max 1”以及武器或物品类型特定附魔之类的东西。
+				}
+
+				SiphonExperiencePercentCost: {
+					Label: 虹吸经验 % 成本
+					Tooltip:
+						'''
+						虹吸物品只会将部分经验作为精华返回。 此选项是丢失的百分比，因此 1000 xp 加上 20% 的成本将仅返回 800。
+						如果经验成本的价值大于附魔物品价值的 4 倍，则该价值将成为成本，以防止出现诸如为了保存满级木剑而损失 20 白金经验的情况。
+						相反，提供物品会返回 100% 的体验。 设置为 0% 则无需任何成本，返回 100% 的经验。 设置为 100% 以使用原始虹吸系统。
+						原始的虹吸系统仅允许您虹吸最高等级的物品，并且仅删除超过最高等级的多余经验。 无需任何成本。
+						'''
+				}
+			}
 		}
-		BuffName: {
-			Amaterasu: 天照
-		}
-		Bestiary: {
-			Witch: 女巫是一位丑陋而邪恶的女士，从事更多邪恶的事情。她买卖可疑的材料，用于改进具有神秘效果的设备。
-		}
+
 		Dialogue: {
 			Witch: {
 				BirthdayParty: 为什么我被迫穿粉红色的衣服？这看起来很糟糕，这个派对太臭了!
@@ -339,53 +605,593 @@ Mods: {
 				Zoologist: “{0}是一个暴虐的女人，总是把头发留在各处，我将让她在战争中付出代价！”
 			}
 		}
-		ItemTooltip: {
-			Containment: 用于存放附魔基元
-			DustyEnchantingTable: 用于对物品附魔。 （第1阶）
-			EnchantmentEssenceBasic: 
-				'''
-				用于制作和升级附魔的基础材料。
-				在附魔台可转换成400经验。
-				'''
-			EnchantmentEssenceCommon: 
-				'''
-				用于制作和升级附魔的普通材料。
-				在附魔台可转换成1600经验。
-				'''
-			EnchantmentEssenceEpic: 
-				'''
-				用于制作和升级附魔的史诗材料。
-				在附魔台可转换成25600经验。
-				'''
-			EnchantmentEssenceLegendary: 
-				'''
-				用于制作和升级附魔的传奇材料。
-				在附魔台可转换成102400经验。
-				'''
-			EnchantmentEssenceRare: 
-				'''
-				用于制作和升级附魔的稀有材料。
-				在附魔台可转换成6400经验。
-				'''
-			HellishEnchantingTable: 用于对物品附魔。 （第2阶）
-			MediumContainment: 用于合成附魔普通
-			PowerBooster: 
-				'''
-				当您想要提升的物品在附魔台中时使用它可以将其基础等级提高 10。
-				（从你的库存中左键点击，或者在你的光标上左键点击附魔台上的物品。）
-				如果提升等级的物品被熔炼，该物品将会退还。
-				'''
-			SoulEnchantingTable: 用于对物品附魔。 （第3阶）
-			SuperiorContainment: 用于合成附魔稀有
-			UltimateEnchantingTable: 用于对物品附魔。 （第4阶）
-			UltraPowerBooster: 
-				'''
-				当您想要提升的物品在附魔台中时使用它可以将其基础等级提高 20。
-				（从你的库存中左键点击，或者在你的光标上左键点击附魔台上的物品。）
-				如果提升等级的物品被熔炼，该物品将会退还。
-				'''
-			WoodEnchantingTable: 用于对物品附魔。 （第0阶）
+
+		EnchantmentStorageText: {
+			Add: 添加
+			AddFromEquippedEnchantments: 从装备的附魔添加
+			All: 全部
+			Delete: 删除
+			EnchantmentLoadouts: 附魔负载
+			EnchantmentStorage: 附魔储存
+			HeldItem: 持有物品
+			Loadout: 装载
+			LoadoutSizeChanged: 检测到的附件插槽数量比以前少。 多余槽位中的结界已被退回。
+			ManageOfferedItems: 管理提供的项目
+			ManageTrash: 管理垃圾
+			NoAccessories: 您必须至少佩戴一件配饰才能交换附魔装备。
+			NoArmor: 您必须佩戴头盔、胸部或腿部才能交换附魔负载。
+			NoHeldItem: 您必须持有附魔物品才能交换附魔负载。
+			NoItems: 您必须持有附魔物品或穿着一件盔甲或配件才能交换附魔负载。
+			NotEnoughEnchantments: “您缺少此加载的附魔。{0}”
+			NotHighEnoughLevel: “您的 {0} 等级不够高，无法应用此加载中的附魔。”
+			OreBag: 矿石袋
+			QuickCraft: 快速工艺
+			RevertAllToBasic: 全部恢复为基本
+			ToggleMarkTrash: 切换标记垃圾箱
+			UncraftAllTrash: 解构所有垃圾
 		}
+
+		GameMessages: {
+			AlreadyMaxLevel: “您的 {0} 已经达到最高等级。”
+			Back: 后退
+			CannotGainAdditionalPower: “您的 {0}({1}) 无法从所提供的 {2}({3}) 中获得额外的能量。”
+			CantInfusionArmorDifferentTypes: 你不能注入不同类型的盔甲，例如头盔和身体。
+			CongradulationsMaxLevel: “恭喜！{0} 的 {1} 达到最高等级，{2} ({3} xp)。”
+			CouldntFindItemsInWeaponsList: 无法在 WeaponsList 或 WeaponCraftingIngredients 中找到具有以下名称的物品：
+			CouldntFindNPCsInIngredientsList: 在 NPCsThatDropWeaponsOrIngredients 中找不到名称为以下的 Npc：
+			DailyFishingQuestReset: “每日钓鱼任务已重置。您的下一个任务是{0}。”
+			DetectedNonEnchantmentInEnchantmentSlot: “在您的 {1} 上检测到非附魔物品：{0}。它已返回到您的库存中。”
+			EnchantmentNoLongerAllowed: “{1} 上不再允许使用 {0}，并且已从您的 {2} 中删除。”
+			FailedConvertExcessExperience: “无法检查ConvertExcessExperience（项目：{0}，消费项目：{1}）”
+			FailedFindBossBag: 找不到老板的老板包：
+			FailedFindItemDropsForGroup: 无法找到群组战利品的掉落物品
+			FailedInfuseItem: “无法将物品：{0} 与已消耗物品：{1} 融合”
+			FailedReplaceOldItem: 更换旧项目失败：
+			FailedReplaceWithCoins: “无法用硬币替换项目：{0}”
+			FailedToCloneItem: “在 EnchantedItem 中，克隆失败（项目：{0}、itemClone：{1}）、cloneReforgedItem：{2}、resetGlobals：{3}。”
+			FailedToFindInfusionPower: 找不到物品的灌注能力：
+			FailedToLocateAngler: 未能找到钓鱼者。 您仍将获得奖励
+			FavoritedItemsCantBeConsumedForInfusion: 喜爱的物品不能用于输液。
+			FishingQuestTurnedIn: “任务已上交。您的下一个任务是 {0}。任务已完成：{1}”
+			InfusionConsumeItemWasNull: “wePlayer.infusionConsumeItem 为空，tableItem：{0}{1}，infusionConsumeItem：{2}{3}”
+			InfusionOnlyPossibleSameType: 只能在相同类型的物品（武器/盔甲）之间进行输注
+			InfusionPowerMustBeLower: 升级物品的灌注力必须低于消耗物品的灌注力。
+			IngredientInfusionPowersNotSetup: 未设置成分输注功率
+			IngredientsFromLootItemsNotincluded: 来自 WeaponsFromLootItems 的成分不包含在 ItemInfusionPowers 中
+			ItemLevelUp: “{0} 的 {1} 达到了等级 {2} ({3} xp)。”
+			ItemRemovedFromWeaponEnchantments: “{0} 已从武器附魔中删除。”
+			ItemRemovedRecieveCoins: “{0} 已从武器附魔中删除。您已收到等于其售价的硬币。”
+			ItemRemovedReiceveCompensation: “{0} 已从武器附魔中删除。您已收到 {1} 作为补偿。”
+			ItemRemovedRelacedWithItem: “{0} 已从武器附魔中删除。已替换为 {1}”
+			ItemsFromLootItemsNotIncluded: WeaponsFromLootItems 中的物品不包含在 ItemInfusionPowers 中
+			ItemsFromNPCIngredientsNotIncluded: 来自 IngredientsFromNPC 的物品不包含在 ItemInfusionPowers 中
+			ItemsFromNPCsNotIncluded: WeaponsFromNPC 中的物品不包含在 ItemInfusionPowers 中
+			ItemTooLowLevel: “你的 {0} 等级太低，无法使用那么多魔法。”
+			LogInfusionPowerLabels: 模组、武器、注入威力、价值稀有度、稀有度、原始稀有度、价值、物品 ID、伤害、使用时间、DPS
+			LogInfusionPowerOtherLabels: 稀有度、平均、最小、最大
+			MinSiphonXP: “只有当物品至少具有 {0} 经验时，你才可以虹吸该物品。”
+			MultipleUniqueEnchantments: “在您的 {0} 上检测到多个独特的魔咒。{1} 已从您的 {2} 中删除。”
+			MurasamaNoInfusion: Murasama 不能用于输液。
+			NewItemIsAir: 新物品是空气。
+			NoLongerAllowedOnDamageType: “{0} 不再允许用于 {1} 武器，并且已从您的 {2} 中删除。”
+			NoLongerUtilityEnchantment: “{0} 不再是实用结界，已从您的 {1} 中删除。”
+			NonEnchantableItemInTable:
+				'''
+				在表中检测到不可附魔的物品：{0}。
+				警告，请勿按确认键。
+				请将此问题报告给andro951（武器附魔）
+				'''
+			NotEnchantableAndNotAirInfusionItem: “tableItem: {0}{1} 不可附魔，并且 infusionConsumeItem: {2}{3} 不是空气”
+			NotEnoughEssence: “精华不足。您需要 {0} 级经验来达到 {1} 级，而您只有 {2} 可用。”
+			NowLimitedToOne: “{0} 结界现在每件物品仅限 1 个。{1} 已从您的 {2} 中删除。”
+			NPCInProgressionGroupNotInDropList: 检测到进度组中有一个 NPC 不在 NPCsThatDropWeaponsOrIngredients 中。
+			NPCInProgressionGroupNoUniqueEnchantments: 在进展组中检测到一个没有独特武器或成分的NPC。
+			OpenEnchantingTableFirstTime:
+				'''
+				你感觉你所有的结界和精华都被拉进了结界台。
+				武器附魔在附魔台内有自己的存储空间。
+				拾取附魔、精华和其他武器附魔物品会自动将它们发送到附魔台存储区。
+				'''
+			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
+			PreventedIssueLooseExperience: 防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
+			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
+			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
+			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
+			RemovedEnchantedItemData: “已从项目中删除 EnchantedItem 数据：{0}，计数：{1}，新计数：{2}”
+			RemovedUnloadedEnchantmentFromItem: “已从您的 {1} 中删除已卸载的物品：{0}。请通知 andro951(WeaponEnchantments)。”
+			RerollEnchantment: 重新投掷附魔
+			ResistsYourAttemptToEmpower: “{0} 抵制了你赋予它权力的尝试。”
+			SameSetBonusNoEffect: 正在升级的物品与正在消耗的物品具有相同的套装奖励，并且不会产生任何效果。
+			SlotNumDisabledByConfig: “插槽 {0} 已被配置禁用。已从您的 {2} 中删除了 {1}。”
+			TryInfuseFailed: “TryInfuseItem 失败，tableItem：{0}{1}，infusionConsumeItem：{2}{3}”
+			WeaponInfusionPowersNotSetup: 武器注入能力未设置
+			WitchChatText: 你还想要什么？ 我很忙。
+			WitchEnchantmentRerolText: 我想我可以尝试提高你的魅力，但不会退款或投诉。
+			WitchSpawnCondition: 在你的物品栏或装备上有一个结界。
+		}
+
+		Items: {
+			AllForOneEnchantmentBasic.DisplayName: 万众一心附魔基元
+			AllForOneEnchantmentCommon.DisplayName: 万众一心附魔普通
+			AllForOneEnchantmentEpic.DisplayName: 万众一心附魔史诗
+			AllForOneEnchantmentLegendary.DisplayName: 万众一心附魔传奇
+			AllForOneEnchantmentRare.DisplayName: 万众一心附魔稀有
+			AmmoCostEnchantmentBasic.DisplayName: 弹药消耗附魔基元
+			AmmoCostEnchantmentCommon.DisplayName: 弹药消耗附魔普通
+			AmmoCostEnchantmentEpic.DisplayName: 弹药消耗附魔史诗
+			AmmoCostEnchantmentLegendary.DisplayName: 弹药消耗附魔传奇
+			AmmoCostEnchantmentRare.DisplayName: 弹药消耗附魔稀有
+			AttackSpeedEnchantmentBasic.DisplayName: 攻速附魔基元
+			AttackSpeedEnchantmentCommon.DisplayName: 攻速附魔普通
+			AttackSpeedEnchantmentEpic.DisplayName: 攻速附魔史诗
+			AttackSpeedEnchantmentLegendary.DisplayName: 攻速附魔传奇
+			AttackSpeedEnchantmentRare.DisplayName: 攻速附魔稀有
+			BardClassSwapEnchantmentBasic.DisplayName: 吟游诗人等级交换附魔基础
+			BardClassSwapEnchantmentCommon.DisplayName: Bard Class Swap 附魔 Common
+			BardClassSwapEnchantmentEpic.DisplayName: 吟游诗人等级交换附魔史诗
+			BardClassSwapEnchantmentLegendary.DisplayName: 吟游诗人等级交换结界传奇
+			BardClassSwapEnchantmentRare.DisplayName: 吟游诗人等级交换附魔稀有
+			BerserkersRageEnchantmentBasic.DisplayName: 狂暴者之怒附魔基元
+			BerserkersRageEnchantmentCommon.DisplayName: 狂暴者之怒附魔普通
+			BerserkersRageEnchantmentEpic.DisplayName: 狂暴者之怒附魔史诗
+			BerserkersRageEnchantmentLegendary.DisplayName: 狂暴者之怒附魔传奇
+			BerserkersRageEnchantmentRare.DisplayName: 狂暴者之怒附魔稀有
+			CalmWatersEnchantmentBasic.DisplayName: 风平浪静附魔基元
+			CalmWatersEnchantmentCommon.DisplayName: 风平浪静附魔普通
+			CalmWatersEnchantmentEpic.DisplayName: 风平浪静附魔史诗
+			CalmWatersEnchantmentLegendary.DisplayName: 风平浪静附魔传奇
+			CalmWatersEnchantmentRare.DisplayName: 风平浪静附魔稀有
+			ChaoticFishingEnchantmentBasic.DisplayName: 混沌渔力附魔基元
+			ChaoticFishingEnchantmentCommon.DisplayName: 混沌渔力附魔普通
+			ChaoticFishingEnchantmentEpic.DisplayName: 混沌渔力附魔史诗
+			ChaoticFishingEnchantmentLegendary.DisplayName: 混沌渔力附魔传奇
+			ChaoticFishingEnchantmentRare.DisplayName: 混沌渔力附魔稀有
+			ColdSteelEnchantmentBasic.DisplayName: 冰冷之钢附魔基元
+			ColdSteelEnchantmentCommon.DisplayName: 冰冷之钢附魔普通
+			ColdSteelEnchantmentEpic.DisplayName: 冰冷之钢附魔史诗
+			ColdSteelEnchantmentLegendary.DisplayName: 冰冷之钢附魔传奇
+			ColdSteelEnchantmentRare.DisplayName: 冰冷之钢附魔稀有
+
+			Containment: {
+				DisplayName: 容器
+				Tooltip: 用于存放附魔基元
+			}
+
+			CrateChanceEnchantmentBasic.DisplayName: 板条箱附魔基元
+			CrateChanceEnchantmentCommon.DisplayName: 板条箱附魔普通
+			CrateChanceEnchantmentEpic.DisplayName: 板条箱附魔史诗
+			CrateChanceEnchantmentLegendary.DisplayName: 板条箱附魔传奇
+			CrateChanceEnchantmentRare.DisplayName: 板条箱附魔稀有
+			CrateEnchantmentBasic.DisplayName: 宝匣药水附魔基元
+			CrateEnchantmentCommon.DisplayName: 宝匣药水附魔普通
+			CrateEnchantmentEpic.DisplayName: 宝匣药水附魔史诗
+			CrateEnchantmentLegendary.DisplayName: 宝匣药水附魔传奇
+			CrateEnchantmentRare.DisplayName: 宝匣药水附魔稀有
+			CriticalStrikeChanceEnchantmentBasic.DisplayName: 暴击率附魔基元
+			CriticalStrikeChanceEnchantmentCommon.DisplayName: 暴击率附魔普通
+			CriticalStrikeChanceEnchantmentEpic.DisplayName: 暴击率附魔史诗
+			CriticalStrikeChanceEnchantmentLegendary.DisplayName: 暴击率附魔传奇
+			CriticalStrikeChanceEnchantmentRare.DisplayName: 暴击率附魔稀有
+			CriticalStrikeDamageEnchantmentBasic.DisplayName: 暴击伤害附魔基元
+			CriticalStrikeDamageEnchantmentCommon.DisplayName: 暴击伤害附魔普通
+			CriticalStrikeDamageEnchantmentEpic.DisplayName: 暴击伤害附魔史诗
+			CriticalStrikeDamageEnchantmentLegendary.DisplayName: 暴击伤害附魔传奇
+			CriticalStrikeDamageEnchantmentRare.DisplayName: 暴击伤害附魔稀有
+			CursedInfernoEnchantmentBasic.DisplayName: 诅咒之焰附魔基元
+			CursedInfernoEnchantmentCommon.DisplayName: 诅咒之焰附魔普通
+			CursedInfernoEnchantmentEpic.DisplayName: 诅咒之焰附魔史诗
+			CursedInfernoEnchantmentLegendary.DisplayName: 诅咒之焰附魔传奇
+			CursedInfernoEnchantmentRare.DisplayName: 诅咒之焰附魔稀有
+			DamageEnchantmentBasic.DisplayName: 伤害附魔基元
+			DamageEnchantmentCommon.DisplayName: 伤害附魔普通
+			DamageEnchantmentEpic.DisplayName: 伤害附魔史诗
+			DamageEnchantmentLegendary.DisplayName: 伤害附魔传奇
+			DamageEnchantmentRare.DisplayName: 伤害附魔稀有
+			DamageReductionEnchantmentBasic.DisplayName: 伤害减免附魔基元
+			DamageReductionEnchantmentCommon.DisplayName: 伤害减免附魔普通
+			DamageReductionEnchantmentEpic.DisplayName: 伤害减免附魔史诗
+			DamageReductionEnchantmentLegendary.DisplayName: 伤害减免附魔传奇
+			DamageReductionEnchantmentRare.DisplayName: 伤害减免附魔稀有
+			DangerSenseEnchantmentBasic.DisplayName: 危险感知附魔基元
+			DangerSenseEnchantmentCommon.DisplayName: 危险感知附魔普通
+			DangerSenseEnchantmentEpic.DisplayName: 危险感知附魔史诗
+			DangerSenseEnchantmentLegendary.DisplayName: 危险感知附魔传奇
+			DangerSenseEnchantmentRare.DisplayName: 危险感知附魔稀有
+			DaybreakEnchantmentBasic.DisplayName: 破晓附魔基元
+			DaybreakEnchantmentCommon.DisplayName: 破晓附魔普通
+			DaybreakEnchantmentEpic.DisplayName: 破晓附魔史诗
+			DaybreakEnchantmentLegendary.DisplayName: 破晓附魔传奇
+			DaybreakEnchantmentRare.DisplayName: 破晓附魔稀有
+			DefenseEnchantmentBasic.DisplayName: 防御附魔基元
+			DefenseEnchantmentCommon.DisplayName: 防御附魔普通
+			DefenseEnchantmentEpic.DisplayName: 防御附魔史诗
+			DefenseEnchantmentLegendary.DisplayName: 防御附魔传奇
+			DefenseEnchantmentRare.DisplayName: 防御附魔稀有
+
+			DustyEnchantingTable: {
+				DisplayName: 尘封附魔台
+				Tooltip:
+					'''
+					用于对物品施加附魔。 （1 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
+					'''
+			}
+
+			EnchantmentEssenceBasic: {
+				DisplayName: 基础附魔精华
+				Tooltip:
+					'''
+					用于制作和升级附魔的基础材料。
+					在附魔台可转换成400经验。
+					'''
+			}
+
+			EnchantmentEssenceCommon: {
+				DisplayName: 普通附魔精华
+				Tooltip:
+					'''
+					用于制作和升级附魔的普通材料。
+					在附魔台可转换成1600经验。
+					'''
+			}
+
+			EnchantmentEssenceEpic: {
+				DisplayName: 史诗附魔精华
+				Tooltip:
+					'''
+					用于制作和升级附魔的史诗材料。
+					在附魔台可转换成25600经验。
+					'''
+			}
+
+			EnchantmentEssenceLegendary: {
+				DisplayName: 传奇附魔精华
+				Tooltip:
+					'''
+					用于制作和升级附魔的传奇材料。
+					在附魔台可转换成102400经验。
+					'''
+			}
+
+			EnchantmentEssenceRare: {
+				DisplayName: 稀有附魔精华
+				Tooltip:
+					'''
+					用于制作和升级附魔的稀有材料。
+					在附魔台可转换成6400经验。
+					'''
+			}
+
+			ExtraFishingLineEnchantmentBasic.DisplayName: 额外钓鱼线附魔基元
+			ExtraFishingLineEnchantmentCommon.DisplayName: 额外钓鱼线附魔普通
+			ExtraFishingLineEnchantmentEpic.DisplayName: 额外钓鱼线附魔史诗
+			ExtraFishingLineEnchantmentLegendary.DisplayName: 额外钓鱼线附魔传奇
+			ExtraFishingLineEnchantmentRare.DisplayName: 额外钓鱼线附魔稀有
+			FishingEnchantmentBasic.DisplayName: 钓鱼药水附魔基元
+			FishingEnchantmentCommon.DisplayName: 钓鱼药水附魔普通
+			FishingEnchantmentEpic.DisplayName: 钓鱼药水附魔史诗
+			FishingEnchantmentLegendary.DisplayName: 钓鱼药水附魔传奇
+			FishingEnchantmentRare.DisplayName: 钓鱼药水附魔稀有
+			FishingPowerEnchantmentBasic.DisplayName: 渔力附魔基元
+			FishingPowerEnchantmentCommon.DisplayName: 渔力附魔普通
+			FishingPowerEnchantmentEpic.DisplayName: 渔力附魔史诗
+			FishingPowerEnchantmentLegendary.DisplayName: 渔力附魔传奇
+			FishingPowerEnchantmentRare.DisplayName: 渔力附魔稀有
+			FrostburnEnchantmentBasic.DisplayName: 霜冻附魔基元
+			FrostburnEnchantmentCommon.DisplayName: 霜冻附魔普通
+			FrostburnEnchantmentEpic.DisplayName: 霜冻附魔史诗
+			FrostburnEnchantmentLegendary.DisplayName: 霜冻附魔传奇
+			FrostburnEnchantmentRare.DisplayName: 霜冻附魔稀有
+			GodSlayerEnchantmentBasic.DisplayName: 弑神者附魔基元
+			GodSlayerEnchantmentCommon.DisplayName: 弑神者附魔普通
+			GodSlayerEnchantmentEpic.DisplayName: 弑神者附魔史诗
+			GodSlayerEnchantmentLegendary.DisplayName: 弑神者附魔传奇
+			GodSlayerEnchantmentRare.DisplayName: 弑神者附魔稀有
+			HealerClassSwapEnchantmentBasic.DisplayName: 治疗师等级交换附魔基础
+			HealerClassSwapEnchantmentCommon.DisplayName: Healer Class Swap 附魔 Common
+			HealerClassSwapEnchantmentEpic.DisplayName: 治疗者等级交换附魔史诗
+			HealerClassSwapEnchantmentLegendary.DisplayName: 治疗师等级交换结界传奇
+			HealerClassSwapEnchantmentRare.DisplayName: 治疗者等级交换附魔稀有
+
+			HellishEnchantingTable: {
+				DisplayName: 地狱附魔台
+				Tooltip:
+					'''
+					用于对物品施加附魔。 （2 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
+					'''
+			}
+
+			HellsWrathEnchantmentBasic.DisplayName: 地狱之怒附魔基元
+			HellsWrathEnchantmentCommon.DisplayName: 地狱之怒附魔普通
+			HellsWrathEnchantmentEpic.DisplayName: 地狱之怒附魔史诗
+			HellsWrathEnchantmentLegendary.DisplayName: 地狱之怒附魔传奇
+			HellsWrathEnchantmentRare.DisplayName: 地狱之怒附魔稀有
+			HunterEnchantmentBasic.DisplayName: 猎人药水附魔基元
+			HunterEnchantmentCommon.DisplayName: 猎人药水附魔普通
+			HunterEnchantmentEpic.DisplayName: 猎人药水附魔史诗
+			HunterEnchantmentLegendary.DisplayName: 猎人药水附魔传奇
+			HunterEnchantmentRare.DisplayName: 猎人药水附魔稀有
+			IchorEnchantmentBasic.DisplayName: 灵液附魔基元
+			IchorEnchantmentCommon.DisplayName: 灵液附魔普通
+			IchorEnchantmentEpic.DisplayName: 灵液附魔史诗
+			IchorEnchantmentLegendary.DisplayName: 灵液附魔传奇
+			IchorEnchantmentRare.DisplayName: 灵液附魔稀有
+			JuicedEnchantmentBasic.DisplayName: 兴奋附魔基元
+			JuicedEnchantmentCommon.DisplayName: 兴奋附魔普通
+			JuicedEnchantmentEpic.DisplayName: 兴奋附魔史诗
+			JuicedEnchantmentLegendary.DisplayName: 兴奋附魔传奇
+			JuicedEnchantmentRare.DisplayName: 兴奋附魔稀有
+			JunglesFuryEnchantmentBasic.DisplayName: 丛林之怒附魔基元
+			JunglesFuryEnchantmentCommon.DisplayName: 丛林之怒附魔普通
+			JunglesFuryEnchantmentEpic.DisplayName: 丛林之怒附魔史诗
+			JunglesFuryEnchantmentLegendary.DisplayName: 丛林之怒附魔传奇
+			JunglesFuryEnchantmentRare.DisplayName: 丛林之怒附魔稀有
+			KiClassSwapEnchantmentBasic.DisplayName: Ki类型伤害转换附魔基元
+			KiClassSwapEnchantmentCommon.DisplayName: Ki类型伤害转换附魔普通
+			KiClassSwapEnchantmentEpic.DisplayName: Ki类型伤害转换附魔史诗
+			KiClassSwapEnchantmentLegendary.DisplayName: Ki类型伤害转换附魔传奇
+			KiClassSwapEnchantmentRare.DisplayName: Ki类型伤害转换附魔稀有
+			KiEnchantmentBasic.DisplayName: Ki附魔基元
+			KiEnchantmentCommon.DisplayName: Ki附魔普通
+			KiEnchantmentEpic.DisplayName: Ki附魔史诗
+			KiEnchantmentLegendary.DisplayName: Ki附魔传奇
+			KiEnchantmentRare.DisplayName: Ki附魔稀有
+			LavaFishingEnchantmentBasic.DisplayName: 熔岩钓鱼附魔基元
+			LavaFishingEnchantmentCommon.DisplayName: 熔岩钓鱼附魔普通
+			LavaFishingEnchantmentEpic.DisplayName: 熔岩钓鱼附魔史诗
+			LavaFishingEnchantmentLegendary.DisplayName: 熔岩钓鱼附魔传奇
+			LavaFishingEnchantmentRare.DisplayName: 熔岩钓鱼附魔稀有
+			LethalCombinationEnchantmentBasic.DisplayName: 致命组合附魔基础
+			LethalCombinationEnchantmentCommon.DisplayName: 致命组合结界 普通
+			LethalCombinationEnchantmentEpic.DisplayName: 史诗致命组合结界
+			LethalCombinationEnchantmentLegendary.DisplayName: 传奇致命组合结界
+			LethalCombinationEnchantmentRare.DisplayName: 致命组合结界 稀有
+			LifeRegenEnchantmentBasic.DisplayName: 生命再生附魔基础
+			LifeRegenEnchantmentCommon.DisplayName: 生命再生附魔普通
+			LifeRegenEnchantmentEpic.DisplayName: 生命再生附魔史诗
+			LifeRegenEnchantmentLegendary.DisplayName: 生命再生附魔传奇
+			LifeRegenEnchantmentRare.DisplayName: 生命再生附魔稀有
+			LifeStealEnchantmentBasic.DisplayName: 生命窃取附魔基元
+			LifeStealEnchantmentCommon.DisplayName: 生命窃取附魔普通
+			LifeStealEnchantmentEpic.DisplayName: 生命窃取附魔史诗
+			LifeStealEnchantmentLegendary.DisplayName: 生命窃取附魔传奇
+			LifeStealEnchantmentRare.DisplayName: 生命窃取附魔稀有
+			LuckEnchantmentBasic.DisplayName: 幸运附魔基元
+			LuckEnchantmentCommon.DisplayName: 幸运附魔普通
+			LuckEnchantmentEpic.DisplayName: 幸运附魔史诗
+			LuckEnchantmentLegendary.DisplayName: 幸运附魔传奇
+			LuckEnchantmentRare.DisplayName: 幸运附魔稀有
+			MagicClassSwapEnchantmentBasic.DisplayName: 魔法类型伤害转换附魔基元
+			MagicClassSwapEnchantmentCommon.DisplayName: 魔法类型伤害转换附魔普通
+			MagicClassSwapEnchantmentEpic.DisplayName: 魔法类型伤害转换附魔史诗
+			MagicClassSwapEnchantmentLegendary.DisplayName: 魔法类型伤害转换附魔传奇
+			MagicClassSwapEnchantmentRare.DisplayName: 魔法类型伤害转换附魔稀有
+			MagneticEnchantmentBasic.DisplayName: 磁力附魔基础
+			MagneticEnchantmentCommon.DisplayName: 磁力附魔 普通
+			MagneticEnchantmentEpic.DisplayName: 史诗磁力结界
+			MagneticEnchantmentLegendary.DisplayName: 传奇磁力结界
+			MagneticEnchantmentRare.DisplayName: 磁力附魔 稀有
+			MaxMinionsEnchantmentBasic.DisplayName: 最大仆从附魔基元
+			MaxMinionsEnchantmentCommon.DisplayName: 最大仆从附魔普通
+			MaxMinionsEnchantmentEpic.DisplayName: 最大仆从附魔史诗
+			MaxMinionsEnchantmentLegendary.DisplayName: 最大仆从附魔传奇
+			MaxMinionsEnchantmentRare.DisplayName: 最大仆从附魔稀有
+
+			MediumContainment: {
+				DisplayName: 中级容器
+				Tooltip: 用于合成附魔普通
+			}
+
+			MeleeClassSwapEnchantmentBasic.DisplayName: 近战类型伤害转换附魔基元
+			MeleeClassSwapEnchantmentCommon.DisplayName: 近战类型伤害转换附魔普通
+			MeleeClassSwapEnchantmentEpic.DisplayName: 近战类型伤害转换附魔史诗
+			MeleeClassSwapEnchantmentLegendary.DisplayName: 近战类型伤害转换附魔传奇
+			MeleeClassSwapEnchantmentRare.DisplayName: 近战类型伤害转换附魔稀有
+			MobilityControlEnchantmentBasic.DisplayName: 移动控制附魔基元
+			MobilityControlEnchantmentCommon.DisplayName: 移动控制附魔普通
+			MobilityControlEnchantmentEpic.DisplayName: 移动控制附魔史诗
+			MobilityControlEnchantmentLegendary.DisplayName: 移动控制附魔传奇
+			MobilityControlEnchantmentRare.DisplayName: 移动控制附魔稀有
+			MoonlightEnchantmentBasic.DisplayName: 月光附魔基元
+			MoonlightEnchantmentCommon.DisplayName: 月光附魔普通
+			MoonlightEnchantmentEpic.DisplayName: 月光附魔史诗
+			MoonlightEnchantmentLegendary.DisplayName: 月光附魔传奇
+			MoonlightEnchantmentRare.DisplayName: 月光附魔稀有
+			MovementSpeedEnchantmentBasic.DisplayName: 移速附魔基元
+			MovementSpeedEnchantmentCommon.DisplayName: 移速附魔普通
+			MovementSpeedEnchantmentEpic.DisplayName: 移速附魔史诗
+			MovementSpeedEnchantmentLegendary.DisplayName: 移速附魔传奇
+			MovementSpeedEnchantmentRare.DisplayName: 移速附魔稀有
+			MultishotEnchantmentBasic.DisplayName: 多发附魔基元
+			MultishotEnchantmentCommon.DisplayName: 多发附魔普通
+			MultishotEnchantmentEpic.DisplayName: 多发附魔史诗
+			MultishotEnchantmentLegendary.DisplayName: 多发附魔传奇
+			MultishotEnchantmentRare.DisplayName: 多发附魔稀有
+			NpcContactAnglerEnchantmentBasic.DisplayName: 钓鱼者附魔基元
+			NpcContactAnglerEnchantmentCommon.DisplayName: 钓鱼者附魔普通
+			NpcContactAnglerEnchantmentEpic.DisplayName: 钓鱼者附魔史诗
+			NpcContactAnglerEnchantmentLegendary.DisplayName: 钓鱼者附魔传奇
+			NpcContactAnglerEnchantmentRare.DisplayName: 钓鱼者附魔稀有
+			ObsidianSkinEnchantmentBasic.DisplayName: 黑曜石皮肤药水附魔基元
+			ObsidianSkinEnchantmentCommon.DisplayName: 黑曜石皮肤药水附魔普通
+			ObsidianSkinEnchantmentEpic.DisplayName: 黑曜石皮肤药水附魔史诗
+			ObsidianSkinEnchantmentLegendary.DisplayName: 黑曜石皮肤药水附魔传奇
+			ObsidianSkinEnchantmentRare.DisplayName: 黑曜石皮肤药水附魔稀有
+			OneForAllEnchantmentBasic.DisplayName: 连锁附魔基元
+			OneForAllEnchantmentCommon.DisplayName: 连锁附魔普通
+			OneForAllEnchantmentEpic.DisplayName: 连锁附魔史诗
+			OneForAllEnchantmentLegendary.DisplayName: 连锁附魔传奇
+			OneForAllEnchantmentRare.DisplayName: 连锁附魔稀有
+			OnFireEnchantmentBasic.DisplayName: 火焰附加附魔基元
+			OnFireEnchantmentCommon.DisplayName: 火焰附加附魔普通
+			OnFireEnchantmentEpic.DisplayName: 火焰附加附魔史诗
+			OnFireEnchantmentLegendary.DisplayName: 火焰附加附魔传奇
+			OnFireEnchantmentRare.DisplayName: 火焰附加附魔稀有
+			PeaceEnchantmentBasic.DisplayName: 和平附魔基元
+			PeaceEnchantmentCommon.DisplayName: 和平附魔普通
+			PeaceEnchantmentEpic.DisplayName: 和平附魔史诗
+			PeaceEnchantmentLegendary.DisplayName: 和平附魔传奇
+			PeaceEnchantmentRare.DisplayName: 和平附魔稀有
+			PennyPinchingEnchantmentBasic.DisplayName: 锱铢必较附魔基元
+			PennyPinchingEnchantmentCommon.DisplayName: 锱铢必较附魔普通
+			PennyPinchingEnchantmentEpic.DisplayName: 锱铢必较附魔史诗
+			PennyPinchingEnchantmentLegendary.DisplayName: 锱铢必较附魔传奇
+			PennyPinchingEnchantmentRare.DisplayName: 锱铢必较附魔稀有
+			PercentArmorPenetrationEnchantmentBasic.DisplayName: 护甲穿透百分比附魔基础
+			PercentArmorPenetrationEnchantmentCommon.DisplayName: 护甲穿透百分比附魔普通
+			PercentArmorPenetrationEnchantmentEpic.DisplayName: 护甲穿透百分比附魔史诗
+			PercentArmorPenetrationEnchantmentLegendary.DisplayName: 百分比护甲穿透附魔传奇
+			PercentArmorPenetrationEnchantmentRare.DisplayName: 护甲穿透百分比附魔稀有
+			PoisonEnchantmentBasic.DisplayName: 毒附魔基础
+			PoisonEnchantmentCommon.DisplayName: 毒附魔普通
+			PoisonEnchantmentEpic.DisplayName: 史诗剧毒结界
+			PoisonEnchantmentLegendary.DisplayName: 传奇毒附魔
+			PoisonEnchantmentRare.DisplayName: 毒附魔 稀有
+
+			PowerBooster: {
+				DisplayName: 能量强化器
+				Tooltip:
+					'''
+					当您想要提升的物品在附魔台中时使用它可以将其基础等级提高 10。
+					（从你的库存中左键点击，或者在你的光标上左键点击附魔台上的物品。）
+					如果提升等级的物品被熔炼，该物品将会退还。
+					'''
+			}
+
+			PrideOfTheWeakEnchantmentBasic.DisplayName: 弱者的意志基元
+			PrideOfTheWeakEnchantmentCommon.DisplayName: 弱者的意志普通
+			PrideOfTheWeakEnchantmentEpic.DisplayName: 弱者的意志史诗
+			PrideOfTheWeakEnchantmentLegendary.DisplayName: 弱者的意志传奇
+			PrideOfTheWeakEnchantmentRare.DisplayName: 弱者的意志稀有
+			ProjectileVelocityEnchantmentBasic.DisplayName: 射速附魔基元
+			ProjectileVelocityEnchantmentCommon.DisplayName: 射速附魔普通
+			ProjectileVelocityEnchantmentEpic.DisplayName: 射速附魔史诗
+			ProjectileVelocityEnchantmentLegendary.DisplayName: 射速附魔传奇
+			ProjectileVelocityEnchantmentRare.DisplayName: 射速附魔稀有
+			RangedClassSwapEnchantmentBasic.DisplayName: 远程类型伤害转换附魔基元
+			RangedClassSwapEnchantmentCommon.DisplayName: 远程类型伤害转换附魔普通
+			RangedClassSwapEnchantmentEpic.DisplayName: 远程类型伤害转换附魔史诗
+			RangedClassSwapEnchantmentLegendary.DisplayName: 远程类型伤害转换附魔传奇
+			RangedClassSwapEnchantmentRare.DisplayName: 远程类型伤害转换附魔稀有
+			ReducedManaUsageEnchantmentBasic.DisplayName: 魔力消耗附魔基元
+			ReducedManaUsageEnchantmentCommon.DisplayName: 魔力消耗附魔普通
+			ReducedManaUsageEnchantmentEpic.DisplayName: 魔力消耗附魔史诗
+			ReducedManaUsageEnchantmentLegendary.DisplayName: 魔力消耗附魔传奇
+			ReducedManaUsageEnchantmentRare.DisplayName: 魔力消耗附魔稀有
+			RogueClassSwapEnchantmentBasic.DisplayName: 盗贼类型伤害转换附魔基元
+			RogueClassSwapEnchantmentCommon.DisplayName: 盗贼类型伤害转换附魔普通
+			RogueClassSwapEnchantmentEpic.DisplayName: 盗贼类型伤害转换附魔史诗
+			RogueClassSwapEnchantmentLegendary.DisplayName: 盗贼类型伤害转换附魔传奇
+			RogueClassSwapEnchantmentRare.DisplayName: 盗贼类型伤害转换附魔稀有
+			ShadowflameEnchantmentBasic.DisplayName: 暗影烈焰附魔基础
+			ShadowflameEnchantmentCommon.DisplayName: 暗影烈焰附魔 普通
+			ShadowflameEnchantmentEpic.DisplayName: 史诗暗影烈焰结界
+			ShadowflameEnchantmentLegendary.DisplayName: 暗影烈焰附魔传奇
+			ShadowflameEnchantmentRare.DisplayName: 暗影烈焰结界 Rare
+			ShineEnchantmentBasic.DisplayName: 闪耀魔法基础
+			ShineEnchantmentCommon.DisplayName: 闪耀附魔常见
+			ShineEnchantmentEpic.DisplayName: 闪耀魔法史诗
+			ShineEnchantmentLegendary.DisplayName: 闪耀魔法传奇
+			ShineEnchantmentRare.DisplayName: 闪耀魅力稀有
+			SizeEnchantmentBasic.DisplayName: 大小附魔基元
+			SizeEnchantmentCommon.DisplayName: 大小附魔普通
+			SizeEnchantmentEpic.DisplayName: 大小附魔史诗
+			SizeEnchantmentLegendary.DisplayName: 大小附魔传奇
+			SizeEnchantmentRare.DisplayName: 大小附魔稀有
+			SolarDashEnchantmentBasic.DisplayName: 太阳能冲刺附魔基元
+			SolarDashEnchantmentCommon.DisplayName: 太阳能冲刺附魔普通
+			SolarDashEnchantmentEpic.DisplayName: 太阳能冲刺附魔史诗
+			SolarDashEnchantmentLegendary.DisplayName: 太阳能冲刺附魔传奇
+			SolarDashEnchantmentRare.DisplayName: 太阳能冲刺附魔稀有
+			SonarEnchantmentBasic.DisplayName: 声纳药水附魔基元
+			SonarEnchantmentCommon.DisplayName: 声纳药水附魔普通
+			SonarEnchantmentEpic.DisplayName: 声纳药水附魔史诗
+			SonarEnchantmentLegendary.DisplayName: 声纳药水附魔传奇
+			SonarEnchantmentRare.DisplayName: 声纳药水附魔稀有
+
+			SoulEnchantingTable: {
+				DisplayName: 灵魂附魔台
+				Tooltip:
+					'''
+					用于对物品施加附魔。 （3 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
+					'''
+			}
+
+			SpelunkerEnchantmentBasic.DisplayName: 洞穴探险者附魔基元
+			SpelunkerEnchantmentCommon.DisplayName: 洞穴探险者附魔普通
+			SpelunkerEnchantmentEpic.DisplayName: 洞穴探险者附魔史诗
+			SpelunkerEnchantmentLegendary.DisplayName: 洞穴探险者附魔传奇
+			SpelunkerEnchantmentRare.DisplayName: 洞穴探险者附魔稀有
+
+			SuperiorContainment: {
+				DisplayName: 高级容器
+				Tooltip: 用于合成附魔稀有
+			}
+
+			ThrowingClassSwapEnchantmentBasic.DisplayName: 投掷类交换附魔基础
+			ThrowingClassSwapEnchantmentCommon.DisplayName: 投掷类交换附魔常见
+			ThrowingClassSwapEnchantmentEpic.DisplayName: 投掷类交换附魔史诗
+			ThrowingClassSwapEnchantmentLegendary.DisplayName: 投掷类交换结界传奇
+			ThrowingClassSwapEnchantmentRare.DisplayName: Throwing Class Swap Enchantment 稀有
+			TimeEnchantmentBasic.DisplayName: 时间结界基础
+			TimeEnchantmentCommon.DisplayName: 时间结界普通
+			TimeEnchantmentEpic.DisplayName: 时间结界史诗
+			TimeEnchantmentLegendary.DisplayName: 时间结界传奇
+			TimeEnchantmentRare.DisplayName: 时间结界 稀有
+
+			UltimateEnchantingTable: {
+				DisplayName: 终极附魔台
+				Tooltip:
+					'''
+					用于对物品施加附魔。 （4 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
+					'''
+			}
+
+			UltraPowerBooster: {
+				DisplayName: 终极能量强化器
+				Tooltip:
+					'''
+					当您想要提升的物品在附魔台中时使用它可以将其基础等级提高 20。
+					（从你的库存中左键点击，或者在你的光标上左键点击附魔台上的物品。）
+					如果提升等级的物品被熔炼，该物品将会退还。
+					'''
+			}
+
+			VenomEnchantmentBasic.DisplayName: 毒液附魔基元
+			VenomEnchantmentCommon.DisplayName: 毒液附魔普通
+			VenomEnchantmentEpic.DisplayName: 毒液附魔史诗
+			VenomEnchantmentLegendary.DisplayName: 毒液附魔传奇
+			VenomEnchantmentRare.DisplayName: 毒液附魔稀有
+			WarEnchantmentBasic.DisplayName: 战争药水附魔基元
+			WarEnchantmentCommon.DisplayName: 战争药水附魔普通
+			WarEnchantmentEpic.DisplayName: 战争药水附魔史诗
+			WarEnchantmentLegendary.DisplayName: 战争药水附魔传奇
+			WarEnchantmentRare.DisplayName: 战争药水附魔稀有
+			WhipClassSwapEnchantmentBasic.DisplayName: 鞭类型伤害转换附魔基元
+			WhipClassSwapEnchantmentCommon.DisplayName: 鞭类型伤害转换附魔普通
+			WhipClassSwapEnchantmentEpic.DisplayName: 鞭类型伤害转换附魔史诗
+			WhipClassSwapEnchantmentLegendary.DisplayName: 鞭类型伤害转换附魔传奇
+			WhipClassSwapEnchantmentRare.DisplayName: 鞭类型伤害转换附魔稀有
+
+			WoodEnchantingTable: {
+				DisplayName: 木质附魔台
+				Tooltip:
+					'''
+					用于对物品施加附魔。 （0 级）
+					可以通过右键单击从库存中使用。（Shift 右键单击允许您拆分堆栈。）
+					'''
+			}
+
+			WorldAblazeEnchantmentBasic.DisplayName: 焚世附魔基元
+			WorldAblazeEnchantmentCommon.DisplayName: 焚世附魔普通
+			WorldAblazeEnchantmentEpic.DisplayName: 焚世附魔史诗
+			WorldAblazeEnchantmentLegendary.DisplayName: 焚世附魔传奇
+			WorldAblazeEnchantmentRare.DisplayName: 焚世附魔稀有
+		}
+
 		NPCNames: {
 			Witch: {
 				Agatha: 阿加莎
@@ -412,6 +1218,7 @@ Mods: {
 				Winifred: 温妮弗雷德
 			}
 		}
+
 		Ores: {
 			adamantite: 精金矿
 			chlorophyte: 叶绿矿
@@ -431,23 +1238,15 @@ Mods: {
 			titanium: 钛金矿
 			tungsten: 钨矿
 		}
+
 		TableText: {
-			Cancel: 取消
-			Finalize: 确定
-			Infusion: 武器融合
-			LevelUp: 提升等级
-			LootAll: 一键收取
-			No: 否
-			Offer: 熔炼回收
-			Syphon: 吸取经验
-			xp: 给
-			Yes: 是
-			AreYouSure: 
+			AreYouSure:
 				'''
 				您确定要永久销毁您的等级 {0}
 				{1} {2}
 				{3}（基于物品价值/经验。附魔将被退还。）
 				'''
+			Cancel: 取消
 			enchantment0: 在这里放置附魔。
 			enchantment4: “需要 {0} 或更高经验才能使用此插槽。”
 			Enchantments: 附魔
@@ -455,22 +1254,117 @@ Mods: {
 			ExchangeEssence: 换取精华吗？
 			ExchangeEssenceAndOres: “换取矿石（{0}）和精华（{1}）？”
 			ExchangeOres: 换取矿石吗？
+			Finalize: 确定
 			general1: 提升附魔台阶段可解锁更多附魔插槽。
 			general2: 在装备或饰品上使用附魔
 			general3: 提供钱币越少，反之亦然。
+			Infusion: 武器融合
+			InfusionCancelDescription: “将您存储的 {0} 返回到物品栏。”
+			InfusionDescription:
+				'''
+				允许您通过牺牲其他武器或盔甲来增强武器或盔甲。
+				武器：每增加 100 点注入能量，注入武器的伤害就会增加 {0}。
+				(新伤害 = 基础伤害 * {1}^((新注入能量 - 基础注入能量)/100) )
+				-将你想要牺牲的更强的武器放入物品槽中，然后按“灌注”。
+				-接下来，将您想要升级的较弱的武器放入物品槽中，然后按“完成”。
+				护甲：注入护甲会转移牺牲物品的套装奖励，取代注入物品的套装奖励。
+				用例：与当前的盔甲相比，您更喜欢仙人掌盔甲套装奖励。
+				将每件仙人掌盔甲牺牲到你当前的每件盔甲上以转移套装奖励。
+				每件盔甲都有自己的套装奖励 ID，因此您可以拥有部分套装，例如带有注入仙人掌头盔的金头盔，
+				仙人掌腿，仙人掌胸，赋予仙人掌铠甲套装效果。
+				-将你想要牺牲的盔甲物品放入物品栏（其套装奖励将被转移），然后按“融合”。
+				- 将要修改的盔甲物品放入物品栏（其套装奖励将被替换），然后按“完成”。
+				（来自牺牲物品的附魔、经验和力量助推器将返回给你，就像它被提供一样。）
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				最终牺牲您的 {0} 来代替套装奖金
+				在您的 {1} 上使用您的 {0} 的套装奖金。
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				最终牺牲您的 {0}
+				增加你的{1}的伤害。
+				'''
 			Item: 物品
+			LevelUp: 提升等级
+			LevelUpDescription:
+				'''
+				将您的 {0} 从级别 {1} 升级到级别 {2}。
+				花费 {3} 经验。 可用经验：{4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				设置将添加多少级别
+				将“升级”按钮调至 {0}。
+				'''
+			LoadoutDescription:
+				'''
+				打开或关闭附魔负载菜单。
+				附魔负载不存储物品。
+				他们只是保存结界的类型和等级。
+				创建附魔负载时，您可以通过以下方式快速填充插槽
+				将左键单击的结界从您的存储中移动以填充下一个插槽
+				（当按住班次时，下一个要填充的插槽具有金色背景）。
+				您也可以用鼠标按住结界，然后将其单击在插槽上。
+				单击鼠标中没有附魔的插槽将清除该插槽。
+
+				添加 - 添加新的负载（最多 15 个）。
+				从装备的附魔添加 - 通过复制装备的附魔来创建装载
+				装载 # - 单击“装载”按钮可选择该装载，以便您可以查看或编辑它。
+				全部 - 全部将你持有的物品、盔甲和配饰上的所有附魔替换为
+				来自装载的结界。 如果任何物品的等级不够高
+				为了支持其插槽的附魔，加载将无法加载。
+				持有物品/盔甲/配件 - 这些按钮与“全部”按钮相同，但是
+				仅加载所选类别的特定附魔。
+				'''
+			Loadouts: 装载
+			LootAll: 一键收取
+			LootAllDescription:
+				'''
+				删除您的 {0} 中的所有结界，将它们发送到
+				附魔存储，并将您的 {0} 返回到您的库存中。
+				'''
+			No: 否
+			Offer: 熔炼回收
+			OfferDescription:
+				'''
+				提供你的 {0}，摧毁它以换取矿石/精华。
+				矿石/精华的百分比可以在配置设置中调整。
+				'''
+			Siphon: 吸取经验
+			SiphonDescription:
+				'''
+				消耗您的 {1} 中的 {0} 经验来删除所有
+				结界、力量增强器、注入物品和
+				剩余经验而不破坏您的 {1}。
+				供养物品会返回所有本质，所以它是
+				更好的选择，除非您需要保留您的 {1}。
+				'''
+			Storage: 贮存
+			StorageDescription: 打开或关闭附魔存储。
+			ToggleAutoTrashOfferedItems: 切换自动回收站提供的项目
 			utility0: 只有效用附魔可以放到这里。
 			weapon0: 在此处放置武器、盔甲或饰品。
+			xp: 给
+			XPButtonDescription:
+				'''
+				消耗一个{0}
+				将 {1} 体验添加到您的 {2}。
+				'''
+			Yes: 是
 		}
+
 		Tooltip: {
 			ArmorSlotNames: {
 				Body: 身体
 				Head: 头部
 				Legs: 腿部
 			}
+
 			DamageClassNames: {
 				Generic: 通用
-				Ki: Ki
+				Ki: 基
 				Magic: 魔法
 				Melee: 近战
 				Ranged: 远程
@@ -479,30 +1373,31 @@ Mods: {
 				Throwing: 投手
 				Whip: 鞭子
 			}
+
 			EffectDisplayName: {
 				AllForOne: 万众一心
 				AmmoCost1: 不消耗弹药的几率
 				AmmoCost2: 增加弹药花费
-				ArmorPenetration: 护甲穿透
 				AttackSpeed: 攻击速度
 				AutoReuse: 自动使用
+				BardClassSwap: 吟游诗人职业互换
 				BerserkersRage: 狂暴者之怒
 				BonusCoins: 奖励硬币
 				BuffDuration: 增益持续时间
 				BuffEffect0: “给予您{0}”
 				BuffEffect1: “对你造成{0}”
 				BuffEffect10: “击中敌人时获得 {0}”
-				BuffEffect11: "对击中的敌人造成 {0}"
+				BuffEffect11: 对击中的敌人造成 {0}
 				BuffEffect12: “击中附近的玩家会获得 {0}”
 				BuffEffect13: “被击中时对附近的玩家造成 {0}”
 				BuffEffect14: “击中附近的敌人时获得 {0}”
-				BuffEffect15: "被击中时对附近的敌人造成 {0}"
+				BuffEffect15: 被击中时对附近的敌人造成 {0}
 				BuffEffect2: “将 {0} 给予附近的玩家”
 				BuffEffect3: “对附近的玩家造成{0}”
 				BuffEffect4: “给予敌人 {0}”
-				BuffEffect5: "对敌人造成 {0}"
+				BuffEffect5: 对敌人造成 {0}
 				BuffEffect6: “为附近的敌人提供 {0}”
-				BuffEffect7: "对附近的敌人造成 {0}"
+				BuffEffect7: 对附近的敌人造成 {0}
 				BuffEffect8: “击中时给予你{0}”
 				BuffEffect9: “击中时对你造成 {0}”
 				CalmWaters: 风平浪静
@@ -521,6 +1416,9 @@ Mods: {
 				DamageReduction: 伤害减免
 				DangerSense: 危险感
 				Daybreak: 破晓
+				DayEventUpdateRate: 日间活动更新率
+				DayTileUpdateRate: 日图块更新率
+				DayTimeRate: 日间费率
 				Defense: 防御
 				EnemyMaxSpawns: 敌人生成上限
 				EnemySpawnRate: 敌人生成率
@@ -531,29 +1429,34 @@ Mods: {
 				FlatMPRegen: 加快魔力再生
 				Frostburn: 霜冻
 				GodSlayer: 弑神者
+				HealerClassSwap: 治疗者职业互换
 				HellsWrath: 地狱之怒
 				Hunter: 猎人
 				Ichor: 脓液
 				InfinitePenetration: 穿透
+				ItemAttractionAndPickupSpeed: 物品吸引力和拾取速度
 				ItemCooldown: 物品冷却时间
 				Juiced: 兴奋
 				JumpSpeed: 跳跃速度
 				JunglesFury: 丛林之怒
-				Ki: Ki
+				Ki: 基
 				KiClassSwap: Ki类型伤害转换
 				KiDamage: Ki伤害
 				KiRegen: Ki再生
 				LavaFishing: 熔岩钓鱼
+				LethalCombination: 致命组合
 				LifeRegen: 生命再生
 				LifeRegeneration: 生命再生值
 				LifeSteal: 生命窃取
 				Luck: 运气
 				MagicClassSwap: 魔法类型伤害转换
+				Magnetic: 磁的
 				ManaUsage1: 减少魔力消耗
 				ManaUsage2: 增加魔力消耗
 				MaxFallSpeed: 最大降速
 				MaxKi: Ki上限
 				MaxLife: 生命上限
+				MaxLifeSteal: 最大生命窃取
 				MaxMinions: 仆从上限
 				MaxMP: 魔力上限
 				MeleeClassSwap: 近战类型伤害转换
@@ -566,6 +1469,9 @@ Mods: {
 				MovementSpeed: 移动速度
 				MPBonusRegen: 魔力再生
 				Multishot: 多发
+				NightEventUpdateRate: 夜间活动更新率
+				NightTileUpdateRate: 夜间图块更新率
+				NightTimeRate: 夜间价格
 				NpcContactAngler: 钓鱼者
 				NPCHitCooldown: 命中冷却
 				ObsidianSkin: 黑曜石皮肤
@@ -574,15 +1480,23 @@ Mods: {
 				OnHitSpawnProjectile: 命中时生成弹幕
 				Peace: 和平
 				PennyPinching: 锱铢必较
+				PercentArmorPenetration: 装甲穿透百分比
+				PickupRange: 拾取范围
+				Poison: 毒
+				PrideOfTheWeak: 弱者的意志
 				ProjectileVelocity: 子弹速度
 				QuestFishChance: 任务鱼几率
 				RangedClassSwap: 远程类型伤害转换
 				ReducedManaUsage: 减少魔力消耗
 				RogueClassSwap: 盗贼类型伤害转换
+				Shadowflame: 暗影烈焰
+				Shine: 闪耀
 				Size: 大小
 				SolarDash: 太阳能短跑
 				Sonar: 声纳
 				Spelunker: 探险者
+				ThrowingClassSwap: 投掷类交换
+				Time: 时间
 				VanillaDash1: 忍者袜短跑
 				VanillaDash2: 克苏鲁之眼盾冲刺
 				VanillaDash3: 太阳能短跑
@@ -595,32 +1509,50 @@ Mods: {
 				WorldAblaze: 焚世
 				YoyoStringLength: 悠悠球线长度
 			}
+
 			EnchantmentCustomTooltips: {
 				CalamityMod: （灾厄模组附魔）
 				DBZMODPORT: (龙珠模组附魔)
-				WorldAblaze: 
+				ThoriumMod: （Throium Mod 附魔）
+				Time: 时间效果随机化，有 6 个选项：白天/夜间时间速率、图块更新速率、事件更新速率
+				WorldAblaze:
 					'''
 					（天照减益和以下关于它的注释仅适用于附魔第4阶。）
 					（没有人能在天照大火无法阻挡的火焰中幸存）
 					（对敌人造成独特的火焰减益，永不停息）
 					（该减益造成的伤害会随着时间的推移而增长，并对目标造成更多伤害）
-					（扩散到附近的敌人，并防止敌人对其他的 "世界之火 "的减益免疫。）
+					（扩散到附近的敌人，并防止敌人对其他的 世界之火 的减益免疫。）
 					'''
 			}
+
 			EnchantmentEffects: {
 				AmmoCost: “{0}（钓鱼时也可以节省诱饵）”
 				AttackSpeed: “{0}（如果仆从发射弹幕，则会影响他们的射速。还会影响鱼上钩的速度。）”
-				BonusCoins: 
+				AutoReuse: 自动重用
+				BonusCoins:
 					'''
 					{0}（击中敌人会增加掉落的钱币数量
 					基于造成的伤害、敌人的最大生命值、敌人的基础值和运气。）
 					'''
-				BuffDuration: 
+				BuffDuration:
 					'''
 					{0}
 					（持续时间在增益激活时持续增加，而不是在第一次获得增益时）
 					'''
-				EnemySpawnRate: 
+				CatastrophicRelease: 灾难性释放
+				Channel: 渠道
+				CrateChance: 箱子机会
+				CriticalStrikeChance: 暴击率
+				CriticalStrikeDamage: 暴击伤害
+				DamageAfterDefenses: 防御后伤害
+				DamageClassSwap: 伤害等级交换
+				DamageReduction: 减少伤害
+				DayEventUpdateRate: 日间活动更新率
+				DayTileUpdateRate: 日图块更新率
+				DayTimeRate: 日间费率
+				Defense: 防御
+				EnemyMaxSpawns: 敌人最大生成量
+				EnemySpawnRate:
 					'''
 					{0}
 					（仆从伤害会根据生成率而减少，除非他们是你的仆从攻击目标，否则就不会受附魔影响）
@@ -629,54 +1561,110 @@ Mods: {
 					（生成的敌人将免疫熔岩/陷阱）
 					'''
 				FishingEnemySpawnChance: “{0}（白天减少 5 倍。受 Chum Caster 影响。还可以生成猪龙鲨公爵。）”
-				GodSlayer: 
+				FishingPower: 渔力
+				FlatMPRegen: 固定 MP 恢复
+				GodSlayer:
 					'''
 					{0}
 					（基于敌人最大生命值的额外伤害）
 					（额外伤害不受生命窃取影响）
 					'''
+				InfinitePenetration: 无限穿透
+				ItemAttractionAndPickupSpeed: 物品吸引力和拾取速度
 				ItemCooldown: “（物品冷却时间等于 {0} 使用速度）”
+				JumpSpeed: 跳跃速度
+				KiDamage: 气伤害
+				KiRegen: 基雷根
 				LavaFishing: “{0}（允许在熔岩中钓鱼并有机会提高在熔岩中的捕获率。可与其他增益叠加。）”
+				LifeRegeneration: 生命再生
 				LifeSteal: “{0}（保留余数以防止对于低伤害武器总是因为精度原因变为 0）”
+				Luck: 运气
+				ManaUsage: 法力使用
+				MaxFallSpeed: 最大下降速度
+				MaxKi: 马克斯·基
+				MaxLife: 最大寿命
+				MaxLifeSteal: “{0}（可使用的原版吸血池的百分比。）”
+				MaxMinions: 最大小兵
+				MaxMP: 最大MP
+				MiningSpeed: 挖矿速度
 				MinionAttackTarget: 被击中的敌人成为仆从的攻击目标。效果和鞭子一样。
+				MovementAcceleration: 运动加速度
+				MovementSlowdown: 移动速度减慢
+				MovementSpeed: 移动速度
+				MPBonusRegen: MP 奖励回复
 				Multishot: “{0}（产生额外弹幕的机会。适用于每个弹幕。）”
-				OneForAll: 
+				NightEventUpdateRate: 夜间活动更新率
+				NightTileUpdateRate: 夜间图块更新率
+				NightTimeRate: 夜间价格
+				NPCHitCooldown: NPC 命中冷却时间
+				OneForAll:
 					'''
 					{0}
 					（击中敌人会伤害附近的所有敌人）
 					（仅在子弹的第一次命中时有效。）
 					'''
 				OnHitSpawnProjectile: “击中敌人时产生弹幕：{0}”
+				PercentArmorPenetration: 装甲穿透百分比
+				PickupRange: 拾取范围
+				PrideOfTheWeak: "{0} 增加弱武器造成的伤害。（当前灌注能量为0时 100%起效 ，灌注能量越高效果越低，超过500 时不再起效。)"
+				ProjectileVelocity: 弹丸速度
 				QuestFishChance: “{0}（捕获的任务鱼将自动上交并开始新的任务，绕过每天 1 条的限制。）”
+				Size: 尺寸
+				VanillaDash: 香草冲刺
+				WhipRange: 鞭范围
+				WingTime: 翼时
+				YoyoStringLength: 悠悠球弦长
+
 				BoolEffect: {
 					Enabled: “{0}：启用”
 					Prevented: “{0}：禁用”
 				}
+
 				BuffEffect: {
 					All: “{0}（{1}% 的几率获得 {2} 增益）”
 					OnTickPlayerBuff: “{0}（每 {3} 个有 {1}% 的几率获得 {2} 增益）”
 				}
+
 				PlayerSetEffect: {
 					Enabled: “{0}：启用”
 					Prevented: “{0}：禁用”
 				}
 			}
+
 			EnchantmentGeneralTooltips: {
 				AllowedOn: 允许在
 				And: 和
+				ApproximateItemDamage: “物品伤害 ~ {0}（针对 0 护甲敌人）”
 				ArmorSlotOnly: “仅限 {0} 个盔甲槽”
+				BoosterInstalled: 已安装助推器
+				EnchantmentCapacity: 附魔能力
+				Experience: “经验：{0}”
+				InfusedArmorID: “注入的盔甲 ID：{0} 注入的物品：{1}”
+				InfusedItem: 注入物品：
+				InfusionPower: 输液功率：
+				LevelAvailable: “级别：{0} {1} 可用：{2}”
 				LevelCost: “等级成本：{0}”
 				Max1: 每件最多 1 个
+				MaxLevel: （最高等级）
+				NewInfusedItem: 新注入物品：
+				NewInfusionPower: 新的输液能力：
+				NewSetBonusID: 新套装奖励 ID：
+				NormalBoosterAbreviation: 普
 				NotAllowed: “不允许在 {0} 种武器上使用”
 				Only: “仅限 {0}”
 				OnlyAllowedOn: 只允许在
 				Or: 或者
+				OutOfAmmo: 弹药耗尽
+				Points: 积分
+				SetBonusID: “设置奖励 ID：{0}”
+				ToNextLevel: “（{0}到下一级）”
+				UltraBoosterAbreviation: 极
 				Unique: 独特（仅限 1 个独特的附魔）
 				Utility: 效用
 			}
-			EnchantmentShortTooltip: {
-				OnTickPlayerBuff: “每 {2} 个 {1} 给予 {0} 增益”
-			}
+
+			EnchantmentShortTooltip.OnTickPlayerBuff: “每 {2} 个 {1} 给予 {0} 增益”
+
 			ItemType: {
 				Accessories: 饰品
 				Armor: 盔甲
@@ -686,6 +1674,7 @@ Mods: {
 				Weapons: 武器
 			}
 		}
+
 		TownNPCMood: {
 			Witch: {
 				Content: 这里的生活是可以忍受的。没有冲突，没有戏剧性，没有那么可怕。
@@ -702,6 +1691,39 @@ Mods: {
 				LoveNPC: “同为炼丹师！{NPCName}有这么多奇怪的噱头，一个真正的诱惑者！”
 				LoveSpace: 现在大家都走了，我的实验终于可以继续了！
 				NoHome: 我无法同时销售我所有的商品，这些商品很不稳定，请注意！
+			}
+		}
+
+		Tiles: {
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
+		}
+
+		NPCs: {
+			Witch: {
+				// DisplayName: Witch
+
+				TownNPCMood: {
+					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
+					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
+					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
+					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
+					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
+					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
+					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
+					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
+					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
+					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
+					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
+					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
+					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
+					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
+				}
 			}
 		}
 	}

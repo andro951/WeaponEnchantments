@@ -7,6 +7,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -75,7 +77,7 @@ namespace WeaponEnchantments.Common.Globals
                 bool projectileFromWeaponProjectile = projectileFromVortexBeater || projectileFromCeleb2 || prjectileFromPhantasm || projectileFromLaserMachinegun || projectileFromChargedBlasterCannon;
 				if (!weaponProjectile && projectileFromWeaponProjectile) {
                     //Try get source projectile from the weapon.
-                    if(vbSource.Item.TryGetEnchantedItem(out EnchantedItem vbSourceGlobal)) {
+                    if(vbSource.Item.TryGetEnchantedItemSearchAll(out EnchantedItem vbSourceGlobal)) {
                         if (vbSourceGlobal.masterProjectile != null)
                             source = vbSourceGlobal.masterProjectile.GetSource_FromThis();
                     }
@@ -85,7 +87,7 @@ namespace WeaponEnchantments.Common.Globals
             base.OnSpawn(projectile, source);
 
             if (source is EntitySource_ItemUse uSource) {
-                if (uSource.Item != null && uSource.Item.TryGetEnchantedItem(out EnchantedItem uSourceGlobal)) {
+                if (uSource.Item != null && uSource.Item.TryGetEnchantedItemSearchAll(out EnchantedItem uSourceGlobal)) {
 					//Set Master projectile for VortexBeater, Celeb2, Phantasm, Laser Machinegun, Charged Blaster Cannon fix (Speed Enchantments)
 					if (weaponProjectile)
                         uSourceGlobal.masterProjectile = projectile;
@@ -114,7 +116,7 @@ namespace WeaponEnchantments.Common.Globals
                 return false;
 
             //NPC Hit Cooldown
-            if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
+            if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.DamageType == DamageClass.MagicSummonHybrid || weaponProjectile) {
                 GetSharedVanillaModifierStrength(projectile.owner, EnchantmentStat.AttackSpeed, out float attackSpeedMultiplier);
                 float speedMultiplier = attackSpeedMultiplier;
 
@@ -153,9 +155,9 @@ namespace WeaponEnchantments.Common.Globals
         }
         protected override void ActivateMultishot(Projectile projectile, IEntitySource source) {
             //Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
-            switch (sourceItem.Name) {
+            switch (sourceItem.ModFullName()) {
                 //Fix issues with weapons and multishot
-                case "Titanium Railgun":
+                case "CalamityMod/TitaniumRailgun":
                     multiShotConvertedToDamage = true;
                     break;
             }
@@ -265,9 +267,9 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) {
             projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
-            if (sourceItem.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+            if (sourceItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 bool summonDamage = sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid;
 
                 //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
@@ -308,7 +310,7 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             default://enchantingTable itemSlot
                                 inventory = new Item[1];
-                                inventory[0] = wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item;
+                                inventory[0] = wePlayer.enchantingTableItem;
                                 inventoryLocation = 0;
                                 break;
                         }
@@ -348,8 +350,8 @@ namespace WeaponEnchantments.Common.Globals
                                         inventoryLocation = i - 170;
                                         break;
                                     case 210:
-                                        if (wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null) {
-                                            inventory = new Item[] { wePlayer.enchantingTableUI.itemSlotUI[0].Item };
+                                        if (!wePlayer.enchantingTableItem.IsAir) {
+                                            inventory = new Item[] { wePlayer.enchantingTableItem };
                                         }
                                         else {
                                             inventory = null;
@@ -380,11 +382,11 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 //Gain xp
-                sourceItem.DamageNPC(Main.player[projectile.owner], target, damage, crit);
+                sourceItem.DamageNPC(Main.player[projectile.owner], target, hit);
             }
             else if (playerSource != null) {
                 //Non item based projectile like the Stardust Guardian
-                EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
+                EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, hit);
             }
         }
     }

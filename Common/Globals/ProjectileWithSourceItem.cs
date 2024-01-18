@@ -9,6 +9,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -47,7 +50,7 @@ namespace WeaponEnchantments.Common.Globals
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
             //All other sources
             if (source is EntitySource_ItemUse uSource) {
-                if (uSource.Item != null && uSource.Item.TryGetEnchantedItem(out EnchantedItem uSourceGlobal)) {
+                if (uSource.Item != null && uSource.Item.TryGetEnchantedItemSearchAll(out EnchantedItem uSourceGlobal)) {
                     sourceItem = uSource.Item;
                     ItemSourceSet = true;
                 }
@@ -63,7 +66,7 @@ namespace WeaponEnchantments.Common.Globals
                 TryUpdateFromParent();
             }
             else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar") {
-                if (WEMod.calamityEnabled && projectile.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.CalamityRespawnMinionSourceItems.ContainsKey(projectile.type)) {
+                if (AndroMod.calamityEnabled && projectile.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.CalamityRespawnMinionSourceItems.ContainsKey(projectile.type)) {
                     sourceItem = wePlayer.CalamityRespawnMinionSourceItems[projectile.type];
                     wePlayer.CalamityRespawnMinionSourceItems.Remove(projectile.type);
                 }
@@ -126,7 +129,10 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            return bestMatch >= 0 ? Main.projectile[bestMatch].GetGlobalProjectile<WEProjectile>().sourceItem : null;
+            if (bestMatch >= 0 && Main.projectile[bestMatch].TryGetProjectileWithSourceItem(out ProjectileWithSourceItem projectileWithSourceItem))
+                return projectileWithSourceItem.sourceItem;
+
+            return null;
         }
         public virtual bool UpdateProjectile(Projectile projectile) {
             if (!ItemSourceSet) {
@@ -179,7 +185,7 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Multishot
-            bool notAMultishotProjectile = !(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type;
+            bool notAMultishotProjectile = source is not EntitySource_Parent parentSource || parentSource.Entity is not Projectile parentProjectile || parentProjectile.type != projectile.type;
             if (notAMultishotProjectile) {
                 int projectiles = (int)multishotChance;
                 float randFloat = Main.rand.NextFloat();
@@ -199,7 +205,7 @@ namespace WeaponEnchantments.Common.Globals
                         //Vector2 position = projectile.position.RotatedBy(spread * rotation);
                         Vector2 position = projectile.position;
                         Vector2 velocity = projectile.velocity.RotatedBy(spread * rotation);
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
                         invert = !invert;
                     }
                 }
@@ -243,7 +249,7 @@ namespace WeaponEnchantments.Common.Globals
             if (wePlayer.VanillaStats.ContainsKey(enchantmentStat))
                 wePlayer.VanillaStats[enchantmentStat].ApplyTo(ref strength);
 
-            if (sourceItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem)) {
+            if (sourceItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem)) {
                 if (enchantedHeldItem.VanillaStats.ContainsKey(enchantmentStat))
                     enchantedHeldItem.VanillaStats[enchantmentStat].ApplyTo(ref strength);
             }
@@ -253,7 +259,7 @@ namespace WeaponEnchantments.Common.Globals
         protected bool GetEnchantmentModifierStrength(EnchantmentStat enchantmentStat, out float strength, float baseStrength = 1f) {
             strength = baseStrength;
 
-            if (!sourceItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (!sourceItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 return false;
 
             if (enchantedHeldItem.EnchantmentStats.ContainsKey(enchantmentStat))

@@ -11,9 +11,9 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class AutoReuse : BoolEffect {
-        public AutoReuse(float minimumStrength = 0f, DifficultyStrength strengthData = null, bool prevent = false) : base(minimumStrength, strengthData, prevent) { }
+        public AutoReuse(bool prevent = false) : base(prevent) { }
 		public override EnchantmentEffect Clone() {
-			return new AutoReuse(MinimumStrength, StrengthData?.Clone(), !EnableStat);
+			return new AutoReuse(!EnableStat);
 		}
 		public override EnchantmentStat statName => EnchantmentStat.AutoReuse;
     }

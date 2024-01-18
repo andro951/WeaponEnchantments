@@ -3,6 +3,8 @@ using Terraria.ID;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -38,7 +40,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	/*
 	public class CatastrophicReleaseEnchantmentBasic : CatastrophicReleaseEnchantment {
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.TheDestroyer, 1f)
 		};
 	}

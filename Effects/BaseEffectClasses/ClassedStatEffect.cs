@@ -2,6 +2,8 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Effects {
     public abstract class ClassedStatEffect : StatEffect {
@@ -16,6 +18,6 @@ namespace WeaponEnchantments.Effects {
         }
 
         public DamageClass damageClass { get; set; }
-        public override string DisplayName => $"{damageClass.S()} {base.DisplayName}";
+        public override string DisplayName => $"{damageClass.S()}{(damageClass != DamageClass.Generic ? " " : "")}{base.DisplayName}";
 	}
 }

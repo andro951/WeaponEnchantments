@@ -18,35 +18,25 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
 using static WeaponEnchantments.WEPlayer;
+using androLib.Common.Utility;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects
-    {
+    public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects {
 
         #region Stats
 
-        //New system
-        //public SortedDictionary<PermenantItemFields, StatModifier> AppliedPermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
-        //public SortedDictionary<PermenantItemFields, StatModifier> PermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
         public DamageClassSwap DamageTypeEffect;
-
-        //public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        //public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        //public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
         public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
-        //public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
-
-        //public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
-        //public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
         public List<IOnHitEffect> OnHitEffects { set; get; } = new List<IOnHitEffect>();
-        //public List<IModifyShootStats> ModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
-        //public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
+
+        public static int AmmoBagStorageID = -1;
 
         #endregion
 
@@ -55,40 +45,44 @@ namespace WeaponEnchantments.Common.Globals
         public DamageClass damageType = DamageClass.Default;
         public DamageClass baseDamageType = DamageClass.Default;
 
-        #endregion
+		#endregion
 
-        #region Infusion
+		#region Infusion
 
-        public float infusionDamageMultiplier = 1f;
+        public const int DefaultInfusionPower = -1;
+        public int GetInfusionPower(ref Item item) {
+            if (infusionPower == DefaultInfusionPower)
+                infusionPower = item.GetWeaponInfusionPowerSearchIfNeeded(infusedItemName);
+
+            return infusionPower;
+        }
+        public void SetInfusionPower(int newValue) {
+			infusionPower = newValue;
+		}
+		private int infusionPower = DefaultInfusionPower;
+		public float infusionDamageMultiplier = 1f;
 
         #endregion
 
         #region Tracking (instance)
-
-        public bool trackedWeapon = false;
-        public bool hoverItem = false;
-        private bool _stack0 = false;
-        public bool Stack0 {
-            get {
-                if (_stack0) {
-                    if (Item.stack > 1) {
-                        Item.stack--;
-                        _stack0 = false;
-                        Stack = Item.stack;
-                    }
-                }
-
-                return _stack0;
+        public bool GetStack0(Item item) {
+            if (_stack0) {
+                if (item.stack > 1) {
+					item.stack--;
+					_stack0 = false;
+				}
             }
-            set {
-                bool lastValue = _stack0;
-                _stack0 = value;
 
-                //If changed, update Value
-                if (lastValue != _stack0)
-                    UpdateItemValue();
-            }
+            return _stack0;
         }
+        public void SetStack0(Item item, bool newValue) {
+            if (!_stack0 && newValue && item.stack < 2) {
+                item.stack = 2;
+            }
+
+            _stack0 = newValue;
+        }
+        private bool _stack0 = false;
 
         #endregion
 
@@ -97,15 +91,9 @@ namespace WeaponEnchantments.Common.Globals
         }
 
         public override bool InstancePerEntity => true;
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => lateInstantiation && entity.IsWeaponItem();
         public override EItemType ItemType => EItemType.Weapons;
-		public override void Load() {
-			
-		}
-		public override void HoldItem(Item item, Player player) {
-			
-		}
-		public override GlobalItem Clone(Item item, Item itemClone) {
+        public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedWeapon clone = (EnchantedWeapon)base.Clone(item, itemClone);
 
             if (cloneReforgedItem || resetGlobals) {
@@ -125,32 +113,37 @@ namespace WeaponEnchantments.Common.Globals
                 clone.damageType = damageType;
                 clone.baseDamageType = baseDamageType;
 
-                #endregion
+				#endregion
 
-                #region Infusion
+				#region Infusion
 
-                clone.infusionDamageMultiplier = infusionDamageMultiplier;
+				clone.infusionPower = GetInfusionPower(ref item);
+				clone.infusionDamageMultiplier = infusionDamageMultiplier;
 
                 #endregion
 
                 #region Tracking (instance)
 
-                clone.Stack0 = Stack0;
+                clone._stack0 = _stack0;
 
                 #endregion
             }
-
-            if (!Main.mouseItem.IsSameEnchantedItem(itemClone))
-                clone.trackedWeapon = false;
 
             return clone;
         }
         public override void LoadData(Item item, TagCompound tag) {
             base.LoadData(item, tag);
 
-            #region Tracking (instance)
+			#region Infusion
 
-            Stack0 = tag.Get<bool>("stack0");
+			if (infusedItemName != "" && tag.TryGet<int>("infusedPower", out int infusionPower))
+				this.infusionPower = infusionPower;
+
+			#endregion
+
+			#region Tracking (instance)
+
+			_stack0 = tag.Get<bool>("stack0");
 
             #endregion
 
@@ -158,30 +151,63 @@ namespace WeaponEnchantments.Common.Globals
         public override void SaveData(Item item, TagCompound tag) {
             base.SaveData(item, tag);
 
-            #region Tracking (instance)
+			#region Infusion
 
-            tag["stack0"] = Stack0;
+			if (infusedItemName != "") {
+				tag["infusedPower"] = GetInfusionPower(ref item);
+			}
+
+			#endregion
+
+			#region Tracking (instance)
+
+			tag["stack0"] = GetStack0(item);
 
             #endregion
+
         }
         public override void NetSend(Item item, BinaryWriter writer) {
-            base.NetSend(item, writer);
 
-            #region Tracking (instance)
+			#region Infusion
 
-            writer.Write(Stack0);
+			bool noName = infusedItemName == "";
+			writer.Write(noName);
+			if (!noName) {
+				writer.Write(GetInfusionPower(ref item));
+			}
 
-            #endregion
-        }
+			#endregion
+
+			#region Tracking (instance)
+
+			writer.Write(_stack0);
+
+			#endregion
+
+			//Important for infusionPower to be obtained before base
+			base.NetSend(item, writer);
+		}
         public override void NetReceive(Item item, BinaryReader reader) {
-            base.NetReceive(item, reader);
+            Item = item;
 
-            #region Tracking (instance)
+			#region Infusion
 
-            Stack0 = reader.ReadBoolean();
+			bool noName = reader.ReadBoolean();
+			if (!noName) {
+				infusionPower = reader.ReadInt32();
+			}
 
-            #endregion
-        }
+			#endregion
+
+			#region Tracking (instance)
+
+			_stack0 = reader.ReadBoolean();
+
+			#endregion
+
+            //Important for infusionPower to be obtained before base
+			base.NetReceive(item, reader);
+		}
         public override void UpdateInventory(Item item, Player player) {
             if (Modified) {
                 //Stars Above compatibility fix
@@ -196,44 +222,56 @@ namespace WeaponEnchantments.Common.Globals
 
             base.UpdateInventory(item, player);
         }
-        public override bool OnPickup(Item item, Player player) {
-            //player.GetWEPlayer().UpdateItemStats(ref item);
-
-            return true;
-        }
         protected override void GetTopTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
-            if (Enchanted) {
-                //~Damage tooltip
-                if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
-                    if (GetPlayerModifierStrengthForTooltip(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
-                        int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
-                        string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
-                        tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
-                    }
-                }
-            }
+			//~Damage tooltip
+			if (WEMod.clientConfig.DisplayDamageTooltipSeperatly) {
+				if (GetPlayerModifierStrengthForTooltip(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
+					int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
+                    string tooltip = $"{EnchantmentGeneralTooltipsID.ApproximateItemDamage}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { damage });// $"Item Damage ~ {damage} (Against 0 armor enemy)";
+					tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
+				}
+			}
 
-            //Stack0
-            if (Modified || inEnchantingTable) {
-                if (Stack0) {
-                    string tooltip = $"♦ OUT OF AMMO ♦";
+			//Stack0
+			if (Modified || inEnchantingTable) {
+                if (GetStack0(item)) {
+                    string tooltip = $"♦ {$"{EnchantmentGeneralTooltipsID.OutOfAmmo}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ♦";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
             }
         }
-        protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {infusionPower}   Infused Item: {infusedItemName}";
-        protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {item.GetWeaponInfusionPower()}";
+        protected override string GetPerLevelBonusTooltip() {
+            if (WEMod.serverConfig.CritPerLevelDisabled)
+                return "";
+
+            float perLevelBonus = GetPerLevelBonus();
+            string tooltip = "";
+            if (perLevelBonus > 0f) {
+                if (WEMod.serverConfig.DamagePerLevelInstead) {
+					tooltip = perLevelBonus > 0f ?
+				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.DamageAfterDefenses}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+				}
+                else {
+					tooltip = perLevelBonus > 0f ?
+				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.CriticalStrikeChance}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+				}
+            }
+
+            return tooltip;
+        }
+        protected override string GetInfusedItemTooltip(Item item) => $"{$"{EnchantmentGeneralTooltipsID.InfusionPower}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {GetInfusionPower(ref item)}   {$"{EnchantmentGeneralTooltipsID.InfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {infusedItemName}";
+        protected override string GetInfusionTooltip(Item item) => $"{$"{EnchantmentGeneralTooltipsID.InfusionPower}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {GetInfusionPower(ref item)}";
         protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
+            if (!wePlayer.infusionConsumeItem.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon))
+                return "";
+
             return
-                $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   " +
-                $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
+                $"*{$"{EnchantmentGeneralTooltipsID.NewInfusionPower}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)}: {enchantedWeapon.GetInfusionPower(ref wePlayer.infusionConsumeItem)}   " +
+                $"{$"{EnchantmentGeneralTooltipsID.NewInfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
-            if (!WEMod.serverConfig.CritPerLevelDisabled)
-                crit += levelBeforeBooster * GlobalStrengthMultiplier;
-
             CheckEnchantmnetStatsApplyTo(ref crit, EnchantmentStat.CriticalStrikeChance);
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage) {
@@ -265,8 +303,11 @@ namespace WeaponEnchantments.Common.Globals
                 return null;
             }*/
         }
-        private void Restock(Item item) {
+        private void Restock(Item item) {//TODO: make this look in the ammo bag.
             Player player = Main.LocalPlayer;
+
+            if (TryRestockFromInventory(item, player.inventory))
+                return;
 
             //Find same item
             for (int i = 0; i < 59; i++) {
@@ -280,26 +321,50 @@ namespace WeaponEnchantments.Common.Globals
                 if (invEnchantedWeapon.Modified)
                     continue;
 
-                if (invEnchantedWeapon.Stack0)
+                if (invEnchantedWeapon.GetStack0(item))
                     continue;
 
                 //Restock (found same item)
-                item.stack = inventoryItem.stack;
-                Stack0 = false;
+                item.stack = inventoryItem.stack;//TODO: Make this use ItemLoader.TransferStack instead of setting stack equal to.
+                //SetStack0(item, false);
                 player.inventory[i] = new Item();
                 return;
             }
-        }
-		public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
-            IEnumerable<IUseTimer> useTimers = player.GetWEPlayer().EffectTimers.Where(n => n.Value.TimerStatName == EnchantmentStat.CatastrophicRelease).Select(t => t.Value);
-            foreach(IUseTimer useTimer in useTimers) {
-                if (!useTimer.TimerOver(player))
-                    return false;
+
+            if (AndroMod.vacuumBagsEnabled) {
+                IEnumerable<Item> ammoBagItems = StorageManager.GetItems(AmmoBagStorageID);
+                if (TryRestockFromInventory(item, ammoBagItems))
+					return;
+
+			}
+		}
+		private bool TryRestockFromInventory(Item item, IEnumerable<Item> inventory) {
+            foreach (Item inventoryItem in inventory.Where(i => !i.NullOrAir() && i.type == item.type)) {
+				if (!inventoryItem.TryGetEnchantedWeapon(out EnchantedWeapon invEnchantedWeapon))
+					continue;
+
+				if (invEnchantedWeapon.Modified)
+					continue;
+
+				if (invEnchantedWeapon.GetStack0(item))
+					continue;
+
+                if (ItemLoader.TryStackItems(item, inventoryItem, out int _))
+                    return true;
 			}
 
-            return true;
+            return false;
 		}
-		public override bool? UseItem(Item item, Player player) {
+		public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+            IEnumerable<IUseTimer> useTimers = player.GetWEPlayer().EffectTimers.Where(n => n.Value.TimerStatName == EnchantmentStat.CatastrophicRelease).Select(t => t.Value);
+            foreach (IUseTimer useTimer in useTimers) {
+                if (!useTimer.TimerOver(player))
+                    return false;
+            }
+
+            return true;
+        }
+        public override bool? UseItem(Item item, Player player) {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
             if (!Modified)
@@ -307,33 +372,22 @@ namespace WeaponEnchantments.Common.Globals
 
             bool? returnValue = base.UseItem(item, player);
 
-            if (eStats.ContainsKey("CatastrophicRelease")) {
-                player.statMana = 0;
-            }
-
             //Consumable weapons  (item.placeStyle fix for a placable enchantable item)
             if (item.consumable && Modified && item.placeStyle == 0) {//Restock and Stack0
                 if (item.stack < 2) {
                     Restock(item);
-
-                    if (item.stack < 2  || item.Name == "") {
-                        Stack0 = true;
-                        item.stack = 2;
-                    }
+                    SetStack0(item, true);
                 }
             }
 
             return returnValue;
         }
         public override bool CanUseItem(Item item, Player player) {
-
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-
             //stack0
-            if (Stack0) {
+            if (GetStack0(item)) {
                 Restock(item);
 
-                if (Stack0) {
+                if (GetStack0(item)) {
                     //Restock failed
                     return false;
                 }
@@ -344,19 +398,10 @@ namespace WeaponEnchantments.Common.Globals
                     return false;
             }
 
-            //CatastrophicRelease
-            if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
-                return false;
-
-            //AllForOne
-            if (eStats.ContainsKey("AllForOne")) {
-                return wePlayer.allForOneTimer <= 0;
-            }
-
             return true;
         }
-        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit) {
-            item.DamageNPC(player, target, damage, crit, true);
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone) {
+            item.DamageNPC(player, target, hit, true);
         }
         public override void OnSpawn(Item item, IEntitySource source) {
             //Fargo's Mod fix for pirates that steal items
@@ -370,13 +415,21 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-    }
+        public float GetPerLevelBonus() => levelBeforeBooster * GlobalStrengthMultiplier / 100f;
+		public override void ResetInfusion() {
+			base.ResetInfusion();
+            infusionDamageMultiplier = 1f;
+            SetInfusionPower(DefaultInfusionPower);
+		}
+	}
 
     public static class EnchantedWeaponStaticMethods
 	{
-        public static float GetReductionFactor(int hp) {
-            float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
-            return factor;
-        }
-    }
+		public static float GetPrideOfTheWeakMultiplier(this EnchantedWeapon enchantedWeapon) {
+            Item item = enchantedWeapon.Item;
+            int infusionPower = enchantedWeapon.GetInfusionPower(ref item);
+			int infusionPowerFromInfusion = InfusionManager.ReverseEngInfusionPowerFromMultiplierForPrideOfTheWeak(item);
+            return 1f - (float)(infusionPower + infusionPowerFromInfusion) / 500f;
+		}
+	}
 }

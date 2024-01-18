@@ -11,11 +11,16 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
+using androLib.Items;
+using WeaponEnchantments.Content.NPCs;
+using androLib;
+using static androLib.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantmentEssence : WEModItem, ISoldByWitch {
+	public abstract class EnchantmentEssence : WEModItem, ISoldByNPC {
 		public virtual int EssenceTier {
 			get {
 				if (essenceTier == -1) {
@@ -31,12 +36,14 @@ namespace WeaponEnchantments.Items
 		public static float[] values = new float[tierNames.Length];
 		public static float[] xpPerEssence = new float[tierNames.Length];
 		public static float valuePerXP;
+		public const int MAX_STACK = 999999;
 
 		private int entitySize = 20;
 		int glowBrightness;
-		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? "Alt" : "")).Replace('.', '/');
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (AndroMod.clientConfig.UseAlternateRarityColors ? "Alt" : "")).Replace('.', '/');
 		public Color glowColor => TierColors[EssenceTier];
 		public abstract int animationFrames { get; }
+		public Func<int> SoldByNPCNetID => ModContent.NPCType<Witch>;
 		public virtual SellCondition SellCondition => SellCondition.Always;
 		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.EnchantmentEssence, WikiTypeID.CraftingMaterial };
 		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier);
@@ -64,9 +71,9 @@ namespace WeaponEnchantments.Items
 			//Log contributors for both normal and alternate spritesheets
 			if (LogModSystem.printListOfContributors) {
 				//LogModSystem.UpdateContributorsList(this);
-				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
+				AndroMod.clientConfig.UseAlternateRarityColors = !AndroMod.clientConfig.UseAlternateRarityColors;
 				LogModSystem.UpdateContributorsList(this);
-				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
+				AndroMod.clientConfig.UseAlternateRarityColors = !AndroMod.clientConfig.UseAlternateRarityColors;
 			}
 
 			IDs[EssenceTier] = Type;
@@ -87,8 +94,7 @@ namespace WeaponEnchantments.Items
 			Lighting.AddLight(Item.Center, glowColor.ToVector3() * intensity * Main.essScale);
 		}
 
-		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-		{
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
 			// Add glow mask
 			Texture2D texture = TextureAssets.Item[Item.type].Value;
 
@@ -121,7 +127,7 @@ namespace WeaponEnchantments.Items
 		public override void SetDefaults() {
 			SetupStaticValues();
 			Item.value = (int)values[EssenceTier];
-			Item.maxStack = 9999;
+			Item.maxStack = MAX_STACK;
 			Item.width = entitySize;
 			Item.height = entitySize;
 			Item.rare = GetRarityFromTier(EssenceTier);
@@ -130,46 +136,46 @@ namespace WeaponEnchantments.Items
 		}
 
 		public override void AddRecipes() {
-			for (int i = 0; i < tierNames.Length; i++) {
-				if (!ConfigValues.useAllRecipes && i != essenceTier)
-					continue;
+			Recipe recipe = CreateRecipe();
+			if (EssenceTier > 0) {
+				int num = 4;
+				recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier - 1], num);
+				recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[essenceTier] + "EnchantingTable");
+				recipe.Register();
+			}
 
-				Recipe recipe = CreateRecipe();
-				if (EssenceTier > 0) {
-					int num = !ConfigValues.useAllRecipes ? 4 : 8 - i;
-					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier - 1], num);
-					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
-					recipe.Register();
-				}
-
-				if (EssenceTier < tierNames.Length - 1) {
-					recipe = CreateRecipe();
-					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier + 1], 1);
-					int num = !ConfigValues.useAllRecipes ? 4 : 2 + i / 2;
-					recipe.createItem.stack = num;
-					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
-					recipe.Register();
-				}
+			if (EssenceTier < tierNames.Length - 1) {
+				recipe = CreateRecipe();
+				recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier + 1], 1);
+				int num = 4;
+				recipe.createItem.stack = num;
+				recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[essenceTier] + "EnchantingTable");
+				recipe.Register();
 			}
 		}
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceBasic : EnchantmentEssence
 	{
 		public override int animationFrames => 8;
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceCommon : EnchantmentEssence
 	{
 		public override int animationFrames => 8;
 
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceRare : EnchantmentEssence
 	{
 		public override int animationFrames => 6;
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceEpic : EnchantmentEssence
 	{
 		public override int animationFrames => 10;
 	}
+	[Autoload(false)]
 	public class EnchantmentEssenceLegendary : EnchantmentEssence
 	{
 		public override int animationFrames => 16;

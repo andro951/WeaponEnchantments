@@ -1,0 +1,400 @@
+<div style="float:right">
+{{Infobox enchantment
+| name     = Life Steal Enchantment
+
+| image1   = [[File:LifeStealEnchantmentBasic.png]]
+| artist1  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip1 = <i>'20% Life Steal (remainder is saved to prevent always rounding to 0 for low damage weapons)<br/>5% Max Life Steal (The percentage of the vanilla lifesteal pool that can be used.)<br/>Level cost: 2<br/>   *Only allowed on Weapons: 100%*<br/>   *Max of 1 per item*'</i>
+| rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
+| buy      = <span>14</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
+| sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image2   = [[File:LifeStealEnchantmentCommon.png]]
+| artist2  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip2 = <i>'5% Life Steal (remainder is saved to prevent always rounding to 0 for low damage weapons)<br/>20% Max Life Steal (The percentage of the vanilla lifesteal pool that can be used.)<br/>Level cost: 4<br/>   *Only allowed on Weapons: 100%*<br/>   *Max of 1 per item*'</i>
+| rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
+| sell2    = <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image3   = [[File:LifeStealEnchantmentRare.png]]
+| artist3  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip3 = <i>'2.5% Life Steal (remainder is saved to prevent always rounding to 0 for low damage weapons)<br/>40% Max Life Steal (The percentage of the vanilla lifesteal pool that can be used.)<br/>Level cost: 6<br/>   *Only allowed on Weapons: 100%*<br/>   *Max of 1 per item*'</i>
+| rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
+| sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>46</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image4   = [[File:LifeStealEnchantmentEpic.png]]
+| artist4  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip4 = <i>'1.4285% Life Steal (remainder is saved to prevent always rounding to 0 for low damage weapons)<br/>70% Max Life Steal (The percentage of the vanilla lifesteal pool that can be used.)<br/>Level cost: 8<br/>   *Only allowed on Weapons: 100%*<br/>   *Max of 1 per item*'</i>
+| rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
+| sell4    = <span>8</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image5   = [[File:LifeStealEnchantmentLegendary.png]]
+| artist5  =   (art by [https://twitter.com/ZorutanMesuta Zorutan])
+| type5    = [[Enchantments|Enchantments]]
+| tooltip5 = <i>'1% Life Steal (remainder is saved to prevent always rounding to 0 for low damage weapons)<br/>100% Max Life Steal (The percentage of the vanilla lifesteal pool that can be used.)<br/>Level cost: 10<br/>   *Only allowed on Weapons: 100%*<br/>   *Max of 1 per item*'</i>
+| rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
+| sell5    = <span>23</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| research = 1 required
+}}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Bestiary_Boss_Enemy.png]] Obtained From
+! Entity
+! Qty.
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0f/Eater_of_Worlds_Head.png/revision/latest?cb=20170420010144&format=original [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds]
+| 1
+| 10%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fd/Wall_of_Flesh_Mouth.png/revision/latest?cb=20170422001243&format=original [https://terraria.fandom.com/wiki/Wall_of_Flesh Wall of Flesh]
+| 1
+| 50%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/8/80/The_Hungry.png/revision/latest?cb=20210728032344&format=original [https://terraria.fandom.com/wiki/The_Hungry The Hungry]
+| 1
+| 6.32%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0a/Creeper.png/revision/latest?cb=20200521174446&format=original [https://terraria.fandom.com/wiki/Creeper Creeper]
+| 1
+| 3.29%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Chest.png/revision/latest?cb=20200516205229&format=original Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_328.png]] [https://terraria.fandom.com/wiki/Shadow_Chest Shadow Chest]
+| 10%
+|-
+| [[File:Item_328.png]] [https://terraria.fandom.com/wiki/Shadow_Chest Locked Shadow Chest]
+| 10%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Item_2334.png]] Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_3204.png]] [https://terraria.fandom.com/wiki/Crimson_Crate Crimson Crate]
+| 3.84%
+|-
+| [[File:Item_3983.png]] [https://terraria.fandom.com/wiki/Hematic_Crate Hematic Crate]
+| 5.38%
+|-
+| [[File:Item_4879.png]] [https://terraria.fandom.com/wiki/Obsidian_Lock_Box Obsidian Lock Box]
+| 10%
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchantments]]<br/>
+Life Steal from an enchantment is not exactly the same as vanilla lifesteal.  Vanilla lifesteal calculates the amount of healing you will receive and truncates any decimal.  Lifesteal from an enchantment stores the decimal and adds it to your heal amount the next time you use lifesteal.  (Note: This remainder is reset to zero if you reach full health)  This makes lifesteal from enchantments valuable on any weapon because you can heal some regardless of the damage per hit.  Lifesteal from enchantments utilizes the same lifesteal limiting as vanilla does.  This limit is very unlikely to be reached unless you are using a weapon at least as powerful as the Zenith.  At that point, you may reach the limit.  If you do exceed the limit, you will gain zero life from lifesteal util it has recovered.  The amount the limit value is affected can be adjusted in the config.  (Note: the config option does not affect any source of lifesteal besides lifesteal from enchantments.)  Life steal gained from minions is reduced by half. (I may ban it or reduce it more on minions at some point in the future.  Haven't decided yet.)  Vanilla lifesteal allows you heal from lifesteal when already at full health (wasting the life steal pool for no reason).  Enchantments do not do this.  Additionally, life steal from enchantments will not over heal you past full health which would also waste the pool.  The moon lord's Moon Leach debuff normally prevents all lifesteal.  I personally don't like mechanics that completely turn off effects like this, so life steal from enchantments is reduced by 50% from this debuff instead.<br/>
+
+The Life Steal Enchantment Basic can appear in the  [[Witch]]'s shop after the  [https://terraria.fandom.com/wiki/Eater_of_Worlds Eater of Worlds] or  [https://terraria.fandom.com/wiki/Brain_of_Cthulhu Brain of Cthulhu] have been defeated for <span>14</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original.<br/>
+=== Effects ===
+{| class="wikitable"
+! Life Steal
+! Max Life Steal
+|-
+| 20%
+| 5%
+|-
+| 5%
+| 20%
+|-
+| 2.5%
+| 40%
+|-
+| 1.4285%
+| 70%
+|-
+| 1%
+| 100%
+|}
+
+=== Applicability ===
+{| class="wikitable"
+! None
+! Not Allowed
+|-
+| Weapons
+| 100%
+|-
+| Armor
+| Not Allowed
+|-
+| Accessories
+| Not Allowed
+|-
+| Fishing Poles
+| Not Allowed
+|-
+| Tools
+| Not Allowed
+|}
+
+=== Crafting ===
+<div class="tabber-borderless"><tabber>
+Basic=
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="5" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>
+|}
+|-|Common=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| rowspan="3" | [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>
+|}
+|-|Rare=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Epic=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| rowspan="3" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Legendary=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| rowspan="4" | [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>
+|-
+| [[File:LifeStealEnchantmentCommon.png]] [[Life Steal Enchantment#Common|Life Steal Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentRare.png]] [[Life Steal Enchantment#Rare|Life Steal Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:LifeStealEnchantmentEpic.png]] [[Life Steal Enchantment#Epic|Life Steal Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:LifeStealEnchantmentLegendary.png]] [[Life Steal Enchantment#Legendary|Life Steal Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+</tabber></div>
+{{Enchantments}}<br/>
+[[Category:Enchantments]]<br/>

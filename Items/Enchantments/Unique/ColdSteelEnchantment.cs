@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -17,7 +19,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
 				new DamageClassSwap(DamageClass.SummonMeleeSpeed),
 				new MinionAttackTarget(),
-				new BuffEffect(BuffID.Frostburn, BuffStyle.OnHitEnemyDebuff, BuffDuration)
+				new BuffEffect(EnchantmentTier >= 2 ? BuffID.Frostburn2 : BuffID.Frostburn, BuffStyle.OnHitEnemyDebuff, BuffDuration)
 			};
 
 			if (EnchantmentTier >= 3) {
@@ -37,15 +39,20 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletronPrime;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.SkeletronPrime)
 		};
 	}
+	[Autoload(false)]
 	public class ColdSteelEnchantmentCommon : ColdSteelEnchantment { }
+	[Autoload(false)]
 	public class ColdSteelEnchantmentRare : ColdSteelEnchantment { }
+	[Autoload(false)]
 	public class ColdSteelEnchantmentEpic : ColdSteelEnchantment { }
+	[Autoload(false)]
 	public class ColdSteelEnchantmentLegendary : ColdSteelEnchantment { }
 }

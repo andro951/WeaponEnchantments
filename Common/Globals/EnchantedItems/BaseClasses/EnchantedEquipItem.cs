@@ -14,9 +14,10 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -24,24 +25,37 @@ namespace WeaponEnchantments.Common.Globals
 	{
 		#region Tracking (instance)
 
-		public bool equippedInArmorSlot = false;
-
 		#endregion
 
-		public override void UpdateInventory(Item item, Player player) {
-
-			equippedInArmorSlot = false;
-
-			base.UpdateInventory(item, player);
-        }
         public override void UpdateEquip(Item item, Player player) {
-            if (!inEnchantingTable)
+			if (!inEnchantingTable)
                 return;
 
             //Fix for swapping an equipped armor/accessory with one in the enchanting table.
-            if (player.GetWEPlayer().ItemInUI().TryGetEnchantedItem()) {
+            if (player.GetWEPlayer().enchantingTableItem.TryGetEnchantedItem()) {
                 inEnchantingTable = false;
             }
         }
-    }
+		protected override string GetPerLevelBonusTooltip() {
+			if (WEMod.serverConfig.DamageReductionPerLevelDisabled)
+				return "";
+
+			float damageReduction = GetPerLevelDamageReduction();
+			string tooltip = damageReduction > 0f ? 
+				$"+{damageReduction.PercentString()} {$"{EnchantmentStat.DamageReduction}".Lang_WE(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+
+			return tooltip;
+		}
+		public float GetPerLevelDamageReduction(float armorMultiplier = 0f, float accessoryMultiplier = 0f) {
+			if (armorMultiplier <= 0f || accessoryMultiplier <= 0f) {
+				armorMultiplier = ArmorDamageReductionPerLevel;
+				accessoryMultiplier = AccessoryDamageReductionPerLevel;
+			}
+
+			float multiplier = Item.accessory ? accessoryMultiplier : armorMultiplier;
+			float damageReduction = multiplier * levelBeforeBooster;
+
+			return damageReduction;
+		}
+	}
 }

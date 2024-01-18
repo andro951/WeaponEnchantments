@@ -1,18 +1,22 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Items;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments {
     public abstract class LifeStealEnchantment : Enchantment {
         public override float ScalePercent => 0.8f;
         public override bool Max1 => true;
-        public override float CapacityCostMultiplier => 2f;
-		public override int StrengthGroup => 5;
+        public override float CapacityCostMultiplier => CapacityCostNormal;
+		public override int StrengthGroup => 25;
         public override void GetMyStats() {
             Effects = new() {
-                new LifeSteal(@base: EnchantmentStrengthData)
+                new LifeSteal(@base: EnchantmentStrengthData),
+                new MaxLifeSteal(@base: EnchantmentStrengthData.Invert() / 100f)
             };
 
             AllowedList = new Dictionary<EItemType, float>() {
@@ -38,30 +42,35 @@ namespace WeaponEnchantments.Items.Enchantments {
 			$"The moon lord's Moon Leach debuff normally prevents all lifesteal.  I personally don't like mechanics that completely " +
 			$"turn off effects like this, so life steal from enchantments is reduced by 50% from this debuff instead.";
     }
-    public class LifeStealEnchantmentBasic : LifeStealEnchantment
+    [Autoload(false)]
+	public class LifeStealEnchantmentBasic : LifeStealEnchantment
     {
         public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
-        public override List<WeightedPair> NpcDropTypes => new() {
-            new(NPCID.WallofFlesh)
+        public override List<DropData> NpcDropTypes => new() {
+            new(NPCID.WallofFlesh, 2f),
+            new(NPCID.EaterofWorldsHead, chance: 0.2f)
         };
-        public override List<WeightedPair> NpcAIDrops => new() {
-            new(NPCAIStyleID.Vulture),
+        public override List<DropData> NpcAIDrops => new() {
             new(NPCAIStyleID.TheHungry),
             new(NPCAIStyleID.Creeper)
         };
-        public override SortedDictionary<ChestID, float> ChestDrops => new() {
-            { ChestID.Shadow, 0.1f },
-            { ChestID.Shadow_Locked, 0.1f }
+        public override List<DropData> ChestDrops => new() {
+            new(ChestID.Shadow,  chance: 0.2f),
+            new(ChestID.Shadow_Locked,  chance: 0.2f)
         };
-        public override List<WeightedPair> CrateDrops => new() {
-            new(CrateID.Obsidian_LockBox, 0.05f),
-            new(CrateID.Crimson, 0.5f),
+        public override List<DropData> CrateDrops => new() {
+			new(CrateID.Obsidian_LockBox, chance: 0.1f),
+			new(CrateID.Crimson, 0.5f),
             new(CrateID.Hematic_CrimsonHard, 0.5f)
         };
     }
-    public class LifeStealEnchantmentCommon : LifeStealEnchantment { }
-    public class LifeStealEnchantmentRare : LifeStealEnchantment { }
-    public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
-    public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentCommon : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentRare : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
+    [Autoload(false)]
+	public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
 
 }

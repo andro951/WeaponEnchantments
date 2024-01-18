@@ -1,0 +1,398 @@
+<div style="float:right">
+{{Infobox enchantment
+| name     = Mobility Control Enchantment
+
+| image1   = [[File:MobilityControlEnchantmentBasic.png]]
+| artist1  =   (art by Sir Bumpleton ✿)
+| type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip1 = <i>'+12% Max Fall Speed<br/>+12% Movement Slowdown<br/>+12% Movement Acceleration<br/>+0.3 Jump Speed<br/>Level cost: 1<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
+| buy      = <span>10</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>91</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+| sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image2   = [[File:MobilityControlEnchantmentCommon.png]]
+| artist2  =   (art by Sir Bumpleton ✿)
+| type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip2 = <i>'+16% Max Fall Speed<br/>+16% Movement Slowdown<br/>+16% Movement Acceleration<br/>+0.4 Jump Speed<br/>Level cost: 2<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
+| sell2    = <span>98</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image3   = [[File:MobilityControlEnchantmentRare.png]]
+| artist3  =   (art by Sir Bumpleton ✿)
+| type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip3 = <i>'+20% Max Fall Speed<br/>+20% Movement Slowdown<br/>+20% Movement Acceleration<br/>+0.5 Jump Speed<br/>Level cost: 3<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
+| sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>28</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image4   = [[File:MobilityControlEnchantmentEpic.png]]
+| artist4  =   (art by Sir Bumpleton ✿)
+| type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip4 = <i>'+26% Max Fall Speed<br/>+26% Movement Slowdown<br/>+26% Movement Acceleration<br/>+0.65 Jump Speed<br/>Level cost: 4<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
+| sell4    = <span>6</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>56</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image5   = [[File:MobilityControlEnchantmentLegendary.png]]
+| artist5  =   (art by Sir Bumpleton ✿)
+| type5    = [[Enchantments|Enchantments]]
+| tooltip5 = <i>'+32% Max Fall Speed<br/>+32% Movement Slowdown<br/>+32% Movement Acceleration<br/>+0.8 Jump Speed<br/>Level cost: 5<br/>   *Allowed on Weapons: 100%, Armor: 100%, Accessories: 100%, Fishing Poles: 100% and Tools: 100%*<br/>   *Utility*'</i>
+| rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
+| sell5    = <span>12</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| research = 1 required
+}}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Bestiary_Boss_Enemy.png]] Obtained From
+! Entity
+! Qty.
+! Rate
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1b/Harpy.png/revision/latest?cb=20200603151211&format=original [https://terraria.fandom.com/wiki/Harpy Harpy]
+| 1
+| 2%
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Wyvern_Head.png/revision/latest?cb=20170421215825&format=original [https://terraria.fandom.com/wiki/Wyvern Wyvern]
+| 1
+| 25%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Chest.png/revision/latest?cb=20200516205229&format=original Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_838.png]] [https://terraria.fandom.com/wiki/Skyware_Chest Skyware Chest]
+| 50%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Item_2334.png]] Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_3206.png]] [https://terraria.fandom.com/wiki/Sky_Crate Sky Crate]
+| 3.33%
+|-
+| [[File:Item_3985.png]] [https://terraria.fandom.com/wiki/Azure_Crate Azure Crate]
+| 4.67%
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchantments]]<br/>
+<br/>
+
+The Mobility Control Enchantment Basic can appear in the  [[Witch]]'s shop any time for <span>10</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>91</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original, but is rare.<br/>
+=== Effects ===
+{| class="wikitable"
+! Max Fall Speed
+! Movement Slowdown
+! Movement Acceleration
+! Jump Speed
+|-
+| +12%
+| +12%
+| +12%
+| +0.3
+|-
+| +16%
+| +16%
+| +16%
+| +0.4
+|-
+| +20%
+| +20%
+| +20%
+| +0.5
+|-
+| +26%
+| +26%
+| +26%
+| +0.65
+|-
+| +32%
+| +32%
+| +32%
+| +0.8
+|}
+
+=== Applicability ===
+{| class="wikitable"
+! None
+! Not Allowed
+|-
+| Weapons
+| 100%
+|-
+| Armor
+| 100%
+|-
+| Accessories
+| 100%
+|-
+| Fishing Poles
+| 100%
+|-
+| Tools
+| 100%
+|}
+
+=== Crafting ===
+<div class="tabber-borderless"><tabber>
+Basic=
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="5" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>
+|}
+|-|Common=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| rowspan="3" | [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>
+|}
+|-|Rare=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Epic=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| rowspan="3" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Legendary=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| rowspan="4" | [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>
+|-
+| [[File:MobilityControlEnchantmentCommon.png]] [[Mobility Control Enchantment#Common|Mobility Control Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentRare.png]] [[Mobility Control Enchantment#Rare|Mobility Control Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:MobilityControlEnchantmentEpic.png]] [[Mobility Control Enchantment#Epic|Mobility Control Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:MobilityControlEnchantmentLegendary.png]] [[Mobility Control Enchantment#Legendary|Mobility Control Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+</tabber></div>
+{{Enchantments}}<br/>
+[[Category:Enchantments]]<br/>

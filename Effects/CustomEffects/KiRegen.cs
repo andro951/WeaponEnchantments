@@ -7,11 +7,12 @@ using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects.CustomEffects
 {
-    public class KiRegen : StatEffect, IVanillaStat
+    public class KiRegen : StatEffect, INonVanillaStat
     {
         public KiRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base)
         {
@@ -24,6 +25,6 @@ namespace WeaponEnchantments.Effects.CustomEffects
         }
 
         public override EnchantmentStat statName => EnchantmentStat.KiRegen;
-        public override string TooltipValue => $"+{Math.Ceiling((EStatModifier.ApplyTo(0) * 60) / 3)}";
+        public override string TooltipValue => $"+{(EStatModifier.Strength * 20f).S(2)}";
     }
 }

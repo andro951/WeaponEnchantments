@@ -1,6 +1,8 @@
-﻿using System;
+﻿using androLib.Common.Utility;
+using System;
 using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
@@ -22,27 +24,30 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class AmmoCostEnchantmentBasic : AmmoCostEnchantment
 	{
-		public override List<WeightedPair> NpcAIDrops => new() {
-			new(NPCAIStyleID.Flying)
+		public override List<DropData> NpcAIDrops => new() {
+			new(NPCAIStyleID.Flying, 4f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Chest_Normal, 1f },
-			{ ChestID.WebCovered, 1f },
-			{ ChestID.Mushroom, 1f },
-			{ ChestID.Marble, 1f },
-			{ ChestID.SandStone, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+			new(ChestID.WebCovered),
+			new(ChestID.Mushroom),
+			new(ChestID.Marble),
+			new(ChestID.SandStone)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f),
-			new(CrateID.Iron, 0.5f),
-			new(CrateID.Iron, 0.5f)
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 		};
 	}
+	[Autoload(false)]
 	public class AmmoCostEnchantmentCommon : AmmoCostEnchantment { }
+	[Autoload(false)]
 	public class AmmoCostEnchantmentRare : AmmoCostEnchantment { }
+	[Autoload(false)]
 	public class AmmoCostEnchantmentEpic : AmmoCostEnchantment { }
+	[Autoload(false)]
 	public class AmmoCostEnchantmentLegendary : AmmoCostEnchantment { }
 }

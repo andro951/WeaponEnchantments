@@ -12,11 +12,11 @@ namespace WeaponEnchantments.Effects
 {
 	public class Channel : BoolEffect, IUseItem, IUseTimer
 	{
-		public Channel(float minimumStrength = 0f, DifficultyStrength strengthData = null, bool prevent = false) : base(minimumStrength, strengthData, prevent) {
+		public Channel(bool prevent = false) : base(prevent) {
 
 		}
 		public override EnchantmentEffect Clone() {
-			return new Channel(MinimumStrength, StrengthData.Clone(), !EnableStat);
+			return new Channel(!EnableStat);
 		}
 
 		public override EnchantmentStat statName => EnchantmentStat.Channel;

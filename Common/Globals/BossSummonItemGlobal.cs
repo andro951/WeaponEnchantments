@@ -2,6 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -11,7 +12,7 @@ namespace WeaponEnchantments.Common.Globals
 
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-            if (WEMod.calamityEnabled)
+            if (AndroMod.calamityEnabled)
                 return false;
 
             return entity.useStyle == ItemUseStyleID.HoldUp && entity.consumable && entity.useAnimation == 45 && entity.useTime == 45;

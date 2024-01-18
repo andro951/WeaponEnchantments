@@ -3,6 +3,9 @@ using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using androLib.Items;
+using androLib.Common.Utility;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -12,9 +15,11 @@ namespace WeaponEnchantments.Items.Enchantments
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
 				new MiningSpeed(EnchantmentStrengthData * 1.5f),
-				new AutoReuse(AttackSpeedEnchantmentAutoReuseSetpoint, EnchantmentStrengthData),
 				new NPCHitCooldown(EnchantmentStrengthData * -1)
 			};
+
+			if (EnchantmentStrength >= AttackSpeedEnchantmentAutoReuseSetpoint)
+				Effects.Add(new AutoReuse());
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f },
@@ -35,35 +40,37 @@ namespace WeaponEnchantments.Items.Enchantments
 			$"and reduces how long it takes a fish to bite when used on fishing poles.  If the enchantment gives 10%(configurable) or more attack speed, " +
 			$"it will also enable [https://terraria.wiki.gg/wiki/Autoswing autoswing].";
 	}
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentBasic : AttackSpeedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
-		public override List<WeightedPair> NpcDropTypes => new() {
-			new(NPCID.EaterofWorldsHead)
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.EaterofWorldsHead),
+			new(NPCID.BrainofCthulhu, chance: 0.2f)
 		};
-		public override List<WeightedPair> NpcAIDrops => new() {
-			new(NPCAIStyleID.Bat),
-			new(NPCAIStyleID.Piranha)
+		public override List<DropData> NpcAIDrops => new() {
+			new(NPCAIStyleID.Bat, 4f),
+			new(NPCAIStyleID.Piranha, 4f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Chest_Normal, 1f },
-			{ ChestID.Gold, 1f },
-			{ ChestID.Gold_DeadMans, 1f },
-			{ ChestID.Ivy, 1f },
-			{ ChestID.Granite, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+			new(ChestID.Ivy),
+			new(ChestID.Granite)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f),
-			new(CrateID.Iron, 0.5f),
-			new(CrateID.Iron, 0.5f),
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 			new(CrateID.Jungle, 0.5f),
 			new(CrateID.Bramble_JungleHard, 0.5f)
 		};
 	}
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentCommon : AttackSpeedEnchantment { }
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentRare : AttackSpeedEnchantment { }
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentEpic : AttackSpeedEnchantment { }
+	[Autoload(false)]
 	public class AttackSpeedEnchantmentLegendary : AttackSpeedEnchantment { }
 
 }

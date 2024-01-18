@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Terraria.UI;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -7,6 +8,13 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
+using WeaponEnchantments.Tiles;
+using androLib.Common.Utility;
+using androLib;
+using System.Reflection;
+using System;
+using System.Linq;
+using androLib.Common;
 
 namespace WeaponEnchantments.Items
 {
@@ -34,9 +42,16 @@ namespace WeaponEnchantments.Items
 			}
 		}
 		public override int CreativeItemSacrifice => 1;
-		public override string LocalizationTooltip => $"Used to apply enchantments to items. (tier {enchantingTableTier})";
+		public override string LocalizationTooltip =>
+			$"Used to apply enchantments to items. (tier {enchantingTableTier})\n" +
+			$"Can be used from your inventory by right clicking." +
+			$"(Shift right click allows you to split the stack.)";
+
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
+		public override void Load() {
+			AndroMod.PostRightClickActions += PostRightClick;
+		}
 		public override void SetStaticDefaults() {
 			GetDefaults();
 
@@ -63,23 +78,7 @@ namespace WeaponEnchantments.Items
 		{
 			GetDefaults();
 
-			switch (enchantingTableTier) {
-				case 0:
-					Item.createTile = ModContent.TileType<Tiles.WoodEnchantingTable>();
-					break;
-				case 1:
-					Item.createTile = ModContent.TileType<Tiles.DustyEnchantingTable>();
-					break;
-				case 2:
-					Item.createTile = ModContent.TileType<Tiles.HellishEnchantingTable>();
-					break;
-				case 3:
-					Item.createTile = ModContent.TileType<Tiles.SoulEnchantingTable>();
-					break;
-				case 4:
-					Item.createTile = ModContent.TileType<Tiles.UltimateEnchantingTable>();
-					break;
-			}
+			Item.createTile = EnchantingTableTile.GetTableTypeByTier(enchantingTableTier);
 
 			Item.maxStack = 99;
 			Item.width = 28;
@@ -93,21 +92,10 @@ namespace WeaponEnchantments.Items
 			Item.rare = EnchantingRarity.GetRarityFromTier(enchantingTableTier);
 			Item.value = Values[enchantingTableTier];
 		}
-
 		private string GetTableName(int tier) {
 			return enchantingTableNames[tier] + "EnchantingTable";
 		}
-
 		public override void AddRecipes() {
-			
-			/*string previousTierName = null; //Will never be used as null. Set if enchanting table tier is > 0
-			if (enchantingTableTier > 0) {
-				//recipe.AddTile(TileID.WorkBenches);
-				previousTierName = GetTableName(enchantingTableTier - 1);
-				recipe.AddIngredient(Mod, previousTierName, 1);
-			}*/
-
-			
 			for (int i = -1; i < enchantingTableTier; i++) {
 				if (!ConfigValues.useAllRecipes && i < enchantingTableTier - 1)
 					continue;
@@ -116,7 +104,7 @@ namespace WeaponEnchantments.Items
 					Recipe recipe = CreateRecipe();
 
 					if (i == -1) {
-						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches"); //Workbench
+						recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.Workbenches}"); //Workbench
 					}
 					else {
 						recipe.AddIngredient(Mod, GetTableName(i), 1); //Enchanting Table
@@ -141,16 +129,18 @@ namespace WeaponEnchantments.Items
 					}
 
 					if (i < 3 && enchantingTableTier >= 3)
-						recipe.AddRecipeGroup("WeaponEnchantments:AlignedSoul", 2); //Soul of Light or Night
+						recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyAlignedSoul}", 2); //Soul of Light or Night
 
 					if (i < 4 && enchantingTableTier >= 4)
 						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars
+
+					//if (enchantingTableTier == 0)
+					//	recipe.SortBeforeFirstRecipesOf(ModContent.ItemType<DustyEnchantingTable>());
 
 					recipe.Register();
 				}
 			}
 		}
-
 		public static int GetTableTier(string s) {
 			for(int i = 0; i < enchantingTableNames.Length; i++) {
 				if (s.Contains(enchantingTableNames[i]))
@@ -159,10 +149,41 @@ namespace WeaponEnchantments.Items
 
 			return enchantingTableNames.Length;
 		}
+		public override bool CanRightClick() => !ItemSlot.ShiftInUse;
+		public override void RightClick(Player player) {
+			justRightClicked = true;
+
+			WEPlayer wePlayer = player.GetWEPlayer();
+			int x;
+			int y;
+			if (wePlayer.usingEnchantingTable) {
+				x = player.chestX;
+				y = player.chestY;
+			}
+			else {
+				x = (int)(player.position.X / 16f);
+				y = (int)(player.position.Y / 16f);
+			}
+
+			EnchantingTableTile.RightClickEnchantingTable(x, y, enchantingTableTier);
+		}
+		private static bool justRightClicked = false;
+		private void PostRightClick(Item item, Player player) {
+			justRightClicked = false;
+		}
+		public override bool ConsumeItem(Player player) {
+			return !justRightClicked;
+		}
 	}
+
+	[Autoload(false)]
 	public class WoodEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class DustyEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class HellishEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class SoulEnchantingTable : EnchantingTableItem { }
+	[Autoload(false)]
 	public class UltimateEnchantingTable : EnchantingTableItem { }
 }

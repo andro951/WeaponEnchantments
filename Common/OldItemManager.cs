@@ -10,8 +10,12 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using WeaponEnchantments.UI;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
+using androLib.Common.Utility;
+using androLib;
+using VacuumOreBag.Items;
 
 namespace WeaponEnchantments.Common
 {
@@ -35,8 +39,10 @@ namespace WeaponEnchantments.Common
             { "Speed", "AttackSpeed" },
             { "Control", "MobilityControl" },
             { "MoveSpeed", "MovementSpeed" },
-	        { "PhaseJump", "SolarDash" }
-        };
+	        { "PhaseJump", "SolarDash" },
+            { "ArmorPenetration", "PercentArmorPenetration" },
+			{ "ShadowFlame", "Shadowflame" }
+		};
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> {
             { "SuperRare", 3 },
             { "UltraRare", 4 }
@@ -50,7 +56,8 @@ namespace WeaponEnchantments.Common
         private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { 
             { "ContainmentFragment", ItemID.GoldBar }, 
             { "Stabilizer", 177 }, 
-            { "SuperiorStabilizer", 999 }
+            { "SuperiorStabilizer", 999 },
+            { "OreBag", ModContent.ItemType<OreBag>() }
         };
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>() {
             
@@ -93,16 +100,16 @@ namespace WeaponEnchantments.Common
             int modSlotCount = player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount;
             var loader = LoaderManager.Get<AccessorySlotLoader>();
             for (int num = 0; num < modSlotCount; num++) {
-                if (loader.ModdedIsAValidEquipmentSlotForIteration(num, player)) {
+                if (loader.ModdedIsItemSlotUnlockedAndUsable(num, player)) {
                     Item accessoryClone = loader.Get(num).FunctionalItem.Clone();
                     if (!accessoryClone.NullOrAir()) {
-                        ReplaceOldItem(ref accessoryClone, player, 91);
+                        ReplaceOldItem(ref accessoryClone, player);
                         loader.Get(num).FunctionalItem = accessoryClone;
 				    }
 
                     Item vanityClone = loader.Get(num).VanityItem.Clone();
                     if (!vanityClone.NullOrAir()) {
-                        ReplaceOldItem(ref vanityClone, player, 91);
+                        ReplaceOldItem(ref vanityClone, player);
                         loader.Get(num).VanityItem = vanityClone;
 				    }
                 }
@@ -112,16 +119,25 @@ namespace WeaponEnchantments.Common
             ReplaceOldItems(player.inventory, player);
 
             //"bank1".Log();
-            ReplaceOldItems(player.bank.item, player, 50, -2);
+            ReplaceOldItems(player.bank.item, player);
 
             //"bank2".Log();
-            ReplaceOldItems(player.bank2.item, player, 50, -3);
+            ReplaceOldItems(player.bank2.item, player);
 
             //"bank3".Log();
-            ReplaceOldItems(player.bank3.item, player, 50, -4);
+            ReplaceOldItems(player.bank3.item, player);
 
             //"bank4".Log();
-            ReplaceOldItems(player.bank4.item, player, 50, -5);
+            ReplaceOldItems(player.bank4.item, player);
+
+            if (player.TryGetWEPlayer(out WEPlayer wePlayer)) {
+                foreach (Item[] storageInventory in StorageManager.AllItems) {
+                    ReplaceOldItems(storageInventory, player);
+                }
+
+				ReplaceOldItems(wePlayer.enchantingTableEssence, player);
+				ReplaceOldItems(wePlayer.enchantmentStorageItems, player);
+			}
 
 			#region Debug
 
@@ -129,30 +145,32 @@ namespace WeaponEnchantments.Common
 
 			#endregion
 		}
-		private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0, int bank = -1) {
+		private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0) {
+            if (inventory == null)
+                return;
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+            if (LogMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log();
 
 			#endregion
 
 			for (int i = 0; i < inventory.Length; i++) {
-                 ReplaceOldItem(ref inventory[i], player, itemSlotNumber + i, bank);
+                 ReplaceOldItem(ref inventory[i], player);
             }
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+            if (LogMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log();
 
 			#endregion
 		}
-		public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1, bool removeToInventory = false) {
-            if(item != null && !item.IsAir) {
+		public static void ReplaceOldItem(ref Item item, Player player = null) {
+            if (item != null && !item.IsAir) {
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                if (LogMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log();
 
 				#endregion
 
@@ -179,14 +197,14 @@ namespace WeaponEnchantments.Common
 
                 //Transfer and delete EnchantedItem data
                 if (versionUpdate < 1) {
-                    FieldInfo fieldInfo = typeof(Item).GetField("globalItems", BindingFlags.NonPublic | BindingFlags.Instance);
+                    FieldInfo fieldInfo = typeof(Item).GetField("_globals", BindingFlags.NonPublic | BindingFlags.Instance);
                     FieldInfo dataFieldInfo = typeof(UnloadedGlobalItem).GetField("data", BindingFlags.NonPublic | BindingFlags.Instance);
                     string modName = "WeaponEnchantments";
                     string className = "EnchantedItem";
 
-                    if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] globalItems && globalItems.Length != 0) {
-                        if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-                            foreach (GlobalItem g in globalItems.Select(i => i.Instance).Where(i => i is UnloadedGlobalItem)) {
+                    if (fieldInfo.GetValue(item) is GlobalItem[] globalItems && globalItems.Length != 0) {
+                        if (item.TryGetEnchantedItemSearchAll(out EnchantedItem foundEnchantedItem)) {
+                            foreach (GlobalItem g in globalItems.Where(i => i is UnloadedGlobalItem)) {
                                 if (dataFieldInfo.GetValue(g) is IList<TagCompound> tagList) {
                                     foreach (TagCompound tagCompound in tagList) {
                                         string mod = tagCompound.Get<string>("mod");
@@ -194,8 +212,8 @@ namespace WeaponEnchantments.Common
                                             string name = tagCompound.Get<string>("name");
                                             if (name == className) {
                                                 TagCompound dataTag = tagCompound.Get<TagCompound>("data");
-                                                enchantedItem.LoadData(item, dataTag);
-                                                enchantedItem.SaveData(item, dataTag);
+                                                foundEnchantedItem.LoadData(item, dataTag);
+                                                foundEnchantedItem.SaveData(item, dataTag);
                                             }
                                         }
                                     }
@@ -203,11 +221,11 @@ namespace WeaponEnchantments.Common
                             }
                         }
 
-                        if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] newGlobalItemsArray) {
-                            List<Instanced<GlobalItem>> newGlobalItems = newGlobalItemsArray.ToList();
+                        if (fieldInfo.GetValue(item) is GlobalItem[] newGlobalItemsArray) {
+                            List<GlobalItem> newGlobalItems = newGlobalItemsArray.ToList();
                             int count = newGlobalItems.Count;
                             for (int i = newGlobalItems.Count - 1; i >= 0; i--) {
-                                if (newGlobalItems[i].Instance is UnloadedGlobalItem unloadedGlobalItem) {
+                                if (newGlobalItems[i] is UnloadedGlobalItem unloadedGlobalItem) {
                                     if (dataFieldInfo.GetValue(unloadedGlobalItem) is IList<TagCompound> unloadedTagList) {
                                         foreach (TagCompound tagCompound in unloadedTagList) {
                                             //$"item: {item.S()}, tagCompound: {tagCompound}".Log();
@@ -226,29 +244,29 @@ namespace WeaponEnchantments.Common
 
                             if (newGlobalItems.Count < count) {
                                 fieldInfo.SetValue(item, newGlobalItems.ToArray());
-                                $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log();
+								GameMessageTextID.RemovedEnchantedItemData.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), count, newGlobalItems.Count }).Log();// $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log_WE();
                             }
                         }
                     }
                 }
 
-                if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                        Item enchantmentItem = iGlobal.enchantments[i];
+                if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+                    for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
+                        Item enchantmentItem = enchantedItem.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
-                            ReplaceOldItem(ref enchantmentItem, player, removeToInventory: true);
+                            ReplaceOldItem(ref enchantmentItem, player);
                         }
                     }
 
                     if (player != null)
                         item.CheckRemoveEnchantments(player);
 
-                    item.SetupGlobals();
+                    enchantedItem.SetupGlobals(item);
                 }
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                if (LogMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log();
 
 				#endregion
 			}
@@ -345,7 +363,7 @@ namespace WeaponEnchantments.Common
                                         ReplaceItem(ref item, enchantment.Item.type + typeOffset);
                                     }
 									else {
-                                        $"Failed to replace old item: {name}".LogNT(ChatMessagesIDs.FailedToReplaceOldItem);
+                                        $"{GameMessageTextID.FailedReplaceOldItem.ToString().Lang_WE(L_ID1.GameMessages)} {name}".LogNT(ChatMessagesIDs.AlwaysShowFailedToReplaceOldItem);
 									}
 
                                     return true;
@@ -385,12 +403,12 @@ namespace WeaponEnchantments.Common
             int valueEnchantment = GetEnchantmentValueByName(unloadedItemName);
             int stack = valueEnchantment / valueItemToSpawn;
             if (stack <= 0) {
-                Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.");
+                Main.NewText(GameMessageTextID.ItemRemovedFromWeaponEnchantments.ToString().Lang_WE(L_ID1.GameMessages, new object[]{ unloadedItemName }));// $"{unloadedItemName} has been removed from Weapon Enchantments.");
                 return true;
             }
 
-            Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.  You've recieved {itemToSpawn.S()} as compensation.");
-            Main.LocalPlayer.QuickSpawnClonedItem(null, itemToSpawn, stack);
+            Main.NewText(GameMessageTextID.ItemRemovedReiceveCompensation.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName, itemToSpawn.S() }));//$"{unloadedItemName} has been removed from Weapon Enchantments.  You've recieved {itemToSpawn.S()} as compensation.");
+			Main.LocalPlayer.QuickSpawnItem(null, itemToSpawn, stack);
 
             return true;
         }
@@ -415,7 +433,7 @@ namespace WeaponEnchantments.Common
                 ReplaceItem(ref item, value, true);
             }
 			else {
-                $"Failed to replace item: {item.S()} with coins".LogNT(ChatMessagesIDs.FailedGetEnchantmentValueByName);
+				GameMessageTextID.FailedReplaceWithCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT(ChatMessagesIDs.FailedGetEnchantmentValueByName);//$"Failed to replace item: {item.S()} with coins".LogNT_WE(ChatMessagesIDs.FailedGetEnchantmentValueByName);
 			}
 
             return true;
@@ -433,14 +451,14 @@ namespace WeaponEnchantments.Common
                 if (sellPrice)
                     total /= 5;
 
-                //type is coins when replaceWithCoins is true
-                UtilityMethods.ReplaceItemWithCoins(ref item, total);
+				//type is coins when replaceWithCoins is true
+				androLib.Common.Utility.AndroUtilityMethods.ReplaceItemWithCoins(ref item, total);
 
-                ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log();
+                GameMessageTextID.ItemRemovedRecieveCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName }).Log();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log_WE();
             }
             else {
                 item = new Item(type, stack);
-                ($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}").Log();
+				GameMessageTextID.ItemRemovedRelacedWithItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName, ContentSamples.ItemsByType[type].S() }).Log();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}").Log_WE();
             }
         }
         private static int GetEnchantmentValueByName(string name) {

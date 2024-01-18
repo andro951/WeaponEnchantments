@@ -3,7 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -37,15 +39,20 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
+	[Autoload(false)]
 	public class MoonlightEnchantmentBasic : MoonlightEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostCultist;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.CultistBoss)
 		};
 	}
+	[Autoload(false)]
 	public class MoonlightEnchantmentCommon : MoonlightEnchantment { }
+	[Autoload(false)]
 	public class MoonlightEnchantmentRare : MoonlightEnchantment { }
+	[Autoload(false)]
 	public class MoonlightEnchantmentEpic : MoonlightEnchantment { }
+	[Autoload(false)]
 	public class MoonlightEnchantmentLegendary : MoonlightEnchantment { }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Utility {
     public class Time {
@@ -32,8 +33,8 @@ namespace WeaponEnchantments.Common.Utility {
 
         #region Properties
 	
-	    private double _value = 0;
-        public double Value { 
+	    private float _value = 0;
+        public float Value { 
 		set => _value = value;
 		    get {
 			    if (_waitingForEnterWorld)
@@ -46,7 +47,7 @@ namespace WeaponEnchantments.Common.Utility {
 	    private int _ticks = 0;
         public int Ticks {
 		    set {
-                double newValue = value;
+                float newValue = value;
                 for(int i = 0; i < (int)Mag; i++) {
                     newValue /= Conversions[(Magnitude)i];
 				}
@@ -90,9 +91,9 @@ namespace WeaponEnchantments.Common.Utility {
                 return MaxIntString;
 			}
 
-            Tuple<double, Magnitude> maxReducedSelf = MaxReducedSelf();
+            Tuple<float, Magnitude> maxReducedSelf = MaxReducedSelf();
 
-            return $"{Math.Round(maxReducedSelf.Item1, 1)} {(Value >= 2 ? MagnitudeStrings[maxReducedSelf.Item2].Item2 : MagnitudeStrings[maxReducedSelf.Item2].Item1)}";
+            return $"{maxReducedSelf.Item1.S()} {(Value >= 2 ? MagnitudeStrings[maxReducedSelf.Item2].Item2 : MagnitudeStrings[maxReducedSelf.Item2].Item1)}";
         }
         #endregion
 
@@ -115,18 +116,18 @@ namespace WeaponEnchantments.Common.Utility {
         }
 
         // Returns a lossy max simplification
-        private Tuple<double, Magnitude> MaxReducedSelf() {
+        private Tuple<float, Magnitude> MaxReducedSelf() {
             if (_value < 0) {
-                return new Tuple<double, Magnitude>(_value, Mag);
+                return new Tuple<float, Magnitude>(_value, Mag);
             }
             
-            double newValue = _value;
+            float newValue = _value;
             Magnitude newMag = Mag;
             while (Conversions.ContainsKey(newMag) && newValue > Conversions[newMag] && newValue % Conversions[newMag] == 0) {
                 newValue /= Conversions[newMag];
                 newMag += 1;
             }
-            return new Tuple<double, Magnitude>(newValue, newMag);
+            return new Tuple<float, Magnitude>(newValue, newMag);
         }
       
         // Returns the amount of frames this value represents

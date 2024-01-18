@@ -8,16 +8,12 @@ namespace WeaponEnchantments.Effects {
     public abstract class BoolEffect : EnchantmentEffect, IEnchantmentStat {
 
         public bool EnableStat { get; protected set; }
-        protected BoolEffect(float minimumStrength, DifficultyStrength strengthData, bool prevent) {
-            MinimumStrength = minimumStrength;
+        protected BoolEffect(bool prevent) {
             EnableStat = !prevent;
-            StrengthData = strengthData;
         }
 
-        public DifficultyStrength StrengthData;
-        public float MinimumStrength;
         public abstract EnchantmentStat statName { get; }
-        public override IEnumerable<object> TooltipArgs => new string[] { DisplayName };
+		public override IEnumerable<object> TooltipArgs => new string[] { DisplayName };
         public override string TooltipKey => EnableStat ? "Enabled" : "Prevented";
 		public override string TooltipValue => TooltipKey;
 		public override string TooltipName {
@@ -29,11 +25,5 @@ namespace WeaponEnchantments.Effects {
             }
         }
         private string tooltipName;
-        /*
-        public static override Dictionary<string, string> LocalizationTooltips => new() {
-            { "Enabled", "\"{0} Enabled\"" },
-            { "Disabled", "\"{0} Disabled\"" }
-        };
-        */
     }
 }
