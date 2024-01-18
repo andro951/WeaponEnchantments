@@ -1,1197 +1,391 @@
-#
+#Contributors: @Shiro ᵘʷᵘ#6942, @Fischstäbchen#2603  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
-		Bestiary.Witch: Die Hexe ist eine hässliche und böse Dame und handelt mit weiteren bösen Dingen. Sie handelt mit dubiosen Materialien, die verwendet werden, um Ausrüstung mit mysteriösen Effekten zu verbessern.
-		Buffs.Amaterasu.DisplayName: Amaterasu
-
-		Configs: {
-			AccessoryDRValues: „Zubehör {0} % ({1} % bei 40)“
-			ArmorDRValues: „Rüstung {0} % ({1} % bei 40)“
-			Automatic: Automatisch
-			Custom: Brauch
-			Enchantment: Verzauberung
-			NoneSelected: Nichts ausgewählt
-
-			ArmorDamageReduction: {
-				Tooltip: Ermöglicht Ihnen, die Schadensreduzierung von Rüstungen und Zubehör beim Leveln zu ändern.
-
-				AccessoryDamageReductionPerLevel: {
-					Label: Zubehör-DR pro Level (100000 = 1 %)
-					Tooltip: 250000 (2,5 %) ist das Maximum, was einer Schadensreduzierung von 100 % auf Stufe 40 entspricht.
-				}
-
-				ArmorDamageReductionPerLevel: {
-					Label: Rüstungs-DR pro Level (100.000 = 1 %)
-					Tooltip: 250000 (2,5 %) ist das Maximum, was einer Schadensreduzierung von 100 % auf Stufe 40 entspricht.
-				}
-			}
-
-			ClientConfig: {
-				DisplayName: Client-Konfiguration
-				DisplaySettings: Bildschirmeinstellungen
-				ErrorMessages: Fehlermeldungen
-				LoggingInformation: Protokollierungsinformationen
-				ModTestingTools: Mod-Testtools
-
-				AllowCraftingIntoLowerTier: {
-					Label: Ermöglicht das Herstellen von Verzauberungen in Verzauberungen niedrigerer Stufen.
-					Tooltip: Wenn Sie Verzauberungen niedrigerer Stufen herstellen, erhalten Sie alle Zutaten zurück, einschließlich Eindämmungen, Essenz und Edelsteine.
-				}
-
-				AllowInfusingToLowerPower: {
-					Label: Ermöglichen Sie das Infundieren von Gegenständen, um die Infusionskräfte zu verringern
-					Tooltip: Warnung: Dadurch können Sie eine schwache Waffe verbrauchen, um eine starke Waffe herabzustufen.
-				}
-
-				AllowShiftClickMoveFavoritedItems: {
-					Label: Erlauben Sie die Umschalttaste, um die bevorzugten Elemente in die bezaubernde Tabelle zu verschieben.
-					Tooltip: Wenn diese Option nicht aktiviert ist, müssen Elemente aus den Favoriten entfernt oder manuell durch Bewegen mit der Maus verschoben werden.
-				}
-
-				AlwaysDisplayAccessoryLevelUpMessages: {
-					Label: Zeigt immer Meldungen zum Aufsteigen der Zubehörstufe an
-					Tooltip: Zeigt bei Verwendung des Verzauberungstisches nur Meldungen zum Aufsteigen der Zubehörstufe an, wenn diese Option deaktiviert ist.
-				}
-
-				AlwaysDisplayArmorLevelUpMessages: {
-					Label: Zeigt immer Meldungen zur Erhöhung der Rüstungsstufe an
-					Tooltip: Zeigt Meldungen zur Erhöhung der Rüstungsstufe nur an, wenn die Verzauberungstabelle verwendet wird, wenn diese Option deaktiviert ist.
-				}
-
-				AlwaysDisplayInfusionPower: {
-					Label: Zeigt immer die Infusionsleistung an
-					Tooltip: Aktivieren Sie diese Option, um die Infusionskraft des Gegenstands immer und nicht nur dann anzuzeigen, wenn der Zaubertisch geöffnet ist.
-				}
-
-				AlwaysDisplayToolLevelUpMessages: {
-					Label: Zeigt immer Meldungen zum Werkzeug-Level-Upgrade an
-					Tooltip: Zeigt bei Verwendung der Verzauberungstabelle nur dann Meldungen zum Werkzeugstufenaufstieg an, wenn diese Option deaktiviert ist.
-				}
-
-				AlwaysDisplayWeaponLevelUpMessages: {
-					Label: Zeigt immer Meldungen zur Erhöhung der Waffenstufe an
-					Tooltip: Zeigt bei Verwendung des Verzauberungstisches nur Meldungen zum Aufsteigen der Waffenstufe an, wenn diese Option deaktiviert ist.
-				}
-
-				DisplayDamageTooltipSeperatly: {
-					Label: Zeigt den ungefähren Schaden durch Verzauberungen in einem separaten Tooltip an.
-					Tooltip:
-						'''
-						Schadensverzauberungen werden berechnet, nachdem die Rüstung des Gegners den Schaden verringert, anstatt den Schaden des Gegenstands direkt zu ändern.
-						Wenn diese Option deaktiviert ist, zeigt der Tooltip-Schaden den Schaden gegen Ziele ohne Panzerung an.
-						Aktivieren Sie diese Option, um einen separaten Tooltip anzuzeigen, anstatt den normalen Schadenswert zu aktualisieren. Hier wird der Schaden gegen einen Feind mit 0 Rüstung angezeigt.
-						'''
-				}
-
-				EnableSwappingWeapons: {
-					Label: Ermöglichen Sie den Waffenwechsel mit Num-Tasten (Waffen sortiert nach Infusionskraft)
-					Tooltip:
-						'''
-						Verwenden Sie num1 und num3, um zwischen allen Waffen zu wechseln. Verwenden Sie num4 und num6, um nur zwischen modifizierten Waffen zu wechseln.
-						Ersetzt keine verzauberten oder modifizierten Waffen.
-						'''
-				}
-
-				LogDummyDPS: {
-					Label: Aktivieren Sie die Berechnung und Protokollierung des Ziel-Dummy-DPS
-					Tooltip:
-						'''
-						Verfolgt Schäden an Zielen aus allen Quellen und verfolgt diese. Drücken Sie Num0, um zu starten, und dann erneut, um zu stoppen.
-						Drücken Sie num8, um alle gespeicherten DPS-Werte im client.log zu drucken.\nDer Standardspeicherort von client.log ist C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						Wenn Sie einen neuen Test durch Drücken von Num0 starten, werden die vorherigen DPS-Daten für den gehaltenen Gegenstand zurückgesetzt, um eine erneute Durchführung eines Tests zu ermöglichen.
-						'''
-				}
-
-				OfferAll: {
-					Label: Bieten Sie alle gleichen Artikel an.
-					Tooltip:
-						'''
-						Durchsuchen Sie Ihr Inventar nach allen Artikeln des angebotenen Typs und bieten Sie diese auch an, wenn sie über 0 Erfahrung verfügen und kein Power-Booster installiert ist.
-						Bietet außerdem alle Gegenstände aus Truhen, die den bezaubernden Tisch berühren.
-						'''
-				}
-
-				PrintEnchantmentTooltips: {
-					Label: Erstellen Sie eine Liste mit Verzauberungs-Tooltips
-					Tooltip:
-						'''
-						Die Liste wird im client.log gedruckt, wenn Sie eine Welt betreten.
-						Der Standardspeicherort von client.log ist C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
-				PrintWeaponInfusionPowers: {
-					Label: Protokollieren Sie alle Waffeninfusionskräfte
-					Tooltip:
-						'''
-						Die Informationen werden im client.log gedruckt, wenn Sie eine Welt betreten.
-						Der Standardspeicherort von client.log ist C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
-				teleportEssence: {
-					Label: Essenz automatisch an die Benutzeroberfläche senden
-					Tooltip:
-						'''
-						Senden Sie automatisch Essenzen aus Ihrem Inventar an die Essenzslots der Benutzeroberfläche.
-						(Deaktiviert, während die Benutzeroberfläche geöffnet ist.)
-						'''
-				}
-
-				UsePointsAsTooltip: {
-					Label: „\„Punkte“ statt „Verzauberungskapazität““
-					Tooltip: In den Tooltips wird „Verfügbare Punkte“ statt „Verfügbare Verzauberungskapazität“ angezeigt
-				}
-			}
-
-			Pair: {
-				Tooltip: Ermöglicht Ihnen, einer bestimmten Verzauberung eine Stärke zuzuweisen.
-
-				itemDefinition: {
-					Label: Verzauberung
-					Tooltip:
-						'''
-						Wählen Sie nur Verzauberungsgegenstände aus.
-						Verursacht wahrscheinlich einen Fehler, wenn ein anderes Element ausgewählt wird.
-						'''
-				}
-
-				Strength: {
-					Label: Stärke (1000 = 1, 10 = 1 %)
-					Tooltip:
-						'''
-						Seien Sie vorsichtig, wenn Sie diesen Wert anpassen.
-						Bei der Stärke handelt es sich um den genauen Wert, der verwendet wird.
-						Beispiel: 40 % Schadensverzauberung beträgt 0,4
-						10 Verteidigung ist 10
-						'''
-				}
-			}
-
-			PresetData: {
-				Tooltip: Mit Voreinstellungen können Sie ganz einfach alle Verzauberungen gleichzeitig beeinflussen.
-
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
-					Label: Passen Sie die Voreinstellung automatisch an den Schwierigkeitsgrad „Welt“ an
-					Tooltip: Muss deaktiviert sein, damit die anderen Optionen bearbeitet werden können.
-				}
-
-				BasicEnchantmentStrengthMultiplier: {
-					Label: Basic
-					Tooltip: Beeinflusst die Stärke aller Basisverzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme einzelner Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
-				}
-
-				CommonEnchantmentStrengthMultiplier: {
-					Label: Gemeinsam
-					Tooltip: Beeinflusst die Stärke aller gewöhnlichen Verzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme einzelner Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
-				}
-
-				EpicEnchantmentStrengthMultiplier: {
-					Label: Epos
-					Tooltip: Beeinflusst die Stärke aller epischen Verzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme einzelner Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
-				}
-
-				GlobalEnchantmentStrengthMultiplier: {
-					Label: Globaler Verzauberungsstärke-Multiplikator (%)
-					Tooltip:
-						'''
-						Passt alle Verzauberungsstärken basierend auf den empfohlenen Verzauberungsänderungen an.
-						Verwendet die gleichen Berechnungen wie die Voreinstellungen, ermöglicht Ihnen jedoch die Auswahl einer anderen Zahl.
-						voreingestellte Werte sind; Reise: 250, Normal: 100, Experte: 50, Meister: 25 (überschreibt die Voreinstellung)
-						'''
-				}
-
-				LegendaryEnchantmentStrengthMultiplier: {
-					Label: Legendär
-					Tooltip: Beeinflusst die Stärke aller legendären Verzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme einzelner Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
-				}
-
-				Preset: {
-					Label: Voreingestellt
-					Tooltip:
-						'''
-						Journey, Normal, Expert, Master, Automatic, Custom
-						(Benutzerdefiniert kann hier nicht ausgewählt werden. Es wird automatisch eingestellt, wenn der globale Stärkemultiplikator angepasst wird.)
-						'''
-				}
-
-				RareEnchantmentStrengthMultiplier: {
-					Label: Selten
-					Tooltip: Beeinflusst die Stärke aller seltenen Verzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme einzelner Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
-				}
-			}
-
-			ServerConfig: {
-				DisplayName: Serverkonfiguration
-				EnchantingTableOptions: Bezaubernde Tischoptionen
-				EnchantmentDropRates(%): Verzauberungs-Drop-Raten (%)
-				EnchantmentSettings: Verzauberungseinstellungen
-				EssenceandExperience: Essenz und Erfahrung
-				GeneralGameChanges: Allgemeine Spieländerungen
-				IndividualEnchantmentStrengths: Individuelle Verzauberungsstärken
-				Multipliers: Multiplikatoren
-				OtherDropRates: Andere Dropraten
-				Presets: Voreinstellungen
-				RandomExtraStuff: Zufällige Extra-Sachen
-				RarityEnchantmentStrengthMultipliers: Stärkemultiplikatoren für Seltenheitsverzauberungen
-				ServerConfig: Serverkonfiguration
-
-				AffectOnVanillaLifeStealLimmit: {
-					Label: Lebensraub-Verzauberungsbegrenzung (Auswirkung auf Vanilla-Lebensraub-Limit) (%)
-					Tooltip:
-						'''
-						Verwenden Sie einen Wert über 100 %, um den Lifesteal stärker zu begrenzen, und einen Wert unter 100 %, um ihn weniger zu begrenzen. 0 bedeutet keine Begrenzung.
-						Vanilla Terraria verwendet ein lebensraubbegrenzendes System: Im folgenden Beispiel werden die Werte im Normalmodus verwendet (Werte im Experten-/Mastermodus in Klammern).
-						Es verfügt über einen Pool von 80 (70), der gespeichert wird, damit Sie Lebensraub gewinnen können. Der Lebensgewinn durch Lebensraub verringert diesen Pool.
-						Der Pool wird um 36(30) Punkte pro Sekunde wiederhergestellt. Wenn der Poolwert negativ ist, können Sie durch Lebensraub keine Lebenspunkte gewinnen.
-						Dieser Konfigurationswert ändert, wie stark sich das Leben, das Sie durch Lebensraub-Verzauberungen heilen, auf dieses Limit auswirkt.
-						Beispiel: 200 % Du erhältst 200 Lebenspunkte durch Lebensraub. 200 * 200 % = 400. 80(70) Pool – 400 geheilt = -320(-330) Pool.
-						Es dauert 320/36(330/30) Sekunden -> 8,9(11) Sekunden, bis der Pool wieder positiv ist, sodass Sie durch Lebensraub wieder Leben gewinnen können.
-						Hinweis: Der Mechaniker hat keine Obergrenze dafür, wie viel Sie auf einmal gewinnen können. Je mehr Sie gewinnen, desto länger dauert die Erholung.
-						'''
-				}
-
-				AllowCriticalChancePast100: {
-					Label: Die Chance auf einen kritischen Treffer liegt bei über 100 %
-					Tooltip:
-						'''
-						Vanilla Terraria begrenzt die Chance auf einen kritischen Treffer auf 100 %. Standardmäßig berechnet Weapon Enchantments zusätzliche kritische Treffer nach 100 %.
-						Bei einer kritischen Chance von 120 % wird der Schaden zu 100 % verdoppelt, dann beträgt die Chance auf einen kritischen Treffer 20 %, um den Schaden zu erhöhen. Weitere Informationen finden Sie in der nächsten Konfigurationsoption.
-						'''
-				}
-
-				AllowHighTierOres: {
-					Label: Erhalten Sie Erze bis zu Chlorophyt von Opfergaben.
-					Tooltip:
-						'''
-						Wenn Sie diese Option deaktivieren, können Sie nur Eisen, Silber, Gold (oder deren Äquivalente basierend auf der Weltgeneration) erhalten.
-						(Funktioniert nur im harten Modus. Chlorophyt nur nach dem Töten eines mechanischen Bosses.)
-						'''
-				}
-
-				AlwaysOverrideDamageType: {
-					Label: Verzauberungen, die Schadensarten umwandeln, haben immer Vorrang.
-					Tooltip:
-						'''
-						Einige Mods wie Stars Above ändern die Waffenschadensarten. Wenn diese Option aktiviert ist, ändern Verzauberungen, die die Schadensart ändern, immer auch die Schadensart der Waffe.
-						Wenn diese Option nicht ausgewählt ist, wird die Schadensart nur geändert, wenn die Waffe derzeit die ursprüngliche Schadensart aufweist.
-						'''
-				}
-
-				AmaterasuSelfGrowthPerTick: {
-					Label: Amaterasu Selbstwachstum pro Zecke
-					Tooltip: Beeinflusst, wie schnell der Amaterasu-Schaden auf natürliche Weise ansteigt (nicht, wenn er erneut mit einer World Ablaze-Waffe getroffen wird).
-				}
-
-				ArmorDamageReductions: {
-					Label: Schadensreduzierung durch Rüstung und Zubehör
-					Tooltip: Wird verwendet, um die Rüstungsreduzierung zu modifizieren, die Rüstung und Zubehör beim Levelaufstieg erhalten.
-				}
-
-				AttackSpeedEnchantmentAutoReuseSetpoint: {
-					Label: Automatische Wiederverwendung der Geschwindigkeitsverzauberung aktiviert (%)
-					Tooltip:
-						'''
-						Die Stärke, mit der eine Geschwindigkeitsverzauberung den Wert „Automatische Wiederverwendung“ verleiht.
-						Für alle Geschwindigkeitsverzauberungen auf 0 setzen, um eine automatische Wiederverwendung zu ermöglichen. Auf 10.000 einstellen, um die automatische Wiederverwendung von Gewinnen zu verhindern (es sei denn, Ihr Stärkemultiplikator ist riesig).
-						'''
-				}
-
-				AutoReuseDisabledOnMagicMissile: {
-					Label: Automatische Wiederverwendung bei Waffen vom Typ „Magische Raketen“ deaktiviert
-					Tooltip: Durch die automatische Wiederverwendung von Waffen wie Magic Missile können Sie die Projektile kontinuierlich abfeuern, um den Schaden unendlich anzuhäufen.
-				}
-
-				BossEnchantmentDropChance: {
-					Label: Droprate von Boss-Verzauberungen (%)
-					Tooltip:
-						'''
-						Passen Sie die Droprate von Verzauberungen von Bossen an.
-						(Standard ist 50 %)
-						'''
-				}
-
-				BossEssenceMultiplier: {
-					Label: Boss-Essenz-Multiplikator (%)
-					Tooltip: Ändere die Menge an Essenz, die du von Bossen erhältst.
-				}
-
-				BossExperienceMultiplier: {
-					Label: Boss-Erfahrungsmultiplikator (%)
-					Tooltip: Ändern Sie die Menge an Erfahrung, die Sie von Bossen erhalten.
-				}
-
-				BuffDuration: {
-					Label: Dauer der Abklingzeit des Buffs (Sekunden)
-					Tooltip: Beeinflusst die Abklingzeit und Dauer des Buffs.
-				}
-
-				CalculateDamageReductionBeforeDefense: {
-					Label: Berechnen Sie die Schadensreduzierung vor der Spielerverteidigung
-					Tooltip:
-						'''
-						Standardmäßig wird die Schadensreduzierung nach der Verteidigung des Spielers angewendet. Wählen Sie dies aus, um es vorher anzuwenden.
-						Vorher erleiden Sie viel weniger Schaden.
-						'''
-				}
-
-				ChestSpawnChance: {
-					Label: Spawn-Chance einer Truhenverzauberung (%)
-					Tooltip: Passen Sie die Chance an, Verzauberungen in Truhen zu finden. Kann über 100 % liegen. Betrifft nicht Biome-Truhen. (Sie sind immer 100 %)
-				}
-
-				ConfigCapacityCostMultiplier: {
-					Label: Kostenmultiplikator für Verzauberungskapazität (%)
-					Tooltip: Beeinflusst, wie viel die Anwendung der Verzauberungen auf einen Gegenstand kostet. Die Basiswerte sind 1/2/3/4/5 für „Utility“, 2/4/6/8/10 für „Normal“ und 3/6/9/12/15 für „Unique“.
-				}
-
-				CrateDropChance: {
-					Label: Kistenverzauberungs-Drop-Chance-Multiplikator (%)
-					Tooltip: Passen Sie die Chance an, Verzauberungen in Fischerkisten zu finden.
-				}
-
-				CritPerLevelDisabled: {
-					Label: Deaktiviere die Chance auf einen kritischen Waffentreffer pro Level
-					Tooltip: Waffen erhalten eine kritische Trefferchance entsprechend ihrer Stufe * Globaler Verzauberungsstärke-Multiplikator.
-				}
-
-				DamagePerLevelInstead: {
-					Label: Schaden statt kritische Chance pro Level
-					Tooltip: Waffen erhalten Schaden pro Level statt einer kritischen Trefferchance entsprechend ihrer Stufe * Globaler Verzauberungsstärke-Multiplikator
-				}
-
-				DamageReductionPerLevelDisabled: {
-					Label: Deaktivieren Sie die Reduzierung des Rüstungs- und Zubehörschadens pro Level
-					Tooltip: Rüstung und Zubehör erhalten eine Schadensreduzierung entsprechend ihrer Stufe * dem entsprechenden Setpoint unten für die Weltschwierigkeit.
-				}
-
-				DCUStart: {
-					Label: Beginnen Sie mit einer Bohreindämmungseinheit
-					Tooltip:
-						'''
-						Alle Spieler erhalten beim ersten Spawn eine Drill-Containment-Einheit.
-						Dies ist nur zum Spaß gedacht, wenn Sie Lust auf ein schnelleres Durchspielen haben.
-						'''
-				}
-
-				DisableArmorInfusion: {
-					Label: Rüstungsinfusion deaktivieren
-					Tooltip: Dies verhindert, dass du Rüstungsgegenstände infundierst, und infundierte Setboni werden ignoriert.
-				}
-
-				DisableMinionCrits: {
-					Label: Deaktivieren Sie kritische Treffer von Dienern
-					Tooltip:
-						'''
-						In Vanilla sind Schergen nicht von der kritischen Chance einer Waffe betroffen.
-						Waffenverzauberungen verleihen Vasallen eine kritische Trefferchance basierend auf der kritischen Chance der Waffe.
-						Diese Option deaktiviert die kritischen Treffer (Vanilla-Mechanik).
-						'''
-				}
-
-				DisableResearch: {
-					Label: Deaktivieren Sie die Möglichkeit, Waffenverzauberungsgegenstände zu erforschen.
-					Tooltip: Wenn diese Option aktiviert ist, können nicht alle Essenzen und Verzauberungen erforscht werden, sodass sie im Reisemodus nicht dupliziert werden können.
-				}
-
-				EnchantmentDropChance: {
-					Label: Droprate für Nicht-Boss-Verzauberungen (%)
-					Tooltip:
-						'''
-						Passen Sie die Droprate von Verzauberungen von Nicht-Boss-Gegnern an.
-						(Standard ist 100 %)
-						'''
-				}
-
-				EnchantmentSlotsOnAccessories: {
-					Label: Verzauberungsslots für Zubehör
-					Tooltip:
-						'''
-						Der 1. Steckplatz ist ein normaler Steckplatz.
-						Der zweite Steckplatz ist der Utility-Steckplatz.
-						3.-5. sind normale Slots.
-						'''
-				}
-
-				EnchantmentSlotsOnArmor: {
-					Label: Verzauberungsslots auf Rüstung
-					Tooltip:
-						'''
-						Der 1. Steckplatz ist ein normaler Steckplatz.
-						Der zweite Steckplatz ist der Utility-Steckplatz.
-						3.-5. sind normale Slots.
-						'''
-				}
-
-				EnchantmentSlotsOnFishingPoles: {
-					Label: Verzauberungsschlitze auf Angelruten
-					Tooltip:
-						'''
-						Der 1. Steckplatz ist ein normaler Steckplatz.
-						Der zweite Steckplatz ist der Utility-Steckplatz.
-						3.-5. sind normale Slots.
-						'''
-				}
-
-				EnchantmentSlotsOnTools: {
-					Label: Verzauberungsslots auf Werkzeugen
-					Tooltip:
-						'''
-						Der 1. Steckplatz ist ein normaler Steckplatz.
-						Der zweite Steckplatz ist der Utility-Steckplatz.
-						3.-5. sind normale Slots.
-						Der Clentaminator ist bisher das einzige Hilfsmittel.
-						'''
-				}
-
-				EnchantmentSlotsOnWeapons: {
-					Label: Verzauberungsslots für Waffen
-					Tooltip:
-						'''
-						Der 1. Steckplatz ist ein normaler Steckplatz.
-						Der zweite Steckplatz ist der Utility-Steckplatz.
-						3.-5. sind normale Slots.
-						'''
-				}
-
-				EssenceGrabRange: {
-					Label: Essence Grab Range Multiplikator
-					Tooltip: Beeinflusst, wie weit die Essenz vom Spieler entfernt sein kann, wenn sie beginnt, sich auf den Spieler zuzubewegen.
-				}
-
-				EssenceMultiplier: {
-					Label: Nicht-Boss-Essenzmultiplikator (%)
-					Tooltip: Ändere die Essenzmenge, die du von Nicht-Boss-Gegnern erhältst.
-				}
-
-				ExperienceMultiplier: {
-					Label: Nicht-Boss-Erfahrungsmultiplikator (%)
-					Tooltip: Ändern Sie die Menge an Erfahrung, die Sie von Nicht-Boss-Gegnern erhalten.
-				}
-
-				GatheringExperienceMultiplier: {
-					Label: Multiplikator für das Sammeln von Erfahrung (%)
-					Tooltip: Ändern Sie die Menge an Erfahrung, die Sie durch Bergbau/Hacken/Fischen erhalten
-				}
-
-				individualStrengths: {
-					Label: Individuelle Stärken
-					Tooltip:
-						'''
-						Ändern Sie die Stärke einzelner Verzauberungen nach Wert
-						(KEIN PROZENTSATZ!)
-						(Überschreibt alle anderen Optionen)
-						'''
-				}
-
-				individualStrengthsEnabled: {
-					Label: Individuelle Stärken aktiviert
-					Tooltip: Wenn Sie dies aktivieren, überschreiben die unten ausgewählten individuellen Stärkewerte alle anderen Einstellungen.
-				}
-
-				InfusionDamageMultiplier: {
-					Label: Infusionsschaden-Multiplikator (Teilbar durch 1000, 1 -> 0,001)
-					Tooltip:
-						'''
-						Ändert den Schadensmultiplikator durch Infusion. DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
-						Beispiel: Eisernes Breitschwert, Schaden = 10, BasisInfusionskraft = 31, infundiert mit einem Meowmere, Infusionskraft 1100.
-						Eisen-Breitschwert-Schaden = 10 * 1,3^((1100 - 31) / 100) = 10 * 1,3^10,69 = 10 * 16,52 = 165 Schaden.
-						Wenn Sie diesen Multiplikator auf 1000 setzen, können Sie keine Waffen verstärken und erhalten keinen Schadensbonus für bereits ausgerüstete Waffen.
-						'''
-				}
-
-				MinionLifeStealMultiplier: {
-					Label: Minion-Lebensraub-Multiplikator (%)
-					Tooltip: Ermöglicht es Ihnen, die Menge an Heilung zu reduzieren, die Schergen mit der Lebensraub-Verzauberung erhalten.
-				}
-
-				MultiplicativeCriticalHits: {
-					Label: Multiplikative kritische Treffer nach dem ersten.
-					Tooltip:
-						'''
-						Waffenverzauberungen nutzen die Chance auf einen kritischen Treffer über 100 % hinaus, damit Sie erneut einen kritischen Treffer erzielen können.
-						Standardmäßig ist dies ein additiver Bonus: 1. kritischer Schaden 200 % Schaden, 2. 300 % Schaden, 3. 400 % Schaden .....
-						Wenn Sie dies aktivieren, werden sie stattdessen multiplikativ: 1. kritischer Schaden 200 % Schaden, 2. kritischer Schaden 400 % Schaden, 3. kritischer Schaden 800 % ...
-						'''
-				}
-
-				PercentOfferEssence: {
-					Label: Prozentsatz des angebotenen Artikelwerts, der in Essenz umgewandelt wird.
-					Tooltip: 100 % für alle Essenzen, 0 % für alle Erze. Der Verkaufswert von Essenz und Erzen wird gleich sein.
-				}
-
-				presetData: {
-					Label: Voreinstellungen und Multiplikatoren
-					Tooltip: Voreinstellungen und Multiplikatoren, mit denen Sie alle Verzauberungen gleichzeitig beeinflussen können.
-				}
-
-				PreventPowerBoosterFromPreHardMode: {
-					Label: Verhindern Sie, dass Bosse im Pre-Hard-Modus Power-Booster fallen lassen.
-					Tooltip: Ohne Fleischwand.
-				}
-
-				PrintWikiInfo: {
-					Label: Alle Wiki-Informationen protokollieren
-					Tooltip:
-						'''
-						Die Informationen werden im client.log gedruckt, wenn Sie eine Welt betreten.
-						Der Standardspeicherort von client.log ist C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
-				ReduceOfferEfficiencyByBaseInfusionPower: {
-					Label: Reduzieren Sie die Angebotseffizienz durch die Basisinfusionsleistung
-					Tooltip:
-						'''
-						Wenn Sie Artikel anbieten, erhalten Sie eine Essenz, die der Erfahrung mit dem Artikel entspricht.
-						Wenn Sie dies aktivieren, sind Waffen bei einer Infusionskraft von 0 zu 100 % und bei einer Infusionskraft von 1100 (und höher) zu 80 % effizient.
-						'''
-				}
-
-				ReduceOfferEfficiencyByTableTier: {
-					Label: Reduzieren Sie die Angebotseffizienz nach Tabellenebene
-					Tooltip:
-						'''
-						Wenn Sie Artikel anbieten, erhalten Sie eine Essenz, die der Erfahrung mit dem Artikel entspricht.
-						Wenn Sie dies aktivieren, ist der Holztisch zu 60 % effizient.
-						Jeder Tisch gewinnt 10 % an Effizienz. 100 % mit Ultimate-Tisch.
-						'''
-				}
-
-				ReduceRecipesToMinimum: {
-					Label: Rezepte auf ein Minimum reduzieren.
-					Tooltip:
-						'''
-						Entfernt alle Rezepte, die zwischen den Ebenen wechseln, um die Anzeige von Rezepten übersichtlicher zu gestalten.
-						Stellt außerdem alle Essenzrezepte im Verhältnis 4 zu 1 her, anstatt mit der bezaubernden Tischstufe zu skalieren.
-						'''
-				}
-
-				RemoveEnchantmentRestrictions: {
-					Label: Verzauberungsbeschränkungen entfernen (Nutzung auf eigene Gefahr!)
-					Tooltip: Entfernt Dinge wie Einzigartig, Max 1 und waffen- oder gegenstandstypspezifische Verzauberungen.
-				}
-
-				SiphonExperiencePercentCost: {
-					Label: Siphon-Erfahrung % Kosten
-					Tooltip:
-						'''
-						Das Absaugen von Gegenständen gibt nur einen Teil der Erfahrung als Essenz zurück. Diese Option ist der Prozentsatz, der VERLOREN geht, sodass 1000 XP bei 20 % Kosten nur 800 zurückgeben.
-						Wenn der Wert der Erfahrungskosten mehr als das Vierfache des Wertes des verzauberten Gegenstands betragen würde, wird stattdessen dieser Wert als Kosten verwendet, um Situationen wie den Verlust von Erfahrung im Wert von 20 Platin zu verhindern, um ein Holzschwert der höchsten Stufe zu retten.
-						Das Anbieten von Gegenständen gibt stattdessen 100 % der Erfahrung zurück. Auf 0 % gesetzt, um keine Kosten zu verursachen und 100 % der Erfahrung zurückzugeben. Auf 100 % einstellen, um das ursprüngliche Siphon-System zu verwenden.
-						Mit dem ursprünglichen Siphon-System können Sie nur einen Gegenstand absaugen, der die maximale Stufe erreicht hat, und entfernen nur überschüssige Erfahrung, die über die maximale Stufe hinausgeht. ohne Kosten.
-						'''
-				}
-			}
+		ItemName: {
+			AllForOneEnchantmentBasic: Alle für einen Verzauberung Basic
+			AllForOneEnchantmentCommon: Alle für einen Verzauberung Gewöhnlich
+			AllForOneEnchantmentEpic: All For One Enchantment-Epos
+			AllForOneEnchantmentLegendary: All For One Verzauberung Legendär
+			AllForOneEnchantmentRare: Alle für einen Verzauberung Selten
+			AmmoCostEnchantmentBasic: Munitionskosten Verzauberung Basic
+			AmmoCostEnchantmentCommon: Munitionskosten Verzauberung Gewöhnlich
+			AmmoCostEnchantmentEpic: Munitionskosten-Verzauberung Epic
+			AmmoCostEnchantmentLegendary: Munitionskostenverzauberung Legendär
+			AmmoCostEnchantmentRare: Munitionskosten Verzauberung Selten
+			ArmorPenetrationEnchantmentBasic: Rüstungsdurchdringung Verzauberung Basic
+			ArmorPenetrationEnchantmentCommon: Rüstungsdurchdringung Verzauberung Gewöhnlich
+			ArmorPenetrationEnchantmentEpic: Rüstungsdurchdringungsverzauberung Epic
+			ArmorPenetrationEnchantmentLegendary: Rüstungsdurchdringungsverzauberung Legendär
+			ArmorPenetrationEnchantmentRare: Rüstungsdurchdringung Verzauberung Selten
+			AttackSpeedEnchantmentBasic: Geschwindigkeit Verzauberung Basic
+			AttackSpeedEnchantmentCommon: Geschwindigkeit Verzauberung Gewöhnlich
+			AttackSpeedEnchantmentEpic: Angriffsgeschwindigkeitsverzauberung Epic
+			AttackSpeedEnchantmentLegendary: Angriffsgeschwindigkeitsverzauberung Legendär
+			AttackSpeedEnchantmentRare: Geschwindigkeit Verzauberung Selten
+			BerserkersRageEnchantmentBasic: Berserker Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserker Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epos
+			BerserkersRageEnchantmentLegendary: Berserker Rage Enchantment Legendär
+			BerserkersRageEnchantmentRare: Berserker Rage Enchantment Selten
+			CalmWatersEnchantmentBasic: Ruhiges Wasser Verzauberung Basic
+			CalmWatersEnchantmentCommon: Ruhiges Wasser Verzauberung Common
+			CalmWatersEnchantmentEpic: Calm Waters Enchantment Epos
+			CalmWatersEnchantmentLegendary: Calm Waters Verzauberung Legendär
+			CalmWatersEnchantmentRare: Verzauberung der ruhigen Gewässer Selten
+			ChaoticFishingEnchantmentBasic: Chaotische Angelverzauberung Basic
+			ChaoticFishingEnchantmentCommon: Chaotische Angelverzauberung Häufig
+			ChaoticFishingEnchantmentEpic: Chaotic Fishing Enchantment Epos
+			ChaoticFishingEnchantmentLegendary: Chaotische Angelverzauberung Legendär
+			ChaoticFishingEnchantmentRare: Chaotische Angelverzauberung Selten
+			ColdSteelEnchantmentBasic: Kalter Stahl Verzauberung Basic
+			ColdSteelEnchantmentCommon: Kalter Stahl Verzauberung Gewöhnlich
+			ColdSteelEnchantmentEpic: Cold Steel Enchantment-Epos
+			ColdSteelEnchantmentLegendary: Legendäre Verzauberung von Cold Steel
+			ColdSteelEnchantmentRare: Kalter Stahl Verzauberung Gewöhnlich
+			CrateChanceEnchantmentBasic: Crate Chance Verzauberung Basic
+			CrateChanceEnchantmentCommon: Crate Chance Verzauberung Common
+			CrateChanceEnchantmentEpic: Crate Chance Enchantment Epos
+			CrateChanceEnchantmentLegendary: Kistenchance-Verzauberung Legendär
+			CrateChanceEnchantmentRare: Kisten-Chance-Verzauberung Selten
+			CrateEnchantmentBasic: Kistenverzauberung Basic
+			CrateEnchantmentCommon: Kistenverzauberung Gewöhnlich
+			CrateEnchantmentEpic: Kistenverzauberung Epos
+			CrateEnchantmentLegendary: Kistenverzauberung Legendär
+			CrateEnchantmentRare: Kistenverzauberung Selten
+			CriticalStrikeChanceEnchantmentBasic: Kritische Trefferchance Verzauberung Basic
+			CriticalStrikeChanceEnchantmentCommon: Kritische Trefferchance Verzauberung Gewöhnlich
+			CriticalStrikeChanceEnchantmentEpic: Verzauberungs-Epos mit kritischer Trefferchance
+			CriticalStrikeChanceEnchantmentLegendary: Verzauberung mit kritischer Trefferchance Legendär
+			CriticalStrikeChanceEnchantmentRare: Kritische Trefferchance Verzauberung Selten
+			CriticalStrikeDamageEnchantmentBasic: Kritische Trefferschaden-Verzauberung Basic
+			CriticalStrikeDamageEnchantmentCommon: Verzauberung für Schaden durch kritische Treffer Häufig
+			CriticalStrikeDamageEnchantmentEpic: Verzauberung mit kritischem Trefferschaden episch
+			CriticalStrikeDamageEnchantmentLegendary: Verzauberung für kritischen Trefferschaden Legendär
+			CriticalStrikeDamageEnchantmentRare: Verzauberung mit kritischem Trefferschaden Selten
+			CursedInfernoEnchantmentBasic: Verfluchte Inferno-Verzauberung Basic
+			CursedInfernoEnchantmentCommon: Verfluchte Inferno-Verzauberung
+			CursedInfernoEnchantmentEpic: Verfluchtes Inferno-Verzauberungs-Epos
+			CursedInfernoEnchantmentLegendary: Verfluchte Inferno-Verzauberung Legendär
+			CursedInfernoEnchantmentRare: Verfluchte Inferno-Verzauberung Selten
+			DamageEnchantmentBasic: Schaden Verzauberung Basic
+			DamageEnchantmentCommon: Schaden Verzauberung Gewöhnlich
+			DamageEnchantmentEpic: Schadensverzauberung Epic
+			DamageEnchantmentLegendary: Beschädigen Sie die Verzauberung Legendär
+			DamageEnchantmentRare: Schaden Verzauberung Selten
+			DamageReductionEnchantmentBasic: Grundlegende Verzauberung zur Schadensreduzierung
+			DamageReductionEnchantmentCommon: Verzauberung zur Schadensminderung Gewöhnlich
+			DamageReductionEnchantmentEpic: Epic-Verzauberung zur Schadensreduzierung
+			DamageReductionEnchantmentLegendary: Verzauberung zur Schadensreduzierung Legendär
+			DamageReductionEnchantmentRare: Verzauberung zur Schadensreduzierung Selten
+			DangerSenseEnchantmentBasic: Verzauberung der Gefahrenwahrnehmung Basic
+			DangerSenseEnchantmentCommon: Verzauberung der Gefahrenwahrnehmung Gewöhnlich
+			DangerSenseEnchantmentEpic: Danger Sense Enchantment Epos
+			DangerSenseEnchantmentLegendary: Verzauberung der Gefahrenwahrnehmung Legendär
+			DangerSenseEnchantmentRare: Verzauberung der Gefahrenwahrnehmung Selten
+			DaybreakEnchantmentBasic: Tagesanbruch-Verzauberung Basic
+			DaybreakEnchantmentCommon: Daybreak-Verzauberung Common
+			DaybreakEnchantmentEpic: Daybreak Enchantment-Epos
+			DaybreakEnchantmentLegendary: Daybreak-Verzauberung Legendär
+			DaybreakEnchantmentRare: Daybreak-Verzauberung Selten
+			DefenseEnchantmentBasic: Verteidigungsverzauberung Basic
+			DefenseEnchantmentCommon: Verzauberung der Verteidigung Gewöhnlich
+			DefenseEnchantmentEpic: Verteidigungszauber-Epos
+			DefenseEnchantmentLegendary: Verteidigungsverzauberung Legendär
+			DefenseEnchantmentRare: Verteidigungszauber Selten
+			ExtraFishingLineEnchantmentBasic: Zusätzliche Angelschnur-Verzauberung Basic
+			ExtraFishingLineEnchantmentCommon: Zusätzliche Angelschnur-Verzauberung
+			ExtraFishingLineEnchantmentEpic: Extra Angelschnur-Verzauberung Epic
+			ExtraFishingLineEnchantmentLegendary: Zusätzliche Angelschnur-Verzauberung Legendär
+			ExtraFishingLineEnchantmentRare: Zusätzliche Angelschnur-Verzauberung Selten
+			FishingEnchantmentBasic: Fischen Verzauberung Basic
+			FishingEnchantmentCommon: Gemeinsame Angelverzauberung
+			FishingEnchantmentEpic: Fischen-Verzauberungs-Epos
+			FishingEnchantmentLegendary: Fischen Verzauberung Legendär
+			FishingEnchantmentRare: Angelverzauberung Selten
+			FishingPowerEnchantmentBasic: Angelkraft-Verzauberung Basic
+			FishingPowerEnchantmentCommon: Angelkraft Verzauberung Allgemein
+			FishingPowerEnchantmentEpic: Fischen Power Enchantment Epic
+			FishingPowerEnchantmentLegendary: Angelkraft-Verzauberung Legendär
+			FishingPowerEnchantmentRare: Angelkraft-Verzauberung Selten
+			FrostburnEnchantmentBasic: Frostbrand-Verzauberung Basic
+			FrostburnEnchantmentCommon: Frostbrand-Verzauberung Häufig
+			FrostburnEnchantmentEpic: Eisbrand-Verzauberung Epos
+			FrostburnEnchantmentLegendary: Frostbrand-Verzauberung Legendär
+			FrostburnEnchantmentRare: Frostbrand-Verzauberung Selten
+			GodSlayerEnchantmentBasic: Gotttöter Verzauberung Basic
+			GodSlayerEnchantmentCommon: Gotttöter Verzauberung Gewöhnlich
+			GodSlayerEnchantmentEpic: God Slayer Enchantment Epos
+			GodSlayerEnchantmentLegendary: Gotttöter-Verzauberung Legendär
+			GodSlayerEnchantmentRare: Gotttöter Verzauberung Selten
+			HellsWrathEnchantmentBasic: Höllen Zorn Verzauberung Basic
+			HellsWrathEnchantmentCommon: Höllen Zorn Verzauberung Gewöhnlich
+			HellsWrathEnchantmentEpic: Hells Wrath Enchantment-Epos
+			HellsWrathEnchantmentLegendary: Hells Wrath-Verzauberung Legendär
+			HellsWrathEnchantmentRare: Höllen Zorn Verzauberung Selten
+			HunterEnchantmentBasic: Jägerverzauberung Basic
+			HunterEnchantmentCommon: Jägerverzauberung Allgemein
+			HunterEnchantmentEpic: Hunter Enchantment Epos
+			HunterEnchantmentLegendary: Jägerverzauberung Legendär
+			HunterEnchantmentRare: Jägerverzauberung Selten
+			IchorEnchantmentBasic: Grundlegende Ichor-Verzauberung
+			IchorEnchantmentCommon: Ichor-Verzauberung
+			IchorEnchantmentEpic: Epos der Ichor-Verzauberung
+			IchorEnchantmentLegendary: Ichor-Verzauberung Legendär
+			IchorEnchantmentRare: Ichor-Verzauberung Selten
+			JuicedEnchantmentBasic: Entsaftete Verzauberung Basic
+			JuicedEnchantmentCommon: Entsaftete Verzauberung
+			JuicedEnchantmentEpic: Juiced Enchantment Epos
+			JuicedEnchantmentLegendary: Entsaftete Verzauberung Legendär
+			JuicedEnchantmentRare: Entsaftete Verzauberung Selten
+			JunglesFuryEnchantmentBasic: Jungle Zorn Verzauberung Basic
+			JunglesFuryEnchantmentCommon: Jungle Zorn Verzauberung Gewöhnlich
+			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Epos
+			JunglesFuryEnchantmentLegendary: Jungles Fury Enchantment Legendär
+			JunglesFuryEnchantmentRare: Jungle Zorn Verzauberung Selten
+			KiClassSwapEnchantmentBasic: Ki-Klassentausch-Verzauberung Basic
+			KiClassSwapEnchantmentCommon: Ki-Klassentausch-Verzauberung Gewöhnlich
+			KiClassSwapEnchantmentEpic: Ki-Klassentausch-Verzauberungs-Epos
+			KiClassSwapEnchantmentLegendary: Ki-Klassentausch-Verzauberung Legendär
+			KiClassSwapEnchantmentRare: Ki-Klassentausch-Verzauberung Selten
+			KiEnchantmentBasic: Ki-Verzauberung Basic
+			KiEnchantmentCommon: Ki Verzauberung Allgemein
+			KiEnchantmentEpic: Ki-Verzauberungs-Epos
+			KiEnchantmentLegendary: Ki-Verzauberung Legendär
+			KiEnchantmentRare: Ki-Verzauberung Selten
+			LavaFishingEnchantmentBasic: Lavafischen Verzauberung Basic
+			LavaFishingEnchantmentCommon: Lavafischen Verzauberung Allgemein
+			LavaFishingEnchantmentEpic: Epische Lavafischen-Verzauberung
+			LavaFishingEnchantmentLegendary: Lavafischen Verzauberung Legendär
+			LavaFishingEnchantmentRare: Lavafischen Verzauberung Selten
+			LifeRegenEnchantmentBasic: Lebensregenerierungs-Verzauberung Basic
+			LifeRegenEnchantmentCommon: Verzauberung der Lebensregeneration
+			LifeRegenEnchantmentEpic: Epische Lebensregenerierungsverzauberung
+			LifeRegenEnchantmentLegendary: Verzauberung der Lebensregeneration Legendär
+			LifeRegenEnchantmentRare: Verzauberung der Lebensregeneration Selten
+			LifeStealEnchantmentBasic: Lebensraub Verzauberung Basic
+			LifeStealEnchantmentCommon: Lebensraub Verzauberung Gewöhnlich
+			LifeStealEnchantmentEpic: Life Steal Enchantment-Epos
+			LifeStealEnchantmentLegendary: Lebensraub-Verzauberung Legendär
+			LifeStealEnchantmentRare: Lebensraub Verzauberung Selten
+			LuckEnchantmentBasic: Glücksverzauberung Basic
+			LuckEnchantmentCommon: Glücksverzauberung Common
+			LuckEnchantmentEpic: Glückszauber-Epos
+			LuckEnchantmentLegendary: Glücksverzauberung Legendär
+			LuckEnchantmentRare: Glücksverzauberung Selten
+			MagicClassSwapEnchantmentBasic: Magic Class Swap-Verzauberung Basic
+			MagicClassSwapEnchantmentCommon: Magische Klassentausch-Verzauberung Allgemein
+			MagicClassSwapEnchantmentEpic: Magische Klassentausch-Verzauberung Epic
+			MagicClassSwapEnchantmentLegendary: Magische Klassentausch-Verzauberung Legendär
+			MagicClassSwapEnchantmentRare: Magische Klassentausch-Verzauberung Selten
+			MaxMinionsEnchantmentBasic: Max Günstlinge Verzauberung Basic
+			MaxMinionsEnchantmentCommon: Max Günstlinge Verzauberung Gewöhnlich
+			MaxMinionsEnchantmentEpic: Max Minions Verzauberung Epic
+			MaxMinionsEnchantmentLegendary: Max Minions Verzauberung Legendär
+			MaxMinionsEnchantmentRare: Max Günstlinge Verzauberung Selten
+			MeleeClassSwapEnchantmentBasic: Nahkampf-Klassentausch-Verzauberung Basic
+			MeleeClassSwapEnchantmentCommon: Nahkampf-Klassentausch-Verzauberung Gewöhnlich
+			MeleeClassSwapEnchantmentEpic: Nahkampf-Klassentausch-Verzauberung Epic
+			MeleeClassSwapEnchantmentLegendary: Nahkampf-Klassentausch-Verzauberung Legendär
+			MeleeClassSwapEnchantmentRare: Nahkampf-Klassentausch-Verzauberung Selten
+			MobilityControlEnchantmentBasic: Mobilitätskontrollverzauberung Basic
+			MobilityControlEnchantmentCommon: Verzauberung der Mobilitätskontrolle Gewöhnlich
+			MobilityControlEnchantmentEpic: Mobility Control Enchantment Epic
+			MobilityControlEnchantmentLegendary: Mobilitätskontrolle Verzauberung Legendär
+			MobilityControlEnchantmentRare: Verzauberung zur Mobilitätskontrolle Selten
+			MoonlightEnchantmentBasic: Mondlicht Verzauberung Basic
+			MoonlightEnchantmentCommon: Mondlicht Verzauberung Gewöhnlich
+			MoonlightEnchantmentEpic: Mondschein-Verzauberungs-Epos
+			MoonlightEnchantmentLegendary: Mondlichtverzauberung Legendär
+			MoonlightEnchantmentRare: Mondlicht Verzauberung Selten
+			MovementSpeedEnchantmentBasic: Bewegungsgeschwindigkeit Verzauberung Basic
+			MovementSpeedEnchantmentCommon: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
+			MovementSpeedEnchantmentEpic: Bewegungsgeschwindigkeitsverzauberung Epic
+			MovementSpeedEnchantmentLegendary: Bewegungsgeschwindigkeitsverzauberung Legendär
+			MovementSpeedEnchantmentRare: Bewegungsgeschwindigkeit Verzauberung Selten
+			MultishotEnchantmentBasic: Multischuss Verzauberung Basic
+			MultishotEnchantmentCommon: Multischuss Verzauberung Gewöhnlich
+			MultishotEnchantmentEpic: Multishot-Verzauberung Epic
+			MultishotEnchantmentLegendary: Multishot-Verzauberung Legendär
+			MultishotEnchantmentRare: Multischuss Verzauberung Selten
+			NpcContactAnglerEnchantmentBasic: NPC Kontakt Angler Verzauberung Basic
+			NpcContactAnglerEnchantmentCommon: NPC Kontakt Angler Verzauberung Allgemein
+			NpcContactAnglerEnchantmentEpic: NPC Kontakt Angler Verzauberung Epic
+			NpcContactAnglerEnchantmentLegendary: NPC Kontakt Angler Verzauberung Legendär
+			NpcContactAnglerEnchantmentRare: NPC Kontakt Angler Verzauberung Selten
+			ObsidianSkinEnchantmentBasic: Obsidian-Haut-Verzauberung Basic
+			ObsidianSkinEnchantmentCommon: Obsidian-Haut-Verzauberung Gewöhnlich
+			ObsidianSkinEnchantmentEpic: Obsidian Skin Enchantment Episch
+			ObsidianSkinEnchantmentLegendary: Obsidian-Haut-Verzauberung Legendär
+			ObsidianSkinEnchantmentRare: Obsidian Skin Enchantment Selten
+			OneForAllEnchantmentBasic: Einer für alle Verzauberung Basic
+			OneForAllEnchantmentCommon: Einer für alle Verzauberung Gewöhnlich
+			OneForAllEnchantmentEpic: One For All Enchantment-Epos
+			OneForAllEnchantmentLegendary: One For All Verzauberung Legendär
+			OneForAllEnchantmentRare: Einer für alle Verzauberung Selten
+			OnFireEnchantmentBasic: On Fire Verzauberung Basic
+			OnFireEnchantmentCommon: Auf Feuer Verzauberung Common
+			OnFireEnchantmentEpic: On Fire Enchantment Epos
+			OnFireEnchantmentLegendary: On Fire Verzauberung Legendär
+			OnFireEnchantmentRare: On Fire Enchantment Selten
+			PeaceEnchantmentBasic: Frieden Verzauberung Basic
+			PeaceEnchantmentCommon: Frieden Verzauberung Gewöhnlich
+			PeaceEnchantmentEpic: Friedenszauber-Epos
+			PeaceEnchantmentLegendary: Friedensverzauberung Legendär
+			PeaceEnchantmentRare: Frieden Verzauberung Selten
+			PennyPinchingEnchantmentBasic: Penny Pinching Enchantment Basic
+			PennyPinchingEnchantmentCommon: Penny Pinching-Verzauberung Common
+			PennyPinchingEnchantmentEpic: Penny Pinching Enchantment Epos
+			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantment Legendär
+			PennyPinchingEnchantmentRare: Penny Pinching Enchantment Selten
+			ProjectileVelocityEnchantmentBasic: Schussgeschwindigkeit ​​Verzauberung Basic
+			ProjectileVelocityEnchantmentCommon: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
+			ProjectileVelocityEnchantmentEpic: Projektilgeschwindigkeitsverzauberung Epos
+			ProjectileVelocityEnchantmentLegendary: Geschossgeschwindigkeitsverzauberung Legendär
+			ProjectileVelocityEnchantmentRare: Schussgeschwindigkeit ​​Verzauberung Selten
+			RangedClassSwapEnchantmentBasic: Fernkampf-Klassentausch-Verzauberung Basic
+			RangedClassSwapEnchantmentCommon: Fernkampf-Klassentausch-Verzauberung Gewöhnlich
+			RangedClassSwapEnchantmentEpic: Fernkampf-Klassentausch-Verzauberungs-Epos
+			RangedClassSwapEnchantmentLegendary: Fernkampf-Klassentausch-Verzauberung Legendär
+			RangedClassSwapEnchantmentRare: Fernkampf-Klassentausch-Verzauberung Selten
+			ReducedManaUsageEnchantmentBasic: Mana Verzauberung Basic
+			ReducedManaUsageEnchantmentCommon: Mana Verzauberung Gewöhnlich
+			ReducedManaUsageEnchantmentEpic: Epic-Verzauberung mit reduziertem Manaverbrauch
+			ReducedManaUsageEnchantmentLegendary: Legendäre Verzauberung mit reduziertem Manaverbrauch
+			ReducedManaUsageEnchantmentRare: Mana Verzauberung Selten
+			RogueClassSwapEnchantmentBasic: Rogue Class Swap-Verzauberung Basic
+			RogueClassSwapEnchantmentCommon: Rogue Class Swap Verzauberung Common
+			RogueClassSwapEnchantmentEpic: Rogue Class Swap Enchantment Epic
+			RogueClassSwapEnchantmentLegendary: Rogue Class Swap-Verzauberung Legendär
+			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantment Selten
+			SizeEnchantmentBasic: Skalierung Verzauberung Basic
+			SizeEnchantmentCommon: Skalierung Verzauberung Gewöhnlich
+			SizeEnchantmentEpic: Größe Verzauberung Epic
+			SizeEnchantmentLegendary: Größe Verzauberung Legendär
+			SizeEnchantmentRare: Skalierung Verzauberung Selten
+			SolarDashEnchantmentBasic: Solar Dash-Verzauberung Basic
+			SolarDashEnchantmentCommon: Solar Dash-Verzauberung Häufig
+			SolarDashEnchantmentEpic: Solar Dash Enchantment Epos
+			SolarDashEnchantmentLegendary: Solar Dash-Verzauberung Legendär
+			SolarDashEnchantmentRare: Solar Dash-Verzauberung Selten
+			SonarEnchantmentBasic: Sonar-Verzauberung Basic
+			SonarEnchantmentCommon: Sonar-Verzauberung Häufig
+			SonarEnchantmentEpic: Epos der Sonar-Verzauberung
+			SonarEnchantmentLegendary: Sonar-Verzauberung Legendär
+			SonarEnchantmentRare: Sonar-Verzauberung Selten
+			SpelunkerEnchantmentBasic: Höhlenforscher-Verzauberung Basic
+			SpelunkerEnchantmentCommon: Höhlenforscher-Verzauberung Gewöhnlich
+			SpelunkerEnchantmentEpic: Spelunker Enchantment Epos
+			SpelunkerEnchantmentLegendary: Höhlenforscher-Verzauberung Legendär
+			SpelunkerEnchantmentRare: Höhlenforscher-Verzauberung Selten
+			VenomEnchantmentBasic: Giftverzauberung Basic
+			VenomEnchantmentCommon: Giftverzauberung Allgemein
+			VenomEnchantmentEpic: Giftverzauberung Epic
+			VenomEnchantmentLegendary: Giftverzauberung Legendär
+			VenomEnchantmentRare: Giftverzauberung Selten
+			WarEnchantmentBasic: Krieg Verzauberung Basic
+			WarEnchantmentCommon: Krieg Verzauberung Gewöhnlich
+			WarEnchantmentEpic: Epos der Kriegsverzauberung
+			WarEnchantmentLegendary: Kriegsverzauberung Legendär
+			WarEnchantmentRare: Krieg Verzauberung Selten
+			WhipClassSwapEnchantmentBasic: Peitschen-Klassentausch-Verzauberung Basic
+			WhipClassSwapEnchantmentCommon: Peitschen-Klassentausch-Verzauberung Gewöhnlich
+			WhipClassSwapEnchantmentEpic: Peitschen-Klassentausch-Verzauberung Epic
+			WhipClassSwapEnchantmentLegendary: Peitschen-Klassentausch-Verzauberung Legendär
+			WhipClassSwapEnchantmentRare: Peitschenklassentausch-Verzauberung Selten
+			WorldAblazeEnchantmentBasic: Welt in Flammen Verzauberung Basic
+			WorldAblazeEnchantmentCommon: Welt in Flammen Verzauberung Gewöhnlich
+			WorldAblazeEnchantmentEpic: World Ablaze Enchantment-Epos
+			WorldAblazeEnchantmentLegendary: Legendäre Verzauberung der Welt
+			WorldAblazeEnchantmentRare: Welt in Flammen Verzauberung Selten
+			Containment: Eindämmung
+			DustyEnchantingTable: Staubiger Verzauberungstisch
+			EnchantmentEssenceBasic: Verzauberungsessenz Basic
+			EnchantmentEssenceCommon: Verzauberungsessenz Gewöhnlich
+			EnchantmentEssenceEpic: Verzauberungsessenz Epic
+			EnchantmentEssenceLegendary: Verzauberungsessenz Legendär
+			EnchantmentEssenceRare: Verzauberungsessenz Selten
+			HellishEnchantingTable: Höllischer Verzaubertisch
+			MediumContainment: Mittlere Eindämmung
+			PowerBooster: Leistungsverstärker
+			SoulEnchantingTable: Seelen Verzauberungstisch
+			SuperiorContainment: Überlegene Eindämmung
+			UltimateEnchantingTable: Ultimativer Verzauberungstisch
+			UltraPowerBooster: Ultra-Power-Booster
+			WoodEnchantingTable: Holz Verzauberungstisch
 		}
-
+		BuffName: {
+			Amaterasu: Amaterasu
+		}
+		Bestiary: {
+			Witch: Die Hexe ist eine hässliche und böse Dame und handelt mit weiteren bösen Dingen. Sie handelt mit dubiosen Materialien, die verwendet werden, um Ausrüstung mit mysteriösen Effekten zu verbessern.
+		}
 		Dialogue: {
 			Witch: {
 				BirthdayParty: WARUM BIN ICH GEZWUNGEN, ROSA ZU KLEIDEN?! DAS SIEHT SCHRECKLICH AUS, DIESE PARTY STINK!
 				BloodMoon: Es tut mir wirklich leid für mein vorheriges Verhalten. Ich war damals nicht in Bestform, und wenn ich unhöflich rüberkam, entschuldige ich mich.
 				Corrupt: Oooh! Der Schmutz hier ist herrlich! Ich kann es kaum erwarten, neue Entdeckungen anzunehmen!
 				Crimson: Oooh! Das Blut hier ist schön! Ich kann es kaum erwarten, neue Entdeckungen anzunehmen!
-				Dryad: Diese... {0} Person ist so klischeehaft! 'Rette die Welt vor dem Bösen' Das Böse ist tief verwurzelt und hier, um zu bleiben!
+				Dryad: "Diese... {0} Person ist so klischeehaft! 'Rette die Welt vor dem Bösen' Das Böse ist tief verwurzelt und hier, um zu bleiben!"
 				DyeTrader: "{0} verbindet mich immer mit den dunkelsten Schwarztönen und den gruseligsten Grüntönen! Diese Farben verleihen mir einen ganz besonderen Glanz und lassen mich so schlank aussehen!"
 				Graveyard: Manche Leute mögen die Toten gruselig finden, aber diese „Totenstille“ ist eigentlich ziemlich peppig! Nack nack nack!
-				Princess: Ugh! {0} ist immer auf meinem Fall! Ich weiß nicht, was 'Ethik' oder 'Moral' sind, aber sie wird meinen Platz nicht verlassen!
+				Princess: "Ugh! {0} ist immer auf meinem Fall! Ich weiß nicht, was 'Ethik' oder 'Moral' sind, aber sie wird meinen Platz nicht verlassen!"
 				QueenBee: Der Dschungel hat die besten Zutaten zum Brauen. Schade, dass ein riesiger quirliger Schädling sie befällt!
 				StandardDialogue0: Ich habe dieses Rezept gelernt, es ist wirklich ordentlich, ich werde es später für Sie aufbewahren!
 				StandardDialogue1: Warum rede ich die ganze Zeit, es ist wirklich schwer, diese Reime zu machen!
 				StandardDialogue2: Ich bin immer noch hier, ich sehe dir beim Spielen zu, aber mir fällt nicht viel ein, was ich sagen könnte!
 				Storm: Ha! Donner ist das Beste, wenn es darum geht, neuen magischen Unsinn zu erschaffen! Lasst die große Geisterstunde beginnen!
-				WitchDoctor: Ein anderer Kesselbenutzer! {0} hat so viele seltsame Gimmicks, ein wahrer Verführer!
-				Wizard: „Während {0} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“
+				WitchDoctor: "Ein anderer Kesselbenutzer! {0} hat so viele seltsame Gimmicks, ein wahrer Verführer!"
+				Wizard: "„Während {0} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“"
 				Zoologist: "{0} ist eine tyrannische Dirne, die überall Haare hinterlässt, ich werde sie im Krieg bezahlen lassen!"
 			}
 		}
-
-		EnchantmentStorageText: {
-			Add: Hinzufügen
-			AddFromEquippedEnchantments: Aus ausgerüsteten Verzauberungen hinzufügen
-			All: Alle
-			Delete: Löschen
-			EnchantmentLoadouts: Verzauberungs-Loadouts
-			EnchantmentStorage: Verzauberungslager
-			HeldItem: Zurückgehaltener Gegenstand
-			Loadout: Ausladung
-			LoadoutSizeChanged: Es wurden weniger Zubehörsteckplätze als bisher verfügbar erkannt. Verzauberungen in den überschüssigen Slots wurden zurückgegeben.
-			ManageOfferedItems: Angebotene Artikel verwalten
-			ManageTrash: Papierkorb verwalten
-			NoAccessories: Sie müssen mindestens ein Accessoire tragen, um Verzauberungs-Loadouts austauschen zu können.
-			NoArmor: Sie müssen einen Helm, eine Brust oder Beine tragen, um Verzauberungs-Loadouts austauschen zu können.
-			NoHeldItem: Sie müssen einen verzauberbaren Gegenstand besitzen, um Verzauberungs-Loadouts austauschen zu können.
-			NoItems: Sie müssen einen verzauberbaren Gegenstand in der Hand halten oder ein Rüstungsteil oder ein Accessoire tragen, um Verzauberungsausrüstungen austauschen zu können.
-			NotEnoughEnchantments: „Dir fehlen Verzauberungen für dieses Loadout. {0}“
-			NotHighEnoughLevel: „Deine {0}-Stufe ist nicht hoch genug, um die Verzauberungen aus diesem Loadout anzuwenden.“
-			OreBag: Erzbeutel
-			QuickCraft: Schnelles Basteln
-			RevertAllToBasic: Alles auf Basic zurücksetzen
-			ToggleMarkTrash: Aktivieren Sie die Option „Papierkorb markieren“.
-			UncraftAllTrash: Entferne den gesamten Müll
+		ItemTooltip: {
+			Containment: Wird verwendet, um einfache Verzauberungen aufzubewahren
+			DustyEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 1)
+			EnchantmentEssenceBasic: 
+				'''
+				Grundmaterial zum Herstellen und Verbessern von Verzauberungen.
+				Kann zu 400 Erfahrung in einem Zaubertisch umgewandelt werden.
+				'''
+			EnchantmentEssenceCommon: 
+				'''
+				Übliches Material zum Herstellen und Verbessern von Verzauberungen.
+				Kann zu 1600 Erfahrung in einen bezaubernden Tisch umgewandelt werden.
+				'''
+			EnchantmentEssenceEpic: 
+				'''
+				Episches Material zum Herstellen und Verbessern von Verzauberungen.
+				Kann zu 25600 Erfahrung in einem bezaubernden Tisch umgewandelt werden.
+				'''
+			EnchantmentEssenceLegendary: 
+				'''
+				Legendäres Material zum Herstellen und Verbessern von Verzauberungen.
+				Kann in 102400 Erfahrung in einem bezaubernden Tisch umgewandelt werden.
+				'''
+			EnchantmentEssenceRare: 
+				'''
+				Seltenes Material zum Herstellen und Verbessern von Verzauberungen.
+				Kann zu 6400 Erfahrung in einem bezaubernden Tisch umgewandelt werden.
+				'''
+			HellishEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Rang 2)
+			MediumContainment: Wird verwendet, um gewöhnliche Verzauberungen aufzubewahren
+			PowerBooster: 
+				'''
+				Verwenden Sie dies, während sich der Gegenstand, den Sie verstärken möchten, in einer Verzauberungstabelle befindet, um seine Basisstufe um 10 zu erhöhen.
+				(Umschalt-Linksklick aus Ihrem Inventar oder Linksklick auf einen Gegenstand in der Tabelle mit diesem auf Ihrem Cursor.)
+				Dieser Artikel wird zurückgegeben, wenn der aufgewertete Artikel angeboten wird.
+				'''
+			SoulEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 3)
+			SuperiorContainment: Wird verwendet, um seltene Verzauberungen aufzubewahren
+			UltimateEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 4)
+			UltraPowerBooster: 
+				'''
+				Verwenden Sie dies, während sich der Gegenstand, den Sie verstärken möchten, in einer Verzauberungstabelle befindet, um seine Basisstufe um 20 zu erhöhen.
+				(Umschalt-Linksklick aus Ihrem Inventar oder Linksklick auf einen Gegenstand in der Tabelle mit diesem auf Ihrem Cursor.)
+				Dieser Artikel wird zurückgegeben, wenn der aufgewertete Artikel angeboten wird.
+				'''
+			WoodEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 0)
 		}
-
-		GameMessages: {
-			AlreadyMaxLevel: „Dein {0} hat bereits das maximale Level.“
-			Back: Zurück
-			CannotGainAdditionalPower: „Dein {0}({1}) kann durch das angebotene {2}({3}) keine zusätzliche Kraft erhalten.“
-			CantInfusionArmorDifferentTypes: Es ist nicht möglich, Rüstungen unterschiedlicher Art wie Helm und Körper zu infundieren.
-			CongradulationsMaxLevel: „Herzlichen Glückwunsch! {1} von {0} hat das maximale Level {2} ({3} xp) erreicht.“
-			CouldntFindItemsInWeaponsList: Es konnten keine Gegenstände in WeaponsList oder WeaponCraftingIngredients mit den Namen gefunden werden:
-			CouldntFindNPCsInIngredientsList: Es konnten keine NPCs in NPCsThatDropWeaponsOrIngredients mit den Namen gefunden werden:
-			DailyFishingQuestReset: „Die tägliche Angelquest wurde zurückgesetzt. Deine nächste Quest ist {0}.“
-			DetectedNonEnchantmentInEnchantmentSlot: „Auf deinem {1} wurde ein Nicht-Verzauberungsgegenstand entdeckt:{0}. Er wurde in dein Inventar zurückgebracht.“
-			EnchantmentNoLongerAllowed: „{0} ist auf {1} nicht mehr zulässig und wurde aus Ihrem {2} entfernt.“
-			FailedConvertExcessExperience: „CheckConvertExcessExperience(item: {0}, verbrauchtItem: {1}) konnte nicht überprüft werden“
-			FailedFindBossBag: Boss-Tasche für Boss konnte nicht gefunden werden:
-			FailedFindItemDropsForGroup: Es konnten keine Gegenstandsdrops für Beutegegenstände für die Gruppe gefunden werden
-			FailedInfuseItem: „Element: {0} konnte nicht mit verbrauchtem Element verknüpft werden: {1}“
-			FailedReplaceOldItem: Der alte Artikel konnte nicht ersetzt werden:
-			FailedReplaceWithCoins: „Artikel konnte nicht durch Münzen ersetzt werden: {0}“
-			FailedToCloneItem: „In EnchantedItem konnte das Klonen von (item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3} nicht durchgeführt werden.“
-			FailedToFindInfusionPower: Für den Artikel konnte keine Infusionskraft gefunden werden:
-			FailedToLocateAngler: Der Angler konnte nicht gefunden werden. Sie erhalten weiterhin Belohnungen
-			FavoritedItemsCantBeConsumedForInfusion: Lieblingsartikel können nicht zur Infusion konsumiert werden.
-			FishingQuestTurnedIn: „Quest eingereicht. Deine nächste Quest ist {0}. Quests abgeschlossen: {1}“
-			InfusionConsumeItemWasNull: „wePlayer.infusionConsumeItem war null, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
-			InfusionOnlyPossibleSameType: Infusion ist nur zwischen Gegenständen desselben Typs (Waffe/Rüstung) möglich.
-			InfusionPowerMustBeLower: Die Infusionskraft des aufzuwertenden Gegenstands muss geringer sein als die Infusionskraft des verbrauchten Gegenstands.
-			IngredientInfusionPowersNotSetup: Zutaten-Infusionskräfte nicht eingerichtet
-			IngredientsFromLootItemsNotincluded: Zutaten aus WeaponsFromLootItems, die nicht in ItemInfusionPowers enthalten sind
-			ItemLevelUp: „{0}s {1} hat Level {2} erreicht ({3} XP).“
-			ItemRemovedFromWeaponEnchantments: „{0} wurde aus Waffenverzauberungen entfernt.“
-			ItemRemovedRecieveCoins: „{0} wurde aus den Waffenverzauberungen entfernt. Du hast Münzen in Höhe des Verkaufspreises erhalten.“
-			ItemRemovedReiceveCompensation: „{0} wurde aus den Waffenverzauberungen entfernt. Du hast {1} als Entschädigung erhalten.“
-			ItemRemovedRelacedWithItem: „{0} wurde aus den Waffenverzauberungen entfernt. Es wurde durch {1} ersetzt.“
-			ItemsFromLootItemsNotIncluded: Gegenstände aus WeaponsFromLootItems, die nicht in ItemInfusionPowers enthalten sind
-			ItemsFromNPCIngredientsNotIncluded: Gegenstände von IngredientsFromNPCs, die nicht in ItemInfusionPowers enthalten sind
-			ItemsFromNPCsNotIncluded: Gegenstände von WeaponsFromNPCs, die nicht in ItemInfusionPowers enthalten sind
-			ItemTooLowLevel: „Deine {0}-Stufe ist zu niedrig, um so viele Verzauberungen zu nutzen.“
-			LogInfusionPowerLabels: Mod, Waffe, Infusionskraft, Wertseltenheit, Seltenheit, Originalseltenheit, Wert, Gegenstands-ID, Schaden, Nutzungsdauer, DPS
-			LogInfusionPowerOtherLabels: Seltenheit, Durchschnitt, Min., Max
-			MinSiphonXP: „Du kannst einen Gegenstand nur absaugen, wenn er mindestens {0} Erfahrung hat.“
-			MultipleUniqueEnchantments: „Auf Ihrem {0} wurden mehrere einzigartige Verzauberungen entdeckt. {1} wurde aus Ihrem {2} entfernt.“
-			MurasamaNoInfusion: Murasama kann nicht als Aufguss eingenommen werden.
-			NewItemIsAir: newItem war Luft.
-			NoLongerAllowedOnDamageType: „{0} ist auf {1}-Waffen nicht mehr zulässig und wurde von Ihrem {2} entfernt.“
-			NoLongerUtilityEnchantment: „{0} ist keine Hilfsverzauberung mehr und wurde von deinem {1} entfernt.“
-			NonEnchantableItemInTable:
-				'''
-				Nicht verzauberbarer Gegenstand in Tabelle gefunden: {0}.
-				ACHTUNG, NICHT BESTÄTIGEN DRÜCKEN.
-				Bitte melden Sie dieses Problem an andro951 (Weapon Enchantments).
-				'''
-			NotEnchantableAndNotAirInfusionItem: „tableItem: {0}{1} ist nicht verzauberbar und infusionConsumeItem: {2}{3} ist keine Luft“
-			NotEnoughEssence: „Nicht genug Essenz. Du brauchst {0} Erfahrung für Level {1}, es stehen dir nur {2} zur Verfügung.“
-			NowLimitedToOne: „{0} Verzauberungen sind jetzt auf 1 pro Gegenstand begrenzt. {1} wurde von deinem {2} entfernt.“
-			NPCInProgressionGroupNotInDropList: Es wurde ein NPC in einer Fortschrittsgruppe erkannt, der nicht in NPCsThatDropWeaponsOrIngredients enthalten ist.
-			NPCInProgressionGroupNoUniqueEnchantments: Es wurde ein NPC in einer Fortschrittsgruppe entdeckt, der keine einzigartigen Waffen oder Zutaten hat.
-			OpenEnchantingTableFirstTime:
-				'''
-				Sie spüren, wie alle Ihre Verzauberungen und Essenzen in den Verzauberungstisch gezogen werden.
-				Waffenverzauberungen verfügen über einen eigenen Aufbewahrungsort im Verzauberungstisch.
-				Wenn du Verzauberungen, Essenzen und andere Waffenverzauberungen einsammelst, werden diese automatisch in den Verzauberungstabellenspeicher verschoben.
-				'''
-			OreInfusionPowerNotSetup: „Erz {0} Infusionsleistung nicht eingerichtet. Geschätzte Infusionsleistung:“
-			PreventedIssueLooseExperience: „Ein Problem wurde verhindert, das dazu führen würde, dass deine XP reduziert werden. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
-			PreventedIssueLooseExperienceTwo: „Ein Problem wurde verhindert, das dazu führen würde, dass du Erfahrung verlierst. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
-			PreventedLoosingExperience: „Es wurde verhindert, dass Ihr {0} aufgrund eines Berechnungsfehlers Erfahrungspunkte verliert.“
-			PreventedWitchShopDuplication: Es wurde ein Problem behoben, das dazu führte, dass dem Shop-Artikel der Hexe ein doppelter Artikel hinzugefügt wurde:
-			RemovedEnchantedItemData: „EnchantedItem-Daten aus Element entfernt: {0}, Anzahl: {1}, newCount: {2}“
-			RemovedUnloadedEnchantmentFromItem: „Ungeladener Gegenstand:{0} aus deinem {1} entfernt. Bitte informiere andro951(WeaponEnchantments).“
-			RerollEnchantment: Verzauberung erneut würfeln
-			ResistsYourAttemptToEmpower: „Die {0} haben sich Ihrem Versuch widersetzt, es zu stärken.“
-			SameSetBonusNoEffect: Der aufzuwertende Gegenstand hat den gleichen Setbonus wie der verbrauchte Gegenstand und hat keine Wirkung.
-			SlotNumDisabledByConfig: „Steckplatz {0} durch Konfiguration deaktiviert. {1} aus Ihrem {2} entfernt.“
-			TryInfuseFailed: „TryInfuseItem fehlgeschlagen, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
-			WeaponInfusionPowersNotSetup: Waffeninfusionskräfte nicht eingerichtet
-			WitchChatText: Was willst du noch? Ich bin beschäftigt.
-			WitchEnchantmentRerolText: Ich denke, ich könnte versuchen, Ihre Verzauberungen zu verbessern, aber keine Rückerstattung oder Beschwerden.
-			WitchSpawnCondition: Haben Sie eine Verzauberung in Ihrem Inventar oder auf Ihrer Ausrüstung.
-		}
-
-		Items: {
-			AllForOneEnchantmentBasic.DisplayName: Alle für einen Verzauberung Basic
-			AllForOneEnchantmentCommon.DisplayName: Alle für einen Verzauberung Gewöhnlich
-			AllForOneEnchantmentEpic.DisplayName: All For One Enchantment-Epos
-			AllForOneEnchantmentLegendary.DisplayName: All For One Verzauberung Legendär
-			AllForOneEnchantmentRare.DisplayName: Alle für einen Verzauberung Selten
-			AmmoCostEnchantmentBasic.DisplayName: Munitionskosten Verzauberung Basic
-			AmmoCostEnchantmentCommon.DisplayName: Munitionskosten Verzauberung Gewöhnlich
-			AmmoCostEnchantmentEpic.DisplayName: Munitionskosten-Verzauberung Epic
-			AmmoCostEnchantmentLegendary.DisplayName: Munitionskostenverzauberung Legendär
-			AmmoCostEnchantmentRare.DisplayName: Munitionskosten Verzauberung Selten
-			AttackSpeedEnchantmentBasic.DisplayName: Geschwindigkeit Verzauberung Basic
-			AttackSpeedEnchantmentCommon.DisplayName: Geschwindigkeit Verzauberung Gewöhnlich
-			AttackSpeedEnchantmentEpic.DisplayName: Angriffsgeschwindigkeitsverzauberung Epic
-			AttackSpeedEnchantmentLegendary.DisplayName: Angriffsgeschwindigkeitsverzauberung Legendär
-			AttackSpeedEnchantmentRare.DisplayName: Geschwindigkeit Verzauberung Selten
-			BardClassSwapEnchantmentBasic.DisplayName: Barden-Klassentausch-Verzauberung Basic
-			BardClassSwapEnchantmentCommon.DisplayName: Barden-Klassentausch-Verzauberung Gewöhnlich
-			BardClassSwapEnchantmentEpic.DisplayName: Barden-Klassentausch-Verzauberungs-Epos
-			BardClassSwapEnchantmentLegendary.DisplayName: Barden-Klassentausch-Verzauberung Legendär
-			BardClassSwapEnchantmentRare.DisplayName: Barden-Klassentausch-Verzauberung Selten
-			BerserkersRageEnchantmentBasic.DisplayName: Berserker Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon.DisplayName: Berserker Rage Enchantment Common
-			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Enchantment Epos
-			BerserkersRageEnchantmentLegendary.DisplayName: Berserker Rage Enchantment Legendär
-			BerserkersRageEnchantmentRare.DisplayName: Berserker Rage Enchantment Selten
-			CalmWatersEnchantmentBasic.DisplayName: Ruhiges Wasser Verzauberung Basic
-			CalmWatersEnchantmentCommon.DisplayName: Ruhiges Wasser Verzauberung Common
-			CalmWatersEnchantmentEpic.DisplayName: Calm Waters Enchantment Epos
-			CalmWatersEnchantmentLegendary.DisplayName: Calm Waters Verzauberung Legendär
-			CalmWatersEnchantmentRare.DisplayName: Verzauberung der ruhigen Gewässer Selten
-			ChaoticFishingEnchantmentBasic.DisplayName: Chaotische Angelverzauberung Basic
-			ChaoticFishingEnchantmentCommon.DisplayName: Chaotische Angelverzauberung Häufig
-			ChaoticFishingEnchantmentEpic.DisplayName: Chaotic Fishing Enchantment Epos
-			ChaoticFishingEnchantmentLegendary.DisplayName: Chaotische Angelverzauberung Legendär
-			ChaoticFishingEnchantmentRare.DisplayName: Chaotische Angelverzauberung Selten
-			ColdSteelEnchantmentBasic.DisplayName: Kalter Stahl Verzauberung Basic
-			ColdSteelEnchantmentCommon.DisplayName: Kalter Stahl Verzauberung Gewöhnlich
-			ColdSteelEnchantmentEpic.DisplayName: Cold Steel Enchantment-Epos
-			ColdSteelEnchantmentLegendary.DisplayName: Legendäre Verzauberung von Cold Steel
-			ColdSteelEnchantmentRare.DisplayName: Kalter Stahl Verzauberung Gewöhnlich
-
-			Containment: {
-				DisplayName: Eindämmung
-				Tooltip: Wird verwendet, um einfache Verzauberungen aufzubewahren
-			}
-
-			CrateChanceEnchantmentBasic.DisplayName: Crate Chance Verzauberung Basic
-			CrateChanceEnchantmentCommon.DisplayName: Crate Chance Verzauberung Common
-			CrateChanceEnchantmentEpic.DisplayName: Crate Chance Enchantment Epos
-			CrateChanceEnchantmentLegendary.DisplayName: Kistenchance-Verzauberung Legendär
-			CrateChanceEnchantmentRare.DisplayName: Kisten-Chance-Verzauberung Selten
-			CrateEnchantmentBasic.DisplayName: Kistenverzauberung Basic
-			CrateEnchantmentCommon.DisplayName: Kistenverzauberung Gewöhnlich
-			CrateEnchantmentEpic.DisplayName: Kistenverzauberung Epos
-			CrateEnchantmentLegendary.DisplayName: Kistenverzauberung Legendär
-			CrateEnchantmentRare.DisplayName: Kistenverzauberung Selten
-			CriticalStrikeChanceEnchantmentBasic.DisplayName: Kritische Trefferchance Verzauberung Basic
-			CriticalStrikeChanceEnchantmentCommon.DisplayName: Kritische Trefferchance Verzauberung Gewöhnlich
-			CriticalStrikeChanceEnchantmentEpic.DisplayName: Verzauberungs-Epos mit kritischer Trefferchance
-			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Verzauberung mit kritischer Trefferchance Legendär
-			CriticalStrikeChanceEnchantmentRare.DisplayName: Kritische Trefferchance Verzauberung Selten
-			CriticalStrikeDamageEnchantmentBasic.DisplayName: Kritische Trefferschaden-Verzauberung Basic
-			CriticalStrikeDamageEnchantmentCommon.DisplayName: Verzauberung für Schaden durch kritische Treffer Häufig
-			CriticalStrikeDamageEnchantmentEpic.DisplayName: Verzauberung mit kritischem Trefferschaden episch
-			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Verzauberung für kritischen Trefferschaden Legendär
-			CriticalStrikeDamageEnchantmentRare.DisplayName: Verzauberung mit kritischem Trefferschaden Selten
-			CursedInfernoEnchantmentBasic.DisplayName: Verfluchte Inferno-Verzauberung Basic
-			CursedInfernoEnchantmentCommon.DisplayName: Verfluchte Inferno-Verzauberung
-			CursedInfernoEnchantmentEpic.DisplayName: Verfluchtes Inferno-Verzauberungs-Epos
-			CursedInfernoEnchantmentLegendary.DisplayName: Verfluchte Inferno-Verzauberung Legendär
-			CursedInfernoEnchantmentRare.DisplayName: Verfluchte Inferno-Verzauberung Selten
-			DamageEnchantmentBasic.DisplayName: Schaden Verzauberung Basic
-			DamageEnchantmentCommon.DisplayName: Schaden Verzauberung Gewöhnlich
-			DamageEnchantmentEpic.DisplayName: Schadensverzauberung Epic
-			DamageEnchantmentLegendary.DisplayName: Beschädigen Sie die Verzauberung Legendär
-			DamageEnchantmentRare.DisplayName: Schaden Verzauberung Selten
-			DamageReductionEnchantmentBasic.DisplayName: Grundlegende Verzauberung zur Schadensreduzierung
-			DamageReductionEnchantmentCommon.DisplayName: Verzauberung zur Schadensminderung Gewöhnlich
-			DamageReductionEnchantmentEpic.DisplayName: Epic-Verzauberung zur Schadensreduzierung
-			DamageReductionEnchantmentLegendary.DisplayName: Verzauberung zur Schadensreduzierung Legendär
-			DamageReductionEnchantmentRare.DisplayName: Verzauberung zur Schadensreduzierung Selten
-			DangerSenseEnchantmentBasic.DisplayName: Verzauberung der Gefahrenwahrnehmung Basic
-			DangerSenseEnchantmentCommon.DisplayName: Verzauberung der Gefahrenwahrnehmung Gewöhnlich
-			DangerSenseEnchantmentEpic.DisplayName: Danger Sense Enchantment Epos
-			DangerSenseEnchantmentLegendary.DisplayName: Verzauberung der Gefahrenwahrnehmung Legendär
-			DangerSenseEnchantmentRare.DisplayName: Verzauberung der Gefahrenwahrnehmung Selten
-			DaybreakEnchantmentBasic.DisplayName: Tagesanbruch-Verzauberung Basic
-			DaybreakEnchantmentCommon.DisplayName: Daybreak-Verzauberung Common
-			DaybreakEnchantmentEpic.DisplayName: Daybreak Enchantment-Epos
-			DaybreakEnchantmentLegendary.DisplayName: Daybreak-Verzauberung Legendär
-			DaybreakEnchantmentRare.DisplayName: Daybreak-Verzauberung Selten
-			DefenseEnchantmentBasic.DisplayName: Verteidigungsverzauberung Basic
-			DefenseEnchantmentCommon.DisplayName: Verzauberung der Verteidigung Gewöhnlich
-			DefenseEnchantmentEpic.DisplayName: Verteidigungszauber-Epos
-			DefenseEnchantmentLegendary.DisplayName: Verteidigungsverzauberung Legendär
-			DefenseEnchantmentRare.DisplayName: Verteidigungszauber Selten
-
-			DustyEnchantingTable: {
-				DisplayName: Staubiger Verzauberungstisch
-				Tooltip:
-					'''
-					Wird verwendet, um Gegenstände mit Verzauberungen zu versehen. (Stufe 1)
-					Kann durch Klicken mit der rechten Maustaste aus Ihrem Inventar verwendet werden. (Durch Klicken mit der rechten Maustaste können Sie den Stapel teilen.)
-					'''
-			}
-
-			EnchantmentEssenceBasic: {
-				DisplayName: Verzauberungsessenz Basic
-				Tooltip:
-					'''
-					Grundmaterial zum Herstellen und Verbessern von Verzauberungen.
-					Kann zu 400 Erfahrung in einem Zaubertisch umgewandelt werden.
-					'''
-			}
-
-			EnchantmentEssenceCommon: {
-				DisplayName: Verzauberungsessenz Gewöhnlich
-				Tooltip:
-					'''
-					Übliches Material zum Herstellen und Verbessern von Verzauberungen.
-					Kann zu 1600 Erfahrung in einen bezaubernden Tisch umgewandelt werden.
-					'''
-			}
-
-			EnchantmentEssenceEpic: {
-				DisplayName: Verzauberungsessenz Epic
-				Tooltip:
-					'''
-					Episches Material zum Herstellen und Verbessern von Verzauberungen.
-					Kann zu 25600 Erfahrung in einem bezaubernden Tisch umgewandelt werden.
-					'''
-			}
-
-			EnchantmentEssenceLegendary: {
-				DisplayName: Verzauberungsessenz Legendär
-				Tooltip:
-					'''
-					Legendäres Material zum Herstellen und Verbessern von Verzauberungen.
-					Kann in 102400 Erfahrung in einem bezaubernden Tisch umgewandelt werden.
-					'''
-			}
-
-			EnchantmentEssenceRare: {
-				DisplayName: Verzauberungsessenz Selten
-				Tooltip:
-					'''
-					Seltenes Material zum Herstellen und Verbessern von Verzauberungen.
-					Kann zu 6400 Erfahrung in einem bezaubernden Tisch umgewandelt werden.
-					'''
-			}
-
-			ExtraFishingLineEnchantmentBasic.DisplayName: Zusätzliche Angelschnur-Verzauberung Basic
-			ExtraFishingLineEnchantmentCommon.DisplayName: Zusätzliche Angelschnur-Verzauberung
-			ExtraFishingLineEnchantmentEpic.DisplayName: Extra Angelschnur-Verzauberung Epic
-			ExtraFishingLineEnchantmentLegendary.DisplayName: Zusätzliche Angelschnur-Verzauberung Legendär
-			ExtraFishingLineEnchantmentRare.DisplayName: Zusätzliche Angelschnur-Verzauberung Selten
-			FishingEnchantmentBasic.DisplayName: Fischen Verzauberung Basic
-			FishingEnchantmentCommon.DisplayName: Gemeinsame Angelverzauberung
-			FishingEnchantmentEpic.DisplayName: Fischen-Verzauberungs-Epos
-			FishingEnchantmentLegendary.DisplayName: Fischen Verzauberung Legendär
-			FishingEnchantmentRare.DisplayName: Angelverzauberung Selten
-			FishingPowerEnchantmentBasic.DisplayName: Angelkraft-Verzauberung Basic
-			FishingPowerEnchantmentCommon.DisplayName: Angelkraft Verzauberung Allgemein
-			FishingPowerEnchantmentEpic.DisplayName: Fischen Power Enchantment Epic
-			FishingPowerEnchantmentLegendary.DisplayName: Angelkraft-Verzauberung Legendär
-			FishingPowerEnchantmentRare.DisplayName: Angelkraft-Verzauberung Selten
-			FrostburnEnchantmentBasic.DisplayName: Frostbrand-Verzauberung Basic
-			FrostburnEnchantmentCommon.DisplayName: Frostbrand-Verzauberung Häufig
-			FrostburnEnchantmentEpic.DisplayName: Eisbrand-Verzauberung Epos
-			FrostburnEnchantmentLegendary.DisplayName: Frostbrand-Verzauberung Legendär
-			FrostburnEnchantmentRare.DisplayName: Frostbrand-Verzauberung Selten
-			GodSlayerEnchantmentBasic.DisplayName: Gotttöter Verzauberung Basic
-			GodSlayerEnchantmentCommon.DisplayName: Gotttöter Verzauberung Gewöhnlich
-			GodSlayerEnchantmentEpic.DisplayName: God Slayer Enchantment Epos
-			GodSlayerEnchantmentLegendary.DisplayName: Gotttöter-Verzauberung Legendär
-			GodSlayerEnchantmentRare.DisplayName: Gotttöter Verzauberung Selten
-			HealerClassSwapEnchantmentBasic.DisplayName: Heiler-Klassentausch-Verzauberung Basic
-			HealerClassSwapEnchantmentCommon.DisplayName: Heiler-Klassentausch-Verzauberung Häufig
-			HealerClassSwapEnchantmentEpic.DisplayName: Heiler-Klassentausch-Verzauberungs-Epos
-			HealerClassSwapEnchantmentLegendary.DisplayName: Heiler-Klassentausch-Verzauberung Legendär
-			HealerClassSwapEnchantmentRare.DisplayName: Heiler-Klassentausch-Verzauberung Selten
-
-			HellishEnchantingTable: {
-				DisplayName: Höllischer Verzaubertisch
-				Tooltip:
-					'''
-					Wird verwendet, um Gegenstände mit Verzauberungen zu versehen. (Stufe 2)
-					Kann durch Klicken mit der rechten Maustaste aus Ihrem Inventar verwendet werden. (Durch Klicken mit der rechten Maustaste können Sie den Stapel teilen.)
-					'''
-			}
-
-			HellsWrathEnchantmentBasic.DisplayName: Höllen Zorn Verzauberung Basic
-			HellsWrathEnchantmentCommon.DisplayName: Höllen Zorn Verzauberung Gewöhnlich
-			HellsWrathEnchantmentEpic.DisplayName: Hells Wrath Enchantment-Epos
-			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath-Verzauberung Legendär
-			HellsWrathEnchantmentRare.DisplayName: Höllen Zorn Verzauberung Selten
-			HunterEnchantmentBasic.DisplayName: Jägerverzauberung Basic
-			HunterEnchantmentCommon.DisplayName: Jägerverzauberung Allgemein
-			HunterEnchantmentEpic.DisplayName: Hunter Enchantment Epos
-			HunterEnchantmentLegendary.DisplayName: Jägerverzauberung Legendär
-			HunterEnchantmentRare.DisplayName: Jägerverzauberung Selten
-			IchorEnchantmentBasic.DisplayName: Grundlegende Ichor-Verzauberung
-			IchorEnchantmentCommon.DisplayName: Ichor-Verzauberung
-			IchorEnchantmentEpic.DisplayName: Epos der Ichor-Verzauberung
-			IchorEnchantmentLegendary.DisplayName: Ichor-Verzauberung Legendär
-			IchorEnchantmentRare.DisplayName: Ichor-Verzauberung Selten
-			JuicedEnchantmentBasic.DisplayName: Entsaftete Verzauberung Basic
-			JuicedEnchantmentCommon.DisplayName: Entsaftete Verzauberung
-			JuicedEnchantmentEpic.DisplayName: Juiced Enchantment Epos
-			JuicedEnchantmentLegendary.DisplayName: Entsaftete Verzauberung Legendär
-			JuicedEnchantmentRare.DisplayName: Entsaftete Verzauberung Selten
-			JunglesFuryEnchantmentBasic.DisplayName: Jungle Zorn Verzauberung Basic
-			JunglesFuryEnchantmentCommon.DisplayName: Jungle Zorn Verzauberung Gewöhnlich
-			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Enchantment Epos
-			JunglesFuryEnchantmentLegendary.DisplayName: Jungles Fury Enchantment Legendär
-			JunglesFuryEnchantmentRare.DisplayName: Jungle Zorn Verzauberung Selten
-			KiClassSwapEnchantmentBasic.DisplayName: Ki-Klassentausch-Verzauberung Basic
-			KiClassSwapEnchantmentCommon.DisplayName: Ki-Klassentausch-Verzauberung Gewöhnlich
-			KiClassSwapEnchantmentEpic.DisplayName: Ki-Klassentausch-Verzauberungs-Epos
-			KiClassSwapEnchantmentLegendary.DisplayName: Ki-Klassentausch-Verzauberung Legendär
-			KiClassSwapEnchantmentRare.DisplayName: Ki-Klassentausch-Verzauberung Selten
-			KiEnchantmentBasic.DisplayName: Ki-Verzauberung Basic
-			KiEnchantmentCommon.DisplayName: Ki Verzauberung Allgemein
-			KiEnchantmentEpic.DisplayName: Ki-Verzauberungs-Epos
-			KiEnchantmentLegendary.DisplayName: Ki-Verzauberung Legendär
-			KiEnchantmentRare.DisplayName: Ki-Verzauberung Selten
-			LavaFishingEnchantmentBasic.DisplayName: Lavafischen Verzauberung Basic
-			LavaFishingEnchantmentCommon.DisplayName: Lavafischen Verzauberung Allgemein
-			LavaFishingEnchantmentEpic.DisplayName: Epische Lavafischen-Verzauberung
-			LavaFishingEnchantmentLegendary.DisplayName: Lavafischen Verzauberung Legendär
-			LavaFishingEnchantmentRare.DisplayName: Lavafischen Verzauberung Selten
-			LethalCombinationEnchantmentBasic.DisplayName: Tödliche Kombinationsverzauberung Basic
-			LethalCombinationEnchantmentCommon.DisplayName: Tödliche Kombinationsverzauberung, häufig
-			LethalCombinationEnchantmentEpic.DisplayName: Tödliche Kombinationsverzauberung, episch
-			LethalCombinationEnchantmentLegendary.DisplayName: Tödliche Kombinationsverzauberung, legendär
-			LethalCombinationEnchantmentRare.DisplayName: Tödliche Kombinationsverzauberung, selten
-			LifeRegenEnchantmentBasic.DisplayName: Lebensregenerierungs-Verzauberung Basic
-			LifeRegenEnchantmentCommon.DisplayName: Verzauberung der Lebensregeneration
-			LifeRegenEnchantmentEpic.DisplayName: Epische Lebensregenerierungsverzauberung
-			LifeRegenEnchantmentLegendary.DisplayName: Verzauberung der Lebensregeneration Legendär
-			LifeRegenEnchantmentRare.DisplayName: Verzauberung der Lebensregeneration Selten
-			LifeStealEnchantmentBasic.DisplayName: Lebensraub Verzauberung Basic
-			LifeStealEnchantmentCommon.DisplayName: Lebensraub Verzauberung Gewöhnlich
-			LifeStealEnchantmentEpic.DisplayName: Life Steal Enchantment-Epos
-			LifeStealEnchantmentLegendary.DisplayName: Lebensraub-Verzauberung Legendär
-			LifeStealEnchantmentRare.DisplayName: Lebensraub Verzauberung Selten
-			LuckEnchantmentBasic.DisplayName: Glücksverzauberung Basic
-			LuckEnchantmentCommon.DisplayName: Glücksverzauberung Common
-			LuckEnchantmentEpic.DisplayName: Glückszauber-Epos
-			LuckEnchantmentLegendary.DisplayName: Glücksverzauberung Legendär
-			LuckEnchantmentRare.DisplayName: Glücksverzauberung Selten
-			MagicClassSwapEnchantmentBasic.DisplayName: Magic Class Swap-Verzauberung Basic
-			MagicClassSwapEnchantmentCommon.DisplayName: Magische Klassentausch-Verzauberung Allgemein
-			MagicClassSwapEnchantmentEpic.DisplayName: Magische Klassentausch-Verzauberung Epic
-			MagicClassSwapEnchantmentLegendary.DisplayName: Magische Klassentausch-Verzauberung Legendär
-			MagicClassSwapEnchantmentRare.DisplayName: Magische Klassentausch-Verzauberung Selten
-			MagneticEnchantmentBasic.DisplayName: Magnetische Verzauberung Basic
-			MagneticEnchantmentCommon.DisplayName: Magnetische Verzauberung Gewöhnlich
-			MagneticEnchantmentEpic.DisplayName: Magnetische Verzauberung, episch
-			MagneticEnchantmentLegendary.DisplayName: Legendäre magnetische Verzauberung
-			MagneticEnchantmentRare.DisplayName: Magnetische Verzauberung Selten
-			MaxMinionsEnchantmentBasic.DisplayName: Max Günstlinge Verzauberung Basic
-			MaxMinionsEnchantmentCommon.DisplayName: Max Günstlinge Verzauberung Gewöhnlich
-			MaxMinionsEnchantmentEpic.DisplayName: Max Minions Verzauberung Epic
-			MaxMinionsEnchantmentLegendary.DisplayName: Max Minions Verzauberung Legendär
-			MaxMinionsEnchantmentRare.DisplayName: Max Günstlinge Verzauberung Selten
-
-			MediumContainment: {
-				DisplayName: Mittlere Eindämmung
-				Tooltip: Wird verwendet, um gewöhnliche Verzauberungen aufzubewahren
-			}
-
-			MeleeClassSwapEnchantmentBasic.DisplayName: Nahkampf-Klassentausch-Verzauberung Basic
-			MeleeClassSwapEnchantmentCommon.DisplayName: Nahkampf-Klassentausch-Verzauberung Gewöhnlich
-			MeleeClassSwapEnchantmentEpic.DisplayName: Nahkampf-Klassentausch-Verzauberung Epic
-			MeleeClassSwapEnchantmentLegendary.DisplayName: Nahkampf-Klassentausch-Verzauberung Legendär
-			MeleeClassSwapEnchantmentRare.DisplayName: Nahkampf-Klassentausch-Verzauberung Selten
-			MobilityControlEnchantmentBasic.DisplayName: Mobilitätskontrollverzauberung Basic
-			MobilityControlEnchantmentCommon.DisplayName: Verzauberung der Mobilitätskontrolle Gewöhnlich
-			MobilityControlEnchantmentEpic.DisplayName: Epische Verzauberung zur Mobilitätskontrolle
-			MobilityControlEnchantmentLegendary.DisplayName: Mobilitätskontrolle Verzauberung Legendär
-			MobilityControlEnchantmentRare.DisplayName: Verzauberung zur Mobilitätskontrolle Selten
-			MoonlightEnchantmentBasic.DisplayName: Mondlicht Verzauberung Basic
-			MoonlightEnchantmentCommon.DisplayName: Mondlicht Verzauberung Gewöhnlich
-			MoonlightEnchantmentEpic.DisplayName: Mondschein-Verzauberungs-Epos
-			MoonlightEnchantmentLegendary.DisplayName: Mondlichtverzauberung Legendär
-			MoonlightEnchantmentRare.DisplayName: Mondlicht Verzauberung Selten
-			MovementSpeedEnchantmentBasic.DisplayName: Bewegungsgeschwindigkeit Verzauberung Basic
-			MovementSpeedEnchantmentCommon.DisplayName: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
-			MovementSpeedEnchantmentEpic.DisplayName: Bewegungsgeschwindigkeitsverzauberung Epic
-			MovementSpeedEnchantmentLegendary.DisplayName: Bewegungsgeschwindigkeitsverzauberung Legendär
-			MovementSpeedEnchantmentRare.DisplayName: Bewegungsgeschwindigkeit Verzauberung Selten
-			MultishotEnchantmentBasic.DisplayName: Multischuss Verzauberung Basic
-			MultishotEnchantmentCommon.DisplayName: Multischuss Verzauberung Gewöhnlich
-			MultishotEnchantmentEpic.DisplayName: Multishot-Verzauberung Epic
-			MultishotEnchantmentLegendary.DisplayName: Multishot-Verzauberung Legendär
-			MultishotEnchantmentRare.DisplayName: Multischuss Verzauberung Selten
-			NpcContactAnglerEnchantmentBasic.DisplayName: NPC Kontakt Angler Verzauberung Basic
-			NpcContactAnglerEnchantmentCommon.DisplayName: NPC Kontakt Angler Verzauberung Allgemein
-			NpcContactAnglerEnchantmentEpic.DisplayName: NPC Kontakt Angler Verzauberung Epic
-			NpcContactAnglerEnchantmentLegendary.DisplayName: NPC Kontakt Angler Verzauberung Legendär
-			NpcContactAnglerEnchantmentRare.DisplayName: NPC Kontakt Angler Verzauberung Selten
-			ObsidianSkinEnchantmentBasic.DisplayName: Obsidian-Haut-Verzauberung Basic
-			ObsidianSkinEnchantmentCommon.DisplayName: Obsidian-Haut-Verzauberung Gewöhnlich
-			ObsidianSkinEnchantmentEpic.DisplayName: Obsidian Skin Enchantment Episch
-			ObsidianSkinEnchantmentLegendary.DisplayName: Obsidian-Haut-Verzauberung Legendär
-			ObsidianSkinEnchantmentRare.DisplayName: Obsidian Skin Enchantment Selten
-			OneForAllEnchantmentBasic.DisplayName: Einer für alle Verzauberung Basic
-			OneForAllEnchantmentCommon.DisplayName: Einer für alle Verzauberung Gewöhnlich
-			OneForAllEnchantmentEpic.DisplayName: One For All Enchantment-Epos
-			OneForAllEnchantmentLegendary.DisplayName: One For All Verzauberung Legendär
-			OneForAllEnchantmentRare.DisplayName: Einer für alle Verzauberung Selten
-			OnFireEnchantmentBasic.DisplayName: On Fire Verzauberung Basic
-			OnFireEnchantmentCommon.DisplayName: Auf Feuer Verzauberung Common
-			OnFireEnchantmentEpic.DisplayName: On Fire Enchantment Epos
-			OnFireEnchantmentLegendary.DisplayName: On Fire Verzauberung Legendär
-			OnFireEnchantmentRare.DisplayName: On Fire Enchantment Selten
-			PeaceEnchantmentBasic.DisplayName: Frieden Verzauberung Basic
-			PeaceEnchantmentCommon.DisplayName: Frieden Verzauberung Gewöhnlich
-			PeaceEnchantmentEpic.DisplayName: Friedenszauber-Epos
-			PeaceEnchantmentLegendary.DisplayName: Friedensverzauberung Legendär
-			PeaceEnchantmentRare.DisplayName: Frieden Verzauberung Selten
-			PennyPinchingEnchantmentBasic.DisplayName: Penny Kneifen Verzauberung Basic
-			PennyPinchingEnchantmentCommon.DisplayName: Penny Pinching-Verzauberung Common
-			PennyPinchingEnchantmentEpic.DisplayName: Penny Pinching Enchantment Epos
-			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pinching Enchantment Legendär
-			PennyPinchingEnchantmentRare.DisplayName: Penny Pinching Enchantment Selten
-			PercentArmorPenetrationEnchantmentBasic.DisplayName: Prozentuale Rüstungsdurchdringungsverzauberung Basic
-			PercentArmorPenetrationEnchantmentCommon.DisplayName: Prozentuale Rüstungsdurchdringungsverzauberung, häufig
-			PercentArmorPenetrationEnchantmentEpic.DisplayName: Verzauberung mit prozentualer Rüstungsdurchdringung, episch
-			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Verzauberung mit prozentualer Rüstungsdurchdringung, legendär
-			PercentArmorPenetrationEnchantmentRare.DisplayName: Verzauberung mit prozentualer Rüstungsdurchdringung, selten
-			PoisonEnchantmentBasic.DisplayName: Giftverzauberung Basic
-			PoisonEnchantmentCommon.DisplayName: Giftverzauberung Gewöhnlich
-			PoisonEnchantmentEpic.DisplayName: Epische Vergiftungsverzauberung
-			PoisonEnchantmentLegendary.DisplayName: Legendäre Giftverzauberung
-			PoisonEnchantmentRare.DisplayName: Giftverzauberung Selten
-
-			PowerBooster: {
-				DisplayName: Leistungsverstärker
-				Tooltip:
-					'''
-					Verwenden Sie dies, während sich der Gegenstand, den Sie verstärken möchten, in einer Verzauberungstabelle befindet, um seine Basisstufe um 10 zu erhöhen.
-					(Umschalt-Linksklick aus Ihrem Inventar oder Linksklick auf einen Gegenstand in der Tabelle mit diesem auf Ihrem Cursor.)
-					Dieser Artikel wird zurückgegeben, wenn der aufgewertete Artikel angeboten wird.
-					'''
-			}
-
-			PrideOfTheWeakEnchantmentBasic.DisplayName: Stolz der schwachen Verzauberung Basic
-			PrideOfTheWeakEnchantmentCommon.DisplayName: Stolz der schwachen Verzauberung
-			PrideOfTheWeakEnchantmentEpic.DisplayName: Stolz der schwachen Verzauberung Epos
-			PrideOfTheWeakEnchantmentLegendary.DisplayName: Stolz der schwachen Verzauberung Legendär
-			PrideOfTheWeakEnchantmentRare.DisplayName: Stolz der schwachen Verzauberung Selten
-			ProjectileVelocityEnchantmentBasic.DisplayName: Schussgeschwindigkeit ​​Verzauberung Basic
-			ProjectileVelocityEnchantmentCommon.DisplayName: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
-			ProjectileVelocityEnchantmentEpic.DisplayName: Projektilgeschwindigkeitsverzauberung Epos
-			ProjectileVelocityEnchantmentLegendary.DisplayName: Geschossgeschwindigkeitsverzauberung Legendär
-			ProjectileVelocityEnchantmentRare.DisplayName: Schussgeschwindigkeit ​​Verzauberung Selten
-			RangedClassSwapEnchantmentBasic.DisplayName: Fernkampf-Klassentausch-Verzauberung Basic
-			RangedClassSwapEnchantmentCommon.DisplayName: Fernkampf-Klassentausch-Verzauberung Gewöhnlich
-			RangedClassSwapEnchantmentEpic.DisplayName: Fernkampf-Klassentausch-Verzauberungs-Epos
-			RangedClassSwapEnchantmentLegendary.DisplayName: Fernkampf-Klassentausch-Verzauberung Legendär
-			RangedClassSwapEnchantmentRare.DisplayName: Fernkampf-Klassentausch-Verzauberung Selten
-			ReducedManaUsageEnchantmentBasic.DisplayName: Mana Verzauberung Basic
-			ReducedManaUsageEnchantmentCommon.DisplayName: Mana Verzauberung Gewöhnlich
-			ReducedManaUsageEnchantmentEpic.DisplayName: Epic-Verzauberung mit reduziertem Manaverbrauch
-			ReducedManaUsageEnchantmentLegendary.DisplayName: Legendäre Verzauberung mit reduziertem Manaverbrauch
-			ReducedManaUsageEnchantmentRare.DisplayName: Mana Verzauberung Selten
-			RogueClassSwapEnchantmentBasic.DisplayName: Rogue Class Swap-Verzauberung Basic
-			RogueClassSwapEnchantmentCommon.DisplayName: Rogue Class Swap Verzauberung Common
-			RogueClassSwapEnchantmentEpic.DisplayName: Rogue-Klassentausch-Verzauberung, episch
-			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap-Verzauberung Legendär
-			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantment Selten
-			ShadowflameEnchantmentBasic.DisplayName: Basis der Schattenflammenverzauberung
-			ShadowflameEnchantmentCommon.DisplayName: Schattenflammenverzauberung Gewöhnlich
-			ShadowflameEnchantmentEpic.DisplayName: Schattenflammen-Verzauberung, episch
-			ShadowflameEnchantmentLegendary.DisplayName: Legendäre Schattenflammenverzauberung
-			ShadowflameEnchantmentRare.DisplayName: Schattenflammenverzauberung Selten
-			ShineEnchantmentBasic.DisplayName: Glänzen Sie Verzauberung Basic
-			ShineEnchantmentCommon.DisplayName: Glänzende Verzauberung
-			ShineEnchantmentEpic.DisplayName: Shine Enchantment Episch
-			ShineEnchantmentLegendary.DisplayName: Glänzende Verzauberung Legendär
-			ShineEnchantmentRare.DisplayName: Glanzverzauberung Selten
-			SizeEnchantmentBasic.DisplayName: Skalierung Verzauberung Basic
-			SizeEnchantmentCommon.DisplayName: Skalierung Verzauberung Gewöhnlich
-			SizeEnchantmentEpic.DisplayName: Größe Verzauberung Epic
-			SizeEnchantmentLegendary.DisplayName: Größe Verzauberung Legendär
-			SizeEnchantmentRare.DisplayName: Skalierung Verzauberung Selten
-			SolarDashEnchantmentBasic.DisplayName: Solar Dash-Verzauberung Basic
-			SolarDashEnchantmentCommon.DisplayName: Solar Dash-Verzauberung Häufig
-			SolarDashEnchantmentEpic.DisplayName: Solar Dash Enchantment Epos
-			SolarDashEnchantmentLegendary.DisplayName: Solar Dash-Verzauberung Legendär
-			SolarDashEnchantmentRare.DisplayName: Solar Dash-Verzauberung Selten
-			SonarEnchantmentBasic.DisplayName: Sonar-Verzauberung Basic
-			SonarEnchantmentCommon.DisplayName: Sonar-Verzauberung Häufig
-			SonarEnchantmentEpic.DisplayName: Epos der Sonar-Verzauberung
-			SonarEnchantmentLegendary.DisplayName: Sonar-Verzauberung Legendär
-			SonarEnchantmentRare.DisplayName: Sonar-Verzauberung Selten
-
-			SoulEnchantingTable: {
-				DisplayName: Seelen Verzauberungstisch
-				Tooltip:
-					'''
-					Wird verwendet, um Gegenstände mit Verzauberungen zu versehen. (Stufe 3)
-					Kann durch Klicken mit der rechten Maustaste aus Ihrem Inventar verwendet werden. (Durch Klicken mit der rechten Maustaste können Sie den Stapel teilen.)
-					'''
-			}
-
-			SpelunkerEnchantmentBasic.DisplayName: Höhlenforscher-Verzauberung Basic
-			SpelunkerEnchantmentCommon.DisplayName: Höhlenforscher-Verzauberung Gewöhnlich
-			SpelunkerEnchantmentEpic.DisplayName: Spelunker Enchantment Epos
-			SpelunkerEnchantmentLegendary.DisplayName: Höhlenforscher-Verzauberung Legendär
-			SpelunkerEnchantmentRare.DisplayName: Höhlenforscher-Verzauberung Selten
-
-			SuperiorContainment: {
-				DisplayName: Überlegene Eindämmung
-				Tooltip: Wird verwendet, um seltene Verzauberungen aufzubewahren
-			}
-
-			ThrowingClassSwapEnchantmentBasic.DisplayName: Klassentausch-Verzauberung werfen Basic
-			ThrowingClassSwapEnchantmentCommon.DisplayName: Klasse tauschen Verzauberung werfen Gewöhnlich
-			ThrowingClassSwapEnchantmentEpic.DisplayName: Klassentausch-Verzauberungs-Epos werfen
-			ThrowingClassSwapEnchantmentLegendary.DisplayName: Klassentauschverzauberung Legendär werfen
-			ThrowingClassSwapEnchantmentRare.DisplayName: Klassentausch-Verzauberung werfen Selten
-			TimeEnchantmentBasic.DisplayName: Zeitverzauberung Basic
-			TimeEnchantmentCommon.DisplayName: Gewöhnliche Zeitverzauberung
-			TimeEnchantmentEpic.DisplayName: Epische Zeitverzauberung
-			TimeEnchantmentLegendary.DisplayName: Legendäre Zeitverzauberung
-			TimeEnchantmentRare.DisplayName: Zeitverzauberung Selten
-
-			UltimateEnchantingTable: {
-				DisplayName: Ultimativer Verzauberungstisch
-				Tooltip:
-					'''
-					Wird verwendet, um Gegenstände mit Verzauberungen zu versehen. (Stufe 4)
-					Kann durch Klicken mit der rechten Maustaste aus Ihrem Inventar verwendet werden. (Durch Klicken mit der rechten Maustaste können Sie den Stapel teilen.)
-					'''
-			}
-
-			UltraPowerBooster: {
-				DisplayName: Ultra-Power-Booster
-				Tooltip:
-					'''
-					Verwenden Sie dies, während sich der Gegenstand, den Sie verstärken möchten, in einer Verzauberungstabelle befindet, um seine Basisstufe um 20 zu erhöhen.
-					(Umschalt-Linksklick aus Ihrem Inventar oder Linksklick auf einen Gegenstand in der Tabelle mit diesem auf Ihrem Cursor.)
-					Dieser Artikel wird zurückgegeben, wenn der aufgewertete Artikel angeboten wird.
-					'''
-			}
-
-			VenomEnchantmentBasic.DisplayName: Giftverzauberung Basic
-			VenomEnchantmentCommon.DisplayName: Giftverzauberung Allgemein
-			VenomEnchantmentEpic.DisplayName: Giftverzauberung Epic
-			VenomEnchantmentLegendary.DisplayName: Giftverzauberung Legendär
-			VenomEnchantmentRare.DisplayName: Giftverzauberung Selten
-			WarEnchantmentBasic.DisplayName: Krieg Verzauberung Basic
-			WarEnchantmentCommon.DisplayName: Krieg Verzauberung Gewöhnlich
-			WarEnchantmentEpic.DisplayName: Epos der Kriegsverzauberung
-			WarEnchantmentLegendary.DisplayName: Kriegsverzauberung Legendär
-			WarEnchantmentRare.DisplayName: Krieg Verzauberung Selten
-			WhipClassSwapEnchantmentBasic.DisplayName: Peitschen-Klassentausch-Verzauberung Basic
-			WhipClassSwapEnchantmentCommon.DisplayName: Peitschen-Klassentausch-Verzauberung Gewöhnlich
-			WhipClassSwapEnchantmentEpic.DisplayName: Peitschen-Klassentausch-Verzauberung Epic
-			WhipClassSwapEnchantmentLegendary.DisplayName: Peitschen-Klassentausch-Verzauberung Legendär
-			WhipClassSwapEnchantmentRare.DisplayName: Peitschenklassentausch-Verzauberung Selten
-
-			WoodEnchantingTable: {
-				DisplayName: Holz Verzauberungstisch
-				Tooltip:
-					'''
-					Wird verwendet, um Gegenstände mit Verzauberungen zu versehen. (Stufe 0)
-					Kann durch Klicken mit der rechten Maustaste aus Ihrem Inventar verwendet werden. (Durch Klicken mit der rechten Maustaste können Sie den Stapel teilen.)
-					'''
-			}
-
-			WorldAblazeEnchantmentBasic.DisplayName: Welt in Flammen Verzauberung Basic
-			WorldAblazeEnchantmentCommon.DisplayName: Welt in Flammen Verzauberung Gewöhnlich
-			WorldAblazeEnchantmentEpic.DisplayName: World Ablaze Enchantment-Epos
-			WorldAblazeEnchantmentLegendary.DisplayName: Legendäre Verzauberung der Welt
-			WorldAblazeEnchantmentRare.DisplayName: Welt in Flammen Verzauberung Selten
-		}
-
 		NPCNames: {
 			Witch: {
 				Agatha: Agatha
@@ -1218,7 +412,6 @@ Mods: {
 				Winifred: Winifred
 			}
 		}
-
 		Ores: {
 			adamantite: Adamantit
 			chlorophyte: Chlorophyt
@@ -1238,130 +431,43 @@ Mods: {
 			titanium: Titan
 			tungsten: Wolfram
 		}
-
 		TableText: {
-			AreYouSure:
+			Cancel: Absagen
+			Finalize: Abschließen
+			Infusion: Infusion
+			LevelUp: Aufleveln
+			LootAll: Alles plündern
+			No: Nein
+			Offer: Angebot
+			Syphon: Siphon
+			xp: XP
+			Yes: Ja
+			AreYouSure: 
 				'''
 				Bist du sicher, dass du dein Level {0} DAUERHAFT ZERSTÖREN willst?
 				{1} {2}
 				{3}(Basierend auf Artikelwert/Erfahrung. Verzauberungen werden zurückgegeben.)
 				'''
-			Cancel: Absagen
 			enchantment0: Platziere hier Verzauberungen.
-			enchantment4: Erfordert {0} oder besser, um diesen Slot zu verwenden.
+			enchantment4: "Erfordert {0} oder besser, um diesen Slot zu verwenden."
 			Enchantments: Verzauberungen
-			essence0: Platzieren Sie {0} hier.
+			essence0: "Platzieren Sie {0} hier."
 			ExchangeEssence: Im Austausch gegen Essenz?
-			ExchangeEssenceAndOres: Im Austausch gegen Erze({0}) und Essenz({1})?
+			ExchangeEssenceAndOres: "Im Austausch gegen Erze({0}) und Essenz({1})?"
 			ExchangeOres: Im Austausch für Erze?
-			Finalize: Abschließen
 			general1: Durch das Upgraden der Verzauberungstabellenstufe werden mehr Verzauberungsplätze freigeschaltet.
 			general2: Verwenden von Waffenverzauberungen auf Rüstungen oder Zubehör
 			general3: bietet verminderte Boni und umgekehrt.
-			Infusion: Infusion
-			InfusionCancelDescription: „Legen Sie Ihre gespeicherten {0} in den Item-Slot zurück.“
-			InfusionDescription:
-				'''
-				Ermöglicht es Ihnen, Waffen oder Rüstungen zu stärken, indem Sie andere Waffen oder Rüstungen opfern.
-				Waffen: Das Infundieren einer Waffe erhöht ihren Schadenswert um {0} pro 100 hinzugefügte Infusionskraft.
-				(neuer Schaden = Grundschaden * {1}^((neue Infusionskraft – Basis-Infusionskraft)/100) )
-				- Platzieren Sie die stärkere Waffe, die Sie opfern möchten, im Gegenstandsplatz und drücken Sie dann „Infusion“.
-				- Platzieren Sie als Nächstes die schwächere Waffe, die Sie aufrüsten möchten, im Item-Slot und drücken Sie dann auf „Finalisieren“.
-				Rüstung: Durch das Infundieren einer Rüstung wird der Setbonus des geopferten Gegenstands übertragen und der Setbonus des infundierten Gegenstands ersetzt.
-				Anwendungsfall: Dir gefällt der Kaktus-Rüstungsset-Bonus mehr als deine aktuelle Rüstung.
-				Opfere jedes Teil der Kaktusrüstung auf jedes Teil deiner aktuellen Rüstung, um den Setbonus zu übertragen.
-				Jedes Rüstungsteil hat seine eigene Set-Bonus-ID, sodass Sie Teilsets haben können, wie z. B. einen Goldhelm mit einem angereicherten Kaktushelm,
-				Kaktusbeine, Kaktusbrust, die dem Kaktusrüstungsset-Effekt verleihen.
-				-Platzieren Sie den Rüstungsgegenstand, den Sie opfern möchten, in den Gegenstandsplatz (der festgelegte Bonus wird übertragen) und drücken Sie dann „Infusion“.
-				-Platzieren Sie den Rüstungsgegenstand, den Sie ändern möchten, im Gegenstandsplatz (sein Setbonus wird ersetzt) und drücken Sie dann auf „Abschließen“.
-				(Verzauberungen, Erfahrung und Kraftbooster des geopferten Gegenstands werden Ihnen zurückgegeben, als ob er angeboten worden wäre.)
-				'''
-			InfusionFinalizeDescriptionArmor:
-				'''
-				Schließe ab, deine {0} zu opfern, um den Setbonus zu ersetzen
-				auf Ihr {1} mit dem Setbonus Ihres {0}.
-				'''
-			InfusionFinalizeDescriptionWeapon:
-				'''
-				Schließen Sie ab, um Ihr {0} zu opfern
-				Erhöhe den Schaden deines {1}.
-				'''
 			Item: Artikel
-			LevelUp: Aufleveln
-			LevelUpDescription:
-				'''
-				Steigern Sie Ihr {0} von Level {1} auf Level {2}.
-				Kostet {3} Erfahrung. Verfügbare Erfahrung: {4}
-				'''
-			LevelUpNumberDescription:
-				'''
-				Legen Sie fest, mit wie vielen Ebenen hinzugefügt werden soll
-				die Level-Up-Schaltfläche auf {0}.
-				'''
-			LoadoutDescription:
-				'''
-				Öffnen oder schließen Sie das Menü „Verzauberungs-Loadouts“.
-				Verzauberungs-Loadouts speichern keine Gegenstände.
-				Sie speichern lediglich die Art und Stufe der Verzauberung.
-				Wenn Sie ein Verzauberungs-Loadout erstellen, können Sie die Slots schnell füllen
-				Klicken Sie mit der linken Maustaste auf Verzauberungen aus Ihrem Speicher, um den nächsten Platz zu füllen
-				(Der nächste zu füllende Slot hat einen goldenen Hintergrund, wenn die Umschalttaste gedrückt gehalten wird.)
-				Sie können eine Verzauberung auch mit der Maus halten und stattdessen auf einen Slot klicken.
-				Wenn Sie mit der Maus auf einen Slot ohne Verzauberung klicken, wird der Slot gelöscht.
-
-				Hinzufügen – Fügt ein neues Loadout hinzu (maximal 15).
-				Aus ausgerüsteten Verzauberungen hinzufügen – Erstellen Sie eine Ausrüstung, indem Sie Ihre ausgerüsteten Verzauberungen kopieren
-				Loadout # – Durch Klicken auf die Schaltfläche „Loadout“ wird das Loadout ausgewählt, sodass Sie es sehen oder bearbeiten können.
-				Alle – „Alle“ ersetzt alle Verzauberungen Ihres gehaltenen Gegenstands, Ihrer Rüstung und Ihres Zubehörs durch
-				die Verzauberungen aus dem Loadout. Wenn ein Gegenstand nicht hoch genug ist
-				Um die Verzauberungen für seinen Slot zu unterstützen, kann das Loadout nicht geladen werden.
-				Gehaltener Gegenstand/Rüstung/Zubehör – Diese Schaltflächen haben dasselbe wie die Schaltfläche „Alle“, jedoch
-				Laden Sie nur die spezifischen Verzauberungen für die ausgewählte Kategorie.
-				'''
-			Loadouts: Ladungen
-			LootAll: Alles plündern
-			LootAllDescription:
-				'''
-				Entferne alle Verzauberungen von deinem {0} und sende sie an den
-				Verzauberungslager und lege deine {0} in dein Inventar zurück.
-				'''
-			No: Nein
-			Offer: Angebot
-			OfferDescription:
-				'''
-				Biete dein {0} an und ZERSTÖRE es im Tausch gegen Erze/Essenz.
-				Der Prozentsatz an Erzen/Essenz kann in den Konfigurationseinstellungen angepasst werden.
-				'''
-			Siphon: Siphon
-			SiphonDescription:
-				'''
-				Verbrauchen Sie {0} Erfahrung von Ihrem {1}, um alle zu entfernen
-				Verzauberungen, Kraftverstärker, infundierte Gegenstände und
-				verbleibende Erfahrung, ohne dein {1} zu zerstören.
-				Das Anbieten von Gegenständen gibt die gesamte Essenz zurück, also ist es ein
-				bessere Option, es sei denn, Sie müssen Ihr {1} behalten.
-				'''
-			Storage: Lagerung
-			StorageDescription: Öffne oder schließe das Verzauberungslager.
-			ToggleAutoTrashOfferedItems: Schalten Sie die Option „Automatisch in den Papierkorb“ der angebotenen Artikel um
 			utility0: Hier können nur nützliche Verzauberungen verwendet werden.
 			weapon0: Platziere hier eine Waffe, ein Rüstungsteil oder ein Accessoire.
-			xp: XP
-			XPButtonDescription:
-				'''
-				Verbrauchen Sie einen {0}
-				um {1} Erfahrung zu Ihrem {2} hinzuzufügen.
-				'''
-			Yes: Ja
 		}
-
 		Tooltip: {
 			ArmorSlotNames: {
 				Body: Körper
 				Head: Kopf
 				Legs: Beine
 			}
-
 			DamageClassNames: {
 				Generic: Generisch
 				Ki: Ki
@@ -1373,33 +479,32 @@ Mods: {
 				Throwing: Werfen
 				Whip: Peitsche
 			}
-
 			EffectDisplayName: {
 				AllForOne: Alle für einen
 				AmmoCost1: Chance, keine Munition zu verbrauchen
 				AmmoCost2: Erhöhte Munitionskosten
+				ArmorPenetration: Rüstungsdurchdringung
 				AttackSpeed: Angriffsgeschwindigkeit
 				AutoReuse: Automatische Wiederverwendung
-				BardClassSwap: Barden-Klassentausch
 				BerserkersRage: Berserker-Wut
 				BonusCoins: Bonusmünzen
 				BuffDuration: Buff-Dauer
-				BuffEffect0: Gibt Ihnen passiv {0}
-				BuffEffect1: Fügt dir passiv {0} zu
-				BuffEffect10: „Gewährt Gegnern bei Treffer {0}“
-				BuffEffect11: Fügt Gegnern bei Treffer {0} zu
-				BuffEffect12: Gewährt bei Treffer {0} an Spieler in der Nähe
-				BuffEffect13: Fügt Spielern in der Nähe bei einem Treffer {0} zu
-				BuffEffect14: Gewährt bei Treffer {0} an Gegner in der Nähe
-				BuffEffect15: Fügt Gegnern in der Nähe bei einem Treffer passiv {0} zu
-				BuffEffect2: Gibt passiv {0} an Spieler in der Nähe
-				BuffEffect3: Fügt Spielern in der Nähe passiv {0} zu
-				BuffEffect4: „Gewährt dem Feind passiv {0}“
-				BuffEffect5: Fügt dem Feind passiv {0} zu
-				BuffEffect6: Gewährt passiv {0} an Gegner in der Nähe
-				BuffEffect7: Fügt Gegnern in der Nähe passiv {0} zu
-				BuffEffect8: Gewährt dir {0} bei Treffer
-				BuffEffect9: Fügt dir bei einem Treffer {0} zu
+				BuffEffect0: "Gibt Ihnen passiv {0}"
+				BuffEffect1: "Fügt dir passiv {0} zu"
+				BuffEffect10: "„Gewährt Gegnern bei Treffer {0}“"
+				BuffEffect11: "Fügt Gegnern bei Treffer {0} zu"
+				BuffEffect12: "Gewährt bei Treffer {0} an Spieler in der Nähe"
+				BuffEffect13: "Fügt Spielern in der Nähe bei einem Treffer {0} zu"
+				BuffEffect14: "Gewährt bei Treffer {0} an Gegner in der Nähe"
+				BuffEffect15: "Fügt Gegnern in der Nähe bei einem Treffer passiv {0} zu"
+				BuffEffect2: "Gibt passiv {0} an Spieler in der Nähe"
+				BuffEffect3: "Fügt Spielern in der Nähe passiv {0} zu"
+				BuffEffect4: "„Gewährt dem Feind passiv {0}“"
+				BuffEffect5: "Fügt dem Feind passiv {0} zu"
+				BuffEffect6: "Gewährt passiv {0} an Gegner in der Nähe"
+				BuffEffect7: "Fügt Gegnern in der Nähe passiv {0} zu"
+				BuffEffect8: "Gewährt dir {0} bei Treffer"
+				BuffEffect9: "Fügt dir bei einem Treffer {0} zu"
 				CalmWaters: Stille Wasser
 				CatastrophicRelease: Katastrophale Veröffentlichung
 				Channel: Kanal
@@ -1412,13 +517,10 @@ Mods: {
 				CursedInferno: Verfluchtes Inferno
 				Damage: Schaden
 				DamageAfterDefenses: Schaden (Wird nach der Verteidigung angewendet. Nicht im Waffen-Tooltip sichtbar)
-				DamageClassSwap: Schadenstyp in {0} umwandeln
+				DamageClassSwap: "Schadenstyp in {0} umwandeln"
 				DamageReduction: Schadensreduzierung
 				DangerSense: Gefahr Sinn
 				Daybreak: Tagesanbruch
-				DayEventUpdateRate: Aktualisierungsrate für Tagesereignisse
-				DayTileUpdateRate: Aktualisierungsrate der Tageskacheln
-				DayTimeRate: Tageszeittarif
 				Defense: Verteidigung
 				EnemyMaxSpawns: Feindlicher Max spawnt
 				EnemySpawnRate: Gegnerische Spawnrate
@@ -1429,12 +531,10 @@ Mods: {
 				FlatMPRegen: Flach MP Regen
 				Frostburn: Frostbrand
 				GodSlayer: Gottestöter
-				HealerClassSwap: Heiler-Klassentausch
 				HellsWrath: Höllen Zorn
 				Hunter: Jäger
 				Ichor: Ichor
 				InfinitePenetration: Unendliche Durchdringung
-				ItemAttractionAndPickupSpeed: Gegenstandsanziehung und Aufnahmegeschwindigkeit
 				ItemCooldown: Abklingzeit des Gegenstands
 				Juiced: Entsaftet
 				JumpSpeed: Sprunggeschwindigkeit
@@ -1444,19 +544,16 @@ Mods: {
 				KiDamage: Ki-Schaden
 				KiRegen: Ki Regen
 				LavaFishing: Lavafischen
-				LethalCombination: Tödliche Kombination
 				LifeRegen: Lebensregeneration
 				LifeRegeneration: Lebensregeneration
 				LifeSteal: Lebensraub
 				Luck: Glück
 				MagicClassSwap: Zauberklassentausch
-				Magnetic: Magnetisch
 				ManaUsage1: Reduzierter Manaverbrauch
 				ManaUsage2: Erhöhter Manaverbrauch
 				MaxFallSpeed: Maximale Fallgeschwindigkeit
 				MaxKi: Max Ki
 				MaxLife: Maximales Leben
-				MaxLifeSteal: Maximaler Lebensraub
 				MaxMinions: Maximale Schergen
 				MaxMP: Abklingzeit des Gegenstands
 				MeleeClassSwap: Nahkampf-Klassentausch
@@ -1469,9 +566,6 @@ Mods: {
 				MovementSpeed: Bewegungsgeschwindigkeit
 				MPBonusRegen: MP-Bonus-Regeneration
 				Multishot: Dauerfeuer
-				NightEventUpdateRate: Aktualisierungsrate für Nachtereignisse
-				NightTileUpdateRate: Aktualisierungsrate der Nachtkacheln
-				NightTimeRate: Nachttarif
 				NpcContactAngler: Npc Kontakt Angler
 				NPCHitCooldown: NPC-Treffer-Cooldown
 				ObsidianSkin: Obsidian-Haut
@@ -1480,27 +574,19 @@ Mods: {
 				OnHitSpawnProjectile: Spawn-Projektil bei Treffer
 				Peace: Frieden
 				PennyPinching: Pfennigkneifen
-				PercentArmorPenetration: Prozentuale Rüstungsdurchdringung
-				PickupRange: Abholbereich
-				Poison: Gift
-				PrideOfTheWeak: Stolz der Schwachen
 				ProjectileVelocity: Projektilgeschwindigkeit
 				QuestFishChance: Quest-Fisch-Chance
 				RangedClassSwap: Fernkampf-Klassentausch
 				ReducedManaUsage: Reduzierter Manaverbrauch
 				RogueClassSwap: Rogue-Klassentausch
-				Shadowflame: Schattenflamme
-				Shine: Scheinen
 				Size: Größe
-				SolarDash: Solar Bindestrich
+				SolarDash: Solar Dash
 				Sonar: Sonar
 				Spelunker: Höhlenforscher
-				ThrowingClassSwap: Klassentausch werfen
-				Time: Zeit
-				VanillaDash1: Ninja Tabi Bindestrich
+				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Auge von Cthulhu Shield Dash
-				VanillaDash3: Solar Bindestrich
-				VanillaDash5: Kristall Ninja Bindestrich
+				VanillaDash3: Solar Dash
+				VanillaDash5: Crystal Ninja Dash
 				Venom: Gift
 				War: Krieg
 				WhipClassSwap: Peitschenklassentausch
@@ -1509,13 +595,10 @@ Mods: {
 				WorldAblaze: Welt in Flammen
 				YoyoStringLength: Länge der Yoyo-Schnur
 			}
-
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Kalamity-Mod-Verzauberung)
 				DBZMODPORT: (Dragon Ball Terraria-Verzauberung)
-				ThoriumMod: (Throium-Mod-Verzauberung)
-				Time: Zeiteffekte werden mit 6 Optionen zufällig ausgewählt: Tag/Nacht-Zeitrate, Kachelaktualisierungsrate, Ereignisaktualisierungsrate
-				WorldAblaze:
+				WorldAblaze: 
 					'''
 					(Amaterasu-Debuff und die folgenden Anmerkungen dazu gelten nur für Verzauberungsstufe 4.)
 					(Keiner wird die unaufhaltsamen Flammen von Amaterasu überleben)
@@ -1524,35 +607,20 @@ Mods: {
 					(Wird auf Gegner in der Nähe ausgebreitet und verhindert, dass Gegner gegen andere World Ablaze-Debuffs immun sind.)
 					'''
 			}
-
 			EnchantmentEffects: {
 				AmmoCost: "{0} (speichert auch Köder beim Angeln)"
 				AttackSpeed: "{0} (Beeinflusst die Feuerrate von Vasallen, wenn sie Projektile abfeuern. Beeinflusst, wie schnell Fische die Angelschnur beißen.)"
-				AutoReuse: Automatische Wiederverwendung
-				BonusCoins:
+				BonusCoins: 
 					'''
 					{0} (Wenn du einen Feind triffst, erhöht sich die Anzahl der Münzen, die er beim Tod fallen lässt
 					basierend auf verursachtem Schaden, maximaler Gesundheit des Gegners, Grundwert des Gegners und Glück.)
 					'''
-				BuffDuration:
+				BuffDuration: 
 					'''
 					{0}
 					(Die Dauer wird kontinuierlich erhöht, während der Buff aktiv ist, nicht beim ersten Erhalt des Buffs.)
 					'''
-				CatastrophicRelease: Katastrophale Veröffentlichung
-				Channel: Kanal
-				CrateChance: Kistenchance
-				CriticalStrikeChance: Kritische Trefferchance
-				CriticalStrikeDamage: Kritischer Trefferschaden
-				DamageAfterDefenses: Schaden nach Verteidigung
-				DamageClassSwap: Schadensklassentausch
-				DamageReduction: Schadensreduzierung
-				DayEventUpdateRate: Aktualisierungsrate für Tagesereignisse
-				DayTileUpdateRate: Aktualisierungsrate der Tageskacheln
-				DayTimeRate: Tageszeittarif
-				Defense: Verteidigung
-				EnemyMaxSpawns: Gegner Max spawnt
-				EnemySpawnRate:
+				EnemySpawnRate: 
 					'''
 					{0}
 					(Minion-Schaden wird durch Ihren Spawn-Rate-Multiplikator von Verzauberungen reduziert, es sei denn, sie sind Ihr Vasallen-Angriffsziel)
@@ -1561,110 +629,54 @@ Mods: {
 					(Gespawnte Feinde sind immun gegen Lava/Fallen)
 					'''
 				FishingEnemySpawnChance: "{0} (Tagsüber um das 5-fache reduziert. Betroffen von Chum Caster. Kann auch Duke Fishron spawnen.)"
-				FishingPower: Angelkraft
-				FlatMPRegen: Flache MP-Regeneration
-				GodSlayer:
+				GodSlayer: 
 					'''
 					{0}
 					(Zusätzlicher wahrer Schaden basierend auf der max. HP des Gegners)
 					(Bonusschaden nicht von LifeSteal betroffen)
 					'''
-				InfinitePenetration: Unendliche Durchdringung
-				ItemAttractionAndPickupSpeed: Gegenstandsanziehung und Aufnahmegeschwindigkeit
-				ItemCooldown: (Artikel-CD gleich {0} Nutzungsgeschwindigkeit)
-				JumpSpeed: Sprunggeschwindigkeit
-				KiDamage: Ki-Schaden
-				KiRegen: Ki Regen
+				ItemCooldown: "(Artikel-CD gleich {0} Nutzungsgeschwindigkeit)"
 				LavaFishing: "{0} (Ermöglicht das Fischen in Lava und hat eine Chance, die Fangraten in Lava zu verbessern. Kann mit anderen Quellen gestapelt werden.)"
-				LifeRegeneration: Lebensregeneration
 				LifeSteal: "{0} (Rest wird gespeichert, um zu verhindern, dass bei Waffen mit geringem Schaden immer auf 0 gerundet wird)"
-				Luck: Glück
-				ManaUsage: Manaverbrauch
-				MaxFallSpeed: Maximale Fallgeschwindigkeit
-				MaxKi: Max Ki
-				MaxLife: Maximales Leben
-				MaxLifeSteal: „{0} (Der Prozentsatz des Vanilla-Lifesteal-Pools, der verwendet werden kann.)“
-				MaxMinions: Max Schergen
-				MaxMP: Max MP
-				MiningSpeed: Bergbaugeschwindigkeit
 				MinionAttackTarget: Getroffene Feinde werden zum Vasallenangriffsziel. Gleiche Wirkung wie Peitschen.
-				MovementAcceleration: Bewegungsbeschleunigung
-				MovementSlowdown: Bewegungsverlangsamung
-				MovementSpeed: Bewegungsgeschwindigkeit
-				MPBonusRegen: MP-Bonus-Regeneration
 				Multishot: "{0} (Chance, ein zusätzliches Projektil zu produzieren. Gilt für jedes erstellte Projektil.)"
-				NightEventUpdateRate: Aktualisierungsrate für Nachtereignisse
-				NightTileUpdateRate: Aktualisierungsrate der Nachtkacheln
-				NightTimeRate: Nachttarif
-				NPCHitCooldown: Abklingzeit für NPC-Treffer
-				OneForAll:
+				OneForAll: 
 					'''
 					{0}
 					(Wenn Sie einen Feind treffen, wird allen Feinden in der Nähe Schaden zugefügt.)
 					(Wird nur beim ersten Treffer eines Projektils aktiviert.)
 					'''
-				OnHitSpawnProjectile: Erzeugt ein Projektil, wenn ein Gegner getroffen wird: {0}
-				PercentArmorPenetration: Prozentuale Rüstungsdurchdringung
-				PickupRange: Abholbereich
-				PrideOfTheWeak: "{0} Erhöht den durch schwache Waffen verursachten Schaden. (100 % effektiv bei 0 Infusionskraft. 0 % effektiv bei 500 Infusionskraft.)"
-				ProjectileVelocity: Projektilgeschwindigkeit
+				OnHitSpawnProjectile: "Erzeugt ein Projektil, wenn ein Gegner getroffen wird: {0}"
 				QuestFishChance: "{0} (Questfisch, der gefangen wird, wird automatisch abgegeben und startet eine neue Quest, wobei das Limit von 1 pro Tag umgangen wird.)"
-				Size: Größe
-				VanillaDash: Vanille-Schuss
-				WhipRange: Peitschenbereich
-				WingTime: Flügelzeit
-				YoyoStringLength: Yoyo-Saitenlänge
-
 				BoolEffect: {
 					Enabled: "{0}: Aktiviert"
 					Prevented: "{0}: Verhindert"
 				}
-
 				BuffEffect: {
 					All: "{0} ({1} % Chance, sich für {2} zu bewerben)"
 					OnTickPlayerBuff: "{0} ({1}% Chance, sich für {2} alle {3} zu bewerben)"
 				}
-
 				PlayerSetEffect: {
 					Enabled: "{0}: Aktiviert"
 					Prevented: "{0}: Verhindert"
 				}
 			}
-
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Erlaubt an
 				And: und
-				ApproximateItemDamage: „Gegenstandsschaden ~ {0} (Gegen 0 Rüstungsgegner)“
-				ArmorSlotOnly: Nur {0} Rüstungsplatz
-				BoosterInstalled: Booster installiert
-				EnchantmentCapacity: Verzauberungskapazität
-				Experience: „Erfahrung: {0}“
-				InfusedArmorID: „Infundierte Rüstungs-ID: {0} Infundierter Gegenstand: {1}“
-				InfusedItem: Infundierter Gegenstand:
-				InfusionPower: Infusionskraft:
-				LevelAvailable: „Level: {0} {1} verfügbar: {2}“
-				LevelCost: Stufenkosten: {0}
+				ArmorSlotOnly: "Nur {0} Rüstungsplatz"
+				LevelCost: "Stufenkosten: {0}"
 				Max1: Maximal 1 pro Artikel
-				MaxLevel: (Maximales Level)
-				NewInfusedItem: Neuer infundierter Gegenstand:
-				NewInfusionPower: Neue Infusionskraft:
-				NewSetBonusID: Neue Set-Bonus-ID:
-				NormalBoosterAbreviation: N
-				NotAllowed: Auf {0} Waffen nicht erlaubt
-				Only: Nur {0}
+				NotAllowed: "Auf {0} Waffen nicht erlaubt"
+				Only: "Nur {0}"
 				OnlyAllowedOn: Nur erlaubt auf
 				Or: oder
-				OutOfAmmo: KEINE MUNITION MEHR
-				Points: Punkte
-				SetBonusID: „Bonus-ID festlegen: {0}“
-				ToNextLevel: „({0} zur nächsten Ebene)“
-				UltraBoosterAbreviation: U
 				Unique: Einzigartig (begrenzt auf 1 einzigartige Verzauberung)
 				Utility: Dienstprogramm
 			}
-
-			EnchantmentShortTooltip.OnTickPlayerBuff: Gewährt passiv {0} für {1} alle {2}
-
+			EnchantmentShortTooltip: {
+				OnTickPlayerBuff: "Gewährt passiv {0} für {1} alle {2}"
+			}
 			ItemType: {
 				Accessories: Zubehör
 				Armor: Rüstung
@@ -1674,56 +686,22 @@ Mods: {
 				Weapons: Waffen
 			}
 		}
-
 		TownNPCMood: {
 			Witch: {
 				Content: Das Leben hier ist erträglich. Kein Streit, kein Drama, es ist nicht so schrecklich.
 				DislikeBiome: Es ist unglaublich, wie hier so zahm ist, kein Übel, keine Grusel, es ist so lahm!
 				DislikeCrowded: Wie soll ich diesem ganzen Lärm zustimmen!
-				DislikeNPC: Diese... Person von {NPCName} ist so klischeehaft! 'Rette die Welt vor dem Bösen' Das Böse ist tief verwurzelt und hier, um zu bleiben!
+				DislikeNPC: "Diese... Person von {NPCName} ist so klischeehaft! 'Rette die Welt vor dem Bösen' Das Böse ist tief verwurzelt und hier, um zu bleiben!"
 				FarFromHome: Ich musste mich weit wagen, um neue Reagenzien zu finden. Während mein Zuhause angenehm ist, kann ich mit diesen letzten Zutaten ein neues Gebräu brauen.
 				HateBiome: Huch! Dieser Ort ist so hell, dass ich vor allem ärgere!
 				HateCrowded: Ich kann mit diesem Verkehr hier nicht umgehen! Hol mich raus oder wirf sie raus, mach schnell!
 				HateNPC: "{NPCName} ist eine tyrannische Dirne, die überall Haare hinterlässt, ich werde sie im Krieg bezahlen lassen!"
 				LikeBiome: Dieser Ort ist voller Viecher und Dreck, Zeit für schnelles Geld!
-				LikeNPC: „Während {NPCName} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“
+				LikeNPC: "„Während {NPCName} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“"
 				LoveBiome: Dieser Ort erinnert mich an meine alte Höhle. Sehr grimmig, sehr magisch, was für ein Flair!
-				LoveNPC: Ein anderer Kesselbenutzer! {NPCName} hat so viele seltsame Gimmicks, ein wahrer Verführer!
+				LoveNPC: "Ein anderer Kesselbenutzer! {NPCName} hat so viele seltsame Gimmicks, ein wahrer Verführer!"
 				LoveSpace: Jetzt wo alle weg sind, können meine Experimente endlich weitergehen!
 				NoHome: Ich kann nicht alle meine Waren halten, diese sind instabil, bitte passen Sie auf!
-			}
-		}
-
-		Tiles: {
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-		}
-
-		NPCs: {
-			Witch: {
-				// DisplayName: Witch
-
-				TownNPCMood: {
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// LikeNPC_Princess: I like {NPCName}.
-					// Princess_LovesNPC: I like {NPCName}.
-				}
 			}
 		}
 	}

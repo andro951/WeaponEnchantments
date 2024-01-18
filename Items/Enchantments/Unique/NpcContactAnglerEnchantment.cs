@@ -2,8 +2,6 @@
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using androLib.Items;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique {
     public abstract class NpcContactAnglerEnchantment : Enchantment {
@@ -22,27 +20,17 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    [Autoload(false)]
-	public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment
+    public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
-        public override List<DropData> CrateDrops => new() {
+        public override List<WeightedPair> CrateDrops => new() {
             new(CrateID.Golden),
-            new(CrateID.Titanium_GoldenHard),
-			new(CrateID.Golden_LockBox),
-			new(CrateID.Obsidian_LockBox)
-		};
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Water),
-		};
-	}
-    [Autoload(false)]
-	public class NpcContactAnglerEnchantmentCommon : NpcContactAnglerEnchantment { }
-    [Autoload(false)]
-	public class NpcContactAnglerEnchantmentRare : NpcContactAnglerEnchantment { }
-    [Autoload(false)]
-	public class NpcContactAnglerEnchantmentEpic : NpcContactAnglerEnchantment { }
-    [Autoload(false)]
-	public class NpcContactAnglerEnchantmentLegendary : NpcContactAnglerEnchantment { }
+            new(CrateID.Titanium_GoldenHard)
+        };
+    }
+    public class NpcContactAnglerEnchantmentCommon : NpcContactAnglerEnchantment { }
+    public class NpcContactAnglerEnchantmentRare : NpcContactAnglerEnchantment { }
+    public class NpcContactAnglerEnchantmentEpic : NpcContactAnglerEnchantment { }
+    public class NpcContactAnglerEnchantmentLegendary : NpcContactAnglerEnchantment { }
 
 }

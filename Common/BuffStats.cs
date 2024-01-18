@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using WeaponEnchantments.Common.Utility;
-using static androLib.Common.Utility.ModMath;
-using androLib.Common.Utility;
-using androLib.Common.Globals;
+using static WeaponEnchantments.Common.Utility.WEMath;
 
 namespace WeaponEnchantments.Common
 {

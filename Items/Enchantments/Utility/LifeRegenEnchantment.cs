@@ -2,9 +2,6 @@
 using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using androLib.Items;
-using androLib.Common.Utility;
-using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -31,27 +28,22 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
         public override string ArtModifiedBy => null;
         public override string Designer => "Auseawesome";
     }
-    [Autoload(false)]
-	public class LifeRegenEnchantmentBasic : LifeRegenEnchantment
+    public class LifeRegenEnchantmentBasic : LifeRegenEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTime;
-        public override List<DropData> NpcAIDrops => new() {
-            new(NPCAIStyleID.Fighter, 0.05f)
+        public override List<WeightedPair> NpcDropTypes => new() {
+            new(NPCID.Zombie, 0.2f)
         };
-		public override List<DropData> ChestDrops => new() {
-            new(ChestID.Chest_Normal)
+        public override SortedDictionary<ChestID, float> ChestDrops => new() {
+            { ChestID.Chest_Normal, 0.5f }
         };
-        public override List<DropData> CrateDrops => new() {
-            new(CrateID.Wooden, 0.25f),
-            new(CrateID.Pearlwood_WoodenHard, 0.25f)
+        public override List<WeightedPair> CrateDrops => new() {
+            new(CrateID.Wooden, 0.5f),
+            new(CrateID.Iron, 0.5f)
         };
     }
-    [Autoload(false)]
-	public class LifeRegenEnchantmentCommon : LifeRegenEnchantment { }
-    [Autoload(false)]
-	public class LifeRegenEnchantmentRare : LifeRegenEnchantment { }
-    [Autoload(false)]
-	public class LifeRegenEnchantmentEpic : LifeRegenEnchantment { }
-    [Autoload(false)]
-	public class LifeRegenEnchantmentLegendary : LifeRegenEnchantment { }
+    public class LifeRegenEnchantmentCommon : LifeRegenEnchantment { }
+    public class LifeRegenEnchantmentRare : LifeRegenEnchantment { }
+    public class LifeRegenEnchantmentEpic : LifeRegenEnchantment { }
+    public class LifeRegenEnchantmentLegendary : LifeRegenEnchantment { }
 }

@@ -4,8 +4,6 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using androLib.Items;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique {
     public abstract class ChaoticFishingEnchantment : Enchantment {
@@ -24,34 +22,24 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    [Autoload(false)]
-	public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment
+    public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment
     {
         public override SellCondition SellCondition => SellCondition.HardMode;
-        public override List<DropData> NpcDropTypes => new() {
+        public override List<WeightedPair> NpcDropTypes => new() {
             new(NPCID.GoblinShark),
             new(NPCID.BloodEelHead),
             new(NPCID.BloodNautilus),
             new(NPCID.Shark)
         };
 
-        public override List<DropData> CrateDrops => new() {
+        public override List<WeightedPair> CrateDrops => new() {
             new(CrateID.Golden),
-            new(CrateID.Titanium_GoldenHard),
-			new(CrateID.Golden_LockBox),
-			new(CrateID.Obsidian_LockBox)
-		};
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Water),
+            new(CrateID.Titanium_GoldenHard)
 		};
 	}
-    [Autoload(false)]
-	public class ChaoticFishingEnchantmentCommon : ChaoticFishingEnchantment { }
-    [Autoload(false)]
-	public class ChaoticFishingEnchantmentRare : ChaoticFishingEnchantment { }
-    [Autoload(false)]
-	public class ChaoticFishingEnchantmentEpic : ChaoticFishingEnchantment { }
-    [Autoload(false)]
-	public class ChaoticFishingEnchantmentLegendary : ChaoticFishingEnchantment { }
+    public class ChaoticFishingEnchantmentCommon : ChaoticFishingEnchantment { }
+    public class ChaoticFishingEnchantmentRare : ChaoticFishingEnchantment { }
+    public class ChaoticFishingEnchantmentEpic : ChaoticFishingEnchantment { }
+    public class ChaoticFishingEnchantmentLegendary : ChaoticFishingEnchantment { }
 
 }

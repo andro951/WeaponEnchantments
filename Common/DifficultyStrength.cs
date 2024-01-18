@@ -24,18 +24,6 @@ namespace WeaponEnchantments.Common
 		public DifficultyStrength(float[] values) {
 			_values = values;
 		}
-
-		/// <summary>
-		/// Don't use this one for enchantments.  It will set all values equal to the single value, preventing scaling with world difficulty.
-		/// </summary>
-		/// <param name="value"></param>
-		public DifficultyStrength(float value) {
-			_values = new float[4];
-			for(int i = 0; i < _values.Length; i++) {
-				_values[i] = value;
-			}
-		}
-
 		public static DifficultyStrength Default => new(new float[] {1f, 1f, 1f, 1f});
 
 		public static DifficultyStrength operator *(DifficultyStrength ds, float mult) {

@@ -1,7 +1,5 @@
-﻿using androLib.Common.Utility;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria.ID;
-using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -19,36 +17,30 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentBasic : ReducedManaUsageEnchantment
 	{
-		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.BrainofCthulhu),
-			new(NPCID.EaterofWorldsHead, chance: 0.2f)
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.BrainofCthulhu)
 		};
-		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Worm, 4f),
-			new(NPCAIStyleID.Caster, 4f),
-			new(NPCAIStyleID.CursedSkull, 4f)
+		public override List<WeightedPair> NpcAIDrops => new() {
+			new(NPCAIStyleID.Worm),
+			new(NPCAIStyleID.Caster),
+			new(NPCAIStyleID.CursedSkull)
 		};
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Chest_Normal),
-			new(ChestID.Frozen)
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+			{ ChestID.Chest_Normal, 1f },
+			{ ChestID.Frozen, 1f }
 		};
-		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.25f),
-			new(CrateID.Pearlwood_WoodenHard, 0.25f),
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Wooden, 0.5f),
+			new(CrateID.Pearlwood_WoodenHard, 0.5f),
 			new(CrateID.Frozen, 0.5f),
 			new(CrateID.Boreal_FrozenHard, 0.5f)
 		};
 	}
-	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentCommon : ReducedManaUsageEnchantment { }
-	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentRare : ReducedManaUsageEnchantment { }
-	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentEpic : ReducedManaUsageEnchantment { }
-	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentLegendary : ReducedManaUsageEnchantment { }
 
 }

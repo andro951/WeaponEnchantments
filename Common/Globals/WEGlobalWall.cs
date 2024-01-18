@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (heldItem.hammer <= 0)
 				return;
 
-			if (!heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem hGlobal))
+			if (!heldItem.TryGetEnchantedItem(out EnchantedItem hGlobal))
 				return;
 
 			int xp = 10;
@@ -28,7 +28,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			//Gain xp
 			hGlobal.GainXP(wePlayer.Player.HeldItem, xp);
-			wePlayer.Player.AllArmorGainXp(xp);
+			EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
 		}
 	}
 }

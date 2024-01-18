@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Debuffs
@@ -26,6 +25,5 @@ namespace WeaponEnchantments.Debuffs
                 npc.buffImmune[notImmuneBuff] = false;
             }
         }
-		public override LocalizedText Description => LocalizedText.Empty;
 	}
 }

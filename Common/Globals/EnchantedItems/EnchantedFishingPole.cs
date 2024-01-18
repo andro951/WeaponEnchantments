@@ -1,5 +1,4 @@
-﻿using androLib.Common.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +14,7 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool InstancePerEntity => true;
 
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-			return entity.IsFishingPole();
+			return IsFishingRod(entity);
 		}
 		public override EItemType ItemType => EItemType.FishingPoles;
 	}

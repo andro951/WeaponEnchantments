@@ -2,9 +2,6 @@
 using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using androLib.Items;
-using androLib.Common.Utility;
-using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -31,21 +28,23 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	[Autoload(false)]
 	public class DefenseEnchantmentBasic : DefenseEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.Always;
-		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Fighter, 0.95f)
+		public override List<WeightedPair> NpcAIDrops => new() {
+			new(NPCAIStyleID.Fighter)
+		};
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+			{ ChestID.Chest_Normal, 1f }
+		};
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Wooden, 0.5f),
+			new(CrateID.Pearlwood_WoodenHard, 0.5f)
 		};
 	}
-	[Autoload(false)]
 	public class DefenseEnchantmentCommon : DefenseEnchantment { }
-	[Autoload(false)]
 	public class DefenseEnchantmentRare : DefenseEnchantment { }
-	[Autoload(false)]
 	public class DefenseEnchantmentEpic : DefenseEnchantment { }
-	[Autoload(false)]
 	public class DefenseEnchantmentLegendary : DefenseEnchantment { }
 
 }

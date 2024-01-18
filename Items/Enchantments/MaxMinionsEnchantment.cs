@@ -2,9 +2,6 @@
 using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using androLib.Items;
-using androLib.Common.Utility;
-using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -28,30 +25,25 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	[Autoload(false)]
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostQueenBee;
-		public override List<DropData> NpcDropTypes => new() {
+		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.QueenBee)
 		};
-		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Spider, 4f)
+		public override List<WeightedPair> NpcAIDrops => new() {
+			new(NPCAIStyleID.Spider)
 		};
-		public override List<DropData> CrateDrops => new() {
+		public override List<WeightedPair> CrateDrops => new() {
 			new(CrateID.Oasis, 0.5f),
 			new(CrateID.Mirage_OasisHard, 0.5f),
 			new(CrateID.Jungle, 0.5f),
 			new(CrateID.Bramble_JungleHard, 0.5f)
 		};
 	}
-	[Autoload(false)]
 	public class MaxMinionsEnchantmentCommon : MaxMinionsEnchantment { }
-	[Autoload(false)]
 	public class MaxMinionsEnchantmentRare : MaxMinionsEnchantment { }
-	[Autoload(false)]
 	public class MaxMinionsEnchantmentEpic : MaxMinionsEnchantment { }
-	[Autoload(false)]
 	public class MaxMinionsEnchantmentLegendary : MaxMinionsEnchantment { }
 
 }

@@ -7,7 +7,6 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ObjectInteractions;
 using Terraria.GameInput;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.UI.Gamepad;
@@ -15,8 +14,6 @@ using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.ModIntegration;
-using WeaponEnchantments.UI;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Tiles
 {
@@ -39,55 +36,11 @@ namespace WeaponEnchantments.Tiles
 			} 
 		}
 		private static List<int> tableTypes;
-
-		public static int GetTableTypeByTier(int tier) {
-			switch (tier) {
-				case 0:
-					return ModContent.TileType<Tiles.WoodEnchantingTable>();
-				case 1:
-					return ModContent.TileType<Tiles.DustyEnchantingTable>();
-				case 2:
-					return ModContent.TileType<Tiles.HellishEnchantingTable>();
-				case 3:
-					return ModContent.TileType<Tiles.SoulEnchantingTable>();
-				case 4:
-					return ModContent.TileType<Tiles.UltimateEnchantingTable>();
-			}
-
-			return 0;
-		}
-
-		public static int GetTableTierFromType(int type) {
-			if (type == ModContent.TileType<Tiles.WoodEnchantingTable>()) {
-				return 0;
-			}
-			else if (type == ModContent.TileType<DustyEnchantingTable>()) {
-				return 1;
-			}
-			else if (type == ModContent.TileType<HellishEnchantingTable>()) {
-				return 2;
-			}
-			else if (type == ModContent.TileType<SoulEnchantingTable>()) {
-				return 3;
-			}
-			else if (type == ModContent.TileType<UltimateEnchantingTable>()) {
-				return 4;
-			}
-
-			return -1;
-		}
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-		public override string HighlightTexture => (GetType().Namespace + ".Sprites." + (enchantingTableTier > 0 ? "EnchantingTable" : Name) + "_Highlight").Replace('.', '/');
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
-		public static Color[] MapColors = {
-			new Color(170, 170, 170),
-			new Color(141, 168, 141),
-			new Color(132, 167, 176),
-			new Color(153, 132, 176),
-			new Color(230, 179, 71)
-		};
+
 		public override void SetStaticDefaults() {
 			GetDefaults();
 
@@ -97,7 +50,6 @@ namespace WeaponEnchantments.Tiles
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
-			TileID.Sets.HasOutlines[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
 			TileID.Sets.BasicChest[Type] = true;
@@ -112,11 +64,12 @@ namespace WeaponEnchantments.Tiles
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 
 			//Etc
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(MapColors[enchantingTableTier], name);
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault(Items.EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+			AddMapEntry(new Color(200, 200, 200), name);
 
 			List<int> adjTiles = new() { TileID.WorkBenches };
-			if (enchantingTableTier > 0)
+			if (!ConfigValues.useAllRecipes && enchantingTableTier > 0)
 				adjTiles.AddRange(TableTypes.GetRange(0, enchantingTableTier));
 
 			AdjTiles = adjTiles.ToArray();
@@ -135,15 +88,32 @@ namespace WeaponEnchantments.Tiles
 			num = fail ? 1 : 3;
 		}
 		public override void KillMultiTile(int x, int y, int frameX, int frameY) {
-			if (enchantingTableTier > -1)
-				EnchantingTableUI.CloseEnchantingTableUI();
-			}
-		public override bool RightClick(int x, int y) {
-			RightClickEnchantingTable(x, y, enchantingTableTier);
+			if (enchantingTableTier > -1) {
+				int tableType = -1;
+                switch (enchantingTableTier) {
+					case 0:
+						tableType = ModContent.ItemType<Items.WoodEnchantingTable>();
+						break;
+					case 1:
+						tableType = ModContent.ItemType<Items.DustyEnchantingTable>();
+						break;
+					case 2:
+						tableType = ModContent.ItemType<Items.HellishEnchantingTable>();
+						break;
+					case 3:
+						tableType = ModContent.ItemType<Items.SoulEnchantingTable>();
+						break;
+					case 4:
+						tableType = ModContent.ItemType<Items.UltimateEnchantingTable>();
+						break;
+				}
 
-			return true;
+				Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, tableType);
+
+				WEModSystem.CloseWeaponEnchantmentUI();
+			}
 		}
-		public static void RightClickEnchantingTable(int x, int y, int tier) {
+		public override bool RightClick(int x, int y) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			wePlayer.Player.CloseSign();
 			wePlayer.Player.SetTalkNPC(-1);
@@ -156,25 +126,19 @@ namespace WeaponEnchantments.Tiles
 			}
 
 			Main.stackSplit = 600;
-			if (wePlayer.usingEnchantingTable && (wePlayer.Player.chestX - x).Abs() <= 1 && wePlayer.Player.chestY == y) {
+			if (wePlayer.usingEnchantingTable) {
 				wePlayer.enchantingTableLocation = new(-1, -1);
-				EnchantingTableUI.CloseEnchantingTableUI();
+				WEModSystem.CloseWeaponEnchantmentUI();
+				Recipe.FindRecipes();
 			}
 			else {
-				if (androLib.ModIntegration.MagicStorageIntegration.MagicStorageIsOpen())
-					androLib.ModIntegration.MagicStorageIntegration.TryClosingMagicStorage();
+				if (MagicStorageIntegration.MagicStorageIsOpen())
+					MagicStorageIntegration.TryClosingMagicStorage();
 
 				wePlayer.enchantingTableLocation = new(x, y);
-				wePlayer.enchantingTableTier = tier;
-				if (wePlayer.highestTableTierUsed < tier) {
-					if (wePlayer.highestTableTierUsed == -1) {
-						EnchantmentStorage.DepositAll(Main.LocalPlayer.inventory.TakePlayerInventory40());
-						EnchantingTableUI.DepositAll(Main.LocalPlayer.inventory.TakePlayerInventory40());
-						Main.NewText(GameMessageTextID.OpenEnchantingTableFirstTime.ToString().Lang_WE(L_ID1.GameMessages));
-					}
-
-					wePlayer.highestTableTierUsed = tier;
-				}
+				wePlayer.enchantingTableTier = enchantingTableTier;
+				if (wePlayer.highestTableTierUsed < enchantingTableTier)
+					wePlayer.highestTableTierUsed = enchantingTableTier;
 
 				wePlayer.Player.chest = -1;
 				Main.playerInventory = true;
@@ -183,13 +147,15 @@ namespace WeaponEnchantments.Tiles
 					PlayerInput.Triggers.JustPressed.Grapple = false;
 
 				SoundEngine.PlaySound(SoundID.MenuTick);
-				EnchantingTableUI.OpenEnchantingTableUI();
+				WEModSystem.OpenWeaponEnchantmentUI();
 				wePlayer.Player.chestX = x;
 				wePlayer.Player.chestY = y;
 				Recipe.FindRecipes();
 			}
 
 			Main.mouseRightRelease = false;
+
+			return true;
 		}
         public override void MouseOver(int x, int y) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

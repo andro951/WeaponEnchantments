@@ -4,13 +4,10 @@ using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using androLib.Items;
-using androLib.Common.Utility;
-using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
-	public abstract class BerserkersRageEnchantment : Enchantment
+    public abstract class BerserkersRageEnchantment : Enchantment
     {
 		public override int StrengthGroup => 21;
 		public override void GetMyStats()
@@ -21,8 +18,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
                 new AutoReuse(),
                 new NPCHitCooldown(EnchantmentStrengthData * -1f),
                 new AmmoCost(@base: EnchantmentStrengthData * 0.3f),
-				new ManaUsage(@base: EnchantmentStrengthData * -0.3f),
-				new DamageAfterDefenses(multiplicative: (EnchantmentStrengthData * -0.25f + 1f).Min(0.5f))
+                new DamageAfterDefenses(multiplicative: (EnchantmentStrengthData * -0.25f + 1f).Min(0.5f))
             };
 
             AllowedList = new Dictionary<EItemType, float>() {
@@ -36,25 +32,20 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
         public override string Artist => "Zorutan";
         public override string ArtModifiedBy => "andro951";
         public override string Designer => "Jangiot";
-	}
-	[Autoload(false)]
-	public class BerserkersRageEnchantmentBasic : BerserkersRageEnchantment
+    }
+    public class BerserkersRageEnchantmentBasic : BerserkersRageEnchantment
 	{
         public override SellCondition SellCondition => SellCondition.PostSkeletron;
-        public override List<DropData> NpcDropTypes => new() {
-            new(NPCID.SkeletronHead, chance: 0.2f)
+        public override List<WeightedPair> NpcDropTypes => new() {
+            new(NPCID.SkeletronHead, 0.25f)
         };
-        public override List<DropData> CrateDrops => new() {
+        public override List<WeightedPair> CrateDrops => new() {
             new(CrateID.Dungeon, 0.5f),
             new(CrateID.Stockade_DungeonHard, 0.5f)
         };
-	}
-	[Autoload(false)]
-	public class BerserkersRageEnchantmentCommon : BerserkersRageEnchantment { }
-	[Autoload(false)]
-	public class BerserkersRageEnchantmentRare : BerserkersRageEnchantment { }
-	[Autoload(false)]
-	public class BerserkersRageEnchantmentEpic : BerserkersRageEnchantment { }
-	[Autoload(false)]
-	public class BerserkersRageEnchantmentLegendary : BerserkersRageEnchantment { }
+    }
+    public class BerserkersRageEnchantmentCommon : BerserkersRageEnchantment { }
+    public class BerserkersRageEnchantmentRare : BerserkersRageEnchantment { }
+    public class BerserkersRageEnchantmentEpic : BerserkersRageEnchantment { }
+    public class BerserkersRageEnchantmentLegendary : BerserkersRageEnchantment { }
 }

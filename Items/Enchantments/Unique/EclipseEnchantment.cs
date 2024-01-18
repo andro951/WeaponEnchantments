@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using static androLib.Common.EnchantingRarity;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	
 	public class EclipseEnchantmentBasic : EclipseEnchantment
 	{
-		public override List<DropData> NpcDropTypes => new() {
+		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Mothron)
 		};
 	}

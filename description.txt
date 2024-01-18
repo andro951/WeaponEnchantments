@@ -1,9 +1,6 @@
 More detailed description on the Wiki:
 https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
 
-Tutorial Video:
-https://www.youtube.com/watch?v=VNkNEovQQr0
-
 Weapon Enchantments adds
      -Item customization
      -Progression system
@@ -43,15 +40,8 @@ All other info for the mod on the Wiki:
 https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
 
 Please give us your feedback!!!!!!
-
-Discord:
 https://discord.gg/mPywEhyV9b
-
-Forums:
 https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
-
-Ko-Fi:
-https://ko-fi.com/andro951
 
 Patreon:
 https://www.patreon.com/andro951

@@ -10,7 +10,6 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Effects
 {
@@ -18,9 +17,11 @@ namespace WeaponEnchantments.Effects
 		public ItemCooldown(DifficultyStrength timerStrength) {
 			_timerStrength = timerStrength;
 		}
+
+		//public override string Tooltip => $"(Item CD equal to {EffectStrength * 0.8f}x use speed)";
 		public override string Tooltip => StandardTooltip;
 		public override IEnumerable<object> TooltipArgs => new object[] { TooltipValue };
-		public override string TooltipValue => $"{EffectStrength.S()}x";
+		public override string TooltipValue => $"{EffectStrength}x";
 		public override float EffectStrength => _timerStrength.Value * 0.8f;
 
 		private DifficultyStrength _timerStrength;
@@ -29,15 +30,14 @@ namespace WeaponEnchantments.Effects
 		public EnchantmentStat TimerStatName => EnchantmentStat.AllForOne;
 
 		public bool CanUseItem(Item item, Player player) {
-			return ((IUseTimer)this).TimerOver(player);
+			return (bool)((IUseTimer)this).TimerOver(player);
 		}
 		public void TimerEnd(WEPlayer wePlyaer) {
 			SoundEngine.PlaySound(SoundID.Unlock);
 		}
 		public bool? UseItem(Item item, Player player) {
 			int duration = (int)((float)item.useTime * EffectStrength);
-			if (Main.netMode < NetmodeID.Server && player?.whoAmI == Main.myPlayer)
-				player.GetWEPlayer().SetEffectTimer(this, duration);
+			player.GetWEPlayer().SetEffectTimer(this, duration);
 
 			return null;
 		}

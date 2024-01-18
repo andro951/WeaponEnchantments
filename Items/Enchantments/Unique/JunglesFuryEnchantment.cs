@@ -3,9 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using static androLib.Common.EnchantingRarity;
-using androLib.Common.Utility;
-using androLib.Common.Globals;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -39,20 +37,15 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	[Autoload(false)]
 	public class JunglesFuryEnchantmentBasic : JunglesFuryEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostPlantera;
-		public override List<DropData> NpcDropTypes => new() {
+		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Plantera)
 		};
 	}
-	[Autoload(false)]
 	public class JunglesFuryEnchantmentCommon : JunglesFuryEnchantment { }
-	[Autoload(false)]
 	public class JunglesFuryEnchantmentRare : JunglesFuryEnchantment { }
-	[Autoload(false)]
 	public class JunglesFuryEnchantmentEpic : JunglesFuryEnchantment { }
-	[Autoload(false)]
 	public class JunglesFuryEnchantmentLegendary : JunglesFuryEnchantment { }
 }

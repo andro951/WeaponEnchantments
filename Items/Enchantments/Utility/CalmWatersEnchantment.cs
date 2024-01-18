@@ -1,7 +1,5 @@
-﻿using androLib.Common.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
@@ -12,7 +10,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override int StrengthGroup => 15;
 		public override float ScalePercent => 0f;
 		public override bool Max1 => true;
-		public override float CapacityCostMultiplier => CapacityCostUtility;
+		public override float CapacityCostMultiplier => 1;
 		public override void GetMyStats() {
 			Effects = new() {
 				new EnemyMaxSpawns(multiplicative: EnchantmentStrengthData),
@@ -24,29 +22,24 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			};
 		}
 
-		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);
+		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {GetLocalizationTypeName()}";
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Creature";
 	}
-	[Autoload(false)]
 	public class CalmWatersEnchantmentBasic : CalmWatersEnchantment
 	{
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Water)
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+			{ ChestID.Water, 1f }
 		};
-		public override List<DropData> CrateDrops => new() {
+		public override List<WeightedPair> CrateDrops => new() {
 			new(CrateID.Wooden),
 			new(CrateID.Pearlwood_WoodenHard)
 		};
 	}
-	[Autoload(false)]
 	public class CalmWatersEnchantmentCommon : CalmWatersEnchantment { }
-	[Autoload(false)]
 	public class CalmWatersEnchantmentRare : CalmWatersEnchantment { }
-	[Autoload(false)]
 	public class CalmWatersEnchantmentEpic : CalmWatersEnchantment { }
-	[Autoload(false)]
 	public class CalmWatersEnchantmentLegendary : CalmWatersEnchantment { }
 
 }
