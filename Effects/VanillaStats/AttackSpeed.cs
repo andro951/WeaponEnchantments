@@ -21,6 +21,7 @@ namespace WeaponEnchantments.Effects {
 		}
 
 		public override EnchantmentStat statName => EnchantmentStat.AttackSpeed;
+        //public override string Tooltip => $"{EStatModifier.SmartTooltip} {DisplayName} (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)";
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };
 		public override string Tooltip => StandardTooltip;
 	}

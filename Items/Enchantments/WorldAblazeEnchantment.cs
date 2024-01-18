@@ -5,13 +5,12 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Debuffs;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Utility;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class WorldAblazeEnchantment : Enchantment
 	{
-		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => EnchantmentTypeName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
 		public override void GetMyStats() {
@@ -41,22 +40,17 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
 	}
-	[Autoload(false)]
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostTwins;
-		public override List<DropData> NpcDropTypes => new() {
+		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Retinazer),
 			new(NPCID.Spazmatism)
 		};
 	}
-	[Autoload(false)]
 	public class WorldAblazeEnchantmentCommon : WorldAblazeEnchantment { }
-	[Autoload(false)]
 	public class WorldAblazeEnchantmentRare : WorldAblazeEnchantment { }
-	[Autoload(false)]
 	public class WorldAblazeEnchantmentEpic : WorldAblazeEnchantment { }
-	[Autoload(false)]
 	public class WorldAblazeEnchantmentLegendary : WorldAblazeEnchantment { }
 
 }

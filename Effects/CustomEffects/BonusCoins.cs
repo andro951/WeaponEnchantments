@@ -8,14 +8,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
-using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.ModLib.KokoLib;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects
 {
-	public class BonusCoins : StatEffect, INonVanillaStat
+	public class BonusCoins : StatEffect, INonVanillaStat, IOnHitEffect
     {
         public BonusCoins(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
@@ -25,9 +24,53 @@ namespace WeaponEnchantments.Effects
             return new BonusCoins(EStatModifier.Clone());
         }
 
+		public void OnHitNPC(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
+			if (npc.friendly || npc.townNPC || npc.SpawnedFromStatue || npc.type == NPCID.TargetDummy)
+				return;
+
+			int damageInt = damage;
+			if (crit)
+				damageInt *= 2;
+
+			if (npc.life < 0)
+				damageInt += npc.life;
+
+			if (damageInt > npc.lifeMax)
+				damageInt = npc.lifeMax;
+
+			if (damageInt <= 0)
+				return;
+
+
+			int whoAmI;
+			NPC sample;
+			if (npc.realLife >= 0) {
+				whoAmI = npc.realLife;
+				sample = ContentSamples.NpcsByNetId[Main.npc[whoAmI].netID];
+			}
+			else {
+				whoAmI = npc.whoAmI;
+				sample = ContentSamples.NpcsByNetId[npc.netID];
+			}
+
+			NPC thisNPC = Main.npc[whoAmI];
+
+			float value = (float)damageInt / (float)thisNPC.lifeMax * sample.value;
+			if (value < damageInt)
+				value = (float)damageInt;
+
+			value *= 1f + wePlayer.Player.luck;
+
+			int coins = (int)Math.Round(EStatModifier.ApplyTo(0f) * value);
+			if (coins <= 0)
+				coins = 1;
+
+			Net<INetOnHitEffects>.Proxy.NetAddNPCValue(thisNPC, coins);
+		}
+
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };
 		public override string Tooltip => StandardTooltip;
 		public override string TooltipValue => EStatModifier.PercentMult100Tooltip;
-		public override EnchantmentStat statName => EnchantmentStat.BonusCoins;
+		public override EnchantmentStat statName => EnchantmentStat.None;
 	}
 }

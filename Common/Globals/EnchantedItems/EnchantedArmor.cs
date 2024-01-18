@@ -1,5 +1,4 @@
-﻿using androLib.Common.Utility;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +14,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static androLib.Common.EnchantingRarity;
+using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
 
@@ -25,13 +24,12 @@ namespace WeaponEnchantments.Common.Globals
 	{
 		#region Infusion
 
-		public const int DefaultInfusionArmorSlot = -1;
-		public int infusedArmorSlot = DefaultInfusionArmorSlot;
+		public int infusedArmorSlot = -1;
 		public Item infusedItem;
 
 		#endregion
 		public override bool InstancePerEntity => true;
-		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.IsArmorItem();
+		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsArmorItem(entity);
 		public override EItemType ItemType => EItemType.Armor;
 		public override GlobalItem Clone(Item item, Item itemClone) {
 			EnchantedArmor clone = (EnchantedArmor)base.Clone(item, itemClone);
@@ -60,29 +58,25 @@ namespace WeaponEnchantments.Common.Globals
 			infusedItem = infusedItemType > 0 ? new Item(infusedItemType) : null;
 		}
 		public override void UpdateEquip(Item item, Player player) {
-			base.UpdateEquip(item, player);
 			if (!inEnchantingTable)
 				return;
 
+			base.UpdateEquip(item, player);
+
 			//Fix for swapping an equipped armor/accessory with one in the enchanting table.
-			if (player.GetWEPlayer().enchantingTableItem.TryGetEnchantedItem()) {
+			if (player.GetWEPlayer().ItemInUI().TryGetEnchantedItem()) {
 				if (item.GetInfusionArmorSlot() != infusedArmorSlot) {
-					infusedArmorSlot = DefaultInfusionArmorSlot;
+					infusedArmorSlot = -1;
 					item.TryInfuseItem(new Item(), true);
 				}
 			}
 		}
-		protected override string GetInfusedItemTooltip(Item item) => $"{EnchantmentGeneralTooltipsID.InfusedArmorID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { item.GetInfusionArmorSlot(), infusedItemName });//$"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
-		protected override string GetInfusionTooltip(Item item) => $"{EnchantmentGeneralTooltipsID.SetBonusID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { item.GetInfusionArmorSlot(true) });// $"Set Bonus ID: {item.GetInfusionArmorSlot(true)}";
+		protected override string GetInfusedItemTooltip(Item item) => $"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
+		protected override string GetInfusionTooltip(Item item) => $"Set Bonus ID: {item.GetInfusionArmorSlot(true)}";
 		protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
 			return 
-				$"*{$"{EnchantmentGeneralTooltipsID.NewSetBonusID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
-				$"{$"{EnchantmentGeneralTooltipsID.NewInfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
-		}
-		public override void ResetInfusion() {
-			base.ResetInfusion();
-			infusedArmorSlot = DefaultInfusionArmorSlot;
-			infusedItem = null;
+				$"*New Set Bonus ID: {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
+				$"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
 		}
 	}
 }

@@ -9,8 +9,6 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Globals.EnchantedWeapon;
 using static WeaponEnchantments.WEPlayer;
-using androLib.Common.Utility;
-using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Effects {
     public class OnHitSpawnProjectile : EnchantmentEffect, IOnHitEffect {

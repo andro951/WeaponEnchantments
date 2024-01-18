@@ -4,7 +4,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common
 {
@@ -184,7 +183,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 
-		private string FlatTooltip => _flat > 0f ? _additive > 1f || _additiveDenominator > 1f || _multiplicative > 1f || _base > 0f ? ", +" : "" + _flat.S() : "";
+		private string FlatTooltip => _flat > 0f ? _additive > 1f || _additiveDenominator > 1f || _multiplicative > 1f || _base > 0f ? ", +" : "" + $"{(float)Math.Round(_flat, 3)}" : "";
 
 		private string tooltip;
 		public string SignPercentMult100Tooltip => GetTootlip(true, true, true);
@@ -204,20 +203,17 @@ namespace WeaponEnchantments.Common
 		public string Mult100Minus1Tooltip => GetTootlip(false, false, true, true);
 		public string Minus1Tooltip => GetTootlip(false, false, false, true);
 
-		public string GetTootlip(bool sign, bool percent, bool multiply100, bool minusOne = false, float? multiplier = null) {
+		private string GetTootlip(bool sign, bool percent, bool multiply100, bool minusOne = false) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			if (tooltip == null || _strength == 0 || multiplier != null) {
-				if (multiplier == null)
-					multiplier = 1f;
-
+			if (tooltip == null || _strength == 0) {
 				float baseTooltip;
 				if (minusOne && _base == 0f && (_additive != 1f || _additiveDenominator != 1f)) {
-					baseTooltip = (_additive / _additiveDenominator * _multiplicative - 1f) * (float)multiplier;
+					baseTooltip = (float)Math.Round(_additive / _additiveDenominator * _multiplicative - 1f, 3);
 				}
 				else {
-					baseTooltip = 1f + (Strength - 1f) * (float)multiplier - (float)multiplier * _flat;
+					baseTooltip = (float)Math.Round(Strength - _flat, 3);
 				}
 
 				tooltip = "";
@@ -225,10 +221,10 @@ namespace WeaponEnchantments.Common
 					if (sign && (_base > 0f || _additive > _additiveDenominator))
 						tooltip += "+";
 
-					tooltip += multiply100 ? (baseTooltip * 100f).S() : baseTooltip.S();
+					tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
 				}
 				else {
-					tooltip += baseTooltip.S();
+					tooltip += $"{baseTooltip}";
 					if (sign)
 						tooltip += "x";
 				}
@@ -241,6 +237,23 @@ namespace WeaponEnchantments.Common
 
 			return tooltip;
 		}
+		/*
+		string final = "";
+        float mult = EStatModifier.Multiplicative + EStatModifier.Additive - 2;
+        float flats = EStatModifier.Base * mult + EStatModifier.Flat;
+
+        if (flats > 0f) {
+            final += $"{s(flats)}{flats}";
+        }
+
+        if (mult > 0f) {
+            if (final != "") final += ' ';
+            final += $"{s(mult)}{mult.Percent()}%";
+        }
+
+        return final;
+		*/
+
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
 		public EStatModifier(EnchantmentStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f, CombineModeID combineModeID = CombineModeID.Normal) {
 			StatType = statType;

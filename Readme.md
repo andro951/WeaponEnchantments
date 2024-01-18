@@ -1,9 +1,6 @@
 ﻿#Wiki
 https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
 
-#Tutorial Video:
-https://www.youtube.com/watch?v=VNkNEovQQr0
-
 #Some information below is OUTDATED.  Please use the wiki above instead!!
 
 # Weapon Enchantments
@@ -90,8 +87,8 @@ They're obtained by...
 ## Crafting and Upgrading Enchantments
 
 Essence in the enchanting table is available for crafting.  There is no need to take them out of the crafting table.
- > Magic Storage: The Storage Configuration Interface lets you access the essence in the enchanting table.
- The Storage Configuration Interface will also act as the highest tier enchanting table your character has ever used.
+ > Magic Storage: The environment simulator lets you access the essence in the enchanting table.
+ The environment simulator will also act as the highest tier enchanting table your character has ever used.
 
 Recipes can easily be looked up:
 * You can give items to the vanilla guide to see what it can be crafted into.
@@ -122,10 +119,10 @@ All of the essence you pick up are stored here. Right clicking the enchanting ta
     > All you have to do is place an enchantment in an enchantment slot.  There is no cost or confirm button.
 * Convert essence to item experience.
     > The Level up button will consume lower tiers of essence first if possible.  These slots can be favorited (same as vanilla favoriting) to prevent them being consumed unless there is not enough essence to level up without them.
-* Offer items (Destroys the item in exchange for essence and ores - configurable).
-    > The value of essence and ores received is slightly more than the item's base sell price. (config default is half ore, half essence)
+* Offer items (Destroyes the item in exchange for essence and ores - configurable).
+    > The value of essence and ores recieved is slightly more than the item's base sell price. (config default is half ore, half essence)
     > Also returns all enchantments and power boosters applied to the weapon and converts experience on the item to essence.
-* Siphon all modifications and experience from an item at the cost of some experience.
+* Syphon excess xp from an item past the max level, 40, converting it to essence.
 * Infuse items (Discussed in it's own section)
 
 There are 5 tiers of enchanting tables
@@ -180,11 +177,11 @@ If you have an item that is currently useless to you, you offer it.
 5. Items spawned into your inventory.
     > Config option available to offer all of the same item from your inventory. (Ignores enchanted items)
 
-### Siphoning an item
-Siphoning an item removes all of the enchantments, power boosters, infused item, and experience from an item and converts the experience to essence at the cost of a portion of the experience.
-1. Place the item you want to siphon on the item slot.
-2. Press the siphon button.
-3. All enchantments, power boosters, and essence are sent to the enchantment storage.  The infused item is 
+### Syphoning an item
+If you have a level 40 item (maximum level) and you want to extract leftover experience from it, you syphon it.
+1. Place the item you wish to syphon on the *Item* slot.
+2. Click the syphon button.
+3. Essence spawned to the enchanting table. (Or your inventory if the table is full.)
 
 ### Infusion:
 #### Weapon Infusion - 
@@ -250,8 +247,6 @@ Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode b
 [Weapon Enchantments Discord](https://discord.gg/mPywEhyV9b)
 
 [Weapon Enchantments forum page](https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/) (Not checked as often as Steam and Discord.)
-
-[Weapon Enchantments Ko-Fi](https://ko-fi.com/andro951)
 
 [Weapon Enchantments Patreon](https://www.patreon.com/andro951)
 

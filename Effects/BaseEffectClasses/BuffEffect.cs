@@ -12,7 +12,6 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public class BuffEffect : EnchantmentEffect {
@@ -72,7 +71,7 @@ namespace WeaponEnchantments.Effects {
                     name = langName;
                 }
 				else {
-                    if (name.Lang_WE(out string result, L_ID1.Tooltip, L_ID2.VanillaBuffs))
+                    if (name.Lang(out string result, L_ID1.Tooltip, L_ID2.VanillaBuffs))
                         name = result;
 				}
             }

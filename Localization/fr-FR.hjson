@@ -1,1197 +1,391 @@
-#
+#Contributors: @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
-		Bestiary.Witch: La sorcière est une femme laide et méchante et s'occupe d'autres choses méchantes. Elle fait le commerce de matériaux douteux utilisés pour améliorer des équipements aux effets mystérieux.
-		Buffs.Amaterasu.DisplayName: Amaterasu
-
-		Configs: {
-			AccessoryDRValues: Accessoire {0}% ({1}% à 40)
-			ArmorDRValues: Armure {0}% ({1}% à 40)
-			Automatic: Automatique
-			Custom: Coutume
-			Enchantment: Enchantement
-			NoneSelected: Aucune sélection
-
-			ArmorDamageReduction: {
-				Tooltip: Permet de modifier la réduction des dégâts gagnés par les armures et accessoires au fur et à mesure de leur mise à niveau.
-
-				AccessoryDamageReductionPerLevel: {
-					Label: Accessoire DR par niveau (100 000 = 1%)
-					Tooltip: 250 000 (2,5 %) est le maximum qui correspondrait à une réduction des dégâts de 100 % au niveau 40.
-				}
-
-				ArmorDamageReductionPerLevel: {
-					Label: DR d'armure par niveau (100 000 = 1 %)
-					Tooltip: 250 000 (2,5 %) est le maximum qui correspondrait à une réduction des dégâts de 100 % au niveau 40.
-				}
-			}
-
-			ClientConfig: {
-				DisplayName: Configuration client
-				DisplaySettings: Paramètres d'affichage
-				ErrorMessages: Messages d'erreur
-				LoggingInformation: Informations de journalisation
-				ModTestingTools: Outils de test de modules
-
-				AllowCraftingIntoLowerTier: {
-					Label: Autoriser la création d'enchantements dans des enchantements de niveau inférieur.
-					Tooltip: Lorsque vous créez des enchantements de niveau inférieur, vous recevrez tous les ingrédients, y compris les confinements, l'essence et les pierres précieuses.
-				}
-
-				AllowInfusingToLowerPower: {
-					Label: Autoriser l'infusion d'objets pour réduire les pouvoirs d'infusion
-					Tooltip: Attention : cela vous permettra de consommer une arme faible pour déclasser une arme puissante.
-				}
-
-				AllowShiftClickMoveFavoritedItems: {
-					Label: Autorisez Shift Click pour déplacer les éléments favoris dans la table enchanteresse.
-					Tooltip: S'ils ne sont pas activés, les éléments doivent être supprimés des favoris ou déplacés manuellement en les déplaçant avec la souris.
-				}
-
-				AlwaysDisplayAccessoryLevelUpMessages: {
-					Label: Toujours afficher les messages d'augmentation du niveau des accessoires
-					Tooltip: Affiche uniquement les messages de montée de niveau des accessoires lors de l'utilisation de la table d'enchantement si cette option est désactivée.
-				}
-
-				AlwaysDisplayArmorLevelUpMessages: {
-					Label: Toujours afficher les messages d'augmentation du niveau d'armure
-					Tooltip: N'affiche les messages d'augmentation du niveau d'armure lors de l'utilisation de la table d'enchantement que si cette option est désactivée.
-				}
-
-				AlwaysDisplayInfusionPower: {
-					Label: Toujours afficher la puissance de perfusion
-					Tooltip: Activer pour afficher la puissance d'infusion de l'objet toujours au lieu de simplement lorsque la table d'enchantement est ouverte.
-				}
-
-				AlwaysDisplayToolLevelUpMessages: {
-					Label: Toujours afficher les messages de mise à niveau de l'outil
-					Tooltip: Affiche uniquement les messages d'augmentation du niveau de l'outil lors de l'utilisation de la table d'enchantement si cette option est désactivée.
-				}
-
-				AlwaysDisplayWeaponLevelUpMessages: {
-					Label: Toujours afficher les messages d'augmentation du niveau d'arme
-					Tooltip: N'affiche les messages d'augmentation du niveau des armes lors de l'utilisation de la table d'enchantement que si cette option est désactivée.
-				}
-
-				DisplayDamageTooltipSeperatly: {
-					Label: Affichez les dégâts approximatifs des enchantements dans une info-bulle séparée.
-					Tooltip:
-						'''
-						Les enchantements de dégâts sont calculés après que l'armure ennemie a réduit les dégâts au lieu de modifier directement les dégâts de l'objet.
-						Si cette option est désactivée, l'infobulle des dégâts affichera les dégâts contre des cibles sans armure.
-						Activer pour afficher une info-bulle distincte au lieu de mettre à jour la valeur normale des dégâts. Ceci affiche les dégâts contre un ennemi à 0 armure.
-						'''
-				}
-
-				EnableSwappingWeapons: {
-					Label: Activer l'échange d'armes avec les touches numériques (armes triées par puissance d'infusion)
-					Tooltip:
-						'''
-						Utilisez num1 et num3 pour basculer entre toutes les armes. Utilisez num4 et num6 pour basculer uniquement entre les armes modifiées.
-						Ne remplacera pas les armes enchantées ou modifiées.
-						'''
-				}
-
-				LogDummyDPS: {
-					Label: Activer le calcul et la journalisation du Target Dummy Dps
-					Tooltip:
-						'''
-						Suit les dommages causés aux cibles provenant de toutes les sources et les suit. Appuyez sur num0 pour démarrer, puis à nouveau pour arrêter.
-						Appuyez sur num8 pour imprimer toutes les valeurs dps stockées dans le client.log\nL'emplacement par défaut du client.log est C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						Démarrer un nouveau test en appuyant sur num0 réinitialise les données dps précédentes pour l'élément détenu pour permettre de refaire un test.
-						'''
-				}
-
-				OfferAll: {
-					Label: Offrez le même article.
-					Tooltip:
-						'''
-						Recherchez dans votre inventaire tous les objets du même type qui ont été proposés et proposez-les également s'ils n'ont aucune expérience et aucun booster de puissance installé.
-						Propose également tous les objets des coffres touchant la table enchantée.
-						'''
-				}
-
-				PrintEnchantmentTooltips: {
-					Label: Enregistrez une liste d'info-bulles d'enchantement
-					Tooltip:
-						'''
-						La liste est imprimée dans le client.log lorsque vous entrez dans un monde.
-						L'emplacement par défaut de client.log est C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
-				PrintWeaponInfusionPowers: {
-					Label: Enregistrez tous les pouvoirs d'infusion d'armes
-					Tooltip:
-						'''
-						Les informations sont imprimées dans le client.log lorsque vous entrez dans un monde.
-						L'emplacement par défaut de client.log est C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
-				teleportEssence: {
-					Label: Envoyer automatiquement l'essence à l'interface utilisateur
-					Tooltip:
-						'''
-						Envoyez automatiquement l'essence de votre inventaire vers les emplacements d'essence de l'interface utilisateur.
-						(Désactivé lorsque l'interface utilisateur est ouverte.)
-						'''
-				}
-
-				UsePointsAsTooltip: {
-					Label: '''"Points" au lieu de "Capacité d'enchantement"'''
-					Tooltip: Les info-bulles afficheront les points disponibles au lieu de la capacité d'enchantement disponible.
-				}
-			}
-
-			Pair: {
-				Tooltip: Vous permet d'attribuer une force à un enchantement spécifique.
-
-				itemDefinition: {
-					Label: Enchantement
-					Tooltip:
-						'''
-						Sélectionnez uniquement les objets d'enchantement.
-						Probablement provoquer une erreur si vous sélectionnez un autre élément.
-						'''
-				}
-
-				Strength: {
-					Label: Force (1000 = 1, 10 = 1%)
-					Tooltip:
-						'''
-						Soyez prudent lorsque vous ajustez cette valeur.
-						La force est la valeur exacte utilisée.
-						Exemple : 40 % de dégâts, l'enchantement est de 0,4
-						10 La défense est de 10
-						'''
-				}
-			}
-
-			PresetData: {
-				Tooltip: Les préréglages vous permettent d'affecter facilement tous les enchantements à la fois.
-
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
-					Label: Faire correspondre automatiquement le préréglage à la difficulté du monde
-					Tooltip: Doit être désactivé pour que les autres options soient modifiées.
-				}
-
-				BasicEnchantmentStrengthMultiplier: {
-					Label: Basique
-					Tooltip: Affecte la force de tous les enchantements de base. Remplace tous les multiplicateurs, à l'exception des multiplicateurs individuels de force d'enchantement. Réglez-le sur -1 pour que ce multiplicateur soit ignoré.
-				}
-
-				CommonEnchantmentStrengthMultiplier: {
-					Label: Commun
-					Tooltip: Affecte la force de tous les enchantements communs. Remplace tous les multiplicateurs, à l'exception des multiplicateurs individuels de force d'enchantement. Réglez-le sur -1 pour que ce multiplicateur soit ignoré.
-				}
-
-				EpicEnchantmentStrengthMultiplier: {
-					Label: Épique
-					Tooltip: Affecte la force de tous les enchantements épiques. Remplace tous les multiplicateurs, à l'exception des multiplicateurs individuels de force d'enchantement. Réglez-le sur -1 pour que ce multiplicateur soit ignoré.
-				}
-
-				GlobalEnchantmentStrengthMultiplier: {
-					Label: Multiplicateur de force d'enchantement global (%)
-					Tooltip:
-						'''
-						Ajuste toutes les forces d'enchantement en fonction des changements d'enchantement recommandés.
-						Utilise les mêmes calculs que les préréglages mais vous permet de choisir un nombre différent.
-						les valeurs prédéfinies sont : Voyage : 250, Normal : 100, Expert : 50, Maître : 25 (ignore les préréglages)
-						'''
-				}
-
-				LegendaryEnchantmentStrengthMultiplier: {
-					Label: Légendaire
-					Tooltip: Affecte la force de tous les enchantements légendaires. Remplace tous les multiplicateurs, à l'exception des multiplicateurs individuels de force d'enchantement. Réglez-le sur -1 pour que ce multiplicateur soit ignoré.
-				}
-
-				Preset: {
-					Label: Préréglage
-					Tooltip:
-						'''
-						Voyage, Normal, Expert, Maître, Automatique, Personnalisé
-						(Personnalisé ne peut pas être sélectionné ici. Il est défini automatiquement lors du réglage du multiplicateur de force global.)
-						'''
-				}
-
-				RareEnchantmentStrengthMultiplier: {
-					Label: Rare
-					Tooltip: Affecte la force de tous les enchantements rares. Remplace tous les multiplicateurs, à l'exception des multiplicateurs individuels de force d'enchantement. Réglez-le sur -1 pour que ce multiplicateur soit ignoré.
-				}
-			}
-
-			ServerConfig: {
-				DisplayName: Configuration du serveur
-				EnchantingTableOptions: Options de table enchanteresse
-				EnchantmentDropRates(%): Taux de chute d'enchantement (%)
-				EnchantmentSettings: Paramètres d'enchantement
-				EssenceandExperience: Essence et expérience
-				GeneralGameChanges: Modifications générales du jeu
-				IndividualEnchantmentStrengths: Forces d'enchantement individuelles
-				Multipliers: Multiplicateurs
-				OtherDropRates: Autres taux de chute
-				Presets: Préconfigurations
-				RandomExtraStuff: Trucs supplémentaires aléatoires
-				RarityEnchantmentStrengthMultipliers: Multiplicateurs de force d'enchantement de rareté
-				ServerConfig: Configuration du serveur
-
-				AffectOnVanillaLifeStealLimmit: {
-					Label: Limitation de l'enchantement du vol de vie (effet sur la limite de vol de vie Vanilla) (%)
-					Tooltip:
-						'''
-						Utilisez une valeur supérieure à 100 % pour limiter davantage le vol de vie, inférieure à 100 % pour limiter moins. 0 pour n'avoir aucune limite.
-						Vanilla Terraria utilise un système de limitation du vol de vie : Dans l'exemple ci-dessous, les valeurs utilisées sont en mode normal (valeurs du mode Expert/Maître entre parenthèses)
-						Il dispose d'un pool de 80 (70) qui est sauvegardé pour que vous puissiez gagner du vol de vie. Gagner de la vie grâce au vol de vie réduit cette réserve.
-						La piscine est restaurée de 36(30) points par seconde. Si la valeur de la réserve est négative, vous ne pouvez pas gagner de vie grâce au vol de vie.
-						Cette valeur de configuration modifie la mesure dans laquelle la vie que vous guérissez grâce aux enchantements de vol de vie affecte cette limite.
-						Exemple : 200 % Vous gagnez 200 points de vie grâce au vol de vie. 200 * 200% = 400. 80(70) pool - 400 guéris = -320(-330) pool.
-						Il faudra 320/36 (330/30) secondes -> 8,9 (11) secondes pour que la piscine redevienne positive afin que vous puissiez à nouveau récupérer de la vie grâce au vol de vie.
-						Remarque : le mécanicien n'impose pas de limite au montant que vous pouvez gagner d'un coup. Il faudra simplement plus de temps pour récupérer, plus vous gagnez.
-						'''
-				}
-
-				AllowCriticalChancePast100: {
-					Label: Chances de coup critique efficaces sur 100 % de chances
-					Tooltip:
-						'''
-						Les terrarias vanille limitent les chances de coup critique à 100 %. Par défaut, les enchantements d'armes calculent les critiques supplémentaires après 100 %.
-						120 % de chances de critique correspondent à 100 % pour doubler les dégâts, puis 20 % de chances de critiquer pour augmenter les dégâts. Voir l'option de configuration suivante pour plus d'informations.
-						'''
-				}
-
-				AllowHighTierOres: {
-					Label: Recevez des minerais jusqu'au chlorophyte grâce aux objets d'offrande.
-					Tooltip:
-						'''
-						La désactivation de cette option vous permet uniquement de recevoir du Fer, de l'Argent, de l'Or (ou leurs équivalents basés sur la génération mondiale).
-						(Fonctionne uniquement en mode difficile. Chlorophyte uniquement après avoir tué un boss mécanique.)
-						'''
-				}
-
-				AlwaysOverrideDamageType: {
-					Label: Les enchantements de conversion de type de dégâts sont toujours prioritaires.
-					Tooltip:
-						'''
-						Certains mods comme Stars Above modifient les types de dégâts des armes. Si cette option est activée, les enchantements qui changent le type de dégâts changeront toujours le type de dégâts de l'arme.
-						S'il n'est pas sélectionné, le type de dégâts ne sera modifié que si l'arme est actuellement dans son type de dégâts d'origine.
-						'''
-				}
-
-				AmaterasuSelfGrowthPerTick: {
-					Label: Amaterasu Croissance personnelle par tick
-					Tooltip: Affecte la rapidité avec laquelle les dégâts d'Amaterasu augmenteront naturellement (pas lorsqu'il est à nouveau touché avec une arme World Ablaze.)
-				}
-
-				ArmorDamageReductions: {
-					Label: Réductions des dégâts des armures et des accessoires
-					Tooltip: Utilisé pour modifier la réduction d'armure gagnée par l'armure et les accessoires au fur et à mesure de leur niveau.
-				}
-
-				AttackSpeedEnchantmentAutoReuseSetpoint: {
-					Label: Réutilisation automatique de l'enchantement de vitesse activée (%)
-					Tooltip:
-						'''
-						La force qu'un enchantement de vitesse commencera à donner à la statistique de réutilisation automatique.
-						Réglé sur 0 pour tous les enchantements de vitesse afin de permettre une réutilisation automatique. Réglez sur 10 000 pour empêcher toute réutilisation automatique des gains (sauf si votre multiplicateur de force est énorme)
-						'''
-				}
-
-				AutoReuseDisabledOnMagicMissile: {
-					Label: Réutilisation automatique désactivée sur les armes de type Magic Missile
-					Tooltip: La réutilisation automatique sur des armes comme Magic Missile vous permet de tirer en continu sur les projectiles pour empiler les dégâts à l'infini.
-				}
-
-				BossEnchantmentDropChance: {
-					Label: Taux d'abandon des enchantements de boss (%)
-					Tooltip:
-						'''
-						Ajustez le taux de chute des enchantements des boss.
-						(La valeur par défaut est 50 %)
-						'''
-				}
-
-				BossEssenceMultiplier: {
-					Label: Multiplicateur d'essence de boss (%)
-					Tooltip: Modifiez la quantité d'essence reçue des boss.
-				}
-
-				BossExperienceMultiplier: {
-					Label: Multiplicateur d'expérience de boss (%)
-					Tooltip: Modifiez la quantité d'expérience reçue des patrons.
-				}
-
-				BuffDuration: {
-					Label: Durée du temps de recharge du buff (secondes)
-					Tooltip: Affecte le temps de recharge et la durée du buff.
-				}
-
-				CalculateDamageReductionBeforeDefense: {
-					Label: Calculer la réduction des dégâts avant la défense du joueur
-					Tooltip:
-						'''
-						Par défaut, la réduction des dégâts est appliquée après la défense du joueur. Sélectionnez ceci pour appliquer avant.
-						Avant, vous subirez beaucoup moins de dégâts.
-						'''
-				}
-
-				ChestSpawnChance: {
-					Label: Chances d'apparition d'enchantement de coffre (%)
-					Tooltip: Ajustez les chances de trouver des enchantements dans les coffres. Peut dépasser 100 %. N'affecte pas les coffres Biome. (Ils sont toujours à 100 %).
-				}
-
-				ConfigCapacityCostMultiplier: {
-					Label: Multiplicateur de coût de capacité d'enchantement (%)
-					Tooltip: Affecte le coût des enchantements à appliquer à un objet. Les valeurs de base sont 1/2/3/4/5 pour l'utilitaire, 2/4/6/8/10 pour la normale et 3/6/9/12/15 pour l'unique.
-				}
-
-				CrateDropChance: {
-					Label: Multiplicateur de chances de chute d'enchantement de caisse (%)
-					Tooltip: Ajustez les chances de trouver des enchantements dans les caisses de pêche.
-				}
-
-				CritPerLevelDisabled: {
-					Label: Désactiver les chances de coup critique de l'arme par niveau
-					Tooltip: Les armes ont des chances de coup critique égales à leur niveau * Multiplicateur global de force d'enchantement.
-				}
-
-				DamagePerLevelInstead: {
-					Label: Dégâts au lieu de chances de coup critique par niveau
-					Tooltip: Les armes gagnent des dégâts par niveau au lieu d'une chance de coup critique égale à leur niveau * Multiplicateur global de force d'enchantement
-				}
-
-				DamageReductionPerLevelDisabled: {
-					Label: Désactiver la réduction des dégâts des armures et des accessoires par niveau
-					Tooltip: Les armures et accessoires bénéficient d'une réduction de dégâts égale à leur niveau * le point de consigne approprié ci-dessous pour la difficulté du monde.
-				}
-
-				DCUStart: {
-					Label: Commencez avec une unité de confinement de forage
-					Tooltip:
-						'''
-						Tous les joueurs recevront une unité de confinement de forage lors de leur première apparition.
-						C'est juste pour vous amuser lorsque vous avez envie d'une partie plus rapide.
-						'''
-				}
-
-				DisableArmorInfusion: {
-					Label: Désactiver l'infusion d'armure
-					Tooltip: Cela vous empêchera d'infuser des objets d'armure et ignorera les bonus d'ensemble infusés.
-				}
-
-				DisableMinionCrits: {
-					Label: Désactiver les coups critiques des Minions
-					Tooltip:
-						'''
-						Dans Vanilla, les serviteurs ne sont pas affectés par les chances de coup critique de l'arme.
-						Les enchantements d'armes donnent aux serviteurs une chance de coup critique basée sur les chances de coup critique de l'arme.
-						Cette option désactive les critiques (mécanique vanille)
-						'''
-				}
-
-				DisableResearch: {
-					Label: Désactivez la possibilité de rechercher des objets d'enchantement d'armes.
-					Tooltip: Lorsqu'ils sont activés, toutes les essences et tous les enchantements ne pourront pas être recherchés, ce qui empêchera leur duplication en mode Voyage.
-				}
-
-				EnchantmentDropChance: {
-					Label: Taux d'abandon des enchantements non-boss (%)
-					Tooltip:
-						'''
-						Ajustez le taux de chute des enchantements des ennemis non-boss.
-						(La valeur par défaut est 100 %)
-						'''
-				}
-
-				EnchantmentSlotsOnAccessories: {
-					Label: Emplacements d'enchantement sur les accessoires
-					Tooltip:
-						'''
-						Le 1er emplacement est un emplacement normal.
-						Le 2ème emplacement est l’emplacement utilitaire.
-						Les 3e et 5e sont des emplacements normaux.
-						'''
-				}
-
-				EnchantmentSlotsOnArmor: {
-					Label: Emplacements d'enchantement sur l'armure
-					Tooltip:
-						'''
-						Le 1er emplacement est un emplacement normal.
-						Le 2ème emplacement est l’emplacement utilitaire.
-						Les 3e et 5e sont des emplacements normaux.
-						'''
-				}
-
-				EnchantmentSlotsOnFishingPoles: {
-					Label: Emplacements d'enchantement sur les cannes à pêche
-					Tooltip:
-						'''
-						Le 1er emplacement est un emplacement normal.
-						Le 2ème emplacement est l’emplacement utilitaire.
-						Les 3e et 5e sont des emplacements normaux.
-						'''
-				}
-
-				EnchantmentSlotsOnTools: {
-					Label: Emplacements d'enchantement sur les outils
-					Tooltip:
-						'''
-						Le 1er emplacement est un emplacement normal.
-						Le 2ème emplacement est l’emplacement utilitaire.
-						Les 3e et 5e sont des emplacements normaux.
-						Le Clentaminator est le seul outil à ce jour.
-						'''
-				}
-
-				EnchantmentSlotsOnWeapons: {
-					Label: Emplacements d'enchantement sur les armes
-					Tooltip:
-						'''
-						Le 1er emplacement est un emplacement normal.
-						Le 2ème emplacement est l’emplacement utilitaire.
-						Les 3e et 5e sont des emplacements normaux.
-						'''
-				}
-
-				EssenceGrabRange: {
-					Label: Multiplicateur de portée d'essence
-					Tooltip: Affecte la distance à laquelle l'essence peut s'éloigner du joueur lorsqu'elle commence à se déplacer vers le joueur.
-				}
-
-				EssenceMultiplier: {
-					Label: Multiplicateur d'essence non-boss (%)
-					Tooltip: Modifiez la quantité d'essence reçue des ennemis non-boss.
-				}
-
-				ExperienceMultiplier: {
-					Label: Multiplicateur d'expérience non-patron (%)
-					Tooltip: Modifiez la quantité d'expérience reçue des ennemis non-boss.
-				}
-
-				GatheringExperienceMultiplier: {
-					Label: Multiplicateur d'expérience de collecte (%)
-					Tooltip: Modifier la quantité d'expérience reçue de l'exploitation minière/hachage/pêche
-				}
-
-				individualStrengths: {
-					Label: Forces individuelles
-					Tooltip:
-						'''
-						Modifier les forces d'enchantement individuelles par valeur
-						(PAS DE POURCENTAGE !)
-						(Annule toutes les autres options)
-						'''
-				}
-
-				individualStrengthsEnabled: {
-					Label: Forces individuelles activées
-					Tooltip: En activant cette option, les valeurs de force individuelles sélectionnées ci-dessous remplaceront tous les autres paramètres.
-				}
-
-				InfusionDamageMultiplier: {
-					Label: Multiplicateur de dégâts de perfusion (divise par 1 000, 1 -> 0,001)
-					Tooltip:
-						'''
-						Modifie le multiplicateur de dégâts de l'infusion. DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
-						Exemple : Iron Broadsword, Damage = 10, BaseInfusionPower = 31 infusé avec un Meowmere, Infusion Power 1100.
-						Dégâts de l'épée large de fer = 10 * 1,3^((1100 - 31) / 100) = 10 * 1,3^10,69 = 10 * 16,52 = 165 dégâts.
-						Régler ce multiplicateur sur 1000 vous empêchera d'infuser des armes et n'offrira aucun bonus de dégâts aux armes déjà infusées.
-						'''
-				}
-
-				MinionLifeStealMultiplier: {
-					Label: Multiplicateur de vol de vie des serviteurs (%)
-					Tooltip: Vous permet de réduire la quantité de soins reçus par les serviteurs avec l'enchantement Lifesteal.
-				}
-
-				MultiplicativeCriticalHits: {
-					Label: Coups critiques multiplicatifs au-delà du premier.
-					Tooltip:
-						'''
-						Les enchantements d'armes utilisent les chances de coup critique supérieures à 100 % pour vous permettre de critiquer à nouveau.
-						Par défaut, il s'agit d'un bonus additif : 1er critique 200% dégâts, 2ème 300% dégâts, 3ème 400% dégâts.....
-						Activer cela les rend plutôt multiplicatifs : 1er critique 200 % de dégâts, 2e critique 400 % de dégâts, 3e critique 800 % de dégâts...
-						'''
-				}
-
-				PercentOfferEssence: {
-					Label: Pourcentage de la valeur de l'objet offert convertie en essence.
-					Tooltip: 100 % pour toutes les essences, 0 % pour tous les minerais. La valeur de vente de l'essence et des minerais sera équivalente.
-				}
-
-				presetData: {
-					Label: Préréglages et multiplicateurs
-					Tooltip: Préréglages et multiplicateurs qui vous permettent d'affecter tous les enchantements à la fois.
-				}
-
-				PreventPowerBoosterFromPreHardMode: {
-					Label: Empêchez les boss du mode pré-difficile de lâcher des boosters de puissance.
-					Tooltip: N'inclut pas le mur de chair.
-				}
-
-				PrintWikiInfo: {
-					Label: Enregistrez toutes les informations du wiki
-					Tooltip:
-						'''
-						Les informations sont imprimées dans le client.log lorsque vous entrez dans un monde.
-						L'emplacement par défaut de client.log est C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-						'''
-				}
-
-				ReduceOfferEfficiencyByBaseInfusionPower: {
-					Label: Réduire l’efficacité de l’offre en fonction de la puissance d’infusion de base
-					Tooltip:
-						'''
-						Lorsque vous proposez des objets, vous recevez une essence équivalente à l'expérience sur l'objet.
-						En activant cela, les armes seront efficaces à 100 % avec une puissance d'infusion de 0 à 80 % avec une puissance d'infusion de 1 100 (et plus).
-						'''
-				}
-
-				ReduceOfferEfficiencyByTableTier: {
-					Label: Réduire l'efficacité de l'offre par niveau de table
-					Tooltip:
-						'''
-						Lorsque vous proposez des objets, vous recevez une essence équivalente à l'expérience sur l'objet.
-						En activant cette option, la table en bois sera efficace à 60 %.
-						Chaque table gagne 10% d'efficacité. 100% avec la table Ultimate.
-						'''
-				}
-
-				ReduceRecipesToMinimum: {
-					Label: Réduisez les recettes au minimum.
-					Tooltip:
-						'''
-						Supprime toutes les recettes qui passent d'un niveau à l'autre pour réduire l'encombrement lors de l'affichage des recettes.
-						Crée également toutes les recettes d'essence 4 contre 1 au lieu de les mettre à l'échelle avec le niveau de table enchanteur.
-						'''
-				}
-
-				RemoveEnchantmentRestrictions: {
-					Label: Supprimez les restrictions d'enchantement (à utiliser à vos propres risques !)
-					Tooltip: Supprime des éléments tels que Unique, Max 1 et les enchantements spécifiques aux armes ou aux types d'objets.
-				}
-
-				SiphonExperiencePercentCost: {
-					Label: Expérience de siphon % coût
-					Tooltip:
-						'''
-						Siphonner des objets ne renvoie qu’une partie de l’expérience sous forme d’essence. Cette option correspond au% PERDU, donc 1000 XP avec un coût de 20% ne rapporteront que 800.
-						Si la valeur du coût d'expérience est supérieure à 4 fois la valeur de l'objet enchanté, cette valeur sera plutôt le coût pour éviter des situations telles que la perte de 20 platines d'expérience pour sauver une épée en bois de niveau maximum.
-						Offrir des objets renvoie à la place 100 % de l’expérience. Réglé sur 0 % pour n'avoir aucun coût et renvoyer 100 % d'expérience. Réglez à 100 % pour utiliser le système Siphon d'origine.
-						Le système Siphon d'origine vous permet uniquement de siphonner un objet de niveau maximum et ne supprime que l'excès d'expérience au-delà du niveau maximum. sans frais.
-						'''
-				}
-			}
+		ItemName: {
+			AllForOneEnchantmentBasic: Enchantement Tous pour un de base
+			AllForOneEnchantmentCommon: Enchantement Tous pour un commun
+			AllForOneEnchantmentEpic: Tout pour un enchantement épique
+			AllForOneEnchantmentLegendary: All For One Enchantement Légendaire
+			AllForOneEnchantmentRare: Enchantement Tous pour un rare
+			AmmoCostEnchantmentBasic: Enchantement de coût en munitions de base
+			AmmoCostEnchantmentCommon: Enchantement de coût en munitions Commun
+			AmmoCostEnchantmentEpic: Épique d'enchantement de coût de munitions
+			AmmoCostEnchantmentLegendary: Coût en munitions Enchantement Légendaire
+			AmmoCostEnchantmentRare: Enchantement de coût en munitions Rare
+			ArmorPenetrationEnchantmentBasic: Enchantement de pénétration d'armure de base
+			ArmorPenetrationEnchantmentCommon: Enchantement de pénétration d'armure Commun
+			ArmorPenetrationEnchantmentEpic: Pénétration d'armure Enchantement Épique
+			ArmorPenetrationEnchantmentLegendary: Pénétration d'armure Enchantement Légendaire
+			ArmorPenetrationEnchantmentRare: Enchantement de pénétration d'armure Rare
+			AttackSpeedEnchantmentBasic: Enchantement de vitesse de base
+			AttackSpeedEnchantmentCommon: Enchantement de vitesse Commun
+			AttackSpeedEnchantmentEpic: Vitesse d'attaque Enchantement Épique
+			AttackSpeedEnchantmentLegendary: Vitesse d'attaque Enchantement Légendaire
+			AttackSpeedEnchantmentRare: Enchantement de vitesse Rare
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basique
+			BerserkersRageEnchantmentCommon: Rage des berserkers Enchantement Commun
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantement Légendaire
+			BerserkersRageEnchantmentRare: Rage des Berserkers Enchantement Rare
+			CalmWatersEnchantmentBasic: Enchantement des eaux calmes de base
+			CalmWatersEnchantmentCommon: Eaux calmes Enchantement Commun
+			CalmWatersEnchantmentEpic: Épopée d'enchantement des eaux calmes
+			CalmWatersEnchantmentLegendary: Eaux calmes Enchantement Légendaire
+			CalmWatersEnchantmentRare: Eaux calmes Enchantement Rare
+			ChaoticFishingEnchantmentBasic: Enchantement de pêche chaotique de base
+			ChaoticFishingEnchantmentCommon: Pêche chaotique Enchantement Common
+			ChaoticFishingEnchantmentEpic: Épopée d'enchantement de pêche chaotique
+			ChaoticFishingEnchantmentLegendary: Pêche chaotique Enchantement Légendaire
+			ChaoticFishingEnchantmentRare: Pêche chaotique Enchantement Rare
+			ColdSteelEnchantmentBasic: Enchantement d'acier froid de base
+			ColdSteelEnchantmentCommon: Enchantement d'acier froid
+			ColdSteelEnchantmentEpic: Épopée d'enchantement d'acier froid
+			ColdSteelEnchantmentLegendary: Cold Steel Enchantement Légendaire
+			ColdSteelEnchantmentRare: Enchantement d'acier froid rare
+			CrateChanceEnchantmentBasic: Enchantement de chance de caisse de base
+			CrateChanceEnchantmentCommon: Chance de caisse Enchantement Commun
+			CrateChanceEnchantmentEpic: Épique d'enchantement de chance de caisse
+			CrateChanceEnchantmentLegendary: Caisse Chance Enchantement Légendaire
+			CrateChanceEnchantmentRare: Caisse Chance Enchantement Rare
+			CrateEnchantmentBasic: Caisse d'enchantement de base
+			CrateEnchantmentCommon: Enchantement de caisse commun
+			CrateEnchantmentEpic: Épique d'enchantement de caisse
+			CrateEnchantmentLegendary: Caisse Enchantement Légendaire
+			CrateEnchantmentRare: Enchantement de caisse rare
+			CriticalStrikeChanceEnchantmentBasic: Enchantement de Chance de coup critique de base
+			CriticalStrikeChanceEnchantmentCommon: Enchantement de Chance de coup critique Commun
+			CriticalStrikeChanceEnchantmentEpic: Épique d'enchantement de chance de coup critique
+			CriticalStrikeChanceEnchantmentLegendary: Chance de coup critique Enchantement Légendaire
+			CriticalStrikeChanceEnchantmentRare: Enchantement de Chance de coup critique Rare
+			CriticalStrikeDamageEnchantmentBasic: Enchantement de dégâts de coup critique de base
+			CriticalStrikeDamageEnchantmentCommon: Enchantement de dégâts de coup critique
+			CriticalStrikeDamageEnchantmentEpic: Épique d'enchantement de dégâts de coup critique
+			CriticalStrikeDamageEnchantmentLegendary: Enchantement de dégâts de coup critique Légendaire
+			CriticalStrikeDamageEnchantmentRare: Enchantement de dégâts de coup critique rare
+			CursedInfernoEnchantmentBasic: Enchantement de base de l'enfer maudit
+			CursedInfernoEnchantmentCommon: Inferno maudit Enchantement Common
+			CursedInfernoEnchantmentEpic: Épopée d'enchantement de l'enfer maudit
+			CursedInfernoEnchantmentLegendary: Inferno maudit Enchantement Légendaire
+			CursedInfernoEnchantmentRare: Inferno maudit Enchantement Rare
+			DamageEnchantmentBasic: Enchantement de dégâts de base
+			DamageEnchantmentCommon: Enchantement de dégâts Commun
+			DamageEnchantmentEpic: Épique d'enchantement de dégâts
+			DamageEnchantmentLegendary: Dégâts Enchantement Légendaire
+			DamageEnchantmentRare: Enchantement de dégâts Rare
+			DamageReductionEnchantmentBasic: Enchantement de réduction des dégâts de base
+			DamageReductionEnchantmentCommon: Enchantement de réduction des dégâts Commun
+			DamageReductionEnchantmentEpic: Enchantement épique de réduction des dégâts
+			DamageReductionEnchantmentLegendary: Enchantement de réduction des dégâts Légendaire
+			DamageReductionEnchantmentRare: Réduction des dégâts Enchantement Rare
+			DangerSenseEnchantmentBasic: Sens du danger Enchantement de base
+			DangerSenseEnchantmentCommon: Sens du danger Enchantement Commun
+			DangerSenseEnchantmentEpic: Épique d'enchantement Sens du danger
+			DangerSenseEnchantmentLegendary: Sens du danger Enchantement Légendaire
+			DangerSenseEnchantmentRare: Sens du danger Enchantement Rare
+			DaybreakEnchantmentBasic: Enchantement de l'aube de base
+			DaybreakEnchantmentCommon: Enchantement de l'aube Commun
+			DaybreakEnchantmentEpic: Épique d'enchantement de l'aube
+			DaybreakEnchantmentLegendary: Enchantement de l'aube Légendaire
+			DaybreakEnchantmentRare: Enchantement de l'aube rare
+			DefenseEnchantmentBasic: Enchantement de défense de base
+			DefenseEnchantmentCommon: Défense Enchantement Commun
+			DefenseEnchantmentEpic: Épique d'enchantement de défense
+			DefenseEnchantmentLegendary: Défense Enchantement Légendaire
+			DefenseEnchantmentRare: Défense Enchantement Rare
+			ExtraFishingLineEnchantmentBasic: Enchantement de ligne de pêche supplémentaire de base
+			ExtraFishingLineEnchantmentCommon: Enchantement de ligne de pêche supplémentaire
+			ExtraFishingLineEnchantmentEpic: Épique d'enchantement de ligne de pêche supplémentaire
+			ExtraFishingLineEnchantmentLegendary: Ligne de pêche supplémentaire Enchantement Légendaire
+			ExtraFishingLineEnchantmentRare: Enchantement de ligne de pêche supplémentaire rare
+			FishingEnchantmentBasic: Enchantement de pêche de base
+			FishingEnchantmentCommon: Pêche Enchantement Commun
+			FishingEnchantmentEpic: Épopée d'enchantement de pêche
+			FishingEnchantmentLegendary: Pêche Enchantement Légendaire
+			FishingEnchantmentRare: Pêche Enchantement Rare
+			FishingPowerEnchantmentBasic: Enchantement de puissance de pêche de base
+			FishingPowerEnchantmentCommon: Puissance de pêche Enchantement Commun
+			FishingPowerEnchantmentEpic: Épique d'enchantement de puissance de pêche
+			FishingPowerEnchantmentLegendary: Puissance de pêche Enchantement Légendaire
+			FishingPowerEnchantmentRare: Puissance de pêche Enchantement Rare
+			FrostburnEnchantmentBasic: Enchantement de base de brûlure de givre
+			FrostburnEnchantmentCommon: Enchantement de brûlure de givre
+			FrostburnEnchantmentEpic: Épique d'enchantement de brûlure de givre
+			FrostburnEnchantmentLegendary: Frostburn Enchantement Légendaire
+			FrostburnEnchantmentRare: Enchantement brûle-givre rare
+			GodSlayerEnchantmentBasic: Enchantement de Tueur de dieu de base
+			GodSlayerEnchantmentCommon: Enchantement de Tueur de dieu Commun
+			GodSlayerEnchantmentEpic: Épopée d'enchantement de God Slayer
+			GodSlayerEnchantmentLegendary: God Slayer Enchantement Légendaire
+			GodSlayerEnchantmentRare: Enchantement de Tueur de dieu Rare
+			HellsWrathEnchantmentBasic: Enchantement de Colère infernale de base
+			HellsWrathEnchantmentCommon: Enchantement de Colère infernale Commun
+			HellsWrathEnchantmentEpic: Épopée d'enchantement de Hells Wrath
+			HellsWrathEnchantmentLegendary: Hells Wrath Enchantement Légendaire
+			HellsWrathEnchantmentRare: Enchantement de Colère infernale Rare
+			HunterEnchantmentBasic: Chasseur Enchantement de base
+			HunterEnchantmentCommon: Chasseur Enchantement Commun
+			HunterEnchantmentEpic: Épique d'enchantement de chasseur
+			HunterEnchantmentLegendary: Chasseur Enchantement Légendaire
+			HunterEnchantmentRare: Chasseur Enchantement Rare
+			IchorEnchantmentBasic: Ichor Enchantement Basique
+			IchorEnchantmentCommon: Ichor Enchantement Commun
+			IchorEnchantmentEpic: Épopée d'enchantement d'ichor
+			IchorEnchantmentLegendary: Ichor Enchantement Légendaire
+			IchorEnchantmentRare: Ichor Enchantement Rare
+			JuicedEnchantmentBasic: Enchantement jus de base
+			JuicedEnchantmentCommon: Enchantement de jus Commun
+			JuicedEnchantmentEpic: Jus d'enchantement épique
+			JuicedEnchantmentLegendary: Jus Enchantement Légendaire
+			JuicedEnchantmentRare: Enchantement jus Rare
+			JunglesFuryEnchantmentBasic: Enchantement de Fureur de la jungle de base
+			JunglesFuryEnchantmentCommon: Enchantement de Fureur de la jungle Commun
+			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Épique
+			JunglesFuryEnchantmentLegendary: Jungles Fureur Enchantement Légendaire
+			JunglesFuryEnchantmentRare: Enchantement de Fureur de la jungle Rare
+			KiClassSwapEnchantmentBasic: Enchantement d'échange de classe Ki de base
+			KiClassSwapEnchantmentCommon: Enchantement d'échange de classe Ki
+			KiClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Ki
+			KiClassSwapEnchantmentLegendary: Enchantement d'échange de classe Ki Légendaire
+			KiClassSwapEnchantmentRare: Enchantement d'échange de classe Ki rare
+			KiEnchantmentBasic: Enchantement Ki de base
+			KiEnchantmentCommon: Ki Enchantement Commun
+			KiEnchantmentEpic: Épique d'enchantement de Ki
+			KiEnchantmentLegendary: Ki Enchantement Légendaire
+			KiEnchantmentRare: Ki Enchantement Rare
+			LavaFishingEnchantmentBasic: Enchantement de pêche à la lave de base
+			LavaFishingEnchantmentCommon: Enchantement de pêche à la lave Commun
+			LavaFishingEnchantmentEpic: Épopée d'enchantement de pêche à la lave
+			LavaFishingEnchantmentLegendary: Pêche à la lave Enchantement Légendaire
+			LavaFishingEnchantmentRare: Pêche à la lave Enchantement Rare
+			LifeRegenEnchantmentBasic: Enchantement de régénération de vie de base
+			LifeRegenEnchantmentCommon: Enchantement de régénération de vie
+			LifeRegenEnchantmentEpic: Épopée d'enchantement de régénération de vie
+			LifeRegenEnchantmentLegendary: Régénération de vie Enchantement Légendaire
+			LifeRegenEnchantmentRare: Enchantement de régénération de vie rare
+			LifeStealEnchantmentBasic: Enchantement de Vol de vie de base
+			LifeStealEnchantmentCommon: Enchantement de Vol de vie Commun
+			LifeStealEnchantmentEpic: Épique d'enchantement de vol de vie
+			LifeStealEnchantmentLegendary: Vol de vie Enchantement Légendaire
+			LifeStealEnchantmentRare: Enchantement de Vol de vie Rare
+			LuckEnchantmentBasic: Chance Enchantement Basique
+			LuckEnchantmentCommon: Chance Enchantement Commun
+			LuckEnchantmentEpic: Chance Enchantement Epic
+			LuckEnchantmentLegendary: Chance Enchantement Légendaire
+			LuckEnchantmentRare: Chance Enchantement Rare
+			MagicClassSwapEnchantmentBasic: Enchantement d'échange de classe magique de base
+			MagicClassSwapEnchantmentCommon: Enchantement d'échange de classe magique Commun
+			MagicClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe magique
+			MagicClassSwapEnchantmentLegendary: Échange de classe magique Enchantement Légendaire
+			MagicClassSwapEnchantmentRare: Enchantement d'échange de classe magique rare
+			MaxMinionsEnchantmentBasic: Enchantement de Sbires max de base
+			MaxMinionsEnchantmentCommon: Enchantement de Sbires max Commun
+			MaxMinionsEnchantmentEpic: Épique d'enchantement Max Minions
+			MaxMinionsEnchantmentLegendary: Max Minions Enchantement Légendaire
+			MaxMinionsEnchantmentRare: Enchantement de Sbires max Rare
+			MeleeClassSwapEnchantmentBasic: Enchantement d'échange de classe de mêlée de base
+			MeleeClassSwapEnchantmentCommon: Enchantement d'échange de classe de mêlée Commun
+			MeleeClassSwapEnchantmentEpic: Épique d'enchantement d'échange de classe de mêlée
+			MeleeClassSwapEnchantmentLegendary: Échange de classe de mêlée Enchantement Légendaire
+			MeleeClassSwapEnchantmentRare: Enchantement d'échange de classe de mêlée rare
+			MobilityControlEnchantmentBasic: Enchantement de contrôle de la mobilité de base
+			MobilityControlEnchantmentCommon: Enchantement de contrôle de la mobilité Commun
+			MobilityControlEnchantmentEpic: Épopée d'enchantement de contrôle de la mobilité
+			MobilityControlEnchantmentLegendary: Contrôle de la mobilité Enchantement Légendaire
+			MobilityControlEnchantmentRare: Contrôle de la mobilité Enchantement Rare
+			MoonlightEnchantmentBasic: Enchantement de Clair de lune de base
+			MoonlightEnchantmentCommon: Enchantement de Clair de lune Commun
+			MoonlightEnchantmentEpic: Épopée d'enchantement au clair de lune
+			MoonlightEnchantmentLegendary: Enchantement au clair de lune Légendaire
+			MoonlightEnchantmentRare: Enchantement de Clair de lune rare
+			MovementSpeedEnchantmentBasic: Enchantement de Vitesse de déplacement de base
+			MovementSpeedEnchantmentCommon: Enchantement de Vitesse de déplacement Commun
+			MovementSpeedEnchantmentEpic: Vitesse de déplacement Enchantement Épique
+			MovementSpeedEnchantmentLegendary: Vitesse de déplacement Enchantement Légendaire
+			MovementSpeedEnchantmentRare: Enchantement de Vitesse de déplacement Rare
+			MultishotEnchantmentBasic: Enchantement de Multi-tir de base
+			MultishotEnchantmentCommon: Enchantement de Multi-tir Commun
+			MultishotEnchantmentEpic: Épique d'enchantement à plusieurs coups
+			MultishotEnchantmentLegendary: Enchantement Multishot Légendaire
+			MultishotEnchantmentRare: Enchantement de Multi-tir Rare
+			NpcContactAnglerEnchantmentBasic: Enchantement de base du pêcheur à la ligne de contact Npc
+			NpcContactAnglerEnchantmentCommon: PNJ Contact Pêcheur Enchantement Commun
+			NpcContactAnglerEnchantmentEpic: Npc Contact Angler Enchantment Epic
+			NpcContactAnglerEnchantmentLegendary: Npc Contact Pêcheur Enchantement Légendaire
+			NpcContactAnglerEnchantmentRare: Npc Contact Pêcheur Enchantement Rare
+			ObsidianSkinEnchantmentBasic: Enchantement de peau d'obsidienne de base
+			ObsidianSkinEnchantmentCommon: Enchantement de peau d'obsidienne
+			ObsidianSkinEnchantmentEpic: Épopée d'enchantement de peau d'obsidienne
+			ObsidianSkinEnchantmentLegendary: Enchantement de peau d'obsidienne Légendaire
+			ObsidianSkinEnchantmentRare: Enchantement de peau d'obsidienne rare
+			OneForAllEnchantmentBasic: Enchantement Un pour tous de base
+			OneForAllEnchantmentCommon: Enchantement Un pour tous commun
+			OneForAllEnchantmentEpic: Épique d'enchantement One For All
+			OneForAllEnchantmentLegendary: Un pour tous Enchantement Légendaire
+			OneForAllEnchantmentRare: Enchantement Un pour tous rare
+			OnFireEnchantmentBasic: Enchantement de base en feu
+			OnFireEnchantmentCommon: Enchantement en feu Commun
+			OnFireEnchantmentEpic: Enchantement épique en feu
+			OnFireEnchantmentLegendary: Enchantement Enflammé Légendaire
+			OnFireEnchantmentRare: Enchantement Enflammé Rare
+			PeaceEnchantmentBasic: Enchantement de paix de base
+			PeaceEnchantmentCommon: Enchantement de paix Commun
+			PeaceEnchantmentEpic: Épopée d'enchantement de la paix
+			PeaceEnchantmentLegendary: Paix Enchantement Légendaire
+			PeaceEnchantmentRare: Enchantement de paix Rare
+			PennyPinchingEnchantmentBasic: Penny Pinching Enchantement Basique
+			PennyPinchingEnchantmentCommon: Penny Pincement Enchantement Commun
+			PennyPinchingEnchantmentEpic: Penny Pinching Enchantement épique
+			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantement Légendaire
+			PennyPinchingEnchantmentRare: Penny Pinching Enchantement Rare
+			ProjectileVelocityEnchantmentBasic: Enchantement de vitesse de tir de base
+			ProjectileVelocityEnchantmentCommon: Enchantement de vitesse de tir Commun
+			ProjectileVelocityEnchantmentEpic: Épique d'enchantement de vitesse de projectile
+			ProjectileVelocityEnchantmentLegendary: Vitesse du projectile Enchantement Légendaire
+			ProjectileVelocityEnchantmentRare: Enchantement de vitesse de tir Rare
+			RangedClassSwapEnchantmentBasic: Enchantement d'échange de classe à distance de base
+			RangedClassSwapEnchantmentCommon: Enchantement d'échange de classe à distance Commun
+			RangedClassSwapEnchantmentEpic: Épique d'enchantement d'échange de classe à distance
+			RangedClassSwapEnchantmentLegendary: Échange de classe à distance Enchantement Légendaire
+			RangedClassSwapEnchantmentRare: Enchantement d'échange de classe à distance rare
+			ReducedManaUsageEnchantmentBasic: Enchantement de mana de base
+			ReducedManaUsageEnchantmentCommon: Enchantement de mana Commun
+			ReducedManaUsageEnchantmentEpic: Épique d'enchantement d'utilisation de mana réduite
+			ReducedManaUsageEnchantmentLegendary: Réduction de l'utilisation du mana Enchantement Légendaire
+			ReducedManaUsageEnchantmentRare: Enchantement de mana Rare
+			RogueClassSwapEnchantmentBasic: Enchantement d'échange de classe voleur de base
+			RogueClassSwapEnchantmentCommon: Enchantement d'échange de classe Rogue Common
+			RogueClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Rogue
+			RogueClassSwapEnchantmentLegendary: Rogue Class Swap Enchantement Légendaire
+			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantement Rare
+			SizeEnchantmentBasic: Enchantement de taille de base
+			SizeEnchantmentCommon: Enchantement de taille Commun
+			SizeEnchantmentEpic: Taille Enchantement Épique
+			SizeEnchantmentLegendary: Taille Enchantement Légendaire
+			SizeEnchantmentRare: Enchantement de taille Rare
+			SolarDashEnchantmentBasic: Solar Dash Enchantement de base
+			SolarDashEnchantmentCommon: Enchantement Solar Dash Commun
+			SolarDashEnchantmentEpic: Épopée d'enchantement Solar Dash
+			SolarDashEnchantmentLegendary: Solar Dash Enchantement Légendaire
+			SolarDashEnchantmentRare: Élan solaire Enchantement Rare
+			SonarEnchantmentBasic: Enchantement de base du sonar
+			SonarEnchantmentCommon: Enchantement de sonar Commun
+			SonarEnchantmentEpic: Épopée d'enchantement de sonar
+			SonarEnchantmentLegendary: Sonar Enchantement Légendaire
+			SonarEnchantmentRare: Enchantement sonar rare
+			SpelunkerEnchantmentBasic: Enchantement de spéléologue de base
+			SpelunkerEnchantmentCommon: Enchantement de spéléologue Commun
+			SpelunkerEnchantmentEpic: Épopée d'enchantement de spéléologue
+			SpelunkerEnchantmentLegendary: Spéléologue Enchantement Légendaire
+			SpelunkerEnchantmentRare: Enchantement de spéléologue rare
+			VenomEnchantmentBasic: Enchantement de venin de base
+			VenomEnchantmentCommon: Enchantement de venin Commun
+			VenomEnchantmentEpic: Épique d'enchantement de venin
+			VenomEnchantmentLegendary: Venin Enchantement Légendaire
+			VenomEnchantmentRare: Enchantement de venin rare
+			WarEnchantmentBasic: Enchantement de guerre de base
+			WarEnchantmentCommon: Enchantement de guerre Commun
+			WarEnchantmentEpic: Épopée d'enchantement de guerre
+			WarEnchantmentLegendary: Guerre Enchantement Légendaire
+			WarEnchantmentRare: Enchantement de guerre Rare
+			WhipClassSwapEnchantmentBasic: Enchantement d'échange de classe Whip Basic
+			WhipClassSwapEnchantmentCommon: Enchantement d'échange de classe de fouet Commun
+			WhipClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe de fouet
+			WhipClassSwapEnchantmentLegendary: Échange de classe de fouet Enchantement Légendaire
+			WhipClassSwapEnchantmentRare: Enchantement d'échange de classe de fouet rare
+			WorldAblazeEnchantmentBasic: Enchantement du Monde Enflammé de base
+			WorldAblazeEnchantmentCommon: Enchantement du Monde Enflammé Commun
+			WorldAblazeEnchantmentEpic: World Ablaze Enchantment Epic
+			WorldAblazeEnchantmentLegendary: World Ablaze Enchantement Légendaire
+			WorldAblazeEnchantmentRare: Enchantement du Monde Enflammé Rare
+			Containment: Conteneur
+			DustyEnchantingTable: Table d'enchantement poussiéreuse
+			EnchantmentEssenceBasic: Essence d'enchantement de base
+			EnchantmentEssenceCommon: Essence d'enchantement commune
+			EnchantmentEssenceEpic: Essence d'enchantement épique
+			EnchantmentEssenceLegendary: Enchantement Essence Légendaire
+			EnchantmentEssenceRare: Essence d'enchantement rare
+			HellishEnchantingTable: Table d'enchantement infernale
+			MediumContainment: Conteneur moyen
+			PowerBooster: Amplificateur de puissance
+			SoulEnchantingTable: Table d'enchantement d'âme
+			SuperiorContainment: Conteneur supérieur
+			UltimateEnchantingTable: Table d'enchantement ultime
+			UltraPowerBooster: Amplificateur de puissance ultra
+			WoodEnchantingTable: Table d'enchantement en bois
 		}
-
+		BuffName: {
+			Amaterasu: Amaterasu
+		}
+		Bestiary: {
+			Witch: La sorcière est une femme laide et méchante et s'occupe d'autres choses méchantes. Elle fait le commerce de matériaux douteux utilisés pour améliorer des équipements aux effets mystérieux.
+		}
 		Dialogue: {
 			Witch: {
 				BirthdayParty: POURQUOI SUIS-JE FORCÉ DE M'HABILLER EN ROSE ? ! C'EST HORRIBLE, CETTE FÊTE PUE !
 				BloodMoon: Je suis vraiment désolé pour mon comportement antérieur. Je n'étais pas à mon meilleur à l'époque, et si je me suis montré impoli, je m'en excuse.
 				Corrupt: Oh ! La crasse ici est belle! J'ai hâte d'embrasser de nouvelles découvertes!
 				Crimson: Oh ! Le gore ici est charmant! J'ai hâte d'embrasser de nouvelles découvertes!
-				Dryad: Cette... {0} personne est tellement cliché ! 'Sauvez le monde du mal' Les maux sont profondément enracinés, et là pour rester!
+				Dryad: "Cette... {0} personne est tellement cliché ! 'Sauvez le monde du mal' Les maux sont profondément enracinés, et là pour rester!"
 				DyeTrader: "{0} me met toujours en contact avec les noirs les plus sombres et les verts les plus effrayants ! Ces couleurs me donnent beaucoup d'éclat et me font paraître si mince !"
 				Graveyard: Certaines personnes pourraient trouver les morts effrayants, mais ce « silencieux des morts » est en fait assez énergique ! Nyack nyack nyack !
-				Princess: Ugh ! {0} est toujours sur mon cas ! Je ne sais pas ce que sont 'l'éthique' ou la 'morale', mais elle ne quittera pas ma place!
+				Princess: "Ugh ! {0} est toujours sur mon cas ! Je ne sais pas ce que sont 'l'éthique' ou la 'morale', mais elle ne quittera pas ma place!"
 				QueenBee: La jungle a les meilleurs ingrédients pour le brassage. Dommage qu'un ravageur bourdonnant géant infeste !
 				StandardDialogue0: J'ai appris cette recette, elle est vraiment chouette, je la garderai plus tard pour votre plaisir !
 				StandardDialogue1: Pourquoi est-ce que je parle tout le temps, c'est vraiment dur de faire rimer ça !
 				StandardDialogue2: Je suis toujours là, je te regarde jouer, mais je n'ai pas grand-chose à dire !
 				Storm: Ha ! Thunder est le meilleur quand il s'agit de créer de nouvelles absurdités magiques ! Que la grande heure des sorcières commence !
-				WitchDoctor: Un autre utilisateur de chaudron ! {0} a tellement de gadgets étranges, un vrai séducteur !
-				Wizard: Bien que {0} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !
+				WitchDoctor: "Un autre utilisateur de chaudron ! {0} a tellement de gadgets étranges, un vrai séducteur !"
+				Wizard: "Bien que {0} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !"
 				Zoologist: "{0} est une fille tyrannique qui n'arrête pas de laisser des cheveux partout, je vais lui faire payer la guerre !"
 			}
 		}
-
-		EnchantmentStorageText: {
-			Add: Ajouter
-			AddFromEquippedEnchantments: Ajouter à partir des enchantements équipés
-			All: Tous
-			Delete: Supprimer
-			EnchantmentLoadouts: Chargements d'enchantement
-			EnchantmentStorage: Stockage d'enchantement
-			HeldItem: Article retenu
-			Loadout: Chargement
-			LoadoutSizeChanged: Détecté moins d'emplacements d'accessoires qu'auparavant. Les enchantements dans les emplacements excédentaires ont été rendus.
-			ManageOfferedItems: Gérer les articles offerts
-			ManageTrash: Gérer la corbeille
-			NoAccessories: Vous devez porter au moins un accessoire pour échanger des chargements d'enchantement.
-			NoArmor: Vous devez porter un casque, une poitrine ou des jambes pour échanger des chargements d'enchantement.
-			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
-			NoItems: Vous devez tenir un objet enchantable ou porter une pièce d'armure ou un accessoire pour échanger des chargements d'enchantement.
-			NotEnoughEnchantments: Il vous manque des enchantements pour ce chargement. {0}
-			NotHighEnoughLevel: Votre {0} n'est pas assez haut pour appliquer les enchantements de ce chargement.
-			OreBag: Sac de minerai
-			QuickCraft: Artisanat rapide
-			RevertAllToBasic: Rétablir tout en basique
-			ToggleMarkTrash: Activer/Désactiver la corbeille
-			UncraftAllTrash: Défaire tous les déchets
+		ItemTooltip: {
+			Containment: Utilisé pour stocker les enchantements de base
+			DustyEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 1)
+			EnchantmentEssenceBasic: 
+				'''
+				Matériel de base pour fabriquer et améliorer des enchantements.
+				Peut être converti en 400 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceCommon: 
+				'''
+				Matériau commun pour fabriquer et améliorer des enchantements.
+				Peut être converti en 1600 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceEpic: 
+				'''
+				Matériel épique pour fabriquer et améliorer des enchantements.
+				Peut être converti en 25600 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceLegendary: 
+				'''
+				Matériau légendaire pour fabriquer et améliorer des enchantements.
+				Peut être converti en 102400 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceRare: 
+				'''
+				Matériau rare pour fabriquer et améliorer des enchantements.
+				Peut être converti en 6400 points d'expérience dans une table d'enchantement.
+				'''
+			HellishEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 2)
+			MediumContainment: Utilisé pour stocker des enchantements communs
+			PowerBooster: 
+				'''
+				Utilisez-le pendant que l'objet que vous souhaitez booster se trouve dans une table d'enchantement pour augmenter son niveau de base de 10.
+				(Maj clic gauche depuis votre inventaire ou clic gauche sur l'élément dans le tableau avec ceci sur votre curseur.)
+				Cet article sera retourné si l'article boosté est offert.
+				'''
+			SoulEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (Niveau 3)
+			SuperiorContainment: Utilisé pour stocker des enchantements rares
+			UltimateEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 4)
+			UltraPowerBooster: 
+				'''
+				Utilisez-le pendant que l'objet que vous souhaitez booster se trouve dans une table d'enchantement pour augmenter son niveau de base de 20.
+				(Maj clic gauche depuis votre inventaire ou clic gauche sur l'élément dans le tableau avec ceci sur votre curseur.)
+				Cet article sera retourné si l'article boosté est offert.
+				'''
+			WoodEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 0)
 		}
-
-		GameMessages: {
-			AlreadyMaxLevel: Votre {0} est déjà au niveau maximum.
-			Back: Dos
-			CannotGainAdditionalPower: Votre {0}({1}) ne peut pas obtenir de puissance supplémentaire grâce au {2}({3}) proposé.
-			CantInfusionArmorDifferentTypes: Vous ne pouvez pas infuser des armures de différents types, comme un casque et un corps.
-			CongradulationsMaxLevel: Félicitations ! Le {1} de {0} a atteint le niveau maximum, {2} ({3} xp).
-			CouldntFindItemsInWeaponsList: Impossible de trouver des éléments dans WeaponsList ou WeaponCraftingIngredients avec les noms :
-			CouldntFindNPCsInIngredientsList: Impossible de trouver des PNJ dans NPCsThatDropWeaponsOrIngredients avec les noms :
-			DailyFishingQuestReset: La quête de pêche quotidienne a été réinitialisée. Votre prochaine quête est {0}.
-			DetectedNonEnchantmentInEnchantmentSlot: Détection d'un objet non-enchantement :{0} sur votre {1}. Il a été renvoyé dans votre inventaire.
-			EnchantmentNoLongerAllowed: "{0} n'est plus autorisé sur {1} et a été supprimé de votre {2}."
-			FailedConvertExcessExperience: Échec de CheckConvertExcessExperience (élément : {0}, consomméItem : {1})
-			FailedFindBossBag: Impossible de trouver le sac du patron pour le patron :
-			FailedFindItemDropsForGroup: Impossible de trouver des objets récupérés pour les objets de butin du groupe
-			FailedInfuseItem: Échec de l'infusion de l'élément : {0} avec l'élément consommé : {1}
-			FailedReplaceOldItem: Échec du remplacement de l'ancien élément :
-			FailedReplaceWithCoins: Échec du remplacement de l'élément : {0} par des pièces
-			FailedToCloneItem: Dans EnchantedItem, échec du clonage (élément : {0}, itemClone : {1}), cloneReforgedItem : {2}, resetGlobals : {3}.
-			FailedToFindInfusionPower: Impossible de trouver un pouvoir d'infusion pour l'élément :
-			FailedToLocateAngler: Impossible de localiser le pêcheur. Vous recevrez toujours des récompenses
-			FavoritedItemsCantBeConsumedForInfusion: Les articles favoris ne peuvent pas être consommés pour infusion.
-			FishingQuestTurnedIn: Quête terminée. Votre prochaine quête est {0}. Quêtes terminées : {1}
-			InfusionConsumeItemWasNull: wePlayer.infusionConsumeItem était nul, tableItem : {0}{1}, infusionConsumeItem : {2}{3}
-			InfusionOnlyPossibleSameType: L'infusion n'est possible qu'entre objets du même type (Arme/Armure)
-			InfusionPowerMustBeLower: La puissance d'infusion de l'objet en cours de mise à niveau doit être inférieure à la puissance d'infusion de l'objet consommé.
-			IngredientInfusionPowersNotSetup: Les pouvoirs d'infusion des ingrédients ne sont pas configurés
-			IngredientsFromLootItemsNotincluded: Ingrédients de WeaponsFromLootItems non inclus dans ItemInfusionPowers
-			ItemLevelUp: "{1} de {0} a atteint le niveau {2} ({3} XP)."
-			ItemRemovedFromWeaponEnchantments: "{0} a été supprimé des enchantements d'armes."
-			ItemRemovedRecieveCoins: "{0} a été supprimé des enchantements d'armes. Vous avez reçu des pièces égales à son prix de vente."
-			ItemRemovedReiceveCompensation: "{0} a été supprimé des enchantements d'armes. Vous avez reçu {1} en compensation."
-			ItemRemovedRelacedWithItem: "{0} a été supprimé des enchantements d'armes. Il a été remplacé par {1}"
-			ItemsFromLootItemsNotIncluded: Objets de WeaponsFromLootItems non inclus dans ItemInfusionPowers
-			ItemsFromNPCIngredientsNotIncluded: Articles provenant d'IngredientsFromNPCs non inclus dans ItemInfusionPowers
-			ItemsFromNPCsNotIncluded: Objets de WeaponsFromNPCs non inclus dans ItemInfusionPowers
-			ItemTooLowLevel: Votre niveau {0} est trop bas pour utiliser autant d'enchantements.
-			LogInfusionPowerLabels: Mod, arme, puissance d'infusion, rareté de la valeur, rareté, rareté d'origine, valeur, ID d'article, dégâts, temps d'utilisation, DPS
-			LogInfusionPowerOtherLabels: Rareté, Moyenne, Min, Max
-			MinSiphonXP: Vous ne pouvez siphonner un objet que s'il possède au moins {0} d'expérience.
-			MultipleUniqueEnchantments: Plusieurs enchantements uniques ont été détectés sur votre {0}. {1} a été supprimé de votre {2}.
-			MurasamaNoInfusion: Murasama ne peut pas être consommé en infusion.
-			NewItemIsAir: newItem était air.
-			NoLongerAllowedOnDamageType: "{0} n'est plus autorisé sur les armes {1} et a été supprimé de votre {2}."
-			NoLongerUtilityEnchantment: "{0} n'est plus un enchantement utilitaire et a été supprimé de votre {1}."
-			NonEnchantableItemInTable:
-				'''
-				Objet non enchantable détecté dans le tableau : {0}.
-				ATTENTION, N'APPUYEZ PAS SUR CONFIRMER.
-				Veuillez signaler ce problème à andro951 (Enchantements d'armes)
-				'''
-			NotEnchantableAndNotAirInfusionItem: tableItem : {0}{1} n'est pas enchantable et infusionConsumeItem : {2}{3} n'est pas de l'air
-			NotEnoughEssence: Pas assez d'essence. Vous avez besoin de {0} d'expérience pour le niveau {1}, vous n'avez que {2} disponibles.
-			NowLimitedToOne: "{0} Les enchantements sont désormais limités à 1 par objet. {1} a été supprimé de votre {2}."
-			NPCInProgressionGroupNotInDropList: Détection d'un PNJ dans un groupe de progression qui n'est pas dans NPCsThatDropWeaponsOrIngredients.
-			NPCInProgressionGroupNoUniqueEnchantments: Détection d'un PNJ dans un groupe de progression qui n'a pas d'armes ou d'ingrédients uniques.
-			OpenEnchantingTableFirstTime:
-				'''
-				Vous sentez que tous vos enchantements et votre essence sont attirés vers la table d'enchantement.
-				Les enchantements d'armes ont leur propre stockage à l'intérieur de la table d'enchantement.
-				Récupérer des enchantements, des essences et d’autres objets d’enchantements d’armes les enverra automatiquement vers le stockage de la table d’enchantement.
-				'''
-			OreInfusionPowerNotSetup: La puissance d'infusion du minerai {0} n'est pas configurée. Puissance d'infusion estimée :
-			PreventedIssueLooseExperience: Un problème qui entraînerait une réduction de votre XP a été évité. (xpInt < 0) élément : {0}, cible : {1}, coup : {2}, mêlée : {3}, Main.GameMode : {4}, target.defense : {5}, xpDamage : {6}, lowDamagePerHitXPBoost : {7}
-			PreventedIssueLooseExperienceTwo: "Prévention d'un problème qui vous ferait perdre de l'expérience. (xpInt < 0) objet : {0}, cible : {1}, coup : {2}, mêlée : {3}, Main.GameMode : {4}, xpDamage : {5}, xpInt : {6}, lowDamagePerHitXPBoost : {7}, "
-			PreventedLoosingExperience: Empêché votre {0} de perdre de l'expérience en raison d'une erreur de calcul.
-			PreventedWitchShopDuplication: Correction d'un problème qui ajoutait un objet en double à l'objet de la boutique de la sorcière :
-			RemovedEnchantedItemData: Données EnchantedItem supprimées de l'élément : {0}, nombre : {1}, newCount : {2}
-			RemovedUnloadedEnchantmentFromItem: Objet déchargé supprimé : {0} de votre {1}. Veuillez en informer andro951 (WeaponEnchantments).
-			RerollEnchantment: Relancer l'enchantement
-			ResistsYourAttemptToEmpower: Le {0} a résisté à votre tentative de lui donner du pouvoir.
-			SameSetBonusNoEffect: L'objet en cours de mise à niveau a le même bonus d'ensemble que l'objet en cours de consommation et n'aura aucun effet.
-			SlotNumDisabledByConfig: Emplacement {0} désactivé par la configuration. {1} supprimé de votre {2}.
-			TryInfuseFailed: Echec de TryInfuseItem, tableItem : {0}{1}, infusionConsumeItem : {2}{3}
-			WeaponInfusionPowersNotSetup: Les pouvoirs d'infusion d'armes ne sont pas configurés
-			WitchChatText: Que veux-tu de plus? Je suis occupé.
-			WitchEnchantmentRerolText: Je suppose que je pourrais essayer d'améliorer vos enchantements, mais pas de remboursement ni de réclamation.
-			WitchSpawnCondition: Ayez un enchantement dans votre inventaire ou sur votre équipement.
-		}
-
-		Items: {
-			AllForOneEnchantmentBasic.DisplayName: Enchantement Tous pour un de base
-			AllForOneEnchantmentCommon.DisplayName: Enchantement Tous pour un commun
-			AllForOneEnchantmentEpic.DisplayName: Tout pour un enchantement épique
-			AllForOneEnchantmentLegendary.DisplayName: All For One Enchantement Légendaire
-			AllForOneEnchantmentRare.DisplayName: Enchantement Tous pour un rare
-			AmmoCostEnchantmentBasic.DisplayName: Enchantement de coût en munitions de base
-			AmmoCostEnchantmentCommon.DisplayName: Enchantement de coût en munitions Commun
-			AmmoCostEnchantmentEpic.DisplayName: Épique d'enchantement de coût de munitions
-			AmmoCostEnchantmentLegendary.DisplayName: Coût en munitions Enchantement Légendaire
-			AmmoCostEnchantmentRare.DisplayName: Enchantement de coût en munitions Rare
-			AttackSpeedEnchantmentBasic.DisplayName: Enchantement de vitesse de base
-			AttackSpeedEnchantmentCommon.DisplayName: Enchantement de vitesse Commun
-			AttackSpeedEnchantmentEpic.DisplayName: Vitesse d'attaque Enchantement Épique
-			AttackSpeedEnchantmentLegendary.DisplayName: Vitesse d'attaque Enchantement Légendaire
-			AttackSpeedEnchantmentRare.DisplayName: Enchantement de vitesse Rare
-			BardClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de barde de base
-			BardClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de barde Commun
-			BardClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de barde
-			BardClassSwapEnchantmentLegendary.DisplayName: Barde Échange de classe Enchantement Légendaire
-			BardClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de barde rare
-			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Enchantment Basique
-			BerserkersRageEnchantmentCommon.DisplayName: Rage des berserkers Enchantement Commun
-			BerserkersRageEnchantmentEpic.DisplayName: Rage du Berserker Enchantement Épique
-			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rage Enchantement Légendaire
-			BerserkersRageEnchantmentRare.DisplayName: Rage des Berserkers Enchantement Rare
-			CalmWatersEnchantmentBasic.DisplayName: Enchantement des eaux calmes de base
-			CalmWatersEnchantmentCommon.DisplayName: Eaux calmes Enchantement Commun
-			CalmWatersEnchantmentEpic.DisplayName: Épopée d'enchantement des eaux calmes
-			CalmWatersEnchantmentLegendary.DisplayName: Eaux calmes Enchantement Légendaire
-			CalmWatersEnchantmentRare.DisplayName: Eaux calmes Enchantement Rare
-			ChaoticFishingEnchantmentBasic.DisplayName: Enchantement de pêche chaotique de base
-			ChaoticFishingEnchantmentCommon.DisplayName: Pêche chaotique Enchantement Common
-			ChaoticFishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche chaotique
-			ChaoticFishingEnchantmentLegendary.DisplayName: Pêche chaotique Enchantement Légendaire
-			ChaoticFishingEnchantmentRare.DisplayName: Pêche chaotique Enchantement Rare
-			ColdSteelEnchantmentBasic.DisplayName: Enchantement d'acier froid de base
-			ColdSteelEnchantmentCommon.DisplayName: Enchantement d'acier froid
-			ColdSteelEnchantmentEpic.DisplayName: Épopée d'enchantement d'acier froid
-			ColdSteelEnchantmentLegendary.DisplayName: Cold Steel Enchantement Légendaire
-			ColdSteelEnchantmentRare.DisplayName: Enchantement d'acier froid rare
-
-			Containment: {
-				DisplayName: Conteneur
-				Tooltip: Utilisé pour stocker les enchantements de base
-			}
-
-			CrateChanceEnchantmentBasic.DisplayName: Enchantement de chance de caisse de base
-			CrateChanceEnchantmentCommon.DisplayName: Chance de caisse Enchantement Commun
-			CrateChanceEnchantmentEpic.DisplayName: Épique d'enchantement de chance de caisse
-			CrateChanceEnchantmentLegendary.DisplayName: Caisse Chance Enchantement Légendaire
-			CrateChanceEnchantmentRare.DisplayName: Caisse Chance Enchantement Rare
-			CrateEnchantmentBasic.DisplayName: Caisse d'enchantement de base
-			CrateEnchantmentCommon.DisplayName: Enchantement de caisse commun
-			CrateEnchantmentEpic.DisplayName: Épique d'enchantement de caisse
-			CrateEnchantmentLegendary.DisplayName: Caisse Enchantement Légendaire
-			CrateEnchantmentRare.DisplayName: Enchantement de caisse rare
-			CriticalStrikeChanceEnchantmentBasic.DisplayName: Enchantement de Chance de coup critique de base
-			CriticalStrikeChanceEnchantmentCommon.DisplayName: Enchantement de Chance de coup critique Commun
-			CriticalStrikeChanceEnchantmentEpic.DisplayName: Épique d'enchantement de chance de coup critique
-			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Chance de coup critique Enchantement Légendaire
-			CriticalStrikeChanceEnchantmentRare.DisplayName: Enchantement de Chance de coup critique Rare
-			CriticalStrikeDamageEnchantmentBasic.DisplayName: Enchantement de dégâts de coup critique de base
-			CriticalStrikeDamageEnchantmentCommon.DisplayName: Enchantement de dégâts de coup critique
-			CriticalStrikeDamageEnchantmentEpic.DisplayName: Épique d'enchantement de dégâts de coup critique
-			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Enchantement de dégâts de coup critique Légendaire
-			CriticalStrikeDamageEnchantmentRare.DisplayName: Enchantement de dégâts de coup critique rare
-			CursedInfernoEnchantmentBasic.DisplayName: Enchantement de base de l'enfer maudit
-			CursedInfernoEnchantmentCommon.DisplayName: Inferno maudit Enchantement Common
-			CursedInfernoEnchantmentEpic.DisplayName: Épopée d'enchantement de l'enfer maudit
-			CursedInfernoEnchantmentLegendary.DisplayName: Inferno maudit Enchantement Légendaire
-			CursedInfernoEnchantmentRare.DisplayName: Inferno maudit Enchantement Rare
-			DamageEnchantmentBasic.DisplayName: Enchantement de dégâts de base
-			DamageEnchantmentCommon.DisplayName: Enchantement de dégâts Commun
-			DamageEnchantmentEpic.DisplayName: Épique d'enchantement de dégâts
-			DamageEnchantmentLegendary.DisplayName: Dégâts Enchantement Légendaire
-			DamageEnchantmentRare.DisplayName: Enchantement de dégâts Rare
-			DamageReductionEnchantmentBasic.DisplayName: Enchantement de réduction des dégâts de base
-			DamageReductionEnchantmentCommon.DisplayName: Enchantement de réduction des dégâts Commun
-			DamageReductionEnchantmentEpic.DisplayName: Enchantement épique de réduction des dégâts
-			DamageReductionEnchantmentLegendary.DisplayName: Enchantement de réduction des dégâts Légendaire
-			DamageReductionEnchantmentRare.DisplayName: Réduction des dégâts Enchantement Rare
-			DangerSenseEnchantmentBasic.DisplayName: Sens du danger Enchantement de base
-			DangerSenseEnchantmentCommon.DisplayName: Sens du danger Enchantement Commun
-			DangerSenseEnchantmentEpic.DisplayName: Épique d'enchantement Sens du danger
-			DangerSenseEnchantmentLegendary.DisplayName: Sens du danger Enchantement Légendaire
-			DangerSenseEnchantmentRare.DisplayName: Sens du danger Enchantement Rare
-			DaybreakEnchantmentBasic.DisplayName: Enchantement de l'aube de base
-			DaybreakEnchantmentCommon.DisplayName: Enchantement de l'aube Commun
-			DaybreakEnchantmentEpic.DisplayName: Épique d'enchantement de l'aube
-			DaybreakEnchantmentLegendary.DisplayName: Enchantement de l'aube Légendaire
-			DaybreakEnchantmentRare.DisplayName: Enchantement de l'aube rare
-			DefenseEnchantmentBasic.DisplayName: Enchantement de défense de base
-			DefenseEnchantmentCommon.DisplayName: Défense Enchantement Commun
-			DefenseEnchantmentEpic.DisplayName: Épique d'enchantement de défense
-			DefenseEnchantmentLegendary.DisplayName: Défense Enchantement Légendaire
-			DefenseEnchantmentRare.DisplayName: Défense Enchantement Rare
-
-			DustyEnchantingTable: {
-				DisplayName: Table d'enchantement poussiéreuse
-				Tooltip:
-					'''
-					Utilisé pour appliquer des enchantements aux objets. (niveau 1)
-					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
-					'''
-			}
-
-			EnchantmentEssenceBasic: {
-				DisplayName: Essence d'enchantement de base
-				Tooltip:
-					'''
-					Matériel de base pour fabriquer et améliorer des enchantements.
-					Peut être converti en 400 points d'expérience dans une table d'enchantement.
-					'''
-			}
-
-			EnchantmentEssenceCommon: {
-				DisplayName: Essence d'enchantement commune
-				Tooltip:
-					'''
-					Matériau commun pour fabriquer et améliorer des enchantements.
-					Peut être converti en 1600 points d'expérience dans une table d'enchantement.
-					'''
-			}
-
-			EnchantmentEssenceEpic: {
-				DisplayName: Essence d'enchantement épique
-				Tooltip:
-					'''
-					Matériel épique pour fabriquer et améliorer des enchantements.
-					Peut être converti en 25600 points d'expérience dans une table d'enchantement.
-					'''
-			}
-
-			EnchantmentEssenceLegendary: {
-				DisplayName: Enchantement Essence Légendaire
-				Tooltip:
-					'''
-					Matériau légendaire pour fabriquer et améliorer des enchantements.
-					Peut être converti en 102400 points d'expérience dans une table d'enchantement.
-					'''
-			}
-
-			EnchantmentEssenceRare: {
-				DisplayName: Essence d'enchantement rare
-				Tooltip:
-					'''
-					Matériau rare pour fabriquer et améliorer des enchantements.
-					Peut être converti en 6400 points d'expérience dans une table d'enchantement.
-					'''
-			}
-
-			ExtraFishingLineEnchantmentBasic.DisplayName: Enchantement de ligne de pêche supplémentaire de base
-			ExtraFishingLineEnchantmentCommon.DisplayName: Enchantement de ligne de pêche supplémentaire
-			ExtraFishingLineEnchantmentEpic.DisplayName: Épique d'enchantement de ligne de pêche supplémentaire
-			ExtraFishingLineEnchantmentLegendary.DisplayName: Ligne de pêche supplémentaire Enchantement Légendaire
-			ExtraFishingLineEnchantmentRare.DisplayName: Enchantement de ligne de pêche supplémentaire rare
-			FishingEnchantmentBasic.DisplayName: Enchantement de pêche de base
-			FishingEnchantmentCommon.DisplayName: Pêche Enchantement Commun
-			FishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche
-			FishingEnchantmentLegendary.DisplayName: Pêche Enchantement Légendaire
-			FishingEnchantmentRare.DisplayName: Pêche Enchantement Rare
-			FishingPowerEnchantmentBasic.DisplayName: Enchantement de puissance de pêche de base
-			FishingPowerEnchantmentCommon.DisplayName: Puissance de pêche Enchantement Commun
-			FishingPowerEnchantmentEpic.DisplayName: Épique d'enchantement de puissance de pêche
-			FishingPowerEnchantmentLegendary.DisplayName: Puissance de pêche Enchantement Légendaire
-			FishingPowerEnchantmentRare.DisplayName: Puissance de pêche Enchantement Rare
-			FrostburnEnchantmentBasic.DisplayName: Enchantement de base de brûlure de givre
-			FrostburnEnchantmentCommon.DisplayName: Enchantement de brûlure de givre
-			FrostburnEnchantmentEpic.DisplayName: Épique d'enchantement de brûlure de givre
-			FrostburnEnchantmentLegendary.DisplayName: Frostburn Enchantement Légendaire
-			FrostburnEnchantmentRare.DisplayName: Enchantement brûle-givre rare
-			GodSlayerEnchantmentBasic.DisplayName: Enchantement de Tueur de dieu de base
-			GodSlayerEnchantmentCommon.DisplayName: Enchantement de Tueur de dieu Commun
-			GodSlayerEnchantmentEpic.DisplayName: Épopée d'enchantement de God Slayer
-			GodSlayerEnchantmentLegendary.DisplayName: God Slayer Enchantement Légendaire
-			GodSlayerEnchantmentRare.DisplayName: Enchantement de Tueur de dieu Rare
-			HealerClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de guérisseur de base
-			HealerClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de guérisseur Commun
-			HealerClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de guérisseur
-			HealerClassSwapEnchantmentLegendary.DisplayName: Enchantement d'échange de classe de guérisseur Légendaire
-			HealerClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de guérisseur rare
-
-			HellishEnchantingTable: {
-				DisplayName: Table d'enchantement infernale
-				Tooltip:
-					'''
-					Utilisé pour appliquer des enchantements aux objets. (niveau 2)
-					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
-					'''
-			}
-
-			HellsWrathEnchantmentBasic.DisplayName: Enchantement de Colère infernale de base
-			HellsWrathEnchantmentCommon.DisplayName: Enchantement de Colère infernale Commun
-			HellsWrathEnchantmentEpic.DisplayName: Épopée d'enchantement de Hells Wrath
-			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath Enchantement Légendaire
-			HellsWrathEnchantmentRare.DisplayName: Enchantement de Colère infernale Rare
-			HunterEnchantmentBasic.DisplayName: Chasseur Enchantement de base
-			HunterEnchantmentCommon.DisplayName: Chasseur Enchantement Commun
-			HunterEnchantmentEpic.DisplayName: Épique d'enchantement de chasseur
-			HunterEnchantmentLegendary.DisplayName: Chasseur Enchantement Légendaire
-			HunterEnchantmentRare.DisplayName: Chasseur Enchantement Rare
-			IchorEnchantmentBasic.DisplayName: Ichor Enchantement Basique
-			IchorEnchantmentCommon.DisplayName: Ichor Enchantement Commun
-			IchorEnchantmentEpic.DisplayName: Épopée d'enchantement d'ichor
-			IchorEnchantmentLegendary.DisplayName: Ichor Enchantement Légendaire
-			IchorEnchantmentRare.DisplayName: Ichor Enchantement Rare
-			JuicedEnchantmentBasic.DisplayName: Enchantement jus de base
-			JuicedEnchantmentCommon.DisplayName: Enchantement de jus Commun
-			JuicedEnchantmentEpic.DisplayName: Jus d'enchantement épique
-			JuicedEnchantmentLegendary.DisplayName: Jus Enchantement Légendaire
-			JuicedEnchantmentRare.DisplayName: Enchantement jus Rare
-			JunglesFuryEnchantmentBasic.DisplayName: Enchantement de Fureur de la jungle de base
-			JunglesFuryEnchantmentCommon.DisplayName: Enchantement de Fureur de la jungle Commun
-			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Enchantment Épique
-			JunglesFuryEnchantmentLegendary.DisplayName: Jungles Fureur Enchantement Légendaire
-			JunglesFuryEnchantmentRare.DisplayName: Enchantement de Fureur de la jungle Rare
-			KiClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe Ki de base
-			KiClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe Ki
-			KiClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe Ki
-			KiClassSwapEnchantmentLegendary.DisplayName: Enchantement d'échange de classe Ki Légendaire
-			KiClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe Ki rare
-			KiEnchantmentBasic.DisplayName: Enchantement Ki de base
-			KiEnchantmentCommon.DisplayName: Ki Enchantement Commun
-			KiEnchantmentEpic.DisplayName: Épique d'enchantement de Ki
-			KiEnchantmentLegendary.DisplayName: Ki Enchantement Légendaire
-			KiEnchantmentRare.DisplayName: Ki Enchantement Rare
-			LavaFishingEnchantmentBasic.DisplayName: Enchantement de pêche à la lave de base
-			LavaFishingEnchantmentCommon.DisplayName: Enchantement de pêche à la lave Commun
-			LavaFishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche à la lave
-			LavaFishingEnchantmentLegendary.DisplayName: Pêche à la lave Enchantement Légendaire
-			LavaFishingEnchantmentRare.DisplayName: Pêche à la lave Enchantement Rare
-			LethalCombinationEnchantmentBasic.DisplayName: Enchantement de combinaison mortelle de Base
-			LethalCombinationEnchantmentCommon.DisplayName: Enchantement de combinaison mortelle Commun
-			LethalCombinationEnchantmentEpic.DisplayName: Enchantement combiné mortel Epique
-			LethalCombinationEnchantmentLegendary.DisplayName: Enchantement de combinaison mortelle Légendaire
-			LethalCombinationEnchantmentRare.DisplayName: Enchantement de combinaison mortelle Rare
-			LifeRegenEnchantmentBasic.DisplayName: Enchantement de régénération de vie de base
-			LifeRegenEnchantmentCommon.DisplayName: Enchantement de régénération de vie
-			LifeRegenEnchantmentEpic.DisplayName: Épopée d'enchantement de régénération de vie
-			LifeRegenEnchantmentLegendary.DisplayName: Régénération de vie Enchantement Légendaire
-			LifeRegenEnchantmentRare.DisplayName: Enchantement de régénération de vie rare
-			LifeStealEnchantmentBasic.DisplayName: Enchantement de Vol de vie de base
-			LifeStealEnchantmentCommon.DisplayName: Enchantement de Vol de vie Commun
-			LifeStealEnchantmentEpic.DisplayName: Épique d'enchantement de vol de vie
-			LifeStealEnchantmentLegendary.DisplayName: Vol de vie Enchantement Légendaire
-			LifeStealEnchantmentRare.DisplayName: Enchantement de Vol de vie Rare
-			LuckEnchantmentBasic.DisplayName: Chance Enchantement Basique
-			LuckEnchantmentCommon.DisplayName: Chance Enchantement Commun
-			LuckEnchantmentEpic.DisplayName: Chance Enchantement Epic
-			LuckEnchantmentLegendary.DisplayName: Chance Enchantement Légendaire
-			LuckEnchantmentRare.DisplayName: Chance Enchantement Rare
-			MagicClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe magique de base
-			MagicClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe magique Commun
-			MagicClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe magique
-			MagicClassSwapEnchantmentLegendary.DisplayName: Échange de classe magique Enchantement Légendaire
-			MagicClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe magique rare
-			MagneticEnchantmentBasic.DisplayName: Enchantement magnétique de base
-			MagneticEnchantmentCommon.DisplayName: Enchantement magnétique commun
-			MagneticEnchantmentEpic.DisplayName: Épopée d'enchantement magnétique
-			MagneticEnchantmentLegendary.DisplayName: Enchantement magnétique Légendaire
-			MagneticEnchantmentRare.DisplayName: Enchantement magnétique rare
-			MaxMinionsEnchantmentBasic.DisplayName: Enchantement de Sbires max de base
-			MaxMinionsEnchantmentCommon.DisplayName: Enchantement de Sbires max Commun
-			MaxMinionsEnchantmentEpic.DisplayName: Épique d'enchantement Max Minions
-			MaxMinionsEnchantmentLegendary.DisplayName: Max Minions Enchantement Légendaire
-			MaxMinionsEnchantmentRare.DisplayName: Enchantement de Sbires max Rare
-
-			MediumContainment: {
-				DisplayName: Conteneur moyen
-				Tooltip: Utilisé pour stocker des enchantements communs
-			}
-
-			MeleeClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de mêlée de base
-			MeleeClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de mêlée Commun
-			MeleeClassSwapEnchantmentEpic.DisplayName: Épique d'enchantement d'échange de classe de mêlée
-			MeleeClassSwapEnchantmentLegendary.DisplayName: Échange de classe de mêlée Enchantement Légendaire
-			MeleeClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de mêlée rare
-			MobilityControlEnchantmentBasic.DisplayName: Enchantement de contrôle de la mobilité de base
-			MobilityControlEnchantmentCommon.DisplayName: Enchantement de contrôle de la mobilité Commun
-			MobilityControlEnchantmentEpic.DisplayName: Épopée d'enchantement de contrôle de la mobilité
-			MobilityControlEnchantmentLegendary.DisplayName: Contrôle de la mobilité Enchantement Légendaire
-			MobilityControlEnchantmentRare.DisplayName: Contrôle de la mobilité Enchantement Rare
-			MoonlightEnchantmentBasic.DisplayName: Enchantement de Clair de lune de base
-			MoonlightEnchantmentCommon.DisplayName: Enchantement de Clair de lune Commun
-			MoonlightEnchantmentEpic.DisplayName: Épopée d'enchantement au clair de lune
-			MoonlightEnchantmentLegendary.DisplayName: Enchantement au clair de lune Légendaire
-			MoonlightEnchantmentRare.DisplayName: Enchantement de Clair de lune rare
-			MovementSpeedEnchantmentBasic.DisplayName: Enchantement de Vitesse de déplacement de base
-			MovementSpeedEnchantmentCommon.DisplayName: Enchantement de Vitesse de déplacement Commun
-			MovementSpeedEnchantmentEpic.DisplayName: Vitesse de déplacement Enchantement Épique
-			MovementSpeedEnchantmentLegendary.DisplayName: Vitesse de déplacement Enchantement Légendaire
-			MovementSpeedEnchantmentRare.DisplayName: Enchantement de Vitesse de déplacement Rare
-			MultishotEnchantmentBasic.DisplayName: Enchantement de Multi-tir de base
-			MultishotEnchantmentCommon.DisplayName: Enchantement de Multi-tir Commun
-			MultishotEnchantmentEpic.DisplayName: Épique d'enchantement à plusieurs coups
-			MultishotEnchantmentLegendary.DisplayName: Enchantement Multishot Légendaire
-			MultishotEnchantmentRare.DisplayName: Enchantement de Multi-tir Rare
-			NpcContactAnglerEnchantmentBasic.DisplayName: Enchantement de base du pêcheur à la ligne de contact Npc
-			NpcContactAnglerEnchantmentCommon.DisplayName: PNJ Contact Pêcheur Enchantement Commun
-			NpcContactAnglerEnchantmentEpic.DisplayName: PNJ Contact Pêcheur Enchantement Épique
-			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Pêcheur Enchantement Légendaire
-			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Pêcheur Enchantement Rare
-			ObsidianSkinEnchantmentBasic.DisplayName: Enchantement de peau d'obsidienne de base
-			ObsidianSkinEnchantmentCommon.DisplayName: Enchantement de peau d'obsidienne
-			ObsidianSkinEnchantmentEpic.DisplayName: Épopée d'enchantement de peau d'obsidienne
-			ObsidianSkinEnchantmentLegendary.DisplayName: Enchantement de peau d'obsidienne Légendaire
-			ObsidianSkinEnchantmentRare.DisplayName: Enchantement de peau d'obsidienne rare
-			OneForAllEnchantmentBasic.DisplayName: Enchantement Un pour tous de base
-			OneForAllEnchantmentCommon.DisplayName: Enchantement Un pour tous commun
-			OneForAllEnchantmentEpic.DisplayName: Épique d'enchantement One For All
-			OneForAllEnchantmentLegendary.DisplayName: Un pour tous Enchantement Légendaire
-			OneForAllEnchantmentRare.DisplayName: Enchantement Un pour tous rare
-			OnFireEnchantmentBasic.DisplayName: Enchantement de base en feu
-			OnFireEnchantmentCommon.DisplayName: Enchantement en feu Commun
-			OnFireEnchantmentEpic.DisplayName: Enchantement épique en feu
-			OnFireEnchantmentLegendary.DisplayName: Enchantement Enflammé Légendaire
-			OnFireEnchantmentRare.DisplayName: Enchantement Enflammé Rare
-			PeaceEnchantmentBasic.DisplayName: Enchantement de paix de base
-			PeaceEnchantmentCommon.DisplayName: Enchantement de paix Commun
-			PeaceEnchantmentEpic.DisplayName: Épopée d'enchantement de la paix
-			PeaceEnchantmentLegendary.DisplayName: Paix Enchantement Légendaire
-			PeaceEnchantmentRare.DisplayName: Enchantement de paix Rare
-			PennyPinchingEnchantmentBasic.DisplayName: Penny Pinching Enchantement Basique
-			PennyPinchingEnchantmentCommon.DisplayName: Penny Pincement Enchantement Commun
-			PennyPinchingEnchantmentEpic.DisplayName: Penny Pinching Enchantement épique
-			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pinching Enchantement Légendaire
-			PennyPinchingEnchantmentRare.DisplayName: Penny Pinching Enchantement Rare
-			PercentArmorPenetrationEnchantmentBasic.DisplayName: Pourcentage de pénétration d'armure Enchantement de base
-			PercentArmorPenetrationEnchantmentCommon.DisplayName: Pourcentage de pénétration d'armure Enchantement Commun
-			PercentArmorPenetrationEnchantmentEpic.DisplayName: Épique d'enchantement de pénétration d'armure en pourcentage
-			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Pourcentage de pénétration d'armure Enchantement Légendaire
-			PercentArmorPenetrationEnchantmentRare.DisplayName: Pourcentage de pénétration d'armure Enchantement Rare
-			PoisonEnchantmentBasic.DisplayName: Enchantement de poison de base
-			PoisonEnchantmentCommon.DisplayName: Poison Enchantement Commun
-			PoisonEnchantmentEpic.DisplayName: Épopée d'enchantement de poison
-			PoisonEnchantmentLegendary.DisplayName: Poison Enchantement Légendaire
-			PoisonEnchantmentRare.DisplayName: Enchantement empoisonné rare
-
-			PowerBooster: {
-				DisplayName: Amplificateur de puissance
-				Tooltip:
-					'''
-					Utilisez-le pendant que l'objet que vous souhaitez booster se trouve dans une table d'enchantement pour augmenter son niveau de base de 10.
-					(Maj clic gauche depuis votre inventaire ou clic gauche sur l'élément dans le tableau avec ceci sur votre curseur.)
-					Cet article sera retourné si l'article boosté est offert.
-					'''
-			}
-
-			PrideOfTheWeakEnchantmentBasic.DisplayName: Fierté de l'enchantement faible de base
-			PrideOfTheWeakEnchantmentCommon.DisplayName: Fierté de l'enchantement faible commun
-			PrideOfTheWeakEnchantmentEpic.DisplayName: Fierté de l'épopée d'enchantement faible
-			PrideOfTheWeakEnchantmentLegendary.DisplayName: Fierté du faible Enchantement Légendaire
-			PrideOfTheWeakEnchantmentRare.DisplayName: Fierté du faible Enchantement Rare
-			ProjectileVelocityEnchantmentBasic.DisplayName: Enchantement de vitesse de tir de base
-			ProjectileVelocityEnchantmentCommon.DisplayName: Enchantement de vitesse de tir Commun
-			ProjectileVelocityEnchantmentEpic.DisplayName: Épique d'enchantement de vitesse de projectile
-			ProjectileVelocityEnchantmentLegendary.DisplayName: Vitesse du projectile Enchantement Légendaire
-			ProjectileVelocityEnchantmentRare.DisplayName: Enchantement de vitesse de tir Rare
-			RangedClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe à distance de base
-			RangedClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe à distance Commun
-			RangedClassSwapEnchantmentEpic.DisplayName: Épique d'enchantement d'échange de classe à distance
-			RangedClassSwapEnchantmentLegendary.DisplayName: Échange de classe à distance Enchantement Légendaire
-			RangedClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe à distance rare
-			ReducedManaUsageEnchantmentBasic.DisplayName: Enchantement de mana de base
-			ReducedManaUsageEnchantmentCommon.DisplayName: Enchantement de mana Commun
-			ReducedManaUsageEnchantmentEpic.DisplayName: Épique d'enchantement d'utilisation de mana réduite
-			ReducedManaUsageEnchantmentLegendary.DisplayName: Réduction de l'utilisation du mana Enchantement Légendaire
-			ReducedManaUsageEnchantmentRare.DisplayName: Enchantement de mana Rare
-			RogueClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe voleur de base
-			RogueClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe Rogue Common
-			RogueClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe Rogue
-			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap Enchantement Légendaire
-			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantement Rare
-			ShadowflameEnchantmentBasic.DisplayName: Enchantement d'Ombreflamme de base
-			ShadowflameEnchantmentCommon.DisplayName: Enchantement d'Ombreflamme Commun
-			ShadowflameEnchantmentEpic.DisplayName: Épopée d'enchantement d'Ombreflamme
-			ShadowflameEnchantmentLegendary.DisplayName: Enchantement d'Ombreflamme Légendaire
-			ShadowflameEnchantmentRare.DisplayName: Enchantement d'Ombreflamme Rare
-			ShineEnchantmentBasic.DisplayName: Shine Enchantement Basique
-			ShineEnchantmentCommon.DisplayName: Enchantement de brillance commun
-			ShineEnchantmentEpic.DisplayName: Épopée d'enchantement brillant
-			ShineEnchantmentLegendary.DisplayName: Brillance Enchantement Légendaire
-			ShineEnchantmentRare.DisplayName: Brillance Enchantement Rare
-			SizeEnchantmentBasic.DisplayName: Enchantement de taille de base
-			SizeEnchantmentCommon.DisplayName: Enchantement de taille Commun
-			SizeEnchantmentEpic.DisplayName: Taille Enchantement Épique
-			SizeEnchantmentLegendary.DisplayName: Taille Enchantement Légendaire
-			SizeEnchantmentRare.DisplayName: Enchantement de taille Rare
-			SolarDashEnchantmentBasic.DisplayName: Solar Dash Enchantement de base
-			SolarDashEnchantmentCommon.DisplayName: Enchantement Solar Dash Commun
-			SolarDashEnchantmentEpic.DisplayName: Épopée d'enchantement Solar Dash
-			SolarDashEnchantmentLegendary.DisplayName: Solar Dash Enchantement Légendaire
-			SolarDashEnchantmentRare.DisplayName: Élan solaire Enchantement Rare
-			SonarEnchantmentBasic.DisplayName: Enchantement de base du sonar
-			SonarEnchantmentCommon.DisplayName: Enchantement de sonar Commun
-			SonarEnchantmentEpic.DisplayName: Épopée d'enchantement de sonar
-			SonarEnchantmentLegendary.DisplayName: Sonar Enchantement Légendaire
-			SonarEnchantmentRare.DisplayName: Enchantement sonar rare
-
-			SoulEnchantingTable: {
-				DisplayName: Table d'enchantement d'âme
-				Tooltip:
-					'''
-					Utilisé pour appliquer des enchantements aux objets. (niveau 3)
-					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
-					'''
-			}
-
-			SpelunkerEnchantmentBasic.DisplayName: Enchantement de spéléologue de base
-			SpelunkerEnchantmentCommon.DisplayName: Enchantement de spéléologue Commun
-			SpelunkerEnchantmentEpic.DisplayName: Épopée d'enchantement de spéléologue
-			SpelunkerEnchantmentLegendary.DisplayName: Spéléologue Enchantement Légendaire
-			SpelunkerEnchantmentRare.DisplayName: Enchantement de spéléologue rare
-
-			SuperiorContainment: {
-				DisplayName: Conteneur supérieur
-				Tooltip: Utilisé pour stocker des enchantements rares
-			}
-
-			ThrowingClassSwapEnchantmentBasic.DisplayName: Lancer l'enchantement d'échange de classe de base
-			ThrowingClassSwapEnchantmentCommon.DisplayName: Lancer l'enchantement d'échange de classe
-			ThrowingClassSwapEnchantmentEpic.DisplayName: Lancer l'épopée d'enchantement d'échange de classe
-			ThrowingClassSwapEnchantmentLegendary.DisplayName: Lancer d'échange de classe Enchantement Légendaire
-			ThrowingClassSwapEnchantmentRare.DisplayName: Lancer d'échange de classe Enchantement Rare
-			TimeEnchantmentBasic.DisplayName: Enchantement du temps de base
-			TimeEnchantmentCommon.DisplayName: Temps Enchantement Commun
-			TimeEnchantmentEpic.DisplayName: Épopée d'enchantement du temps
-			TimeEnchantmentLegendary.DisplayName: Temps Enchantement Légendaire
-			TimeEnchantmentRare.DisplayName: Temps Enchantement Rare
-
-			UltimateEnchantingTable: {
-				DisplayName: Table d'enchantement ultime
-				Tooltip:
-					'''
-					Utilisé pour appliquer des enchantements aux objets. (niveau 4)
-					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
-					'''
-			}
-
-			UltraPowerBooster: {
-				DisplayName: Amplificateur de puissance ultra
-				Tooltip:
-					'''
-					Utilisez-le pendant que l'objet que vous souhaitez booster se trouve dans une table d'enchantement pour augmenter son niveau de base de 20.
-					(Maj clic gauche depuis votre inventaire ou clic gauche sur l'élément dans le tableau avec ceci sur votre curseur.)
-					Cet article sera retourné si l'article boosté est offert.
-					'''
-			}
-
-			VenomEnchantmentBasic.DisplayName: Enchantement de venin de base
-			VenomEnchantmentCommon.DisplayName: Enchantement de venin Commun
-			VenomEnchantmentEpic.DisplayName: Épique d'enchantement de venin
-			VenomEnchantmentLegendary.DisplayName: Venin Enchantement Légendaire
-			VenomEnchantmentRare.DisplayName: Enchantement de venin rare
-			WarEnchantmentBasic.DisplayName: Enchantement de guerre de base
-			WarEnchantmentCommon.DisplayName: Enchantement de guerre Commun
-			WarEnchantmentEpic.DisplayName: Épopée d'enchantement de guerre
-			WarEnchantmentLegendary.DisplayName: Guerre Enchantement Légendaire
-			WarEnchantmentRare.DisplayName: Enchantement de guerre Rare
-			WhipClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe Whip Basic
-			WhipClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de fouet Commun
-			WhipClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de fouet
-			WhipClassSwapEnchantmentLegendary.DisplayName: Échange de classe de fouet Enchantement Légendaire
-			WhipClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de fouet rare
-
-			WoodEnchantingTable: {
-				DisplayName: Table d'enchantement en bois
-				Tooltip:
-					'''
-					Utilisé pour appliquer des enchantements aux objets. (niveau 0)
-					Peut être utilisé depuis votre inventaire par un clic droit. (Maj, clic droit vous permet de diviser la pile.)
-					'''
-			}
-
-			WorldAblazeEnchantmentBasic.DisplayName: Enchantement du Monde Enflammé de base
-			WorldAblazeEnchantmentCommon.DisplayName: Enchantement du Monde Enflammé Commun
-			WorldAblazeEnchantmentEpic.DisplayName: Monde en feu Enchantement Épique
-			WorldAblazeEnchantmentLegendary.DisplayName: World Ablaze Enchantement Légendaire
-			WorldAblazeEnchantmentRare.DisplayName: Enchantement du Monde Enflammé Rare
-		}
-
 		NPCNames: {
 			Witch: {
 				Agatha: Agathe
@@ -1218,7 +412,6 @@ Mods: {
 				Winifred: Winifred
 			}
 		}
-
 		Ores: {
 			adamantite: adamantite
 			chlorophyte: chlorophyte
@@ -1238,130 +431,43 @@ Mods: {
 			titanium: titane
 			tungsten: tungstène
 		}
-
 		TableText: {
-			AreYouSure:
+			Cancel: Annuler
+			Finalize: Finaliser
+			Infusion: Infusion
+			LevelUp: Niveau supérieur
+			LootAll: Tout piller
+			No: Non
+			Offer: Offrir
+			Syphon: Siphon
+			xp: XP
+			Yes: Oui
+			AreYouSure: 
 				'''
 				Êtes-vous sûr de vouloir DÉTRUIRE DE FAÇON PERMANENTE votre niveau {0}
 				{1} {2}
 				{3}(Basé sur la valeur de l'objet/l'expérience. Les enchantements seront retournés.)
 				'''
-			Cancel: Annuler
 			enchantment0: Placez les enchantements ici.
-			enchantment4: Nécessite {0} ou mieux pour utiliser cet emplacement.
+			enchantment4: "Nécessite {0} ou mieux pour utiliser cet emplacement."
 			Enchantments: Enchantements
-			essence0: Placez {0} ici.
+			essence0: "Placez {0} ici."
 			ExchangeEssence: En échange de l'essentiel ?
-			ExchangeEssenceAndOres: En échange de minerais ({0}) et d'essence ({1}) ?
+			ExchangeEssenceAndOres: "En échange de minerais ({0}) et d'essence ({1}) ?"
 			ExchangeOres: En échange de minerais ?
-			Finalize: Finaliser
 			general1: La mise à niveau du niveau de la table d'enchantement débloque plus d'emplacements d'enchantement.
 			general2: Utiliser des enchantements d'armes sur des armures ou des accessoires
 			general3: offre des bonus diminués et vice versa.
-			Infusion: Infusion
-			InfusionCancelDescription: Remettez votre {0} stocké dans l'emplacement d'objet.
-			InfusionDescription:
-				'''
-				Vous permet de renforcer des armes ou des armures en sacrifiant d'autres armes ou armures.
-				Armes : infuser une arme augmente ses statistiques de dégâts de {0} pour chaque tranche de 100 puissances d'infusion ajoutées.
-				(nouveaux dégâts = dégâts de base * {1}^((nouveau pouvoir d'infusion - pouvoir d'infusion de base)/100) )
-				-Placez l'arme la plus puissante que vous souhaitez sacrifier dans l'emplacement d'objet, puis appuyez sur Infusion.
-				-Ensuite, placez l'arme la plus faible que vous souhaitez améliorer dans l'emplacement d'objet, puis appuyez sur Finaliser.
-				Armure : Infuser une armure transfère le bonus d'ensemble de l'objet sacrifié, remplaçant le bonus d'ensemble de l'objet infusé.
-				Cas d'utilisation : Vous aimez plus le bonus de l'ensemble d'armure de cactus que votre armure actuelle.
-				Sacrifiez chaque pièce de l'armure de cactus sur chaque pièce de votre armure actuelle pour transférer le bonus d'ensemble.
-				Chaque pièce d'armure a son propre identifiant de bonus d'ensemble, vous pouvez donc avoir des ensembles partiels tels qu'un casque en or avec un casque de cactus infusé,
-				jambes de cactus, poitrine de cactus, donnant à l'effet d'armure de cactus.
-				-Placez l'objet d'armure que vous souhaitez sacrifier dans l'emplacement Objet (son bonus d'ensemble sera transféré), puis appuyez sur Infusion.
-				-Placez l'objet d'armure que vous souhaitez modifier dans l'emplacement Objet (son bonus d'ensemble sera remplacé), puis appuyez sur Finaliser.
-				(Les enchantements, l'expérience et les boosters de puissance de l'objet sacrifié vous seront rendus comme s'ils étaient offerts.)
-				'''
-			InfusionFinalizeDescriptionArmor:
-				'''
-				Finalisez pour sacrifier vos {0} pour remplacer le bonus d'ensemble
-				sur votre {1} avec le bonus défini de votre {0}.
-				'''
-			InfusionFinalizeDescriptionWeapon:
-				'''
-				Finalisez pour sacrifier votre {0} à
-				augmentez les dégâts de votre {1}.
-				'''
 			Item: Article
-			LevelUp: Niveau supérieur
-			LevelUpDescription:
-				'''
-				Améliorez votre {0} du niveau {1} au niveau {2}.
-				Coûte {3} d'expérience. Expérience disponible : {4}
-				'''
-			LevelUpNumberDescription:
-				'''
-				Définissez le nombre de niveaux qui seront ajoutés avec
-				le bouton Niveau supérieur sur {0}.
-				'''
-			LoadoutDescription:
-				'''
-				Ouvrez ou fermez le menu Équipements d'enchantement.
-				Les chargements d'enchantement ne stockent pas d'objets.
-				Ils sauvegardent simplement le type et le niveau d'enchantement.
-				Lors de la création d'un équipement d'enchantement, vous pouvez rapidement remplir les emplacements en
-				déplacez les enchantements en cliquant avec le bouton gauche de votre stockage pour remplir l'emplacement suivant
-				(L'emplacement suivant à remplir a un fond doré lorsque Shift est maintenu).
-				Vous pouvez également conserver un enchantement avec votre souris et cliquer dessus sur un emplacement à la place.
-				Cliquer sur un emplacement sans enchantement avec votre souris effacera l'emplacement.
-
-				Ajouter - Ajoute un nouveau chargement (Max de 15).
-				Ajouter à partir des enchantements équipés - Créez un chargement en copiant vos enchantements équipés
-				Loadout # - Cliquer sur le bouton Loadout sélectionne ce chargement afin que vous puissiez le voir ou le modifier.
-				Tout - Tout remplace tous les enchantements de votre objet, armure et accessoires détenus par
-				les enchantements du chargement. Si un élément n'est pas d'un niveau assez élevé
-				pour prendre en charge les enchantements pour son emplacement, le chargement ne pourra pas se charger.
-				Objet/Armure/Accessoires détenus - Ces boutons ont la même fonction que le bouton Tous, mais
-				chargez uniquement les enchantements spécifiques à la catégorie sélectionnée.
-				'''
-			Loadouts: Chargements
-			LootAll: Tout piller
-			LootAllDescription:
-				'''
-				Supprimez tous les enchantements de votre {0} et envoyez-les au
-				Stockage d'enchantement et remettez votre {0} dans votre inventaire.
-				'''
-			No: Non
-			Offer: Offrir
-			OfferDescription:
-				'''
-				Offrez votre {0} et DÉTRUISEZ-le en échange de minerais/essence.
-				Le pourcentage de minerais/essence peut être ajusté dans les paramètres de configuration.
-				'''
-			Siphon: Siphon
-			SiphonDescription:
-				'''
-				Consommez {0} d'expérience depuis votre {1} pour tout supprimer
-				enchantements, boosters de puissance, objets infusés et
-				expérience restante sans détruire votre {1}.
-				Offrir des objets rend toute l'essence, c'est donc un
-				meilleure option, sauf si vous devez conserver votre {1}.
-				'''
-			Storage: Stockage
-			StorageDescription: Ouvrez ou fermez le stockage d'enchantement.
-			ToggleAutoTrashOfferedItems: Basculer les éléments proposés dans la corbeille automatique
 			utility0: Seuls les enchantements utilitaires peuvent aller ici.
 			weapon0: Placez une arme, une pièce d'armure ou un accessoire ici.
-			xp: XP
-			XPButtonDescription:
-				'''
-				Consommez-en un {0}
-				pour ajouter l'expérience {1} à votre {2}.
-				'''
-			Yes: Oui
 		}
-
 		Tooltip: {
 			ArmorSlotNames: {
 				Body: Corps
 				Head: Tête
 				Legs: Les jambes
 			}
-
 			DamageClassNames: {
 				Generic: Générique
 				Ki: Ki
@@ -1373,33 +479,32 @@ Mods: {
 				Throwing: Lancement
 				Whip: Fouet
 			}
-
 			EffectDisplayName: {
 				AllForOne: Tous pour un
 				AmmoCost1: Chance de ne pas consommer de munitions
 				AmmoCost2: Augmentation du coût des munitions
+				ArmorPenetration: Pénétration d'armure
 				AttackSpeed: Vitesse d'attaque
 				AutoReuse: Réutilisation automatique
-				BardClassSwap: Échange de classe de barde
 				BerserkersRage: Rage des Berserkers
 				BonusCoins: Pièces bonus
 				BuffDuration: Durée du buff
-				BuffEffect0: Vous accorde passivement {0}
-				BuffEffect1: Vous inflige passivement {0}
-				BuffEffect10: Accorde {0} aux ennemis touchés
-				BuffEffect11: Inflige {0} aux ennemis en cas de coup
-				BuffEffect12: Accorde {0} aux joueurs à proximité en cas de coup
-				BuffEffect13: Inflige {0} aux joueurs proches en cas de coup
-				BuffEffect14: Accorde {0} aux ennemis proches en cas de coup
-				BuffEffect15: Inflige passivement {0} aux ennemis proches en cas de coup
-				BuffEffect2: Accorde passivement {0} aux joueurs à proximité
-				BuffEffect3: Inflige passivement {0} aux joueurs proches
-				BuffEffect4: Accorde passivement {0} à l'ennemi
-				BuffEffect5: Inflige passivement {0} à l'ennemi
-				BuffEffect6: Accorde passivement {0} aux ennemis proches
-				BuffEffect7: Inflige passivement {0} aux ennemis proches
-				BuffEffect8: Vous accorde {0} en cas de coup
-				BuffEffect9: Vous inflige {0} en cas de coup
+				BuffEffect0: "Vous accorde passivement {0}"
+				BuffEffect1: "Vous inflige passivement {0}"
+				BuffEffect10: "Accorde {0} aux ennemis touchés"
+				BuffEffect11: "Inflige {0} aux ennemis en cas de coup"
+				BuffEffect12: "Accorde {0} aux joueurs à proximité en cas de coup"
+				BuffEffect13: "Inflige {0} aux joueurs proches en cas de coup"
+				BuffEffect14: "Accorde {0} aux ennemis proches en cas de coup"
+				BuffEffect15: "Inflige passivement {0} aux ennemis proches en cas de coup"
+				BuffEffect2: "Accorde passivement {0} aux joueurs à proximité"
+				BuffEffect3: "Inflige passivement {0} aux joueurs proches"
+				BuffEffect4: "Accorde passivement {0} à l'ennemi"
+				BuffEffect5: "Inflige passivement {0} à l'ennemi"
+				BuffEffect6: "Accorde passivement {0} aux ennemis proches"
+				BuffEffect7: "Inflige passivement {0} aux ennemis proches"
+				BuffEffect8: "Vous accorde {0} en cas de coup"
+				BuffEffect9: "Vous inflige {0} en cas de coup"
 				CalmWaters: Eaux calmes
 				CatastrophicRelease: Libération catastrophique
 				Channel: Canaliser
@@ -1412,13 +517,10 @@ Mods: {
 				CursedInferno: Enfer maudit
 				Damage: Dégâts
 				DamageAfterDefenses: Dégâts (Appliqué après les défenses. Non visible dans l'infobulle de l'arme)
-				DamageClassSwap: Convertir le type de dégâts en {0}
+				DamageClassSwap: "Convertir le type de dégâts en {0}"
 				DamageReduction: Réduction de dégats
 				DangerSense: Sens du danger
 				Daybreak: Aube
-				DayEventUpdateRate: Taux de mise à jour des événements quotidiens
-				DayTileUpdateRate: Taux de mise à jour des tuiles quotidiennes
-				DayTimeRate: Tarif de jour
 				Defense: La défense
 				EnemyMaxSpawns: Le maximum d'ennemis apparaît
 				EnemySpawnRate: Taux d'apparition des ennemis
@@ -1429,12 +531,10 @@ Mods: {
 				FlatMPRegen: Régénération MP plate
 				Frostburn: Brûlure de givre
 				GodSlayer: Dieu tueur
-				HealerClassSwap: Échange de classe de guérisseur
 				HellsWrath: Colère de l'enfer
 				Hunter: Chasseur
 				Ichor: Ichor
 				InfinitePenetration: Pénétration infinie
-				ItemAttractionAndPickupSpeed: Attraction des articles et vitesse de ramassage
 				ItemCooldown: Temps de recharge de l'objet
 				Juiced: Jus
 				JumpSpeed: Vitesse de saut
@@ -1442,22 +542,19 @@ Mods: {
 				Ki: Ki
 				KiClassSwap: Échange de classe Ki
 				KiDamage: Dégâts Ki
-				KiRegen: Ki Régénération
+				KiRegen: Ki Regen
 				LavaFishing: Pêche à la lave
-				LethalCombination: Combinaison mortelle
 				LifeRegen: Régénération de vie
 				LifeRegeneration: Régénération de la vie
 				LifeSteal: Vol de vie
 				Luck: Chance
 				MagicClassSwap: Échange de classe magique
-				Magnetic: Magnétique
 				ManaUsage1: Utilisation de mana réduite
 				ManaUsage2: Augmentation de l'utilisation du mana
 				MaxFallSpeed: Vitesse de chute maximale
 				MaxKi: Max Ki
 				MaxLife: Durée de vie maximale
-				MaxLifeSteal: Vol de vie max
-				MaxMinions: Max serviteurs
+				MaxMinions: Max Minions
 				MaxMP: MP max
 				MeleeClassSwap: Échange de classe de mêlée
 				MiningSpeed: Vitesse de minage
@@ -1469,9 +566,6 @@ Mods: {
 				MovementSpeed: Vitesse de mouvement
 				MPBonusRegen: Régénération du bonus MP
 				Multishot: Tir multiple
-				NightEventUpdateRate: Taux de mise à jour des événements nocturnes
-				NightTileUpdateRate: Taux de mise à jour des tuiles nocturnes
-				NightTimeRate: Tarif de nuit
 				NpcContactAngler: CNP Contacter le pêcheur
 				NPCHitCooldown: Temps de recharge des coups de PNJ
 				ObsidianSkin: Peau d'obsidienne
@@ -1480,24 +574,16 @@ Mods: {
 				OnHitSpawnProjectile: Projectile d'apparition sur coup
 				Peace: Paix
 				PennyPinching: Penny pincement
-				PercentArmorPenetration: Pourcentage de pénétration d'armure
-				PickupRange: Plage de ramassage
-				Poison: Poison
-				PrideOfTheWeak: La fierté des faibles
 				ProjectileVelocity: Vitesse du projectile
 				QuestFishChance: Chance de poisson de quête
 				RangedClassSwap: Échange de classe à distance
 				ReducedManaUsage: Utilisation de mana réduite
 				RogueClassSwap: Échange de classe Rogue
-				Shadowflame: Ombreflamme
-				Shine: Briller
 				Size: Taille
 				SolarDash: Tiret solaire
 				Sonar: Sonar
 				Spelunker: Spéléologue
-				ThrowingClassSwap: Lancer un échange de classe
-				Time: Temps
-				VanillaDash1: Ninja Tabi Tiret
+				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Tiret de bouclier de l'œil de Cthulhu
 				VanillaDash3: Tiret solaire
 				VanillaDash5: Dash ninja de cristal
@@ -1509,13 +595,10 @@ Mods: {
 				WorldAblaze: Monde en feu
 				YoyoStringLength: Longueur de la chaîne Yoyo
 			}
-
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Enchantement Mod Calamité)
 				DBZMODPORT: (Enchantement Dragon Ball Terraria)
-				ThoriumMod: (Enchantement Mod Throium)
-				Time: Les effets de temps sont aléatoires avec 6 options, taux de temps jour/nuit, taux de mise à jour des tuiles, taux de mise à jour des événements
-				WorldAblaze:
+				WorldAblaze: 
 					'''
 					(Le debuff d'Amaterasu et les notes ci-dessous à ce sujet ne s'appliquent qu'au niveau d'enchantement 4.)
 					(Personne ne survivra aux flammes imparables d'Amaterasu)
@@ -1524,35 +607,20 @@ Mods: {
 					(Se propage aux ennemis proches et empêche les ennemis d'être immunisés contre les autres affaiblissements de World Ablaze.)
 					'''
 			}
-
 			EnchantmentEffects: {
 				AmmoCost: "{0} (enregistre également l'appât lors de la pêche)"
 				AttackSpeed: "{0} (Affecte la cadence de tir des sbires s'ils tirent des projectiles. Affecte la vitesse à laquelle les poissons mordront la ligne de pêche.)"
-				AutoReuse: Réutilisation automatique
-				BonusCoins:
+				BonusCoins: 
 					'''
 					{0} (Frapper un ennemi augmentera le nombre de pièces qu'il lâchera à sa mort
 					basé sur les dégâts infligés, la santé maximale de l'ennemi, la valeur de base de l'ennemi et la chance.)
 					'''
-				BuffDuration:
+				BuffDuration: 
 					'''
 					{0}
 					(La durée est continuellement augmentée pendant que le buff est actif, pas après avoir obtenu le buff pour la première fois.)
 					'''
-				CatastrophicRelease: Libération catastrophique
-				Channel: Canal
-				CrateChance: Chance de caisse
-				CriticalStrikeChance: Chance de coup critique
-				CriticalStrikeDamage: Dégâts de coup critique
-				DamageAfterDefenses: Dégâts après les défenses
-				DamageClassSwap: Échange de classe de dégâts
-				DamageReduction: Réduction de dégats
-				DayEventUpdateRate: Taux de mise à jour des événements quotidiens
-				DayTileUpdateRate: Taux de mise à jour des tuiles quotidiennes
-				DayTimeRate: Tarif de jour
-				Defense: La défense
-				EnemyMaxSpawns: Le maximum d'ennemis apparaît
-				EnemySpawnRate:
+				EnemySpawnRate: 
 					'''
 					{0}
 					(Les dégâts des sbires sont réduits par votre multiplicateur de taux d'apparition, à partir des enchantements, à moins qu'ils ne soient la cible de votre attaque de sbires)
@@ -1561,110 +629,54 @@ Mods: {
 					(Les ennemis engendrés seront immunisés contre la lave/les pièges)
 					'''
 				FishingEnemySpawnChance: "{0} (Réduit de 5x pendant la journée. Affecté par Chum Caster. Peut également faire apparaître Duke Fishron.)"
-				FishingPower: Puissance de pêche
-				FlatMPRegen: Régénération MP plate
-				GodSlayer:
+				GodSlayer: 
 					'''
 					{0}
 					(Bonus de dégâts réels basés sur les HP max de l'ennemi)
 					(Dégâts bonus non affectés par LifeSteal)
 					'''
-				InfinitePenetration: Pénétration infinie
-				ItemAttractionAndPickupSpeed: Attraction des articles et vitesse de ramassage
-				ItemCooldown: (CD de l'objet égal à {0} vitesse d'utilisation)
-				JumpSpeed: Vitesse de saut
-				KiDamage: Dégâts Ki
-				KiRegen: Ki Régénération
+				ItemCooldown: "(CD de l'objet égal à {0} vitesse d'utilisation)"
 				LavaFishing: "{0} (Permet de pêcher dans la lave et a une chance d'améliorer les taux de capture dans la lave. Se cumule avec d'autres sources.)"
-				LifeRegeneration: Régénération de la vie
 				LifeSteal: "{0} (le reste est enregistré pour éviter de toujours arrondir à 0 pour les armes à faibles dégâts)"
-				Luck: Chance
-				ManaUsage: Utilisation du mana
-				MaxFallSpeed: Vitesse de chute maximale
-				MaxKi: Max Ki
-				MaxLife: Durée de vie maximale
-				MaxLifeSteal: "{0} (Le pourcentage du pool de vol de vie vanille qui peut être utilisé.)"
-				MaxMinions: Max serviteurs
-				MaxMP: MP max
-				MiningSpeed: Vitesse de minage
 				MinionAttackTarget: Les ennemis touchés deviennent la cible de l'attaque des sbires. Même effet que les fouets.
-				MovementAcceleration: Accélération du mouvement
-				MovementSlowdown: Ralentissement du mouvement
-				MovementSpeed: Vitesse de mouvement
-				MPBonusRegen: Régénération du bonus MP
 				Multishot: "{0} (Chance de produire un projectile supplémentaire. S'applique à chaque projectile créé.)"
-				NightEventUpdateRate: Taux de mise à jour des événements nocturnes
-				NightTileUpdateRate: Taux de mise à jour des tuiles nocturnes
-				NightTimeRate: Tarif de nuit
-				NPCHitCooldown: Temps de recharge des coups de PNJ
-				OneForAll:
+				OneForAll: 
 					'''
 					{0}
 					(Frapper un ennemi endommagera tous les ennemis proches)
 					(S'active uniquement au premier coup d'un projectile.)
 					'''
-				OnHitSpawnProjectile: Génère un projectile en touchant un ennemi : {0}
-				PercentArmorPenetration: Pourcentage de pénétration d'armure
-				PickupRange: Plage de ramassage
-				PrideOfTheWeak: "{0} Augmente les dégâts infligés par les armes faibles. (100 % efficace à 0 puissance d'infusion. 0 % efficace à 500 puissance d'infusion.)"
-				ProjectileVelocity: Vitesse du projectile
+				OnHitSpawnProjectile: "Génère un projectile en touchant un ennemi : {0}"
 				QuestFishChance: "{0} (Les poissons de quête capturés seront automatiquement rendus et commenceront une nouvelle quête, en contournant la limite de 1 par jour.)"
-				Size: Taille
-				VanillaDash: Tiret de vanille
-				WhipRange: Gamme fouet
-				WingTime: Temps d'aile
-				YoyoStringLength: Longueur de la chaîne Yoyo
-
 				BoolEffect: {
 					Enabled: "{0} : Activé"
 					Prevented: "{0} : empêché"
 				}
-
 				BuffEffect: {
 					All: "{0} ({1} % de chances de postuler pour {2})"
 					OnTickPlayerBuff: "{0} ({1} % de chances de postuler pour {2} tous les {3})"
 				}
-
 				PlayerSetEffect: {
 					Enabled: "{0} : Activé"
 					Prevented: "{0} : empêché"
 				}
 			}
-
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Autorisé sur
 				And: et
-				ApproximateItemDamage: Dégâts d'objet ~ {0} (contre 0 ennemi blindé)
 				ArmorSlotOnly: "{0} emplacement d'armure uniquement"
-				BoosterInstalled: Booster installé
-				EnchantmentCapacity: Capacité d'enchantement
-				Experience: Expérience : {0}
-				InfusedArmorID: ID d'armure infusée : {0} Objet infusé : {1}
-				InfusedItem: Article infusé :
-				InfusionPower: Puissance d'infusion :
-				LevelAvailable: Niveau : {0} {1} disponible : {2}
-				LevelCost: Coût du niveau : {0}
+				LevelCost: "Coût du niveau : {0}"
 				Max1: Maximum de 1 par article
-				MaxLevel: (Niveau maximum)
-				NewInfusedItem: Nouvel objet infusé :
-				NewInfusionPower: Nouveau pouvoir d'infusion :
-				NewSetBonusID: Nouvel identifiant bonus d’ensemble :
-				NormalBoosterAbreviation: N
-				NotAllowed: Non autorisé sur {0} armes
+				NotAllowed: "Non autorisé sur {0} armes"
 				Only: "{0} seulement"
 				OnlyAllowedOn: Autorisé uniquement sur
 				Or: ou
-				OutOfAmmo: À COURT DE MUNITIONS
-				Points: Points
-				SetBonusID: Définir l'ID bonus : {0}
-				ToNextLevel: " ({0} au niveau suivant)"
-				UltraBoosterAbreviation: U
 				Unique: Unique (limité à 1 enchantement unique)
 				Utility: Utilitaire
 			}
-
-			EnchantmentShortTooltip.OnTickPlayerBuff: Accorde passivement {0} pour {1} tous les {2}
-
+			EnchantmentShortTooltip: {
+				OnTickPlayerBuff: "Accorde passivement {0} pour {1} tous les {2}"
+			}
 			ItemType: {
 				Accessories: Accessoires
 				Armor: Armure
@@ -1674,56 +686,22 @@ Mods: {
 				Weapons: Armes
 			}
 		}
-
 		TownNPCMood: {
 			Witch: {
 				Content: La vie ici est supportable. Pas de dispute, pas de drame, ce n'est pas si horrible.
 				DislikeBiome: C'est incroyable comme ici c'est si apprivoisé, pas de mal, pas de creepies, c'est tellement boiteux !
 				DislikeCrowded: Comment consentir à tout ce bruit !
-				DislikeNPC: Cette... personne de {NPCName} est tellement cliché ! 'Sauvez le monde du mal' Les maux sont profondément enracinés, et là pour rester !
+				DislikeNPC: "Cette... personne de {NPCName} est tellement cliché ! 'Sauvez le monde du mal' Les maux sont profondément enracinés, et là pour rester !"
 				FarFromHome: J'ai dû m'aventurer loin pour trouver de nouveaux réactifs. Bien que mon foyer soit agréable, je peux brasser une nouvelle concoction avec ces derniers ingrédients.
 				HateBiome: Aïe ! Cet endroit est tellement lumineux, qu'avant tout je le hais !
 				HateCrowded: Je ne peux pas gérer ce trafic ici ! Sortez-moi ou expulsez-les, faites vite !
 				HateNPC: "{NPCName} est une fille tyrannique qui n'arrête pas de laisser des cheveux partout, je vais lui faire payer la guerre !"
 				LikeBiome: Cet endroit est plein de bestioles et de boue, il est temps de faire de l'argent rapidement !
-				LikeNPC: Bien que {NPCName} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !
+				LikeNPC: "Bien que {NPCName} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !"
 				LoveBiome: Cet endroit me rappelle mon ancien repaire. Très sombre, très magique, quel flair !
-				LoveNPC: Un autre utilisateur de chaudron ! {NPCName} a tellement de trucs étranges, un vrai séducteur !
+				LoveNPC: "Un autre utilisateur de chaudron ! {NPCName} a tellement de trucs étranges, un vrai séducteur !"
 				LoveSpace: Maintenant que tout le monde est parti, mes expériences peuvent enfin continuer !
 				NoHome: Je ne peux pas tenir toutes mes marchandises, celles-ci sont instables s'il vous plaît méfiez-vous !
-			}
-		}
-
-		Tiles: {
-			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
-			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
-			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
-			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
-			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
-		}
-
-		NPCs: {
-			Witch: {
-				// DisplayName: Witch
-
-				TownNPCMood: {
-					// Content: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.Content}"
-					// NoHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.NoHome}"
-					// FarFromHome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.FarFromHome}"
-					// LoveSpace: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveSpace}"
-					// DislikeCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeCrowded}"
-					// HateCrowded: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateCrowded}"
-					// LoveBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveBiome}"
-					// LikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeBiome}"
-					// DislikeBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeBiome}"
-					// HateBiome: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateBiome}"
-					// LoveNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LoveNPC}"
-					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
-					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
-					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// LikeNPC_Princess: I like {NPCName}.
-					// Princess_LovesNPC: I like {NPCName}.
-				}
 			}
 		}
 	}

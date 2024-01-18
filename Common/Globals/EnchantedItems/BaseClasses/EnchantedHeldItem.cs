@@ -1,5 +1,4 @@
-﻿using androLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +8,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using WeaponEnchantments.ModIntegration;
-using androLib.Common.Utility;
-using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -37,31 +33,8 @@ namespace WeaponEnchantments.Common.Globals
 			if (CheckGetModifier(EnchantmentStat.ManaUsage, out EStatModifier eStatModifier))
 				eStatModifier.ApplyTo(ref reduce, ref mult, item);
 		}
-
-		//Calamity Rogue weapon Attackspeed fix
-		private bool findingUseSpeed;
 		public override float UseSpeedMultiplier(Item item, Player player) {
 			float attackSpeed = GetVanillaModifierStrength(EnchantmentStat.AttackSpeed);
-
-			//Calamity Rogue weapon Attackspeed fix
-			if (AndroMod.calamityEnabled && attackSpeed != 1f && !findingUseSpeed) {
-				if (ContentSamples.ItemsByType[item.type].DamageType == CalamityValues.rogue) {
-					if (item.ModFullName() == "CalamityMod/ExecutionersBlade") {
-						findingUseSpeed = true;
-						float multiplier = CombinedHooks.TotalUseTimeMultiplier(player, item);
-						Item sampleItem = ContentSamples.ItemsByType[item.type];
-						item.useTime = Math.Max(1, (int)Math.Round(sampleItem.useTime * multiplier));
-						item.useAnimation = Math.Max(1, (int)Math.Round(sampleItem.useAnimation * multiplier));
-						findingUseSpeed = false;
-					}
-					else {
-						player.GetAttackSpeed(CalamityValues.rogue) *= attackSpeed;
-					}
-
-					return 1f;
-				}
-			}
-
 			if (GetPlayerModifierStrength(player, EnchantmentStat.CatastrophicRelease, out float catastrophicReleaseMultiplier))
 				attackSpeed *= 0.1f;
 
@@ -82,6 +55,9 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
 			return returnValue;
+		}
+		public override void ModifyItemScale(Item item, Player player, ref float scale) {
+			CheckEnchantmnetStatsApplyTo(ref scale, EnchantmentStat.Size);
 		}
 		public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player) {
 			/*float rand = Main.rand.NextFloat();
@@ -187,7 +163,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			return false;
 		}
-		public bool GetPlayerModifierStrengthForTooltip(Player player, EnchantmentStat enchantmentStat, out float strength) {
+		protected bool GetPlayerModifierStrengthForTooltip(Player player, EnchantmentStat enchantmentStat, out float strength) {
 			WEPlayer wePlayer = player.GetWEPlayer();
 			strength = 1f;
 			if (wePlayer.EnchantmentStats.ContainsKey(enchantmentStat))

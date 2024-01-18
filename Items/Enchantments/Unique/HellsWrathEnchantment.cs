@@ -3,9 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using static androLib.Common.EnchantingRarity;
-using androLib.Common.Utility;
-using androLib.Common.Globals;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -37,20 +35,15 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	[Autoload(false)]
 	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostQueenSlime;
-		public override List<DropData> NpcDropTypes => new() {
+		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.QueenSlimeBoss)
 		};
 	}
-	[Autoload(false)]
 	public class HellsWrathEnchantmentCommon : HellsWrathEnchantment { }
-	[Autoload(false)]
 	public class HellsWrathEnchantmentRare : HellsWrathEnchantment { }
-	[Autoload(false)]
 	public class HellsWrathEnchantmentEpic : HellsWrathEnchantment { }
-	[Autoload(false)]
 	public class HellsWrathEnchantmentLegendary : HellsWrathEnchantment { }
 }

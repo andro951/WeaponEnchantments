@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Effects {
         /// <param name="crit">Whether or not the damage is from a critical strike</param>
         /// <param name="hitDirection">The direction from which the attack was done (left or right)</param>
         /// <param name="projectile">If it was issued by a projectile, the projectile instance.</param>
-        public void OnModifyHit(NPC npc, WEPlayer player, Item item, ref NPC.HitModifiers modifiers, Projectile projectile = null);
+        public void OnModifyHit(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null);
 
     }
 }

@@ -11,30 +11,30 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using Terraria.ID;
-using androLib.Common.Utility;
-using androLib.Common.Globals;
-using androLib;
 
 namespace WeaponEnchantments.ModIntegration
 {
-	[JITWhenModsEnabled(CALAMITY_NAME)]
+	[JITWhenModsEnabled(calamityName)]
 	internal class CalamityIntegration : ModSystem
 	{
-		public const string CALAMITY_NAME = "CalamityMod";
+		public const string calamityName = "CalamityMod";
+		public static bool Enabled { get; private set; }
 		private List<Item> mouseItemClones = new List<Item>();
 		private Item lastMouseItem = null;
 		private double closeInventoryTimerEnd = 0;
 		private bool skipOnce = false;
 
 		public override void Load() {
-			if (AndroMod.calamityEnabled) {
-				AndroMod.calamityMod.TryFind("RogueDamageClass", out CalamityValues.rogue);
-				AndroMod.calamityMod.TryFind("TrueMeleeDamageClass", out CalamityValues.trueMelee);
-				AndroMod.calamityMod.TryFind("TrueMeleeNoSpeedDamageClass", out CalamityValues.trueMeleeNoSpeed);
+			Enabled = ModLoader.TryGetMod(calamityName, out Mod calamityMod);
+			WEMod.calamityEnabled = Enabled;
+			if (Enabled) {
+				calamityMod.TryFind("RogueDamageClass", out CalamityValues.rogue);
+				calamityMod.TryFind("TrueMeleeDamageClass", out CalamityValues.trueMelee);
+				calamityMod.TryFind("TrueMeleeNoSpeedDamageClass", out CalamityValues.trueMeleeNoSpeed);
 			}
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
-			if (AndroMod.calamityEnabled) {
+			if (Enabled) {
 				HandleOnTickEvents();
 			}
 		}
@@ -42,12 +42,10 @@ namespace WeaponEnchantments.ModIntegration
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		public void HandleOnTickEvents() {
 			//Need to add a way to handle item.value (bool pauseAddingItemValue in EnchantedItem?)
-			if (Main.LocalPlayer.talkNPC < 0)
-				return;
 
 			//Check if talking to NPC
-			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].ModFullName() : "";
-			if (npcTalking != "CalamityMod/WITCH") {
+			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].FullName : "";
+			if (npcTalking != "Calamitas the Brimstone Witch") {
 				//Clear cloned item list after timer expires
 				if (mouseItemClones.Count > 0) {
 					if (closeInventoryTimerEnd == 0) {
@@ -103,8 +101,8 @@ namespace WeaponEnchantments.ModIntegration
 						Item clone = mouseItemClones[i];
 						if (mouseItem.IsSameEnchantedItem(clone) && mouseItem.HoverName != clone.HoverName) {
 							//Force recalculate UpdateItemStats()
-							if(mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem menchantedItem))
-								menchantedItem.prefix = -1;
+							if(mouseItem.TryGetEnchantedItem(out EnchantedItem miGlobal))
+								miGlobal.prefix = -1;
 
 							//Remove from list
 							mouseItemClones.RemoveAt(i);
@@ -154,8 +152,8 @@ namespace WeaponEnchantments.ModIntegration
 		private bool CheckItem(Item item, Item clone) {
 			if (item.IsSameEnchantedItem(clone) && item.HoverName != clone.HoverName) {
 				//Force recalculate UpdateItemStats()
-				if(item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-					enchantedItem.prefix = -1;
+				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+					iGlobal.prefix = -1;
 					return true;
 				}
 			}

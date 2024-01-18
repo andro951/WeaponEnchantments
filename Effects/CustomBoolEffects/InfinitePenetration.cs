@@ -10,11 +10,11 @@ namespace WeaponEnchantments.Effects
 {
 	public class InfinitePenetration : BoolEffect
 	{
-		public InfinitePenetration(bool prevent = false) : base(prevent) {
+		public InfinitePenetration(float minimumStrength = 0f, DifficultyStrength strengthData = null, bool prevent = false) : base(minimumStrength, strengthData, prevent) {
 
 		}
 		public override EnchantmentEffect Clone() {
-			return new InfinitePenetration(!EnableStat);
+			return new InfinitePenetration(MinimumStrength, StrengthData.Clone(), !EnableStat);
 		}
 
 		public override EnchantmentStat statName => EnchantmentStat.InfinitePenetration;

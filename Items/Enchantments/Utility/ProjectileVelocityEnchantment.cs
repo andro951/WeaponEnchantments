@@ -1,7 +1,5 @@
-﻿using androLib.Common.Utility;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria.ID;
-using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -21,28 +19,20 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Sir Bumpleton ✿";
 	}
-	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentBasic : ProjectileVelocityEnchantment
 	{
-		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.Harpy, chance: 0.01f),
-			new(NPCID.SnowBalla, chance: 0.05f),
-			new(NPCID.SnowmanGangsta, chance: 0.05f)
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.Harpy),
+			new(NPCID.SnowBalla),
+			new(NPCID.SnowmanGangsta)
 		};
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Frozen)
-		};
-		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Frozen, 0.5f),
-			new(CrateID.Boreal_FrozenHard, 0.5f)
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Frozen),
+			new(CrateID.Boreal_FrozenHard)
 		};
 	}
-	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentCommon : ProjectileVelocityEnchantment { }
-	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentRare : ProjectileVelocityEnchantment { }
-	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentEpic : ProjectileVelocityEnchantment { }
-	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentLegendary : ProjectileVelocityEnchantment { }
 }

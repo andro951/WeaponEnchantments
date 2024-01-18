@@ -3,13 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using androLib.Items;
-using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments {
     public abstract class DamageReductionEnchantment : Enchantment {
         public override float ScalePercent => 0.6f;
-        public override float CapacityCostMultiplier => CapacityCostUnique;
+        public override float CapacityCostMultiplier => 3f;
 		public override int StrengthGroup => 20;
         public override void GetMyStats() {
             Effects = new() {
@@ -28,29 +26,25 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    [Autoload(false)]
-	public class DamageReductionEnchantmentBasic : DamageReductionEnchantment
+    public class DamageReductionEnchantmentBasic : DamageReductionEnchantment
     {
         public override SellCondition SellCondition => SellCondition.PostSkeletron;
-        public override List<DropData> NpcDropTypes => new() {
-            new(NPCID.GraniteFlyer, chance: 0.1f),
-            new(NPCID.GraniteGolem, chance : 0.1f),
-            new(NPCID.GreekSkeleton, chance: 0.1f),
-            new(NPCID.PossessedArmor, chance: 0.05f),
-            new(NPCID.GiantTortoise, chance: 0.1f),
-            new(NPCID.IceTortoise, chance: 0.2f)
+        public override List<WeightedPair> NpcDropTypes => new() {
+            new(NPCID.GraniteFlyer),
+            new(NPCID.GraniteGolem),
+            new(NPCID.GreekSkeleton),
+            new(NPCID.PossessedArmor),
+            new(NPCID.GiantTortoise),
+            new(NPCID.IceTortoise)
         };
-        public override List<DropData> CrateDrops => new() {
+        public override List<WeightedPair> CrateDrops => new() {
+            new(CrateID.Dungeon, 0.5f),
             new(CrateID.Stockade_DungeonHard, 0.5f)
         };
     }
-    [Autoload(false)]
-	public class DamageReductionEnchantmentCommon : DamageReductionEnchantment { }
-    [Autoload(false)]
-	public class DamageReductionEnchantmentRare : DamageReductionEnchantment { }
-    [Autoload(false)]
-	public class DamageReductionEnchantmentEpic : DamageReductionEnchantment { }
-    [Autoload(false)]
-	public class DamageReductionEnchantmentLegendary : DamageReductionEnchantment { }
+    public class DamageReductionEnchantmentCommon : DamageReductionEnchantment { }
+    public class DamageReductionEnchantmentRare : DamageReductionEnchantment { }
+    public class DamageReductionEnchantmentEpic : DamageReductionEnchantment { }
+    public class DamageReductionEnchantmentLegendary : DamageReductionEnchantment { }
 
 }
