@@ -1620,7 +1620,7 @@ namespace WeaponEnchantments
                 case EnchantmentStat.MaxMinions:
                     Player.maxMinions = (int)sm.ApplyTo(Player.maxMinions);
                     break;
-                case EnchantmentStat.MaxMana:
+                case EnchantmentStat.MaxMP:
                     Player.statManaMax2 = (int)sm.ApplyTo(Player.statManaMax2);
                     break;
                 case EnchantmentStat.MaxFallSpeed:
