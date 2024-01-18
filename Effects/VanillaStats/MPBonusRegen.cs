@@ -12,13 +12,13 @@ namespace WeaponEnchantments.Effects {
     /// <summary>
     /// This is for constant mana regen
     /// </summary>
-    public class BonusManaRegen : StatEffect, IVanillaStat {
-        public BonusManaRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
+    public class MPBonusRegen : StatEffect, IVanillaStat {
+        public MPBonusRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
-        public BonusManaRegen(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public MPBonusRegen(EStatModifier eStatModifier) : base(eStatModifier) { }
         public override EnchantmentEffect Clone() {
-            return new BonusManaRegen(EStatModifier.Clone());
+            return new MPBonusRegen(EStatModifier.Clone());
         }
         public override EnchantmentStat statName => EnchantmentStat.BonusManaRegen;
         public override string DisplayName { get; } = "Bonus Mana Regeneration";
