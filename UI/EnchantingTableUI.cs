@@ -736,7 +736,7 @@ namespace WeaponEnchantments.UI
 					if (MasterUIManager.LeftMouseClicked) {
 						wePlayer.displayEnchantmentStorage = !wePlayer.displayEnchantmentStorage;
 						if (!wePlayer.displayEnchantmentStorage)
-							MasterUIManager.SearchBarString = "";
+							MasterUIManager.TypingBarString = "";
 
 						SoundEngine.PlaySound(SoundID.MenuTick);
 						if (wePlayer.displayEnchantmentStorage) {
@@ -908,7 +908,7 @@ namespace WeaponEnchantments.UI
 		}
 		public static void CloseEnchantingTableUI(bool noSound = false) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			MasterUIManager.TryResetSearch(GetUI_ID(WE_UI_ID.EnchantmentStorageSearch));
+			MasterUIManager.TryResetTypingBar(GetUI_ID(WE_UI_ID.EnchantmentStorageSearch));
 			wePlayer.openStorageWhenOpeningTable = wePlayer.displayEnchantmentStorage;
 			wePlayer.openLoadoutsWhenOpeningTable = wePlayer.displayEnchantmentLoadoutUI;
 			wePlayer.displayEnchantmentStorage = false;

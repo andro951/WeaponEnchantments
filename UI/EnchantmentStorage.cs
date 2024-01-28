@@ -99,7 +99,7 @@ namespace WeaponEnchantments.UI
 					allOfferableItems = ContentSamples.ItemsByType.Select(p => p.Value).Where(i => i.IsEnchantable()).Select(i => new Item(i.type)).ToArray();
 				}
 
-				if (MasterUIManager.UsingSearchBar(SearchID))
+				if (MasterUIManager.UsingTypingBar(SearchID))
 					return allOfferableItems;
 
 				WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
@@ -240,7 +240,7 @@ namespace WeaponEnchantments.UI
 
 			//ItemSlots Draw
 			int startRow = scrollPanelPosition;
-			bool UsingSearchBar = MasterUIManager.UsingSearchBar(SearchID);
+			bool UsingSearchBar = MasterUIManager.UsingTypingBar(SearchID);
 			//int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
 			int inventoryIndexStart = startRow * itemSlotColumns;
 			int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
@@ -253,7 +253,7 @@ namespace WeaponEnchantments.UI
 					break;
 
 				ref Item item = ref inventory[inventoryIndex];
-				if (!UsingSearchBar || item != null && item.Name.ToLower().Contains(MasterUIManager.SearchBarString.ToLower())) {
+				if (!UsingSearchBar || item != null && item.Name.ToLower().Contains(MasterUIManager.TypingBarString.ToLower())) {
 					UIItemSlotData slotData = new(GetUI_ID(WE_UI_ID.EnchantmentStorageItemSlot), itemSlotX, itemSlotY);
 					string modFullName = item?.type.GetItemIDOrName();
 					if (managingTrash) {
@@ -449,17 +449,17 @@ namespace WeaponEnchantments.UI
 			bool mouseHoveringSearchBar = searchBarData.MouseHovering();
 			if (mouseHoveringSearchBar) {
 				if (MasterUIManager.LeftMouseClicked)
-					MasterUIManager.ClickSearchBar(SearchID);
+					MasterUIManager.ClickTypingBar(SearchID);
 			}
 
-			if (MasterUIManager.TypingOnSearchBar(SearchID)) {
-				if (MasterUIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
-					MasterUIManager.StopTypingOnSearchBar();
+			if (MasterUIManager.TypingOnBar(SearchID)) {
+				if (MasterUIManager.LeftMouseClicked && !mouseHoveringSearchBar || MasterUIManager.ShouldStopTypingOnBar()) {
+					MasterUIManager.StopTypingOnBar();
 				}
 				else {
 					PlayerInput.WritingText = true;
 					Main.instance.HandleIME();
-					MasterUIManager.SearchBarString = Main.GetInputText(MasterUIManager.SearchBarString);
+					MasterUIManager.TypingBarString = Main.GetInputText(MasterUIManager.TypingBarString);
 				}
 			}
 
@@ -474,7 +474,7 @@ namespace WeaponEnchantments.UI
 						ButtonScale[buttonIndex] = buttonScaleMaximum;
 
 					if (MasterUIManager.LeftMouseClicked) {
-						MasterUIManager.TryResetSearch(GetUI_ID(WE_UI_ID.EnchantmentStorageSearch));
+						MasterUIManager.TryResetTypingBar(GetUI_ID(WE_UI_ID.EnchantmentStorageSearch));
 						if (managingTrash && buttonIndex != EnchantmentStorageButtonID.ManageTrash)
 							managingTrash = false;
 
