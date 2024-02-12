@@ -778,12 +778,14 @@ namespace WeaponEnchantments.Common.Globals
 
 				destination.CombineEnchantedItems(list);
 
-				if (destinationEnchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.GetStack0(destination)) {
-                    if (source.stack > 0) {
-                        destination.stack--;
-                        enchantedWeapon.SetStack0(destination, false);
-                    }
-                }
+                if (destination.stack > 0) {
+					if (destinationEnchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.GetStack0(destination)) {
+						if (source.stack > 0) {
+							destination.stack--;
+							enchantedWeapon.SetStack0(destination, false);
+						}
+					}
+				}
 			}
 
 			//Clear source if source stack will be > 0 after the transfer
