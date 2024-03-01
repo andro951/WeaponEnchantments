@@ -197,28 +197,28 @@ namespace WeaponEnchantments
             });
         }
         public static void HookFishingCheck(ILContext il) {
-            var c = new ILCursor(il);
+            //var c = new ILCursor(il);
 
-            if (!c.TryGotoNext(MoveType.Before,
-                i => i.MatchLdloc(9),
-                i => i.MatchLdcI4(2)
-            )) { throw new Exception("Failed to find instuctions HookFishingCheck"); }
+            //if (!c.TryGotoNext(MoveType.Before,
+            //    i => i.MatchLdloc(9),
+            //    i => i.MatchLdcI4(2)
+            //)) { throw new Exception("Failed to find instuctions HookFishingCheck"); }
 
-            c.Index++;
+            //c.Index++;
 
-            c.Emit(OpCodes.Ldarg_0);
-            c.EmitDelegate((int lavaFishingNum, Projectile projectile) => {
-                if (projectile.ValidOwner(out Player player)) {
-                    if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult)) {
-                        lavaFishingNum += (int)mult;
-                        mult %= 1f;
-                        if (Main.rand.NextFloat() <= mult)
-                            lavaFishingNum++;
-                    }
-                }
+            //c.Emit(OpCodes.Ldarg_0);
+            //c.EmitDelegate((int lavaFishingNum, Projectile projectile) => {
+            //    if (projectile.ValidOwner(out Player player)) {
+            //        if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult)) {
+            //            lavaFishingNum += (int)mult;
+            //            mult %= 1f;
+            //            if (Main.rand.NextFloat() <= mult)
+            //                lavaFishingNum++;
+            //        }
+            //    }
 
-                return lavaFishingNum;
-            });
+            //    return lavaFishingNum;
+            //});
         }
         private static float ModifyYoyoStringLength(float stringLength, Projectile projectile) {
             if (projectile.ValidOwner(out Player player)) {
