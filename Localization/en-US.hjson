@@ -1678,16 +1678,16 @@ Mods: {
 		TownNPCMood: {
 			Witch: {
 				Content: Life here is bearable. No strife, no drama, it's not so horrible.
-				DislikeBiome: It's incredible how here is so tame, no evil, no creepies, it's so lame!
+				DislikeBiome: On this beach's expanse, magic stands no chance. No shadows to weave, no mysteries to cleave, a place where enchantment takes its leave.
 				DislikeCrowded: How am I to concentrate with all this noise!
 				DislikeNPC: This... {NPCName} person is so cliche! 'Save the world from evil' The evils are deep-rooted, and here to stay!
 				FarFromHome: I had to venture far to find new reagents.  While my home is pleasant, I can brew a new concoction with these last ingredients.
-				HateBiome: Yikes! This place is so bright, that above all I spite!
+				HateBiome: Yikes! This place is so hot and bright, those above all I spite!
 				HateCrowded: I can't deal with this here traffic! Get me out or kick them out, make it quick!
 				HateNPC: "{NPCName} is a tyrannous wench that keeps leaving hair everywhere, I will make her pay in warfare!"
-				LikeBiome: This place is full of critters and muck, time to make a quick buck!
+				LikeBiome: In a secluded place like this, one could brew up double the trouble, with potions a-bubble.
 				LikeNPC: While {NPCName} does not venture outside the tried-and-true, his arcane knowledge ranks him of that of a guru!
-				LoveBiome: This place reminds me of my old lair. Very grim, very magic, what a flair!
+				LoveBiome: This place is full of critters and muck, time to make a quick buck!
 				LoveNPC: A fellow cauldron user! {NPCName} has so many strange gimmicks, a true seducer!
 				LoveSpace: With everyone now gone, finally my experiments can carry on!
 				NoHome: I can't hold all my wares, these are unstable please beware!

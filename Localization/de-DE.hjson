@@ -1678,16 +1678,16 @@ Mods: {
 		TownNPCMood: {
 			Witch: {
 				Content: Das Leben hier ist erträglich. Kein Streit, kein Drama, es ist nicht so schrecklich.
-				DislikeBiome: Es ist unglaublich, wie hier so zahm ist, kein Übel, keine Grusel, es ist so lahm!
+				DislikeBiome: An der Weite dieses Strandes hat Magie keine Chance. Keine Schatten, die man weben muss, keine Geheimnisse, die man spalten muss, ein Ort, an dem der Zauber Abschied nimmt.
 				DislikeCrowded: Wie soll ich diesem ganzen Lärm zustimmen!
 				DislikeNPC: Diese... Person von {NPCName} ist so klischeehaft! 'Rette die Welt vor dem Bösen' Das Böse ist tief verwurzelt und hier, um zu bleiben!
 				FarFromHome: Ich musste mich weit wagen, um neue Reagenzien zu finden. Während mein Zuhause angenehm ist, kann ich mit diesen letzten Zutaten ein neues Gebräu brauen.
-				HateBiome: Huch! Dieser Ort ist so hell, dass ich vor allem ärgere!
+				HateBiome: Huch! Dieser Ort ist so heiß und hell, das ärgere ich vor allem!
 				HateCrowded: Ich kann mit diesem Verkehr hier nicht umgehen! Hol mich raus oder wirf sie raus, mach schnell!
 				HateNPC: "{NPCName} ist eine tyrannische Dirne, die überall Haare hinterlässt, ich werde sie im Krieg bezahlen lassen!"
-				LikeBiome: Dieser Ort ist voller Viecher und Dreck, Zeit für schnelles Geld!
+				LikeBiome: An einem abgelegenen Ort wie diesem könnte man mit brodelnden Zaubertränken doppelt so viel Ärger machen.
 				LikeNPC: „Während {NPCName} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“
-				LoveBiome: Dieser Ort erinnert mich an meine alte Höhle. Sehr grimmig, sehr magisch, was für ein Flair!
+				LoveBiome: Dieser Ort ist voller Lebewesen und Dreck, es ist Zeit, schnell Geld zu verdienen!
 				LoveNPC: Ein anderer Kesselbenutzer! {NPCName} hat so viele seltsame Gimmicks, ein wahrer Verführer!
 				LoveSpace: Jetzt wo alle weg sind, können meine Experimente endlich weitergehen!
 				NoHome: Ich kann nicht alle meine Waren halten, diese sind instabil, bitte passen Sie auf!

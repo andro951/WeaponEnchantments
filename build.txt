@@ -1,6 +1,6 @@
 displayName = Weapon Enchantments
 author = andro951
-version = 1.0.8.7
+version = 1.0.8.8
 weakReferences = MagicStorage
 includeSource = true
 sortAfter = RecursiveCraft, VacuumBags

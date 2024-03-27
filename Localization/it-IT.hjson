@@ -1678,16 +1678,16 @@ Mods: {
 		TownNPCMood: {
 			Witch: {
 				Content: La vita qui è sopportabile. Nessun conflitto, nessun dramma, non è così orribile.
-				DislikeBiome: È incredibile come qui sia così docile, nessun male, nessun inquietante, è così zoppo!
+				DislikeBiome: Sulla distesa di questa spiaggia, la magia non ha alcuna possibilità. Nessuna ombra da tessere, nessun mistero da penetrare, un luogo dove l'incanto si congeda.
 				DislikeCrowded: Come posso acconsentire a tutto questo rumore!
 				DislikeNPC: Questa... persona {NPCName} è così cliché! 'Salva il mondo dal male' I mali sono radicati e sono qui per restare!
 				FarFromHome: Ho dovuto avventurarmi lontano per trovare nuovi reagenti. Anche se la mia casa è piacevole, posso preparare una nuova miscela con questi ultimi ingredienti.
-				HateBiome: Accidenti! Questo posto è così luminoso, che soprattutto faccio un dispetto!
+				HateBiome: Cavolo! Questo posto è così caldo e luminoso, quelli soprattutto li dispetto!
 				HateCrowded: Non riesco a gestire questo traffico qui! Fammi uscire o buttali fuori, fallo in fretta!
 				HateNPC: "{NPCName} è una tirannosa ragazza che continua a lasciare i capelli ovunque, la farò pagare in guerra!"
-				LikeBiome: Questo posto è pieno di creature e letame, è ora di fare soldi in fretta!
+				LikeBiome: In un luogo appartato come quello, si potevano preparare il doppio dei guai, con pozioni in piena bolla.
 				LikeNPC: Sebbene {NPCName} non si avventuri al di fuori del vero e proprio, la sua conoscenza arcana lo classifica come quella di un guru!
-				LoveBiome: Questo posto mi ricorda la mia vecchia tana. Molto cupo, molto magico, che stile!
+				LoveBiome: Questo posto è pieno di creature e letame, è ora di guadagnare soldi velocemente!
 				LoveNPC: Un compagno che usa il calderone! {NPCName} ha così tanti strani espedienti, un vero seduttore!
 				LoveSpace: Ora che tutti sono andati via, finalmente i miei esperimenti possono andare avanti!
 				NoHome: Non riesco a tenere tutte le mie merci, queste sono instabili per favore attenzione!

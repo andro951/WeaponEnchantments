@@ -1678,16 +1678,16 @@ Mods: {
 		TownNPCMood: {
 			Witch: {
 				Content: Życie tutaj jest znośne. Bez kłótni, bez dramatu, to nie jest takie straszne.
-				DislikeBiome: To niewiarygodne, jak tu jest tak oswojone, bez zła, bez przerażających, jest tak kiepskie!
+				DislikeBiome: Na rozległej plaży magia nie ma szans. Żadnych cieni do tkania, żadnych tajemnic do rozwikłania, miejsce, w którym czar odchodzi.
 				DislikeCrowded: Jak mam się zgodzić z całym tym hałasem!
 				DislikeNPC: Ta... osoba {NPCName} jest taka banalna! 'Uratuj świat przed złem' Zło jest głęboko zakorzenione i tu zostanie!
 				FarFromHome: Musiałem zapuszczać się daleko, aby znaleźć nowe odczynniki. Chociaż mój dom jest przyjemny, mogę uwarzyć nową miksturę z tych ostatnich składników.
-				HateBiome: Ojej! To miejsce jest tak jasne, że przede wszystkim na złość!
+				HateBiome: Tak! To miejsce jest tak gorące i jasne, że przede wszystkim jestem na to zły!
 				HateCrowded: Nie mogę sobie z tym poradzić! Wyciągnij mnie lub wykop ich, zrób to szybko!
 				HateNPC: "{NPCName} to tyraniczna dziewka, która ciągle zostawia włosy wszędzie, zapłaci za nią na wojnie!"
-				LikeBiome: To miejsce jest pełne stworzeń i błota, czas na szybkie zarobienie pieniędzy!
+				LikeBiome: W takim odosobnionym miejscu można było uwarzyć podwójną porcję eliksirów w bąbelkach.
 				LikeNPC: Chociaż {NPCName} nie wychodzi poza wypróbowane i prawdziwe, jego tajemna wiedza zalicza go do guru!
-				LoveBiome: To miejsce przypomina mi moje stare legowisko. Bardzo ponura, bardzo magiczna, co za talent!
+				LoveBiome: To miejsce jest pełne stworzeń i syfu, czas szybko zarobić!
 				LoveNPC: Kolejny użytkownik kotła! {NPCName} ma tak wiele dziwnych sztuczek, prawdziwy uwodziciel!
 				LoveSpace: Gdy wszyscy już odeszli, w końcu moje eksperymenty mogą być kontynuowane!
 				NoHome: Nie mogę zatrzymać wszystkich moich towarów, są one niestabilne, proszę uważaj!

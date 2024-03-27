@@ -49,10 +49,10 @@ namespace WeaponEnchantments.Content.NPCs
 		public string Artist => "Sir Bumpleton ?";
 
 		public Dictionary<IShoppingBiome, AffectionLevel> BiomeAffections => new() {
-			{ ModContent.GetInstance<DungeonBiome>(), AffectionLevel.Love },
-			{ ModContent.GetInstance<JungleBiome>(), AffectionLevel.Like },
-			{ ModContent.GetInstance<ForestBiome>(), AffectionLevel.Dislike },
-			{ ModContent.GetInstance<HallowBiome>(), AffectionLevel.Hate },
+			{ ModContent.GetInstance<JungleBiome>(), AffectionLevel.Love },
+			{ ModContent.GetInstance<ForestBiome>(), AffectionLevel.Like },
+			{ ModContent.GetInstance<DesertBiome>(), AffectionLevel.Dislike },
+			{ ModContent.GetInstance<OceanBiome>(), AffectionLevel.Hate },
 		};
 		public Dictionary<int, AffectionLevel> NPCAffections => new() {
 			{ NPCID.WitchDoctor, AffectionLevel.Love },

@@ -1678,16 +1678,16 @@ Mods: {
 		TownNPCMood: {
 			Witch: {
 				Content: La vie ici est supportable. Pas de dispute, pas de drame, ce n'est pas si horrible.
-				DislikeBiome: C'est incroyable comme ici c'est si apprivoisé, pas de mal, pas de creepies, c'est tellement boiteux !
+				DislikeBiome: Sur l'étendue de cette plage, la magie n'a aucune chance. Pas d'ombres à tisser, pas de mystères à percer, un lieu où l'enchantement prend congé.
 				DislikeCrowded: Comment consentir à tout ce bruit !
 				DislikeNPC: Cette... personne de {NPCName} est tellement cliché ! 'Sauvez le monde du mal' Les maux sont profondément enracinés, et là pour rester !
 				FarFromHome: J'ai dû m'aventurer loin pour trouver de nouveaux réactifs. Bien que mon foyer soit agréable, je peux brasser une nouvelle concoction avec ces derniers ingrédients.
-				HateBiome: Aïe ! Cet endroit est tellement lumineux, qu'avant tout je le hais !
+				HateBiome: Ouais ! Cet endroit est tellement chaud et lumineux, ceux-là surtout que je déteste !
 				HateCrowded: Je ne peux pas gérer ce trafic ici ! Sortez-moi ou expulsez-les, faites vite !
 				HateNPC: "{NPCName} est une fille tyrannique qui n'arrête pas de laisser des cheveux partout, je vais lui faire payer la guerre !"
-				LikeBiome: Cet endroit est plein de bestioles et de boue, il est temps de faire de l'argent rapidement !
+				LikeBiome: Dans un endroit isolé comme celui-ci, on pourrait préparer deux fois plus de problèmes, avec des potions à bulles.
 				LikeNPC: Bien que {NPCName} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !
-				LoveBiome: Cet endroit me rappelle mon ancien repaire. Très sombre, très magique, quel flair !
+				LoveBiome: Cet endroit est plein de créatures et de boue, il est temps de gagner rapidement de l'argent !
 				LoveNPC: Un autre utilisateur de chaudron ! {NPCName} a tellement de trucs étranges, un vrai séducteur !
 				LoveSpace: Maintenant que tout le monde est parti, mes expériences peuvent enfin continuer !
 				NoHome: Je ne peux pas tenir toutes mes marchandises, celles-ci sont instables s'il vous plaît méfiez-vous !
