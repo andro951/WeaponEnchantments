@@ -7,10 +7,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Debuffs
 {
-    public class Amaterasu : ModBuff
+    public class Amaterasu : WEBuff
     {
         static int[] notImmuneBuffs = new int[] { ModContent.BuffType<Amaterasu>(), BuffID.OnFire, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.OnFire3, BuffID.Oiled};
         public override void SetStaticDefaults() {
@@ -26,6 +27,12 @@ namespace WeaponEnchantments.Debuffs
                 npc.buffImmune[notImmuneBuff] = false;
             }
         }
-		public override LocalizedText Description => LocalizedText.Empty;
+
+		public override string LocalizationDescription => null;
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return ModContent.GetInstance<EnchantmentToggle>().WorldAblaze;
+        }
 	}
 }

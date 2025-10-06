@@ -1,0 +1,342 @@
+<div style="float:right">
+{{Infobox enchantment
+| name     = Rogue Class Swap Enchantment
+
+| image1   = [[File:RogueClassSwapEnchantmentBasic.png]]
+| type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip1 = <i>'(Calamity Mod Enchantment)<br/>0.88x Damage (Applied after defenses. Not visible in weapon tooltip)<br/>Convert damage type to Throwing Damage<br/>Level cost: 3<br/>   *Unique (Limited to 1 Unique Enchantment)*<br/>   *Only allowed on Weapons: 100%*<br/>   *Not allowed on Summon or Throwing weapons*'</i>
+| rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
+| sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image2   = [[File:RogueClassSwapEnchantmentCommon.png]]
+| type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip2 = <i>'(Calamity Mod Enchantment)<br/>0.91x Damage (Applied after defenses. Not visible in weapon tooltip)<br/>Convert damage type to Throwing Damage<br/>Level cost: 6<br/>   *Unique (Limited to 1 Unique Enchantment)*<br/>   *Only allowed on Weapons: 100%*<br/>   *Not allowed on Summon or Throwing weapons*'</i>
+| rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
+| sell2    = <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image3   = [[File:RogueClassSwapEnchantmentRare.png]]
+| type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip3 = <i>'(Calamity Mod Enchantment)<br/>0.94x Damage (Applied after defenses. Not visible in weapon tooltip)<br/>Convert damage type to Throwing Damage<br/>Level cost: 9<br/>   *Unique (Limited to 1 Unique Enchantment)*<br/>   *Only allowed on Weapons: 100%*<br/>   *Not allowed on Summon or Throwing weapons*'</i>
+| rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
+| sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>46</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image4   = [[File:RogueClassSwapEnchantmentEpic.png]]
+| type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip4 = <i>'(Calamity Mod Enchantment)<br/>0.97x Damage (Applied after defenses. Not visible in weapon tooltip)<br/>Convert damage type to Throwing Damage<br/>Level cost: 12<br/>   *Unique (Limited to 1 Unique Enchantment)*<br/>   *Only allowed on Weapons: 100%*<br/>   *Not allowed on Summon or Throwing weapons*'</i>
+| rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
+| sell4    = <span>8</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image5   = [[File:RogueClassSwapEnchantmentLegendary.png]]
+| type5    = [[Enchantments|Enchantments]]
+| tooltip5 = <i>'(Calamity Mod Enchantment)<br/>1x Damage (Applied after defenses. Not visible in weapon tooltip)<br/>Convert damage type to Throwing Damage<br/>Level cost: 15<br/>   *Unique (Limited to 1 Unique Enchantment)*<br/>   *Only allowed on Weapons: 100%*<br/>   *Not allowed on Summon or Throwing weapons*'</i>
+| rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
+| sell5    = <span>23</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>70</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| research = 1 required
+}}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchantments]]<br/>
+<br/>
+=== Effects ===
+{| class="wikitable"
+! Damage (Applied after defenses. Not visible in weapon tooltip)
+! Convert damage type to Throwing Damage
+|-
+| 0.88x
+| Throwing Damage
+|-
+| 0.91x
+| Throwing Damage
+|-
+| 0.94x
+| Throwing Damage
+|-
+| 0.97x
+| Throwing Damage
+|-
+| 1x
+| Throwing Damage
+|}
+
+=== Applicability ===
+{| class="wikitable"
+! None
+! Not Allowed
+|-
+| Weapons
+| 100%
+|-
+| Armor
+| Not Allowed
+|-
+| Accessories
+| Not Allowed
+|-
+| Fishing Poles
+| Not Allowed
+|-
+| Tools
+| Not Allowed
+|}
+
+=== Crafting ===
+<div class="tabber-borderless"><tabber>
+Basic=
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="5" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>
+|}
+|-|Common=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| rowspan="3" | [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>
+|}
+|-|Rare=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Epic=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| rowspan="3" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Legendary=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| rowspan="4" | [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>
+|-
+| [[File:RogueClassSwapEnchantmentCommon.png]] [[Rogue Class Swap Enchantment#Common|Rogue Class Swap Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentRare.png]] [[Rogue Class Swap Enchantment#Rare|Rogue Class Swap Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:RogueClassSwapEnchantmentEpic.png]] [[Rogue Class Swap Enchantment#Epic|Rogue Class Swap Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>
+| [[File:RogueClassSwapEnchantmentLegendary.png]] [[Rogue Class Swap Enchantment#Legendary|Rogue Class Swap Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+</tabber></div>
+{{Enchantments}}<br/>
+[[Category:Enchantments]]<br/>

@@ -6,12 +6,17 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments {
-    public abstract class LifeStealEnchantment : Enchantment {
+    public abstract class LifeStealEnchantment : Enchantment
+    {
+	    protected override string TypeName => "LifeSteal";
+	    protected override string NamePrefix => "Enchantments/";
+	    
         public override float ScalePercent => 0.8f;
         public override bool Max1 => true;
-        public override float CapacityCostMultiplier => 2f;
+        public override float CapacityCostMultiplier => CapacityCostNormal;
 		public override int StrengthGroup => 25;
         public override void GetMyStats() {
             Effects = new() {
@@ -41,26 +46,31 @@ namespace WeaponEnchantments.Items.Enchantments {
 			$"Additionally, life steal from enchantments will not over heal you past full health which would also waste the pool.  " +
 			$"The moon lord's Moon Leach debuff normally prevents all lifesteal.  I personally don't like mechanics that completely " +
 			$"turn off effects like this, so life steal from enchantments is reduced by 50% from this debuff instead.";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().LifeSteal;
+        }
     }
     [Autoload(false)]
 	public class LifeStealEnchantmentBasic : LifeStealEnchantment
     {
         public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
         public override List<DropData> NpcDropTypes => new() {
-            new(NPCID.WallofFlesh)
+            new(NPCID.WallofFlesh, 2f),
+            new(NPCID.EaterofWorldsHead, chance: 0.2f)
         };
         public override List<DropData> NpcAIDrops => new() {
-            new(NPCAIStyleID.Vulture),
             new(NPCAIStyleID.TheHungry),
             new(NPCAIStyleID.Creeper)
         };
         public override List<DropData> ChestDrops => new() {
-            new(ChestID.Shadow, 0.1f),
-            new(ChestID.Shadow_Locked, 0.1f)
+            new(ChestID.Shadow,  chance: 0.2f),
+            new(ChestID.Shadow_Locked,  chance: 0.2f)
         };
         public override List<DropData> CrateDrops => new() {
-            new(CrateID.Obsidian_LockBox, 0.05f),
-            new(CrateID.Crimson, 0.5f),
+			new(CrateID.Obsidian_LockBox, chance: 0.1f),
+			new(CrateID.Crimson, 0.5f),
             new(CrateID.Hematic_CrimsonHard, 0.5f)
         };
     }
@@ -72,5 +82,7 @@ namespace WeaponEnchantments.Items.Enchantments {
 	public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
     [Autoload(false)]
 	public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
+	[Autoload(false)]
+	public class LifeStealEnchantmentCursed : LifeStealEnchantment { }
 
 }

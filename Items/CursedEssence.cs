@@ -10,40 +10,88 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using androLib.Common.Utility;
+using androLib.Items;
+using WeaponEnchantments.Content.NPCs;
+using WeaponEnchantments.Debuffs;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class CursedEssence : WEModItem {
+	[Autoload(false)]
+	public class CursedEssence : WEModItem, ISoldByNPC {
 		private int entitySize = 20;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-		public Color glowColor = TierColors[3];
+		public Color glowColor = TierColors[Enchantment.CursedTier];
+		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - Enchantment.CursedTier) * 10f;
 		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.CursedEssence, WikiTypeID.CraftingMaterial };
-        public override int CreativeItemSacrifice => 25;
+		public override Type GroupingType => typeof(EnchantmentEssence);
+		public override int CreativeItemSacrifice => 25;
+		public override bool CanBeStoredInEnchantmentStorage => true;
 
-		public override string Artist => "Kiroto";
+		public override string Artist => "andro951";
 		public override string Designer => "andro951";
 
+		public Func<int> SoldByNPCNetID => ModContent.NPCType<Witch>;
+		public virtual SellCondition SellCondition => SellCondition.Always;
+
+		public const int TicksPerFrame = 17;
+		public const int AnimationFrames = 16;
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
+			int type = Item.type;
+			Main.RegisterItemAnimation(type, new DrawAnimationVertical(TicksPerFrame, AnimationFrames));
+			ItemID.Sets.AnimatesAsSoul[type] = true;
+			ItemID.Sets.ItemIconPulse[type] = true;
+			ItemID.Sets.ItemNoGravity[type] = true;
+			EnchantmentEssence.values[Enchantment.CursedTier] = (float)(EnchantmentEssence.valueMult * Math.Pow(EnchantmentEssence.valuePower, Enchantment.CursedTier))/10000f;
 		}
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
-            int cursedEssenceCount = Main.LocalPlayer.GetWEPlayer().cursedEssenceCount;
-            tooltips.Add(new(Mod, "cursedEssenceTooltip", $"Energy of a curse so powerful it's taken form.  Other curses will be drawn to its power." +
-				$"\tIncreases enemy spawn rate.  (Current bonus {((float)Main.LocalPlayer.GetWEPlayer().cursedEssenceCount * 0.05f).PercentString()})" +
-				$"\tIncreased chance of cursed enemies spawning."));
+			int cursedEssenceCount = CurseAttractionNPC.PlayerCursedEssence[Main.myPlayer];
+			CurseAttractionNPC.GetSpawnRateAndMaxSpawnsMultipliers(Main.LocalPlayer, out double spawnRateMult, out double maxSpawnsMult);
+			double cursedSpawnChance = CurseAttractionNPC.GetCursedSpawnChance(Main.LocalPlayer.position);
+			tooltips.Add(new(Mod, "cursedEssenceTooltip", Name.Lang_WE(L_ID1.Tooltip, L_ID2.ItemTooltip, new object[] { cursedEssenceCount, ((float)spawnRateMult).S(2), ((float)maxSpawnsMult).S(2), ((float)cursedSpawnChance).PercentString() })));
         }
 		public override void PostUpdate() {
 			float intensity = 0.5f;
 			Lighting.AddLight(Item.Center, glowColor.ToVector3() * intensity * Main.essScale);
 		}
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
+			// Add glow mask
+			Texture2D texture = TextureAssets.Item[Item.type].Value;
+
+			// Calculate the animation's current frame
+			int currentFrame = Main.itemFrameCounter[whoAmI];
+			Rectangle frame = Main.itemAnimations[Item.type] is not null ? Main.itemAnimations[Item.type].GetFrame(texture, currentFrame) : texture.Frame();
+
+			// Draw over the sprite
+			spriteBatch.Draw
+			(
+				texture,
+				new Vector2
+				(
+					Item.position.X - Main.screenPosition.X + Item.width * 0.5f,
+					Item.position.Y - Main.screenPosition.Y + Item.height * 0.5f
+				),
+				frame,
+				Color.White,
+				rotation,
+				new Vector2
+				(
+					texture.Width,
+					texture.Height / AnimationFrames
+				) * 0.5f,
+				scale,
+				SpriteEffects.None,
+				0f
+			);
+		}
 		public override void SetDefaults() {
-			Item.value = (int)EnchantmentEssence.values[3];
-			Item.maxStack = 100;
+			Item.value = (int)EnchantmentEssence.values[Enchantment.CursedTier];
+			Item.maxStack = EnchantmentEssence.MAX_STACK;
 			Item.width = entitySize;
 			Item.height = entitySize;
-			Item.rare = GetRarityFromTier(3);
+			Item.rare = GetRarityFromTier(Enchantment.CursedTier);
 		}
 
 		public override void AddRecipes() {
@@ -55,40 +103,5 @@ namespace WeaponEnchantments.Items
 			recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[3] + "EnchantingTable");
 			recipe.Register();
 		}
-		public override void UpdateInventory(Player player) {
-            player.GetWEPlayer().cursedEssenceCount += Item.stack;
-            player.GetWEPlayer().cursedEssenceCount.Clamp(0, 100);
-        }
 	}
-    
-    public class CursedEnemy : GlobalNPC
-    {
-        private static bool nextRareEnemyCursed = false;
-        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
-            spawnRate = (int)Math.Round((float)spawnRate * (1f + (float)player.GetWEPlayer().cursedEssenceCount * 0.05f));
-        }
-        public static float GetCursedEnemySpawnChance(WEPlayer wePlayer) {
-            float chance = 0f;
-            
-            if (!Main.dayTime || Main.eclipse || wePlayer.Player.ZoneNormalUnderground)
-                chance += 0.5f;
-            
-            if (Main.invasionType > 0 || Main.pumpkinMoon || Main.snowMoon)
-                chance += 0.25f;
-            
-            if (Main.bloodMoon)
-                chance += 0.25f;
-            
-            if (wePlayer.Player.ZoneCorrupt || wePlayer.Player.ZoneCrimson)
-                chance += 0.5f;
-            
-            if (wePlayer.Player.ZoneUnderworldHeight)
-                chance += 0.5f;
-            
-            if (chance > 0f && wePlayer.cursedEssenceCount > 0)
-                chance += (float)wePlayer.cursedEssenceCount / 40f + 0.5f;
-
-            return chance;
-        }
-    }
 }

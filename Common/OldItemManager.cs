@@ -11,7 +11,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.UI;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using androLib.Common.Utility;
 using androLib;
@@ -66,14 +66,14 @@ namespace WeaponEnchantments.Common
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"\\/ReplaceAllOldItems()").Log_WE();
+			if (LogMethods.debugging) ($"\\/ReplaceAllOldItems()").Log();
 
             #endregion
 
             int i = 0;
             foreach (Chest chest in Main.chest) {
                 if (chest != null) {
-                    if(LogMethods.debugging) ($"chest: {i}").Log_WE();
+                    if(LogMethods.debugging) ($"chest: {i}").Log();
                     ReplaceOldItems(chest.item);
                 }
                 i++;
@@ -81,7 +81,7 @@ namespace WeaponEnchantments.Common
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ReplaceAllOldItems()").Log_WE();
+            if (LogMethods.debugging) ($"/\\ReplaceAllOldItems()").Log();
 
             #endregion
         }
@@ -89,7 +89,7 @@ namespace WeaponEnchantments.Common
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"\\/ReplaceAllPlayerOldItems(player: {player.S()})").Log_WE();
+			if (LogMethods.debugging) ($"\\/ReplaceAllPlayerOldItems(player: {player.S()})").Log();
 
             #endregion
 
@@ -141,7 +141,7 @@ namespace WeaponEnchantments.Common
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"/\\ReplaceAllPlayerOldItems(player: {player.S()})").Log_WE();
+			if (LogMethods.debugging) ($"/\\ReplaceAllPlayerOldItems(player: {player.S()})").Log();
 
 			#endregion
 		}
@@ -151,7 +151,7 @@ namespace WeaponEnchantments.Common
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log_WE();
+            if (LogMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log();
 
 			#endregion
 
@@ -161,7 +161,7 @@ namespace WeaponEnchantments.Common
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log_WE();
+            if (LogMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log();
 
 			#endregion
 		}
@@ -170,7 +170,7 @@ namespace WeaponEnchantments.Common
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log_WE();
+                if (LogMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log();
 
 				#endregion
 
@@ -244,7 +244,7 @@ namespace WeaponEnchantments.Common
 
                             if (newGlobalItems.Count < count) {
                                 fieldInfo.SetValue(item, newGlobalItems.ToArray());
-								GameMessageTextID.RemovedEnchantedItemData.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), count, newGlobalItems.Count }).Log_WE();// $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log_WE();
+								GameMessageTextID.RemovedEnchantedItemData.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), count, newGlobalItems.Count }).Log();// $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log_WE();
                             }
                         }
                     }
@@ -266,7 +266,7 @@ namespace WeaponEnchantments.Common
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log_WE();
+                if (LogMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log();
 
 				#endregion
 			}
@@ -363,7 +363,7 @@ namespace WeaponEnchantments.Common
                                         ReplaceItem(ref item, enchantment.Item.type + typeOffset);
                                     }
 									else {
-                                        $"{GameMessageTextID.FailedReplaceOldItem.ToString().Lang_WE(L_ID1.GameMessages)} {name}".LogNT_WE(ChatMessagesIDs.AlwaysShowFailedToReplaceOldItem);
+                                        $"{GameMessageTextID.FailedReplaceOldItem.ToString().Lang_WE(L_ID1.GameMessages)} {name}".LogNT(ChatMessagesIDs.AlwaysShowFailedToReplaceOldItem);
 									}
 
                                     return true;
@@ -433,7 +433,7 @@ namespace WeaponEnchantments.Common
                 ReplaceItem(ref item, value, true);
             }
 			else {
-				GameMessageTextID.FailedReplaceWithCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT_WE(ChatMessagesIDs.FailedGetEnchantmentValueByName);//$"Failed to replace item: {item.S()} with coins".LogNT_WE(ChatMessagesIDs.FailedGetEnchantmentValueByName);
+				GameMessageTextID.FailedReplaceWithCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT(ChatMessagesIDs.FailedGetEnchantmentValueByName);//$"Failed to replace item: {item.S()} with coins".LogNT_WE(ChatMessagesIDs.FailedGetEnchantmentValueByName);
 			}
 
             return true;
@@ -454,11 +454,11 @@ namespace WeaponEnchantments.Common
 				//type is coins when replaceWithCoins is true
 				androLib.Common.Utility.AndroUtilityMethods.ReplaceItemWithCoins(ref item, total);
 
-                GameMessageTextID.ItemRemovedRecieveCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName }).Log_WE();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log_WE();
+                GameMessageTextID.ItemRemovedRecieveCoins.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName }).Log();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log_WE();
             }
             else {
                 item = new Item(type, stack);
-				GameMessageTextID.ItemRemovedRelacedWithItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName, ContentSamples.ItemsByType[type].S() }).Log_WE();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}").Log_WE();
+				GameMessageTextID.ItemRemovedRelacedWithItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItemName, ContentSamples.ItemsByType[type].S() }).Log();// ($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}").Log_WE();
             }
         }
         private static int GetEnchantmentValueByName(string name) {

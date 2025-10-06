@@ -6,12 +6,16 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class PercentArmorPenetrationEnchantment : Enchantment
 	{
-		public override int StrengthGroup => 4;
+		protected override string TypeName => "PercentArmorPenetration";
+		protected override string NamePrefix => "Enchantments/";
+		
+		public override int StrengthGroup => 27;
 		public override void GetMyStats() {
 			Effects = new() {
 				new PercentArmorPenetration(@base: EnchantmentStrengthData),
@@ -22,20 +26,25 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().PercentArmorPenetration;
+		}
 	}
 	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentBasic : PercentArmorPenetrationEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.WallofFlesh)
+			new(NPCID.WallofFlesh, 2f)
 		};
 		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Shadow, 0.1f),
-			new(ChestID.Shadow_Locked, 0.1f)
+			new(ChestID.Shadow, chance: 0.2f),
+			new(ChestID.Shadow_Locked, chance: 0.2f)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Obsidian_LockBox, 0.05f)
+			new(CrateID.Obsidian_LockBox, chance: 0.1f)
 		};
 	}
 	[Autoload(false)]
@@ -46,4 +55,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class PercentArmorPenetrationEnchantmentEpic : PercentArmorPenetrationEnchantment { }
 	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentLegendary : PercentArmorPenetrationEnchantment { }
+	[Autoload(false)]
+	public class PercentArmorPenetrationEnchantmentCursed : PercentArmorPenetrationEnchantment { }
 }

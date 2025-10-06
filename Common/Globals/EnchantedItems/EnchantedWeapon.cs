@@ -18,7 +18,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
 using static WeaponEnchantments.WEPlayer;
@@ -49,8 +49,9 @@ namespace WeaponEnchantments.Common.Globals
 
 		#region Infusion
 
+        public const int DefaultInfusionPower = -1;
         public int GetInfusionPower(ref Item item) {
-            if (infusionPower == -1)
+            if (infusionPower == DefaultInfusionPower)
                 infusionPower = item.GetWeaponInfusionPowerSearchIfNeeded(infusedItemName);
 
             return infusionPower;
@@ -58,13 +59,89 @@ namespace WeaponEnchantments.Common.Globals
         public void SetInfusionPower(int newValue) {
 			infusionPower = newValue;
 		}
-		private int infusionPower = -1;
+		private int infusionPower = DefaultInfusionPower;
 		public float infusionDamageMultiplier = 1f;
+        public class GatheringToolStats {
+            public const int DefaultStatValue = -1;
+            int useTime = DefaultStatValue;
+            int useAnimation = DefaultStatValue;
+            int pick = DefaultStatValue;
+            int axe = DefaultStatValue;
+            int hammer = DefaultStatValue;
+            public GatheringToolStats(Item infusedItem) {
+                if (infusedItem.NullOrAir()) {
+                    ResetStats();
+                    return;
+                }
 
-        #endregion
+                useTime = infusedItem.useTime;
+                useAnimation = infusedItem.useAnimation;
+                pick = infusedItem.pick;
+                axe = infusedItem.axe;
+                hammer = infusedItem.hammer;
+            }
 
-        #region Tracking (instance)
-        public bool GetStack0(Item item) {
+            public void UpdateStats(Item item) {
+                Item csi = item.type.CSI();
+                if (csi.IsGatheringTool()) {
+					if (useTime == DefaultStatValue) {
+						item.useTime = csi.useTime;
+						item.useAnimation = csi.useAnimation;
+					}
+					else if (item.useTime > useTime) {
+						item.useTime = useTime;
+						item.useAnimation = useAnimation;
+					}
+				}
+                
+                if (pick == DefaultStatValue) {
+                    item.pick = csi.pick;
+                }
+                else if (item.pick < pick) {
+					item.pick = pick;
+				}
+
+                if (axe == DefaultStatValue) {
+                    item.axe = csi.axe;
+                }
+                else if (item.axe < axe) {
+					item.axe = axe;
+				}
+
+                if (hammer == DefaultStatValue) {
+                    item.hammer = csi.hammer;
+                }
+                else if (item.hammer < hammer) {
+					item.hammer = hammer;
+				}
+            }
+            public void ResetStats() {
+				useTime = DefaultStatValue;
+				useAnimation = DefaultStatValue;
+				pick = DefaultStatValue;
+				axe = DefaultStatValue;
+				hammer = DefaultStatValue;
+			}
+		}
+        private GatheringToolStats gatheringToolStats = null;
+		public void TrySetGatheringTools(Item item, Item infusedItem) {
+            if (!item.type.CSI().IsGatheringTool() && item.useStyle != ItemUseStyleID.Swing)
+                return;
+
+            if (infusedItem.type.CSI().IsGatheringTool()) {
+				gatheringToolStats = new(infusedItem);
+				gatheringToolStats.UpdateStats(item);
+			}
+            else if (gatheringToolStats != null) {
+                gatheringToolStats.ResetStats();
+				gatheringToolStats.UpdateStats(item);
+			}
+		}
+
+		#endregion
+
+		#region Tracking (instance)
+		public bool GetStack0(Item item) {
             if (_stack0) {
                 if (item.stack > 1) {
 					item.stack--;
@@ -92,9 +169,6 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => lateInstantiation && entity.IsWeaponItem();
         public override EItemType ItemType => EItemType.Weapons;
-        public override void HoldItem(Item item, Player player) {
-
-        }
         public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedWeapon clone = (EnchantedWeapon)base.Clone(item, itemClone);
 
@@ -279,8 +353,8 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage) {
             damage *= infusionDamageMultiplier;
             CheckEnchantmentStatsForModifier(ref damage, EnchantmentStat.Damage);
-        }
-        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback) {
+		}
+		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback) {
             CheckEnchantmentStatsForModifier(ref knockback, EnchantmentStat.Knockback);
         }
         public override bool? CanAutoReuseItem(Item item, Player player) {
@@ -418,14 +492,19 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public float GetPerLevelBonus() => levelBeforeBooster * GlobalStrengthMultiplier / 100f;
+		public override void ResetInfusion(Item item) {
+			base.ResetInfusion(item);
+            infusionDamageMultiplier = 1f;
+            SetInfusionPower(DefaultInfusionPower);
+            if (gatheringToolStats != null) {
+                gatheringToolStats.ResetStats();
+                gatheringToolStats.UpdateStats(item);
+            }
+		}
 	}
 
     public static class EnchantedWeaponStaticMethods
 	{
-        public static float GetReductionFactor(int hp) {
-            float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
-            return factor;
-		}
 		public static float GetPrideOfTheWeakMultiplier(this EnchantedWeapon enchantedWeapon) {
             Item item = enchantedWeapon.Item;
             int infusionPower = enchantedWeapon.GetInfusionPower(ref item);

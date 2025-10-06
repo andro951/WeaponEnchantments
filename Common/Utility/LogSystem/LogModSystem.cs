@@ -36,9 +36,7 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static readonly bool printListForDocumentConversion = false;
         public static readonly bool zzzLocalizationForTesting = false;
-        public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static readonly bool printWiki = WEMod.serverConfig.PrintWikiInfo;
-        public static readonly bool printNPCIDSwitch = false;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
@@ -51,15 +49,8 @@ namespace WeaponEnchantments.Common.Utility
             { Accessory, false }
         };
 
-        //Only used to print the full list of contributors.
-        public static Dictionary<string, string> contributorLinks = new Dictionary<string, string>() {
-            { "Zorutan", "https://twitter.com/ZorutanMesuta" }
-		};
-
         public static SortedDictionary<string, Contributors> contributorsData = new SortedDictionary<string, Contributors>();
         public static List<string> namesAddedToContributorDictionary = new List<string>();
-        public static List<string> enchantmentsLocalization = new List<string>();
-        public static SortedDictionary<int, List<(float, List<DropData>)>> npcEnchantmentDrops = new();
 		private static bool numPad0 = false;
 		private static bool numPad1 = false;
         private static bool numPad3 = false;
@@ -77,9 +68,7 @@ namespace WeaponEnchantments.Common.Utility
             //Contributors  change to give exact file location when added to contributor.
             PrintContributorsList();
 
-            Wiki.PrintWiki();
-
-            PrintNPCIDSwitch();
+            new WeaponEnchantmentsWiki().PrintWiki();
         }
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
             if (WEMod.clientConfig.EnableSwappingWeapons) {
@@ -149,7 +138,7 @@ namespace WeaponEnchantments.Common.Utility
 
                 if (newNumPad8 && !numPad8) {
                     string msg = "\n" + DummyNPC.allTotalItemDamages.Select(pair => $"{pair.Key}, {pair.Value.ToString("F5")}").JoinList("\n");
-                    msg.LogSimple_WE();
+                    msg.LogSimple();
 				}
 
 				numPad0 = newNumPad0;
@@ -245,7 +234,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
 			}
 
-            tooltipList.Log_WE();
+            tooltipList.Log();
         }
         private static void PrintContributorsList() {
             if (!printListOfContributors)
@@ -272,35 +261,19 @@ namespace WeaponEnchantments.Common.Utility
             string artistsMessage = "";
             foreach (string artistName in artistCredits.Keys) {
                 artistsMessage += $"\n{artistName}: ";
-                if (contributorLinks.ContainsKey(artistName))
-                    artistsMessage += contributorLinks[artistName];
+                if (AndroLogModSystem.contributorLinks.ContainsKey(artistName))
+                    artistsMessage += AndroLogModSystem.contributorLinks[artistName];
 
                 artistsMessage += "\n\n";
                 foreach (string texture in artistCredits[artistName]) {
                     artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveFirstFolder('/', false)}.png)\n";
                 }
             }
-            artistsMessage.Log_WE();
+            artistsMessage.Log();
 
             namesAddedToContributorDictionary.Clear();
             contributorsData.Clear();
         }
-        private static void PrintNPCIDSwitch() {
-            if (!printNPCIDSwitch)
-                return;
-
-            string text = "";
-            text += "\n\nswitch() {\n";
-            for(short i = NPCID.NegativeIDCount + 1; i < NPCID.Count; i++) {
-                text += $"\tcase NPCID.{NPCID.Search.GetName(i)}://{i} {ContentSamples.NpcsByNetId[i].FullName}\n" +
-                        $"\t\treturn \"\";\n";
-            }
-
-            text += "\tdefault:\n" +
-				"\t\treturn \"\";\n" +
-				"}\n";
-            text.LogSimple_WE();
-		}
     }
 }
 

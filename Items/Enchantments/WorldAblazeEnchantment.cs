@@ -6,11 +6,15 @@ using WeaponEnchantments.Debuffs;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Utility;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class WorldAblazeEnchantment : Enchantment
 	{
+		protected override string TypeName => "WorldAblaze";
+		protected override string NamePrefix => "Enchantments/";
+        
 		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
@@ -29,7 +33,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			if (EnchantmentTier >= 3)
 				Effects.Add(new BuffEffect(BuffID.OnFire3, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData * 0.2f));
 
-			if (EnchantmentTier == 4)
+			if (EnchantmentTier >= 4)
 				Effects.Add(new BuffEffect((short)ModContent.BuffType<Amaterasu>(), BuffStyle.OnHitEnemyDebuff, 10000, buffStrength: EnchantmentStrengthData));
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -40,6 +44,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().WorldAblaze;
+		}
 	}
 	[Autoload(false)]
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment
@@ -58,5 +67,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class WorldAblazeEnchantmentEpic : WorldAblazeEnchantment { }
 	[Autoload(false)]
 	public class WorldAblazeEnchantmentLegendary : WorldAblazeEnchantment { }
+	[Autoload(false)]
+	public class WorldAblazeEnchantmentCursed : WorldAblazeEnchantment { }
 
 }

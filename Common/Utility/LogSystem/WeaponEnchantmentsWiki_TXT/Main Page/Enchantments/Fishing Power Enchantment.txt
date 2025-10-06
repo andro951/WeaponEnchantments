@@ -1,0 +1,438 @@
+<div style="float:right">
+{{Infobox enchantment
+| name     = Fishing Power Enchantment
+
+| image1   = [[File:FishingPowerEnchantmentBasic.png]]
+| type1    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip1 = <i>'+2 Fishing Power<br/>Level cost: 1<br/>   *Allowed on Armor: 100%, Accessories: 100% and Fishing Poles: 100%*<br/>   *Utility*'</i>
+| rarity1  = <b><span style="color:rgb(46, 127, 76);">Basic</span></b>
+| buy      = <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>42</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+| sell1    = <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image2   = [[File:FishingPowerEnchantmentCommon.png]]
+| type2    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip2 = <i>'+4 Fishing Power<br/>Level cost: 2<br/>   *Allowed on Armor: 100%, Accessories: 100% and Fishing Poles: 100%*<br/>   *Utility*'</i>
+| rarity2  = <b><span style="color:rgb(31, 212, 218);">Common</span></b>
+| sell2    = <span>98</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image3   = [[File:FishingPowerEnchantmentRare.png]]
+| type3    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip3 = <i>'+6 Fishing Power<br/>Level cost: 3<br/>   *Allowed on Armor: 100%, Accessories: 100% and Fishing Poles: 100%*<br/>   *Utility*'</i>
+| rarity3  = <b><span style="color:rgb(103, 38, 161);">Rare</span></b>
+| sell3    = <span>5</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>28</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image4   = [[File:FishingPowerEnchantmentEpic.png]]
+| type4    = [[Enchantments|Enchantments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+| tooltip4 = <i>'+10 Fishing Power<br/>Level cost: 4<br/>   *Allowed on Armor: 100%, Accessories: 100% and Fishing Poles: 100%*<br/>   *Utility*'</i>
+| rarity4  = <b><span style="color:rgb(249, 0, 35);">Epic</span></b>
+| sell4    = <span>6</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>56</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| image5   = [[File:FishingPowerEnchantmentLegendary.png]]
+| type5    = [[Enchantments|Enchantments]]
+| tooltip5 = <i>'+20 Fishing Power<br/>Level cost: 5<br/>   *Allowed on Armor: 100%, Accessories: 100% and Fishing Poles: 100%*<br/>   *Utility*'</i>
+| rarity5  = <b><span style="color:rgb(215, 84, 9);">Legendary</span></b>
+| sell5    = <span>12</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>25</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original
+
+| research = 1 required
+}}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b3/Chest.png/revision/latest?cb=20200516205229&format=original Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_1298.png]] [https://terraria.fandom.com/wiki/Water_Chest Water Chest]
+| 7.69%
+|}
+
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+|+ [[File:Item_2334.png]] Obtained From
+! Entity
+! Rate
+|-
+| [[File:Item_2334.png]] [https://terraria.fandom.com/wiki/Wooden_Crate Wooden Crate]
+| 2.35%
+|-
+| [[File:Item_2335.png]] [https://terraria.fandom.com/wiki/Iron_Crate Iron Crate]
+| 1.47%
+|-
+| [[File:Item_2336.png]] [https://terraria.fandom.com/wiki/Golden_Crate Golden Crate]
+| 10%
+|-
+| [[File:Item_3085.png]] [https://terraria.fandom.com/wiki/Golden_Lock_Box Golden Lock Box]
+| 2.5%
+|-
+| [[File:Item_3203.png]] [https://terraria.fandom.com/wiki/Corrupt_Crate Corrupt Crate]
+| 4.55%
+|-
+| [[File:Item_3204.png]] [https://terraria.fandom.com/wiki/Crimson_Crate Crimson Crate]
+| 3.84%
+|-
+| [[File:Item_3205.png]] [https://terraria.fandom.com/wiki/Dungeon_Crate Dungeon Crate]
+| 3.84%
+|-
+| [[File:Item_3206.png]] [https://terraria.fandom.com/wiki/Sky_Crate Sky Crate]
+| 3.33%
+|-
+| [[File:Item_3207.png]] [https://terraria.fandom.com/wiki/Hallowed_Crate Hallowed Crate]
+| 4.55%
+|-
+| [[File:Item_3208.png]] [https://terraria.fandom.com/wiki/Jungle_Crate Jungle Crate]
+| 2.63%
+|-
+| [[File:Item_3979.png]] [https://terraria.fandom.com/wiki/Pearlwood_Crate Pearlwood Crate]
+| 3.52%
+|-
+| [[File:Item_3980.png]] [https://terraria.fandom.com/wiki/Mythril_Crate Mythril Crate]
+| 2.05%
+|-
+| [[File:Item_3981.png]] [https://terraria.fandom.com/wiki/Titanium_Crate Titanium Crate]
+| 10%
+|-
+| [[File:Item_3982.png]] [https://terraria.fandom.com/wiki/Defiled_Crate Defiled Crate]
+| 6.36%
+|-
+| [[File:Item_3983.png]] [https://terraria.fandom.com/wiki/Hematic_Crate Hematic Crate]
+| 5.38%
+|-
+| [[File:Item_3984.png]] [https://terraria.fandom.com/wiki/Stockade_Crate Stockade Crate]
+| 4.11%
+|-
+| [[File:Item_3985.png]] [https://terraria.fandom.com/wiki/Azure_Crate Azure Crate]
+| 4.67%
+|-
+| [[File:Item_3986.png]] [https://terraria.fandom.com/wiki/Divine_Crate Divine Crate]
+| 6.36%
+|-
+| [[File:Item_3987.png]] [https://terraria.fandom.com/wiki/Bramble_Crate Bramble Crate]
+| 4.67%
+|-
+| [[File:Item_4405.png]] [https://terraria.fandom.com/wiki/Frozen_Crate Frozen Crate]
+| 3.33%
+|-
+| [[File:Item_4406.png]] [https://terraria.fandom.com/wiki/Boreal_Crate Boreal Crate]
+| 4.67%
+|-
+| [[File:Item_4407.png]] [https://terraria.fandom.com/wiki/Oasis_Crate Oasis Crate]
+| 3.33%
+|-
+| [[File:Item_4408.png]] [https://terraria.fandom.com/wiki/Mirage_Crate Mirage Crate]
+| 4.11%
+|-
+| [[File:Item_4877.png]] [https://terraria.fandom.com/wiki/Obsidian_Crate Obsidian Crate]
+| 4.55%
+|-
+| [[File:Item_4878.png]] [https://terraria.fandom.com/wiki/Hellstone_Crate Hellstone Crate]
+| 6.36%
+|-
+| [[File:Item_4879.png]] [https://terraria.fandom.com/wiki/Obsidian_Lock_Box Obsidian Lock Box]
+| 5.56%
+|-
+| [[File:Item_5002.png]] [https://terraria.fandom.com/wiki/Ocean_Crate Ocean Crate]
+| 4.55%
+|-
+| [[File:Item_5003.png]] [https://terraria.fandom.com/wiki/Seaside_Crate Seaside Crate]
+| 6.36%
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Enchantments]]<br/>
+<br/>
+
+The Fishing Power Enchantment Basic can appear in the  [[Witch]]'s shop any time for <span>2</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>42</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original <span>50</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Copper_Coin.png/revision/latest?cb=20200516210038&format=original.<br/>
+=== Effects ===
+{| class="wikitable"
+! Fishing Power
+|-
+| +2
+|-
+| +4
+|-
+| +6
+|-
+| +10
+|-
+| +20
+|}
+
+=== Applicability ===
+{| class="wikitable"
+! None
+! Not Allowed
+|-
+| Weapons
+| Not Allowed
+|-
+| Armor
+| 100%
+|-
+| Accessories
+| 100%
+|-
+| Fishing Poles
+| 100%
+|-
+| Tools
+| Not Allowed
+|}
+
+=== Crafting ===
+<div class="tabber-borderless"><tabber>
+Basic=
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="5" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>
+|}
+|-|Common=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| rowspan="3" | [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>
+|}
+|-|Rare=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>
+| rowspan="2" | [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Epic=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| rowspan="3" | [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+|-|Legendary=
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| rowspan="4" | [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|-
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment Basic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (5)<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (5)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>
+|-
+| [[File:FishingPowerEnchantmentCommon.png]] [[Fishing Power Enchantment#Common|Fishing Power Enchantment Common]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (5)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentRare.png]] [[Fishing Power Enchantment#Rare|Fishing Power Enchantment Rare]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (5)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:FishingPowerEnchantmentEpic.png]] [[Fishing Power Enchantment#Epic|Fishing Power Enchantment Epic]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (5)<br/>
+| [[File:FishingPowerEnchantmentLegendary.png]] [[Fishing Power Enchantment#Legendary|Fishing Power Enchantment Legendary]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|}
+</tabber></div>
+{{Enchantments}}<br/>
+[[Category:Enchantments]]<br/>

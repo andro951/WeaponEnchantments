@@ -37,13 +37,15 @@ namespace WeaponEnchantments.Common {
             AccessorySlotLoader loader = LoaderManager.Get<AccessorySlotLoader>();
 
             List<Item> modAccessories = new();
-            for (int i = 0; i < alp.SlotCount; i++) {
-				var slot = loader.Get(i, player);
-				if (loader.ModdedIsItemSlotUnlockedAndUsable(i, player) /*&& slot.IsEnabled()*/)
-                    modAccessories.Add(slot.FunctionalItem ?? new());
-            }
+            if (WEMod.serverConfig.EnchantmentEffectsOnModdedAccessorySlots) {
+				for (int i = 0; i < alp.SlotCount; i++) {
+					var slot = loader.Get(i, player);
+					if (loader.ModdedIsItemSlotUnlockedAndUsable(i, player) /*&& slot.IsEnabled()*/)
+						modAccessories.Add(slot.FunctionalItem ?? new());
+				}
+			}
 
-            Accessories = new Item[vanillaAccesorySlots + modAccessories.Count];
+			Accessories = new Item[vanillaAccesorySlots + modAccessories.Count];
 
             for(int i = 0; i < vanillaArmorSlots; i++) {
                 Armor[i] = player.armor[i] ?? new();
@@ -119,7 +121,7 @@ namespace WeaponEnchantments.Common {
             if (!WEMod.serverConfig.CritPerLevelDisabled && enchantedHeldItem is EnchantedWeapon enchantedWeapon) {
                 float bonus = enchantedWeapon.GetPerLevelBonus();
                 if (bonus > 0f) {
-					if (enchantedHeldItem.Item.pick > 0 || enchantedHeldItem.Item.hammer > 0 || enchantedHeldItem.Item.axe > 0) {
+					if (enchantedHeldItem.Item.IsGatheringTool()) {
 						enchantmentEffects.Add(new MiningSpeed(@base: new DifficultyStrength(bonus)));
 					}
                     else if (enchantedHeldItem.Item.IsFishingPole()) {

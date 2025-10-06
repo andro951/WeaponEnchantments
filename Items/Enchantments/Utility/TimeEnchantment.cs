@@ -10,14 +10,21 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using System.Linq;
 using androLib.Common.Utility;
+using System.IO;
+using MagicStorage;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
-	public abstract class TimeEnchantment : Enchantment, IRerollableEnchantment
+	public abstract class TimeEnchantment : Enchantment
 	{
+		protected override string TypeName => "Time";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
+		protected override bool isRerollable => true;
 		public override void GetMyStats() {
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f },
@@ -80,6 +87,37 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			tag["effects"] = effectNames;
 			tag["effectsInverted"] = invertedList;
 		}
+		public override void NetSend(BinaryWriter writer) {
+			base.NetSend(writer);
+
+			List<string> effectNames = GetListsByNames(out List<bool> invertedList);
+			writer.Write(effectNames.Count);
+			foreach (string effectName in effectNames) {
+				writer.Write(effectName);
+			}
+
+			writer.Write(invertedList.Count);
+			foreach (bool invertedName in invertedList) {
+				writer.Write(invertedName);
+			}
+		}
+		public override void NetReceive(BinaryReader reader) {
+			base.NetReceive(reader);
+
+			int effectNamesCount = reader.ReadInt32();
+			List<string> effectNames = new();
+			for (int i = 0; i < effectNamesCount; i++) {
+				 effectNames.Add(reader.ReadString());
+			}
+
+			int invertedCount = reader.ReadInt32();
+			List<bool> invertedList = new();
+			for (int i = 0; i < invertedCount; i++) {
+				invertedList.Add(reader.ReadBoolean());
+			}
+
+			SetMyEffects(effectNames, invertedList);
+		}
 		public List<EnchantmentStat> GetListsByEnchantmentStat(out List<bool> inverted) {
 			inverted = Effects.Select(e => e.EffectStrength < 1f).ToList();
 			return Effects.OfType<StatEffect>().Select(e => e.statName).ToList();
@@ -98,8 +136,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 				}
 			}
 		}
-
+		public override void ReRollStats() => Reroll();
 		public void Reroll() {
+			List<EnchantmentEffect> effects = Effects.Select(e => e.Clone()).ToList();
 			List<List<EnchantmentEffect>> possibleEffects = new() {
 				new() { new DayTimeRate(multiplicative: EnchantmentStrengthData), new DayTimeRate(multiplicative: EnchantmentStrengthData.Invert()) },
 				new() { new DayTileUpdateRate(multiplicative: EnchantmentStrengthData), new DayTileUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
@@ -111,28 +150,38 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 
 			int minEffects = Main.gameMenu ? possibleEffects.Count : 1;
 			Effects = RandomEffectHandler.GetRandomEffects(possibleEffects, chance: 0.5f, minEffects: minEffects);
+			if (Cursed)
+				RerollCursedEffects(effects);
 		}
 
 		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().Time;
+		}
 	}
 	[Autoload(false)]
 	public class TimeEnchantmentBasic : TimeEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.Never;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.Pixie),
-			new(NPCID.Wraith),
-			new(NPCID.Mummy)
+			new(NPCID.Pixie, chance: 0.02f),
+			new(NPCID.Wraith, chance: 0.05f),
+			new(NPCID.Mummy, chance: 0.15f),
+			new(NPCID.BloodMummy, chance: 0.15f),
+			new(NPCID.DarkMummy, chance: 0.15f),
+			new(NPCID.LightMummy, chance: 0.15f),
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Skyware, chance: 1f)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Sky),
-			new(CrateID.Azure_SkyHard)
+			new(CrateID.Sky, 0.5f),
+			new(CrateID.Azure_SkyHard, 0.5f)
 		};
 	}
 	[Autoload(false)]
@@ -143,4 +192,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class TimeEnchantmentEpic : TimeEnchantment { }
 	[Autoload(false)]
 	public class TimeEnchantmentLegendary : TimeEnchantment { }
+	[Autoload(false)]
+	public class TimeEnchantmentCursed : TimeEnchantment { }
 }

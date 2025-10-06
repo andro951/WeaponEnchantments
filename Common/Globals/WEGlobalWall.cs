@@ -1,4 +1,5 @@
-﻿using System;
+﻿using androLib.Common.Utility;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -12,7 +13,7 @@ namespace WeaponEnchantments.Common.Globals
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Item heldItem = wePlayer.Player.HeldItem;
 
-			if (heldItem.hammer <= 0)
+			if (!heldItem.IsHammer())
 				return;
 
 			if (!heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem hGlobal))

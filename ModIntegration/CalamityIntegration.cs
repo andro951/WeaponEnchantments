@@ -32,6 +32,8 @@ namespace WeaponEnchantments.ModIntegration
 				AndroMod.calamityMod.TryFind("TrueMeleeDamageClass", out CalamityValues.trueMelee);
 				AndroMod.calamityMod.TryFind("TrueMeleeNoSpeedDamageClass", out CalamityValues.trueMeleeNoSpeed);
 			}
+
+			AndroMod.OnResetGameCounter += () => closeInventoryTimerEnd = 0;
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (AndroMod.calamityEnabled) {

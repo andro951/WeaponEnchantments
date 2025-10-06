@@ -7,11 +7,15 @@ using WeaponEnchantments.Effects;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class AllForOneEnchantment : Enchantment
 	{
+		protected override string TypeName => "AllForOne";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 6;
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
@@ -36,20 +40,25 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().AllForOne;
+		}
 	}
 	[Autoload(false)]
 	public class AllForOneEnchantmentBasic : AllForOneEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.Mothron)
+			new(NPCID.Mothron, chance: 0.1f)
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Gold_Locked),
 			new(ChestID.Lihzahrd)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Golden_LockBox, 0.45f)
+			new(CrateID.Golden_LockBox, 0.5f)
 		};
 	}
 	[Autoload(false)]
@@ -60,4 +69,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class AllForOneEnchantmentEpic : AllForOneEnchantment { }
 	[Autoload(false)]
 	public class AllForOneEnchantmentLegendary : AllForOneEnchantment { }
+	[Autoload(false)]
+	public class AllForOneEnchantmentCursed : AllForOneEnchantment { }
 }

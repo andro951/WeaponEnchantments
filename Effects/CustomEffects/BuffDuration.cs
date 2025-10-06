@@ -28,16 +28,13 @@ namespace WeaponEnchantments.Effects
             Player player = wePlayer.Player;
             if (carryover >= 1f) {
                 carryover %= 1f;
-                for(int i = 0; i < player.buffType.Length; i++) {
+                int maxBuffs = Player.MaxBuffs;
+                for(int i = 0; i < maxBuffs; i++) {
                     if (player.buffTime[i] > 0 && !Main.debuff[player.buffType[i]])
                         player.buffTime[i]++;
 				}
 			}
 		}
-
-		//public override IEnumerable<object> TooltipArgs => new object[] { TooltipValue };
-		//public override string TooltipValue => EStatModifier.PercentMult100Tooltip;
-        //public override string Tooltip => StandardTooltip;
 
 		public override EnchantmentStat statName => EnchantmentStat.BuffDuration;
 	}

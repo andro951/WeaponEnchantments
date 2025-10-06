@@ -11,7 +11,7 @@ using Terraria.GameContent.Creative;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using Terraria.Localization;
 using System.Linq;
 using WeaponEnchantments.Effects;
@@ -21,10 +21,15 @@ using androLib.Common.Utility;
 using androLib.Common.Globals;
 using androLib.Items;
 using androLib;
+using WeaponEnchantments.Content.NPCs;
+using androLib.Common.Utility.LogSystem;
+using androLib.Items.Interfaces;
+using Terraria.ModLoader.IO;
+using System.IO;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class Enchantment : WEModItem, ISoldByWitch
+	public abstract class Enchantment : WEModItem, ISoldByNPC, IHasDropRates
 	{
 		#region Static
 
@@ -38,32 +43,35 @@ namespace WeaponEnchantments.Items
 		}
 
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
-			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
-			new EnchantmentStrengths(new float[] { 0.00f, 0.04f, 0.04f, 0.04f, 0.24f }),
-			new EnchantmentStrengths(new float[] { 1.2f, 1.4f, 1.6f, 1.8f, 2f }),
-			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 5f, 10f }),
-			new EnchantmentStrengths(new float[] { 2f, 4f, 6f, 10f, 20f }),
-			new EnchantmentStrengths(new float[] { 0.005f, 0.01f, 0.015f, 0.02f, 0.025f }),
-			new EnchantmentStrengths(new float[] { 4f, 5f, 6.5f, 8f, 10f }),
-			new EnchantmentStrengths(new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.10f }),
-			new EnchantmentStrengths(new float[] { 0.5f, 0.6f, 0.75f, 0.85f, 1f }),
-			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }),
-			new EnchantmentStrengths(new float[] { 0.2f, 0.4f, 0.6f, 0.8f, 1f }),
-			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }),
-			new EnchantmentStrengths(new float[] { 0.12f, 0.16f, 0.20f, 0.25f, 0.32f }),
-			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f }),
-			new EnchantmentStrengths(new float[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }),
-			new EnchantmentStrengths(new float[] { 0.8f, 0.6f, 0.4f, 0.2f, 0f }),
-			new EnchantmentStrengths(new float[] { 0.05f, 0.1f, 0.15f, 0.2f, 0.25f }),
-			new EnchantmentStrengths(new float[] { 0.88f, 0.91f, 0.94f, 0.97f, 1f }),
-			new EnchantmentStrengths(new float[] { 0.5f, 0.75f, 1f, 1.5f, 2f }),
-			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 4f, 5f }),
-			new EnchantmentStrengths(new float[] { 0.06f, 0.07f, 0.08f, 0.09f, 0.1f }),
-			new EnchantmentStrengths(new float[] { 0.08f, 0.2f, 0.5f, 1.2f, 2f }),
-			new EnchantmentStrengths(new float[] { 0.8f, 1.6f, 2.4f, 3.2f, 4f }),
-			new EnchantmentStrengths(new float[] { 1.2f, 1.28f, 1.36f, 1.42f, 1.5f }),
-			new EnchantmentStrengths(new float[] { 100f, 150f, 200f, 250f, 300f }),
-			new EnchantmentStrengths(new float[] { 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f })
+			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.16f, 0.28f, 0.40f, 0.70f }),//0
+			new EnchantmentStrengths(new float[] { 0.00f, 0.04f, 0.04f, 0.04f, 0.24f, 0.32f }),//1
+			new EnchantmentStrengths(new float[] { 1.2f, 1.4f, 1.6f, 1.8f, 2f, 2.2f }),//2
+			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 5f, 10f, 12f }),//3
+			new EnchantmentStrengths(new float[] { 2f, 4f, 6f, 10f, 20f, 30f }),//4
+			new EnchantmentStrengths(new float[] { 0.005f, 0.01f, 0.015f, 0.02f, 0.025f, 0.0375f }),//5
+			new EnchantmentStrengths(new float[] { 4f, 5f, 6.5f, 8f, 10f, 12f }),//6
+			new EnchantmentStrengths(new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.10f, 0.12f }),//7
+			new EnchantmentStrengths(new float[] { 0.5f, 0.6f, 0.75f, 0.85f, 1f, 1.2f }),//8
+			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f, 1.08f }),//9
+			new EnchantmentStrengths(new float[] { 0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f }),//10
+			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.12f, 0.16f, 0.20f, 0.3f }),//11
+			new EnchantmentStrengths(new float[] { 0.12f, 0.16f, 0.20f, 0.26f, 0.32f, 0.44f }),//12
+			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f, 1.2f }),//13
+			new EnchantmentStrengths(new float[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.85f }),//14
+			new EnchantmentStrengths(new float[] { 0.8f, 0.6f, 0.4f, 0.2f, 0f, 0f }),//15
+			new EnchantmentStrengths(new float[] { 0.05f, 0.1f, 0.15f, 0.2f, 0.25f, 0.375f }),//16
+			new EnchantmentStrengths(new float[] { 0.88f, 0.91f, 0.94f, 0.97f, 1f, 1.2f }),//17
+			new EnchantmentStrengths(new float[] { 0.5f, 0.75f, 1f, 1.5f, 2f, 3f }),//18
+			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 4f, 5f, 10f }),//19
+			new EnchantmentStrengths(new float[] { 0.06f, 0.07f, 0.08f, 0.09f, 0.1f, 0.11f }),//20
+			new EnchantmentStrengths(new float[] { 0.08f, 0.2f, 0.5f, 1.2f, 2f, 2.6f }),//21
+			new EnchantmentStrengths(new float[] { 0.8f, 1.6f, 2.4f, 3.2f, 4f, 6f }),//22
+			new EnchantmentStrengths(new float[] { 1.2f, 1.28f, 1.36f, 1.42f, 1.5f, 1.8f }),//23
+			new EnchantmentStrengths(new float[] { 100f, 150f, 200f, 250f, 300f, 450f }),//24
+			new EnchantmentStrengths(new float[] { 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f, 0.009f }),//25
+			new EnchantmentStrengths(new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.12f, 0.165f }),//26
+			new EnchantmentStrengths(new float[] { 12f, 16f, 24f, 32f, 40f, 50f }),//27
+			new EnchantmentStrengths(new float[] { 1f, 1.25f, 1.5f, 1.75f, 2f, 2.5f }),//28
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly uint defaultBuffDuration = 60;
@@ -87,32 +95,35 @@ namespace WeaponEnchantments.Items
 		/// Sets the EnchantmentStrengths for the enchantment.<br/>
 		/// Example: LifeSteal is StrengthGroup 5.  Tier 1 Lifesteal's Enchantment strength is 0.01f.<br/><br/>
 		/// <list>
-		/// <term>0</term><description>{ 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }</description><br/>
-		/// <term>1</term><description>{ 0.00f, 0.04f, 0.06f, 0.06f, 0.15f }</description><br/>
-		/// <term>2</term><description>{ 1.2f, 1.4f, 1.6f, 1.8f, 2f }</description><br/>
-		/// <term>3</term><description>{ 1f, 2f, 3f, 5f, 10f }</description><br/>
-		/// <term>4</term><description>{ 2f, 4f, 6f, 10f, 20f }</description><br/>
-		/// <term>5</term><description>{ 0.005f, 0.01f, 0.015f, 0.02f, 0.025f }</description><br/>
-		/// <term>6</term><description>{ 2f, 3f, 5f, 8f, 10f }</description><br/>
-		/// <term>7</term><description>{ 0.02f, 0.04f, 0.06f, 0.08f, 0.10f }</description><br/>
-		/// <term>8</term><description>{ 0.5f, 0.6f, 0.75f, 0.85f, 1f }</description><br/>
-		/// <term>9</term><description>{ 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }</description><br/>
-		/// <term>10</term><description>{ 0.2f, 0.4f, 0.6f, 0.8f, 1f }</description><br/>
-		/// <term>11</term><description>{ 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }</description><br/>
-		/// <term>12</term><description>{ 0.14f, 0.18f, 0.22f, 0.26f, 0.30f }</description><br/>
-		/// <term>13</term><description>{ 0.8f, 0.85f, 0.90f, 0.95f, 1f }</description><br/>
-		/// <term>14</term><description>{ 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }</description><br/>
-		/// <term>15</term><description>{ 0.8f, 0.6f, 0.4f, 0.2f, 0f }</description><br/>
-		/// <term>16</term><description>{ 0.05f, 0.1f, 0.15f, 0.2f, 0.25f }</description><br/>
-		/// <term>17</term><description>{ 0.88f, 0.91f, 0.94f, 0.97f, 1f }</description><br/>
-		/// <term>18</term><description>{ 0.5f, 0.75f, 1f, 1.5f, 2f }</description><br/>
-		/// <term>19</term><description>{ 1f, 2f, 3f, 4f, 5f }</description><br/>
-		/// <term>20</term><description>{ 0.06f, 0.07f, 0.08f, 0.09f, 0.1f }</description><br/>
-		/// <term>21</term><description>{ 0.8f, 0.2f, 0.5f, 1.2f, 2f }</description><br/>
-		/// <term>22</term><description>{ 0.8f, 1.6f, 2.4f, 3.2f, 4f }</description><br/>
-		/// <term>23</term><description>{ 1.2f, 1.28f, 1.36f, 1.42f, 1.5f }</description><br/>
-		/// <term>24</term><description>{ 100f, 150f, 200f, 250f, 300f }</description><br/>
-		/// <term>25</term><description>{ 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f }</description><br/>
+		/// <term>0</term><description>{ 0.04f, 0.08f, 0.16f, 0.28f, 0.40f, 0.70f }</description><br/>
+		/// <term>1</term><description>{ 0.00f, 0.04f, 0.04f, 0.04f, 0.24f, 0.32f }</description><br/>
+		/// <term>2</term><description>{ 1.2f, 1.4f, 1.6f, 1.8f, 2f, 2.2f }</description><br/>
+		/// <term>3</term><description>{ 1f, 2f, 3f, 5f, 10f, 12f }</description><br/>
+		/// <term>4</term><description>{ 2f, 4f, 6f, 10f, 20f, 30f }</description><br/>
+		/// <term>5</term><description>{ 0.005f, 0.01f, 0.015f, 0.02f, 0.025f, 0.0375f }</description><br/>
+		/// <term>6</term><description>{ 4f, 5f, 6.5f, 8f, 10f, 12f }</description><br/>
+		/// <term>7</term><description>{ 0.02f, 0.04f, 0.06f, 0.08f, 0.10f, 0.12f }</description><br/>
+		/// <term>8</term><description>{ 0.5f, 0.6f, 0.75f, 0.85f, 1f, 1.2f }</description><br/>
+		/// <term>9</term><description>{ 0.6f, 0.65f, 0.7f, 0.8f, 0.9f, 1.08f }</description><br/>
+		/// <term>10</term><description>{ 0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f }</description><br/>
+		/// <term>11</term><description>{ 0.04f, 0.08f, 0.12f, 0.16f, 0.20f, 0.3f }</description><br/>
+		/// <term>12</term><description>{ 0.12f, 0.16f, 0.20f, 0.26f, 0.32f, 0.44f }</description><br/>
+		/// <term>13</term><description>{ 0.8f, 0.85f, 0.90f, 0.95f, 1f, 1.2f }</description><br/>
+		/// <term>14</term><description>{ 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.85f }</description><br/>
+		/// <term>15</term><description>{ 0.8f, 0.6f, 0.4f, 0.2f, 0f, 0f }</description><br/>
+		/// <term>16</term><description>{ 0.05f, 0.1f, 0.15f, 0.2f, 0.25f, 0.375f }</description><br/>
+		/// <term>17</term><description>{ 0.88f, 0.91f, 0.94f, 0.97f, 1f, 1.2f }</description><br/>
+		/// <term>18</term><description>{ 0.5f, 0.75f, 1f, 1.5f, 2f, 3f }</description><br/>
+		/// <term>19</term><description>{ 1f, 2f, 3f, 4f, 5f, 10f }</description><br/>
+		/// <term>20</term><description>{ 0.06f, 0.07f, 0.08f, 0.09f, 0.1f, 0.11f }</description><br/>
+		/// <term>21</term><description>{ 0.08f, 0.2f, 0.5f, 1.2f, 2f, 2.6f }</description><br/>
+		/// <term>22</term><description>{ 0.8f, 1.6f, 2.4f, 3.2f, 4f, 6f }</description><br/>
+		/// <term>23</term><description>{ 1.2f, 1.28f, 1.36f, 1.42f, 1.5f, 1.8f }</description><br/>
+		/// <term>24</term><description>{ 100f, 150f, 200f, 250f, 300f, 450f }</description><br/>
+		/// <term>25</term><description>{ 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f, 0.009f }</description><br/>
+		/// <term>26</term><description>{ 0.02f, 0.04f, 0.06f, 0.08f, 0.12f, 0.165f }</description><br/>
+		/// <term>27</term><description>{ 12f, 16f, 24f, 32f, 40f, 50f }</description><br/>
+		/// <term>28</term><description>{ 1f, 1.25f, 1.5f, 1.75f, 2f, 2.5f }</description><br/>
 		/// </list>
 		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;
@@ -152,13 +163,18 @@ namespace WeaponEnchantments.Items
 		public virtual float ScalePercent { private set; get; } = 1f;
 
 		/// <summary>
+		/// With Enchantments strength multiplier >= 1f, this will set the multiplier from ScalePercent back to 1f to allow the value going up above 100%, but not down below.
+		/// </summary>
+		public virtual bool OnlyApplyScalePercentBelow100 { private set; get; } = false;
+
+		/// <summary>
 		/// Allows you to manually adjust affect the cost of enchantments.
 		/// Utility are 1f by default -> 1, 2, 3, 4, 5
 		/// Normal are 2f by defualt -> 2, 4, 6, 8, 10
 		/// Unique and Max1 are 3f by default -> 3, 6, 9, 12, 15
-		/// Note: The null value I chose for this is -13.13f  That value will cause the defaults above to occur.
+		/// Note: The null value I chose for this is == CapacityCostDefault (-13.13f)  That value will cause the defaults above to occur.
 		/// </summary>
-		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
+		public virtual float CapacityCostMultiplier { private set; get; } = CapacityCostDefault;
 		private EItemType itemTypeAppliedOn = EItemType.None;
 		public EItemType ItemTypeAppliedOn {
 			get => itemTypeAppliedOn;
@@ -235,10 +251,29 @@ namespace WeaponEnchantments.Items
 		/// -4 would cause the value of the enchantment to be almost zero.<br/>
 		/// </summary>
 		public virtual int EnchantmentValueTierReduction { protected set; get; } = 0;
+		public const int EssenceMultiplierUtility = 1;
+		public const int EssenceMultiplierNormal = 2;
+		public virtual int EssenceMultiplier => IngredientEnchantments == null ? essenceMultiplier : GetEssenceMultiplierIncludingIngredientEnchantments();
+		private int essenceMultiplier => Utility ? EssenceMultiplierUtility : EssenceMultiplierNormal;
+		public const int BaseEssenceQuantity = 5;
+		public int EssenceQuantity => BaseEssenceQuantity * essenceMultiplier;
+		public int EssenceQuantityWithIngredientEnchantments => BaseEssenceQuantity * EssenceMultiplier;
+
+		private int GetEssenceMultiplierIncludingIngredientEnchantments() {
+			int multiplier = essenceMultiplier;
+			if (IngredientEnchantments != null) {
+				foreach (Item item in IngredientEnchantments.Select(i => new Item(i))) {
+					if (item.ModItem is Enchantment enchantment)
+						multiplier += enchantment.EssenceMultiplier;
+				}
+			}
+
+			return multiplier;
+		}
 
 		/// <summary>
 		/// Default 1<br/>
-		/// Acceptable Range 1 to 5<br/><br/>
+		/// Acceptable Range 0 to 5<br/><br/>
 		/// <list>
 		/// <term>0</term><description>All tiers are craftable.</description><br/>
 		/// <term>1</term><description>Tier 1 and above are craftable.</description><br/>
@@ -248,7 +283,13 @@ namespace WeaponEnchantments.Items
 		/// <term>5</term><description>No tiers are craftable.</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int LowestCraftableTier { protected set; get; } = 1;
+		public virtual int LowestCraftableTier => HasIngredientEnchantments ? 1 : 1;//Separated only in case one of them changes
+
+		/// <summary>
+		/// This list should be the list of tier 0 enchantments that are used in the creation of this enchantment.<br/>
+		/// </summary>
+		public virtual List<int> IngredientEnchantments => null;
+		public bool HasIngredientEnchantments => IngredientEnchantments != null && IngredientEnchantments.Count > 0;
 
 		/// <summary>
 		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
@@ -261,6 +302,7 @@ namespace WeaponEnchantments.Items
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
+		public Func<int> SoldByNPCNetID => ModContent.NPCType<Witch>;
 		public virtual SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTime : SellCondition.Never;
 		public override List<WikiTypeID> WikiItemTypes {
 			get {
@@ -271,9 +313,17 @@ namespace WeaponEnchantments.Items
 				return types;
 			}
 		}
+		public override bool IsEquivenantForCondensingWikiCraftingRecipes(ModItem other) {
+			if (other is not Enchantment enchantment)
+				return false;
+
+			return EnchantmentTier == enchantment.EnchantmentTier;
+		}
+		public override Type GroupingType => typeof(Enchantment);
+		public virtual Func<ModItem, string, string> GetNonStandardWikiLinkString => (ModItem modItem, string name) => modItem is Enchantment enchantment ? enchantment.TierName.ToSectionLink(name, $"{enchantment.EnchantmentTypeName.AddSpaces()} Enchantment") : null;
 		public override int CreativeItemSacrifice => 1;
 		public string TierName => tierNames[EnchantmentTier];
-		public override bool CanBeStoredInEnchantmentStroage => true;
+		public override bool CanBeStoredInEnchantmentStorage => true;
 
 		#endregion
 
@@ -350,7 +400,9 @@ namespace WeaponEnchantments.Items
 		/// <term>8</term><description>Throwing</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual List<int> RestrictedClass { private set; get; } = new();
+		public virtual List<int> RestrictedClass { protected set; get; } = new();
+		public bool IsClassRestricted(int classId) => RestrictedClass.Contains(classId) || classId == (int)DamageClassID.Summon && IsClassRestrictedCursedSummon;
+		private bool IsClassRestrictedCursedSummon => Cursed && !WEMod.serverConfig.CursedEnchantmentsAllowedOnSummons;
 
 		#endregion
 
@@ -361,7 +413,10 @@ namespace WeaponEnchantments.Items
 		public List<EnchantmentEffect> Effects { protected set; get; } = new List<EnchantmentEffect>() { };
 
 		#endregion
-		public override string Texture => $"WeaponEnchantments/Items/Sprites/{Name}";
+
+		protected abstract string TypeName { get;}
+		protected abstract string NamePrefix { get;}
+		public override string Texture => $"WeaponEnchantments/Items/Sprites/{NamePrefix}{TypeName}/{Name.Replace(TypeName+"Enchantment", string.Empty)}";
 
 		/// <summary>
 		/// Add to the stat Lists and Dictionaries here.<br/>
@@ -377,11 +432,11 @@ namespace WeaponEnchantments.Items
 		/// CheckStaticStatByName()<br/>
 		/// CheckBuffByName()<br/>
 		/// </summary>
-		public virtual void GetMyStats() { } //Meant to be overriden in the specific Enchantment class.
+		public virtual void GetMyStats() {} //Meant to be overridden in the specific Enchantment class.
 		public override ModItem Clone(Item newEntity) {
 			Enchantment clone = (Enchantment)base.Clone(newEntity);
 			//clone.EnchantmentStrengthData = EnchantmentStrengthData.Clone();
-			string name = Name;
+			clone.cursedEffectsIndex = cursedEffectsIndex;
 			clone.Effects = Effects.Select(e => e.Clone()).ToList();
 
 			return clone;
@@ -416,52 +471,20 @@ namespace WeaponEnchantments.Items
 				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
 			}
 
-			if (NpcDropTypes != null) {
-				foreach (DropData dropData in NpcDropTypes) {
-					int npcType = dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEGlobalNPC.npcDropTypes.AddOrCombine(npcType, enchantmentDropData);
-				}
-			}
-
-			if (ModNpcDropNames != null) {
-				foreach (ModDropData dropData in ModNpcDropNames) {
-					string modNpcName = dropData.Name;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEGlobalNPC.modNpcDropNames.AddOrCombine(modNpcName, enchantmentDropData);
-				}
-			}
-
-			if (NpcAIDrops != null) {
-				foreach (DropData dropData in NpcAIDrops) {
-					int npcAIStyle = dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEGlobalNPC.npcAIDrops.AddOrCombine(npcAIStyle, enchantmentDropData);
-				}
-			}
-
-			if (ChestDrops != null) {
-				foreach (DropData dropData in ChestDrops) {
-					ChestID chestID = (ChestID)dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					WEModSystem.chestDrops.AddOrCombine(chestID, enchantmentDropData);
-				}
-			}
-
-			if (CrateDrops != null) {
-				foreach (DropData dropData in CrateDrops) {
-					int crateID = dropData.ID;
-					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
-					GlobalCrates.crateDrops.AddOrCombine(crateID, enchantmentDropData);
-				}
-			}
-
-			if (WEMod.wikiThis != null)
-				WEMod.wikiThis.Call(1, Type, GetWikiURL());
+			if (AndroMod.wikiThis != null)
+				AndroMod.wikiThis.Call(1, NamePrefix, GetWikiURL());
 
 			base.SetStaticDefaults();
 		}
 		private void GetDefaults() {
+			//Check Utility
+			if (GetType().Namespace.GetFolderName() == "Utility")
+				Utility = true;
+
+			//Check Unique
+			if (GetType().Namespace.GetFolderName() == "Unique")
+				Unique = true;
+
 			//Item rarity
 			Item.rare = GetRarityFromTier(EnchantmentTier);
 
@@ -483,9 +506,8 @@ namespace WeaponEnchantments.Items
 
 			//Value - Essence
 			for (int i = 0; i <= EnchantmentTier + EnchantmentValueTierReduction; i++) {
-				int quantity = Utility ? 5 : 10;
 				int value = (int)EnchantmentEssence.values[i];
-				Item.value += value * quantity;
+				Item.value += value * EssenceQuantityWithIngredientEnchantments;
 			}
 
 			//Value - Containment/SuperiorStaibalizers
@@ -494,6 +516,7 @@ namespace WeaponEnchantments.Items
 					Item.value += ContainmentItem.Values[2];
 					break;
 				case 4:
+				case 5:
 					Item.value += ContentSamples.ItemsByType[999].value;
 					break;
 				default:
@@ -501,21 +524,20 @@ namespace WeaponEnchantments.Items
 					break;
 			}
 
-			//Check Utility
-			if (GetType().Namespace.GetFolderName() == "Utility")
-				Utility = true;
-
-			//Check Unique
-			if (GetType().Namespace.GetFolderName() == "Unique")
-				Unique = true;
-
 			SetEnchantmentStrength();
 
 			//Only check once
 			if (finishedOneTimeSetup)
 				return;
 
-			GetMyStats();
+			SetupCursedDifficultyStrength();
+
+			if (EnchantmentTier == CursedTier) {
+				GetMyStatsAndCurses();
+			}
+			else {
+				GetMyStats();
+			}
 
 			if (AllowedList == null || AllowedList.Count == 0) {
 				AllowedList = new Dictionary<EItemType, float>() {
@@ -573,7 +595,7 @@ namespace WeaponEnchantments.Items
 				}
 
 				if (!foundRarityStrength) {
-					if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
+					if (WEMod.serverConfig.presetData.AutomaticallyMatchPresetToWorldDifficulty) {
 						strengths = new float[4];
 						tierStrengths = new float[4];
 					}
@@ -598,6 +620,9 @@ namespace WeaponEnchantments.Items
 		private float GetStrengthApplyScalePercent(float multiplier) {
 			float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
 			float scale = Math.Abs(ScalePercent);
+			if (multiplier > 1f && OnlyApplyScalePercentBelow100)
+				scale = 1f;
+
 			float strength;
 			if (ScalePercent < 0f) {
 				strength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
@@ -686,6 +711,7 @@ namespace WeaponEnchantments.Items
 
 			//RestrictedClass
 			if (RestrictedClass.Count > 0) {
+				List<int> restrictedClasses = IsClassRestrictedCursedSummon ? new(RestrictedClass.Append((int)DamageClassID.Summon)) : RestrictedClass;
 				fullTooltip.Add(new Tuple<string, Color>(
 					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.NotAllowed, RestrictedClass.Select(c => GetDamageClassName(c)).JoinList(", ", $" {GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Or)} "))}*",
 					Color.White
@@ -792,6 +818,45 @@ namespace WeaponEnchantments.Items
 			return defaultBuffDuration * ((uint)EnchantmentTier + 1);
 		}
 		public override void AddRecipes() {
+			if (EnchantmentTier == CursedTier) {
+				if (ItemID.Search.TryGetId($"{WEMod.ModName}/{EnchantmentTypeName}Enchantment{tierNames[CursedTier - 1]}", out int tierBeforeCursed)) {
+					//Add recipe with cleansing powder to return to normal.
+					Recipe cursedToNormalRecipe = CreateRecipe();
+					cursedToNormalRecipe.createItem = new(tierBeforeCursed, 1);
+					cursedToNormalRecipe.AddIngredient(Type, 1);
+					cursedToNormalRecipe.AddIngredient(ItemID.PurificationPowder, 5);
+					cursedToNormalRecipe.AddCondition(Condition.NearWater);
+					cursedToNormalRecipe.DisableDecraft();
+					cursedToNormalRecipe.Register();
+				}
+
+				return;
+			}
+
+			bool hasIngredientEnchantments = HasIngredientEnchantments;
+			//Ingredient Enchantment Recipe
+			if (hasIngredientEnchantments) {
+				Recipe ingredientEnchantmentRecipe = CreateRecipe();
+				//Essence
+				ingredientEnchantmentRecipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EnchantmentTier], EssenceQuantity);
+
+				//Ingredient Enchantments
+				foreach (int ingredientEnchantment in IngredientEnchantments) {
+					Item enchantmentItem = new Item(ingredientEnchantment);
+					if (enchantmentItem.ModItem is Enchantment enchantment) {
+						string typeName = enchantment.EnchantmentTypeName;
+						ingredientEnchantmentRecipe.AddIngredient(Mod, typeName + "Enchantment" + tierNames[EnchantmentTier], 1);
+					}
+				}
+
+				//Enchanting Table
+				ingredientEnchantmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[EnchantmentTier] + "EnchantingTable");
+
+				ingredientEnchantmentRecipe.DisableDecraft();
+
+				ingredientEnchantmentRecipe.Register();
+			}
+
 			for (int j = LowestCraftableTier; j <= EnchantmentTier; j++) {
 				if (!useAllRecipes && j != EnchantmentTier)
 					continue;
@@ -800,8 +865,7 @@ namespace WeaponEnchantments.Items
 
 				//Essence
 				for (int k = j; k <= EnchantmentTier; k++) {
-					int essenceNumber = Utility ? 5 : 10;
-					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
+					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], EssenceQuantityWithIngredientEnchantments);
 				}
 
 				//Enchantment
@@ -833,13 +897,16 @@ namespace WeaponEnchantments.Items
 
 				EditRecipe(recipe);
 
+				if (j != 0)
+					recipe.DisableDecraft();
+
 				recipe.Register();
 			}
 
 			if (!WEMod.clientConfig.AllowCraftingIntoLowerTier || EnchantmentValueTierReduction != 0)
 				return;
 
-			for (int j = EnchantmentTier + 1; j < tierNames.Length; j++) {
+			for (int j = EnchantmentTier + 1; j < CursedTier; j++) {
 				if (!useAllRecipes && j != EnchantmentTier + 1)
 					continue;
 
@@ -857,25 +924,47 @@ namespace WeaponEnchantments.Items
 				recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[EnchantmentTier] + "EnchantingTable");
 
 				//Gems
-				if (EnchantmentTier == 3) {
+				if (EnchantmentTier == 3)
 					recipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyCommonGem}", 2);
-				}
+
+				recipe.DisableDecraft();
 
 				recipe.Register();
 			}
 
 			//Basic Essence Recipe
-			Recipe containmentRecipe = CreateRecipe();
+			Recipe basicEssenceRecipe = CreateRecipe();
 
 			//Basic Essence
-			containmentRecipe.createItem = new Item(ModContent.ItemType<EnchantmentEssenceBasic>(), Utility ? 5 : 10);
+			int essenceTier = hasIngredientEnchantments ? EnchantmentTier : 0;
+			ModItem essenceItem = ModContent.Find<ModItem>(WEMod.ModName, "EnchantmentEssence" + tierNames[essenceTier]);
+			basicEssenceRecipe.createItem = new(essenceItem.Type, EssenceQuantity);
 
 			//This enchantment
-			containmentRecipe.AddIngredient(Type);
+			basicEssenceRecipe.AddIngredient(Type);
+
+			//Ingredient Enchantments
+			if (hasIngredientEnchantments) {
+				//Containments from the other enchantments
+				int igredientEnchantmentCount = IngredientEnchantments.Count - 1;
+				int containmentTier = EnchantmentTier < 3 ? EnchantmentTier : 2;
+				basicEssenceRecipe.AddIngredient(Mod, ContainmentItem.sizes[containmentTier] + "Containment", igredientEnchantmentCount);
+
+				//Gems
+				if (EnchantmentTier == 3) {
+					basicEssenceRecipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyCommonGem}", 2 * igredientEnchantmentCount);
+				}
+				if (EnchantmentTier == 4) {
+					basicEssenceRecipe.AddRecipeGroup($"{AndroMod.ModName}:{AndroModSystem.AnyRareGem}", igredientEnchantmentCount);
+				}
+			}
 
 			//Enchanting Table
-			containmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[0] + "EnchantingTable");
-			containmentRecipe.Register();
+			basicEssenceRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[0] + "EnchantingTable");
+
+			basicEssenceRecipe.DisableDecraft();
+
+			basicEssenceRecipe.Register();
 		}
 
 		/// <summary>
@@ -889,23 +978,32 @@ namespace WeaponEnchantments.Items
 		/// </summary>
 		/// <param name="recipe"></param>
 		protected virtual void EditTier0Recipies(Recipe recipe) { }
+
+		public const float CapacityCostDefault = -13.13f;
+		public const float CapacityCostNone = 0f;
+		public const float CapacityCostUtility = 1f;
+		public const float CapacityCostNormal = 2f;
+		public const float CapacityCostUnique = 3f;
+		public const int CursedTier = 5;
 		public int GetCapacityCost() {
 			float multiplier;
-			if (CapacityCostMultiplier != -13.13f) {
+			if (CapacityCostMultiplier != CapacityCostDefault) {
 				//multiplier is being manually set by this enchantment
 				multiplier = CapacityCostMultiplier;
 			}
 			else {
-				multiplier = 2f;
+				multiplier = CapacityCostNormal;
 
 				if (Utility)
-					multiplier = 1f;
+					multiplier = CapacityCostUtility;
 
 				if (Unique || Max1)
-					multiplier = 3f;
+					multiplier = CapacityCostUnique;
 			}
 
-			return (int)Math.Round((1f + EnchantmentTier) * multiplier * ConfigCapacityCostMultiplier);
+			int enchantmentTier = EnchantmentTier == CursedTier ? CursedTier - 1 : EnchantmentTier;
+
+			return (int)Math.Round((1f + enchantmentTier) * multiplier * ConfigCapacityCostMultiplier);
 		}
 		public bool SameAs(Item other) {
 			if (Item.stack != other.stack)
@@ -951,5 +1049,158 @@ namespace WeaponEnchantments.Items
 
 			return WEMod.WIKI_URL + underscoreName;
 		}
+
+		#region Cursed
+
+		public bool IsRerollable => EnchantmentTier == CursedTier || isRerollable;
+		protected virtual bool isRerollable => false;
+		public bool CanBeCursed => EnchantmentTier == CursedTier - 1 && ItemID.Search.ContainsName($"{WEMod.ModName}/{EnchantmentTypeName}Enchantment{tierNames[CursedTier]}");
+		public bool Cursed => EnchantmentTier == CursedTier;
+		private static void SetupCursedDifficultyStrength() {
+			float[] strengths = new float[1];
+			if (WEMod.serverConfig.presetData.AutomaticallyMatchPresetToWorldDifficulty) {
+				strengths = new float[4];
+			}
+
+			int count = strengths.Length;
+			for (int i = 0; i < count; i++) {
+				//Global
+				float multiplier = count == 1 ? Math.Max(1f, GlobalStrengthMultiplier) : CursePresetMultipliers[i];
+				bool defaultScaling = WEMod.serverConfig.EnchantmentStrengthCurseScaling == 67;
+				float curseScaling = defaultScaling ? 2f / 3f : ConfigValues.EnchantmentStrengthCurseScaling;
+				float scaledMult = 1f - (1f - multiplier) * (1f - curseScaling);
+				if (multiplier == 0.25f && defaultScaling)
+					scaledMult = 0.5f;
+
+				//Apply Scale Percent
+				strengths[i] = scaledMult * ConfigValues.CurseStrengthMultiplier;
+			}
+
+			cursedDifficultyStrength = new(strengths);
+
+			defaultOffensiveCursedEffectPossibilities = new() {
+				defense,
+				damageReduction,
+				moveSpeed,
+				moveControl
+			};
+
+			defaultDefensiveCursedEffectPossibilities = new() {
+				moveSpeed,
+				moveControl,
+				damage
+			};
+
+			defaultUtilityCursedEffectPossibilities = new() {
+				defense,
+				damageReduction,
+				moveSpeed,
+				moveControl,
+				damage
+			};
+		}
+		protected static List<EnchantmentEffect> defense => new() { new Defense(new EStatModifier(EnchantmentStat.Defense, @base: cursedDifficultyStrength * -12f)) };
+		protected static List<EnchantmentEffect> damageReduction => new() { new DamageReduction(new EStatModifier(EnchantmentStat.DamageReduction, @base: cursedDifficultyStrength * -0.15f)) };
+		protected static List<EnchantmentEffect> moveSpeed => new() {
+			new MovementSpeed(new EStatModifier(EnchantmentStat.MovementSpeed, cursedDifficultyStrength * -0.5f)),
+			new FlightSpeed(new EStatModifier(EnchantmentStat.FlightSpeed, cursedDifficultyStrength * -0.5f))
+		};
+		protected static List<EnchantmentEffect> moveControl => new() {
+			new MovementSlowdown(new EStatModifier(EnchantmentStat.MovementSlowdown, cursedDifficultyStrength * -0.65f)),
+			new MaxFallSpeed(new EStatModifier(EnchantmentStat.MaxFallSpeed, cursedDifficultyStrength * -0.65f)),
+			new MovementAcceleration(new EStatModifier(EnchantmentStat.MovementAcceleration, cursedDifficultyStrength * -0.65f)),
+			new FlightAcceleration(new EStatModifier(EnchantmentStat.FlightAcceleration, cursedDifficultyStrength * -0.65f)),
+			new JumpSpeed(new EStatModifier(EnchantmentStat.JumpSpeed, cursedDifficultyStrength * -0.325f))
+		};
+		protected static List<EnchantmentEffect> damage => new() {
+			new DamageAfterDefenses(new EStatModifier(EnchantmentStat.DamageAfterDefenses, multiplicative: cursedDifficultyStrength * -0.2f + 1f), null)
+		};
+
+		private static DifficultyStrength cursedDifficultyStrength;
+		protected virtual List<List<EnchantmentEffect>> cursedEffectPossibilities => Utility ? defaultUtilityCursedEffectPossibilities : defaultOffensiveCursedEffectPossibilities;
+		protected static List<List<EnchantmentEffect>> defaultOffensiveCursedEffectPossibilities;
+		protected static List<List<EnchantmentEffect>> defaultDefensiveCursedEffectPossibilities;
+		protected static List<List<EnchantmentEffect>> defaultUtilityCursedEffectPossibilities;
+		protected int cursedEffectsIndex = DefaultCursedEffectsIndex;
+		private const int DefaultCursedEffectsIndex = -1;
+		private const string CursedIndexTag = "CursedEffectsIndex";
+		public override void SaveData(TagCompound tag) {
+			base.SaveData(tag);
+
+			if (Cursed)
+				tag[CursedIndexTag] = cursedEffectsIndex;
+		}
+		public override void LoadData(TagCompound tag) {
+			base.LoadData(tag);
+
+			if (Cursed) {
+				if (!tag.TryGet(CursedIndexTag, out cursedEffectsIndex))
+					cursedEffectsIndex = DefaultCursedEffectsIndex;
+
+				GetMyStatsAndCurses();
+			}
+		}
+		public override void NetSend(BinaryWriter writer) {
+			base.NetSend(writer);
+
+			if (Cursed)
+				writer.Write(cursedEffectsIndex);
+		}
+		public override void NetReceive(BinaryReader reader) {
+			base.NetReceive(reader);
+
+			if (Cursed) {
+				cursedEffectsIndex = reader.ReadInt32();
+				GetMyStatsAndCurses();
+			}
+		}
+		private void GetMyStatsAndCurses() {
+			if (cursedEffectsIndex > DefaultCursedEffectsIndex) {
+				GetMyStats();
+				foreach (var effect in cursedEffectPossibilities[cursedEffectsIndex]) {
+					Effects.Add(effect.Clone());
+				}
+			}
+			else {
+				ReRollStats();
+			}
+		}
+		public virtual void ReRollStats() {//Meant to be overriden in the specific Enchantment class for re-rollable enchantments that aren't cursed ones.
+			List<EnchantmentEffect> effects = Effects.Select(e => e.Clone()).ToList();
+			GetMyStats();
+			RerollCursedEffects(effects);
+		}
+		protected void RerollCursedEffects(List<EnchantmentEffect> previousEffects) {
+			if (cursedEffectPossibilities == null || cursedEffectPossibilities.Count <= 0)
+				return;
+
+			cursedEffectsIndex = Main.rand.Next(cursedEffectPossibilities.Count);
+			List<EnchantmentEffect> curses = cursedEffectPossibilities[cursedEffectsIndex];
+			bool curseInPreviousEffects = false;
+			foreach (EnchantmentEffect effect in previousEffects) {
+				if (curses.First().Name == effect.Name) {
+					curseInPreviousEffects = true;
+					break;
+				}
+			}
+
+			if (curseInPreviousEffects) {
+				if (cursedEffectPossibilities.Count > 1) {
+					//Force it to pick a different curse than the one before.
+					int previousCurseIndex = cursedEffectsIndex;
+					while (previousCurseIndex == cursedEffectsIndex) {
+						cursedEffectsIndex = Main.rand.Next(cursedEffectPossibilities.Count);
+					}
+
+					curses = cursedEffectPossibilities[cursedEffectsIndex];
+				}
+			}
+
+			foreach (EnchantmentEffect curse in curses) {
+				Effects.Add(curse.Clone());
+			}
+		}
+
+		#endregion
 	}
 }

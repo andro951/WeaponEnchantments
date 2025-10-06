@@ -8,6 +8,7 @@ using WeaponEnchantments.Common.Utility;
 using static androLib.Common.Utility.ModMath;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Common
 {
@@ -110,6 +111,16 @@ namespace WeaponEnchantments.Common
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength?.Clone();
 		}
+		public BuffStats(string buffName, short buffID, uint duration, float chance, bool disableImmunity, float buffStrength) {
+			_waitingForEnterWorld = true;
+			BuffName = buffName;
+			BuffID = buffID;
+			_duration = new Time((uint)duration);
+			_originalDuration = _duration.Clone();
+			Chance = chance;
+			DisableImmunity = disableImmunity;
+			BuffStrength = buffStrength;
+		}
 		private void SetUpChanceDifficultyStrength() {
 			if (_chanceDifficultyStrengths != null) {
 				_duration = _originalDuration.Clone();
@@ -132,9 +143,36 @@ namespace WeaponEnchantments.Common
 			Chance = newChance;
 		}
 		public BuffStats Clone() => new BuffStats(BuffName, BuffID, Duration.Clone(), Chance, DisableImmunity, buffStrengths?.Clone());
-		public void AddBuff(Player player) {
-			if (Chance == 1f || Chance >= Main.rand.NextFloat())
-				player.AddBuff(BuffID, Duration);
+
+		public void TryApplyToPlayer(Player player, bool addToExisting = false) {
+			if (Chance >= 1f || Chance >= Main.rand.NextFloat()) {
+				int buffIndex = player.FindBuffIndex(BuffID);
+				int ticks = addToExisting ? Math.Min(Duration.Ticks, ConfigValues.BuffDurationTicks) : Duration.Ticks;
+				if (!addToExisting || buffIndex < 0) {
+					if (addToExisting)
+						ticks++;
+
+					player.AddBuff(BuffID, ticks);
+				}
+				else {
+					player.buffTime[buffIndex] += ticks;
+				}
+			}
+		}
+		public void TryApplyBuffToNPC(NPC npc, bool addToExisting = false) {
+			if (Chance >= 1f || Chance >= Main.rand.NextFloat()) {
+				int buffIndex = npc.FindBuffIndex(BuffID);
+				int ticks = addToExisting ? Math.Min(Duration.Ticks, ConfigValues.BuffDurationTicks) : Duration.Ticks;
+				if (!addToExisting || buffIndex < 0) {
+					if (addToExisting)
+						ticks++;
+
+					npc.AddBuff(BuffID, ticks);
+				}
+				else {
+					npc.buffTime[buffIndex] += ticks;
+				}
+			}
 		}
 		public override string ToString() {
 			return $"BuffName: {BuffName}, BuffID: {BuffID}, Duration: {Duration}, Duration.Ticks: {Duration.Ticks}, Chance: ";

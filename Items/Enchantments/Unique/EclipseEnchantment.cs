@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -38,5 +38,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class EclipseEnchantmentRare : EclipseEnchantment { }
 	public class EclipseEnchantmentEpic : EclipseEnchantment { }
 	public class EclipseEnchantmentLegendary : EclipseEnchantment { }
+	public class EclipseEnchantmentCursed : EclipseEnchantment { }
 	*/
 }

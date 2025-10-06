@@ -155,7 +155,7 @@ namespace WeaponEnchantments.Common
 				if (_strength != 0f)
 					return _strength;
 
-				if (_base > 0f || _flat > 0f) {
+				if (_base != 0f || _flat != 0f) {
 					_strength = ApplyTo(0f);
 				}
 				else {
@@ -214,14 +214,25 @@ namespace WeaponEnchantments.Common
 
 				float baseTooltip;
 				if (minusOne && _base == 0f && (_additive != 1f || _additiveDenominator != 1f)) {
-					baseTooltip = (_additive / _additiveDenominator * _multiplicative - 1f) * (float)multiplier;
+					if (_additiveDenominator != 1f) {
+						float mult = _multiplicative / _additiveDenominator;
+						if (mult < 1f) {
+							baseTooltip = -(1/mult - 1) * (float)multiplier;
+						}
+						else {
+							baseTooltip = (mult - 1) * (float)multiplier;
+						}
+					}
+					else {
+						baseTooltip = (_additive * _multiplicative - 1f) * (float)multiplier;
+					}
 				}
 				else {
 					baseTooltip = 1f + (Strength - 1f) * (float)multiplier - (float)multiplier * _flat;
 				}
 
 				tooltip = "";
-				if (_base > 0f || (_additive != 1f || _additiveDenominator != 1f) && minusOne) {
+				if (_base != 0f || (_additive != 1f || _additiveDenominator != 1f) && minusOne) {
 					if (sign && (_base > 0f || _additive > _additiveDenominator))
 						tooltip += "+";
 

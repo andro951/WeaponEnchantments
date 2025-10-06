@@ -11,296 +11,307 @@ using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Configs
 {
-	[Label("$Mods.WeaponEnchantments.Config.ServerConfig.Label")]
+	#region  Server configs
 	public class ServerConfig : ModConfig
 	{
+		public const string ServerConfigName = "ServerConfig";
 		public override ConfigScope Mode => ConfigScope.ServerSide;
 
 		//Server Config
-		[Header("$Mods.WeaponEnchantments.Config.ServerConfig")]
-		[Label("$Mods.WeaponEnchantments.Config.presetData.Label")]
+		[JsonIgnore]
+		public const string ServerConfigKey = ServerConfigName;
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{ServerConfigKey}")]
 		[ReloadRequired]
 		public PresetData presetData;
 
-		[Header("$Mods.WeaponEnchantments.Config.IndividualEnchantmentStrengths")]
+		[JsonIgnore]
+		public const string IndividualEnchantmentStrengthsKey = "IndividualEnchantmentStrengths";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{IndividualEnchantmentStrengthsKey}")]
 
-		[Label("$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Tooltip")]
 		[ReloadRequired]
 		[DefaultValue(false)]
 		public bool individualStrengthsEnabled;
 
-		[Label("$Mods.WeaponEnchantments.Config.individualStrengths.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.individualStrengths.Tooltip")]
 		public List<Pair> individualStrengths = new List<Pair>();
 
 		//Enchantment Settings
-		[Header("$Mods.WeaponEnchantments.Config.EnchantmentSettings")]
-		[Label("$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Tooltip")]
+		[JsonIgnore]
+		public const string EnchantmentSettingsKey = "EnchantmentSettings";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{EnchantmentSettingsKey}")]
 		[DefaultValue(true)]
 		public bool AlwaysOverrideDamageType;
 
-		[Label("$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Tooltip")]
 		[DefaultValue(100)]
 		[Range(0, 10000)]
 		public int AffectOnVanillaLifeStealLimmit;
 
-		[Label("$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Tooltip")]
 		[Range(0, 10000)]
 		[DefaultValue(10)]
 		[ReloadRequired]
 		public int AttackSpeedEnchantmentAutoReuseSetpoint;
 
-		[Label("$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip")]
 		[DefaultValue(true)]
 		public bool AutoReuseDisabledOnMagicMissile;
 
-		[Label("$Mods.WeaponEnchantments.Config.BuffDuration.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.BuffDuration.Tooltip")]
 		[DefaultValue(15)]
 		[Range(1, 600)]
 		[ReloadRequired]
 		public int BuffDuration;
 
-		[Label("$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Tooltip")]
 		[DefaultValue(5)]
 		[Range(0, 1000000)]
 		public int AmaterasuSelfGrowthPerTick;
 
-		[Label("$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool ReduceRecipesToMinimum;
 
-		[Label("$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Tooltip")]
 		[DefaultValue(100)]
 		[Range(0, 1400)]
 		[ReloadRequired]
 		public int ConfigCapacityCostMultiplier;
 
-		[Label("$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool RemoveEnchantmentRestrictions;
 
+		[DefaultValue(67)]
+		[Range(0, 100)]
+		[ReloadRequired]
+		public int EnchantmentStrengthCurseScaling;
+
+		[DefaultValue(100)]
+		[Range(0, 100000)]
+		[ReloadRequired]
+		public int CurseStrengthMultiplier;
+
+		[DefaultValue(true)]
+		public bool EnchantmentEffectsOnModdedAccessorySlots;
+
 		//Essence and Experience
-		[Header("$Mods.WeaponEnchantments.Config.EssenceandExperience")]
-		[Label("$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Tooltip")]
+		[JsonIgnore]
+		public const string EssenceAndExperienceKey = "EssenceAndExperience";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{EssenceAndExperienceKey}")]
+
 		[Range(0, 10000)]
 		[DefaultValue(100)]
 		[ReloadRequired]
 		public int BossEssenceMultiplier;
 
-		[Label("$Mods.WeaponEnchantments.Config.EssenceMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EssenceMultiplier.Tooltip")]
 		[Range(0, 10000)]
 		[DefaultValue(100)]
 		[ReloadRequired]
 		public int EssenceMultiplier;
 
-		[Label("$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Tooltip")]
 		[Range(0, 10000)]
 		[DefaultValue(100)]
 		public int BossExperienceMultiplier;
 
-		[Label("$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Tooltip")]
 		[Range(0, 10000)]
 		[DefaultValue(100)]
 		public int ExperienceMultiplier;
 
-		[Label("$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Tooltip")]
 		[Range(0, 10000)]
 		[DefaultValue(100)]
 		public int GatheringExperienceMultiplier;
 
-		[Label("$Mods.WeaponEnchantments.Config.EssenceGrabRange.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EssenceGrabRange.Tooltip")]
 		[DefaultValue(10)]
 		[Range(1, 100)]
 		public int EssenceGrabRange;
 
 		//Enchantment Drop Rates(%)
-		[Header("$Mods.WeaponEnchantments.Config.EnchantmentDropRates(%)")]
-		[Label("$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Tooltip")]
+		[JsonIgnore]
+		public const string EnchantmentDropRatesKey = "EnchantmentDropRates(%)";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{EnchantmentDropRatesKey}")]
+
 		[Range(0, 100)]
 		[DefaultValue(50)]
 		[ReloadRequired]
 		public int BossEnchantmentDropChance;
 
-		[Label("$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Tooltip")]
 		[Range(0, 1000)]
 		[DefaultValue(100)]
 		[ReloadRequired]
 		public int EnchantmentDropChance;
 
-		[Label("$Mods.WeaponEnchantments.Config.ChestSpawnChance.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ChestSpawnChance.Tooltip")]
 		[Range(0, 100000)]
 		[DefaultValue(50)]
 		public int ChestSpawnChance;
 
-		[Label("$Mods.WeaponEnchantments.Config.CrateDropChance.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip")]
 		[Range(0, 10000)]
 		[DefaultValue(100)]
 		[ReloadRequired]
 		public int CrateDropChance;
 
 		//Other Drop Rates
-		[Header("$Mods.WeaponEnchantments.Config.OtherDropRates")]
-		[Label("$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Tooltip")]
+		[JsonIgnore]
+		public const string OtherDropRatesKey = "OtherDropRates";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{OtherDropRatesKey}")]
+
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool PreventPowerBoosterFromPreHardMode;
 
 		//Enchanting Table Options
-		[Header("$Mods.WeaponEnchantments.Config.EnchantingTableOptions")]
-		[Label("$Mods.WeaponEnchantments.Config.AllowHighTierOres.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AllowHighTierOres.Tooltip")]
+		[JsonIgnore]
+		public const string EnchantingTableOptionsKey = "EnchantingTableOptions";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{EnchantingTableOptionsKey}")]
+
 		[DefaultValue(true)]
 		public bool AllowHighTierOres;
 
-		[Label("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Tooltip")]
 		[DefaultValue(5)]
 		[Range(0, 5)]
 		[ReloadRequired]
 		public int EnchantmentSlotsOnWeapons;
 
-		[Label("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Tooltip")]
 		[DefaultValue(3)]
 		[Range(0, 5)]
 		[ReloadRequired]
 		public int EnchantmentSlotsOnArmor;
 
-		[Label("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Tooltip")]
 		[DefaultValue(1)]
 		[Range(0, 5)]
 		[ReloadRequired]
 		public int EnchantmentSlotsOnAccessories;
 
-		[Label("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Tooltip")]
 		[DefaultValue(5)]
 		[Range(0, 5)]
 		[ReloadRequired]
 		public int EnchantmentSlotsOnFishingPoles;
 
-		[Label("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Tooltip")]
 		[DefaultValue(5)]
 		[Range(0, 5)]
 		[ReloadRequired]
 		public int EnchantmentSlotsOnTools;
 
-		[Label("$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label")]
 		[DefaultValue(50)]
 		[Range(0, 100)]
 		public int PercentOfferEssence;
 
-		[Label("$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip")]
 		[DefaultValue(false)]
 		public bool ReduceOfferEfficiencyByTableTier;
 
-		[Label("$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Tooltip")]
 		[DefaultValue(false)]
 		public bool ReduceOfferEfficiencyByBaseInfusionPower;
 
+		[JsonIgnore]
+		public const int DefaultSiphonCost = 20;
+		[DefaultValue(DefaultSiphonCost)]
+		public int SiphonExperiencePercentCost;
+
+		//Curses
+		[JsonIgnore]
+		public const string CursedEnemiesKey = "CursedEnemies";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{CursedEnemiesKey}")]
+
+		[DefaultValue(true)]
+		public bool AllowCursedEnemies;
+
+		[DefaultValue(500)]
+		[Range(0, 10000000)]
+		public int CursedEnemyLifeMultiplier;
+
+		[DefaultValue(0)]
+		[Range(0, 10000000)]
+		public int CursedEnemyDamageMultiplier;
+
+		[DefaultValue(100)]
+		[Range(0, 10000000)]
+		public int CursedEssenceDropChanceMultiplier;
+
+		[DefaultValue(40000)]
+		[Range(0, 10000000)]
+		[ReloadRequired]
+		public int CursedEnemyDebuffAttackRange;
+
+		[DefaultValue(100)]
+		[Range(0, 10000)]
+		[ReloadRequired]
+		public int CursedEnemyDebuffDurationMultiplier;
+
+		[DefaultValue(100)]
+		[Range(0, 10000)]
+		[ReloadRequired]
+		public int CursedEnemyDebuffChanceMultiplier;
+
+		[DefaultValue(20)]
+		[Range(1, 36000)]
+		public int CuredEnemyDebuffTicksPerAttack;
+
+		[DefaultValue(100)]
+		[Range(0, 1000)]
+		public int CursedBuffSpawnRateMultiplier;
+
+		[DefaultValue(false)]
+		[ReloadRequired]
+		public bool CursedEnchantmentsAllowedOnSummons;
+
 		//General Game Changes
-		[Header("$Mods.WeaponEnchantments.Config.GeneralGameChanges")]
-		[Label("$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip")]
+		[JsonIgnore]
+		public const string GeneralGameChangesKey = "GeneralGameChanges";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{GeneralGameChangesKey}")]
+
 		[DefaultValue(false)]
 		public bool DisableMinionCrits;
 
-		[Label("$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool CritPerLevelDisabled;
 
-		[Label("$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool DamagePerLevelInstead;
 
-		[Label("$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool DamageReductionPerLevelDisabled;
 
-		[Label("$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Tooltip")]
 		[DefaultValue(false)]
 		public bool CalculateDamageReductionBeforeDefense;
 
 		[ReloadRequired]
-		[Label("$Mods.WeaponEnchantments.Config.ArmorDamageReductions.Label")]
-		public List<ArmorDamageReduction> ArmorDamageReductions = new() { new(0), new(1), new(2), new(3) };
+		public List<ArmorDamageReduction> ArmorDamageReductions = DefaultArmorDamageReductions;
+		[JsonIgnore]
+		public static List<ArmorDamageReduction> DefaultArmorDamageReductions => new() { new(0), new(1), new(2), new(3) };
+		[JsonIgnore]
+		public static int DefaultArmorDamageReductionsCount = DefaultArmorDamageReductions.Count;
 
-		[Label("$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Tooltip")]
 		[DefaultValue(true)]
 		public bool AllowCriticalChancePast100;
 
-		[Label("$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Tooltip")]
 		[DefaultValue(false)]
 		public bool MultiplicativeCriticalHits;
 
-		[Label("$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Label")]
 		[DefaultValue(1300)]
 		[Range(1000, 2000)]
-		[Tooltip("$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Tooltip")]
 		[ReloadRequired]
 		public int InfusionDamageMultiplier;
 
-		[Tooltip("$Mods.WeaponEnchantments.Config.DisableArmorInfusion.Tooltip")]
 		[ReloadRequired]
 		[DefaultValue(false)]
 		public bool DisableArmorInfusion;
 
-		[Label("$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Tooltip")]
 		[DefaultValue(50)]
 		[Range(0, 100)]
 		public int MinionLifeStealMultiplier;
 
+		[DefaultValue(1000)]
+		[Range(0, 10000)]
+		public int NegativeDefensePenaltyMultiplier;
+
 		//Random Extra Stuff
-		[Header("$Mods.WeaponEnchantments.Config.RandomExtraStuff")]
-		[Label("$Mods.WeaponEnchantments.Config.DCUStart.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.DCUStart.Tooltip")]
+		[JsonIgnore]
+		public const string RandomExtraStuffKey = "RandomExtraStuff";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{RandomExtraStuffKey}")]
+
 		[DefaultValue(false)]
 		public bool DCUStart;
 
-		[Label("$Mods.WeaponEnchantments.Config.DisableResearch.Label")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool DisableResearch;
 
-		[Label("$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool PrintWikiInfo {
@@ -343,175 +354,472 @@ namespace WeaponEnchantments.Common.Configs
 		}
 	}
 
-	[Label("$Mods.WeaponEnchantments.Config.ClientConfig.Label")]
+	//[SeparatePage]
+	public class EnchantmentToggle : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ServerSide;
+		public const string EnchantToggleName = "ServerConfig";
+		
+		#region General enchantments
+		[JsonIgnore]
+		public const string GeneralConfigKey = "GeneralEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{GeneralConfigKey}")]
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool AllForOne;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool AttackSpeed;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CriticalStrikeChance;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CriticalStrikeDamage;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Damage;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DamageReduction;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Defense;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ExtraFishingLine;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LethalCombination;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LifeSteal;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MaxMinions;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool OneForAll;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool PercentArmorPenetration;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool PrideOfTheWeak;
+		#endregion
+		
+		#region Status effect enchantments
+		[JsonIgnore]
+		public const string StatusConfigKey = "StatusEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{StatusConfigKey}")]
+		
+		#region Vanilla status effects
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool OnFire;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Poison;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Frostburn;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CursedInferno;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Ichor;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Venom;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Shadowflame;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Daybreak;
+		#endregion
+		
+		#region Custom status effects
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool WorldAblaze;
+		#endregion
+		
+		#endregion
+
+		#region Utility enchantments
+		[JsonIgnore]
+		public const string UtilityConfigKey = "UtilityToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{UtilityConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool AmmoCost;
+
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CalmWaters;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CrateChance;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool FishingPower;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LavaFishing;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LifeRegen;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Luck;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Magnetic;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MobilityControl;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MovementSpeed;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Peace;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool PennyPinching;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ProjectileVelocity;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ReducedManaUsage;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Size;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Time;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool War;
+		
+		#region On tick/potion buffs
+		[JsonIgnore]
+		public const string OnTickUtilityConfigKey = "OnTickUtilityToggleName";
+
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{OnTickUtilityConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool OnTick;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Dangersense;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Hunter;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ObsidianSkin;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Spelunker;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Fishing;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Crate;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Sonar;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Shine;
+		
+		#endregion
+		#endregion
+		
+		#region Unique enchanements
+		[JsonIgnore]
+		public const string UniqueConfigKey = "UniqueEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{UniqueConfigKey}")]
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool BerserkersRage;
+		
+		/*[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CatastrophicRelease;*/
+
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ChaoticFishing;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ColdSteel;
+		
+		/*[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Eclipse;*/
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool GodSlayer;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool HellsWrath;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Juiced;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool JunglesFury;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Moonlight;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Multishot;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool NpcContactAngler;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool SolarDash;
+		
+		#endregion
+		
+		#region Class swap enchantments
+		public const string ClassSwapConfigKey = "ClassSwapEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{ClassSwapConfigKey}")]
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ClassSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MeleeSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool RangedSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MagicSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool WhipSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThrowingSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CalamityRogueSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DBZKiSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThoriumBardSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThoriumHealerSwap;
+		#endregion
+		
+		#region Mod compat enchantments
+		[JsonIgnore]
+		public const string ModCompatConfigKey = "EnchantToggleName";
+		
+		//[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.ModCompat{ModCompatConfigKey}")]
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.DBZ{ModCompatConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DBZKi;
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.Thorium{ModCompatConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThoriumElementalDecay;
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.Depths{ModCompatConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DepthsCrystalSkin;
+		
+		#endregion
+	}
+	#endregion
 	public class ClientConfig : ModConfig
 	{
+		public const string ClientConfigName = "ClientConfig";
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		//Enchanting Table Options
-		[Header("$Mods.WeaponEnchantments.Config.EnchantingTableOptions")]
-		[Label("$Mods.WeaponEnchantments.Config.teleportEssence.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.teleportEssence.Tooltip")]
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfig.ServerConfigName}.{ServerConfig.EnchantingTableOptionsKey}")]
+
 		[DefaultValue(true)]
 		public bool teleportEssence;
 
-		[Label("$Mods.WeaponEnchantments.Config.OfferAll.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.OfferAll.Tooltip")]
 		[DefaultValue(false)]
 		public bool OfferAll;
 
-		[Label("$Mods.WeaponEnchantments.Config.AllowShiftClickMoveFavoritedItems.Label")]
 		[DefaultValue(false)]
 		public bool AllowShiftClickMoveFavoritedItems;
 
-		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip")]
 		[DefaultValue(true)]
 		public bool AlwaysDisplayInfusionPower;
 
-		[Label("$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label")]
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool AllowCraftingIntoLowerTier;
 
-		[Label("$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Tooltip")]
 		[DefaultValue(false)]
 		public bool AllowInfusingToLowerPower;
 
 		//Display Settings
-		[Header("$Mods.WeaponEnchantments.Config.DisplaySettings")]
-		[Label("$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Tooltip")]
+		[JsonIgnore]
+		public const string DisplaySettingsKey = "DisplaySettings";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ClientConfigName}.{DisplaySettingsKey}")]
+
 		[DefaultValue(false)]
 		public bool UsePointsAsTooltip;
 
-		[Label("$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip")]
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool UseAlternateEnchantmentEssenceTextures;
-
-		[Label("$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip")]
 		[DefaultValue(false)]
 		public bool DisplayDamageTooltipSeperatly;
 
-		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip")]
 		[DefaultValue(false)]
 		public bool AlwaysDisplayWeaponLevelUpMessages;
 
-		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip")]
 		[DefaultValue(false)]
 		public bool AlwaysDisplayArmorLevelUpMessages;
 
-		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip")]
 		[DefaultValue(false)]
 		public bool AlwaysDisplayAccessoryLevelUpMessages;
 
-		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip")]
 		[DefaultValue(false)]
 		public bool AlwaysDisplayToolLevelUpMessages;
 
-		[Label("$Mods.androLib.Config.UITransparency.Label")]
 		[DefaultValue(100)]
-		[Range(0, (int)byte.MaxValue)]
-		public int UITransparency;
+		[Range(0, 500)]
+		public int CursedEnemyVisualShaking;
+
+		[DefaultValue(true)]
+		public bool CursedEnemyParticles;
+
+		[DefaultValue(true)]
+		public bool VisualCursedDebuff;
 
 		//Error messages
-		[Header("$Mods.WeaponEnchantments.Config.ErrorMessages")]
-		[Label("$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Tooltip")]
-		[DefaultValue(false)]
-		public bool DisableAllErrorMessagesInChat {
-			set {
-				if (value) {
-					OnlyShowErrorMessagesInChatOnce = false;
-				}
-				else {
-					LogMethods.LoggedChatMessagesIDs.Clear();
-				}
-
-				_disableAllErrorMessagesInChat = value;
-			}
-
-			get => _disableAllErrorMessagesInChat;
-		}
-
 		[JsonIgnore]
-		private bool _disableAllErrorMessagesInChat;
-
-		[Label("$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Tooltip")]
-		[DefaultValue(true)]
-		public bool OnlyShowErrorMessagesInChatOnce {
-			set {
-				if (value) {
-					DisableAllErrorMessagesInChat = false;
-				}
-				else {
-					LogMethods.LoggedChatMessagesIDs.Clear();
-				}
-
-				_onlyShowErrorMessagesInChatOnce = value;
-			}
-
-			get => _onlyShowErrorMessagesInChatOnce;
-		}
-
-		private bool _onlyShowErrorMessagesInChatOnce;
+		public const string ErrorMessagesKey = "ErrorMessages";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ClientConfigName}.{ErrorMessagesKey}")]
 
 		//Logging Information
-		[Header("$Mods.androLib.Config.LoggingInformation")]
-		[Label("$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip")]
+		[JsonIgnore]
+		public const string LoggingInformationKey = "LoggingInformation";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ClientConfigName}.{LoggingInformationKey}")]
+
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool PrintEnchantmentTooltips;
 
-		[Label("$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Tooltip")]
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool PrintEnchantmentDrops;
-
-		[Label("$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool PrintWeaponInfusionPowers;
 
 		//Mod Testing Tools
-		[Header("$Mods.WeaponEnchantments.Config.ModTestingTools")]
-		[Label("$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Tooltip")]
+		[JsonIgnore]
+		public const string ModTestingToolsKey = "ModTestingTools";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ClientConfigName}.{ModTestingToolsKey}")]
+
 		[DefaultValue(false)]
 		public bool EnableSwappingWeapons;
 
-		[Label("$Mods.WeaponEnchantments.Config.LogDummyDPS.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.LogDummyDPS.Tooltip")]
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool LogDummyDPS;
 	}
+	
+	#region Other classes
 	public class Pair
 	{
-		[Tooltip("$Mods.WeaponEnchantments.Config.itemDefinition.Tooltip")]
-		[Label("$Mods.WeaponEnchantments.Config.itemDefinition.Label")]
 		[ReloadRequired]
 		public ItemDefinition itemDefinition;
 
-		[Label("$Mods.WeaponEnchantments.Config.Strength.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.Strength.Tooltip")]
 		[Range(0, 100000)]
 		[ReloadRequired]
 		public int Strength;
 
 		public override string ToString() {
-			return $"{"Enchantment".Lang_WE(L_ID1.Config)}: {(itemDefinition != null && itemDefinition.Type != 0 ? $"{itemDefinition.Name}: {Strength / 10}%" : "NoneSelected".Lang_WE(L_ID1.Config))}";
+			return $"{"Enchantment".Lang_WE(L_ID1.Configs)}: {(itemDefinition != null && itemDefinition.Type != 0 ? $"{itemDefinition.Name}: {Strength / 10}%" : "NoneSelected".Lang_WE(L_ID1.Configs))}";
 		}
 
 		public override bool Equals(object obj) {
@@ -538,13 +846,9 @@ namespace WeaponEnchantments.Common.Configs
 		[JsonIgnore]
 		short GameModeID;
 
-		[Label("$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Tooltip")]
 		[Range(0, 250000)]
 		public int ArmorDamageReductionPerLevel;
 
-		[Label("$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Tooltip")]
 		[Range(0, 250000)]
 		public int AccessoryDamageReductionPerLevel;
 		public ArmorDamageReduction(short gameMode) {
@@ -575,10 +879,12 @@ namespace WeaponEnchantments.Common.Configs
 				AccessoryDamageReductionPerLevel
 			}.GetHashCode();
 		}
+		public const string ArmorDRValuesKey = "ArmorDRValues";
+		public const string AccessoryDRValuesKey = "AccessoryDRValues";
 		public override string ToString() {
 			return $"{GameModeID.ToGameModeIDName()}" +
-				$", {"ArmorDRValues".Lang_WE(L_ID1.Config, new object[] { (ArmorDamageReductionPerLevel / 100000f).S(5), (ArmorDamageReductionPerLevel / 2500f).S(5) })}" +
-				$", {"AccessoryDRValues".Lang_WE(L_ID1.Config, new object[] { (AccessoryDamageReductionPerLevel / 100000f).S(5), (AccessoryDamageReductionPerLevel / 2500f).S(5) })}";
+				$", {ArmorDRValuesKey.Lang_WE(L_ID1.Configs, new object[] { (ArmorDamageReductionPerLevel / 100000f).S(5), (ArmorDamageReductionPerLevel / 2500f).S(5) })}" +
+				$", {AccessoryDRValuesKey.Lang_WE(L_ID1.Configs, new object[] { (AccessoryDamageReductionPerLevel / 100000f).S(5), (AccessoryDamageReductionPerLevel / 2500f).S(5) })}";
 		}
 	}
 	public class PresetData
@@ -590,10 +896,9 @@ namespace WeaponEnchantments.Common.Configs
 		private static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
 
 		//Automatic Preset based on world difficulty
-		[Label("$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label")]
 		[DefaultValue(true)]
 		[ReloadRequired]
-		public bool AutomaticallyMatchPreseTtoWorldDifficulty {
+		public bool AutomaticallyMatchPresetToWorldDifficulty {
 			get => _automaticallyMatchPreseTtoWorldDifficulty;
 			set {
 				_automaticallyMatchPreseTtoWorldDifficulty = value;
@@ -609,11 +914,13 @@ namespace WeaponEnchantments.Common.Configs
 		private bool _automaticallyMatchPreseTtoWorldDifficulty;
 
 		//Presets
-		[Header("$Mods.WeaponEnchantments.Config.Presets")]
+		[JsonIgnore]
+		public const string PresetsKey = "Presets";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfig.ServerConfigName}.{PresetsKey}")]
+
 		[DrawTicks]
 		[OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Automatic", "Custom" })]
 		[DefaultValue("$Mods.WeaponEnchantments.Config.Normal")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.Preset.Tooltip")]
 		[ReloadRequired]
 		public string Preset {
 			get => _automaticallyMatchPreseTtoWorldDifficulty ? "Automatic" : _preset;
@@ -626,11 +933,12 @@ namespace WeaponEnchantments.Common.Configs
 		private string _preset;
 
 		//Multipliers
-		[Header("$Mods.WeaponEnchantments.Config.Multipliers")]
-		[Label("$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label")]
+		[JsonIgnore]
+		public const string MultipliersKey = "Multipliers";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfig.ServerConfigName}.{MultipliersKey}")]
+
 		[Range(0, 250)]
 		[DefaultValue(100)]
-		[Tooltip("$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip")]
 		[ReloadRequired]
 		public int GlobalEnchantmentStrengthMultiplier {
 			get => _globalEnchantmentStrengthMultiplier;
@@ -641,50 +949,49 @@ namespace WeaponEnchantments.Common.Configs
 		}
 		private int _globalEnchantmentStrengthMultiplier;
 
-		[Header("$Mods.WeaponEnchantments.Config.RarityEnchantmentStrengthMultipliers")]
-		[Label("$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip")]
+		[JsonIgnore]
+		public const string RarityEnchantmentStrengthMultipliersKey = "RarityEnchantmentStrengthMultipliers";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfig.ServerConfigName}.{RarityEnchantmentStrengthMultipliersKey}")]
+
 		[Range(-1, 10000)]
 		[DefaultValue(-1)]
 		[ReloadRequired]
 		public int BasicEnchantmentStrengthMultiplier { set; get; }
 
-		[Label("$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip")]
 		[Range(-1, 10000)]
 		[DefaultValue(-1)]
 		[ReloadRequired]
 		public int CommonEnchantmentStrengthMultiplier { set; get; }
 
-		[Label("$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip")]
 		[Range(-1, 10000)]
 		[DefaultValue(-1)]
 		[ReloadRequired]
 		public int RareEnchantmentStrengthMultiplier { set; get; }
 
-		[Label("$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip")]
 		[Range(-1, 10000)]
 		[DefaultValue(-1)]
 		[ReloadRequired]
 		public int EpicEnchantmentStrengthMultiplier { set; get; }
 
-		[Label("$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip")]
 		[Range(-1, 10000)]
 		[DefaultValue(-1)]
 		[ReloadRequired]
 		public int LegendaryEnchantmentStrengthMultiplier { set; get; }
 
+		[Range(-1, 10000)]
+		[DefaultValue(-1)]
+		[ReloadRequired]
+		public int CursedEnchantmentStrengthMultiplier { set; get; }
+
 		public PresetData() {
-			AutomaticallyMatchPreseTtoWorldDifficulty = true;
+			AutomaticallyMatchPresetToWorldDifficulty = true;
 			Preset = "Normal";
 			BasicEnchantmentStrengthMultiplier = -1;
 			CommonEnchantmentStrengthMultiplier = -1;
 			RareEnchantmentStrengthMultiplier = -1;
 			EpicEnchantmentStrengthMultiplier = -1;
 			LegendaryEnchantmentStrengthMultiplier = -1;
+			CursedEnchantmentStrengthMultiplier = -1;
 		}
 
 		public override bool Equals(object obj) {
@@ -710,164 +1017,7 @@ namespace WeaponEnchantments.Common.Configs
 				if (LegendaryEnchantmentStrengthMultiplier != other.LegendaryEnchantmentStrengthMultiplier)
 					return false;
 
-				return true;
-			}
-
-			return base.Equals(obj);
-		}
-
-		public override int GetHashCode() {
-			return new {
-				Preset,
-				GlobalEnchantmentStrengthMultiplier,
-				BasicEnchantmentStrengthMultiplier,
-				CommonEnchantmentStrengthMultiplier,
-				RareEnchantmentStrengthMultiplier,
-				EpicEnchantmentStrengthMultiplier,
-				LegendaryEnchantmentStrengthMultiplier
-			}.GetHashCode();
-		}
-	}
-
-	/*
-	public class PresetData
-	{
-		[JsonIgnore]
-		private static List<int> presetValues = new List<int> { 250, 100, 50, 25 };
-
-		[JsonIgnore]
-		private static SortedDictionary<string, string> translatedPresetNames = new() {
-			{ "Journey", "Journey".Lang(L_ID1.Config) },
-			{ "Normal", "Normal".Lang(L_ID1.Config) },
-			{ "Expert", "Expert".Lang(L_ID1.Config) },
-			{ "Master", "Master".Lang(L_ID1.Config) },
-			{ "Automatic", "Automatic".Lang(L_ID1.Config) },
-			{ "Custom", "Custom".Lang(L_ID1.Config) }
-		};
-
-		[JsonIgnore]
-		private static List<string> presetNames = new List<string>() { translatedPresetNames["Journey"], translatedPresetNames["Normal"], translatedPresetNames["Expert"], translatedPresetNames["Master"] };
-
-		//Automatic Preset based on world difficulty
-		[Label("$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label")]
-		[DefaultValue(true)]
-		[ReloadRequired]
-		public bool AutomaticallyMatchPreseTtoWorldDifficulty {
-			get => _automaticallyMatchPreseTtoWorldDifficulty;
-			set {
-				_automaticallyMatchPreseTtoWorldDifficulty = value;
-				if (value) {
-					_preset = translatedPresetNames["Automatic"];
-				}
-				else {
-					GlobalEnchantmentStrengthMultiplier = _globalEnchantmentStrengthMultiplier;
-				}
-			}
-		}
-
-		private bool _automaticallyMatchPreseTtoWorldDifficulty;
-
-		//Presets
-		[Header("$Mods.WeaponEnchantments.Config.Presets")]
-		[DrawTicks]
-		[OptionStrings(new string[] { "$Mods.WeaponEnchantments.Config.Journey", "$Mods.WeaponEnchantments.Config.Normal", "$Mods.WeaponEnchantments.Config.Expert", "$Mods.WeaponEnchantments.Config.Master",
-			"$Mods.WeaponEnchantments.Config.Automatic", "$Mods.WeaponEnchantments.Config.Custom" })]
-		[DefaultValue("$Mods.WeaponEnchantments.Config.Normal")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.Preset.Tooltip")]
-		[ReloadRequired]
-		public string Preset {
-			get => _automaticallyMatchPreseTtoWorldDifficulty ? translatedPresetNames["Automatic"] : _preset;
-			set {
-				_preset = value;
-				if (presetNames.Contains(value))
-					_globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
-			}
-		}
-		private string _preset;
-
-		//Multipliers
-		[Header("$Mods.WeaponEnchantments.Config.Multipliers")]
-		[Label("$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label")]
-		[Range(0, 250)]
-		[DefaultValue(100)]
-		[Tooltip("$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip")]
-		[ReloadRequired]
-		public int GlobalEnchantmentStrengthMultiplier {
-			get => _globalEnchantmentStrengthMultiplier;
-			set {
-				_globalEnchantmentStrengthMultiplier = value;
-				Preset = presetValues.Contains(_globalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(_globalEnchantmentStrengthMultiplier)] : translatedPresetNames["Custom"];
-			}
-		}
-		private int _globalEnchantmentStrengthMultiplier;
-
-		[Header("$Mods.WeaponEnchantments.Config.RarityEnchantmentStrengthMultipliers")]
-		[Label("$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip")]
-		[Range(-1, 10000)]
-		[DefaultValue(-1)]
-		[ReloadRequired]
-		public int BasicEnchantmentStrengthMultiplier { set; get; }
-
-		[Label("$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip")]
-		[Range(-1, 10000)]
-		[DefaultValue(-1)]
-		[ReloadRequired]
-		public int CommonEnchantmentStrengthMultiplier { set; get; }
-
-		[Label("$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip")]
-		[Range(-1, 10000)]
-		[DefaultValue(-1)]
-		[ReloadRequired]
-		public int RareEnchantmentStrengthMultiplier { set; get; }
-
-		[Label("$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip")]
-		[Range(-1, 10000)]
-		[DefaultValue(-1)]
-		[ReloadRequired]
-		public int EpicEnchantmentStrengthMultiplier { set; get; }
-
-		[Label("$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip")]
-		[Range(-1, 10000)]
-		[DefaultValue(-1)]
-		[ReloadRequired]
-		public int LegendaryEnchantmentStrengthMultiplier { set; get; }
-
-		public PresetData() {
-			AutomaticallyMatchPreseTtoWorldDifficulty = true;
-			Preset = translatedPresetNames["Normal"];
-			BasicEnchantmentStrengthMultiplier = -1;
-			CommonEnchantmentStrengthMultiplier = -1;
-			RareEnchantmentStrengthMultiplier = -1;
-			EpicEnchantmentStrengthMultiplier = -1;
-			LegendaryEnchantmentStrengthMultiplier = -1;
-		}
-
-		public override bool Equals(object obj) {
-			if (obj is PresetData other) {
-				if (Preset != other.Preset)
-					return false;
-
-				if (GlobalEnchantmentStrengthMultiplier != other.GlobalEnchantmentStrengthMultiplier)
-					return false;
-
-				if (BasicEnchantmentStrengthMultiplier != other.BasicEnchantmentStrengthMultiplier)
-					return false;
-
-				if (CommonEnchantmentStrengthMultiplier != other.CommonEnchantmentStrengthMultiplier)
-					return false;
-
-				if (RareEnchantmentStrengthMultiplier != other.RareEnchantmentStrengthMultiplier)
-					return false;
-
-				if (EpicEnchantmentStrengthMultiplier != other.EpicEnchantmentStrengthMultiplier)
-					return false;
-
-				if (LegendaryEnchantmentStrengthMultiplier != other.LegendaryEnchantmentStrengthMultiplier)
+				if (CursedEnchantmentStrengthMultiplier != other.CursedEnchantmentStrengthMultiplier)
 					return false;
 
 				return true;
@@ -884,9 +1034,10 @@ namespace WeaponEnchantments.Common.Configs
 				CommonEnchantmentStrengthMultiplier,
 				RareEnchantmentStrengthMultiplier,
 				EpicEnchantmentStrengthMultiplier,
-				LegendaryEnchantmentStrengthMultiplier
+				LegendaryEnchantmentStrengthMultiplier,
+				CursedEnchantmentStrengthMultiplier
 			}.GetHashCode();
 		}
 	}
-	*/
+	#endregion
 }

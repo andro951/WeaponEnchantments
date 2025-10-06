@@ -32,11 +32,18 @@ using androLib;
 using androLib.Localization;
 using WeaponEnchantments.Localization;
 using Terraria.Map;
+using WeaponEnchantments.Common.Utility.LogSystem;
+using ReLogic.Graphics;
+using Microsoft.Xna.Framework;
+using androLib.Common.Utility;
+using Terraria.DataStructures;
+using WeaponEnchantments.Content.Projectiles;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments
 {
 	public class WEMod : Mod {
-		public static string ModName = ModContent.GetInstance<WEMod>().Name;
+		public const string ModName = "WeaponEnchantments";
 		public static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		public static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool playerSwapperModEnabled = false;
@@ -44,15 +51,13 @@ namespace WeaponEnchantments
 		public static bool recursiveCraftEnabled = ModLoader.TryGetMod("RecursiveCraft", out Mod _);
 		public static bool imkSushisModEnabled = ModLoader.TryGetMod("imkSushisMod", out Mod _);
 		public static bool avaliRaceEnabled = ModLoader.TryGetMod("AvaliRace", out Mod _);
-		public static bool bossChecklistEnabled = ModLoader.TryGetMod("BossChecklist", out Mod _);
 		public static bool bountifulGoodieBagsEnabled = ModLoader.TryGetMod("BountifulGoodieBags", out Mod _);
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
 		public static bool aequusEnabled = ModLoader.TryGetMod("aequus", out Mod _);
 		public static bool clickerClassEnabled = ModLoader.TryGetMod("ClickerClass", out Mod _);
 		public static bool secretsOfTheShadowsEnabled = ModLoader.TryGetMod("SOTS", out Mod _);
-		public static Mod wikiThis;
-		public static bool wikiThisEnabled = ModLoader.TryGetMod("Wikithis", out wikiThis);
+		public static bool minionDmgPatchEnabled = ModLoader.TryGetMod("MinionDmgPatch", out Mod _);
 
 		public const string WIKI_URL = "https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/";
 
@@ -60,34 +65,65 @@ namespace WeaponEnchantments
 		public override void Load() {
 			AddAllContent(this);
 
-			InfusionProgression.vanillaRecipeCount = Recipe.numRecipes;
 			hooks.Add(new(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour));
 			//hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
 			//hooks.Add(new(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour));
 			hooks.Add(new(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour));
 			//hooks.Add(new(ModLoaderToHitInfoMethodInfo, ToHitInfoDetour));
 			//hooks.Add(new(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour));
+			hooks.Add(new(ModLoaderHorizontalWingSpeedsMethodInfo, HorizontalWingSpeeds));
 			foreach (Hook hook in hooks) {
 				hook.Apply();
 			}
 
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
+			On_Projectile.NewProjectile_IEntitySource_float_float_float_float_int_int_float_int_float_float_float += On_Projectile_NewProjectile;
 			On_Item.GetShimmered += On_Item_GetShimmered;
 			On_WorldGen.KillTile_GetItemDrops += On_WorldGen_KillTile_GetItemDrops;
-			On_HitTile.AddDamage += On_HitTile_AddDamage;
-			On_WorldGen.KillTile_DropItems += On_WorldGen_KillTile_DropItems;
 			On_Recipe.FindRecipes += EnchantmentStorage.FindRecipes;
+			On_WorldGen.KillTile += On_WorldGen_KillTile;
 			
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 			IL_Main.MouseText_DrawItemTooltip_GetLinesInfo += OnMouseText_DrawItemTooltip_GetLinesInfo;
+			IL_Main.DrawDefenseCounter += OnDrawDefenseCounter;
 
+			HexproofPouch.Instance.RegisterWithAndroLib(this);
 			UIManager.RegisterWithMaster();
 
 			LocalizationData.RegisterSDataPackage();
+			AndroModSystem.RegisterChestSpawnChanceMultiplier(this, () => ConfigValues.EnchantmentDropChance, () => ConfigValues.BossEnchantmentDropChance, () => ConfigValues.ChestSpawnChance, () => ConfigValues.CrateDropChance);
+			RecipeData_WE.RegisterWithRecipeData(this);
 		}
+
+		private int On_Projectile_NewProjectile(On_Projectile.orig_NewProjectile_IEntitySource_float_float_float_float_int_int_float_int_float_float_float orig, Terraria.DataStructures.IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2) {
+			if (Type != ModContent.ProjectileType<CursedEffectProjectile>() && spawnSource is EntitySource_Parent parent && parent.Entity is NPC npc && npc.TryGetGlobalNPC(out CursedNPC cursedNPC) && cursedNPC.Cursed) {
+				Damage = (int)Math.Round(ConfigValues.CursedEnemyDamageMultiplier * Damage);
+
+				if (Damage <= 0) {
+					//Don't create a projectile
+					int num = 1000;
+					for (int i = 0; i < 1000; i++) {
+						if (!Main.projectile[i].active) {
+							num = i;
+							break;
+						}
+					}
+
+					if (num == 1000)
+						num = Projectile.FindOldestProjectile();
+
+					Main.projectile[num].active = false;
+
+					return num;
+				}
+			}
+
+			return orig(spawnSource, X, Y, SpeedX, SpeedY, Type, Damage, KnockBack, Owner, ai0, ai1, ai2);
+		}
+
 		private void AddAllContent(WEMod weMod) {
 			IEnumerable<Type> types = null;
 			try {
@@ -99,46 +135,75 @@ namespace WeaponEnchantments
 
 			types = types.Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(WEModItem)));
 
-			IEnumerable<ModItem> allItems = types.Select(t => Activator.CreateInstance(t)).Where(i => i != null).OfType<ModItem>();
-			IEnumerable<ModItem> enchantingTables = allItems.OfType<EnchantingTableItem>();
-			IEnumerable<ModItem> containments = allItems.OfType<ContainmentItem>();
-			IEnumerable<ModItem> powerBoosters = allItems.Where(i => i is PowerBooster or UltraPowerBooster).OrderBy(i => i.Name);
-			IEnumerable<ModItem> enchantmentEssences = allItems.OfType<EnchantmentEssence>().OrderBy(i => i.EssenceTier);
+			IEnumerable<ModItem> allModItems = types.Select(t => Activator.CreateInstance(t)).Where(i => i != null).OfType<ModItem>();
+
+			IEnumerable<ModItem> enchantingTables = allModItems.OfType<EnchantingTableItem>();
+			IEnumerable<ModItem> containments = allModItems.OfType<ContainmentItem>();
+			IEnumerable<ModItem> powerBoosters = allModItems.Where(i => i is PowerBooster or UltraPowerBooster).OrderBy(i => i.Name);
+			IEnumerable<ModItem> enchantmentEssences = allModItems.OfType<EnchantmentEssence>().OrderBy(i => i.EssenceTier);
 			IEnumerable<ModItem> enchantments =
-				allItems
+				allModItems
 				.OfType<Enchantment>()
 				.GroupBy(i => i.EnchantmentTier)
 				.Select(g => g.ToList().OrderBy(i => i.EnchantmentTypeName))
 				.SelectMany(i => i);
 
-			foreach (ModItem modItem in enchantingTables.Concat(containments).Concat(powerBoosters).Concat(enchantmentEssences).Concat(enchantments)) {
+			IEnumerable<ModItem> sortedModItems = enchantingTables.Concat(containments).Concat(powerBoosters).Concat(enchantmentEssences);
+			IEnumerable<ModItem> otherItem = allModItems.Where(m => m is not Enchantment && !sortedModItems.Select(mi => mi.Name).Contains(m.Name));
+			IEnumerable<ModItem> finishedSortedModItemList = sortedModItems.Concat(otherItem).Concat(enchantments);
+			foreach (ModItem modItem in finishedSortedModItemList) {
 				weMod.AddContent(modItem);
 			}
 		}
 
 		#region Kill tile
 
-		public static Item bestPickaxe = new();
-		private static bool justBrokeBlock = false;
-		private void On_WorldGen_KillTile_DropItems(On_WorldGen.orig_KillTile_DropItems orig, int x, int y, Tile tileCache, bool includeLargeObjectDrops, bool includeAllModdedLargeObjectDrops) {
-			justBrokeBlock = true;
-			orig(x, y, tileCache, includeLargeObjectDrops, includeAllModdedLargeObjectDrops);
+		public static void UpdateBrokenTileTarget(int x, int y, int playerWhoAmI) {
+			tileBrokenTargetX = x;
+			tileBrokenTargetY = y;
+			playerBrokenTargetWhoAmI = playerWhoAmI;
 		}
-		private int On_HitTile_AddDamage(On_HitTile.orig_AddDamage orig, HitTile self, int tileId, int damageAmount, bool updateAmount) {
-			bestPickaxe = Main.LocalPlayer.GetBestPickaxe();
+		private static int tileBrokenTargetX = -1;
+		private static int tileBrokenTargetY = -1;
+		public static int playerBrokenTargetWhoAmI = -1;
+		public static Item tileBrokenTool = null;
+		private void On_WorldGen_KillTile(On_WorldGen.orig_KillTile orig, int i, int j, bool fail, bool effectOnly, bool noItem) {
+			if (Main.netMode != NetmodeID.Server) {
+				if (!fail) {
+					if (i >= 0 && j >= 0 && i < Main.maxTilesX && j < Main.maxTilesY) {
+						if (Player.tileTargetX >= 0 && Player.tileTargetY >= 0 && Player.tileTargetX < Main.maxTilesX && Player.tileTargetY < Main.maxTilesY) {
+							int num = WorldGen.CheckTileBreakability(i, j);
+							if (num == 1)
+								fail = true;
 
-			return orig(self, tileId, damageAmount, updateAmount);
+							if (!fail) {
+								if (Player.tileTargetX == i && Player.tileTargetY == j) {
+									Item heldItem = Main.LocalPlayer.HeldItem;
+									int tileType = Main.tile[i, j].TileType;
+									if (!heldItem.NullOrAir() && (Main.tileAxe[tileType] && heldItem.IsAxe() || Main.tileHammer[tileType] && heldItem.IsHammer() || heldItem.IsPickaxe()))
+										tileBrokenTool = Main.LocalPlayer.HeldItem;
+
+									NetManager.BreakTileTarget(i, j);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			orig(i, j, fail, effectOnly, noItem);
 		}
 		private void On_WorldGen_KillTile_GetItemDrops(On_WorldGen.orig_KillTile_GetItemDrops orig, int x, int y, Tile tileCache, out int dropItem, out int dropItemStack, out int secondaryItem, out int secondaryItemStack, bool includeLargeObjectDrops) {
 			orig(x, y, tileCache, out dropItem, out dropItemStack, out secondaryItem, out secondaryItemStack, includeLargeObjectDrops);
 
-			if (!justBrokeBlock)
+			if (tileBrokenTargetX != x || tileBrokenTargetY != y)
 				return;
 
-			justBrokeBlock = false;
-			
-			if (bestPickaxe != null)
-				WEGlobalTile.KillTile(bestPickaxe, tileCache.TileType, dropItem, dropItemStack, secondaryItem, secondaryItemStack);
+			WEGlobalTile.KillTile(tileCache, dropItem, dropItemStack, secondaryItem, secondaryItemStack);
+
+			tileBrokenTargetX = -1;
+			tileBrokenTargetY = -1;
+			playerBrokenTargetWhoAmI = -1;
 		}
 
 		#endregion
@@ -152,8 +217,11 @@ namespace WeaponEnchantments
 			hooks = null;
 		}
 		public override void PostSetupContent() {
-			if (wikiThis != null)
-				wikiThis.Call("url", this, WIKI_URL + "{}");
+			if (Main.netMode == NetmodeID.Server)
+				return;
+
+			if (AndroMod.wikiThis != null)
+				AndroMod.wikiThis.Call("url", this, WIKI_URL + "{}");
 			
 			if (AndroMod.vacuumBagsEnabled)
 				EnchantedWeapon.AmmoBagStorageID = StorageManager.GetStorageID(AndroMod.vacuumBagsName, "AmmoBag");
@@ -185,6 +253,15 @@ namespace WeaponEnchantments
 				legs = wePlyaer.Equipment.InfusedLegs;
 
 			orig(player, head, body, legs);
+		}
+
+		private delegate void orig_HorizontalWingSpeeds(Player player);
+		private delegate void hook_HorizontalWingSpeeds(orig_HorizontalWingSpeeds orig, Player player);
+		private static readonly MethodInfo ModLoaderHorizontalWingSpeedsMethodInfo = typeof(ItemLoader).GetMethod("HorizontalWingSpeeds");
+		private void HorizontalWingSpeeds(orig_HorizontalWingSpeeds orig, Player player) {
+			orig(player);
+			if (player.TryGetWEPlayer(out WEPlayer wePlayer))
+				wePlayer.ModifyHorizontalWingSpeeds();
 		}
 
 		/*
@@ -278,7 +355,7 @@ namespace WeaponEnchantments
 				if (useStandardCritCalcs)
 					return useStandardCritCalcs;
 
-				if (!WEMod.serverConfig.DisableMinionCrits && (item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.SummonMeleeSpeed)) {
+				if (!WEMod.serverConfig.DisableMinionCrits && (item.DamageType == DamageClass.Summon || item.DamageType == DamageClass.MagicSummonHybrid || item.DamageType == DamageClass.SummonMeleeSpeed)) {
 					shouldShowCritChance = true;
 				}
 
@@ -308,6 +385,82 @@ namespace WeaponEnchantments
 					return useStandardCritCalcs;
 
 				return shouldShowCritChance;
+			});
+		}
+		private void OnDrawDefenseCounter(ILContext il) {
+			var c = new ILCursor(il);
+
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchCallvirt<DynamicSpriteFont>("MeasureString")
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 1/4.");
+			}
+
+			c.EmitDelegate((string defString) => {
+				if (ConfigValues.NegativeDefensePenaltyMultiplier <= 0f)
+					return defString;
+
+				string realDefString = Main.LocalPlayer.GetRealDefense().ToString();
+				return realDefString;
+			});
+
+			//IL_00c4: ldloc.0
+			//IL_00c5: ldloc.1
+			//IL_00c6: ldc.r4 0.5
+
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchLdloc0(),
+				i => i.MatchLdloc1(),
+				i => i.MatchLdcR4(0.5f)
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 2/4.");
+			}
+
+			c.EmitDelegate((string defString) => {
+				if (ConfigValues.NegativeDefensePenaltyMultiplier <= 0f)
+					return defString;
+
+				string realDefString = Main.LocalPlayer.GetRealDefense().ToString();
+				return realDefString;
+			});
+
+			if (!c.TryGotoNext(MoveType.After,
+				i => i.MatchCall(typeof(Color).GetProperty("White").GetGetMethod())
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 3/4.");
+			}
+
+			c.EmitDelegate((Color defStringColor) => {
+				if (ConfigValues.NegativeDefensePenaltyMultiplier <= 0f)
+					return defStringColor;
+
+				int realDefense = Main.LocalPlayer.GetRealDefense();
+				if (realDefense < 0)
+					defStringColor = new Color(255, 0, 0);
+
+				return defStringColor;
+			});
+
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchStsfld(typeof(Main), "hoverItemName")
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 4/4.");
+			}
+
+			c.EmitDelegate((string defHoverString) => {
+				float configMult = ConfigValues.NegativeDefensePenaltyMultiplier;
+				if (configMult <= 0f)
+					return defHoverString;
+
+				int realDef = Main.LocalPlayer.GetRealDefense();
+				if (realDef < 0) {
+					float realDefPenalty = configMult * realDef;
+					string realDefPenaltyStr = (-realDefPenalty).S(1);
+					defHoverString = $"{realDef} {Lang.inter[10].Value}\n" +
+					GameMessageTextID.NegativeDef.ToString().Lang_WE(L_ID1.GameMessages, new object[] { realDefPenaltyStr });
+				}
+				
+				return defHoverString;
 			});
 		}
 		/*

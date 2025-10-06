@@ -10,6 +10,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -25,6 +26,9 @@ namespace WeaponEnchantments.Common.Globals
 				if (value)
 					startingTick = Main.GameUpdateCount;
 			}
+		}
+		public override void Load() {
+			AndroMod.OnResetGameCounter += () => startingTick = 0;
 		}
 		public static bool StopDPSCheck = true;
 		private Dictionary<string, long> totalItemDamages = new();
@@ -70,7 +74,7 @@ namespace WeaponEnchantments.Common.Globals
 					totalItemDamages.Add("Total", ModMath.SumCheckOverFlow(totalItemDamages.Select(d => d.Value).ToArray()));
 
 				string msg = "\n" + totalItemDamages.Select(pair => $"{npc.ModFullName()} ({npc.whoAmI}), {pair.Key}, {(pair.Value / (ticks / 60d)).ToString("F5")}").JoinList("\n");
-				msg.LogSimple_WE();
+				msg.LogSimple();
 				Main.NewText(msg);
 				string key = totalItemDamages.Count > 1 ? totalItemDamages.Keys.Where(k => k != "Total" && k != "Life Regen").First() : totalItemDamages.Keys.First();
 				double damage = totalItemDamages.Values.Last() / (ticks / 60d);

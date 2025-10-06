@@ -23,6 +23,6 @@ namespace WeaponEnchantments.Effects
 		}
 
 		public override EnchantmentStat statName => EnchantmentStat.PercentArmorPenetration;
-		public override string TooltipValue => EStatModifier.SignTooltip;
+		public override string TooltipValue => EStatModifier.SignPercentTooltip;
 	}
 }

@@ -7,14 +7,18 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class PrideOfTheWeakEnchantment : Enchantment, IStoreAppliedItem
 	{
+		protected override string TypeName => "PrideOfTheWeak";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 23;
 		public override int LowestCraftableTier => 0;
-		public override float CapacityCostMultiplier => 0f;
+		public override float CapacityCostMultiplier => CapacityCostNone;
 		public override float ScalePercent => -1f;
 		public override bool Max1 => true;
 		public override void GetMyStats() {
@@ -40,6 +44,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().PrideOfTheWeak;
+		}
 	}
 	[Autoload(false)]
 	public class PrideOfTheWeakEnchantmentBasic : PrideOfTheWeakEnchantment
@@ -47,12 +56,6 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override SellCondition SellCondition => SellCondition.Always;
 		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Slime, chance: 0.05f)
-		};
-		public override List<DropData> ChestDrops => new() {
-			new(ChestID.Chest_Normal, chance: 0.2f)
-		};
-		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, chance: 0.2f)
 		};
 	}
 	[Autoload(false)]

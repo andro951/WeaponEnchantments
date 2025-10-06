@@ -1,0 +1,19 @@
+[[|Main Page]]<br/>
+Containments contain the power of an enchantment. More powerful enchantments require larger and stronger containments to hold them.
+Containments are crafting materials used to craft enchantments.<br/>
+Only these enchantments can be obtained by crafting.  The others must all be found in other ways.
+<br/>
+* [[File:CursedInfernoEnchantmentBasic.png]] [[Cursed Inferno Enchantment#Basic|Cursed Inferno Enchantment]]
+* [[File:DamageEnchantmentBasic.png]] [[Damage Enchantment#Basic|Damage Enchantment]]
+* [[File:DaybreakEnchantmentBasic.png]] [[Daybreak Enchantment#Basic|Daybreak Enchantment]]
+* [[File:DefenseEnchantmentBasic.png]] [[Defense Enchantment#Basic|Defense Enchantment]]
+* [[File:FrostburnEnchantmentBasic.png]] [[Frostburn Enchantment#Basic|Frostburn Enchantment]]
+* [[File:IchorEnchantmentBasic.png]] [[Ichor Enchantment#Basic|Ichor Enchantment]]
+* [[File:OnFireEnchantmentBasic.png]] [[On Fire Enchantment#Basic|On Fire Enchantment]]
+* [[File:PoisonEnchantmentBasic.png]] [[Poison Enchantment#Basic|Poison Enchantment]]
+* [[File:PrideOfTheWeakEnchantmentBasic.png]] [[Pride Of The Weak Enchantment#Basic|Pride Of The Weak Enchantment]]
+* [[File:VenomEnchantmentBasic.png]] [[Venom Enchantment#Basic|Venom Enchantment]]
+
+[[File:Containment.png]] [[Containment]] (Tier 0)<br/>
+[[File:MediumContainment.png]] [[Medium Containment]] (Tier 1)<br/>
+[[File:SuperiorContainment.png]] [[Superior Containment]] (Tier 2)<br/>

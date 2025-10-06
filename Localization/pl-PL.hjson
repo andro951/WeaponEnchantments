@@ -2,571 +2,1107 @@
 Mods: {
 	WeaponEnchantments: {
 		Bestiary.Witch: Czarownica jest brzydką i niegodziwą damą i zajmuje się dalszymi niegodziwymi rzeczami. Handluje wątpliwymi materiałami używanymi do ulepszania wyposażenia o tajemniczych efektach.
-		Buffs.Amaterasu.DisplayName: Amaterasu
 
-		Config: {
-			AccessoryDRValues: Akcesoria {0}% ({1}% przy 40)
-			ArmorDRValues: Pancerz {0}% ({1}% przy 40)
+		Buffs: {
+			Amaterasu.DisplayName: Amaterasu
+
+			Cursed: {
+				Description:
+					'''
+					Przeklęta Esencja {0}
+					Częstotliwość pojawiania się x{1}
+					Maksymalna liczba spawnów x{2}
+					Przeklęta szansa {3}
+					'''
+				DisplayName: Przeklęty
+			}
+		}
+
+		Configs: {
+			AccessoryDRValues: „Akcesoria {0}% ({1}% przy 40)”
+			ArmorDRValues: „Pancerz {0}% ({1}% przy 40)”
 			Automatic: Automatyczny
 			Custom: Zwyczaj
-			DisplaySettings: Ustawienia wyświetlania
-			EnchantingTableOptions: Czarujące opcje stołu
 			Enchantment: Zachwyt
-			EnchantmentDropRates(%): Częstotliwość wypadania zaklęć (%)
-			EnchantmentSettings: Ustawienia zaklęć
-			ErrorMessages: Komunikaty o błędach
-			EssenceandExperience: Esencja i doświadczenie
-			Expert: Ekspert
-			GeneralGameChanges: Ogólne zmiany w grze
-			IndividualEnchantmentStrengths: Indywidualne Siły Zaklęcia
-			Journey: Podróż
-			LoggingInformation: Informacje o logowaniu
-			Master: Gospodarz
-			ModTestingTools: Narzędzia do testowania modów
-			Multipliers: Mnożniki
 			NoneSelected: Nie wybrano
-			Normal: Normalna
-			OtherDropRates: Inne współczynniki dropu
-			Presets: Presety
-			RandomExtraStuff: Losowe dodatkowe rzeczy
-			RarityEnchantmentStrengthMultipliers: Mnożniki siły zaklęcia rzadkości
-
-			AccessoryDamageReductionPerLevel: {
-				Label: DR akcesoriów na poziom (100000 = 1%)
-				Tooltip: 250000 (2,5%) to maksimum, które oznaczałoby 100% redukcję obrażeń na poziomie 40.
-			}
-
-			AffectOnVanillaLifeStealLimmit: {
-				Label: Ograniczenie zaklęcia kradzieży życia (wpływ na limit kradzieży życia Vanilla) (%)
-				Tooltip:
-					'''
-					Użyj wartości powyżej 100%, aby bardziej ograniczyć kradzież życia, lub mniej niż 100%, aby ograniczyć mniej. 0, aby nie mieć limitu.
-					Vanilla Terraria wykorzystuje system ograniczania kradzieży życia: W poniższym przykładzie użyte wartości są w trybie normalnym (wartości trybu Ekspert/Mistrz w nawiasach)
-					Ma pulę 80(70), które są zapisywane, aby zyskać kradzież życia. Zdobywanie życia poprzez kradzież życia zmniejsza tę pulę.
-					Pula jest odnawiana o 36(30) punktów na sekundę. Jeśli wartość puli jest ujemna, nie możesz odzyskać życia z kradzieży życia.
-					Ta wartość konfiguracyjna zmienia, w jakim stopniu życie, które leczysz z zaklęć kradnących życie, wpływa na ten limit.
-					Przykład: 200% Zyskujesz 200 punktów życia dzięki kradzieży życia. 200 * 200% = 400. 80(70) puli - 400 wyleczonych = -320(-330) puli.
-					Zajmie 320/36(330/30) sekund -> 8,9(11) sekund, zanim pula znów będzie dodatnia, więc możesz ponownie zyskać życie dzięki kradzieży życia.
-					Uwaga: mechanik nie ma limitu na to, ile możesz zyskać za jednym razem. Im więcej zyskasz, tym więcej czasu zajmie regeneracja.
-					'''
-			}
-
-			AllowCraftingIntoLowerTier.Label: Zezwalaj na tworzenie zaklęć w zaklęciach niższego poziomu.
-
-			AllowCriticalChancePast100: {
-				Label: Szansa na trafienie krytyczne jest większa niż 100%.
-				Tooltip:
-					'''
-					Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.
-					120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info.
-					'''
-			}
-
-			AllowHighTierOres: {
-				Label: Recieve ores up to Chlorophyte from Offering items.
-				Tooltip:
-					'''
-					Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).
-					(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)
-					'''
-			}
-
-			AllowInfusingToLowerPower: {
-				Label: Pozwól przedmiotom nasycającym obniżyć moce infuzyjne
-				Tooltip: Ostrzeżenie: Pozwoli ci to zużyć słabą broń, aby obniżyć poziom silnej broni.
-			}
-
-			AllowShiftClickMoveFavoritedItems.Label: Pozwól, aby kliknięcie z klawiszem Shift przenosiło ulubione elementy do tabeli zaklęć.
-
-			AlwaysDisplayAccessoryLevelUpMessages: {
-				Label: Zawsze wyświetlaj komunikaty o wyższym poziomie akcesoriów
-				Tooltip: Wyświetla komunikaty o zwiększeniu poziomu akcesoriów tylko podczas korzystania ze stołu do zaklinania, jeśli ta opcja jest wyłączona.
-			}
-
-			AlwaysDisplayArmorLevelUpMessages: {
-				Label: Zawsze wyświetlaj komunikaty o podwyższeniu poziomu pancerza
-				Tooltip: Wyświetla komunikaty o zwiększaniu poziomu pancerza tylko podczas korzystania z tabeli zaklęć, jeśli ta opcja jest wyłączona.
-			}
-
-			AlwaysDisplayInfusionPower: {
-				Label: Zawsze wyświetlaj moc infuzji
-				Tooltip: Włącz wyświetlanie mocy infuzyjnej przedmiotu zawsze, a nie tylko wtedy, gdy stół do zaklinania jest otwarty.
-			}
-
-			AlwaysDisplayToolLevelUpMessages: {
-				Label: Zawsze wyświetlaj komunikaty o wyższym poziomie narzędzia
-				Tooltip: Wyświetla komunikaty o wyższym poziomie narzędzi tylko podczas korzystania z tabeli zaklęć, jeśli ta opcja jest wyłączona.
-			}
-
-			AlwaysDisplayWeaponLevelUpMessages: {
-				Label: Zawsze wyświetlaj komunikaty o wyższym poziomie broni
-				Tooltip: Wyświetla komunikaty o wyższym poziomie broni tylko podczas korzystania z tabeli zaklęć, jeśli ta opcja jest wyłączona.
-			}
-
-			AlwaysOverrideDamageType: {
-				Label: Zaklęcia zmieniające typ obrażeń zawsze mają pierwszeństwo.
-				Tooltip:
-					'''
-					Niektóre mody, takie jak Stars Above, zmieniają typy obrażeń broni. Jeśli ta opcja jest włączona, zaklęcia zmieniające typ obrażeń zawsze będą zmieniać typ obrażeń broni.
-					Jeśli nie zostanie wybrana, typ obrażeń zostanie zmieniony tylko wtedy, gdy broń ma obecnie oryginalny typ obrażeń.
-					'''
-			}
-
-			AmaterasuSelfGrowthPerTick: {
-				Label: Samodzielny wzrost Amaterasu na kleszcza
-				Tooltip: Wpływa na to, jak szybko obrażenia Amaterasu będą rosły naturalnie (nie po ponownym trafieniu bronią World Ablaze).
-			}
-
-			ArmorDamageReductionPerLevel: {
-				Label: DR pancerza na poziom (100000 = 1%)
-				Tooltip: 250000 (2,5%) to maksimum, które oznaczałoby 100% redukcję obrażeń na poziomie 40.
-			}
-
-			ArmorDamageReductions.Label: Zmniejszenie obrażeń pancerza i akcesoriów
-
-			AttackSpeedEnchantmentAutoReuseSetpoint: {
-				Label: Włączone automatyczne ponowne użycie zaklęcia prędkości (%)
-				Tooltip:
-					'''
-					Siła, z jaką zaklęcie szybkości zacznie dawać statystykę automatycznego ponownego użycia.
-					Ustaw na 0 dla wszystkich zaklęć Szybkości, aby dawały automatyczne ponowne użycie. Ustaw na 10000, aby zapobiec automatycznemu ponownemu użyciu (chyba że mnożnik siły jest ogromny)
-					'''
-			}
-
-			AutomaticallyMatchPreseTtoWorldDifficulty.Label: Automatycznie dopasuj ustawienie wstępne do poziomu trudności świata
-
-			AutoReuseDisabledOnMagicMissile: {
-				Label: Automatyczne ponowne użycie wyłączone dla broni typu Magic Missile
-				Tooltip: Automatyczne ponowne użycie broni, takiej jak Magic Missile, pozwala ci ciągle strzelać pociskami, aby kumulować obrażenia w nieskończoność.
-			}
-
-			BasicEnchantmentStrengthMultiplier: {
-				Label: Podstawowy
-				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			BossEnchantmentDropChance: {
-				Label: Współczynnik wypadania zaklęć bossów (%)
-				Tooltip:
-					'''
-					Dostosuj częstotliwość wypadania zaklęć z bossów.
-					(Domyślnie jest to 50%)
-					'''
-			}
-
-			BossEssenceMultiplier: {
-				Label: Mnożnik esencji bossa (%)
-				Tooltip: Modify the ammount of essence recieved from bosses.
-			}
-
-			BossExperienceMultiplier: {
-				Label: Mnożnik doświadczenia bossa (%)
-				Tooltip: Modify the ammount of experience recieved from bosses.
-			}
-
-			BuffDuration: {
-				Label: Czas odnowienia wzmocnienia (sekundy)
-				Tooltip: Wpływa na czas odnowienia i czas trwania wzmocnienia.
-			}
-
-			CalculateDamageReductionBeforeDefense: {
-				Label: Oblicz redukcję obrażeń przed obroną gracza
-				Tooltip:
-					'''
-					Domyślnie redukcja obrażeń jest stosowana po obronie gracza. Wybierz tę opcję, aby zastosować wcześniej.
-					Wcześniej spowoduje, że odniesiesz znacznie mniejsze obrażenia.
-					'''
-			}
-
-			ChestSpawnChance: {
-				Label: Szansa pojawienia się Zaklęcia Skrzyni (%)
-				Tooltip: Dostosuj szansę na znalezienie zaklęć w skrzyniach. Może być ponad 100%. Nie wpływa na skrzynie Biome. (Zawsze są 100%)
-			}
-
-			ClientConfig.Label: Konfiguracja klienta
-
-			CommonEnchantmentStrengthMultiplier: {
-				Label: Wspólny
-				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			ConfigCapacityCostMultiplier: {
-				Label: Mnożnik kosztu mocy zaklęcia (%)
-				Tooltip: Wpływa na koszt zaklęć nakładanych na przedmiot. Podstawowe wartości to 1/2/3/4/5 dla użyteczności, 2/4/6/8/10 dla normalnych i 3/6/9/12/15 dla unikalnych.
-			}
-
-			CrateDropChance: {
-				Label: Mnożnik szansy na wypadnięcie Zaklęcia Skrzynki (%)
-				Tooltip: Dostosuj szansę na znalezienie zaklęć w skrzyniach rybackich.
-			}
-
-			CritPerLevelDisabled: {
-				Label: Wyłącz szansę na trafienie krytyczne bronią na poziom
-				Tooltip: Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.
-			}
-
-			DamagePerLevelInstead: {
-				Label: Obrażenia zamiast szansy na trafienie krytyczne na poziom
-				Tooltip: Bronie zyskują obrażenia co poziom zamiast szansy na trafienie krytyczne równej ich poziomowi * Globalny mnożnik siły zaklęcia
-			}
-
-			DamageReductionPerLevelDisabled: {
-				Label: Wyłącz redukcję obrażeń pancerza i akcesoriów na poziom
-				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
-			}
-
-			DCUStart: {
-				Label: Zacznij od jednostki zabezpieczającej wiertło
-				Tooltip:
-					'''
-					Wszyscy gracze otrzymają jednostkę wiertniczą przy pierwszym odrodzeniu.
-					To tylko dla zabawy, gdy masz ochotę na szybszą rozgrywkę.
-					'''
-			}
-
-			DisableAllErrorMessagesInChat: {
-				Label: Wyłącz wszystkie komunikaty o błędach na czacie
-				Tooltip:
-					'''
-					Zapobiega wyświetlaniu wiadomości na czacie, które proszą o to
-					Zgłoś to do andro951 (zaklęcia broni) wraz z opisem tego, co robiłeś w tym czasie.
-					'''
-			}
-
-			DisableArmorInfusion: {
-				Label: Wyłącz infuzję pancerza
-				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
-			}
-
-			DisableMinionCrits: {
-				Label: Wyłącz trafienia krytyczne stworów
-				Tooltip:
-					'''
-					W wersji podstawowej na stwory nie wpływa szansa na trafienie krytyczne broni.
-					Zaklęcia broni dają stronnikom szansę na trafienie krytyczne w oparciu o szansę na trafienie krytyczne broni.
-					Ta opcja wyłącza krytyczne (mechanika waniliowa)
-					'''
-			}
-
-			DisableResearch.Label: Wyłącz możliwość badania przedmiotów zaklinających broń
-
-			DisplayDamageTooltipSeperatly: {
-				Label: Wyświetl przybliżone obrażenia od zaklęć w osobnej podpowiedzi.
-				Tooltip:
-					'''
-					Zaklęcia zadające obrażenia są obliczane po tym, jak zbroja wroga zmniejszy obrażenia, zamiast bezpośrednio zmieniać obrażenia przedmiotu.
-					Jeśli ta opcja jest wyłączona, w podpowiedziach obrażeń będą widoczne obrażenia zadawane celom o zerowym pancerzu.
-					Włącz wyświetlanie osobnej podpowiedzi zamiast aktualizowania normalnej wartości obrażeń. Wyświetla obrażenia zadane wrogowi o pancerzu 0.
-					'''
-			}
-
-			EnableSwappingWeapons: {
-				Label: Włącz zamianę broni za pomocą klawiszy num (Broń posortowana według mocy infuzji)
-				Tooltip:
-					'''
-					Użyj klawiszy num1 i num3, aby przełączać się między wszystkimi rodzajami broni. Użyj klawiszy num4 i num6, aby przełączać się tylko między zmodyfikowanymi broniami.
-					Nie zastąpi zaczarowanej lub zmodyfikowanej broni.
-					'''
-			}
-
-			EnchantmentDropChance: {
-				Label: Współczynnik wypadania zaklęć niebędących bossami (%)
-				Tooltip:
-					'''
-					Dostosuj częstotliwość wypadania zaklęć z wrogów niebędących bossami.
-					(Domyślnie jest to 100%)
-					'''
-			}
-
-			EnchantmentSlotsOnAccessories: {
-				Label: Enchantment Slots On Accissories
-				Tooltip:
-					'''
-					1. miejsce to normalne miejsce.
-					Drugie gniazdo to gniazdo narzędziowe.
-					Miejsca od 3 do 5 to normalne miejsca.
-					'''
-			}
-
-			EnchantmentSlotsOnArmor: {
-				Label: Miejsca na zaklęcia w zbroi
-				Tooltip:
-					'''
-					1. miejsce to normalne miejsce.
-					Drugie gniazdo to gniazdo narzędziowe.
-					Miejsca od 3 do 5 to normalne miejsca.
-					'''
-			}
-
-			EnchantmentSlotsOnFishingPoles: {
-				Label: Szczeliny Zaklęć Na Wędkach
-				Tooltip:
-					'''
-					1. miejsce to normalne miejsce.
-					Drugie gniazdo to gniazdo narzędziowe.
-					Miejsca od 3 do 5 to normalne miejsca.
-					'''
-			}
-
-			EnchantmentSlotsOnTools: {
-				Label: Miejsca na Zaklęcia Na Narzędziach
-				Tooltip:
-					'''
-					1. miejsce to normalne miejsce.
-					Drugie gniazdo to gniazdo narzędziowe.
-					Miejsca od 3 do 5 to normalne miejsca.
-					Jak dotąd jedynym narzędziem jest Clentaminator.
-					'''
-			}
-
-			EnchantmentSlotsOnWeapons: {
-				Label: Miejsca na zaklęcia w broni
-				Tooltip:
-					'''
-					1. miejsce to normalne miejsce.
-					Drugie gniazdo to gniazdo narzędziowe.
-					Miejsca od 3 do 5 to normalne miejsca.
-					'''
-			}
-
-			EpicEnchantmentStrengthMultiplier: {
-				Label: Epicki
-				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			EssenceGrabRange: {
-				Label: Mnożnik zasięgu chwytania esencji
-				Tooltip: Wpływa na to, jak daleko esencja może znajdować się od gracza, gdy zaczyna się do niego zbliżać.
-			}
-
-			EssenceMultiplier: {
-				Label: Mnożnik esencji innych niż bossowie (%)
-				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
-			}
-
-			ExperienceMultiplier: {
-				Label: Mnożnik doświadczenia niebędącego bossem (%)
-				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
-			}
-
-			GatheringExperienceMultiplier: {
-				Label: Mnożnik zdobywania doświadczenia (%)
-				Tooltip: Modify the ammount of experience recieved from Mining/chopping/fishing
-			}
-
-			GlobalEnchantmentStrengthMultiplier: {
-				Label: Globalny mnożnik siły zaklęcia (%)
-				Tooltip:
-					'''
-					Adjusts all enchantment strengths based on recomended enchantment changes.
-					Uses the same calculations as the presets but allows you to pick a different number.
-					preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)
-					'''
-			}
-
-			individualStrengths: {
-				Label: Indywidualne mocne strony
-				Tooltip:
-					'''
-					Zmodyfikuj siłę poszczególnych zaklęć według wartości
-					(NIE PROCENT!)
-					(Zastępuje wszystkie inne opcje)
-					'''
-			}
-
-			individualStrengthsEnabled: {
-				Label: Włączone indywidualne mocne strony
-				Tooltip: Enabling this will cause the Indvidual strength values selected below to overite all other settings.
-			}
-
-			InfusionDamageMultiplier: {
-				Label: Mnożnik obrażeń infuzyjnych (Dzieli przez 1000, 1 -> 0,001)
-				Tooltip:
-					'''
-					Zmienia mnożnik obrażeń z infuzji. Mnożnik Obrażeń = Mnożnik Obrażeń Infuzji^((Moc Infuzji - BazowaMocInfuzji) / 100)
-					Przykład: Iron Broadsword, Obrażenia = 10, Bazowa Moc Infuzji = 31 nasycona Meowmere, Moc Infuzji 1100.
-					Obrażenia Żelaznego Miecza = 10 * 1,3^((1100 - 31) / 100) = 10 * 1,3^10,69 = 10 * 16,52 = 165 obrażeń.
-					Ustawienie tego mnożnika na 1000 uniemożliwi ci nasycanie broni, a także nie zapewnia premii do obrażeń broni już nasączonej.
-					'''
-			}
-
-			itemDefinition: {
-				Label: Zachwyt
-				Tooltip:
-					'''
-					Wybierz tylko przedmioty zaklęte.
-					Prawdopodobnie spowoduje błąd w przypadku wybrania innego elementu.
-					'''
-			}
-
-			LegendaryEnchantmentStrengthMultiplier: {
-				Label: Legendarny
-				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			LogDummyDPS: {
-				Label: Włącz obliczenia i logowanie Target Dummy Dps
-				Tooltip:
-					'''
-					Śledzi obrażenia zadawane celom ze wszystkich źródeł i śledzi je. Naciśnij numer 0, aby rozpocząć, a następnie ponownie, aby zatrzymać.
-					Naciśnij klawisz num8, aby wydrukować wszystkie zapisane wartości dps w dzienniku klienta\nDomyślna lokalizacja dziennika klienta to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					Rozpoczęcie nowego testu przez naciśnięcie num0 resetuje poprzednie dane dps dla trzymanego przedmiotu, aby umożliwić ponowne wykonanie testu.
-					'''
-			}
-
-			MinionLifeStealMultiplier: {
-				Label: Mnożnik kradzieży życia stworów (%)
-				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
-			}
-
-			MultiplicativeCriticalHits: {
-				Label: Multiplikatywne trafienia krytyczne wykraczają poza pierwsze.
-				Tooltip:
-					'''
-					Zaklęcia broni wykorzystują szansę na trafienie krytyczne powyżej 100%, aby umożliwić ci ponowne trafienie krytyczne.
-					Domyślnie jest to premia addytywna: 1. trafienie krytyczne 200% obrażeń, 2. 300% obrażeń, 3. 400% obrażeń.....
-					Włączenie tego powoduje, że zamiast tego są multiplikatywne: 1. trafienie krytyczne 200% obrażeń, 2. trafienie krytyczne 400% obrażeń, 3. trafienie krytyczne 400% obrażeń...
-					'''
-			}
-
-			OfferAll: {
-				Label: Oferuj wszystkie te same przedmioty.
-				Tooltip:
-					'''
-					Przeszukaj swój ekwipunek pod kątem wszystkich oferowanych przedmiotów tego samego typu i zaoferuj je również, jeśli mają 0 doświadczenia i nie zainstalowano wzmacniacza mocy.
-					Oferuje również wszystkie przedmioty ze skrzyń dotykających stołu do zaklęć.
-					'''
-			}
-
-			OnlyShowErrorMessagesInChatOnce: {
-				Label: Wyświetl komunikaty o błędach na czacie tylko raz
-				Tooltip:
-					'''
-					Wiadomości będą nadal pojawiać się na czacie, ale tylko raz podczas sesji gry.
-					(Komunikat o błędzie musi być dokładnie taki sam jak poprzedni komunikat, aby można było temu zapobiec).
-					'''
-			}
-
-			PercentOfferEssence.Label: Procent oferowanej wartości przedmiotu przeliczony na esencję.
-			Preset.Tooltip:
-				'''
-				Podróż, Normalny, Ekspert, Mistrz, Automatyczny, Niestandardowy
-				(Tutaj nie można wybrać opcji niestandardowej. Jest ona ustawiana automatycznie podczas dostosowywania globalnego mnożnika siły.)
-				'''
-			presetData.Label: Presety i mnożniki
-
-			PreventPowerBoosterFromPreHardMode: {
-				Label: Zapobiegaj upuszczaniu wzmacniaczy mocy przez bossów w trybie przedtrudnym.
-				Tooltip: Nie obejmuje ściany mięsa.
-			}
-
-			PrintEnchantmentDrops: {
-				Label: Zapisz listę źródeł zrzutów zaklęć
-				Tooltip:
-					'''
-					Lista jest drukowana w pliku client.log po wejściu do świata.
-					Domyślna lokalizacja dziennika klienta to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintEnchantmentTooltips: {
-				Label: Zarejestruj listę podpowiedzi do zaklęć
-				Tooltip:
-					'''
-					Lista jest drukowana w pliku client.log po wejściu do świata.
-					Domyślna lokalizacja dziennika klienta to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintWeaponInfusionPowers: {
-				Label: Zapisz wszystkie moce infuzji broni
-				Tooltip:
-					'''
-					Informacje są drukowane w pliku client.log, gdy wchodzisz do świata.
-					Domyślna lokalizacja dziennika klienta to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			PrintWikiInfo: {
-				Label: Zaloguj wszystkie informacje wiki
-				Tooltip:
-					'''
-					Informacje są drukowane w pliku client.log, gdy wchodzisz do świata.
-					Domyślna lokalizacja dziennika klienta to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					'''
-			}
-
-			RareEnchantmentStrengthMultiplier: {
-				Label: Rzadki
-				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
-			}
-
-			ReduceOfferEfficiencyByBaseInfusionPower: {
-				Label: Zmniejsz skuteczność oferty o podstawową moc infuzji
-				Tooltip:
-					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
-					Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).
-					'''
-			}
-
-			ReduceOfferEfficiencyByTableTier: {
-				Label: Zmniejsz efektywność oferty według poziomu stołu
-				Tooltip:
-					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
-					Enabling this will cause the wood table to be 60% efficient.
-					Each table gains 10% efficiency.  100% with Ultimate table.
-					'''
-			}
-
-			ReduceRecipesToMinimum: {
-				Label: Ogranicz przepisy do minimum.
-				Tooltip:
-					'''
-					Usuwa wszystkie przepisy, które przeskakują między poziomami, aby zmniejszyć bałagan podczas przeglądania przepisów.
-					Sprawia również, że wszystkie receptury esencji są 4 do 1 zamiast skalowania z czarującym poziomem stołu.
-					'''
-			}
 
-			RemoveEnchantmentRestrictions: {
-				Label: Usuń ograniczenia zaklęć (Użyj na własne ryzyko!)
-				Tooltip: Usuwa rzeczy takie jak Unique, Max 1 i zaklęcia specyficzne dla broni lub przedmiotu.
+			ArmorDamageReduction: {
+				Tooltip: Umożliwia modyfikację redukcji obrażeń uzyskiwanych przez zbroję i akcesoria w miarę ich poziomowania.
+
+				AccessoryDamageReductionPerLevel: {
+					Label: Akcesoria DR na poziom (100000 = 1%)
+					Tooltip: 250000 (2,5%) to maksimum, które odpowiada 100% redukcji obrażeń na poziomie 40.
+				}
+
+				ArmorDamageReductionPerLevel: {
+					Label: Pancerz DR na poziom (100000 = 1%)
+					Tooltip: 250000 (2,5%) to maksimum, które odpowiada 100% redukcji obrażeń na poziomie 40.
+				}
+			}
+
+			ClientConfig: {
+				DisplayName: Konfiguracja klienta
+				DisplaySettings: Ustawienia wyświetlania
+				ErrorMessages: Komunikaty o błędach
+				LoggingInformation: Informacje o logowaniu
+				ModTestingTools: Narzędzia do testowania modów
+
+				AllowCraftingIntoLowerTier: {
+					Label: Zezwalaj na tworzenie zaklęć w zaklęcia niższego poziomu.
+					Tooltip: Tworząc zaklęcia niższego poziomu, otrzymasz z powrotem wszystkie składniki, w tym pojemniki, esencje i klejnoty.
+				}
+
+				AllowInfusingToLowerPower: {
+					Label: Zezwalaj na infuzję przedmiotów w celu obniżenia mocy infuzji
+					Tooltip: Ostrzeżenie: pozwoli ci to zużyć słabą broń, aby obniżyć poziom silnej broni.
+				}
+
+				AllowShiftClickMoveFavoritedItems: {
+					Label: Zezwalaj na kliknięcie Shift, aby przenieść ulubione przedmioty do stołu zaklęć.
+					Tooltip: Jeśli nie jest włączona, elementy muszą zostać usunięte z ulubionych lub ręcznie przeniesione za pomocą myszy.
+				}
+
+				AlwaysDisplayAccessoryLevelUpMessages: {
+					Label: Zawsze wyświetlaj komunikaty o wyższym poziomie akcesoriów
+					Tooltip: Wyświetla komunikaty o wyższym poziomie akcesoriów podczas korzystania ze stołu zaklęć, jeśli ta opcja jest wyłączona.
+				}
+
+				AlwaysDisplayArmorLevelUpMessages: {
+					Label: Zawsze wyświetlaj komunikaty o podwyższeniu poziomu pancerza
+					Tooltip: Wyświetla komunikaty o poziomie zbroi tylko podczas korzystania ze stołu zaklęć, jeśli ta opcja jest wyłączona.
+				}
+
+				AlwaysDisplayInfusionPower: {
+					Label: Zawsze wyświetlaj moc infuzji
+					Tooltip: Włącz wyświetlanie mocy infuzji przedmiotu zawsze, a nie tylko wtedy, gdy stół do zaklinania jest otwarty.
+				}
+
+				AlwaysDisplayToolLevelUpMessages: {
+					Label: Zawsze wyświetlaj komunikaty o wyższym poziomie narzędzia
+					Tooltip: Wyświetla komunikaty o podwyższeniu poziomu narzędzia tylko podczas korzystania ze stołu zaklinającego, jeśli ta opcja jest wyłączona.
+				}
+
+				AlwaysDisplayWeaponLevelUpMessages: {
+					Label: Zawsze wyświetlaj komunikaty o podwyższeniu poziomu broni
+					Tooltip: Wyświetla komunikaty o podwyższeniu poziomu broni tylko podczas korzystania ze stołu zaklęć, jeśli ta opcja jest wyłączona.
+				}
+
+				CursedEnemyParticles: {
+					Label: Przeklęte cząstki wroga
+					Tooltip:
+						'''
+						Przeklęci wrogowie wytwarzają małe cząsteczki, które pomagają odróżnić ich od zwykłych wrogów.
+						Wyłącz, aby zapobiec tworzeniu się tych cząstek.
+						'''
+				}
+
+				CursedEnemyVisualShaking: {
+					Label: Przeklęty Wróg Wizualny Drżenie
+					Tooltip:
+						'''
+						Przeklęci wrogowie trzęsą się lub wibrują, aby odróżnić ich od zwykłych wrogów.
+						To ustawienie kontroluje siłę drgań wizualnych przeklętych wrogów.   Ustaw na 0, aby wyłączyć drżenie.
+						'''
+				}
+
+				DisplayDamageTooltipSeperatly: {
+					Label: Wyświetl przybliżone obrażenia od zaklęć w osobnej podpowiedzi.
+					Tooltip:
+						'''
+						Zaklęcia zadające obrażenia są obliczane po tym, jak zbroja wroga zmniejszy obrażenia, zamiast bezpośrednio zmieniać obrażenia przedmiotu.
+						Jeśli ta opcja jest wyłączona, w podpowiedziach obrażeń będą widoczne obrażenia zadawane celom o zerowym pancerzu.
+						Włącz wyświetlanie osobnej podpowiedzi zamiast aktualizowania normalnej wartości obrażeń. Wyświetla obrażenia zadane wrogowi o pancerzu 0.
+						'''
+				}
+
+				EnableSwappingWeapons: {
+					Label: Włącz zamianę broni za pomocą klawiszy numerycznych (bronie posortowane według mocy infuzji)
+					Tooltip:
+						'''
+						Użyj num1 i num3, aby przełączać się między wszystkimi broniami. Użyj klawiszy num4 i num6, aby przełączać się między tylko zmodyfikowanymi broniami.
+						Nie zastępuje zaklętej ani zmodyfikowanej broni.
+						'''
+				}
+
+				LogDummyDPS: {
+					Label: Włącz obliczanie i rejestrowanie Target Dumy Dps
+					Tooltip:
+						'''
+						Śledzi obrażenia zadawane celom ze wszystkich źródeł i śledzi je. Naciśnij num0, aby rozpocząć, a następnie ponownie, aby zatrzymać.
+						Naciśnij klawisz num8, aby wydrukować wszystkie zapisane wartości dps w pliku Client.log\nDomyślna lokalizacja pliku Client.log to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						Rozpoczęcie nowego testu przez naciśnięcie num0 resetuje poprzednie dane dps dla trzymanego przedmiotu, aby umożliwić ponowne wykonanie testu.
+						'''
+				}
+
+				OfferAll: {
+					Label: Oferuj cały ten sam przedmiot.
+					Tooltip:
+						'''
+						Wyszukaj w swoim ekwipunku wszystkie przedmioty tego samego typu, które były oferowane, i zaoferuj je również, jeśli mają 0 doświadczenia i nie mają zainstalowanego wzmacniacza mocy.
+						Oferuje również wszystkie przedmioty ze skrzyń dotykających stołu zaklinającego.
+						'''
+				}
+
+				PrintEnchantmentTooltips: {
+					Label: Zarejestruj listę podpowiedzi dotyczących zaklęć
+					Tooltip:
+						'''
+						Lista jest drukowana w pliku client.log po wejściu na świat.
+						Domyślna lokalizacja pliku Client.log to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				PrintWeaponInfusionPowers: {
+					Label: Rejestruj wszystkie moce infuzji broni
+					Tooltip:
+						'''
+						Informacje są drukowane w pliku Client.log po wejściu do świata.
+						Domyślna lokalizacja pliku Client.log to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				teleportEssence: {
+					Label: Automatycznie wysyłaj esencję do interfejsu użytkownika
+					Tooltip:
+						'''
+						Automatycznie wysyłaj esencję ze swojego ekwipunku do miejsc na esencje interfejsu użytkownika.
+						(Wyłącza się, gdy interfejs użytkownika jest otwarty.)
+						'''
+				}
+
+				UsePointsAsTooltip: {
+					Label: „„Punkty” zamiast „Zdolność zaklęcia”
+					Tooltip: Etykietki narzędzi pokażą dostępne punkty zamiast dostępnej pojemności zaklęć
+				}
+
+				VisualCursedDebuff: {
+					Label: Wizualny Przeklęty Debuff
+					Tooltip:
+						'''
+						Przeklęty debuff tak naprawdę nie kontroluje dodatkowej szansy na odrodzenie, maksymalnych spawnów ani zwiększenia szansy na przeklęte spawnowanie.
+						To jest tylko na pokaz. Jeśli nie chcesz, aby dodatkowe wzmocnienie było widoczne, możesz je wyłączyć i nadal mieć efekty.
+						'''
+				}
+			}
+
+			Pair: {
+				Tooltip: Pozwala przypisać siłę konkretnym zaklęciom.
+
+				itemDefinition: {
+					Label: Zachwyt
+					Tooltip:
+						'''
+						Wybierz tylko przedmioty zaklęte.
+						Prawdopodobnie spowoduje błąd w przypadku wybrania innego elementu.
+						'''
+				}
+
+				Strength: {
+					Label: Siła (1000 = 1, 10 = 1%)
+					Tooltip:
+						'''
+						Zachowaj ostrożność podczas dostosowywania tej wartości.
+						Siła to dokładna zastosowana wartość.
+						Przykład 40% Zaklęcie obrażeń wynosi 0,4
+						10 Obrona to 10
+						'''
+				}
+			}
+
+			PresetData: {
+				Tooltip: Ustawienia wstępne pozwalają łatwo wpływać na wszystkie zaklęcia na raz.
+
+				AutomaticallyMatchPresetToWorldDifficulty: {
+					Label: Automatycznie dopasuj ustawienie wstępne do poziomu trudności świata
+					Tooltip: Aby można było edytować pozostałe opcje, należy je wyłączyć.
+				}
+
+				BasicEnchantmentStrengthMultiplier: {
+					Label: Podstawowy
+					Tooltip: Wpływa na siłę wszystkich podstawowych zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
+				}
+
+				CommonEnchantmentStrengthMultiplier: {
+					Label: Wspólny
+					Tooltip: Wpływa na siłę wszystkich powszechnych zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
+				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					Label: Przeklęty
+					Tooltip: Wpływa na siłę wszystkich Przeklętych Zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
+				}
+
+				EpicEnchantmentStrengthMultiplier: {
+					Label: Epicki
+					Tooltip: Wpływa na siłę wszystkich epickich zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
+				}
+
+				GlobalEnchantmentStrengthMultiplier: {
+					Label: Globalny mnożnik siły zaklęcia (%)
+					Tooltip:
+						'''
+						Dostosowuje wszystkie siły zaklęć w oparciu o zalecane zmiany zaklęć.
+						Używa tych samych obliczeń, co ustawienia wstępne, ale pozwala wybrać inną liczbę.
+						wstępnie ustawione wartości to; Podróż: 250, Normalny: 100, Ekspert: 50, Mistrz: 25 (Zastępuje ustawienie wstępne)
+						'''
+				}
+
+				LegendaryEnchantmentStrengthMultiplier: {
+					Label: Legendarny
+					Tooltip: Wpływa na siłę wszystkich Legendarnych Zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
+				}
+
+				Preset: {
+					Label: Wstępnie ustawione
+					Tooltip:
+						'''
+						Podróż, Normalny, Ekspert, Mistrz, Automatyczny, Niestandardowy
+						(Nie można tutaj wybrać opcji Niestandardowy. Jest ona ustawiana automatycznie podczas dostosowywania globalnego mnożnika siły.)
+						'''
+				}
+
+				RareEnchantmentStrengthMultiplier: {
+					Label: Rzadki
+					Tooltip: Wpływa na siłę wszystkich rzadkich zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
+				}
 			}
 
 			ServerConfig: {
-				Label: Konfiguracja serwera
-				// $parentVal: preset Data Header
+				CursedEnemies: Przeklęci wrogowie
+				DisplayName: Konfiguracja serwera
+				EnchantingTableOptions: Czarujące opcje stołu
+				EnchantmentDropRates(%): Częstotliwość wypadania zaklęć (%)
+				EnchantmentSettings: Ustawienia zaklęć
+				EssenceAndExperience: Esencja i doświadczenie
+				GeneralGameChanges: Ogólne zmiany w grze
+				IndividualEnchantmentStrengths: Indywidualne siły zaklęć
+				Multipliers: Mnożniki
+				OtherDropRates: Inne współczynniki spadku
+				Presets: Ustawienia wstępne
+				RandomExtraStuff: Losowe dodatkowe rzeczy
+				RarityEnchantmentStrengthMultipliers: Rzadkość Mnożniki siły zaklęć
+				ServerConfig: Konfiguracja serwera
+
+				AffectOnVanillaLifeStealLimmit: {
+					Label: Ograniczenie zaklęcia kradzieży życia (wpływa na waniliowy limit kradzieży życia) (%)
+					Tooltip:
+						'''
+						Użyj wartości powyżej 100%, aby bardziej ograniczyć kradzież życia, poniżej 100%, aby ograniczyć mniej. 0, aby nie mieć ograniczeń.
+						Vanilla Terraria wykorzystuje system ograniczania kradzieży życia: W poniższym przykładzie użyte wartości dotyczą trybu normalnego (wartości trybu Ekspert/Master w nawiasach)
+						Ma pulę 80(70), którą możesz zapisać, z której możesz ukraść życie. Zdobywanie życia poprzez kradzież życia zmniejsza tę pulę.
+						Pula jest przywracana o 36(30) punktów na sekundę. Jeśli wartość puli jest ujemna, nie możesz zyskać życia poprzez kradzież życia.
+						Ta wartość konfiguracyjna zmienia stopień, w jakim życie, które leczysz z zaklęć kradnących życie, wpływa na ten limit.
+						Przykład: 200% Zyskujesz 200 punktów życia w wyniku kradzieży życia. 200 * 200% = 400. 80(70) puli - 400 uzdrowionych = -320(-330) puli.
+						Minie 320/36(330/30) sekund -> 8,9(11) sekund, zanim pula będzie ponownie dodatnia, dzięki czemu będziesz mógł ponownie zyskać życie z kradzieży życia.
+						Uwaga: mechanik nie ma ograniczenia co do tego, ile możesz zyskać na raz. Im więcej zyskasz, tym więcej czasu zajmie Ci odzyskanie sił.
+						'''
+				}
+
+				AllowCriticalChancePast100: {
+					Label: Szansa na trafienie krytyczne skuteczna powyżej 100%.
+					Tooltip:
+						'''
+						Vanilla Terraria ogranicza szansę na trafienie krytyczne do 100%. Domyślnie zaklęcia broni obliczają dodatkowe trafienia krytyczne po 100%.
+						120% szansy na trafienie krytyczne to 100% na podwojenie obrażeń, a następnie 20% szans na trafienie krytyczne w celu zwiększenia obrażeń. Aby uzyskać więcej informacji, zobacz następną opcję konfiguracji.
+						'''
+				}
+
+				AllowCursedEnemies: {
+					Label: Zezwalaj na przeklętych wrogów
+					Tooltip: Włącz, aby wrogowie rzadko byli przeklinani, gdy się odradzają, powodując, że nie zadają obrażeń, ale strzelają do graczy debuffami.   Przeklęci wrogowie również mają 5x więcej zdrowia.
+				}
+
+				AllowHighTierOres: {
+					Label: Otrzymuj rudy aż do chlorofitu z przedmiotów do ofiarowania.
+					Tooltip:
+						'''
+						Wyłączenie tej opcji pozwala jedynie na otrzymywanie żelaza, srebra i złota (lub ich odpowiedników w oparciu o gen. świata).
+						(Działa tylko w trybie trudnym. Chlorofit tylko po zabiciu mechanicznego bossa.)
+						'''
+				}
+
+				AlwaysOverrideDamageType: {
+					Label: Zaklęcia zmieniające rodzaj obrażeń zawsze zastępują.
+					Tooltip:
+						'''
+						Niektóre mody, takie jak Stars Above, zmieniają typy obrażeń broni. Jeśli ta opcja jest włączona, zaklęcia zmieniające rodzaj obrażeń zawsze będą zmieniać typ obrażeń broni.
+						Jeśli nie jest zaznaczone, rodzaj obrażeń zostanie zmieniony tylko wtedy, gdy broń ma obecnie oryginalny typ obrażeń.
+						'''
+				}
+
+				AmaterasuSelfGrowthPerTick: {
+					Label: Samorozwój Amaterasu na kleszcza
+					Tooltip: Wpływa na szybkość naturalnego wzrostu obrażeń Amaterasu (nie w przypadku ponownego trafienia bronią World Ablaze).
+				}
+
+				ArmorDamageReductions: {
+					Label: Redukcja obrażeń pancerza i akcesoriów
+					Tooltip: Służy do modyfikacji redukcji pancerza uzyskiwanej przez zbroję i akcesoria w miarę zdobywania poziomów.
+				}
+
+				AttackSpeedEnchantmentAutoReuseSetpoint: {
+					Label: Włączono automatyczne ponowne użycie zaklęcia prędkości (%)
+					Tooltip:
+						'''
+						Siła, z jaką zaklęcie szybkości zacznie dawać statystykę automatycznego ponownego użycia.
+						Ustaw na 0 dla wszystkich zaklęć szybkości, aby zapewnić automatyczne ponowne użycie. Ustaw na 10000, aby zapobiec automatycznemu ponownemu użyciu (chyba że mnożnik siły jest ogromny)
+						'''
+				}
+
+				AutoReuseDisabledOnMagicMissile: {
+					Label: Automatyczne ponowne użycie wyłączone w przypadku broni typu Magiczny Pocisk
+					Tooltip: Automatyczne ponowne użycie broni takiej jak Magiczny Pocisk pozwala na ciągłe strzelanie pociskami, aby nieskończenie kumulować obrażenia.
+				}
+
+				BossEnchantmentDropChance: {
+					Label: Częstotliwość wypadania zaklęć z bossa (%)
+					Tooltip:
+						'''
+						Dostosuj częstotliwość wypadania zaklęć z bossów.
+						(Domyślnie jest to 50%)
+						'''
+				}
+
+				BossEssenceMultiplier: {
+					Label: Mnożnik esencji bossa (%)
+					Tooltip: Modyfikuj ilość esencji otrzymywanej od bossów.
+				}
+
+				BossExperienceMultiplier: {
+					Label: Mnożnik doświadczenia bossa (%)
+					Tooltip: Modyfikuj ilość doświadczenia otrzymywanego od bossów.
+				}
+
+				BuffDuration: {
+					Label: Czas odnowienia wzmocnienia (sekundy)
+					Tooltip: Wpływa na czas odnowienia i czas trwania wzmocnienia.
+				}
+
+				CalculateDamageReductionBeforeDefense: {
+					Label: Oblicz redukcję obrażeń przed obroną gracza
+					Tooltip:
+						'''
+						Domyślnie redukcja obrażeń jest stosowana po obronie gracza. Wybierz tę opcję, aby zastosować wcześniej.
+						Wcześniej spowoduje, że odniesiesz znacznie mniejsze obrażenia.
+						'''
+				}
+
+				ChestSpawnChance: {
+					Label: Szansa na pojawienie się zaklęcia w skrzyni (%)
+					Tooltip: Dostosuj szansę na znalezienie zaklęć w skrzyniach. Może przekroczyć 100%. Nie wpływa na skrzynie Biome. (Zawsze są w 100%)
+				}
+
+				ConfigCapacityCostMultiplier: {
+					Label: Mnożnik kosztu zdolności zaklęcia (%)
+					Tooltip: Wpływa na koszt zaklęć zastosowanych do przedmiotu. Podstawowe wartości to 1/2/3/4/5 dla użyteczności, 2/4/6/8/10 dla normalnego i 3/6/9/12/15 dla unikalnego.
+				}
+
+				CrateDropChance: {
+					Label: Mnożnik szansy na wypadnięcie zaklęcia ze skrzynki (%)
+					Tooltip: Dostosuj szansę na znalezienie zaklęć w skrzyniach rybackich.
+				}
+
+				CritPerLevelDisabled: {
+					Label: Wyłącz szansę na trafienie krytyczne bronią na poziom
+					Tooltip: Broń zyskuje szansę na trafienie krytyczne równą swojemu poziomowi * Globalny mnożnik siły zaklęcia.
+				}
+
+				CuredEnemyDebuffTicksPerAttack: {
+					Label: Wyleczone osłabienie wroga zaznacza się przy każdym ataku
+					Tooltip: Ile cykli pomiędzy Przeklętymi Wrogami strzelającymi pociskami osłabiającymi.   20 tików / atak => (1 sek. / 60 tików) / (20 tików / atak) => 3 ataki / sekundę
+				}
+
+				CursedBuffSpawnRateMultiplier: {
+					Label: Mnożnik częstotliwości pojawiania się Przeklętego Wzmocnienia
+					Tooltip:
+						'''
+						Kontroluje prędkość pojawiania się Przeklętego Debuffu i maksymalne efekty spawnowania.
+						Mnożnik częstotliwości pojawiania się = (1 + Mnożnik częstotliwości pojawiania się przeklętego wzmocnienia * 0,415)^(Log2(Przeklęta esencja / 100 + 2)
+						Maksymalny mnożnik pojawiania się = 1 + (mnożnik częstotliwości pojawiania się - 1) * 0,8
+						'''
+				}
+
+				CursedEnchantmentsAllowedOnSummons: {
+					Label: Przeklęte zaklęcia dozwolone na wezwanie
+					Tooltip:
+						'''
+						Debuffy Przeklętego Zaklęcia nie są nakładane na gracza, więc posiadanie dodatkowego bonusu bez wad jest z natury niesprawiedliwe.
+						Włączenie tej opcji pozwoli ci nakładać Przeklęte Zaklęcia na broń Przywołaną.
+						'''
+				}
+
+				CursedEnemyDamageMultiplier: {
+					Label: Mnożnik obrażeń przeklętego wroga
+					Tooltip: Modyfikuje obrażenia zadawane przez przeklętych wrogów.   0 spowoduje, że nie będą zadawać obrażeń ani odrzucać graczy.   Wartość jest dzielona przez 100. 100 => 1x mnożnik.
+				}
+
+				CursedEnemyDebuffAttackRange: {
+					Label: Zasięg ataku osłabiającego przeklętego wroga
+					Tooltip: Przeklęci wrogowie będą strzelać debuffami w gracza, jeśli znajdą się w tej odległości od gracza.   Wartość jest dzielona przez 100. 40000 => zakres 400.   Zasięg 16 to 1 w kafelku/bloku gry.
+				}
+
+				CursedEnemyDebuffChanceMultiplier: {
+					Label: Mnożnik szansy na debuff przeklętego wroga
+					Tooltip: Wpływa na prawdopodobieństwo wystąpienia osłabień, gdy zostaną one wyrzucone przez przeklęte pociski osłabiające wroga.   Większość ma domyślnie 100%.   Zagubienie wynosi 10%, Sieć i Zamrożenie wynoszą 5%, a Petryfikacja wynosi 2,5%.
+				}
+
+				CursedEnemyDebuffDurationMultiplier: {
+					Label: Mnożnik czasu trwania osłabienia przeklętego wroga
+					Tooltip: Wpływa na czas trwania osłabień przeklętych wrogów.
+				}
+
+				CursedEnemyLifeMultiplier: {
+					Label: Mnożnik życia przeklętego wroga
+					Tooltip: Modyfikuje maksymalne życie przeklętych wrogów.   Wartość jest dzielona przez 100. 500 => mnożnik 5x.
+				}
+
+				CursedEssenceDropChanceMultiplier: {
+					Label: Mnożnik szansy na wypadnięcie przeklętej esencji
+					Tooltip: Wpływa na ilość przeklętej esencji upuszczanej przez wrogów.
+				}
+
+				CurseStrengthMultiplier: {
+					Label: Mnożnik siły klątwy
+					Tooltip: Wpływa na wielkość klątw przeklętych zaklęć.
+				}
+
+				DamagePerLevelInstead: {
+					Label: Obrażenia zamiast szansy na trafienie krytyczne na poziom
+					Tooltip: Bronie zyskują obrażenia na poziom zamiast szansy na trafienie krytyczne równej ich poziomowi * Globalny mnożnik siły zaklęcia
+				}
+
+				DamageReductionPerLevelDisabled: {
+					Label: Wyłącz redukcję obrażeń pancerza i akcesoriów na poziom
+					Tooltip: Pancerze i akcesoria zyskują redukcję obrażeń równą ich poziomowi * odpowiednią wartość zadaną poniżej dla poziomu trudności świata.
+				}
+
+				DCUStart: {
+					Label: Zacznij od jednostki zabezpieczającej wiertło
+					Tooltip:
+						'''
+						Wszyscy gracze otrzymają Jednostkę Przechowawczą Wiertła, gdy pojawią się po raz pierwszy.
+						To tylko dla zabawy, gdy masz ochotę na szybszą rozgrywkę.
+						'''
+				}
+
+				DisableArmorInfusion: {
+					Label: Wyłącz infuzję pancerza
+					Tooltip: Zapobiegnie to napełnianiu elementów zbroi i zignoruje premie z napełnionego zestawu.
+				}
+
+				DisableMinionCrits: {
+					Label: Wyłącz trafienia krytyczne stworów
+					Tooltip:
+						'''
+						W wersji podstawowej szansa na trafienie krytyczne broni nie dotyczy stworów.
+						Zaklęcia Broni dają stronnikom szansę na trafienie krytyczne w oparciu o szansę na trafienie krytyczne bronią.
+						Ta opcja wyłącza trafienia krytyczne (mechanika waniliowa)
+						'''
+				}
+
+				DisableResearch: {
+					Label: Wyłącz możliwość badania przedmiotów do zaklinania broni.
+					Tooltip: Po włączeniu nie będzie można zbadać wszystkich esencji i zaklęć, co uniemożliwia ich powielenie w trybie Podróży.
+				}
+
+				EnchantmentDropChance: {
+					Label: Częstotliwość wypadania zaklęć innych niż bossowie (%)
+					Tooltip:
+						'''
+						Dostosuj częstotliwość wypadania zaklęć z wrogów niebędących bossami.
+						(Domyślnie jest to 100%)
+						'''
+				}
+
+				EnchantmentEffectsOnModdedAccessorySlots: {
+					Label: Efekty zaklęć na zmodyfikowanych gniazdach akcesoriów
+					Tooltip: Jeśli jest włączona, miejsca na akcesoria dodane przez modów będą stosować efekty zaklęć na przedmiotach w slocie.
+				}
+
+				EnchantmentSlotsOnAccessories: {
+					Label: Miejsca na zaklęcia w akcesoriach
+					Tooltip:
+						'''
+						Pierwsze miejsce jest normalne.
+						Drugie gniazdo to gniazdo użytkowe.
+						Miejsca 3-5 to normalne miejsca.
+						'''
+				}
+
+				EnchantmentSlotsOnArmor: {
+					Label: Miejsca na zaklęcia w zbroi
+					Tooltip:
+						'''
+						Pierwsze miejsce jest normalne.
+						Drugie gniazdo to gniazdo użytkowe.
+						Miejsca 3-5 to normalne miejsca.
+						'''
+				}
+
+				EnchantmentSlotsOnFishingPoles: {
+					Label: Miejsca na zaklęcia na wędkach
+					Tooltip:
+						'''
+						Pierwsze miejsce jest normalne.
+						Drugie gniazdo to gniazdo użytkowe.
+						Miejsca 3-5 to normalne miejsca.
+						'''
+				}
+
+				EnchantmentSlotsOnTools: {
+					Label: Miejsca na zaklęcia na narzędziach
+					Tooltip:
+						'''
+						Pierwsze miejsce jest normalne.
+						Drugie gniazdo to gniazdo użytkowe.
+						Miejsca 3-5 to normalne miejsca.
+						Clentaminator jest jak dotąd jedynym narzędziem.
+						'''
+				}
+
+				EnchantmentSlotsOnWeapons: {
+					Label: Miejsca na zaklęcia w broni
+					Tooltip:
+						'''
+						Pierwsze miejsce jest normalne.
+						Drugie gniazdo to gniazdo użytkowe.
+						Miejsca 3-5 to normalne miejsca.
+						'''
+				}
+
+				EnchantmentStrengthCurseScaling: {
+					Label: Skalowanie siły zaklęcia i klątwy
+					Tooltip:
+						'''
+						To ustawienie powoduje, że część innych ustawień siły zaklęcia ma zastosowanie do przeklętych efektów.   Wartość jest dzielona przez 100. 50 => 50%
+						Jeśli ta wartość wynosi 0, nie będzie to miało żadnego efektu.   Jeśli wynosi 50, efekt będzie o połowę mniejszy niż w przypadku innych ustawień siły zaklęcia.
+						Na przykład na poziomie trudności Mistrza domyślna siła zaklęcia wynosi 25% (redukcja -75%).
+						Przy tym ustawieniu na 50, efekty klątwy zostaną zmniejszone o połowę, czyli 62,5% (-75% * 50% => -37,5% redukcji).
+						Przy wartości 100 efekty klątwy będą skalować się tak samo, jak normalne efekty zaklęć.
+						'''
+				}
+
+				EssenceGrabRange: {
+					Label: Mnożnik zasięgu chwytania esencji
+					Tooltip: Wpływa na to, jak daleko esencja może znajdować się od gracza, gdy zaczyna się do niego zbliżać.
+				}
+
+				EssenceMultiplier: {
+					Label: Mnożnik esencji niebędącej bossem (%)
+					Tooltip: Zmodyfikuj ilość esencji otrzymywanej od wrogów niebędących bossami.
+				}
+
+				ExperienceMultiplier: {
+					Label: Mnożnik doświadczenia niebędącego bossem (%)
+					Tooltip: Zmodyfikuj ilość doświadczenia otrzymywanego od wrogów niebędących bossami.
+				}
+
+				GatheringExperienceMultiplier: {
+					Label: Mnożnik zdobywanego doświadczenia (%)
+					Tooltip: Zmodyfikuj ilość doświadczenia otrzymywanego z Wydobycia/rąbania/łowienia ryb
+				}
+
+				individualStrengths: {
+					Label: Indywidualne mocne strony
+					Tooltip:
+						'''
+						Modyfikuj siłę poszczególnych zaklęć według wartości
+						(NIE PROCENT!)
+						(Zastępuje wszystkie inne opcje)
+						'''
+				}
+
+				individualStrengthsEnabled: {
+					Label: Indywidualne mocne strony włączone
+					Tooltip: Włączenie tej opcji spowoduje, że wybrane poniżej indywidualne wartości siły zastąpią wszystkie inne ustawienia.
+				}
+
+				InfusionDamageMultiplier: {
+					Label: Mnożnik obrażeń infuzyjnych (dzieli przez 1000, 1 -> 0,001)
+					Tooltip:
+						'''
+						Zmienia mnożnik obrażeń od infuzji. DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
+						Przykład: Żelazny miecz, obrażenia = 10, podstawowa moc natchnienia = 31 nasycona Meowmere, moc naparu 1100.
+						Obrażenia żelaznego pałasza = 10 * 1,3^((1100 - 31) / 100) = 10 * 1,3^10,69 = 10 * 16,52 = 165 obrażeń.
+						Ustawienie tego mnożnika na 1000 uniemożliwi ci napełnianie broni, a także nie zapewni premii do obrażeń już napełnionej broni.
+						'''
+				}
+
+				MinionLifeStealMultiplier: {
+					Label: Mnożnik kradzieży życia stworów (%)
+					Tooltip: Pozwala zmniejszyć ilość leczenia otrzymywanego przez stwory za pomocą Zaklęcia Kradzież Życia.
+				}
+
+				MultiplicativeCriticalHits: {
+					Label: Multiplikatywne trafienia krytyczne po pierwszym.
+					Tooltip:
+						'''
+						Zaklęcia broni wykorzystują szansę na trafienie krytyczne powyżej 100%, aby umożliwić ci ponowne trafienie krytyczne.
+						Domyślnie jest to premia dodatkowa: 1. trafienie krytyczne 200% obrażeń, 2. 300% obrażeń, 3. 400% obrażeń.....
+						Włączenie tej opcji sprawia, że zamiast tego stają się multiplikatywne: 1. krytyczny 200% obrażeń, 2. krytyczny 400% obrażeń, 3. krytyczny 800% obrażeń...
+						'''
+				}
+
+				NegativeDefensePenaltyMultiplier: {
+					Label: Mnożnik kary ujemnej w obronie
+					Tooltip:
+						'''
+						Jeśli ta liczba jest większa niż 0, gracz posiadający mniej niż 0 obrony spowoduje, że otrzyma więcej obrażeń.
+						Jest to kara za pozwolenie, aby klątwy zmniejszyły obronę gracza do poziomu mniejszego niż 0.
+						Otrzymywane obrażenia są zwiększane o mnożnik kary za negatywną obronę/1000 * -playerDefense
+						ORAZ pomnożone przez 1 + (Mnożnik kary za negatywną obronę/1000 * -obrona gracza / 100) Przykład: -20 obrony i gracz otrzymuje 200 obrażeń, Mnożnik kary za negatywną obronę = 1000:
+						ostateczne obrażenia = (200 -(-20) * 1000/1000) * (1 + (1000/1000 * -(-20) / 100))
+						końcowe obrażenia = (200 + 20) * (1 + 0,2) => 220 * 1,2 => 264
+						'''
+				}
+
+				PercentOfferEssence: {
+					Label: Procent wartości oferowanego przedmiotu przeliczony na esencję.
+					Tooltip: 100% na całą esencję, 0% na wszystkie rudy. Wartość sprzedaży esencji i rud będzie równa.
+				}
+
+				presetData: {
+					Label: Presety i mnożniki
+					Tooltip: Ustawienia wstępne i mnożniki, które pozwalają wpływać na wszystkie zaklęcia jednocześnie.
+				}
+
+				PreventPowerBoosterFromPreHardMode: {
+					Label: Uniemożliwiaj bossom trybu wstępnego upuszczanie boosterów mocy.
+					Tooltip: Nie obejmuje ściany ciała.
+				}
+
+				PrintWikiInfo: {
+					Label: Rejestruj wszystkie informacje na wiki
+					Tooltip:
+						'''
+						Informacje są drukowane w pliku Client.log po wejściu do świata.
+						Domyślna lokalizacja pliku Client.log to C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+						'''
+				}
+
+				ReduceOfferEfficiencyByBaseInfusionPower: {
+					Label: Zmniejsz efektywność oferty o podstawową moc infuzji
+					Tooltip:
+						'''
+						Oferując przedmioty, otrzymujesz esencję odpowiadającą doświadczeniu zdobytemu na przedmiocie.
+						Włączenie tej opcji spowoduje, że broń będzie w 100% skuteczna przy mocy infuzji od 0 do 80% przy mocy infuzji 1100 (i wyższej).
+						'''
+				}
+
+				ReduceOfferEfficiencyByTableTier: {
+					Label: Zmniejsz efektywność oferty według poziomu tabeli
+					Tooltip:
+						'''
+						Oferując przedmioty, otrzymujesz esencję odpowiadającą doświadczeniu zdobytemu na przedmiocie.
+						Włączenie tej opcji spowoduje, że drewniany stół będzie działał na poziomie 60%.
+						Każdy stół zyskuje 10% wydajności. 100% ze stołem Ultimate.
+						'''
+				}
+
+				ReduceRecipesToMinimum: {
+					Label: Ogranicz przepisy do minimum.
+					Tooltip:
+						'''
+						Usuwa wszystkie przepisy, które przeskakują między poziomami, aby zmniejszyć bałagan podczas przeglądania przepisów.
+						Sprawia również, że wszystkie przepisy na esencje są 4 do 1, zamiast skalować się z poziomem stołu zaklinającego.
+						'''
+				}
+
+				RemoveEnchantmentRestrictions: {
+					Label: Usuń ograniczenia dotyczące zaklęć (używaj na własne ryzyko!)
+					Tooltip: Usuwa takie rzeczy jak Unikalne, Maks. 1 i zaklęcia specyficzne dla broni lub typu przedmiotu.
+				}
+
+				SiphonExperiencePercentCost: {
+					Label: Koszt doświadczenia w % kosztu syfonu
+					Tooltip:
+						'''
+						Wysysanie przedmiotów zwraca jedynie część doświadczenia w postaci esencji. Ta opcja to %, który zostaje Utracony, więc 1000 PD przy koszcie 20% da tylko 800.
+						Jeśli wartość kosztu doświadczenia byłaby większa niż 4-krotność wartości zaklętego przedmiotu, ta wartość będzie kosztem, aby zapobiec sytuacjom takim jak utrata 20 platynowych punktów doświadczenia, aby uratować drewniany miecz o maksymalnym poziomie.
+						Zamiast tego oferowanie przedmiotów zwraca 100% doświadczenia. Ustaw na 0%, aby nie mieć kosztów i zwrócić 100% doświadczenia. Ustaw na 100%, aby używać oryginalnego systemu syfonu.
+						Oryginalny system Syfon pozwala na wyssanie przedmiotu o maksymalnym poziomie i usuwa jedynie nadmiar doświadczenia powyżej maksymalnego poziomu. bez żadnych kosztów.
+						'''
+				}
+
+				// GeneralEnchantToggleName: General Enchantments
+				// StatusEnchantToggleName: Status Enchantments
+				// UtilityToggleName: Utility Enchantments
+				// OnTickUtilityToggleName: Buff Enchantments
+				// UniqueEnchantToggleName: Unique Enchantments
+				// ClassSwapEnchantToggleName: Class Swap Enchantments
+				// ModCompatEnchantToggleName: Mod Compatability Enchantments
+				// DBZEnchantToggleName: Dragon Ball Terraria Enchantments
+				// DepthsEnchantToggleName: The Depths Enchantments
+				// ThoriumEnchantToggleName: Thorium Mod Enchantments
 			}
 
-			Strength: {
-				Label: Siła (1000 = 1, 10 = 1%)
-				Tooltip:
-					'''
-					Zachowaj ostrożność podczas dostosowywania tej wartości.
-					Siła to dokładna używana wartość.
-					Przykład Zaklęcie 40% obrażeń wynosi 0,4
-					10 Obrona to 10
-					'''
-			}
+			EnchantmentToggle: {
+				// DisplayName: Enchantment Toggle
 
-			teleportEssence: {
-				Label: Automatycznie wysyłaj esencję do interfejsu użytkownika
-				Tooltip:
-					'''
-					Automatycznie wysyłaj esencje ze swojego ekwipunku do miejsc na esencje w interfejsie użytkownika.
-					(Wyłącza się, gdy interfejs użytkownika jest otwarty).
-					'''
-			}
+				AllForOne: {
+					// Label: "[i:WeaponEnchantments/AllForOneEnchantmentBasic] Enable All For One Enchantment"
+					// Tooltip: Toggles loading of the All For One enchantment.
+				}
 
-			UseAlternateEnchantmentEssenceTextures: {
-				Label: Użyj alternatywnych tekstur esencji zaklęć
-				Tooltip: Domyślne kolory są przyjazne dla daltonistów. Alternatywne tekstury mają niewielkie różnice, ale głosowano za ich utrzymaniem.
-			}
+				AttackSpeed: {
+					// Label: "[i:WeaponEnchantments/AttackSpeedEnchantmentBasic] Enable Attack Speed Enchantment"
+					// Tooltip: Toggles loading of the Attack Speed enchantment.
+				}
 
-			UsePointsAsTooltip: {
-				Label: '''"Punkty" zamiast "Pojemność zaklęć"'''
-				Tooltip: Podpowiedzi będą pokazywać dostępne punkty zamiast dostępnej pojemności zaklęć
+				CriticalStrikeChance: {
+					// Label: "[i:WeaponEnchantments/CriticalStrikeChanceEnchantmentBasic] Enable Critical Strike Chance Enchantment"
+					// Tooltip: Toggles loading of the Critical Strike Chance enchantment.
+				}
+
+				CriticalStrikeDamage: {
+					// Label: "[i:WeaponEnchantments/CriticalStrikeDamageEnchantmentBasic] Enable Critical Strike Damage Enchantment"
+					// Tooltip: Toggles loading of the Critical Strike Damage enchantment.
+				}
+
+				Damage: {
+					// Label: "[i:WeaponEnchantments/DamageEnchantmentBasic] Enable Damage Enchantment"
+					// Tooltip: Toggles loading of the Damage enchantment.
+				}
+
+				DamageReduction: {
+					// Label: "[i:WeaponEnchantments/DamageReductionEnchantmentBasic] Enable Damage Reduction Enchantment"
+					// Tooltip: Toggles loading of the Damage Reduction enchantment.
+				}
+
+				Defense: {
+					// Label: "[i:WeaponEnchantments/DefenseEnchantmentBasic] Enable Defense Enchantment"
+					// Tooltip: Toggles loading of the Defense enchantment.
+				}
+
+				ExtraFishingLine: {
+					// Label: "[i:WeaponEnchantments/ExtraFishingLineEnchantmentBasic] Enable Extra Fishing Line Enchantment"
+					// Tooltip: Toggles loading of the Extra Fishing Line enchantment.
+				}
+
+				LethalCombination: {
+					// Label: "[i:WeaponEnchantments/LethalCombinationEnchantmentBasic] Enable Lethal Combination Enchantment"
+					// Tooltip: Toggles loading of the Lethal Combination enchantment.
+				}
+
+				LifeSteal: {
+					// Label: "[i:WeaponEnchantments/LifeStealEnchantmentBasic] Enable Life Steal Enchantment"
+					// Tooltip: Toggles loading of the Life Steal enchantment.
+				}
+
+				MaxMinions: {
+					// Label: "[i:WeaponEnchantments/MaxMinionsEnchantmentBasic] Max Minions Enchantment"
+					// Tooltip: Toggles loading of the Max Minions enchantment.
+				}
+
+				OneForAll: {
+					// Label: "[i:WeaponEnchantments/OneForAllEnchantmentBasic] Enable One For All Enchantment"
+					// Tooltip: Toggles loading of the One For All enchantment.
+				}
+
+				PercentArmorPenetration: {
+					// Label: "[i:WeaponEnchantments/PercentArmorPenetrationEnchantmentBasic] Enable Percent Armor Penetration Enchantment"
+					// Tooltip: Toggles loading of the Percent Armor Penetration enchantment.
+				}
+
+				PrideOfTheWeak: {
+					// Label: "[i:WeaponEnchantments/PrideOfTheWeakEnchantmentBasic] Enable Pride Of The Weak Enchantment"
+					// Tooltip: Toggles loading of the Pride of the Weak enchantment.
+				}
+
+				OnFire: {
+					// Label: "[i:WeaponEnchantments/OnFireEnchantmentBasic] Enable On Fire Enchantment"
+					// Tooltip: Toggles loading of the On Fire enchantment.
+				}
+
+				Poison: {
+					// Label: "[i:WeaponEnchantments/PoisonEnchantmentBasic] Enable Poison Enchantment"
+					// Tooltip: Toggles loading of the Poison enchantment.
+				}
+
+				Frostburn: {
+					// Label: "[i:WeaponEnchantments/FrostburnEnchantmentBasic] Enable Frostburn Enchantment"
+					// Tooltip: Toggles loading of the Frostburn enchantment.
+				}
+
+				CursedInferno: {
+					// Label: "[i:WeaponEnchantments/CursedInfernoEnchantmentBasic] Enable Cursed Inferno Enchantment"
+					// Tooltip: Toggles loading of the Cursed Inferno enchantment.
+				}
+
+				Ichor: {
+					// Label: "[i:WeaponEnchantments/IchorEnchantmentBasic] Enable Ichor Enchantment"
+					// Tooltip: Toggles loading of the Ichor enchantment.
+				}
+
+				Venom: {
+					// Label: "[i:WeaponEnchantments/VenomEnchantmentBasic] Enable Venom Enchantment"
+					// Tooltip: Toggles loading of the Venom enchantment.
+				}
+
+				Shadowflame: {
+					// Label: "[i:WeaponEnchantments/ShadowflameEnchantmentBasic] Enable Shadowflame Enchantment"
+					// Tooltip: Toggles loading of the Shadowflame enchantment.
+				}
+
+				Daybreak: {
+					// Label: "[i:WeaponEnchantments/DaybreakEnchantmentBasic] Enable Daybreak Enchantment"
+					// Tooltip: Toggles loading of the Daybreak enchantment.
+				}
+
+				WorldAblaze: {
+					// Label: "[i:WeaponEnchantments/WorldAblazeEnchantmentBasic] Enable World Ablaze Enchantment"
+					// Tooltip: Toggles loading of the World Ablaze enchantment.
+				}
+
+				AmmoCost: {
+					// Label: "[i:WeaponEnchantments/AmmoCostEnchantmentBasic] Enable Ammo Cost Enchantment"
+					// Tooltip: Toggles loading of the Ammo Cost enchantment.
+				}
+
+				CalmWaters: {
+					// Label: "[i:WeaponEnchantments/CalmWatersEnchantmentBasic] Enable Calm Waters Enchantment"
+					// Tooltip: Toggles loading of the Calm Waters enchantment.
+				}
+
+				CrateChance: {
+					// Label: "[i:WeaponEnchantments/CrateChanceEnchantmentBasic] Enable Crate Chance Enchantment"
+					// Tooltip: Toggles loading of the Crate Chance enchantment.
+				}
+
+				Crate: {
+					// Label: "[i:WeaponEnchantments/CrateEnchantmentBasic] Enable Crate Enchantment"
+					// Tooltip: Toggles loading of the Crate enchantment.
+				}
+
+				FishingPower: {
+					// Label: "[i:WeaponEnchantments/FishingPowerEnchantmentBasic] Enable Fishing Power Enchantment"
+					// Tooltip: Toggles loading of the Fishing Power enchantment.
+				}
+
+				Fishing: {
+					// Label: "[i:WeaponEnchantments/FishingEnchantmentBasic] Enable Fishing Enchantment"
+					// Tooltip: Toggles loading of the Fishing enchantment.
+				}
+
+				LavaFishing: {
+					// Label: "[i:WeaponEnchantments/LavaFishingEnchantmentBasic] Enable Lava Fishing Enchantment"
+					// Tooltip: Toggles loading of the Lava Fishing enchantment.
+				}
+
+				LifeRegen: {
+					// Label: "[i:WeaponEnchantments/LifeRegenEnchantmentBasic] Enable Life Regen Enchantment"
+					// Tooltip: Toggles loading of the Life Regen Enchantment.
+				}
+
+				Luck: {
+					// Label: "[i:WeaponEnchantments/LuckEnchantmentBasic] Enable Luck Enchantment"
+					// Tooltip: Toggles loading of the Luck enchantment.
+				}
+
+				Magnetic: {
+					// Label: "[i:WeaponEnchantments/MagneticEnchantmentBasic] Enable Magnetic Enchantment"
+					// Tooltip: Toggles loading of the Magnetic enchantment.
+				}
+
+				MobilityControl: {
+					// Label: "[i:WeaponEnchantments/MobilityControlEnchantmentBasic] Enable Mobility Control Enchantment"
+					// Tooltip: Toggles loading of the Mobility Control enchantment.
+				}
+
+				MovementSpeed: {
+					// Label: "[i:WeaponEnchantments/MovementSpeedEnchantmentBasic] Enable Movement Speed Enchantment"
+					// Tooltip: Toggles loading of the Movement Speed enchantment.
+				}
+
+				Peace: {
+					// Label: "[i:WeaponEnchantments/PeaceEnchantmentBasic] Enable Peace Enchantment"
+					// Tooltip: Toggles loading of the Peace enchantment.
+				}
+
+				PennyPinching: {
+					// Label: "[i:WeaponEnchantments/PennyPinchingEnchantmentBasic] Enable Penny Pinching Enchantment"
+					// Tooltip: Toggles loading of the Penny Pinching enchantment.
+				}
+
+				ProjectileVelocity: {
+					// Label: "[i:WeaponEnchantments/ProjectileVelocityEnchantmentBasic] Enable Projectile Velocity Enchantment"
+					// Tooltip: Toggles loading of the Projectile Velocity enchantment.
+				}
+
+				ReducedManaUsage: {
+					// Label: "[i:WeaponEnchantments/ReducedManaUsageEnchantmentBasic] Enable Reduced Mana Usage Enchantment"
+					// Tooltip: Toggles loading of the Reduced Mana Usage enchantment.
+				}
+
+				Size: {
+					// Label: "[i:WeaponEnchantments/SizeEnchantmentBasic] Enable Size Enchantment"
+					// Tooltip: Toggles loading of the Size enchantment.
+				}
+
+				Time: {
+					// Label: "[i:WeaponEnchantments/TimeEnchantmentBasic] Enable Time Enchantment"
+					// Tooltip: Toggles loading of the Time enchantment.
+				}
+
+				War: {
+					// Label: "[i:WeaponEnchantments/WarEnchantmentBasic] Enable War Enchantment"
+					// Tooltip: Toggles loading of the War enchantment.
+				}
+
+				OnTick: {
+					// Label: Enable Buff Enchantments
+					// Tooltip: Toggles loading of all buff enchantments, regardless if any of the below options are turned on or off.
+				}
+
+				Dangersense: {
+					// Label: "[i:WeaponEnchantments/DangerSenseEnchantmentBasic] Enable Dangersense Enchantment"
+					// Tooltip: Toggles loading of the Dangersense enchantment.
+				}
+
+				Hunter: {
+					// Label: "[i:WeaponEnchantments/HunterEnchantmentBasic] Enable Hunter Enchantment"
+					// Tooltip: Toggles loading of the Hunter Enchantment.
+				}
+
+				ObsidianSkin: {
+					// Label: "[i:WeaponEnchantments/ObsidianSkinEnchantmentBasic] Enable Obsidian Skin Enchantment"
+					// Tooltip: Toggles loading of the Obsidian Skin enchantment.
+				}
+
+				Spelunker: {
+					// Label: "[i:WeaponEnchantments/SpelunkerEnchantmentBasic] Enable Spelunker Enchantment"
+					// Tooltip: Toggles loading of the Spelunker enchantment.
+				}
+
+				Sonar: {
+					// Label: "[i:WeaponEnchantments/SonarEnchantmentBasic] Enable Sonar Enchantment"
+					// Tooltip: Toggles loading of the Sonar enchantment.
+				}
+
+				Shine: {
+					// Label: "[i:WeaponEnchantments/ShineEnchantmentBasic] Enable Shine Enchantment"
+					// Tooltip: Toggles loading of the Shine enchantment.
+				}
+
+				BerserkersRage: {
+					// Label: "[i:WeaponEnchantments/BerserkersRageEnchantmentBasic] Enable Berserker's Rage Enchantment"
+					// Tooltip: Toggles loading of the Berserker's Rage enchantment.
+				}
+
+				ChaoticFishing: {
+					// Label: "[i:WeaponEnchantments/ChaoticFishingEnchantmentBasic] Enable Chaotic Fishing Enchantment"
+					// Tooltip: Toggles loading of the Chaotic Fishing enchantment.
+				}
+
+				ColdSteel: {
+					// Label: "[i:WeaponEnchantments/ColdSteelEnchantmentBasic] Enable Cold Steel Enchantment"
+					// Tooltip: Toggles loading of the Cold Steel enchantment.
+				}
+
+				GodSlayer: {
+					// Label: "[i:WeaponEnchantments/GodSlayerEnchantmentBasic] God Slayer Enchantment"
+					// Tooltip: Toggles loading of the God Slayer enchantment.
+				}
+
+				HellsWrath: {
+					// Label: "[i:WeaponEnchantments/HellsWrathEnchantmentBasic] Enable Hell's Wrath Enchantment"
+					// Tooltip: Toggles loading of the Hell's Wrath enchantment.
+				}
+
+				Juiced: {
+					// Label: "[i:WeaponEnchantments/JuicedEnchantmentBasic] Enable Juiced Enchantment"
+					// Tooltip: Toggles loading of the Juiced enchantment.
+				}
+
+				JunglesFury: {
+					// Label: "[i:WeaponEnchantments/JunglesFuryEnchantmentBasic] Jungle's Fury Enchantment"
+					// Tooltip: Toggles loading of the Jungle's Fury enchantment.
+				}
+
+				Moonlight: {
+					// Label: "[i:WeaponEnchantments/MoonlightEnchantmentBasic] Enable Moonlight Enchantment"
+					// Tooltip: Toggles loading of the Moonlight enchantment.
+				}
+
+				Multishot: {
+					// Label: "[i:WeaponEnchantments/MultishotEnchantmentBasic] Enable Multishot Enchantment"
+					// Tooltip: Toggles loading of the Multishot enchantment.
+				}
+
+				NpcContactAngler: {
+					// Label: "[i:WeaponEnchantments/NpcContactAnglerEnchantmentBasic] Angler Contact Enchantment"
+					// Tooltip: Toggles loading of the Angler Contact enchantment.
+				}
+
+				SolarDash: {
+					// Label: "[i:WeaponEnchantments/SolarDashEnchantmentBasic] Enable Solar Dash Enchantment"
+					// Tooltip: Toggles loading of the Solar Dash enchantment.
+				}
+
+				ClassSwap: {
+					// Label: Enable Class Swap Enchantments
+					// Tooltip: Toggles loading of all Class Swap enchantments, regardless if any of the below options are turned on or off.
+				}
+
+				MeleeSwap: {
+					// Label: "[i:WeaponEnchantments/MeleeClassSwapEnchantmentBasic] Enable Melee Swap Enchantment"
+					// Tooltip: Toggles loading of the Melee Class Swap enchantment.
+				}
+
+				RangedSwap: {
+					// Label: "[i:WeaponEnchantments/RangedClassSwapEnchantmentBasic] Enable Ranged Swap Enchantment"
+					// Tooltip: Toggles loading of the Ranged Class Swap enchantment.
+				}
+
+				MagicSwap: {
+					// Label: "[i:WeaponEnchantments/MagicClassSwapEnchantmentBasic] Enable Magic Swap Enchantment"
+					// Tooltip: Toggles loading of the Magic Class Swap enchantment.
+				}
+
+				WhipSwap: {
+					// Label: "[i:WeaponEnchantments/WhipClassSwapEnchantmentBasic] Enable Whip Swap Enchantment"
+					// Tooltip: Toggles loading of the Whip Class Swap enchantment.
+				}
+
+				ThrowingSwap: {
+					// Label: "[i:WeaponEnchantments/ThrowingClassSwapEnchantmentBasic] Enable Throwing Swap Enchantment"
+					// Tooltip: Toggles loading of the Throwing Class Swap enchantment. Note that you'll need either Thorium Mod, Block's Throwing Mod, or Thrower Unification to be enabled for this to load!
+				}
+
+				CalamityRogueSwap: {
+					// Label: "[i:WeaponEnchantments/RogueClassSwapEnchantmentBasic] Enable Rogue Swap Enchantment"
+					// Tooltip: Toggles loading of the Rogue Class Swap enchantment. Note that you'll need Calamity mod to be enabled for this to load!
+				}
+
+				DBZKiSwap: {
+					// Label: "[i:WeaponEnchantments/KiClassSwapEnchantmentBasic] Enable Ki Swap Enchantment"
+					// Tooltip: Toggles loading of the Ki Class Swap enchantment. Note that you'll need the DBZ mod to be enabled for this to load!
+				}
+
+				DBZKi: {
+					// Label: "[i:WeaponEnchantments/KiEnchantmentBasic] Enable Ki Enchantment"
+					// Tooltip: Toggles loading of the Ki enchantment.
+				}
+
+				ThoriumBardSwap: {
+					// Label: "[i:WeaponEnchantments/BardClassSwapEnchantmentBasic] Enable Bard Swap Enchantment"
+					// Tooltip: Toggles loading of the Bard Class Swap enchantment. Note that you'll need Thorium Mod to be enabled for this to load!
+				}
+
+				ThoriumHealerSwap: {
+					// Label: "[i:WeaponEnchantments/HealerClassSwapEnchantmentBasic] Enable Healer Swap Enchantment"
+					// Tooltip: Toggles loading of the Healer Class Swap enchantment. Note that you'll need Thorium Mod to be enabled for this to load!
+				}
+
+				DepthsCrystalSkin: {
+					// Label: "[i:WeaponEnchantments/DepthsCrystalSkinEnchantmentBasic] Enable Crystal Skin Enchantment"
+					// Tooltip: Toggles loading of the Crystal Skin enchantment.
+				}
+
+				ThoriumElementalDecay: {
+					// Label: "[i:WeaponEnchantments/ThoriumElementalDecayEnchantmentBasic] Enable Elemental Decay Enchantment"
+					// Tooltip: Toggles loading of the Elemental Decay enchantment.
+				}
 			}
 		}
 
@@ -618,25 +1154,24 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: „Twój {0} jest już na maksymalnym poziomie.”
+			ApplyCurse: Zastosuj klątwę
 			Back: Z powrotem
-			BossChecklistNotEnabled: Mod BossChecklist nie jest włączony. Zaklęcia broni korzystają z listy kontrolnej bossów, aby określić, którzy bossowie decydują o wypadaniu Boosterów mocy ze zmodyfikowanych bossów. Ponieważ lista kontrolna bossów nie jest włączona, wszyscy zmodyfikowani bossowie upuszczą zwykły wzmacniacz mocy.
 			CannotGainAdditionalPower: „Twoje {0}({1}) nie może zyskać dodatkowej mocy z oferowanego {2}({3}).”.
 			CantInfusionArmorDifferentTypes: Nie możesz napełniać zbroi różnych typów, np. hełmu i korpusu.
 			CongradulationsMaxLevel: „Gratulacje! {1} użytkownika {0} osiągnęło maksymalny poziom, {2} ({3} PD).”.
 			CouldntFindItemsInWeaponsList: Nie można znaleźć przedmiotów na liście broni lub składnikach wytwarzania broni o nazwach:
 			CouldntFindNPCsInIngredientsList: Nie można znaleźć NPC w NPCsThatDropWeaponsOrIngredients o nazwach:
+			Curses: Pomstowanie
 			DailyFishingQuestReset: „Codzienna misja wędkarska została zresetowana. Twoja następna misja to {0}.”
 			DetectedNonEnchantmentInEnchantmentSlot: „Wykryto przedmiot niebędący zaklęciem:{0} na Twoim {1}. Został on zwrócony do Twojego ekwipunku.”
 			EnchantmentNoLongerAllowed: „{0} nie jest już dozwolony w {1} i został usunięty z Twojego {2}.”
 			FailedConvertExcessExperience: „Nie udało się sprawdzićConvertExcessExperience(element: {0}, zużyty element: {1})”
-			FailedDetermineProgression: Nie udało się określić postępu Wall of Flesh i Plantera z BossChecklistData
 			FailedFindBossBag: Nie udało się znaleźć torby szefa dla szefa:
 			FailedFindItemDropsForGroup: Nie udało się znaleźć zrzutów przedmiotów dla łupów dla grupy
 			FailedInfuseItem: „Nie udało się nasycić elementu: {0} skonsumowanym elementem: {1}”
 			FailedReplaceOldItem: Nie udało się zastąpić starego elementu:
 			FailedReplaceWithCoins: „Nie udało się zastąpić przedmiotu: {0} monetami”
 			FailedToCloneItem: „W EnchantedItem nie udało się sklonować (element: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}.”
-			FailedToFindInfusionPower: Nie udało się znaleźć mocy infuzji dla przedmiotu:
 			FailedToLocateAngler: Nie udało się zlokalizować wędkarza. Nadal będziesz otrzymywać nagrody
 			FavoritedItemsCantBeConsumedForInfusion: Ulubione przedmioty nie mogą być spożywane do naparu.
 			FishingQuestTurnedIn: „Misja oddana. Twoja następna misja to {0}. Zadania ukończone: {1}”
@@ -656,10 +1191,16 @@ Mods: {
 			ItemTooLowLevel: „Twój poziom {0} jest zbyt niski, aby móc używać tak wielu zaklęć.”
 			LogInfusionPowerLabels: Mod, broń, moc infuzji, wartość rzadkości, rzadkość, oryginalna rzadkość, wartość, identyfikator przedmiotu, obrażenia, czas użytkowania, DPS
 			LogInfusionPowerOtherLabels: Rzadkość, średnia, minimalna, maksymalna
-			MainUpdateCount: „Main.GameUpdateCount: {0}”
+			MinSiphonXP: „Możesz wyssać przedmiot tylko wtedy, gdy ma on co najmniej {0} doświadczenia.”
 			MultipleUniqueEnchantments: „Wykryto wiele unikalnych zaklęć na twoim {0}. {1} zostało usunięte z twojego {2}.”
 			MurasamaNoInfusion: Murasamy nie można spożywać do naparu.
+			NegativeDef:
+				'''
+				Otrzymywane obrażenia zwiększone o {0} i {0}%
+				(Zaklęcia Broni)
+				'''
 			NewItemIsAir: nowośćPrzedmiotem było powietrze.
+			Next: Następny
 			NoLongerAllowedOnDamageType: „{0} nie jest już dozwolony w broniach {1} i został usunięty z twojej broni {2}.”
 			NoLongerUtilityEnchantment: „{0} nie jest już zaklęciem użytkowym i zostało usunięte z twojego {1}.”
 			NonEnchantableItemInTable:
@@ -673,23 +1214,32 @@ Mods: {
 			NowLimitedToOne: „{0} Zaklęcia są teraz ograniczone do 1 na przedmiot. {1} zostało usunięte z twojego {2}.”
 			NPCInProgressionGroupNotInDropList: Wykryto NPC w grupie Postępu, którego nie ma w NPCsThatDropWeaponsOrIngredients.
 			NPCInProgressionGroupNoUniqueEnchantments: Wykryto NPC w grupie Postępu, który nie ma unikalnej broni ani składników.
-			OnlySyphonMaxLevel: „Możesz wyssać przedmiot tylko wtedy, gdy ma on maksymalny poziom i ponad {0} doświadczenia.”
+			OpenEnchantingTableFirstTime:
+				'''
+				Czujesz, jak wszystkie Twoje Zaklęcia i Esencja zostają wciągnięte na Stół Zaklinający.
+				Zaklęcia Broni mają swój własny schowek w Stole Zaklęć.
+				Podniesienie Zaklęć, Esencji i innych przedmiotów Zaklęć Broni spowoduje automatyczne wysłanie ich do magazynu Zaklinającego Stołu.
+				'''
 			OreInfusionPowerNotSetup: „Nie ustawiono mocy infuzji rudy {0}. Zgadywana moc infuzji:”
+			Owned: Posiadany
+			PlaceHereCurse: Umieść tutaj zaklęcie, aby zastosować klątwę
+			PlaceHereReRoll: Umieść tutaj zaklęcie, aby rzucić ponownie
 			PreventedIssueLooseExperience: „Zapobiegnięto problemowi, który powodowałby zmniejszenie twoich PD. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, target.obrona: {5}, xpDamage: {6}, niskie obrażenia na trafienieXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: „Zapobiegnięto problemowi, który powodował utratę doświadczenia. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, niskie obrażenia na trafienieXPBoost: {7}, "
 			PreventedLoosingExperience: „Zapobiegłeś utracie doświadczenia przez {0} z powodu błędu w obliczeniach.”
 			PreventedWitchShopDuplication: Zapobiegnięto problemowi, który powodował dodanie zduplikowanego przedmiotu do przedmiotu w sklepie Wiedźmy:
 			RemovedEnchantedItemData: „Usunięto dane EnchantedItem z przedmiotu: {0}, liczba: {1}, nowa liczba: {2}”
 			RemovedUnloadedEnchantmentFromItem: „Usunięto niewyładowany przedmiot:{0} z Twojego {1}. Poinformuj andro951(WeaponEnchantments).”
-			ReportErrorToAndro: Zgłoś to do andro951 (Zaklęcia Broni) wraz z opisem tego, co robiłeś w tym czasie.
+			ReRoll: Rzuć ponownie
 			RerollEnchantment: Rzuć ponownie Zaklęcie
 			ResistsYourAttemptToEmpower: „{0} oparł się twojej próbie wzmocnienia go.”
 			SameSetBonusNoEffect: Ulepszany przedmiot ma taką samą premię jak przedmiot zużywany i nie będzie miał żadnego efektu.
+			ShimmerIngredientInfusionPowersNotSetup: Moce infuzyjne Shimmer Ingredent nie są skonfigurowane
 			SlotNumDisabledByConfig: „Gniazdo {0} wyłączone przez konfigurację. Usunięto {1} z Twojego {2}.”
 			TryInfuseFailed: „TryInfuseItem nie powiodło się, tableItem: {0}{1}, infusionConsumeItem: {2}{3}”
-			UnableDetermineNPCDropsBossBag: Nie można określić NPC, który upuszcza tę torbę z bossem:
 			WeaponInfusionPowersNotSetup: Moce infuzyjne broni nie są skonfigurowane
 			WitchChatText: Czego jeszcze chcesz? Jestem zajęty.
+			WitchEnchantmentCurseText: Klątwy to potężna magia, ale ma to swoją cenę. Nie pomogę ci, jeśli zmienisz zdanie. Driada może w tym pomóc. Czy na pewno chcesz kontynuować?
 			WitchEnchantmentRerolText: Myślę, że mógłbym spróbować ulepszyć twoje zaklęcia, ale bez zwrotów pieniędzy i reklamacji.
 			WitchSpawnCondition: Posiadaj zaklęcie w swoim ekwipunku lub na swoim wyposażeniu.
 		}
@@ -697,41 +1247,49 @@ Mods: {
 		Items: {
 			AllForOneEnchantmentBasic.DisplayName: Wszystko za jednego Podstawowe zaklęcie
 			AllForOneEnchantmentCommon.DisplayName: Wszystko za jedno zaklęcie wspólne
+			AllForOneEnchantmentCursed.DisplayName: Wszyscy za jednego Zaklęcie przeklęte
 			AllForOneEnchantmentEpic.DisplayName: Epopeja zaklęcia „Wszystko za jednego”
 			AllForOneEnchantmentLegendary.DisplayName: Legendarne zaklęcie Wszystko za jednego
 			AllForOneEnchantmentRare.DisplayName: Wszystko za jednego zaklęcie rzadkie
 			AmmoCostEnchantmentBasic.DisplayName: Podstawowe zaklęcie kosztu amunicji
 			AmmoCostEnchantmentCommon.DisplayName: Koszt amunicji Zaklęcie Zwykłe
+			AmmoCostEnchantmentCursed.DisplayName: Przeklęte zaklęcie kosztu amunicji
 			AmmoCostEnchantmentEpic.DisplayName: Koszt amunicji Zaklęcie Epic
 			AmmoCostEnchantmentLegendary.DisplayName: Legendarne zaklęcie kosztu amunicji
 			AmmoCostEnchantmentRare.DisplayName: Koszt amunicji Zaklęcie Rzadkie
 			AttackSpeedEnchantmentBasic.DisplayName: Podstawowe zaklinanie szybkości ataku
 			AttackSpeedEnchantmentCommon.DisplayName: Zaklęcie szybkości ataku Powszechne
+			AttackSpeedEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Prędkości Ataku
 			AttackSpeedEnchantmentEpic.DisplayName: Epickie zaklęcie szybkości ataku
 			AttackSpeedEnchantmentLegendary.DisplayName: Legendarne zaklęcie szybkości ataku
 			AttackSpeedEnchantmentRare.DisplayName: Rzadkie zaklęcie prędkości ataku
 			BardClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy barda
 			BardClassSwapEnchantmentCommon.DisplayName: Zaklęcie Zamiany Klas Barda Powszechne
+			BardClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klas Barda Przeklęte
 			BardClassSwapEnchantmentEpic.DisplayName: Epickie Zaklęcie Zamiany Klas Bardów
 			BardClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas bardów Legendarne
 			BardClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy barda
 			BerserkersRageEnchantmentBasic.DisplayName: Podstawowe zaklęcie furii berserkerów
 			BerserkersRageEnchantmentCommon.DisplayName: Zaklęcie Szału Berserkerów Powszechne
+			BerserkersRageEnchantmentCursed.DisplayName: Zaklęcie Szału Berserkerów Przeklęte
 			BerserkersRageEnchantmentEpic.DisplayName: Epickie zaklęcie zaklęcia furii berserkerów
 			BerserkersRageEnchantmentLegendary.DisplayName: Zaklęcie Szału Berserkerów Legendarne
 			BerserkersRageEnchantmentRare.DisplayName: Rzadkie zaklęcie furii berserkerów
 			CalmWatersEnchantmentBasic.DisplayName: Podstawowe zaklęcie spokojnych wód
 			CalmWatersEnchantmentCommon.DisplayName: Zaklęcie spokojnych wód Powszechne
+			CalmWatersEnchantmentCursed.DisplayName: Zaklęcie Spokojnych Wód przeklęte
 			CalmWatersEnchantmentEpic.DisplayName: Epic zaklęcia spokojnych wód
 			CalmWatersEnchantmentLegendary.DisplayName: Legendarne zaklęcie spokojnych wód
 			CalmWatersEnchantmentRare.DisplayName: Rzadkie zaklęcie spokojnych wód
 			ChaoticFishingEnchantmentBasic.DisplayName: Podstawowe zaklęcie chaotycznego wędkowania
 			ChaoticFishingEnchantmentCommon.DisplayName: Chaotyczne zaklęcie wędkarskie Powszechne
+			ChaoticFishingEnchantmentCursed.DisplayName: Zaklęcie Chaotycznego Połowu Przeklęte
 			ChaoticFishingEnchantmentEpic.DisplayName: Chaotyczne zaklęcie wędkarskie Epic
 			ChaoticFishingEnchantmentLegendary.DisplayName: Chaotyczne zaklęcie wędkarskie Legendarne
 			ChaoticFishingEnchantmentRare.DisplayName: Chaotyczne zaklęcie wędkarskie Rzadkie
 			ColdSteelEnchantmentBasic.DisplayName: Podstawowe zaklęcie zimnej stali
 			ColdSteelEnchantmentCommon.DisplayName: Zwykłe zaklęcie zimnej stali
+			ColdSteelEnchantmentCursed.DisplayName: Zaklęcie Cold Steel przeklęte
 			ColdSteelEnchantmentEpic.DisplayName: Epicka opowieść o zaklęciu zimnej stali
 			ColdSteelEnchantmentLegendary.DisplayName: Legendarne zaklęcie zimnej stali
 			ColdSteelEnchantmentRare.DisplayName: Rzadkie zaklęcie zimnej stali
@@ -743,6 +1301,7 @@ Mods: {
 
 			CrateChanceEnchantmentBasic.DisplayName: Szansa na skrzynkę Podstawowe zaklęcie
 			CrateChanceEnchantmentCommon.DisplayName: Skrzynia Szansa Zaklęcie Zwykłe
+			CrateChanceEnchantmentCursed.DisplayName: Przeklęte zaklęcie szansy na skrzynię
 			CrateChanceEnchantmentEpic.DisplayName: Skrzynia Szansa Zaklęcia Epic
 			CrateChanceEnchantmentLegendary.DisplayName: Legendarna szansa na zaklęcie skrzyni
 			CrateChanceEnchantmentRare.DisplayName: Szansa na zaklęcie skrzyni Rzadkie
@@ -753,26 +1312,37 @@ Mods: {
 			CrateEnchantmentRare.DisplayName: Zaklęcie w skrzyni Rzadkie
 			CriticalStrikeChanceEnchantmentBasic.DisplayName: Podstawowe zaklęcie szansy na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentCommon.DisplayName: Szansa na trafienie krytyczne Zaklęcie Zwykłe
+			CriticalStrikeChanceEnchantmentCursed.DisplayName: Zaklęcie szansy na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentEpic.DisplayName: Epickie zaklęcie Szansa na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Legendarne zaklęcie Szansa na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentRare.DisplayName: Zaklęcie Szansa na Trafienie Krytyczne Rzadkie
 			CriticalStrikeDamageEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrażeń od trafień krytycznych
 			CriticalStrikeDamageEnchantmentCommon.DisplayName: Zaklęcie obrażeń od trafień krytycznych Powszechne
+			CriticalStrikeDamageEnchantmentCursed.DisplayName: Zaklęcie Zaklęcie Obrażenia od Uderzenia Krytycznego
 			CriticalStrikeDamageEnchantmentEpic.DisplayName: Epickie zaklęcie obrażeń od trafień krytycznych
 			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrażeń od trafień krytycznych
 			CriticalStrikeDamageEnchantmentRare.DisplayName: Zaklęcie obrażeń od trafień krytycznych Rzadkie
+
+			CursedEssence: {
+				DisplayName: Przeklęta Esencja
+				// Tooltip: ""
+			}
+
 			CursedInfernoEnchantmentBasic.DisplayName: Podstawowe zaklęcie przeklętego piekła
 			CursedInfernoEnchantmentCommon.DisplayName: Zaklęcie Przeklętego Piekła Zwykłe
+			CursedInfernoEnchantmentCursed.DisplayName: Przeklęte Zaklęcie Piekło Przeklęte
 			CursedInfernoEnchantmentEpic.DisplayName: Epickie Zaklęcie Przeklętego Piekła
 			CursedInfernoEnchantmentLegendary.DisplayName: Legendarne zaklęcie Przeklętego Inferno
 			CursedInfernoEnchantmentRare.DisplayName: Zaklęcie Przeklętego Piekła Rzadkie
 			DamageEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrażeń
 			DamageEnchantmentCommon.DisplayName: Zaklęcie obrażeń Zwykłe
+			DamageEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Obrażenia
 			DamageEnchantmentEpic.DisplayName: Epickie zaklęcie obrażeń
 			DamageEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrażeń
 			DamageEnchantmentRare.DisplayName: Zaklęcie Obrażeń Rzadkie
 			DamageReductionEnchantmentBasic.DisplayName: Podstawowe zaklęcie redukcji obrażeń
 			DamageReductionEnchantmentCommon.DisplayName: Redukcja obrażeń Zaklęcie Zwykłe
+			DamageReductionEnchantmentCursed.DisplayName: Zaklęcie Redukujące obrażenia Zaklęcie
 			DamageReductionEnchantmentEpic.DisplayName: Epickie zaklęcie redukcji obrażeń
 			DamageReductionEnchantmentLegendary.DisplayName: Legendarne zaklęcie redukcji obrażeń
 			DamageReductionEnchantmentRare.DisplayName: Zaklęcie redukcji obrażeń Rzadkie
@@ -783,11 +1353,13 @@ Mods: {
 			DangerSenseEnchantmentRare.DisplayName: Rzadkie zaklęcie zmysłu zagrożenia
 			DaybreakEnchantmentBasic.DisplayName: Podstawowe zaklęcie świtu
 			DaybreakEnchantmentCommon.DisplayName: Zaklęcie świtu Powszechne
+			DaybreakEnchantmentCursed.DisplayName: Zaklęcie Świtu Przeklęte
 			DaybreakEnchantmentEpic.DisplayName: Epickie zaklęcie brzasku
 			DaybreakEnchantmentLegendary.DisplayName: Legendarne zaklęcie Brzasku
 			DaybreakEnchantmentRare.DisplayName: Rzadkie zaklęcie brzasku
 			DefenseEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrony
 			DefenseEnchantmentCommon.DisplayName: Zaklęcie Obronne Powszechne
+			DefenseEnchantmentCursed.DisplayName: Przeklęte zaklęcie obronne
 			DefenseEnchantmentEpic.DisplayName: Epickie zaklęcie obrony
 			DefenseEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrony
 			DefenseEnchantmentRare.DisplayName: Zaklęcie Obronne Rzadkie
@@ -848,6 +1420,7 @@ Mods: {
 
 			ExtraFishingLineEnchantmentBasic.DisplayName: Dodatkowe zaklęcie żyłki Basic
 			ExtraFishingLineEnchantmentCommon.DisplayName: Dodatkowe zaklęcie żyłki Wspólne
+			ExtraFishingLineEnchantmentCursed.DisplayName: Zaklęcie dodatkowej żyłki wędkarskiej przeklęte
 			ExtraFishingLineEnchantmentEpic.DisplayName: Dodatkowe zaklęcie żyłki Epic
 			ExtraFishingLineEnchantmentLegendary.DisplayName: Dodatkowe zaklęcie żyłki Legendarne
 			ExtraFishingLineEnchantmentRare.DisplayName: Dodatkowe zaklęcie żyłki Rzadkie
@@ -858,21 +1431,25 @@ Mods: {
 			FishingEnchantmentRare.DisplayName: Zaklęcie wędkarskie Rzadkie
 			FishingPowerEnchantmentBasic.DisplayName: Podstawowe zaklinanie mocy wędkarskiej
 			FishingPowerEnchantmentCommon.DisplayName: Zaklinanie mocy rybackiej Powszechne
+			FishingPowerEnchantmentCursed.DisplayName: Zaklęcie mocy połowu przeklęte
 			FishingPowerEnchantmentEpic.DisplayName: Epicka moc zaklęcia wędkarskiego
 			FishingPowerEnchantmentLegendary.DisplayName: Legendarne zaklęcie wędkarskiej mocy
 			FishingPowerEnchantmentRare.DisplayName: Rzadkie zaklinanie mocy wędkarskiej
 			FrostburnEnchantmentBasic.DisplayName: Podstawowe zaklęcie Frostburn
 			FrostburnEnchantmentCommon.DisplayName: Zaklęcie Frostburn Zwykłe
+			FrostburnEnchantmentCursed.DisplayName: Zaklęcie Frostburn zostało przeklęte
 			FrostburnEnchantmentEpic.DisplayName: Epickie zaklęcie Frostburn
 			FrostburnEnchantmentLegendary.DisplayName: Legendarne zaklęcie Frostburn
 			FrostburnEnchantmentRare.DisplayName: Zaklęcie Mrozu Rzadkie
 			GodSlayerEnchantmentBasic.DisplayName: Podstawowe zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentCommon.DisplayName: Zaklęcie Zabójcy Bogów Powszechne
+			GodSlayerEnchantmentCursed.DisplayName: Zaklęcie Zabójcy Boga Przeklęte
 			GodSlayerEnchantmentEpic.DisplayName: Epickie zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentLegendary.DisplayName: Legendarne zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentRare.DisplayName: Zaklęcie Zabójcy Boga Rzadkie
 			HealerClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy uzdrowiciela
 			HealerClassSwapEnchantmentCommon.DisplayName: Zaklęcie Zamiany Klasy Uzdrowiciela Powszechne
+			HealerClassSwapEnchantmentCursed.DisplayName: Zaklęcie zmiany klasy uzdrowiciela Przeklęty
 			HealerClassSwapEnchantmentEpic.DisplayName: Epickie zaklęcie zmiany klasy uzdrowiciela
 			HealerClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas uzdrowicieli Legendarne
 			HealerClassSwapEnchantmentRare.DisplayName: Zaklęcie zmiany klasy uzdrowiciela Rzadko
@@ -888,9 +1465,20 @@ Mods: {
 
 			HellsWrathEnchantmentBasic.DisplayName: Podstawowe zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentCommon.DisplayName: Zaklęcie piekielnego gniewu Powszechne
+			HellsWrathEnchantmentCursed.DisplayName: Zaklęcie Piekielnego Gniewu jest przeklęte
 			HellsWrathEnchantmentEpic.DisplayName: Epickie zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentLegendary.DisplayName: Legendarne zaklęcie Hells Wrath
 			HellsWrathEnchantmentRare.DisplayName: Zaklęcie piekielnego gniewu rzadkie
+
+			HexproofPouch: {
+				DisplayName: Pokrowiec sześciokątny
+				Tooltip:
+					'''
+					Mały woreczek przeznaczony do ochrony posiadacza przed negatywnym działaniem Przeklętej Esencji.
+					(Umieszczenie Przeklętej Esencji w tej torbie zapobiegnie jej przyczynianiu się do Przeklętego Debuffu gracza.)
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Podstawowe zaklęcie łowcy
 			HunterEnchantmentCommon.DisplayName: Zaklęcie Łowcy Zwykłe
 			HunterEnchantmentEpic.DisplayName: Epickie zaklęcie łowcy
@@ -898,61 +1486,79 @@ Mods: {
 			HunterEnchantmentRare.DisplayName: Zaklęcie Łowcy Rzadkie
 			IchorEnchantmentBasic.DisplayName: Podstawowe zaklęcie Ichor
 			IchorEnchantmentCommon.DisplayName: Zaklęcie Ichor Powszechne
+			IchorEnchantmentCursed.DisplayName: Zaklęcie Ichor przeklęte
 			IchorEnchantmentEpic.DisplayName: Epic zaklęcia Ichor
 			IchorEnchantmentLegendary.DisplayName: Legendarne zaklęcie Ichor
 			IchorEnchantmentRare.DisplayName: Zaklęcie Ichor Rzadkie
 			JuicedEnchantmentBasic.DisplayName: Podstawowe zaklęcie soku
 			JuicedEnchantmentCommon.DisplayName: Sok Zaklęcie Zwykłe
+			JuicedEnchantmentCursed.DisplayName: Soczyste Zaklęcie Przeklęte
 			JuicedEnchantmentEpic.DisplayName: Epic zaklęcia soku
 			JuicedEnchantmentLegendary.DisplayName: Legendarne zaklęcie z sokiem
 			JuicedEnchantmentRare.DisplayName: Sok Zaklęcie Rzadkie
 			JunglesFuryEnchantmentBasic.DisplayName: Podstawowe zaklęcie furii dżungli
 			JunglesFuryEnchantmentCommon.DisplayName: Zaklęcie Furii Dżungli Zwykłe
+			JunglesFuryEnchantmentCursed.DisplayName: Zaklęcie Furii Dżungli Przeklęte
 			JunglesFuryEnchantmentEpic.DisplayName: Epickie Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentRare.DisplayName: Zaklęcie Furii Dżungli Rzadkie
 			KiClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zamiany klas Ki
 			KiClassSwapEnchantmentCommon.DisplayName: Zwykłe zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klasy Ki Przeklęte
 			KiClassSwapEnchantmentEpic.DisplayName: Epicki zaklęcie zamiany klas Ki
 			KiClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas Ki Legendarne
 			KiClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zamiany klas Ki
 			KiEnchantmentBasic.DisplayName: Podstawowe zaklęcie Ki
 			KiEnchantmentCommon.DisplayName: Wspólne Zaklęcie Ki
+			KiEnchantmentCursed.DisplayName: Zaklęcie Ki Przeklęte
 			KiEnchantmentEpic.DisplayName: Epickie zaklęcie Ki
 			KiEnchantmentLegendary.DisplayName: Legendarne zaklęcie Ki
 			KiEnchantmentRare.DisplayName: Rzadkie zaklęcie Ki
 			LavaFishingEnchantmentBasic.DisplayName: Podstawowe zaklęcie na lawę
 			LavaFishingEnchantmentCommon.DisplayName: Zaklęcie łowienia lawy Powszechne
+			LavaFishingEnchantmentCursed.DisplayName: Zaklęcie połowu lawy przeklęte
 			LavaFishingEnchantmentEpic.DisplayName: Epickie zaklęcie do połowów lawy
 			LavaFishingEnchantmentLegendary.DisplayName: Legendarne zaklęcie do połowu lawy
 			LavaFishingEnchantmentRare.DisplayName: Zaklęcie łowienia lawy Rzadkie
+			LethalCombinationEnchantmentBasic.DisplayName: Podstawowe zaklęcie Zabójczej Kombinacji
+			LethalCombinationEnchantmentCommon.DisplayName: Zabójcza kombinacja Zaklęć Powszechna
+			LethalCombinationEnchantmentCursed.DisplayName: Zaklęcie Zabójczej Kombinacji Przeklęte
+			LethalCombinationEnchantmentEpic.DisplayName: Epicka Zabójcza Kombinacja Zaklęć
+			LethalCombinationEnchantmentLegendary.DisplayName: Legendarne zaklęcie śmiercionośnej kombinacji
+			LethalCombinationEnchantmentRare.DisplayName: Zaklęcie Zabójczej Kombinacji Rzadkie
 			LifeRegenEnchantmentBasic.DisplayName: Podstawowe zaklęcie regeneracji życia
 			LifeRegenEnchantmentCommon.DisplayName: Zwykłe zaklęcie regeneracji życia
+			LifeRegenEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Regeneracji Życia
 			LifeRegenEnchantmentEpic.DisplayName: Epicki zaklęcie regeneracji życia
 			LifeRegenEnchantmentLegendary.DisplayName: Legendarne zaklęcie regeneracji życia
 			LifeRegenEnchantmentRare.DisplayName: Rzadkie zaklęcie regeneracji życia
 			LifeStealEnchantmentBasic.DisplayName: Podstawowe zaklęcie kradzieży życia
 			LifeStealEnchantmentCommon.DisplayName: Zaklęcie kradzieży życia Zwykłe
+			LifeStealEnchantmentCursed.DisplayName: Zaklęcie Kradzieży Życia Przeklęte
 			LifeStealEnchantmentEpic.DisplayName: Epic zaklęcia kradzieży życia
 			LifeStealEnchantmentLegendary.DisplayName: Legendarne zaklęcie kradzieży życia
 			LifeStealEnchantmentRare.DisplayName: Zaklęcie kradzieży życia Rzadkie
 			LuckEnchantmentBasic.DisplayName: Podstawowe zaklęcie szczęścia
 			LuckEnchantmentCommon.DisplayName: Szczęście Zaklęcie Zwykłe
+			LuckEnchantmentCursed.DisplayName: Zaklęcie szczęścia przeklęte
 			LuckEnchantmentEpic.DisplayName: Epickie zaklęcie szczęścia
 			LuckEnchantmentLegendary.DisplayName: Legendarne zaklęcie szczęścia
 			LuckEnchantmentRare.DisplayName: Rzadkie zaklęcie szczęścia
 			MagicClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zamiany klasy magii
 			MagicClassSwapEnchantmentCommon.DisplayName: Zmiana klasy magii Zaklęcie Zwykłe
+			MagicClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klas Magii Zaklęte
 			MagicClassSwapEnchantmentEpic.DisplayName: Epicka zamiana klas magicznych
 			MagicClassSwapEnchantmentLegendary.DisplayName: Legendarna zamiana klasy magii Legendarne zaklęcie
 			MagicClassSwapEnchantmentRare.DisplayName: Zaklęcie zamiany klasy magii Rzadkie
 			MagneticEnchantmentBasic.DisplayName: Podstawowe zaklęcie magnetyczne
 			MagneticEnchantmentCommon.DisplayName: Magnetyczne Zaklęcie Powszechne
+			MagneticEnchantmentCursed.DisplayName: Przeklęte zaklęcie magnetyczne
 			MagneticEnchantmentEpic.DisplayName: Epickie zaklęcie magnetyczne
 			MagneticEnchantmentLegendary.DisplayName: Legendarne zaklęcie magnetyczne
 			MagneticEnchantmentRare.DisplayName: Rzadkie zaklęcie magnetyczne
 			MaxMinionsEnchantmentBasic.DisplayName: Podstawowe zaklinanie maks. stworów
 			MaxMinionsEnchantmentCommon.DisplayName: Maksimum stworów Zaklęcie Zwykłe
+			MaxMinionsEnchantmentCursed.DisplayName: Zaklęcie zaklęcia Max Minions
 			MaxMinionsEnchantmentEpic.DisplayName: Epickie zaklęcie Max Minions
 			MaxMinionsEnchantmentLegendary.DisplayName: Legendarne zaklęcie Max Minions
 			MaxMinionsEnchantmentRare.DisplayName: Rzadkie zaklęcie maksymalnych stworów
@@ -964,31 +1570,37 @@ Mods: {
 
 			MeleeClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy w zwarciu
 			MeleeClassSwapEnchantmentCommon.DisplayName: Zmiana klasy w zwarciu Zaklęcie Zwykłe
+			MeleeClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klas Walki Wręcz Przeklęte
 			MeleeClassSwapEnchantmentEpic.DisplayName: Epicka zamiana klas w zwarciu
 			MeleeClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie do zamiany klas w zwarciu
 			MeleeClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy w zwarciu
 			MobilityControlEnchantmentBasic.DisplayName: Podstawowe zaklęcie kontroli mobilności
 			MobilityControlEnchantmentCommon.DisplayName: Zaklęcie kontroli mobilności Często
+			MobilityControlEnchantmentCursed.DisplayName: Przeklęte zaklęcie kontroli mobilności
 			MobilityControlEnchantmentEpic.DisplayName: Epickie zaklęcie kontroli mobilności
 			MobilityControlEnchantmentLegendary.DisplayName: Legendarne zaklęcie kontroli mobilności
 			MobilityControlEnchantmentRare.DisplayName: Zaklęcie kontroli mobilności Rzadkie
 			MoonlightEnchantmentBasic.DisplayName: Podstawowe zaklęcie księżyca
 			MoonlightEnchantmentCommon.DisplayName: Zaklęcie Księżyca Zwykłe
+			MoonlightEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Księżyca przeklęte
 			MoonlightEnchantmentEpic.DisplayName: Epickie zaklęcie księżycowego światła
 			MoonlightEnchantmentLegendary.DisplayName: Legendarne zaklęcie księżycowego światła
 			MoonlightEnchantmentRare.DisplayName: Zaklęcie Księżyca Rzadkie
 			MovementSpeedEnchantmentBasic.DisplayName: Podstawowe zaklęcie szybkości ruchu
 			MovementSpeedEnchantmentCommon.DisplayName: Zaklęcie prędkości ruchu Zwykłe
+			MovementSpeedEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Prędkości Ruchu
 			MovementSpeedEnchantmentEpic.DisplayName: Epickie zaklęcie prędkości ruchu
 			MovementSpeedEnchantmentLegendary.DisplayName: Legendarne zaklęcie szybkości ruchu
 			MovementSpeedEnchantmentRare.DisplayName: Zaklęcie prędkości ruchu Rzadkie
 			MultishotEnchantmentBasic.DisplayName: Podstawowe zaklęcie wielostrzałowe
 			MultishotEnchantmentCommon.DisplayName: Zaklęcie wielostrzałowe Zwykłe
+			MultishotEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Wielostrzałowego
 			MultishotEnchantmentEpic.DisplayName: Wielostrzałowy Epicki Zaklęcie
 			MultishotEnchantmentLegendary.DisplayName: Legendarne zaklęcie wielostrzałowe
 			MultishotEnchantmentRare.DisplayName: Zaklęcie Wielostrzałowe Rzadkie
 			NpcContactAnglerEnchantmentBasic.DisplayName: Podstawowe zaklęcie Npc Contact Angler
 			NpcContactAnglerEnchantmentCommon.DisplayName: Npc Zaklęcie Wędkarza Kontaktowego Powszechne
+			NpcContactAnglerEnchantmentCursed.DisplayName: Zaklęcie Wędkarza Kontaktowego Npc Przeklęte
 			NpcContactAnglerEnchantmentEpic.DisplayName: Npc Kontakt Wędkarz Zaklęcie Epic
 			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Angler Legendarne Enchantment
 			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Angler Enchantment Rzadkie
@@ -999,11 +1611,13 @@ Mods: {
 			ObsidianSkinEnchantmentRare.DisplayName: Rzadkie zaklęcie obsydianowej skóry
 			OneForAllEnchantmentBasic.DisplayName: Jeden za wszystkich Podstawowe zaklęcie
 			OneForAllEnchantmentCommon.DisplayName: Jeden za wszystkich Zaklęcie wspólne
+			OneForAllEnchantmentCursed.DisplayName: Jedno za wszystkich Zaklęcie przeklęte
 			OneForAllEnchantmentEpic.DisplayName: Jeden za wszystkich epicki zaklęcie
 			OneForAllEnchantmentLegendary.DisplayName: Jeden za wszystkich Legendarne zaklęcie
 			OneForAllEnchantmentRare.DisplayName: Jeden za wszystkich zaklęcie rzadkie
 			OnFireEnchantmentBasic.DisplayName: Podstawowe zaklęcie w ogniu
 			OnFireEnchantmentCommon.DisplayName: Zaklęcie w ogniu Zwykłe
+			OnFireEnchantmentCursed.DisplayName: Przeklęte zaklęcie w ogniu
 			OnFireEnchantmentEpic.DisplayName: Epickie zaklęcie w ogniu
 			OnFireEnchantmentLegendary.DisplayName: Legendarne zaklęcie w ogniu
 			OnFireEnchantmentRare.DisplayName: Zaklęcie w ogniu Rzadkie
@@ -1014,16 +1628,19 @@ Mods: {
 			PeaceEnchantmentRare.DisplayName: Zaklęcie Pokoju Rzadkie
 			PennyPinchingEnchantmentBasic.DisplayName: Podstawowe zaklęcie szczypania grosza
 			PennyPinchingEnchantmentCommon.DisplayName: Uszczypnięcie grosza Zaklęcie Zwykłe
+			PennyPinchingEnchantmentCursed.DisplayName: Zaklęcie Penny Pinching jest przeklęte
 			PennyPinchingEnchantmentEpic.DisplayName: Epickie zaklęcie szczypiące grosz
 			PennyPinchingEnchantmentLegendary.DisplayName: Penny Szczypanie Zaklęcie Legendarne
 			PennyPinchingEnchantmentRare.DisplayName: Zaklęcie Szczypiące Penny Rzadkie
 			PercentArmorPenetrationEnchantmentBasic.DisplayName: Podstawowe zaklęcie procentowej penetracji pancerza
 			PercentArmorPenetrationEnchantmentCommon.DisplayName: Zaklęcie procentowe penetracji pancerza Powszechne
+			PercentArmorPenetrationEnchantmentCursed.DisplayName: Zaklęcie Procent penetracji pancerza przeklęte
 			PercentArmorPenetrationEnchantmentEpic.DisplayName: Epickie zaklęcie procentowej penetracji pancerza
 			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Zaklęcie procentowej penetracji pancerza Legendarne
 			PercentArmorPenetrationEnchantmentRare.DisplayName: Zaklęcie procentowej penetracji pancerza Rzadkie
 			PoisonEnchantmentBasic.DisplayName: Podstawowe zaklęcie trucizny
 			PoisonEnchantmentCommon.DisplayName: Zaklęcie Trucizny Powszechne
+			PoisonEnchantmentCursed.DisplayName: Przeklęte zaklęcie trucizny
 			PoisonEnchantmentEpic.DisplayName: Epickie zaklęcie trucizny
 			PoisonEnchantmentLegendary.DisplayName: Legendarne zaklęcie trucizny
 			PoisonEnchantmentRare.DisplayName: Zaklęcie Trucizny Rzadko
@@ -1045,26 +1662,31 @@ Mods: {
 			PrideOfTheWeakEnchantmentRare.DisplayName: Duma słabego zaklęcia Rzadkie
 			ProjectileVelocityEnchantmentBasic.DisplayName: Podstawowe zaklęcie prędkości pocisku
 			ProjectileVelocityEnchantmentCommon.DisplayName: Zaklęcie prędkości pocisku Powszechne
+			ProjectileVelocityEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Prędkości Pocisku
 			ProjectileVelocityEnchantmentEpic.DisplayName: Epickie zaklęcie prędkości pocisku
 			ProjectileVelocityEnchantmentLegendary.DisplayName: Legendarne zaklęcie prędkości pocisku
 			ProjectileVelocityEnchantmentRare.DisplayName: Rzadkie zaklęcie prędkości pocisku
 			RangedClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy dystansowej
 			RangedClassSwapEnchantmentCommon.DisplayName: Zmiana klasy dystansowej Zaklęcie Zwykłe
+			RangedClassSwapEnchantmentCursed.DisplayName: Zaklęcie Przeklęte zaklęcie zmiany klasy dystansowej
 			RangedClassSwapEnchantmentEpic.DisplayName: Epicka zmiana klas dystansowych
 			RangedClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie do wymiany klas dystansowych
 			RangedClassSwapEnchantmentRare.DisplayName: Zaklęcie zmiany klasy dystansowej Rzadkie
 			ReducedManaUsageEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmniejszone zużycie many
 			ReducedManaUsageEnchantmentCommon.DisplayName: Zmniejszone zużycie many Zaklęcie powszechne
+			ReducedManaUsageEnchantmentCursed.DisplayName: Zaklęcie o zmniejszonym zużyciu many. Przeklęty
 			ReducedManaUsageEnchantmentEpic.DisplayName: Epic zaklęcia o zredukowanym zużyciu many
 			ReducedManaUsageEnchantmentLegendary.DisplayName: Legendarne zaklęcie zmniejszone zużycie many
 			ReducedManaUsageEnchantmentRare.DisplayName: Rzadkie zaklęcie zmniejszonego zużycia many
 			RogueClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy łotrzyka
 			RogueClassSwapEnchantmentCommon.DisplayName: Rogue Zmiana klasy Zaklęcie Zwykłe
+			RogueClassSwapEnchantmentCursed.DisplayName: Zaklęcie zamiany klas Łotrzyka przeklęte
 			RogueClassSwapEnchantmentEpic.DisplayName: Epic zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy Rzadkie
 			ShadowflameEnchantmentBasic.DisplayName: Podstawowe zaklęcie Shadowflame
 			ShadowflameEnchantmentCommon.DisplayName: Zaklęcie Cienistego Płomienia Powszechne
+			ShadowflameEnchantmentCursed.DisplayName: Zaklęcie Cienistego Płomienia Przeklęte
 			ShadowflameEnchantmentEpic.DisplayName: Epicki zaklęcie Shadowflame
 			ShadowflameEnchantmentLegendary.DisplayName: Zaklęcie Cienistego Płomienia Legendarne
 			ShadowflameEnchantmentRare.DisplayName: Zaklęcie Cienistego Płomienia Rzadkie
@@ -1075,11 +1697,13 @@ Mods: {
 			ShineEnchantmentRare.DisplayName: Rzadkie Zaklęcie Połysku
 			SizeEnchantmentBasic.DisplayName: Podstawowe zaklęcie rozmiaru
 			SizeEnchantmentCommon.DisplayName: Rozmiar Zaklęcie Powszechne
+			SizeEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Rozmiaru
 			SizeEnchantmentEpic.DisplayName: Epicki rozmiar zaklęcia
 			SizeEnchantmentLegendary.DisplayName: Legendarne zaklęcie rozmiaru
 			SizeEnchantmentRare.DisplayName: Rzadkie zaklęcie rozmiaru
 			SolarDashEnchantmentBasic.DisplayName: Podstawowe zaklęcie słonecznej kreski
 			SolarDashEnchantmentCommon.DisplayName: Zaklęcie Słonecznej Odskoku Zwykłe
+			SolarDashEnchantmentCursed.DisplayName: Zaklęcie Solar Dash przeklęte
 			SolarDashEnchantmentEpic.DisplayName: Epickie zaklęcie Solar Dash
 			SolarDashEnchantmentLegendary.DisplayName: Legendarne zaklęcie Solar Dash
 			SolarDashEnchantmentRare.DisplayName: Rzadkie zaklęcie Słonecznej kreski
@@ -1111,11 +1735,13 @@ Mods: {
 
 			ThrowingClassSwapEnchantmentBasic.DisplayName: Rzucanie Podstawowe zaklęcie zamiany klas
 			ThrowingClassSwapEnchantmentCommon.DisplayName: Rzucanie Zamiana klas Zaklęcie Powszechne
+			ThrowingClassSwapEnchantmentCursed.DisplayName: Rzucanie zaklęcia zamiany klas jest przeklęte
 			ThrowingClassSwapEnchantmentEpic.DisplayName: Rzucanie Zaklęcie Zamiana klas Epic
 			ThrowingClassSwapEnchantmentLegendary.DisplayName: Rzucanie Zaklęcie zamiany klas Legendarne
 			ThrowingClassSwapEnchantmentRare.DisplayName: Rzucanie Zaklęciem Zamiany Klas Rzadkie
 			TimeEnchantmentBasic.DisplayName: Podstawowe zaklęcie czasu
 			TimeEnchantmentCommon.DisplayName: Zaklęcie Czasu Powszechne
+			TimeEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Czasu
 			TimeEnchantmentEpic.DisplayName: Epickie zaklęcie czasu
 			TimeEnchantmentLegendary.DisplayName: Legendarne zaklęcie czasu
 			TimeEnchantmentRare.DisplayName: Zaklęcie czasu Rzadkie
@@ -1141,16 +1767,19 @@ Mods: {
 
 			VenomEnchantmentBasic.DisplayName: Podstawowe zaklęcie jadu
 			VenomEnchantmentCommon.DisplayName: Zaklęcie Jadu Zwykłe
+			VenomEnchantmentCursed.DisplayName: Zaklęcie Jadu jest przeklęte
 			VenomEnchantmentEpic.DisplayName: Epickie zaklęcie jadu
 			VenomEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Jadu
 			VenomEnchantmentRare.DisplayName: Zaklęcie Jadu Rzadkie
 			WarEnchantmentBasic.DisplayName: Podstawowe zaklęcie wojenne
 			WarEnchantmentCommon.DisplayName: Zaklęcie wojenne Powszechne
+			WarEnchantmentCursed.DisplayName: Zaklęcie wojenne przeklęte
 			WarEnchantmentEpic.DisplayName: Epickie zaklęcie wojny
 			WarEnchantmentLegendary.DisplayName: Legendarne zaklęcie wojenne
 			WarEnchantmentRare.DisplayName: Zaklęcie Wojenne Rzadkie
 			WhipClassSwapEnchantmentBasic.DisplayName: Bicz Zmiana klasy Podstawowe zaklęcie
 			WhipClassSwapEnchantmentCommon.DisplayName: Bicz Zamiana klas Zaklęcie Zwykłe
+			WhipClassSwapEnchantmentCursed.DisplayName: Zaklęcie zmiany klasy bicza przeklęte
 			WhipClassSwapEnchantmentEpic.DisplayName: Bicz Zamień Zaklęcie Epic
 			WhipClassSwapEnchantmentLegendary.DisplayName: Bicz Zmiana klasy Legendarne zaklęcie
 			WhipClassSwapEnchantmentRare.DisplayName: Bicz Zamiana klasy Rzadkie zaklęcie
@@ -1166,9 +1795,15 @@ Mods: {
 
 			WorldAblazeEnchantmentBasic.DisplayName: Podstawowe zaklęcie Płomienia Świata
 			WorldAblazeEnchantmentCommon.DisplayName: Zaklęcie Płomienia Świata Powszechne
+			WorldAblazeEnchantmentCursed.DisplayName: Zaklęcie Płonącego Świata Przeklęte
 			WorldAblazeEnchantmentEpic.DisplayName: Epickie Zaklęcie Płomienia Świata
 			WorldAblazeEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Płomienia Świata
 			WorldAblazeEnchantmentRare.DisplayName: Zaklęcie Płomienia Świata Rzadkie
+			// DepthsCrystalSkinEnchantmentBasic.DisplayName: Depths Crystal Skin Enchantment Basic
+			// DepthsCrystalSkinEnchantmentCommon.DisplayName: Depths Crystal Skin Enchantment Common
+			// DepthsCrystalSkinEnchantmentRare.DisplayName: Depths Crystal Skin Enchantment Rare
+			// DepthsCrystalSkinEnchantmentEpic.DisplayName: Depths Crystal Skin Enchantment Epic
+			// DepthsCrystalSkinEnchantmentLegendary.DisplayName: Depths Crystal Skin Enchantment Legendary
 		}
 
 		NPCNames: {
@@ -1238,18 +1873,99 @@ Mods: {
 			general2: Używanie zaklęć broni na zbroi lub akcesoriach
 			general3: zapewnia zmniejszone premie i odwrotnie.
 			Infusion: Napar
+			InfusionCancelDescription: „Odłóż przechowywany {0} do miejsca na przedmiot.”
+			InfusionDescription:
+				'''
+				Umożliwia wzmocnienie broni lub zbroi poprzez poświęcenie innej broni lub zbroi.
+				Broń: Napełnienie broni zwiększa jej obrażenia o {0} na każde 100 dodanych mocy infuzji.
+				(nowe obrażenia = obrażenia podstawowe * {1}^((nowa moc infuzji - podstawowa moc infuzji)/100) )
+				-Umieść silniejszą broń, którą chcesz poświęcić, w gnieździe przedmiotu, a następnie naciśnij Infuzję.
+				-Następnie umieść słabszą broń, którą chcesz ulepszyć, w gnieździe przedmiotu, a następnie naciśnij przycisk Finalizuj.
+				Pancerz: Napełnianie pancerza przenosi premię zestawu z poświęconego przedmiotu, zastępując premię zestawu napełnionego przedmiotu.
+				Przykład zastosowania: Bonus zestawu zbroi kaktusowej podoba Ci się bardziej niż twój obecny pancerz.
+				Poświęć każdy element kaktusowej zbroi na każdy element swojej aktualnej zbroi, aby przenieść premię za zestaw.
+				Każdy element zbroi ma swój własny identyfikator bonusu zestawu, więc możesz mieć częściowe zestawy, takie jak złoty hełm z natchnionym hełmem kaktusa,
+				nogi kaktusa, skrzynia kaktusa, dające efekt zestawu zbroi kaktusa.
+				-Umieść element zbroi, który chcesz poświęcić, w miejscu na przedmiot (ustawiony bonus zostanie przeniesiony), a następnie naciśnij Infuzję.
+				-Umieść element zbroi, który chcesz zmodyfikować, w miejscu na przedmiot (ustawiony bonus zostanie zastąpiony), a następnie naciśnij przycisk Finalizuj.
+				(Zaklęcia, doświadczenie i wzmocnienia mocy z poświęconego przedmiotu zostaną ci zwrócone tak, jakby były oferowane.)
+				'''
+			InfusionFinalizeDescriptionArmor:
+				'''
+				Zakończ, aby poświęcić swoje {0}, aby zastąpić ustalony bonus
+				na Twoim {1} z ustawionym bonusem na Twoim {0}.
+				'''
+			InfusionFinalizeDescriptionWeapon:
+				'''
+				Zakończ, aby poświęcić swoje {0}
+				zwiększ obrażenia swojego {1}.
+				'''
 			Item: Przedmiot
 			LevelUp: Podnieść do właściwego poziomu
+			LevelUpDescription:
+				'''
+				Awansuj swoje {0} z poziomu {1} do poziomu {2}.
+				Kosztuje {3} doświadczenia. Dostępne doświadczenie: {4}
+				'''
+			LevelUpNumberDescription:
+				'''
+				Ustaw, z iloma poziomami zostaną dodane
+				przycisk Poziom wyżej do {0}.
+				'''
+			LoadoutDescription:
+				'''
+				Otwórz lub zamknij menu Zestawy zaklęć.
+				Zestawy zaklęć nie przechowują przedmiotów.
+				Po prostu zapisują rodzaj i poziom zaklęcia.
+				Tworząc Zestaw Zaklęć, możesz szybko zapełnić miejsca
+				Przesuń lewy przycisk myszy, klikając zaklęcia ze swojego magazynu, aby wypełnić następne miejsce
+				(Następny slot do zapełnienia ma złote tło, gdy przytrzymany jest Shift).
+				Możesz także przytrzymać zaklęcie w myszy i zamiast tego kliknąć je na gnieździe.
+				Kliknięcie myszką na gniazdo bez zaklęcia spowoduje jego wyczyszczenie.
+
+				Dodaj – dodaje nowy ładunek (maks. 15).
+				Dodaj z wyposażonych zaklęć — utwórz zestaw, kopiując wyposażone zaklęcia
+				Nr wyposażenia — kliknięcie przycisku Wyposażenie powoduje wybranie tego wyposażenia, dzięki czemu można je zobaczyć lub edytować.
+				All – All zastępuje wszystkie zaklęcia na trzymanym przedmiocie, zbroi i akcesoriach
+				zaklęcia z wyposażenia. Jeśli którykolwiek element nie jest wystarczająco wysoki
+				aby wspierać zaklęcia dla tego miejsca, wyposażenie nie zostanie załadowane.
+				Trzymany przedmiot/zbroja/akcesoria – te przyciski pełnią tę samą funkcję, co przycisk Wszystkie, ale
+				załaduj tylko określone zaklęcia dla wybranej kategorii.
+				'''
 			Loadouts: Załadunki
 			LootAll: Łup wszystko
+			LootAllDescription:
+				'''
+				Usuń wszystkie zaklęcia ze swojego {0}, wysyłając je do
+				Magazyn Zaklęć i przywróć {0} do swojego ekwipunku.
+				'''
 			No: Nie
 			Offer: Oferta
+			OfferDescription:
+				'''
+				Zaoferuj swój {0}, NISZCZĄC go w zamian za rudy/esencję.
+				Procent rud/esencji można dostosować w ustawieniach konfiguracyjnych.
+				'''
+			Siphon: Syfon
+			SiphonDescription:
+				'''
+				Zużyj {0} doświadczenia ze swojego {1}, aby usunąć wszystko
+				zaklęcia, wzmacniacze mocy, natchnione przedmioty i
+				pozostałe doświadczenie bez niszczenia {1}.
+				Oferowanie przedmiotów zwraca całą esencję, więc jest to a
+				lepsza opcja, chyba że musisz zachować swój {1}.
+				'''
 			Storage: Składowanie
-			Syphon: Syfon
+			StorageDescription: Otwórz lub zamknij Magazyn Zaklęć.
 			ToggleAutoTrashOfferedItems: Przełącz elementy oferowane do automatycznego kosza
 			utility0: Tylko zaklęcia użytkowe mogą tu trafić.
 			weapon0: Umieść tutaj broń, element zbroi lub akcesorium.
 			xp: xp
+			XPButtonDescription:
+				'''
+				Zużyj jednego {0}
+				aby dodać doświadczenie {1} do swojego {2}.
+				'''
 			Yes: TAk
 		}
 
@@ -1307,7 +2023,7 @@ Mods: {
 				CrateChance: Skrzynia Szansa
 				CriticalStrikeChance: Szansa krytycznego uderzenia
 				CriticalStrikeDamage: Obrażenia od trafienia krytycznego
-				CursedInferno: Przeklęte Piekło
+				CursedInferno: Przeklęte piekło
 				Damage: Szkoda
 				DamageAfterDefenses: Obrażenia (Zastosowane po obronie. Niewidoczne w opisie broni)
 				DamageClassSwap: Konwertuj typ uszkodzenia na {0}
@@ -1325,6 +2041,8 @@ Mods: {
 				FishingEnemySpawnChance: Szansa na pojawienie się wroga w łowieniu
 				FishingPower: Moc wędkarska
 				FlatMPRegen: Płaska regeneracja MP
+				FlightAcceleration: Przyspieszenie lotu
+				FlightSpeed: Prędkość lotu
 				Frostburn: Odmrożenie
 				GodSlayer: Zabójca Boga
 				HealerClassSwap: Zmiana klasy uzdrowiciela
@@ -1342,6 +2060,7 @@ Mods: {
 				KiDamage: Obrażenia Ki
 				KiRegen: Ki Regen
 				LavaFishing: Wędkarstwo lawowe
+				LethalCombination: Zabójcza kombinacja
 				LifeRegen: Regeneracja życia
 				LifeRegeneration: Regeneracja życia
 				LifeSteal: Kradzież życia
@@ -1460,6 +2179,8 @@ Mods: {
 				FishingEnemySpawnChance: „{0} (zmniejsza się 5x w ciągu dnia. Wpływa na Chum Caster. Może również odrodzić Księcia Fishrona.)”
 				FishingPower: Moc połowów
 				FlatMPRegen: Płaska regeneracja MP
+				FlightAcceleration: Przyspieszenie lotu
+				FlightSpeed: Prędkość lotu
 				GodSlayer:
 					'''
 					{0}
@@ -1561,6 +2282,15 @@ Mods: {
 			}
 
 			EnchantmentShortTooltip.OnTickPlayerBuff: „Pasywnie przyznaje {0} za {1} co {2}”
+			ItemTooltip.CursedEssence:
+				'''
+				Energia klątwy tak potężna, że ​​przybrała formę. Inne przekleństwa zostaną przyciągnięte przez jego moc.
+				Przeklęta Esencja będzie miała wpływ na poniższe efekty, gdy będzie znajdować się w Twoim ekwipunku lub w Magazynie Zaklęć. (Przeklęta Esencja: {0})
+				 Zwiększa częstotliwość pojawiania się wrogów. (Aktualny bonus: {1}x)
+				 Zwiększa maksymalne pojawianie się wrogów. (Aktualny bonus: {2}x)
+				 Zwiększona szansa na przeklętych wrogów. (Szansa, że ​​odrodzony wróg zostanie przeklęty: {3})
+				(Przeklęta Esencja może być przechowywana w Hexproof Pouch, sprzedawanym przez Wiedźmę, niwelując jej działanie.)
+				'''
 
 			ItemType: {
 				Accessories: Akcesoria
@@ -1575,16 +2305,16 @@ Mods: {
 		TownNPCMood: {
 			Witch: {
 				Content: Życie tutaj jest znośne. Bez kłótni, bez dramatu, to nie jest takie straszne.
-				DislikeBiome: To niewiarygodne, jak tu jest tak oswojone, bez zła, bez przerażających, jest tak kiepskie!
+				DislikeBiome: Na rozległej plaży magia nie ma szans. Żadnych cieni do tkania, żadnych tajemnic do rozwikłania, miejsce, w którym czar odchodzi.
 				DislikeCrowded: Jak mam się zgodzić z całym tym hałasem!
 				DislikeNPC: Ta... osoba {NPCName} jest taka banalna! 'Uratuj świat przed złem' Zło jest głęboko zakorzenione i tu zostanie!
 				FarFromHome: Musiałem zapuszczać się daleko, aby znaleźć nowe odczynniki. Chociaż mój dom jest przyjemny, mogę uwarzyć nową miksturę z tych ostatnich składników.
-				HateBiome: Ojej! To miejsce jest tak jasne, że przede wszystkim na złość!
+				HateBiome: Tak! To miejsce jest tak gorące i jasne, że przede wszystkim jestem na to zły!
 				HateCrowded: Nie mogę sobie z tym poradzić! Wyciągnij mnie lub wykop ich, zrób to szybko!
 				HateNPC: "{NPCName} to tyraniczna dziewka, która ciągle zostawia włosy wszędzie, zapłaci za nią na wojnie!"
-				LikeBiome: To miejsce jest pełne stworzeń i błota, czas na szybkie zarobienie pieniędzy!
+				LikeBiome: W takim odosobnionym miejscu można było uwarzyć podwójną porcję eliksirów w bąbelkach.
 				LikeNPC: Chociaż {NPCName} nie wychodzi poza wypróbowane i prawdziwe, jego tajemna wiedza zalicza go do guru!
-				LoveBiome: To miejsce przypomina mi moje stare legowisko. Bardzo ponura, bardzo magiczna, co za talent!
+				LoveBiome: To miejsce jest pełne stworzeń i syfu, czas szybko zarobić!
 				LoveNPC: Kolejny użytkownik kotła! {NPCName} ma tak wiele dziwnych sztuczek, prawdziwy uwodziciel!
 				LoveSpace: Gdy wszyscy już odeszli, w końcu moje eksperymenty mogą być kontynuowane!
 				NoHome: Nie mogę zatrzymać wszystkich moich towarów, są one niestabilne, proszę uważaj!
@@ -1618,427 +2348,13 @@ Mods: {
 					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// LikeNPC_Princess: I like {NPCName}.
-					// Princess_LovesNPC: I like {NPCName}.
+					// LikeNPC_Princess: I'm quite surprised {NPCName} doesn't mind me. She makes me quite cheerful, you see!
+					// Princess_LovesNPC: I adore the fact that {NPCName} rhymes so much! It's like we're in a fairy tale!
 				}
 			}
 		}
 
-		Configs: {
-			ClientConfig: {
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ClientConfig.Label}"
-
-				teleportEssence: {
-					// Label: "{$Mods.WeaponEnchantments.Config.teleportEssence.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.teleportEssence.Tooltip}"
-				}
-
-				OfferAll: {
-					// Label: "{$Mods.WeaponEnchantments.Config.OfferAll.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OfferAll.Tooltip}"
-				}
-
-				AllowShiftClickMoveFavoritedItems: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowShiftClickMoveFavoritedItems.Label}"
-					// Tooltip: ""
-				}
-
-				AlwaysDisplayInfusionPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip}"
-				}
-
-				AllowCraftingIntoLowerTier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label}"
-					// Tooltip: ""
-				}
-
-				AllowInfusingToLowerPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Tooltip}"
-				}
-
-				UsePointsAsTooltip: {
-					// Label: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Tooltip}"
-				}
-
-				UseAlternateEnchantmentEssenceTextures: {
-					// Label: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
-				}
-
-				DisplayDamageTooltipSeperatly: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayDamageTooltipSeperatly.Tooltip}"
-				}
-
-				AlwaysDisplayWeaponLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayArmorLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayAccessoryLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip}"
-				}
-
-				AlwaysDisplayToolLevelUpMessages: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip}"
-				}
-
-				UITransparency: {
-					// Label: "{$Mods.androLib.Config.UITransparency.Label}"
-					// Tooltip: ""
-				}
-
-				PrintEnchantmentTooltips: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip}"
-				}
-
-				PrintEnchantmentDrops: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Tooltip}"
-				}
-
-				PrintWeaponInfusionPowers: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip}"
-				}
-
-				EnableSwappingWeapons: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Tooltip}"
-				}
-
-				LogDummyDPS: {
-					// Label: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Tooltip}"
-				}
-
-				DisableAllErrorMessagesInChat: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Tooltip}"
-				}
-
-				OnlyShowErrorMessagesInChatOnce: {
-					// Label: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Tooltip}"
-				}
-			}
-
-			ServerConfig: {
-				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				presetData: {
-					// Label: "{$Mods.WeaponEnchantments.Config.presetData.Label}"
-					// Tooltip: ""
-				}
-
-				individualStrengthsEnabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Tooltip}"
-				}
-
-				individualStrengths: {
-					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengths.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengths.Tooltip}"
-				}
-
-				AlwaysOverrideDamageType: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Tooltip}"
-				}
-
-				AffectOnVanillaLifeStealLimmit: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Tooltip}"
-				}
-
-				AttackSpeedEnchantmentAutoReuseSetpoint: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Tooltip}"
-				}
-
-				AutoReuseDisabledOnMagicMissile: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip}"
-				}
-
-				BuffDuration: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BuffDuration.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BuffDuration.Tooltip}"
-				}
-
-				AmaterasuSelfGrowthPerTick: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Tooltip}"
-				}
-
-				ReduceRecipesToMinimum: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Tooltip}"
-				}
-
-				ConfigCapacityCostMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Tooltip}"
-				}
-
-				RemoveEnchantmentRestrictions: {
-					// Label: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Tooltip}"
-				}
-
-				BossEssenceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Tooltip}"
-				}
-
-				EssenceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Tooltip}"
-				}
-
-				BossExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Tooltip}"
-				}
-
-				ExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Tooltip}"
-				}
-
-				GatheringExperienceMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Tooltip}"
-				}
-
-				EssenceGrabRange: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Tooltip}"
-				}
-
-				BossEnchantmentDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Tooltip}"
-				}
-
-				EnchantmentDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Tooltip}"
-				}
-
-				ChestSpawnChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Tooltip}"
-				}
-
-				CrateDropChance: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip}"
-				}
-
-				PreventPowerBoosterFromPreHardMode: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Tooltip}"
-				}
-
-				AllowHighTierOres: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Tooltip}"
-				}
-
-				EnchantmentSlotsOnWeapons: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Tooltip}"
-				}
-
-				EnchantmentSlotsOnArmor: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Tooltip}"
-				}
-
-				EnchantmentSlotsOnAccessories: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Tooltip}"
-				}
-
-				EnchantmentSlotsOnFishingPoles: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Tooltip}"
-				}
-
-				EnchantmentSlotsOnTools: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Tooltip}"
-				}
-
-				PercentOfferEssence: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label}"
-					// Tooltip: ""
-				}
-
-				ReduceOfferEfficiencyByTableTier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip}"
-				}
-
-				ReduceOfferEfficiencyByBaseInfusionPower: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Tooltip}"
-				}
-
-				DisableMinionCrits: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip}"
-				}
-
-				CritPerLevelDisabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Tooltip}"
-				}
-
-				DamagePerLevelInstead: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Tooltip}"
-				}
-
-				DamageReductionPerLevelDisabled: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip}"
-				}
-
-				CalculateDamageReductionBeforeDefense: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Tooltip}"
-				}
-
-				ArmorDamageReductions: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductions.Label}"
-					// Tooltip: ""
-				}
-
-				AllowCriticalChancePast100: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Tooltip}"
-				}
-
-				MultiplicativeCriticalHits: {
-					// Label: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Tooltip}"
-				}
-
-				InfusionDamageMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Tooltip}"
-				}
-
-				DisableArmorInfusion: {
-					// Label: Disable Armor Infusion
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableArmorInfusion.Tooltip}"
-				}
-
-				MinionLifeStealMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Tooltip}"
-				}
-
-				DCUStart: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
-				}
-
-				DisableResearch: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					// Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
-			}
-
-			PresetData: {
-				// Tooltip: ""
-
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label}"
-					// Tooltip: ""
-				}
-
-				Preset: {
-					// Label: Preset
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Preset.Tooltip}"
-				}
-
-				GlobalEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				BasicEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				CommonEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				RareEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				EpicEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip}"
-				}
-
-				LegendaryEnchantmentStrengthMultiplier: {
-					// Label: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip}"
-				}
-			}
-
-			Pair: {
-				// Tooltip: ""
-
-				itemDefinition: {
-					// Label: "{$Mods.WeaponEnchantments.Config.itemDefinition.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.itemDefinition.Tooltip}"
-				}
-
-				Strength: {
-					// Label: "{$Mods.WeaponEnchantments.Config.Strength.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.Strength.Tooltip}"
-				}
-			}
-
-			ArmorDamageReduction: {
-				// Tooltip: ""
-
-				ArmorDamageReductionPerLevel: {
-					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Tooltip}"
-				}
-
-				AccessoryDamageReductionPerLevel: {
-					// Label: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Tooltip}"
-				}
-			}
-		}
+		// Projectiles.CursedEffectProjectile.DisplayName: Cursed Effect Projectile
+		// SortingOption.InfusionPower.Tooltip: Infusion Power
 	}
 }

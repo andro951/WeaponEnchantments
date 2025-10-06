@@ -46,7 +46,8 @@ namespace WeaponEnchantments.Common.Globals
 			//Calamity Rogue weapon Attackspeed fix
 			if (AndroMod.calamityEnabled && attackSpeed != 1f && !findingUseSpeed) {
 				if (ContentSamples.ItemsByType[item.type].DamageType == CalamityValues.rogue) {
-					if (item.ModFullName() == "CalamityMod/ExecutionersBlade") {
+					string itemFullName = item.ModFullName();
+					if (itemFullName == "CalamityMod/ExecutionersBlade" || itemFullName == "CalamityHunt/CometKunai") {
 						findingUseSpeed = true;
 						float multiplier = CombinedHooks.TotalUseTimeMultiplier(player, item);
 						Item sampleItem = ContentSamples.ItemsByType[item.type];

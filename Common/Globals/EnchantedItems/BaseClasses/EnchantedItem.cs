@@ -23,7 +23,7 @@ using WeaponEnchantments.ModIntegration;
 using WeaponEnchantments.ModLib.KokoLib;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Common.Globals.EnchantedWeaponStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
@@ -176,7 +176,7 @@ namespace WeaponEnchantments.Common.Globals
                     clone = enchantedItem;
                 }
                 else {
-					GameMessageTextID.FailedToCloneItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), itemClone.S(), cloneReforgedItem.S(), resetGlobals.S() }).LogNT_WE(ChatMessagesIDs.CloneFailGetEnchantedItem);// $"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}.".LogNT_WE(ChatMessagesIDs.CloneFailGetEnchantedItem);
+					GameMessageTextID.FailedToCloneItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), itemClone.S(), cloneReforgedItem.S(), resetGlobals.S() }).LogNT(ChatMessagesIDs.CloneFailGetEnchantedItem);
                     return this;
                 }
 
@@ -246,7 +246,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
 
             #endregion
 
@@ -287,7 +287,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\LoadData(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"/\\LoadData(" + item.Name + ")").Log();
 
             #endregion
         }
@@ -328,7 +328,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/NetSend(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"\\/NetSend(" + item.Name + ")").Log();
 
 			#endregion
 
@@ -339,7 +339,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log_WE();
+                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
                 #endregion
             }
@@ -366,7 +366,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\NetSend(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"/\\NetSend(" + item.Name + ")").Log();
 
 			#endregion
 		}
@@ -380,7 +380,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/NetRecieve(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"\\/NetRecieve(" + item.Name + ")").Log();
 
 			#endregion
 
@@ -391,7 +391,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log_WE();
+                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
                 #endregion
             }
@@ -419,7 +419,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log_WE();
+            if (LogMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log();
 
 			#endregion
 		}
@@ -577,7 +577,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //xp < 0 return
             if (xpInt < 0) {
-				GameMessageTextID.PreventedLoosingExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);//$"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);
+				GameMessageTextID.PreventedLoosingExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S() }).LogNT(ChatMessagesIDs.GainXPPreventedLoosingExperience);//$"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT_WE(ChatMessagesIDs.GainXPPreventedLoosingExperience);
 
 				return;
             }
@@ -660,7 +660,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"\\/PreReforge({item.S()})").Log_WE();
+			if (LogMethods.debugging) ($"\\/PreReforge({item.S()})").Log();
 
             #endregion
 
@@ -675,10 +675,10 @@ namespace WeaponEnchantments.Common.Globals
                     foreach (Item enchantment in enchantedItem.enchantments.All) {
                         s += enchantment.S();
                     }
-                    s.Log_WE();
+                    s.Log();
                 }
 
-                ($"/\\PreReforge({item.S()})").Log_WE();
+                ($"/\\PreReforge({item.S()})").Log();
             }
 
 			#endregion
@@ -687,7 +687,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/PostReforge({item.S()})").Log_WE();
+            if (LogMethods.debugging) ($"\\/PostReforge({item.S()})").Log();
 
             #endregion
 
@@ -712,7 +712,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\PostReforge({item.S()})").Log_WE();
+            if (LogMethods.debugging) ($"/\\PostReforge({item.S()})").Log();
 
             #endregion
         }
@@ -778,12 +778,14 @@ namespace WeaponEnchantments.Common.Globals
 
 				destination.CombineEnchantedItems(list);
 
-				if (destinationEnchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.GetStack0(destination)) {
-                    if (source.stack > 0) {
-                        destination.stack--;
-                        enchantedWeapon.SetStack0(destination, false);
-                    }
-                }
+                if (destination.stack > 0) {
+					if (destinationEnchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.GetStack0(destination)) {
+						if (source.stack > 0) {
+							destination.stack--;
+							enchantedWeapon.SetStack0(destination, false);
+						}
+					}
+				}
 			}
 
 			//Clear source if source stack will be > 0 after the transfer
@@ -822,6 +824,10 @@ namespace WeaponEnchantments.Common.Globals
 		public override void OnResearched(Item item, bool fullyResearched) {
 			EnchantingTableUI.ReturnAllModifications(ref item);
 		}
+        public virtual void ResetInfusion(Item item) {
+            infusedItemName = "";
+			InfusionValueAdded = 0;
+		}
 	}
 	public class EnchantmentsArray
 	{
@@ -840,8 +846,10 @@ namespace WeaponEnchantments.Common.Globals
 		public Item this[int index] {
 			get => _enchantments[index];
 			set {
-                if (value == null || value.stack < 0)
-                    value = new();
+                if (value == null || value.stack < 0) {
+					value = new();
+                    value.TurnToAir();
+				}
 
                 bool wasAir = _enchantments[index].IsAir;
                 bool isAir = value.IsAir;
@@ -873,6 +881,9 @@ namespace WeaponEnchantments.Common.Globals
 		}
 		private void ApplyEnchantment(int index) {
 			Enchantment enchantment = (Enchantment)_enchantments[index].ModItem;
+            if (enchantment == null)
+				return;
+
 			enchantedItem?.Item?.UpdateEnchantment(ref enchantment);
 			foreach (IAddDynamicEffects effect in enchantment.Effects.OfType<IAddDynamicEffects>()) {
 				effect.EnchantedItem = enchantedItem;
@@ -968,7 +979,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log_WE();
+			if (LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
 
 			#endregion
 
@@ -983,13 +994,13 @@ namespace WeaponEnchantments.Common.Globals
 			if (enchantedItem is EnchantedArmor enchantedArmor) {
 				int infusedArmorSlot = enchantedArmor.infusedArmorSlot;
 				int armorSlot = item.GetInfusionArmorSlot(false, true);
-				if (infusedArmorSlot != -1 && armorSlot != infusedArmorSlot)
+				if (infusedArmorSlot != EnchantedArmor.DefaultInfusionArmorSlot && armorSlot != infusedArmorSlot)
 					item.UpdateArmorSlot(enchantedArmor.infusedArmorSlot);
 			}
 
 			#region Debug
 
-			if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log_WE();
+			if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
 
 			#endregion
 		}
@@ -1009,52 +1020,57 @@ namespace WeaponEnchantments.Common.Globals
             if (enchantedItem is EnchantedHeldItem)
                 Main.LocalPlayer.GetWEPlayer().Equipment.UpdateHeldItemEnchantmentEffects(item);
 		}
+        private const float DefaultXPMultiplier = 0f;
+        public static bool GetXPMultiplierFromNPC(this NPC target, out float experienceMultiplier) {
+            experienceMultiplier = DefaultXPMultiplier;
+			if (target.IsDummy())
+                return false;
+
+            if (target.friendly || target.townNPC)
+                return false;
+
+			//value
+			float value;
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				value = ContentSamples.NpcsByNetId[target.RealNetID()].value;
+			}
+			else {
+				value = target.RealValue();
+			}
+
+			int realLifeMax = target.RealLifeMax();
+			if (value <= 0 && (target.SpawnedFromStatue || realLifeMax <= 10))
+				return false;
+
+			//NPC Characteristics Factors
+			float noGravityFactor = target.noGravity ? 0.2f : 0f;
+			float noTileCollideFactor = target.noTileCollide ? 0.2f : 0f;
+			float knockBackResistFactor = 0.2f * (1f - target.knockBackResist);
+			float npcCharacteristicsFactor = noGravityFactor + noTileCollideFactor + knockBackResistFactor;
+
+			//Config Multiplier
+			float configMultiplier = target.boss ? BossXPMultiplier : NormalXPMultiplier;
+
+			float balanceMultiplier = target.boss ? 0.25f : 1f;
+
+			//Experience Multiplier
+			experienceMultiplier = (1f + npcCharacteristicsFactor) * configMultiplier * balanceMultiplier;
+
+            return true;
+		}
 		public static void DamageNPC(this Item item, Player player, NPC target, NPC.HitInfo hit, bool melee = false) {
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/DamageNPC").Log_WE();
+            if (LogMethods.debugging) ($"\\/DamageNPC").Log();
 
             #endregion
 
-			//dummy goto debug
-			if (target.IsDummy())
+            if (!GetXPMultiplierFromNPC(target, out float experienceMultiplier))
                 goto debugBeforeReturn;
 
-            //friendly goto debug
-            if (target.friendly || target.townNPC)
-                goto debugBeforeReturn;
-
-            //value
-            float value;
-            if (Main.netMode == NetmodeID.MultiplayerClient) {
-                value = ContentSamples.NpcsByNetId[target.RealNetID()].value;
-            }
-            else {
-                value = target.RealValue();
-            }
-
-            //value or life max goto debug
-            int realLifeMax = target.RealLifeMax();
-			if (value <= 0 && (target.SpawnedFromStatue || realLifeMax <= 10))
-                goto debugBeforeReturn;
-
-            //NPC Characteristics Factors
-            float noGravityFactor = target.noGravity ? 0.2f : 0f;
-            float noTileCollideFactor = target.noTileCollide ? 0.2f : 0f;
-            float knockBackResistFactor = 0.2f * (1f - target.knockBackResist);
-            float npcCharacteristicsFactor = noGravityFactor + noTileCollideFactor + knockBackResistFactor;
-
-            //Config Multiplier
-            float configMultiplier = target.boss ? BossXPMultiplier : NormalXPMultiplier;
-
-            float balanceMultiplier = target.boss ? 0.25f : 1f;
-
-            //Experience Multiplier
-            float experienceMultiplier = (1f + npcCharacteristicsFactor) * configMultiplier * balanceMultiplier;
-
-            //life vs damage check
-            int xpDamage = hit.Damage;
+			//life vs damage check
+			int xpDamage = hit.Damage;
             int life = target.RealLife();
             if (life < 0)
                 xpDamage += life;
@@ -1079,7 +1095,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             if(lowDamagePerHitXPBoost < 1f) {
-				GameMessageTextID.PreventedIssueLooseExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, target.defense, xpDamage, lowDamagePerHitXPBoost }).LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);// ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " + $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" + $"target.defense: {target.defense}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}").LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);
+				GameMessageTextID.PreventedIssueLooseExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, target.defense, xpDamage, lowDamagePerHitXPBoost }).LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);// ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " + $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" + $"target.defense: {target.defense}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}").LogNT_WE(ChatMessagesIDs.LowDamagePerHitXPBoost);
                 lowDamagePerHitXPBoost = 1f;
 			}
 
@@ -1088,7 +1104,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Reduction Factor (Life Max)
             int lifeMax = target.RealLifeMax();
-            float reductionFactor = GetReductionFactor(lifeMax);
+            float reductionFactor = androLib.Common.Globals.NPCStaticMethods.GetReductionFactor(lifeMax);
             xp /= reductionFactor;
 
             //XP <= 0 check
@@ -1097,7 +1113,7 @@ namespace WeaponEnchantments.Common.Globals
                 xpInt = 1;
             }
             else if (xpInt < 0) {
-                GameMessageTextID.PreventedIssueLooseExperienceTwo.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, xpDamage, xpInt, lowDamagePerHitXPBoost }).LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);// ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, ").LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
+                GameMessageTextID.PreventedIssueLooseExperienceTwo.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), target.S(), hit, melee.S(), Main.GameMode, xpDamage, xpInt, lowDamagePerHitXPBoost }).LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);// ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, ").LogNT_WE(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
                 xpInt = 1;
             }
 
@@ -1111,7 +1127,7 @@ namespace WeaponEnchantments.Common.Globals
 			#region Debug
 
             debugBeforeReturn:
-			if (LogMethods.debugging) ($"/\\DamageNPC").Log_WE();
+			if (LogMethods.debugging) ($"/\\DamageNPC").Log();
 
             #endregion
         }
@@ -1231,7 +1247,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
                 else {
-                    item.CheckConvertExcessExperience(consumedItem);
                     int numberEssenceRecieved;
                     int xpCounter = enchantedItem.Experience;
                     for (int tier = EnchantingTableUI.MaxEssenceSlots - 1; tier >= 0; tier--) {
@@ -1271,7 +1286,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 bool slotAllowedByConfig = EnchantingTableUI.SlotAllowedByConfig(enchantedItem.ItemType, i);
                 if (!slotAllowedByConfig)
-                    RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.SlotNumDisabledByConfig.ToString().Lang_WE(L_ID1.GameMessages, new object[] { i, enchantment.Name, item.Name }));// $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.")
+                    RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.SlotNumDisabledByConfig.ToString().Lang_WE(L_ID1.GameMessages, new object[] { i, enchantment.Name, item.Name }));// $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.")
             }
 
             //Check enchantment limitations
@@ -1283,37 +1298,37 @@ namespace WeaponEnchantments.Common.Globals
                 if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                     ModItem modItem = enchantmentItem.ModItem;
                     if (modItem is UnloadedItem unloadedItem) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.RemovedUnloadedEnchantmentFromItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItem.ItemName, item.S() }));// $"Removed Unloaded Item:{unloadedItem.ItemName} from your {item.S()}.  Please inform andro951(WeaponEnchantments).");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.RemovedUnloadedEnchantmentFromItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItem.ItemName, item.S() }));// $"Removed Unloaded Item:{unloadedItem.ItemName} from your {item.S()}.  Please inform andro951(WeaponEnchantments).");
                         continue;
                     }
 
                     if (modItem is not Enchantment enchantment) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.DetectedNonEnchantmentInEnchantmentSlot.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() }));// $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.DetectedNonEnchantmentInEnchantmentSlot.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() }));// $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
                         continue;
                     }
 
                     if (item.IsWeaponItem() && !enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Weapons.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Weapons.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                     }
                     else if (item.IsArmorItem() && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
 					}
                     else if (item.IsAccessoryItem() && !enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on accessories and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on accessories and has been removed from your " + item.Name + ".");
 					}
 
                     if (i == EnchantingTableUI.MaxEnchantmentSlots - 1 && !enchantment.Utility)
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NoLongerUtilityEnchantment.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() })); //enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.NoLongerUtilityEnchantment.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() })); //enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
 
-					if (enchantment.RestrictedClass.Count > 0 && enchantment.RestrictedClass.Contains(ContentSamples.ItemsByType[item.type].DamageType.Type))
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NoLongerAllowedOnDamageType.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.DamageType.Name, item.S() })); //enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
+					if (enchantment.IsClassRestricted(ContentSamples.ItemsByType[item.type].DamageType.Type))
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.NoLongerAllowedOnDamageType.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.DamageType.Name, item.S() })); //enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
 
 					if (enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NowLimitedToOne.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantment.EnchantmentTypeName, enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.NowLimitedToOne.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantment.EnchantmentTypeName, enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
 
 					if (enchantment.Unique) {
                         if (unique) {
-                            RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.MultipleUniqueEnchantments.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+                            RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.MultipleUniqueEnchantments.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
 						}
                         else {
                             unique = true;
@@ -1333,16 +1348,20 @@ namespace WeaponEnchantments.Common.Globals
                 Main.NewText(GameMessageTextID.ItemTooLowLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.Name }));
 			}
         }
-        private static void RemoveEnchantmentNoUpdate(EnchantedItem enchantedItem, int i, Player player, string msg) {
-            Item enchantmentItem = enchantedItem.enchantments[i];
-            enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
-            if (!enchantmentItem.IsAir)
-                player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
+		private static void RemoveEnchantmentNoUpdate(Item item, EnchantedItem enchantedItem, int i, Player player, string msg) {
+			Item enchantmentItem = enchantedItem.enchantments[i];
+			enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
+			if (!enchantmentItem.IsAir)
+				player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
 
-            enchantedItem.enchantments.RemoveNoUpdate(i);
-            Main.NewText(msg);
-        }
-        public static bool IsSameEnchantedItem(this Item item1, Item item2) {
+			enchantedItem.enchantments.RemoveNoUpdate(i);
+			if (Main.mouseItem?.IsSameEnchantedItem(item) != null && Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem1)) {
+				enchantedItem1.enchantments.RemoveNoUpdate(i);
+			}
+
+			msg.LogSimpleNT();
+		}
+		public static bool IsSameEnchantedItem(this Item item1, Item item2) {
             bool isEnchantedItem1 = item1.TryGetEnchantedItemSearchAll(out EnchantedItem global1);
             bool isEnchantedItem2 = item2.TryGetEnchantedItemSearchAll(out EnchantedItem global2);
             if (!isEnchantedItem1)

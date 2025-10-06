@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -16,12 +16,14 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class ClassSwapEnchantment : Enchantment
 	{
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 17;
 		public override float ScalePercent => 0.1f;
 		protected abstract DamageClass MyDamageClass { get; }
 		protected virtual string ModdedDamageClass { get; } = "";
 		protected virtual DamageClassID DamageClassNameOveride => DamageClassID.Default;
-		protected virtual float DropChance => 0.05f * ConfigValues.EnchantmentDropChance;
+		protected virtual float DropChance => 0.05f;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
@@ -32,17 +34,35 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				{ EItemType.Weapons, 1f }
 			};
 
-			RestrictedClass.Add((int)DamageClassID.Summon);
-			RestrictedClass.Add(MyDamageClass.Type);
+			RestrictedClass = new() {
+				(int)DamageClassID.Summon,
+				MyDamageClass.Type
+			};
 		}
 
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().ClassSwap;
+		}
 	}
+	
+	#region Vanilla classes
+	#region Melee
 	public abstract class MeleeClassSwapEnchantment : ClassSwapEnchantment
 	{
+		protected override string TypeName => "MeleeClassSwap";
+		protected override string NamePrefix => "Enchantments/";
+		
 		protected override DamageClass MyDamageClass => DamageClass.Melee;
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().MeleeSwap;
+		}
 	}
 	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentBasic : MeleeClassSwapEnchantment
@@ -63,13 +83,25 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MeleeClassSwapEnchantmentEpic : MeleeClassSwapEnchantment { }
 	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentLegendary : MeleeClassSwapEnchantment { }
-
+	[Autoload(false)]
+	public class MeleeClassSwapEnchantmentCursed : MeleeClassSwapEnchantment { }
+	#endregion
+	
+	#region Summoner/Whip
 	public abstract class WhipClassSwapEnchantment : ClassSwapEnchantment
 	{
+		protected override string TypeName => "WhipClassSwap";
+		protected override string NamePrefix => "Enchantments/";
+		
 		protected override DamageClass MyDamageClass => DamageClass.SummonMeleeSpeed;
 		public override void GetMyStats() {
 			base.GetMyStats();
 			Effects.Add(new MinionAttackTarget());
+		}
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().WhipSwap;
 		}
 	}
 	[Autoload(false)]
@@ -89,11 +121,22 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class WhipClassSwapEnchantmentEpic : WhipClassSwapEnchantment { }
 	[Autoload(false)]
 	public class WhipClassSwapEnchantmentLegendary : WhipClassSwapEnchantment { }
+	[Autoload(false)]
+	public class WhipClassSwapEnchantmentCursed : WhipClassSwapEnchantment { }
+	#endregion
 
-
+	#region Magic
 	public abstract class MagicClassSwapEnchantment : ClassSwapEnchantment
 	{
+		protected override string TypeName => "MagicClassSwap";
+		protected override string NamePrefix => "Enchantments/";
+		
 		protected override DamageClass MyDamageClass => DamageClass.Magic;
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().MagicSwap;
+		}
 	}
 	[Autoload(false)]
 	public class MagicClassSwapEnchantmentBasic : MagicClassSwapEnchantment
@@ -112,11 +155,22 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MagicClassSwapEnchantmentEpic : MagicClassSwapEnchantment { }
 	[Autoload(false)]
 	public class MagicClassSwapEnchantmentLegendary : MagicClassSwapEnchantment { }
+	[Autoload(false)]
+	public class MagicClassSwapEnchantmentCursed : MagicClassSwapEnchantment { }
+	#endregion
 
-
+	#region Ranged
 	public abstract class RangedClassSwapEnchantment : ClassSwapEnchantment
 	{
+		protected override string TypeName => "RangedClassSwap";
+		protected override string NamePrefix => "Enchantments/";
+		
 		protected override DamageClass MyDamageClass => DamageClass.Ranged;
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().RangedSwap;
+		}
 	}
 	[Autoload(false)]
 	public class RangedClassSwapEnchantmentBasic : RangedClassSwapEnchantment
@@ -135,17 +189,38 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RangedClassSwapEnchantmentEpic : RangedClassSwapEnchantment { }
 	[Autoload(false)]
 	public class RangedClassSwapEnchantmentLegendary : RangedClassSwapEnchantment { }
-
+	[Autoload(false)]
+	public class RangedClassSwapEnchantmentCursed : RangedClassSwapEnchantment { }
+	#endregion
+	#endregion
+	
+	#region Modded classes
+	#region Throwing
 	public abstract class ThrowingClassSwapEnchantment : ClassSwapEnchantment
 	{
+		protected override string TypeName => "ThrowingClassSwap";
+		protected override string NamePrefix => "ModSupport/General/";
+		
 		protected override DamageClass MyDamageClass => DamageClass.Throwing;
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().ThrowingSwap && (AndroMod.thoriumEnabled || ModLoader.HasMod("BCThrower") || ModLoader.HasMod("ThrowerUnification"));
+		}
 	}
+
 	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentBasic : ThrowingClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
+		public override SellCondition SellCondition => AndroMod.thoriumEnabled
+	|| (ModLoader.HasMod("BCThrower") || ModLoader.HasMod("ThrowerUnification")) ? SellCondition.AnyTimeRare : SellCondition.Never;
+		
+		public override List<DropData> NpcDropTypes => ModLoader.HasMod("BCThrower") && !AndroMod.thoriumEnabled ? new() {
+			new(NPCID.GreekSkeleton, chance: DropChance)
+		} : null;
+		
 		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
-			new("ThoriumMod/TheGrandThunderBirdv2")
+			new("ThoriumMod/TheGrandThunderBird")
 		} : null;
 	}
 	[Autoload(false)]
@@ -156,13 +231,24 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class ThrowingClassSwapEnchantmentEpic : ThrowingClassSwapEnchantment { }
 	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentLegendary : ThrowingClassSwapEnchantment { }
+	[Autoload(false)]
+	public class ThrowingClassSwapEnchantmentCursed : ThrowingClassSwapEnchantment { }
+	#endregion
 
-
+	#region Calamity - Rogue
 	public abstract class RogueClassSwapEnchantment : ClassSwapEnchantment
 	{
+		protected override string TypeName => "RogueClassSwap";
+		protected override string NamePrefix => "ModSupport/Calamity/";
+		
 		protected override DamageClass MyDamageClass => CalamityValues.rogue ?? DamageClass.Throwing;
 		public override string CustomTooltip => CalamityIntegration.CALAMITY_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override string Designer => "Vyklade";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().CalamityRogueSwap && AndroMod.calamityEnabled;
+		}
 	}
 	[Autoload(false)]
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
@@ -180,10 +266,16 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RogueClassSwapEnchantmentEpic : RogueClassSwapEnchantment { }
 	[Autoload(false)]
 	public class RogueClassSwapEnchantmentLegendary : RogueClassSwapEnchantment { }
+	[Autoload(false)]
+	public class RogueClassSwapEnchantmentCursed : RogueClassSwapEnchantment { }
+	#endregion
 
-
+	#region DBZ mod - Ki
 	public abstract class KiClassSwapEnchantment : ClassSwapEnchantment
 	{
+		protected override string TypeName => "KiClassSwap";
+		protected override string NamePrefix => "ModSupport/DBZ/";
+		
 		public override void GetMyStats() {
 			base.GetMyStats();
 			Effects.Add(new KiDamage());
@@ -192,13 +284,18 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string CustomTooltip => DBZMODPORTIntegration.DBT_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		protected override DamageClassID DamageClassNameOveride => DamageClassID.Ki;
 		public override string Designer => "Vyklade";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().DBZKiSwap && WEMod.dbtEnabled;
+		}
 	}
 	[Autoload(false)]
 	public class KiClassSwapEnchantmentBasic : KiClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => WEMod.dbtEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new() {
-			new(NPCID.Golem, 9f)
+			new(NPCID.Golem, 2f)
 		} : null;
 	}
 	[Autoload(false)]
@@ -209,18 +306,31 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class KiClassSwapEnchantmentEpic : KiClassSwapEnchantment { }
 	[Autoload(false)]
 	public class KiClassSwapEnchantmentLegendary : KiClassSwapEnchantment { }
+	[Autoload(false)]
+	public class KiClassSwapEnchantmentCursed : KiClassSwapEnchantment { }
+	#endregion
 
+	#region Thorium Mod
+	#region Bard
 	public abstract class BardClassSwapEnchantment : ClassSwapEnchantment
 	{
-		protected override DamageClass MyDamageClass => ThoriumValues.bard ?? DamageClass.Melee;
+		protected override string TypeName => "BardClassSwap";
+		protected override string NamePrefix => "ModSupport/Thorium/";
+		
+		protected override DamageClass MyDamageClass => ThoriumValues.bard ?? DamageClass.Generic;
 		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().ThoriumBardSwap && AndroMod.thoriumEnabled;
+		}
 	}
 	[Autoload(false)]
 	public class BardClassSwapEnchantmentBasic : BardClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
-			new("ThoriumMod/QueenJelly")
+			new("ThoriumMod/QueenJellyfish")
 		} : null;
 	}
 	[Autoload(false)]
@@ -231,11 +341,23 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class BardClassSwapEnchantmentEpic : BardClassSwapEnchantment { }
 	[Autoload(false)]
 	public class BardClassSwapEnchantmentLegendary : BardClassSwapEnchantment { }
-
+	[Autoload(false)]
+	public class BardClassSwapEnchantmentCursed : BardClassSwapEnchantment { }
+	#endregion
+	
+	#region Healer
 	public abstract class HealerClassSwapEnchantment : ClassSwapEnchantment
 	{
-		protected override DamageClass MyDamageClass => ThoriumValues.healerRadiation ?? DamageClass.Ranged;
+		protected override string TypeName => "HealerClassSwap";
+		protected override string NamePrefix => "ModSupport/Thorium/";
+		
+		protected override DamageClass MyDamageClass => ThoriumValues.healerRadiation ?? DamageClass.Generic;
 		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().ThoriumHealerSwap && AndroMod.thoriumEnabled;
+		}
 	}
 	[Autoload(false)]
 	public class HealerClassSwapEnchantmentBasic : HealerClassSwapEnchantment
@@ -243,7 +365,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override SellCondition SellCondition => AndroMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<ModDropData> ModNpcDropNames => AndroMod.thoriumEnabled ? new() {
 			new("ThoriumMod/GraniteEnergyStorm"),
-			new("ThoriumMod/TheBuriedWarrior")
+			new("ThoriumMod/BuriedChampion")
 		} : null;
 	}
 	[Autoload(false)]
@@ -254,4 +376,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class HealerClassSwapEnchantmentEpic : HealerClassSwapEnchantment { }
 	[Autoload(false)]
 	public class HealerClassSwapEnchantmentLegendary : HealerClassSwapEnchantment { }
+	[Autoload(false)]
+	public class HealerClassSwapEnchantmentCursed : HealerClassSwapEnchantment { }
+	#endregion
+	#endregion
+	#endregion
 }

@@ -181,7 +181,7 @@ namespace WeaponEnchantments.Common.Globals
             if (!projectile.TryGetWEPlayer(out WEPlayer wePlayer))
                 return;
 
-            if (!wePlayer.CheckEnchantmentStats(EnchantmentStat.Multishot, out float multishotChance))
+            if (!wePlayer.CheckEnchantmentStatsCheckSourceIsHeldItem(EnchantmentStat.Multishot, source, out float multishotChance))
                 return;
 
             //Multishot

@@ -1,0 +1,86 @@
+<div style="float:right">
+{| class="mw-collapsible wikitable" style="max-width:400px;"
+!colspan="2" style="padding: 0px" |Containment
+|-
+!colspan="2" style="padding: 0px" |[[File:Containment.png]]
+|-
+!colspan="2" style="padding: 0px" |  (art by [https://twitter.com/ZorutanMesuta Zorutan])
+|-
+!colspan="2" style="padding: 0px" |Statistics
+|-
+| Type
+| [[Containments|Containments]], [https://terraria.fandom.com/wiki/Category:Crafting_material_items Crafting Material]
+|-
+| Tooltip
+| <i>'Used to store Basic enchantments'</i>
+|-
+| [https://terraria.fandom.com/wiki/Rarity Rarity]
+| <b><span style="color:rgb(150, 150, 255);">Blue</span></b>
+|-
+| Buy
+| <span>1</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1f/Gold_Coin.png/revision/latest?cb=20200516213029&format=original <span>20</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original (Always)
+|-
+| Sell
+| <span>24</span>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Silver_Coin.png/revision/latest?cb=20200516221827&format=original
+|-
+| [https://terraria.fandom.com/wiki/Journey_Mode Research]
+| 3 required
+|}
+
+</div>
+[[|Main Page]]<br/>
+[[Containments]]<br/>
+
+The Containment will always appear in the  [[Witch]]'s shop.<br/>
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:Containment.png]] [[Containment]]<br/>
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/1/15/Glass.png/revision/latest?cb=20200516212938&format=original [https://terraria.fandom.com/wiki/Glass Glass]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Silver_Bar.png/revision/latest?cb=20200516221816&format=original [https://terraria.fandom.com/wiki/Silver_Bar Silver Bar] (4)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f3/Tungsten_Bar.png/revision/latest?cb=20200516223143&format=original [https://terraria.fandom.com/wiki/Tungsten_Bar Tungsten Bar] (4)
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d5/Any_Work_Bench.gif/revision/latest?cb=20200627022728&format=original [https://terraria.fandom.com/wiki/Work_Bench Work Bench]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in
+! Result
+! Ingredients
+! Crafting station
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Silver_Bar.png/revision/latest?cb=20200516221816&format=original [https://terraria.fandom.com/wiki/Silver_Bar Silver Bar] (4)<br/>
+| [[File:Containment.png]] [[Containment]]<br/>
+| [[File:Item_33.png]] [https://terraria.fandom.com/wiki/Furnace Furnace]<br/>
+|-
+| <br/><br/><br/>[[File:CursedInfernoEnchantmentBasic.png]] [[Cursed Inferno Enchantment#Basic|Cursed Inferno Enchantment Basic]]<br/>or<br/>[[File:DaybreakEnchantmentBasic.png]] [[Daybreak Enchantment#Basic|Daybreak Enchantment Basic]]<br/>or<br/>[[File:FrostburnEnchantmentBasic.png]] [[Frostburn Enchantment#Basic|Frostburn Enchantment Basic]]<br/>or<br/>[[File:IchorEnchantmentBasic.png]] [[Ichor Enchantment#Basic|Ichor Enchantment Basic]]<br/>or<br/>[[File:OnFireEnchantmentBasic.png]] [[On Fire Enchantment#Basic|On Fire Enchantment Basic]]<br/>or<br/>[[File:PoisonEnchantmentBasic.png]] [[Poison Enchantment#Basic|Poison Enchantment Basic]]<br/>or<br/>[[File:VenomEnchantmentBasic.png]] [[Venom Enchantment#Basic|Venom Enchantment Basic]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:Containment.png]] [[Containment]]<br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/1/19/Cursed_Flame.png/revision/latest?cb=20200516210828&format=original [https://terraria.fandom.com/wiki/Cursed_Flame Cursed Flame] (3)<br/>or<br/>[[File:Item_3458.png]] [https://terraria.fandom.com/wiki/Solar_Fragment Solar Fragment] (6)<br/>or<br/>[[File:Item_664.png]] [https://terraria.fandom.com/wiki/Ice_Block Ice Block] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/4/47/Ichor.png/revision/latest?cb=20200516214220&format=original [https://terraria.fandom.com/wiki/Ichor Ichor] (3)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3f/Gel.png/revision/latest?cb=20200519215406&format=original [https://terraria.fandom.com/wiki/Gel Gel] (33)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bc/Dart_Trap.png/revision/latest?cb=20200516211137&format=original [https://terraria.fandom.com/wiki/Dart_Trap Dart Trap]<br/>or<br/>[[File:Item_1339.png]] [https://terraria.fandom.com/wiki/Vial_of_Venom Vial of Venom] (3)
+| rowspan="2" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:DamageEnchantmentBasic.png]] [[Damage Enchantment#Basic|Damage Enchantment Basic]]<br/>or<br/>[[File:DefenseEnchantmentBasic.png]] [[Defense Enchantment#Basic|Defense Enchantment Basic]]<br/>or<br/>[[File:PrideOfTheWeakEnchantmentBasic.png]] [[Pride Of The Weak Enchantment#Basic|Pride Of The Weak Enchantment Basic]]
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:Containment.png]] [[Containment]]<br/>
+|}
+
+{| class="mw-collapsible wikitable"
+|+ Used in (Reverse Crafting Recipes)
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:MediumContainment.png]] [[Medium Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentBasic.png]]  Enchantment Basic
+| <br/>[[File:Containment.png]] [[Containment]]<br/>[[File:EnchantmentCommon.png]]  Enchantment Common
+| rowspan="5" | [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>or<br/>[[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>or<br/>[[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>or<br/>[[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>or<br/>[[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]
+|-
+| [[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentBasic.png]]  Enchantment Basic
+| <br/><br/>[[File:Containment.png]] [[Containment]]<br/>[[File:EnchantmentRare.png]]  Enchantment Rare
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentBasic.png]]  Enchantment Basic
+| <br/><br/><br/><br/>[[File:Containment.png]] [[Containment]]<br/>[[File:EnchantmentEpic.png]]  Enchantment Epic
+|-
+| https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>[[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:EnchantmentBasic.png]]  Enchantment Basic
+| <br/><br/><br/><br/><br/>[[File:Containment.png]] [[Containment]]<br/>[[File:EnchantmentLegendary.png]]  Enchantment Legendary
+|-
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:AttackSpeedEnchantmentBasic.png]] [[Attack Speed Enchantment#Basic|Attack Speed Enchantment Basic]]<br/>[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment Basic]]<br/>[[File:CriticalStrikeDamageEnchantmentBasic.png]] [[Critical Strike Damage Enchantment#Basic|Critical Strike Damage Enchantment Basic]]<br/>[[File:DamageEnchantmentBasic.png]] [[Damage Enchantment#Basic|Damage Enchantment Basic]]<br/>[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment Basic]]<br/>
+| [[File:LethalCombinationEnchantmentBasic.png]] [[Lethal Combination Enchantment#Basic|Lethal Combination Enchantment Basic]]<br/>[[File:Containment.png]] [[Containment]] (4)<br/>
+|}
+

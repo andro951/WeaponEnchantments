@@ -14,6 +14,7 @@ using androLib.Common.Globals;
 using static androLib.Common.Globals.GenericGlobalTile;
 using androLib;
 using VacuumOreBag.Items;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -27,7 +28,7 @@ namespace WeaponEnchantments.Common.Globals
 				Item heldItem = Main.LocalPlayer.HeldItem;
 
 				//Prevent block swapping on top of the table (fix that was causing a crash)
-				if (mainTile == tableType && heldItem.pick == 0)
+				if (mainTile == tableType && !heldItem.IsPickaxe())
 					return false;
 
 				//Prevent block swapping the table onto other items except ones that won't crash the game.
@@ -50,9 +51,8 @@ namespace WeaponEnchantments.Common.Globals
 
 			return true;
 		}
-		public static void KillTile(Item bestPickaxe, ushort tileType, int dropItem, int dropItemStack, int secondaryItem, int secondaryItemStack) {
-			if (!bestPickaxe.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-				return;
+		public static void KillTile(Tile tile, int dropItem, int dropItemStack, int secondaryItem, int secondaryItemStack) {
+			ushort tileType = tile.TileType;
 
 			int xp = 0;
 			if (Main.tileAxe[tileType]) {
@@ -90,8 +90,19 @@ namespace WeaponEnchantments.Common.Globals
 					xp = 10;
 			}
 
+			NetManager.GainXPFromBreakTile(xp);
+		}
+		public static void GainXPFromBreakTile(int xp) {
 			//Gain xp
-			enchantedItem.GainXP(bestPickaxe, xp);
+			Item heldItem = WEMod.tileBrokenTool;
+			if (!heldItem.NullOrAir()) {
+				if (heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+					enchantedItem.GainXP(Main.LocalPlayer.HeldItem, xp);
+				}
+			}
+
+			WEMod.tileBrokenTool = null;
+
 			WEPlayer.LocalWEPlayer.Player.AllArmorGainXp(xp);
 		}
 		private static int GetTileStrengthXP(int tileType) {

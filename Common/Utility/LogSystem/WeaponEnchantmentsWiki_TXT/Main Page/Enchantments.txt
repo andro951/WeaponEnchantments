@@ -1,0 +1,126 @@
+[[|Main Page]]<br/>
+=== Enchantment Effects ===
+Enchantments allow customization of your items with various effects.  Some are very basic stat upgrades such as [[Damage Enchantment|Damage]], [[Critical Strike Chance Enchantment|Critical Strike Chance]], [[Defense Enchantment|Defense]], [[Life Steal Enchantment|Life Steal]].  Other are more unique such as: Hitting all enemies in an area ([[One For All Enchantment|One For All]]), Dealing massive damage but having a long recovery ([[All For One Enchantment|All For One]]), Flames that spread between enemies ([[World Ablaze Enchantment|World Ablaze]]), Max health true damage ([[God Slayer Enchantment|God Slayer]]).<br/>
+=== Capacity Cost ===
+Each enchantment has a capacity cost. This cost is subtracted from the item enchantment capacity.<br/>
+=== Crafting and Upgrading Enchantments ===
+Essence in the enchanting table is available for crafting. There is no need to take them out of the crafting table. ([https://steamcommunity.com/sharedfiles/filedetails/?id=2563309347&searchtext=magic+storage Magic Storage] can access the essence via the Storage Configuration Interface.  See [[Magic Storage Integration]])<br/>
+Each enchantment page has the specific crafting recipes for the enchantment.  These are the general recipes:<br/>
+Topaz can be any Common Gem: https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz], https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby], https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald], https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire], https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst]<br/>
+Amber can be any Rare Gem: https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber], https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]<br/>
+[[File:EnchantmentBasic.png]]Enchantment Basic is used as a generic enchantment when any enchantment could be used.<br/>
+=== Utility Enchantments ===
+[[Utility Enchantments]] are non-damage based enchantments.  They can be placed into any of the enchantment slots, but only utility enchantments can be placed into the utility slot.<br/>
+=== Obtaining Enchantments ===
+Only these enchantments can be obtained by crafting.  The others must all be found in other ways.
+<br/>
+* [[File:CursedInfernoEnchantmentBasic.png]] [[Cursed Inferno Enchantment#Basic|Cursed Inferno Enchantment]]
+* [[File:DamageEnchantmentBasic.png]] [[Damage Enchantment#Basic|Damage Enchantment]]
+* [[File:DaybreakEnchantmentBasic.png]] [[Daybreak Enchantment#Basic|Daybreak Enchantment]]
+* [[File:DefenseEnchantmentBasic.png]] [[Defense Enchantment#Basic|Defense Enchantment]]
+* [[File:FrostburnEnchantmentBasic.png]] [[Frostburn Enchantment#Basic|Frostburn Enchantment]]
+* [[File:IchorEnchantmentBasic.png]] [[Ichor Enchantment#Basic|Ichor Enchantment]]
+* [[File:OnFireEnchantmentBasic.png]] [[On Fire Enchantment#Basic|On Fire Enchantment]]
+* [[File:PoisonEnchantmentBasic.png]] [[Poison Enchantment#Basic|Poison Enchantment]]
+* [[File:PrideOfTheWeakEnchantmentBasic.png]] [[Pride Of The Weak Enchantment#Basic|Pride Of The Weak Enchantment]]
+* [[File:VenomEnchantmentBasic.png]] [[Venom Enchantment#Basic|Venom Enchantment]]
+
+All other enchantments can be found from killing enemies or looting chests/fishing crates.  ([[All Enchantment Drops|Full drop table]])<br/>
+{| class="mw-collapsible wikitable"
+|+ Recipes
+! Result
+! Ingredients
+! Crafting station
+|-
+| [[File:EnchantmentLegendary.png]] [[Enchantment#Legendary|Enchantment Legendary]]<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>
+| [[File:EnchantmentEssenceLegendary.png]] [[Enchantment Essence Legendary]] (10)<br/>[[File:EnchantmentEpic.png]] [[Enchantment#Epic|Enchantment Epic]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/0/01/Amber.png/revision/latest?cb=20200516184405&format=original [https://terraria.fandom.com/wiki/Amber Amber]<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ea/Diamond.png/revision/latest?cb=20200821041639&format=original [https://terraria.fandom.com/wiki/Diamond Diamond]
+| [[File:UltimateEnchantingTable.png]] [[Ultimate Enchanting Table]]<br/>
+|-
+| [[File:EnchantmentRare.png]] [[Enchantment#Rare|Enchantment Rare]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:EnchantmentEssenceRare.png]] [[Enchantment Essence Rare]] (10)<br/>[[File:EnchantmentCommon.png]] [[Enchantment#Common|Enchantment Common]]<br/>[[File:SuperiorContainment.png]] [[Superior Containment]]<br/>
+| [[File:HellishEnchantingTable.png]] [[Hellish Enchanting Table]]<br/>
+|-
+| [[File:EnchantmentCommon.png]] [[Enchantment#Common|Enchantment Common]]<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:EnchantmentEssenceCommon.png]] [[Enchantment Essence Common]] (10)<br/>[[File:EnchantmentBasic.png]] [[Enchantment#Basic|Enchantment Basic]]<br/>[[File:MediumContainment.png]] [[Medium Containment]]<br/>
+| [[File:DustyEnchantingTable.png]] [[Dusty Enchanting Table]]<br/>
+|-
+| [[File:EnchantmentBasic.png]] [[Enchantment#Basic|Enchantment Basic]]<br/>
+| [[File:EnchantmentEssenceBasic.png]] [[Enchantment Essence Basic]] (10)<br/>[[File:Containment.png]] [[Containment]]<br/>
+| [[File:WoodEnchantingTable.png]] [[Wood Enchanting Table]]<br/>
+|-
+| [[File:EnchantmentEpic.png]] [[Enchantment#Epic|Enchantment Epic]]<br/>
+| [[File:EnchantmentEssenceEpic.png]] [[Enchantment Essence Epic]] (10)<br/>[[File:EnchantmentRare.png]] [[Enchantment#Rare|Enchantment Rare]]<br/><br/>and<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a5/Topaz.png/revision/latest?cb=20200516223043&format=original [https://terraria.fandom.com/wiki/Topaz Topaz] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a9/Ruby.png/revision/latest?cb=20200516221330&format=original [https://terraria.fandom.com/wiki/Ruby Ruby] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6a/Emerald.png/revision/latest?cb=20200814173610&format=original [https://terraria.fandom.com/wiki/Emerald Emerald] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f7/Sapphire.png/revision/latest?cb=20200516221513&format=original [https://terraria.fandom.com/wiki/Sapphire Sapphire] (2)<br/>or<br/>https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2e/Amethyst.png/revision/latest?cb=20200516184617&format=original [https://terraria.fandom.com/wiki/Amethyst Amethyst] (2)
+| [[File:SoulEnchantingTable.png]] [[Soul Enchanting Table]]<br/>
+|}
+
+To view recipes in game, you can use the vanilla guide's crafting interface or the [https://steamcommunity.com/sharedfiles/filedetails/?id=2619954303&searchtext=recipe+browser Recipe Browser Mod]<br/>
+=== All Enchantment types ===
+[[File:AllForOneEnchantmentBasic.png]] [[All For One Enchantment#Basic|All For One Enchantment]]<br/>
+[[File:AmmoCostEnchantmentBasic.png]] [[Ammo Cost Enchantment#Basic|Ammo Cost Enchantment]]<br/>
+[[File:AttackSpeedEnchantmentBasic.png]] [[Attack Speed Enchantment#Basic|Attack Speed Enchantment]]<br/>
+[[File:BardClassSwapEnchantmentBasic.png]] [[Bard Class Swap Enchantment#Basic|Bard Class Swap Enchantment]]<br/>
+[[File:BerserkersRageEnchantmentBasic.png]] [[Berserkers Rage Enchantment#Basic|Berserkers Rage Enchantment]]<br/>
+[[File:CalmWatersEnchantmentBasic.png]] [[Calm Waters Enchantment#Basic|Calm Waters Enchantment]]<br/>
+[[File:ChaoticFishingEnchantmentBasic.png]] [[Chaotic Fishing Enchantment#Basic|Chaotic Fishing Enchantment]]<br/>
+[[File:ColdSteelEnchantmentBasic.png]] [[Cold Steel Enchantment#Basic|Cold Steel Enchantment]]<br/>
+[[File:CrateChanceEnchantmentBasic.png]] [[Crate Chance Enchantment#Basic|Crate Chance Enchantment]]<br/>
+[[File:CrateEnchantmentBasic.png]] [[Crate Enchantment#Basic|Crate Enchantment]]<br/>
+[[File:CriticalStrikeChanceEnchantmentBasic.png]] [[Critical Strike Chance Enchantment#Basic|Critical Strike Chance Enchantment]]<br/>
+[[File:CriticalStrikeDamageEnchantmentBasic.png]] [[Critical Strike Damage Enchantment#Basic|Critical Strike Damage Enchantment]]<br/>
+[[File:CursedInfernoEnchantmentBasic.png]] [[Cursed Inferno Enchantment#Basic|Cursed Inferno Enchantment]]<br/>
+[[File:DamageEnchantmentBasic.png]] [[Damage Enchantment#Basic|Damage Enchantment]]<br/>
+[[File:DamageReductionEnchantmentBasic.png]] [[Damage Reduction Enchantment#Basic|Damage Reduction Enchantment]]<br/>
+[[File:DangerSenseEnchantmentBasic.png]] [[Danger Sense Enchantment#Basic|Danger Sense Enchantment]]<br/>
+[[File:DaybreakEnchantmentBasic.png]] [[Daybreak Enchantment#Basic|Daybreak Enchantment]]<br/>
+[[File:DefenseEnchantmentBasic.png]] [[Defense Enchantment#Basic|Defense Enchantment]]<br/>
+[[File:ExtraFishingLineEnchantmentBasic.png]] [[Extra Fishing Line Enchantment#Basic|Extra Fishing Line Enchantment]]<br/>
+[[File:FishingEnchantmentBasic.png]] [[Fishing Enchantment#Basic|Fishing Enchantment]]<br/>
+[[File:FishingPowerEnchantmentBasic.png]] [[Fishing Power Enchantment#Basic|Fishing Power Enchantment]]<br/>
+[[File:FrostburnEnchantmentBasic.png]] [[Frostburn Enchantment#Basic|Frostburn Enchantment]]<br/>
+[[File:GodSlayerEnchantmentBasic.png]] [[God Slayer Enchantment#Basic|God Slayer Enchantment]]<br/>
+[[File:HealerClassSwapEnchantmentBasic.png]] [[Healer Class Swap Enchantment#Basic|Healer Class Swap Enchantment]]<br/>
+[[File:HellsWrathEnchantmentBasic.png]] [[Hells Wrath Enchantment#Basic|Hells Wrath Enchantment]]<br/>
+[[File:HunterEnchantmentBasic.png]] [[Hunter Enchantment#Basic|Hunter Enchantment]]<br/>
+[[File:IchorEnchantmentBasic.png]] [[Ichor Enchantment#Basic|Ichor Enchantment]]<br/>
+[[File:JuicedEnchantmentBasic.png]] [[Juiced Enchantment#Basic|Juiced Enchantment]]<br/>
+[[File:JunglesFuryEnchantmentBasic.png]] [[Jungles Fury Enchantment#Basic|Jungles Fury Enchantment]]<br/>
+[[File:KiClassSwapEnchantmentBasic.png]] [[Ki Class Swap Enchantment#Basic|Ki Class Swap Enchantment]]<br/>
+[[File:KiEnchantmentBasic.png]] [[Ki Enchantment#Basic|Ki Enchantment]]<br/>
+[[File:LavaFishingEnchantmentBasic.png]] [[Lava Fishing Enchantment#Basic|Lava Fishing Enchantment]]<br/>
+[[File:LethalCombinationEnchantmentBasic.png]] [[Lethal Combination Enchantment#Basic|Lethal Combination Enchantment]]<br/>
+[[File:LifeRegenEnchantmentBasic.png]] [[Life Regen Enchantment#Basic|Life Regen Enchantment]]<br/>
+[[File:LifeStealEnchantmentBasic.png]] [[Life Steal Enchantment#Basic|Life Steal Enchantment]]<br/>
+[[File:LuckEnchantmentBasic.png]] [[Luck Enchantment#Basic|Luck Enchantment]]<br/>
+[[File:MagicClassSwapEnchantmentBasic.png]] [[Magic Class Swap Enchantment#Basic|Magic Class Swap Enchantment]]<br/>
+[[File:MagneticEnchantmentBasic.png]] [[Magnetic Enchantment#Basic|Magnetic Enchantment]]<br/>
+[[File:MaxMinionsEnchantmentBasic.png]] [[Max Minions Enchantment#Basic|Max Minions Enchantment]]<br/>
+[[File:MeleeClassSwapEnchantmentBasic.png]] [[Melee Class Swap Enchantment#Basic|Melee Class Swap Enchantment]]<br/>
+[[File:MobilityControlEnchantmentBasic.png]] [[Mobility Control Enchantment#Basic|Mobility Control Enchantment]]<br/>
+[[File:MoonlightEnchantmentBasic.png]] [[Moonlight Enchantment#Basic|Moonlight Enchantment]]<br/>
+[[File:MovementSpeedEnchantmentBasic.png]] [[Movement Speed Enchantment#Basic|Movement Speed Enchantment]]<br/>
+[[File:MultishotEnchantmentBasic.png]] [[Multishot Enchantment#Basic|Multishot Enchantment]]<br/>
+[[File:NpcContactAnglerEnchantmentBasic.png]] [[Npc Contact Angler Enchantment#Basic|Npc Contact Angler Enchantment]]<br/>
+[[File:ObsidianSkinEnchantmentBasic.png]] [[Obsidian Skin Enchantment#Basic|Obsidian Skin Enchantment]]<br/>
+[[File:OneForAllEnchantmentBasic.png]] [[One For All Enchantment#Basic|One For All Enchantment]]<br/>
+[[File:OnFireEnchantmentBasic.png]] [[On Fire Enchantment#Basic|On Fire Enchantment]]<br/>
+[[File:PeaceEnchantmentBasic.png]] [[Peace Enchantment#Basic|Peace Enchantment]]<br/>
+[[File:PennyPinchingEnchantmentBasic.png]] [[Penny Pinching Enchantment#Basic|Penny Pinching Enchantment]]<br/>
+[[File:PercentArmorPenetrationEnchantmentBasic.png]] [[Percent Armor Penetration Enchantment#Basic|Percent Armor Penetration Enchantment]]<br/>
+[[File:PoisonEnchantmentBasic.png]] [[Poison Enchantment#Basic|Poison Enchantment]]<br/>
+[[File:PrideOfTheWeakEnchantmentBasic.png]] [[Pride Of The Weak Enchantment#Basic|Pride Of The Weak Enchantment]]<br/>
+[[File:ProjectileVelocityEnchantmentBasic.png]] [[Projectile Velocity Enchantment#Basic|Projectile Velocity Enchantment]]<br/>
+[[File:RangedClassSwapEnchantmentBasic.png]] [[Ranged Class Swap Enchantment#Basic|Ranged Class Swap Enchantment]]<br/>
+[[File:ReducedManaUsageEnchantmentBasic.png]] [[Reduced Mana Usage Enchantment#Basic|Reduced Mana Usage Enchantment]]<br/>
+[[File:RogueClassSwapEnchantmentBasic.png]] [[Rogue Class Swap Enchantment#Basic|Rogue Class Swap Enchantment]]<br/>
+[[File:ShadowflameEnchantmentBasic.png]] [[Shadowflame Enchantment#Basic|Shadowflame Enchantment]]<br/>
+[[File:ShineEnchantmentBasic.png]] [[Shine Enchantment#Basic|Shine Enchantment]]<br/>
+[[File:SizeEnchantmentBasic.png]] [[Size Enchantment#Basic|Size Enchantment]]<br/>
+[[File:SolarDashEnchantmentBasic.png]] [[Solar Dash Enchantment#Basic|Solar Dash Enchantment]]<br/>
+[[File:SonarEnchantmentBasic.png]] [[Sonar Enchantment#Basic|Sonar Enchantment]]<br/>
+[[File:SpelunkerEnchantmentBasic.png]] [[Spelunker Enchantment#Basic|Spelunker Enchantment]]<br/>
+[[File:ThrowingClassSwapEnchantmentBasic.png]] [[Throwing Class Swap Enchantment#Basic|Throwing Class Swap Enchantment]]<br/>
+[[File:TimeEnchantmentBasic.png]] [[Time Enchantment#Basic|Time Enchantment]]<br/>
+[[File:VenomEnchantmentBasic.png]] [[Venom Enchantment#Basic|Venom Enchantment]]<br/>
+[[File:WarEnchantmentBasic.png]] [[War Enchantment#Basic|War Enchantment]]<br/>
+[[File:WhipClassSwapEnchantmentBasic.png]] [[Whip Class Swap Enchantment#Basic|Whip Class Swap Enchantment]]<br/>
+[[File:WorldAblazeEnchantmentBasic.png]] [[World Ablaze Enchantment#Basic|World Ablaze Enchantment]]<br/>

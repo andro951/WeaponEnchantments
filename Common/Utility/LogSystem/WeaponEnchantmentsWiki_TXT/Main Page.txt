@@ -1,0 +1,74 @@
+<mainpage-leftcolumn-start />
+<div style="text-align: center;>[[File:Icon.png]]</div>
+<div style="text-align: center; font-size: x-large; padding: 1em;">'''Welcome to the {{SITENAME}}!'''</div>
+
+If you are interested in contributing to this wiki, please let me know: https://discord.gg/hEKKVsFBMd - andro951
+
+=== Features ===
+
+* Item Customization ([[Enchantments]])
+* Progression System ([[Item Experience]])
+* Item Upgrading ([[Enchanting Tables#Infusion|Infusion]])
+
+Terraria has you frequently swapping old gear for new. The enchanting system allows you to customize your weapons and armor, and keep your progress as you change or upgrade your gear.
+
+===Items===
+[[File:Containment.png]]  [[Containments]]
+
+[[File:WoodEnchantingTable.png]]  [[Enchanting Tables]]
+
+[[File:EnchantmentEssenceBasic.png]]  [[Enchantment Essence]]
+
+[[File:EnchantmentBasic.png]] [[Enchantments]]
+
+[[File:PowerBooster.png]] [[Power Booster]]
+
+[[File:UltraPowerBooster.png]] [[Ultra Power Booster]]
+
+[[File:OreBag.png]] [[Ore Bag]]
+
+=== NPCs ===
+[[File:Witch.png]][[Witch]]
+
+=== Config ===
+Many players will find Enchantments to be too powerful. For players who enjoy a high difficulty experience, it is recommended to change the Enchantment Strength Preset to Expert (50%) or Master (25%). (2nd page of the config)<blockquote>You have an extreme amount of control over the power level of this mod via the config.</blockquote>
+
+=== When you start a game... ===
+
+* Make an enchanting table right away!
+** The first enchanting table is created with a workbench and 4 torches.
+* Gear yourself up (fill in your armor and accessory slots so they start getting XP).
+* When upgrading, offer your old armor and weapons for essence.
+* Upgrade your new weapons and armor with the obtained essence.
+
+=== New Player Tips and Tricks ===
+
+* DONT SELL enchantable items! Offer them instead.
+** The value from ore received is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.
+** Offering items returns all Enchantments/Power Booster applied to the consumed item.
+* Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.(Especially if you set the config to 0% ore, 100% essence)
+* Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Enchantments.
+
+=== Other Mod Integration ===
+[[Magic Storage Integration]]
+
+<mainpage-endcolumn />
+
+<mainpage-rightcolumn-start />
+''Need help building out this community?''
+
+*[[Project:Wiki rules|Rules of this wiki]]
+*[[w:c:community:Help:Getting Started|Getting Started]]
+*[[w:c:community:Help:Contributing|How to Contribute]]
+*[[w:c:community:Help:Community Management|Managing your new community]]
+*[[w:c:community:Help:Contents|Guides]]
+*[[w:c:community:Help:Index|All Help articles]]
+
+You can also be part of the larger Fandom family of communities. Visit [[w:c:community|Fandom's Community Central]]!
+
+
+
+''Community Founders'': Write a good and paragraph-length description for your welcome section about your topic. Let your readers know what your topic is about and add some general information about it. Then you should visit [[Special:AdminDashboard|the admin dashboard for more tips]]. 
+<mainpage-endcolumn />
+[[Category:{{SITENAME}}]]
+<br/>

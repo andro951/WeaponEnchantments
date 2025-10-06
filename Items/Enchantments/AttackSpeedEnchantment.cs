@@ -6,11 +6,15 @@ using static WeaponEnchantments.Common.Configs.ConfigValues;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class AttackSpeedEnchantment : Enchantment
 	{
+		protected override string TypeName => "AttackSpeed";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override void GetMyStats() {
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
@@ -39,30 +43,32 @@ namespace WeaponEnchantments.Items.Enchantments
 			$"resulting in more uses per second. Additionally, it increases mining speed on tools, the fire rate of minion's that shoot projectiles " +
 			$"and reduces how long it takes a fish to bite when used on fishing poles.  If the enchantment gives 10%(configurable) or more attack speed, " +
 			$"it will also enable [https://terraria.wiki.gg/wiki/Autoswing autoswing].";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().AttackSpeed;
+		}
 	}
 	[Autoload(false)]
 	public class AttackSpeedEnchantmentBasic : AttackSpeedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.EaterofWorldsHead)
+			new(NPCID.EaterofWorldsHead),
+			new(NPCID.BrainofCthulhu, chance: 0.2f)
 		};
 		public override List<DropData> NpcAIDrops => new() {
-			new(NPCAIStyleID.Bat),
-			new(NPCAIStyleID.Piranha)
+			new(NPCAIStyleID.Bat, 4f),
+			new(NPCAIStyleID.Piranha, 4f)
 		};
 		public override List<DropData> ChestDrops => new() {
 			new(ChestID.Chest_Normal),
-			new(ChestID.Gold),
-			new(ChestID.Gold_DeadMans),
 			new(ChestID.Ivy),
 			new(ChestID.Granite)
 		};
 		public override List<DropData> CrateDrops => new() {
-			new(CrateID.Wooden, 0.5f),
-			new(CrateID.Pearlwood_WoodenHard, 0.5f),
-			new(CrateID.Iron, 0.5f),
-			new(CrateID.Iron, 0.5f),
+			new(CrateID.Wooden, 0.25f),
+			new(CrateID.Pearlwood_WoodenHard, 0.25f),
 			new(CrateID.Jungle, 0.5f),
 			new(CrateID.Bramble_JungleHard, 0.5f)
 		};
@@ -75,5 +81,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class AttackSpeedEnchantmentEpic : AttackSpeedEnchantment { }
 	[Autoload(false)]
 	public class AttackSpeedEnchantmentLegendary : AttackSpeedEnchantment { }
+	[Autoload(false)]
+	public class AttackSpeedEnchantmentCursed : AttackSpeedEnchantment { }
 
 }

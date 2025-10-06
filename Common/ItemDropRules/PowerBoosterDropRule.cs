@@ -58,6 +58,9 @@ namespace WeaponEnchantments.Common
 					CommonCode.DropItem(info, powerBoosterType, 1);
 					result.State = ItemDropAttemptResultState.Success;
 				}
+				else {
+					result.State = ItemDropAttemptResultState.FailedRandomRoll;
+				}
 			}
 
 			return result;

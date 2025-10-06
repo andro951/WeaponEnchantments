@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
-using static WeaponEnchantments.Common.EnchantingRarity;
+using static androLib.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class ColdSteelEnchantment : Enchantment
 	{
+		protected override string TypeName => "ColdSteel";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
 		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
@@ -38,6 +42,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().ColdSteel;
+		}
 	}
 	[Autoload(false)]
 	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment
@@ -55,4 +64,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class ColdSteelEnchantmentEpic : ColdSteelEnchantment { }
 	[Autoload(false)]
 	public class ColdSteelEnchantmentLegendary : ColdSteelEnchantment { }
+	[Autoload(false)]
+	public class ColdSteelEnchantmentCursed : ColdSteelEnchantment { }
 }

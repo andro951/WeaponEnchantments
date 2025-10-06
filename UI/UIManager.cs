@@ -48,9 +48,9 @@ namespace WeaponEnchantments.UI
 			WE_UI_ID.EnchantmentStorage_UITypeID = MasterUIManager.RegisterUI_ID();
 			WE_UI_ID.EnchantmentLoadout_UITypeID = MasterUIManager.RegisterUI_ID();
 
-			MasterUIManager.IsDisplayingUI.Add(() => Witch.rerollUI);
+			MasterUIManager.IsDisplayingUI.Add(() => Witch.DisplayingUI);
 			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.usingEnchantingTable);
-			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.displayEnchantmentStorage);
+			MasterUIManager.IsDisplayingUI.Add(() => EnchantmentStorage.DisplayStorage);
 			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI);
 
 			MasterUIManager.ShouldPreventTrashingItem.Add(() => WEPlayer.LocalWEPlayer.usingEnchantingTable);
@@ -73,18 +73,25 @@ namespace WeaponEnchantments.UI
 			StorageManager.CanVacuumItemHandler.Add(EnchantingTableUI.CanVacuumItem);
 			StorageManager.CanVacuumItemHandler.Add(EnchantmentStorage.CanAutoOfferItem);
 
+			StorageManager.CanBeStoredHandler.Add(EnchantmentStorage.CanBeStored);
+			StorageManager.CanBeStoredHandler.Add(EnchantingTableUI.CanBeStored);
+			StorageManager.CanBeStoredHandler.Add((Item item) => item.IsEnchantable());
+
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantingTableUI.TryVacuumItem(ref item, player));
 			StorageManager.TryVacuumItemHandler.Add((Item item, Player player) => EnchantmentStorage.TryAutoOfferItem(ref item, player));
 
-			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantmentStorage.QuickStack(ref item));
-			StorageManager.TryQuickStackItemHandler.Add((Item item) => EnchantingTableUI.QuickStack(ref item));
+			StorageManager.TryRestockItemHandler.Add((Item item) => EnchantmentStorage.Restock(ref item));
+			StorageManager.TryRestockItemHandler.Add((Item item) => EnchantingTableUI.Restock(ref item));
 
-			StorageManager.CloseAllStorageUIEvent += () => {
+			StorageManager.TryQuickStackItemHandler.Add((Item item, Player player) => EnchantmentStorage.QuickStack(ref item, player));
+			StorageManager.TryQuickStackItemHandler.Add((Item item, Player player) => EnchantingTableUI.QuickStack(ref item, player));
+
+			StorageManager.OnOpenMagicStorageCloseAllStorageUIEvent += () => {
 				if (WEPlayer.LocalWEPlayer.usingEnchantingTable)
 					EnchantingTableUI.CloseEnchantingTableUI(true);
 			};
-			StorageManager.CloseAllStorageUIEvent += () => {
+			StorageManager.OnOpenMagicStorageCloseAllStorageUIEvent += () => {
 				if (WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI)
 					EnchantmentLoadoutUI.Close(true);
 			};
@@ -96,7 +103,7 @@ namespace WeaponEnchantments.UI
 				AndroMod.vacuumBagsMod.Call("RegisterAllBagsWithAndroLib");
 		}
 		public static void OnUpdateUIAlpha() {
-			UIAlpha = ConfigValues.UIAlpha;
+			UIAlpha = androLib.Common.Configs.ConfigValues.UIAlpha;
 			UIAlphaHovered = (byte)Math.Min(UIAlpha + 20, byte.MaxValue);
 		}
 		public static void ItemSlotClickInteractions(EnchantmentsArray enchantmentsArray, int index, int context) {
@@ -131,6 +138,7 @@ namespace WeaponEnchantments.UI
 		public static int Witch_UITypeID;//Set by MasterUIManager
 
 		public const int WitchReroll = 0;
+		public const int WitchUIItem = 1;
 
 
 		//public static int OfferUI_ID;//Set by MasterUIManager//Is this one needed?
@@ -166,7 +174,7 @@ namespace WeaponEnchantments.UI
 		public const int EnchantingTable = 0;
 		public const int EnchantingTableLootAll = 1;
 		public const int EnchantingTableOfferButton = 2;
-		public const int EnchantingTableSyphon = 3;
+		public const int EnchantingTableSiphon = 3;
 		public const int EnchantingTableInfusion = 4;
 		public const int EnchantingTableLevelUp = 5;
 		public const int EnchantingTableItemSlot = 6;
