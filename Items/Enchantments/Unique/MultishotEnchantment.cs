@@ -5,11 +5,15 @@ using WeaponEnchantments.Effects;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class MultishotEnchantment : Enchantment
 	{
+		protected override string TypeName => "Multishot";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 8;
 		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
 		public override void GetMyStats() {
@@ -24,6 +28,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().Multishot;
+		}
 	}
 	[Autoload(false)]
 	public class MultishotEnchantmentBasic : MultishotEnchantment

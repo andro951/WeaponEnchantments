@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -9,6 +10,9 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class CriticalStrikeChanceEnchantment : Enchantment
 	{
+		protected override string TypeName => "CriticalStrikeChance";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override void GetMyStats() {
 			Effects = new() {
 				new CriticalStrikeChance(@base: EnchantmentStrengthData),
@@ -19,6 +23,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().CriticalStrikeChance;
+		}
 	}
 	[Autoload(false)]
 	public class CriticalStrikeChanceEnchantmentBasic : CriticalStrikeChanceEnchantment

@@ -5,11 +5,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class MovementSpeedEnchantment : Enchantment
 	{
+		protected override string TypeName => "MovementSpeed";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 11;
 		public override void GetMyStats() {
 			Effects = new() {
@@ -45,6 +49,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().MovementSpeed;
+		}
 	}
 	[Autoload(false)]
 	public class MovementSpeedEnchantmentBasic : MovementSpeedEnchantment

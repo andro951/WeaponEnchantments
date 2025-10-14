@@ -5,10 +5,14 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class SolarDashEnchantment : Enchantment {
+		protected override string TypeName => "SolarDash";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 1;
 		public override int ArmorSlotSpecific => (int)ArmorSlotSpecificID.Legs;
 		public override void GetMyStats() {
@@ -46,6 +50,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => "𝐍𝐢𝐱𝐲♱";
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().SolarDash;
+		}
 	}
 	[Autoload(false)]
 	public class SolarDashEnchantmentBasic : SolarDashEnchantment

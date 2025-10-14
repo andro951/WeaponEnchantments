@@ -7,11 +7,15 @@ using static WeaponEnchantments.Common.Configs.ConfigValues;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class BerserkersRageEnchantment : Enchantment
     {
+	    protected override string TypeName => "BerserkersRage";
+	    protected override string NamePrefix => "Enchantments/";
+	    
 		public override int StrengthGroup => 21;
 		public override void GetMyStats()
         {
@@ -36,6 +40,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
         public override string Artist => "Zorutan";
         public override string ArtModifiedBy => "andro951";
         public override string Designer => "Jangiot";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().BerserkersRage;
+        }
 	}
 	[Autoload(false)]
 	public class BerserkersRageEnchantmentBasic : BerserkersRageEnchantment

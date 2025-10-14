@@ -10,6 +10,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class CatastrophicReleaseEnchantment : Enchantment
 	{
+		protected override string TypeName => "CatastrophicRelease";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override string CustomTooltip => "(Does not work, Not finished)";
 		public override int StrengthGroup => 8;
 		public override int DamageClassSpecific => (int)DamageClassID.Magic;

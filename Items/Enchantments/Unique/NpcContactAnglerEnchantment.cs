@@ -4,9 +4,13 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique {
     public abstract class NpcContactAnglerEnchantment : Enchantment {
+	    protected override string TypeName => "NpcContactAngler";
+	    protected override string NamePrefix => "Enchantments/";
+	    
 		public override int StrengthGroup => 5;
         public override void GetMyStats() {
             Effects = new() {
@@ -22,6 +26,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
 		public override string Artist => "andro951";
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().NpcContactAngler;
+        }
     }
     [Autoload(false)]
 	public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment

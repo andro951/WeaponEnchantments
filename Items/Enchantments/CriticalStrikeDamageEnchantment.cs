@@ -6,11 +6,15 @@ using WeaponEnchantments.Common.Utility;
 using System.Collections.Generic;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class CriticalStrikeDamageEnchantment : Enchantment
 	{
+		protected override string TypeName => "CriticalStrikeDamage";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 14;
 		public override float CapacityCostMultiplier => CapacityCostUnique;
 		public override void GetMyStats() {
@@ -23,6 +27,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => "𝐍𝐢𝐱𝐲♱";
 		public override string Designer => "Kokopai";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().CriticalStrikeDamage;
+		}
 	}
 
 	[Autoload(false)]

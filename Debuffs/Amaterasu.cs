@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Debuffs
 {
@@ -28,5 +29,10 @@ namespace WeaponEnchantments.Debuffs
         }
 
 		public override string LocalizationDescription => null;
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return ModContent.GetInstance<EnchantmentToggle>().WorldAblaze;
+        }
 	}
 }

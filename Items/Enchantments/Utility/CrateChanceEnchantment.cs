@@ -1,11 +1,15 @@
 ﻿using androLib.Common.Utility;
 using System.Collections.Generic;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class CrateChanceEnchantment : Enchantment {
+	    protected override string TypeName => "CrateChance";
+	    protected override string NamePrefix => "Enchantments/";
+	    
 		public override int StrengthGroup => 10;
 		public override void GetMyStats() {
             Effects = new() {
@@ -23,6 +27,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string Artist => "andro951";
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().CrateChance;
+        }
     }
     [Autoload(false)]
 	public class CrateChanceEnchantmentBasic : CrateChanceEnchantment

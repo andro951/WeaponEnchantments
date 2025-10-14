@@ -5,11 +5,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class MaxMinionsEnchantment : Enchantment
 	{
+		protected override string TypeName => "MaxMinions";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
 		public override void GetMyStats() {
@@ -27,6 +31,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "𝐍𝐢𝐱𝐲♱";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().MaxMinions;
+		}
 	}
 	[Autoload(false)]
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment

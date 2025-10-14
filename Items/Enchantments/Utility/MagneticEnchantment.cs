@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class MagneticEnchantment : Enchantment {
+	    protected override string TypeName => "Magnetic";
+	    protected override string NamePrefix => "Enchantments/";
+	    
 		public override int StrengthGroup => 28;
 		public override float ScalePercent => 2f/3f;
 		public override void GetMyStats() {
@@ -28,6 +32,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 		public override string Artist => "Sir Bumpleton ✿";
 		public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().Magnetic;
+        }
     }
     [Autoload(false)]
 	public class MagneticEnchantmentBasic : MagneticEnchantment {

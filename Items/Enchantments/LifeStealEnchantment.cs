@@ -6,9 +6,14 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments {
-    public abstract class LifeStealEnchantment : Enchantment {
+    public abstract class LifeStealEnchantment : Enchantment
+    {
+	    protected override string TypeName => "LifeSteal";
+	    protected override string NamePrefix => "Enchantments/";
+	    
         public override float ScalePercent => 0.8f;
         public override bool Max1 => true;
         public override float CapacityCostMultiplier => CapacityCostNormal;
@@ -41,6 +46,11 @@ namespace WeaponEnchantments.Items.Enchantments {
 			$"Additionally, life steal from enchantments will not over heal you past full health which would also waste the pool.  " +
 			$"The moon lord's Moon Leach debuff normally prevents all lifesteal.  I personally don't like mechanics that completely " +
 			$"turn off effects like this, so life steal from enchantments is reduced by 50% from this debuff instead.";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().LifeSteal;
+        }
     }
     [Autoload(false)]
 	public class LifeStealEnchantmentBasic : LifeStealEnchantment

@@ -6,11 +6,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class PercentArmorPenetrationEnchantment : Enchantment
 	{
+		protected override string TypeName => "PercentArmorPenetration";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 27;
 		public override void GetMyStats() {
 			Effects = new() {
@@ -22,6 +26,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().PercentArmorPenetration;
+		}
 	}
 	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentBasic : PercentArmorPenetrationEnchantment

@@ -12,11 +12,15 @@ using System.Linq;
 using androLib.Common.Utility;
 using System.IO;
 using MagicStorage;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class TimeEnchantment : Enchantment
 	{
+		protected override string TypeName => "Time";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
@@ -154,6 +158,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().Time;
+		}
 	}
 	[Autoload(false)]
 	public class TimeEnchantmentBasic : TimeEnchantment

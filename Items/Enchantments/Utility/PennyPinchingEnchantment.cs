@@ -6,11 +6,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class PennyPinchingEnchantment : Enchantment
 	{
+		protected override string TypeName => "PennyPinching";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 2f/3f;
 		public override void GetMyStats() {
@@ -28,6 +32,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().PennyPinching;
+		}
 	}
 	[Autoload(false)]
 	public class PennyPinchingEnchantmentBasic : PennyPinchingEnchantment

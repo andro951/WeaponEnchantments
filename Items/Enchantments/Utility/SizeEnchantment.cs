@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -9,6 +10,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class SizeEnchantment : Enchantment
 	{
+		protected override string TypeName => "Size";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 10;
 		public override void GetMyStats() {
 			Effects = new() {
@@ -22,6 +26,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().Size;
+		}
 	}
 	[Autoload(false)]
 	public class SizeEnchantmentBasic : SizeEnchantment

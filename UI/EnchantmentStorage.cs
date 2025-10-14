@@ -116,9 +116,10 @@ namespace WeaponEnchantments.UI
 						}
 					}
 				}
-
-				if (updateMarkedTrashItems)
-					itemsMarkedTrash = wePlayer.trashEnchantmentsFullNames.Select(n => n.Replace("\"", "").CSI_FromItemIDOrName()).ToArray();
+				
+				// TODO - fix and uncomment this
+				/*if (updateMarkedTrashItems)
+					itemsMarkedTrash = wePlayer.trashEnchantmentsFullNames.Select(n => n.Replace("\"", "").CSI_FromItemIDOrName()).ToArray();*/
 
 				if (allTrashableItems == null || updateMarkedTrashItems) {
 					if (itemsMarkedTrash.Length == 0) {

@@ -5,11 +5,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class JuicedEnchantment : Enchantment
 	{
+		protected override string TypeName => "Juiced";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 10;
 		protected override bool UsesTierStrengthData => true;
 		public override float ScalePercent => 0f;
@@ -30,6 +34,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Mew";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().Juiced;
+		}
 	}
 	[Autoload(false)]
 	public class JuicedEnchantmentBasic : JuicedEnchantment

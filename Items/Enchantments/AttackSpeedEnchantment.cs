@@ -6,11 +6,15 @@ using static WeaponEnchantments.Common.Configs.ConfigValues;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class AttackSpeedEnchantment : Enchantment
 	{
+		protected override string TypeName => "AttackSpeed";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override void GetMyStats() {
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
@@ -39,6 +43,11 @@ namespace WeaponEnchantments.Items.Enchantments
 			$"resulting in more uses per second. Additionally, it increases mining speed on tools, the fire rate of minion's that shoot projectiles " +
 			$"and reduces how long it takes a fish to bite when used on fishing poles.  If the enchantment gives 10%(configurable) or more attack speed, " +
 			$"it will also enable [https://terraria.wiki.gg/wiki/Autoswing autoswing].";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().AttackSpeed;
+		}
 	}
 	[Autoload(false)]
 	public class AttackSpeedEnchantmentBasic : AttackSpeedEnchantment

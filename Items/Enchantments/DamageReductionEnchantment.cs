@@ -5,9 +5,14 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments {
-    public abstract class DamageReductionEnchantment : Enchantment {
+    public abstract class DamageReductionEnchantment : Enchantment
+    {
+	    protected override string TypeName => "DamageReduction";
+	    protected override string NamePrefix => "Enchantments/";
+	    
         public override float ScalePercent => 0.6f;
         public override float CapacityCostMultiplier => CapacityCostUnique;
 		public override int StrengthGroup => 20;
@@ -29,6 +34,11 @@ namespace WeaponEnchantments.Items.Enchantments {
 		public override string Artist => "Zorutan";
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().DamageReduction;
+        }
     }
     [Autoload(false)]
 	public class DamageReductionEnchantmentBasic : DamageReductionEnchantment

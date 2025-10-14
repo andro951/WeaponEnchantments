@@ -11,6 +11,7 @@ using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Configs
 {
+	#region  Server configs
 	public class ServerConfig : ModConfig
 	{
 		public const string ServerConfigName = "ServerConfig";
@@ -353,6 +354,370 @@ namespace WeaponEnchantments.Common.Configs
 		}
 	}
 
+	//[SeparatePage]
+	public class EnchantmentToggle : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ServerSide;
+		public const string EnchantToggleName = "ServerConfig";
+		
+		#region General enchantments
+		[JsonIgnore]
+		public const string GeneralConfigKey = "GeneralEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{GeneralConfigKey}")]
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool AllForOne;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool AttackSpeed;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CriticalStrikeChance;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CriticalStrikeDamage;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Damage;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DamageReduction;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Defense;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ExtraFishingLine;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LethalCombination;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LifeSteal;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MaxMinions;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool OneForAll;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool PercentArmorPenetration;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool PrideOfTheWeak;
+		#endregion
+		
+		#region Status effect enchantments
+		[JsonIgnore]
+		public const string StatusConfigKey = "StatusEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{StatusConfigKey}")]
+		
+		#region Vanilla status effects
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool OnFire;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Poison;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Frostburn;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CursedInferno;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Ichor;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Venom;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Shadowflame;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Daybreak;
+		#endregion
+		
+		#region Custom status effects
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool WorldAblaze;
+		#endregion
+		
+		#endregion
+
+		#region Utility enchantments
+		[JsonIgnore]
+		public const string UtilityConfigKey = "UtilityToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{UtilityConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool AmmoCost;
+
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CalmWaters;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CrateChance;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool FishingPower;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LavaFishing;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool LifeRegen;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Luck;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Magnetic;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MobilityControl;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MovementSpeed;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Peace;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool PennyPinching;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ProjectileVelocity;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ReducedManaUsage;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Size;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Time;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool War;
+		
+		#region On tick/potion buffs
+		[JsonIgnore]
+		public const string OnTickUtilityConfigKey = "OnTickUtilityToggleName";
+
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{OnTickUtilityConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool OnTick;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Dangersense;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Hunter;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ObsidianSkin;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Spelunker;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Fishing;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Crate;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Sonar;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Shine;
+		
+		#endregion
+		#endregion
+		
+		#region Unique enchanements
+		[JsonIgnore]
+		public const string UniqueConfigKey = "UniqueEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{UniqueConfigKey}")]
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool BerserkersRage;
+		
+		/*[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CatastrophicRelease;*/
+
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ChaoticFishing;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ColdSteel;
+		
+		/*[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Eclipse;*/
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool GodSlayer;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool HellsWrath;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Juiced;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool JunglesFury;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Moonlight;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool Multishot;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool NpcContactAngler;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool SolarDash;
+		
+		#endregion
+		
+		#region Class swap enchantments
+		public const string ClassSwapConfigKey = "ClassSwapEnchantToggleName";
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.{ClassSwapConfigKey}")]
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ClassSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MeleeSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool RangedSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool MagicSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool WhipSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThrowingSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool CalamityRogueSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DBZKiSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThoriumBardSwap;
+		
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThoriumHealerSwap;
+		#endregion
+		
+		#region Mod compat enchantments
+		[JsonIgnore]
+		public const string ModCompatConfigKey = "EnchantToggleName";
+		
+		//[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.ModCompat{ModCompatConfigKey}")]
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.DBZ{ModCompatConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DBZKi;
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.Thorium{ModCompatConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool ThoriumElementalDecay;
+		
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{EnchantToggleName}.Depths{ModCompatConfigKey}")]
+		[ReloadRequired]
+		[DefaultValue(true)]
+		public bool DepthsCrystalSkin;
+		
+		#endregion
+	}
+	#endregion
 	public class ClientConfig : ModConfig
 	{
 		public const string ClientConfigName = "ClientConfig";
@@ -442,6 +807,8 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public bool LogDummyDPS;
 	}
+	
+	#region Other classes
 	public class Pair
 	{
 		[ReloadRequired]
@@ -672,4 +1039,5 @@ namespace WeaponEnchantments.Common.Configs
 			}.GetHashCode();
 		}
 	}
+	#endregion
 }

@@ -6,12 +6,16 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class LethalCombinationEnchantment : Enchantment
 	{
+		protected override string TypeName => "LethalCombination";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 26;
 		public override float CapacityCostMultiplier => CapacityCostUnique;
 		public override List<int> IngredientEnchantments => new() {
@@ -40,6 +44,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "@level12lobster";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "@level12lobster";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().LethalCombination;
+		}
 	}
 	[Autoload(false)]
 	public class LethalCombinationEnchantmentBasic : LethalCombinationEnchantment

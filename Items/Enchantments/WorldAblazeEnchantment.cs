@@ -6,11 +6,15 @@ using WeaponEnchantments.Debuffs;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Utility;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class WorldAblazeEnchantment : Enchantment
 	{
+		protected override string TypeName => "WorldAblaze";
+		protected override string NamePrefix => "Enchantments/";
+        
 		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
@@ -40,6 +44,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().WorldAblaze;
+		}
 	}
 	[Autoload(false)]
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment

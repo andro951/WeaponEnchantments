@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -9,6 +10,9 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class ExtraFishingLineEnchantment : Enchantment
 	{
+		protected override string TypeName => "ExtraFishingLine";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 18;
 		public override float ScalePercent => 2f/3f;
 		public override void GetMyStats() {
@@ -24,6 +28,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().ExtraFishingLine;
+		}
 	}
 	[Autoload(false)]
 	public class ExtraFishingLineEnchantmentBasic : ExtraFishingLineEnchantment

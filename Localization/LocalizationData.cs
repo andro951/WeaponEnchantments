@@ -14,7 +14,6 @@ using WeaponEnchantments.Effects.CustomEffects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Enchantments.Utility;
-using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.ModIntegration;
 using WeaponEnchantments.UI;
 using static Terraria.Localization.GameCulture;
@@ -1134,10 +1133,10 @@ namespace WeaponEnchantments.Localization
 					"Ursula",
 					"Winifred",
 					"Infusion",
-					"Ki",
+					"DBZKi",
 					"Ichor",
-					"Ki Regen",
-					"Max Ki",
+					"DBZKi Regen",
+					"Max DBZKi",
 					"Siphon",
 					"Sonar",
 					"Normal",
@@ -1156,7 +1155,7 @@ namespace WeaponEnchantments.Localization
 					"Blobbelda",
 					"Brentilda",
 					"Gruntilda",
-					"Ki",
+					"DBZKi",
 					"Kyubey",
 					"Medusa",
 					"Mingella",
@@ -1192,9 +1191,9 @@ namespace WeaponEnchantments.Localization
 					"mythril",
 					"palladium",
 					"Infusion",
-					"Ki",
+					"DBZKi",
 					"Ichor",
-					"Max Ki",
+					"Max DBZKi",
 					"Sonar",
 					"Expert",
 					"Rare",
@@ -1214,7 +1213,7 @@ namespace WeaponEnchantments.Localization
 					"Blobbelda",
 					"Gruntilda",
 					"Jasminka",
-					"Ki",
+					"DBZKi",
 					"Kyubey",
 					"Medusa",
 					"Mingella",
@@ -1246,8 +1245,8 @@ namespace WeaponEnchantments.Localization
 					"Winifred",
 					"orichalcum",
 					"xp",
-					"Ki",
-					"Ki Regen",
+					"DBZKi",
+					"DBZKi Regen",
 					"Sonar",
 					"N",
 					"U"
@@ -1270,7 +1269,7 @@ namespace WeaponEnchantments.Localization
 					"Normal",
 					"Winifred",
 					"Item",
-					"Ki",
+					"DBZKi",
 					"Sonar",
 					"N",
 					"U"

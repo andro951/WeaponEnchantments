@@ -5,9 +5,13 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class LavaFishingEnchantment : Enchantment {
+	    protected override string TypeName => "LavaFishing";
+	    protected override string NamePrefix => "Enchantments/";
+	    
 		public override int StrengthGroup => 8;
 		public override bool Max1 => true;
 		public override float CapacityCostMultiplier => CapacityCostUtility;
@@ -26,6 +30,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string Artist => "andro951";
         public override string ArtModifiedBy => null;
         public override string Designer => "Fran";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().LavaFishing;
+        }
     }
     [Autoload(false)]
 	public class LavaFishingEnchantmentBasic : LavaFishingEnchantment

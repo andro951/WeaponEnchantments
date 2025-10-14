@@ -723,6 +723,386 @@ Mods: {
 						原始的虹吸系统仅允许您虹吸最高等级的物品，并且仅删除超过最高等级的多余经验。 无需任何成本。
 						'''
 				}
+
+				// GeneralEnchantToggleName: General Enchantments
+				// StatusEnchantToggleName: Status Enchantments
+				// UtilityToggleName: Utility Enchantments
+				// OnTickUtilityToggleName: Buff Enchantments
+				// UniqueEnchantToggleName: Unique Enchantments
+				// ClassSwapEnchantToggleName: Class Swap Enchantments
+				// ModCompatEnchantToggleName: Mod Compatability Enchantments
+				// DBZEnchantToggleName: Dragon Ball Terraria Enchantments
+				// DepthsEnchantToggleName: The Depths Enchantments
+				// ThoriumEnchantToggleName: Thorium Mod Enchantments
+			}
+
+			EnchantmentToggle: {
+				// DisplayName: Enchantment Toggle
+
+				AllForOne: {
+					// Label: "[i:WeaponEnchantments/AllForOneEnchantmentBasic] Enable All For One Enchantment"
+					// Tooltip: Toggles loading of the All For One enchantment.
+				}
+
+				AttackSpeed: {
+					// Label: "[i:WeaponEnchantments/AttackSpeedEnchantmentBasic] Enable Attack Speed Enchantment"
+					// Tooltip: Toggles loading of the Attack Speed enchantment.
+				}
+
+				CriticalStrikeChance: {
+					// Label: "[i:WeaponEnchantments/CriticalStrikeChanceEnchantmentBasic] Enable Critical Strike Chance Enchantment"
+					// Tooltip: Toggles loading of the Critical Strike Chance enchantment.
+				}
+
+				CriticalStrikeDamage: {
+					// Label: "[i:WeaponEnchantments/CriticalStrikeDamageEnchantmentBasic] Enable Critical Strike Damage Enchantment"
+					// Tooltip: Toggles loading of the Critical Strike Damage enchantment.
+				}
+
+				Damage: {
+					// Label: "[i:WeaponEnchantments/DamageEnchantmentBasic] Enable Damage Enchantment"
+					// Tooltip: Toggles loading of the Damage enchantment.
+				}
+
+				DamageReduction: {
+					// Label: "[i:WeaponEnchantments/DamageReductionEnchantmentBasic] Enable Damage Reduction Enchantment"
+					// Tooltip: Toggles loading of the Damage Reduction enchantment.
+				}
+
+				Defense: {
+					// Label: "[i:WeaponEnchantments/DefenseEnchantmentBasic] Enable Defense Enchantment"
+					// Tooltip: Toggles loading of the Defense enchantment.
+				}
+
+				ExtraFishingLine: {
+					// Label: "[i:WeaponEnchantments/ExtraFishingLineEnchantmentBasic] Enable Extra Fishing Line Enchantment"
+					// Tooltip: Toggles loading of the Extra Fishing Line enchantment.
+				}
+
+				LethalCombination: {
+					// Label: "[i:WeaponEnchantments/LethalCombinationEnchantmentBasic] Enable Lethal Combination Enchantment"
+					// Tooltip: Toggles loading of the Lethal Combination enchantment.
+				}
+
+				LifeSteal: {
+					// Label: "[i:WeaponEnchantments/LifeStealEnchantmentBasic] Enable Life Steal Enchantment"
+					// Tooltip: Toggles loading of the Life Steal enchantment.
+				}
+
+				MaxMinions: {
+					// Label: "[i:WeaponEnchantments/MaxMinionsEnchantmentBasic] Max Minions Enchantment"
+					// Tooltip: Toggles loading of the Max Minions enchantment.
+				}
+
+				OneForAll: {
+					// Label: "[i:WeaponEnchantments/OneForAllEnchantmentBasic] Enable One For All Enchantment"
+					// Tooltip: Toggles loading of the One For All enchantment.
+				}
+
+				PercentArmorPenetration: {
+					// Label: "[i:WeaponEnchantments/PercentArmorPenetrationEnchantmentBasic] Enable Percent Armor Penetration Enchantment"
+					// Tooltip: Toggles loading of the Percent Armor Penetration enchantment.
+				}
+
+				PrideOfTheWeak: {
+					// Label: "[i:WeaponEnchantments/PrideOfTheWeakEnchantmentBasic] Enable Pride Of The Weak Enchantment"
+					// Tooltip: Toggles loading of the Pride of the Weak enchantment.
+				}
+
+				OnFire: {
+					// Label: "[i:WeaponEnchantments/OnFireEnchantmentBasic] Enable On Fire Enchantment"
+					// Tooltip: Toggles loading of the On Fire enchantment.
+				}
+
+				Poison: {
+					// Label: "[i:WeaponEnchantments/PoisonEnchantmentBasic] Enable Poison Enchantment"
+					// Tooltip: Toggles loading of the Poison enchantment.
+				}
+
+				Frostburn: {
+					// Label: "[i:WeaponEnchantments/FrostburnEnchantmentBasic] Enable Frostburn Enchantment"
+					// Tooltip: Toggles loading of the Frostburn enchantment.
+				}
+
+				CursedInferno: {
+					// Label: "[i:WeaponEnchantments/CursedInfernoEnchantmentBasic] Enable Cursed Inferno Enchantment"
+					// Tooltip: Toggles loading of the Cursed Inferno enchantment.
+				}
+
+				Ichor: {
+					// Label: "[i:WeaponEnchantments/IchorEnchantmentBasic] Enable Ichor Enchantment"
+					// Tooltip: Toggles loading of the Ichor enchantment.
+				}
+
+				Venom: {
+					// Label: "[i:WeaponEnchantments/VenomEnchantmentBasic] Enable Venom Enchantment"
+					// Tooltip: Toggles loading of the Venom enchantment.
+				}
+
+				Shadowflame: {
+					// Label: "[i:WeaponEnchantments/ShadowflameEnchantmentBasic] Enable Shadowflame Enchantment"
+					// Tooltip: Toggles loading of the Shadowflame enchantment.
+				}
+
+				Daybreak: {
+					// Label: "[i:WeaponEnchantments/DaybreakEnchantmentBasic] Enable Daybreak Enchantment"
+					// Tooltip: Toggles loading of the Daybreak enchantment.
+				}
+
+				WorldAblaze: {
+					// Label: "[i:WeaponEnchantments/WorldAblazeEnchantmentBasic] Enable World Ablaze Enchantment"
+					// Tooltip: Toggles loading of the World Ablaze enchantment.
+				}
+
+				AmmoCost: {
+					// Label: "[i:WeaponEnchantments/AmmoCostEnchantmentBasic] Enable Ammo Cost Enchantment"
+					// Tooltip: Toggles loading of the Ammo Cost enchantment.
+				}
+
+				CalmWaters: {
+					// Label: "[i:WeaponEnchantments/CalmWatersEnchantmentBasic] Enable Calm Waters Enchantment"
+					// Tooltip: Toggles loading of the Calm Waters enchantment.
+				}
+
+				CrateChance: {
+					// Label: "[i:WeaponEnchantments/CrateChanceEnchantmentBasic] Enable Crate Chance Enchantment"
+					// Tooltip: Toggles loading of the Crate Chance enchantment.
+				}
+
+				Crate: {
+					// Label: "[i:WeaponEnchantments/CrateEnchantmentBasic] Enable Crate Enchantment"
+					// Tooltip: Toggles loading of the Crate enchantment.
+				}
+
+				FishingPower: {
+					// Label: "[i:WeaponEnchantments/FishingPowerEnchantmentBasic] Enable Fishing Power Enchantment"
+					// Tooltip: Toggles loading of the Fishing Power enchantment.
+				}
+
+				Fishing: {
+					// Label: "[i:WeaponEnchantments/FishingEnchantmentBasic] Enable Fishing Enchantment"
+					// Tooltip: Toggles loading of the Fishing enchantment.
+				}
+
+				LavaFishing: {
+					// Label: "[i:WeaponEnchantments/LavaFishingEnchantmentBasic] Enable Lava Fishing Enchantment"
+					// Tooltip: Toggles loading of the Lava Fishing enchantment.
+				}
+
+				LifeRegen: {
+					// Label: "[i:WeaponEnchantments/LifeRegenEnchantmentBasic] Enable Life Regen Enchantment"
+					// Tooltip: Toggles loading of the Life Regen Enchantment.
+				}
+
+				Luck: {
+					// Label: "[i:WeaponEnchantments/LuckEnchantmentBasic] Enable Luck Enchantment"
+					// Tooltip: Toggles loading of the Luck enchantment.
+				}
+
+				Magnetic: {
+					// Label: "[i:WeaponEnchantments/MagneticEnchantmentBasic] Enable Magnetic Enchantment"
+					// Tooltip: Toggles loading of the Magnetic enchantment.
+				}
+
+				MobilityControl: {
+					// Label: "[i:WeaponEnchantments/MobilityControlEnchantmentBasic] Enable Mobility Control Enchantment"
+					// Tooltip: Toggles loading of the Mobility Control enchantment.
+				}
+
+				MovementSpeed: {
+					// Label: "[i:WeaponEnchantments/MovementSpeedEnchantmentBasic] Enable Movement Speed Enchantment"
+					// Tooltip: Toggles loading of the Movement Speed enchantment.
+				}
+
+				Peace: {
+					// Label: "[i:WeaponEnchantments/PeaceEnchantmentBasic] Enable Peace Enchantment"
+					// Tooltip: Toggles loading of the Peace enchantment.
+				}
+
+				PennyPinching: {
+					// Label: "[i:WeaponEnchantments/PennyPinchingEnchantmentBasic] Enable Penny Pinching Enchantment"
+					// Tooltip: Toggles loading of the Penny Pinching enchantment.
+				}
+
+				ProjectileVelocity: {
+					// Label: "[i:WeaponEnchantments/ProjectileVelocityEnchantmentBasic] Enable Projectile Velocity Enchantment"
+					// Tooltip: Toggles loading of the Projectile Velocity enchantment.
+				}
+
+				ReducedManaUsage: {
+					// Label: "[i:WeaponEnchantments/ReducedManaUsageEnchantmentBasic] Enable Reduced Mana Usage Enchantment"
+					// Tooltip: Toggles loading of the Reduced Mana Usage enchantment.
+				}
+
+				Size: {
+					// Label: "[i:WeaponEnchantments/SizeEnchantmentBasic] Enable Size Enchantment"
+					// Tooltip: Toggles loading of the Size enchantment.
+				}
+
+				Time: {
+					// Label: "[i:WeaponEnchantments/TimeEnchantmentBasic] Enable Time Enchantment"
+					// Tooltip: Toggles loading of the Time enchantment.
+				}
+
+				War: {
+					// Label: "[i:WeaponEnchantments/WarEnchantmentBasic] Enable War Enchantment"
+					// Tooltip: Toggles loading of the War enchantment.
+				}
+
+				OnTick: {
+					// Label: Enable Buff Enchantments
+					// Tooltip: Toggles loading of all buff enchantments, regardless if any of the below options are turned on or off.
+				}
+
+				Dangersense: {
+					// Label: "[i:WeaponEnchantments/DangerSenseEnchantmentBasic] Enable Dangersense Enchantment"
+					// Tooltip: Toggles loading of the Dangersense enchantment.
+				}
+
+				Hunter: {
+					// Label: "[i:WeaponEnchantments/HunterEnchantmentBasic] Enable Hunter Enchantment"
+					// Tooltip: Toggles loading of the Hunter Enchantment.
+				}
+
+				ObsidianSkin: {
+					// Label: "[i:WeaponEnchantments/ObsidianSkinEnchantmentBasic] Enable Obsidian Skin Enchantment"
+					// Tooltip: Toggles loading of the Obsidian Skin enchantment.
+				}
+
+				Spelunker: {
+					// Label: "[i:WeaponEnchantments/SpelunkerEnchantmentBasic] Enable Spelunker Enchantment"
+					// Tooltip: Toggles loading of the Spelunker enchantment.
+				}
+
+				Sonar: {
+					// Label: "[i:WeaponEnchantments/SonarEnchantmentBasic] Enable Sonar Enchantment"
+					// Tooltip: Toggles loading of the Sonar enchantment.
+				}
+
+				Shine: {
+					// Label: "[i:WeaponEnchantments/ShineEnchantmentBasic] Enable Shine Enchantment"
+					// Tooltip: Toggles loading of the Shine enchantment.
+				}
+
+				BerserkersRage: {
+					// Label: "[i:WeaponEnchantments/BerserkersRageEnchantmentBasic] Enable Berserker's Rage Enchantment"
+					// Tooltip: Toggles loading of the Berserker's Rage enchantment.
+				}
+
+				ChaoticFishing: {
+					// Label: "[i:WeaponEnchantments/ChaoticFishingEnchantmentBasic] Enable Chaotic Fishing Enchantment"
+					// Tooltip: Toggles loading of the Chaotic Fishing enchantment.
+				}
+
+				ColdSteel: {
+					// Label: "[i:WeaponEnchantments/ColdSteelEnchantmentBasic] Enable Cold Steel Enchantment"
+					// Tooltip: Toggles loading of the Cold Steel enchantment.
+				}
+
+				GodSlayer: {
+					// Label: "[i:WeaponEnchantments/GodSlayerEnchantmentBasic] God Slayer Enchantment"
+					// Tooltip: Toggles loading of the God Slayer enchantment.
+				}
+
+				HellsWrath: {
+					// Label: "[i:WeaponEnchantments/HellsWrathEnchantmentBasic] Enable Hell's Wrath Enchantment"
+					// Tooltip: Toggles loading of the Hell's Wrath enchantment.
+				}
+
+				Juiced: {
+					// Label: "[i:WeaponEnchantments/JuicedEnchantmentBasic] Enable Juiced Enchantment"
+					// Tooltip: Toggles loading of the Juiced enchantment.
+				}
+
+				JunglesFury: {
+					// Label: "[i:WeaponEnchantments/JunglesFuryEnchantmentBasic] Jungle's Fury Enchantment"
+					// Tooltip: Toggles loading of the Jungle's Fury enchantment.
+				}
+
+				Moonlight: {
+					// Label: "[i:WeaponEnchantments/MoonlightEnchantmentBasic] Enable Moonlight Enchantment"
+					// Tooltip: Toggles loading of the Moonlight enchantment.
+				}
+
+				Multishot: {
+					// Label: "[i:WeaponEnchantments/MultishotEnchantmentBasic] Enable Multishot Enchantment"
+					// Tooltip: Toggles loading of the Multishot enchantment.
+				}
+
+				NpcContactAngler: {
+					// Label: "[i:WeaponEnchantments/NpcContactAnglerEnchantmentBasic] Angler Contact Enchantment"
+					// Tooltip: Toggles loading of the Angler Contact enchantment.
+				}
+
+				SolarDash: {
+					// Label: "[i:WeaponEnchantments/SolarDashEnchantmentBasic] Enable Solar Dash Enchantment"
+					// Tooltip: Toggles loading of the Solar Dash enchantment.
+				}
+
+				ClassSwap: {
+					// Label: Enable Class Swap Enchantments
+					// Tooltip: Toggles loading of all Class Swap enchantments, regardless if any of the below options are turned on or off.
+				}
+
+				MeleeSwap: {
+					// Label: "[i:WeaponEnchantments/MeleeClassSwapEnchantmentBasic] Enable Melee Swap Enchantment"
+					// Tooltip: Toggles loading of the Melee Class Swap enchantment.
+				}
+
+				RangedSwap: {
+					// Label: "[i:WeaponEnchantments/RangedClassSwapEnchantmentBasic] Enable Ranged Swap Enchantment"
+					// Tooltip: Toggles loading of the Ranged Class Swap enchantment.
+				}
+
+				MagicSwap: {
+					// Label: "[i:WeaponEnchantments/MagicClassSwapEnchantmentBasic] Enable Magic Swap Enchantment"
+					// Tooltip: Toggles loading of the Magic Class Swap enchantment.
+				}
+
+				WhipSwap: {
+					// Label: "[i:WeaponEnchantments/WhipClassSwapEnchantmentBasic] Enable Whip Swap Enchantment"
+					// Tooltip: Toggles loading of the Whip Class Swap enchantment.
+				}
+
+				ThrowingSwap: {
+					// Label: "[i:WeaponEnchantments/ThrowingClassSwapEnchantmentBasic] Enable Throwing Swap Enchantment"
+					// Tooltip: Toggles loading of the Throwing Class Swap enchantment. Note that you'll need either Thorium Mod, Block's Throwing Mod, or Thrower Unification to be enabled for this to load!
+				}
+
+				CalamityRogueSwap: {
+					// Label: "[i:WeaponEnchantments/RogueClassSwapEnchantmentBasic] Enable Rogue Swap Enchantment"
+					// Tooltip: Toggles loading of the Rogue Class Swap enchantment. Note that you'll need Calamity mod to be enabled for this to load!
+				}
+
+				DBZKiSwap: {
+					// Label: "[i:WeaponEnchantments/KiClassSwapEnchantmentBasic] Enable Ki Swap Enchantment"
+					// Tooltip: Toggles loading of the Ki Class Swap enchantment. Note that you'll need the DBZ mod to be enabled for this to load!
+				}
+
+				DBZKi: {
+					// Label: "[i:WeaponEnchantments/KiEnchantmentBasic] Enable Ki Enchantment"
+					// Tooltip: Toggles loading of the Ki enchantment.
+				}
+
+				ThoriumBardSwap: {
+					// Label: "[i:WeaponEnchantments/BardClassSwapEnchantmentBasic] Enable Bard Swap Enchantment"
+					// Tooltip: Toggles loading of the Bard Class Swap enchantment. Note that you'll need Thorium Mod to be enabled for this to load!
+				}
+
+				ThoriumHealerSwap: {
+					// Label: "[i:WeaponEnchantments/HealerClassSwapEnchantmentBasic] Enable Healer Swap Enchantment"
+					// Tooltip: Toggles loading of the Healer Class Swap enchantment. Note that you'll need Thorium Mod to be enabled for this to load!
+				}
+
+				DepthsCrystalSkin: {
+					// Label: "[i:WeaponEnchantments/DepthsCrystalSkinEnchantmentBasic] Enable Crystal Skin Enchantment"
+					// Tooltip: Toggles loading of the Crystal Skin enchantment.
+				}
+
+				ThoriumElementalDecay: {
+					// Label: "[i:WeaponEnchantments/ThoriumElementalDecayEnchantmentBasic] Enable Elemental Decay Enchantment"
+					// Tooltip: Toggles loading of the Elemental Decay enchantment.
+				}
 			}
 		}
 
@@ -1419,6 +1799,11 @@ Mods: {
 			WorldAblazeEnchantmentEpic.DisplayName: 焚世附魔史诗
 			WorldAblazeEnchantmentLegendary.DisplayName: 焚世附魔传奇
 			WorldAblazeEnchantmentRare.DisplayName: 焚世附魔稀有
+			// DepthsCrystalSkinEnchantmentBasic.DisplayName: Depths Crystal Skin Enchantment Basic
+			// DepthsCrystalSkinEnchantmentCommon.DisplayName: Depths Crystal Skin Enchantment Common
+			// DepthsCrystalSkinEnchantmentRare.DisplayName: Depths Crystal Skin Enchantment Rare
+			// DepthsCrystalSkinEnchantmentEpic.DisplayName: Depths Crystal Skin Enchantment Epic
+			// DepthsCrystalSkinEnchantmentLegendary.DisplayName: Depths Crystal Skin Enchantment Legendary
 		}
 
 		NPCNames: {
@@ -1963,8 +2348,8 @@ Mods: {
 					// LikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.LikeNPC}"
 					// DislikeNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.DislikeNPC}"
 					// HateNPC: "{$Mods.WeaponEnchantments.TownNPCMood.Witch.HateNPC}"
-					// LikeNPC_Princess: I like {NPCName}.
-					// Princess_LovesNPC: I like {NPCName}.
+					// LikeNPC_Princess: I'm quite surprised {NPCName} doesn't mind me. She makes me quite cheerful, you see!
+					// Princess_LovesNPC: I adore the fact that {NPCName} rhymes so much! It's like we're in a fairy tale!
 				}
 			}
 		}

@@ -413,7 +413,10 @@ namespace WeaponEnchantments.Items
 		public List<EnchantmentEffect> Effects { protected set; get; } = new List<EnchantmentEffect>() { };
 
 		#endregion
-		public override string Texture => $"WeaponEnchantments/Items/Sprites/{Name}";
+
+		protected abstract string TypeName { get;}
+		protected abstract string NamePrefix { get;}
+		public override string Texture => $"WeaponEnchantments/Items/Sprites/{NamePrefix}{TypeName}/{Name.Replace(TypeName+"Enchantment", string.Empty)}";
 
 		/// <summary>
 		/// Add to the stat Lists and Dictionaries here.<br/>
@@ -469,7 +472,7 @@ namespace WeaponEnchantments.Items
 			}
 
 			if (AndroMod.wikiThis != null)
-				AndroMod.wikiThis.Call(1, Type, GetWikiURL());
+				AndroMod.wikiThis.Call(1, NamePrefix, GetWikiURL());
 
 			base.SetStaticDefaults();
 		}

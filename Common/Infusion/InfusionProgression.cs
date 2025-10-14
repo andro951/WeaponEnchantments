@@ -49,6 +49,7 @@ namespace WeaponEnchantments.Common
 	}
 	public enum ProgressionGroupID {
 		None = -1,
+		#region Vanilla
 		ForestPreHardMode,
 		Presents,
 		Desert,
@@ -182,8 +183,9 @@ namespace WeaponEnchantments.Common
 		LunarInvasion,
 		PostMoonLordEasy,
 		MoonLord,
+		#endregion
 
-		//Calamity
+		#region Calamity
 		ArsenalLabs,
 		SulfurousSea,
 		DesertScourge,
@@ -244,9 +246,9 @@ namespace WeaponEnchantments.Common
 		SupremeCalamitas,
 		AdultEidolon,
 		BossRush,
-		//Calamity
+		#endregion
 
-		//Stars Above
+		#region Stars Above
 		PostKingSlimeEasy,
 		PostEaterBrainEasy,
 		StellaglyphT2,
@@ -263,9 +265,9 @@ namespace WeaponEnchantments.Common
 		Arbitration,
 		WarriorOfLight,
 		FirstStarfarer,
-		//Stars Above
+		#endregion
 
-		//Thorium
+		#region Thorium
 		Opal,
 		Aquamarine,
 		TrackerContractT1,
@@ -303,9 +305,9 @@ namespace WeaponEnchantments.Common
 		ThoriumOre,
 		Viscount,
 		DestinyWeaverUnobtainable,
-		//Thorium
+		#endregion
 
-		//Fargos Souls
+		#region Fargos Souls
 		TrojanSquirrel,
 		AbomBoss,
 		DeviBoss,
@@ -316,9 +318,9 @@ namespace WeaponEnchantments.Common
 		FargosUnobtainableItems,
 		Energizers,
 		PostAttraidies,
-		//Fargos Souls
+		#endregion
 
-		//Red Cloud
+		#region Red Cloud
 		Leon,
 		Slogra,
 		Gaibon,
@@ -342,10 +344,10 @@ namespace WeaponEnchantments.Common
 		BrokenOkiku,
 		WaterFiendKraken,
 		AbysmalOolacileSorcerer,
-		//Red Cloud
+		#endregion
 
-		//Aquees
-		Crabson,
+		#region Aequus
+		/*Crabson,
 		CrabsonEasyAfter,
 		Glimmer,
 		UltraStarite,
@@ -360,10 +362,10 @@ namespace WeaponEnchantments.Common
 		AequusUnobtainable,
 		AequusUndergroundOcean,
 		RockMan,
-		AequusWorkInProgress,
-		//Aquees
+		AequusWorkInProgress,*/
+		#endregion
 
-		//SOTS
+		#region Secret of the Shadows
 		Glowmoth,
 		PutridPinkyPhase2,
 		PharaohsCurse,
@@ -379,7 +381,7 @@ namespace WeaponEnchantments.Common
 		EvilConstruct,
 		InfernoConstruct,
 		ChaosConstruct
-		//SOTS
+		#endregion
 	}
 	public struct ItemSource {
 		public ItemSource(int resultItem, ItemSourceType itemSourceType, int sourceItem) {
@@ -946,7 +948,7 @@ namespace WeaponEnchantments.Common
 							break;
 
 						//Aequus
-						case ProgressionGroupID.Crabson:
+						/*case ProgressionGroupID.Crabson:
 							bossName = "Aequus/CrabsonOld";
 							break;
 						case ProgressionGroupID.DustDevil:
@@ -954,7 +956,7 @@ namespace WeaponEnchantments.Common
 							break;
 						case ProgressionGroupID.OmegaStarite:
 							bossName = "Aequus/OmegaStarite";
-							break;
+							break;*/
 
 						//SOTS
 						case ProgressionGroupID.Glowmoth:
@@ -3532,7 +3534,7 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.Gwyn, 1500));
 			}
 
-			if (WEMod.aequusEnabled) {
+			/*if (WEMod.aequusEnabled) {
 				progressionGroups[ProgressionGroupID.ForestPreHardModeNight].AddNPCs(
 					new SortedSet<string>() {
 						"Aequus/Starite"
@@ -3653,7 +3655,7 @@ namespace WeaponEnchantments.Common
 						"Aequus/Insurgency",
 						"Aequus/DragonsBreath"
 					}));
-			}
+			}*/
 
 			if (WEMod.clickerClassEnabled) {
 				progressionGroups[ProgressionGroupID.ForestPreHardModeNight].AddItems(

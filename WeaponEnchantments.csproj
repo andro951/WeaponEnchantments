@@ -21,35 +21,20 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Census">
-      <HintPath>..\Mods\lib\Census.dll</HintPath>
-    </Reference>
-    <Reference Include="KokoLib">
-      <HintPath>..\Mods\lib\KokoLib.dll</HintPath>
-    </Reference>
-    <Reference Include="MagicStorage">
-      <HintPath>..\Mods\lib\MagicStorage.dll</HintPath>
-    </Reference>
-    <Reference Include="MagicStorage">
-      <HintPath>..\Mods\lib\MagicStorage.dll</HintPath>
-    </Reference>
-	  <Reference Include="androLib">
-		  <HintPath>..\androLib\bin\Debug\net6.0\androLib.dll</HintPath>
-	  </Reference>
-	  <Reference Include="VacuumOreBag">
-		  <HintPath>..\VacuumOreBag\bin\Debug\net6.0\VacuumOreBag.dll</HintPath>
-	  </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Common\Utility\LogSystem\WeaponEnchantmentsWiki_TXT\" />
     <Folder Include="Effects\CustomBoolEffects\" />
-    <Folder Include="Items\Enchantments\Cursed\" />
-    <Folder Include="ModLib\KokoLib\KokoLibSourceFiles\Emitters\" />
-	<Folder Include="NPCs\" />
     <Folder Include="UI\InfoDisplays\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\androLib\androLib.csproj" />
     <ProjectReference Include="..\VacuumOreBag\VacuumOreBag.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="KokoLib">
+      <HintPath>..\ModAssemblies\KokoLib_v0.3.3.dll</HintPath>
+    </Reference>
+    <Reference Include="MagicStorage">
+      <HintPath>..\ModAssemblies\MagicStorage_v0.7.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

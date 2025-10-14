@@ -6,11 +6,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class OneForAllEnchantment : Enchantment
 	{
+		protected override string TypeName => "OneForAll";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
@@ -29,6 +33,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().OneForAll;
+		}
 	}
 	[Autoload(false)]
 	public class OneForAllEnchantmentBasic : OneForAllEnchantment

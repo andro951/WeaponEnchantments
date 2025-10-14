@@ -5,11 +5,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class DefenseEnchantment : Enchantment
 	{
+		protected override string TypeName => "Defense";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 3;
 		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
@@ -31,6 +35,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().Defense;
+		}
 	}
 	[Autoload(false)]
 	public class DefenseEnchantmentBasic : DefenseEnchantment

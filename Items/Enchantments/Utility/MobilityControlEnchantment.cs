@@ -5,9 +5,13 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class MobilityControlEnchantment : Enchantment {
+	    protected override string TypeName => "MobilityControl";
+	    protected override string NamePrefix => "Enchantments/";
+	    
         public override int StrengthGroup => 12;
 		public override void GetMyStats() {
             Effects = new() {
@@ -46,6 +50,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 		public override string Artist => "Sir Bumpleton ✿";
         public override string ArtModifiedBy => null;
         public override string Designer => "Sir Bumpleton ✿";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().MobilityControl;
+        }
     }
     [Autoload(false)]
 	public class MobilityControlEnchantmentBasic : MobilityControlEnchantment

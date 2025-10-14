@@ -5,9 +5,13 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class LuckEnchantment : Enchantment {
+	    protected override string TypeName => "Luck";
+	    protected override string NamePrefix => "Enchantments/";
+	    
 		public override int StrengthGroup => 16;
 		public override float ScalePercent => 0.6f;
 		public override void GetMyStats() {
@@ -28,6 +32,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string Artist => "andro951";
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
+        
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+	        return ModContent.GetInstance<EnchantmentToggle>().Luck;
+        }
     }
     [Autoload(false)]
 	public class LuckEnchantmentBasic : LuckEnchantment

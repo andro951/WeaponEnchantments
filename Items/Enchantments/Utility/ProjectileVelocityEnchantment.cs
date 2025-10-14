@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -9,6 +10,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class ProjectileVelocityEnchantment : Enchantment
 	{
+		protected override string TypeName => "ProjectileVelocity";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 10;
 		public override void GetMyStats() {
 			Effects = new() {
@@ -20,6 +24,11 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string Artist => "Sir Bumpleton ✿";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "Sir Bumpleton ✿";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().ProjectileVelocity;
+		}
 	}
 	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentBasic : ProjectileVelocityEnchantment

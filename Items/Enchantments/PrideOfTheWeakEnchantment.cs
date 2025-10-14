@@ -7,11 +7,15 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class PrideOfTheWeakEnchantment : Enchantment, IStoreAppliedItem
 	{
+		protected override string TypeName => "PrideOfTheWeak";
+		protected override string NamePrefix => "Enchantments/";
+		
 		public override int StrengthGroup => 23;
 		public override int LowestCraftableTier => 0;
 		public override float CapacityCostMultiplier => CapacityCostNone;
@@ -40,6 +44,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
+		
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<EnchantmentToggle>().PrideOfTheWeak;
+		}
 	}
 	[Autoload(false)]
 	public class PrideOfTheWeakEnchantmentBasic : PrideOfTheWeakEnchantment
