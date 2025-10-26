@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Items
         public static int[] Values = new int[sizes.Length];
         
         public int tier = 0;
-        private int bars;
+        private int bars = 0;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public Func<int> SoldByNPCNetID => ModContent.NPCType<Witch>;
 		public virtual SellCondition SellCondition => SellCondition.Always;
@@ -60,9 +60,6 @@ namespace WeaponEnchantments.Items
             Item.rare = tier + 1;
         }
         private void GetValues() {
-            if (Values[tier] != 0)
-                return;
-
             bars = 4 * (int)Math.Pow(2, tier);
             Values[tier] = bars * ContentSamples.ItemsByType[barIDs[0, tier]].value;
             if (tier == 2)
@@ -79,10 +76,10 @@ namespace WeaponEnchantments.Items
                 else {
                     int glassNum = glass[tier];
                     if (glassNum > 0)
-					    recipie.AddIngredient(ItemID.Glass, glassNum);
+                        recipie.AddIngredient(ItemID.Glass, glassNum);
                 }
 
-                recipie.AddIngredient(barIDs[i,tier], bars);
+                recipie.AddIngredient(barIDs[i, tier], bars);
                 recipie.Register();
             }
 
